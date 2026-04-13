@@ -119,6 +119,21 @@ def test_benchmark_manifest_includes_metadata_for_all_fixtures() -> None:
     }.issubset(
         set(coverage["advective_post_release_half_recovery_pace_v1"]["supporting_reference_types"])
     )
+    assert coverage["advective_post_release_half_recovery_directionality_v1"]["support_strength"] == "multi_anchor_multi_tier"
+    assert "reference_style" in coverage["advective_post_release_half_recovery_directionality_v1"]["supporting_validation_tiers"]
+    assert {
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+    }.issubset(
+        set(
+            coverage["advective_post_release_half_recovery_directionality_v1"][
+                "supporting_reference_types"
+            ]
+        )
+    )
     assert coverage["advective_degradation_dominant_loss_share_v1"]["support_strength"] == "multi_anchor_multi_tier"
     assert coverage["advective_clearance_dominant_loss_share_v1"]["support_strength"] == "multi_anchor_multi_tier"
     assert coverage["advective_mixed_loss_transition_margin_v1"]["support_strength"] == "multi_anchor_multi_tier"

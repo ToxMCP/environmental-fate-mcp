@@ -676,6 +676,13 @@
           "title": "Post Release Pace Lines",
           "type": "array"
         },
+        "post_release_pace_directionality_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Pace Directionality Lines",
+          "type": "array"
+        },
         "loss_dominance_lines": {
           "items": {
             "type": "string"

@@ -1,14 +1,14 @@
 {
   "schema_version": "v1",
-  "dossier_id": "scimethods-33ccc1cd6fb5",
+  "dossier_id": "scimethods-f0e22b636caf",
   "model_family": "advective_screening_mass_balance",
   "run_mode_filter": null,
   "promotion_status": "ready",
   "blocking_action_count": 0,
   "strengthening_action_count": 0,
-  "claim_count": 17,
-  "mandatory_claim_count": 16,
-  "covered_mandatory_claim_count": 16,
+  "claim_count": 18,
+  "mandatory_claim_count": 17,
+  "covered_mandatory_claim_count": 17,
   "uncovered_mandatory_claim_count": 0,
   "claim_summaries": [
     {
@@ -1515,6 +1515,161 @@
       "gap_lines": []
     },
     {
+      "claim_id": "advective_post_release_half_recovery_directionality_v1",
+      "display_name": "Advective post-release half-recovery directionality",
+      "statement": "The advective screening kernel preserves retained-mass directionality relative to the combined-loss 50% recovery anchor, so reviewers can see the post-release window move from above the half-recovery boundary to materially below it under the same governed loss constants.",
+      "claim_class": "advective_post_release_pace_directionality",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "required_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "required_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_fixture_count": 5,
+      "reference_case_ids": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1",
+        "oecd_post_release_half_recovery_directionality_case_family_v1"
+      ],
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "advective_post_release_half_recovery_reference_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture"
+      ],
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "source_references": [
+        {
+          "source_id": "methods.advective_post_release_half_recovery_directionality.v1",
+          "title": "Fate MCP advective post-release half-recovery directionality method notes",
+          "effective_date": null,
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_half_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_half_recovery_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "external_corroboration_status": "multi_official_multi_jurisdiction",
+      "external_corroboration_source_count": 3,
+      "external_corroboration_jurisdictions": [
+        "US",
+        "OECD",
+        "EU"
+      ],
+      "external_corroboration_lines": [
+        "Advective post-release half-recovery directionality: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
+        "Advective post-release half-recovery directionality: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+        "Corroboration jurisdictions: US, OECD, EU.",
+        "Corroboration scope: This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor."
+      ],
+      "source_grounding_lines": [
+        "Advective post-release half-recovery directionality: externally grounded by EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+        "Advective post-release half-recovery directionality: governed method anchors include Fate MCP advective post-release half-recovery directionality method notes, Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture, Fate MCP benchmark fixture: advective_post_release_pre_half_recovery_sensitivity_fixture."
+      ],
+      "methods_basis_lines": [
+        "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor.",
+        "The claim is satisfied when same-chemistry pre-half, boundary, beyond-half, and extended-beyond-half windows show retained release-stop mass moving in the governed direction relative to the 50% anchor rather than merely crossing it once.",
+        "The claim also requires explicit retained-mass offset and ratio terms relative to the half-recovery anchor so reviewers can challenge combined-loss post-release directionality without reconstructing the closed-form decay solution."
+      ],
+      "reference_case_lines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition post-release bucket anchor.",
+        "Supported by the advective_post_release_pre_half_recovery_sensitivity_fixture as a same-chemistry pre-half-recovery window with retained release-stop mass still above the 50% anchor.",
+        "Supported by the advective_post_release_half_recovery_reference_fixture at the governed combined-loss half-recovery boundary.",
+        "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions.",
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass is also anchored materially below the 50% half-recovery anchor as the recovery window extends further.",
+        "advective_post_release_decay_anchor_fixture: Advective time-bucket outputs decay after release ends according to the governed combined degradation-plus-clearance loss term.",
+        "advective_post_release_recovery_reference_fixture: Post-release advective bucket outputs preserve release-stop retained-mass decline with explicit degraded-versus-advected recovery accounting under a reference-style bounded-transport case."
+      ],
+      "reference_case_concept_lines": [
+        "EPA post-release decay bucket case family: This governed reference case family anchors post-release elapsed-time decay behavior in bucketed screening outputs against EPA environmental model evaluation principles.",
+        "EPA post-release flushing screening case family: This governed reference case family anchors post-release flushing and retained-mass decline against EPA environmental model evaluation principles for time-varying screening scenarios.",
+        "OECD post-release recovery screening case family: This governed reference case family anchors post-release recovery interpretation against OECD degradation-and-accumulation reporting concepts for deterministic screening models.",
+        "ECHA post-release flushing boundary case family: This governed reference case family anchors reviewer-facing interpretation of post-release recovery windows that sit near the one-turnover flushing boundary in a flowing-water screening model.",
+        "EPA post-release combined-loss recovery pace case family: This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model.",
+        "OECD post-release half-recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants."
+      ],
+      "review_notes": [],
+      "gap_lines": []
+    },
+    {
       "claim_id": "advective_post_release_half_recovery_pace_v1",
       "display_name": "Advective post-release half-recovery pace",
       "statement": "The advective screening kernel preserves the combined-loss half-recovery pace for retained release-stop mass, so reviewers can interpret whether a post-release recovery window is still before, at, or beyond the 50% retained-mass anchor under the governed degradation-plus-clearance solution.",
@@ -2197,9 +2352,9 @@
   ],
   "highlighted_claim_summaries": [
     {
-      "claim_id": "advective_cumulative_mass_balance_closure_v1",
-      "display_name": "Advective cumulative mass-balance closure",
-      "priority": "high",
+      "claim_id": "advective_clearance_dominant_loss_share_v1",
+      "display_name": "Advective clearance-dominant loss-share transition",
+      "priority": "medium",
       "mandatory_for_release": true,
       "support_strength": "multi_anchor_multi_tier",
       "challenge_status": "challenge",
@@ -2210,48 +2365,102 @@
         "US"
       ],
       "external_corroboration_lines": [
-        "Advective cumulative mass-balance closure: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
-        "Advective cumulative mass-balance closure: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
+        "Advective clearance-dominant loss-share transition: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
+        "Advective clearance-dominant loss-share transition: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
         "Corroboration jurisdictions: EU, US.",
-        "Corroboration scope: This claim is limited to the governed one-compartment advective screening equation and its cumulative trace accounting at elapsed time."
+        "Corroboration scope: This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term."
       ],
       "external_corroboration_actions": [
         "No immediate external corroboration expansion is required under the current governed release bar."
       ],
       "source_grounding_lines": [
-        "Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
-        "Advective cumulative mass-balance closure: governed method anchors include Fate MCP advective cumulative mass-balance method notes, Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture."
+        "Advective clearance-dominant loss-share transition: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
+        "Advective clearance-dominant loss-share transition: governed method anchors include Fate MCP advective loss-dominance method notes, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_companion_fixture."
       ],
       "reference_case_concept_lines": [
-        "ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
-        "EPA flow-through water screening case family: This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency."
+        "Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence.",
+        "ECHA bounded-clearance edge case family: This governed reference case family anchors screening claims about bounded concentration under effective persistence when a finite residence-time loss term remains present."
       ],
       "benchmark_anchor_lines": [
-        "advective_degradation_dominant_loss_share_anchor_fixture [edge_condition]",
-        "advective_degradation_dominant_loss_share_companion_fixture [reference_style]",
-        "advective_clearance_dominant_loss_share_anchor_fixture [sensitivity]"
+        "advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]",
+        "advective_clearance_dominant_loss_share_companion_fixture [sensitivity]"
       ],
-      "loss_regime_stability_status": "near_parity_transition",
+      "loss_regime_stability_status": "stable_loss_regime",
       "loss_regime_stability_lines": [
-        "This claim is anchored in a near-parity degradation-versus-clearance transition regime rather than a strongly one-sided loss regime.",
-        "Small changes in half-life or residence-time assumptions can move this claim across the loss-dominance boundary."
+        "This claim is anchored in a stable one-sided loss regime where one loss mechanism remains materially larger than the other.",
+        "The supported benchmark anchors are intended to confirm regime stability rather than boundary sensitivity."
       ],
-      "transport_regime_stability_status": "boundary_sensitive_transport_regime",
+      "transport_regime_stability_status": "not_applicable",
       "transport_regime_stability_lines": [
-        "This claim is anchored close to a transport-regime boundary where modest residence-time shifts can move the run between storage-dominant, intermediate-turnover, and flow-through interpretations.",
-        "The bounded transport anchor is intended to show how close the retained mass is to its finite plateau while the turnover count remains boundary-sensitive."
+        "This highlighted claim does not primarily govern residence-time transport-regime interpretation."
       ],
       "challenge_lines": [
         "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
-        "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
-        "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
-        "Support strength is multi_anchor_multi_tier with 10 supporting fixtures.",
-        "Governed reference-case mapping count for this claim: 3."
+        "Current anchors place this claim inside a stable one-sided loss regime rather than at a regime boundary.",
+        "Support strength is multi_anchor_multi_tier with 3 supporting fixtures.",
+        "Governed reference-case mapping count for this claim: 2."
       ],
       "review_questions": [
-        "Does the scenario stay inside the declared claim boundary: This claim is limited to the governed one-compartment advective screening equation and its cumulative trace accounting at elapsed time.",
-        "Does the cited reference-case concept actually match the reviewer question: ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
-        "Is the leading benchmark anchor scientifically representative here: advective_degradation_dominant_loss_share_anchor_fixture [edge_condition]"
+        "Does the scenario stay inside the declared claim boundary: This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
+        "Does the cited reference-case concept actually match the reviewer question: Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence.",
+        "Is the leading benchmark anchor scientifically representative here: advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]"
+      ]
+    },
+    {
+      "claim_id": "advective_post_release_half_recovery_directionality_v1",
+      "display_name": "Advective post-release half-recovery directionality",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "challenge_status": "challenge",
+      "external_corroboration_status": "multi_official_multi_jurisdiction",
+      "external_corroboration_source_count": 3,
+      "external_corroboration_jurisdictions": [
+        "US",
+        "OECD",
+        "EU"
+      ],
+      "external_corroboration_lines": [
+        "Advective post-release half-recovery directionality: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
+        "Advective post-release half-recovery directionality: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+        "Corroboration jurisdictions: US, OECD, EU.",
+        "Corroboration scope: This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor."
+      ],
+      "external_corroboration_actions": [
+        "No immediate external corroboration expansion is required under the current governed release bar."
+      ],
+      "source_grounding_lines": [
+        "Advective post-release half-recovery directionality: externally grounded by EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+        "Advective post-release half-recovery directionality: governed method anchors include Fate MCP advective post-release half-recovery directionality method notes, Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture, Fate MCP benchmark fixture: advective_post_release_pre_half_recovery_sensitivity_fixture."
+      ],
+      "reference_case_concept_lines": [
+        "EPA post-release decay bucket case family: This governed reference case family anchors post-release elapsed-time decay behavior in bucketed screening outputs against EPA environmental model evaluation principles.",
+        "EPA post-release flushing screening case family: This governed reference case family anchors post-release flushing and retained-mass decline against EPA environmental model evaluation principles for time-varying screening scenarios."
+      ],
+      "benchmark_anchor_lines": [
+        "advective_post_release_decay_anchor_fixture [edge_condition]",
+        "advective_post_release_recovery_reference_fixture [reference_style]",
+        "advective_post_release_pre_half_recovery_sensitivity_fixture [sensitivity]"
+      ],
+      "loss_regime_stability_status": "not_applicable",
+      "loss_regime_stability_lines": [
+        "This highlighted claim does not primarily govern a degradation-versus-clearance regime transition surface."
+      ],
+      "transport_regime_stability_status": "boundary_sensitive_post_release_recovery_pace",
+      "transport_regime_stability_lines": [
+        "This claim is anchored around the combined-loss half-recovery pace, where retained release-stop mass sits near the 50% recovery anchor under the resolved degradation-plus-clearance constants.",
+        "The supporting anchors are intended to show how modest post-release window shifts move the run from pre-half-recovery to beyond-half-recovery interpretation under the same chemistry and residence-time assumptions."
+      ],
+      "challenge_lines": [
+        "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
+        "Challenge because this claim is anchored close to the combined-loss half-recovery pace boundary, where modest recovery-window or loss-constant shifts can change whether retained release-stop mass is still above or already below the 50% anchor.",
+        "Support strength is multi_anchor_multi_tier with 5 supporting fixtures.",
+        "Governed reference-case mapping count for this claim: 6."
+      ],
+      "review_questions": [
+        "Does the scenario stay inside the declared claim boundary: This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor.",
+        "Does the cited reference-case concept actually match the reviewer question: EPA post-release decay bucket case family: This governed reference case family anchors post-release elapsed-time decay behavior in bucketed screening outputs against EPA environmental model evaluation principles.",
+        "Is the leading benchmark anchor scientifically representative here: advective_post_release_decay_anchor_fixture [edge_condition]"
       ]
     },
     {
@@ -2312,58 +2521,60 @@
       ]
     },
     {
-      "claim_id": "advective_clearance_dominant_loss_share_v1",
-      "display_name": "Advective clearance-dominant loss-share transition",
+      "claim_id": "advective_post_release_flushing_directionality_v1",
+      "display_name": "Advective post-release flushing directionality",
       "priority": "medium",
       "mandatory_for_release": true,
       "support_strength": "multi_anchor_multi_tier",
       "challenge_status": "challenge",
       "external_corroboration_status": "multi_official_multi_jurisdiction",
-      "external_corroboration_source_count": 2,
+      "external_corroboration_source_count": 3,
       "external_corroboration_jurisdictions": [
-        "EU",
-        "US"
+        "US",
+        "OECD",
+        "EU"
       ],
       "external_corroboration_lines": [
-        "Advective clearance-dominant loss-share transition: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
-        "Advective clearance-dominant loss-share transition: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
-        "Corroboration jurisdictions: EU, US.",
-        "Corroboration scope: This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term."
+        "Advective post-release flushing directionality: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
+        "Advective post-release flushing directionality: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+        "Corroboration jurisdictions: US, OECD, EU.",
+        "Corroboration scope: This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the one-turnover flushing anchor."
       ],
       "external_corroboration_actions": [
         "No immediate external corroboration expansion is required under the current governed release bar."
       ],
       "source_grounding_lines": [
-        "Advective clearance-dominant loss-share transition: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
-        "Advective clearance-dominant loss-share transition: governed method anchors include Fate MCP advective loss-dominance method notes, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_companion_fixture."
+        "Advective post-release flushing directionality: externally grounded by EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+        "Advective post-release flushing directionality: governed method anchors include Fate MCP advective post-release directionality method notes, Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture, Fate MCP benchmark fixture: advective_post_release_subboundary_directionality_sensitivity_fixture."
       ],
       "reference_case_concept_lines": [
-        "Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence.",
-        "ECHA bounded-clearance edge case family: This governed reference case family anchors screening claims about bounded concentration under effective persistence when a finite residence-time loss term remains present."
+        "EPA post-release decay bucket case family: This governed reference case family anchors post-release elapsed-time decay behavior in bucketed screening outputs against EPA environmental model evaluation principles.",
+        "EPA post-release flushing screening case family: This governed reference case family anchors post-release flushing and retained-mass decline against EPA environmental model evaluation principles for time-varying screening scenarios."
       ],
       "benchmark_anchor_lines": [
-        "advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]",
-        "advective_clearance_dominant_loss_share_companion_fixture [sensitivity]"
+        "advective_post_release_decay_anchor_fixture [edge_condition]",
+        "advective_post_release_recovery_reference_fixture [reference_style]",
+        "advective_post_release_extended_flushing_sensitivity_fixture [sensitivity]"
       ],
-      "loss_regime_stability_status": "stable_loss_regime",
+      "loss_regime_stability_status": "not_applicable",
       "loss_regime_stability_lines": [
-        "This claim is anchored in a stable one-sided loss regime where one loss mechanism remains materially larger than the other.",
-        "The supported benchmark anchors are intended to confirm regime stability rather than boundary sensitivity."
+        "This highlighted claim does not primarily govern a degradation-versus-clearance regime transition surface."
       ],
-      "transport_regime_stability_status": "not_applicable",
+      "transport_regime_stability_status": "boundary_sensitive_post_release_recovery_regime",
       "transport_regime_stability_lines": [
-        "This highlighted claim does not primarily govern residence-time transport-regime interpretation."
+        "This claim is anchored near the one-turnover post-release flushing boundary, where retained release-stop mass can still be interpreted as either recovery-limited or flushing-dominant.",
+        "The supporting anchors are intended to show how small recovery-window or residence-time shifts move the run across the post-release flushing transition rather than merely changing the magnitude of retained mass."
       ],
       "challenge_lines": [
         "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
-        "Current anchors place this claim inside a stable one-sided loss regime rather than at a regime boundary.",
-        "Support strength is multi_anchor_multi_tier with 3 supporting fixtures.",
-        "Governed reference-case mapping count for this claim: 2."
+        "Challenge because this claim is anchored close to the one-turnover post-release flushing boundary, where modest recovery-window or residence-time shifts can change the reviewer-facing recovery interpretation.",
+        "Support strength is multi_anchor_multi_tier with 5 supporting fixtures.",
+        "Governed reference-case mapping count for this claim: 5."
       ],
       "review_questions": [
-        "Does the scenario stay inside the declared claim boundary: This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
-        "Does the cited reference-case concept actually match the reviewer question: Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence.",
-        "Is the leading benchmark anchor scientifically representative here: advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]"
+        "Does the scenario stay inside the declared claim boundary: This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the one-turnover flushing anchor.",
+        "Does the cited reference-case concept actually match the reviewer question: EPA post-release decay bucket case family: This governed reference case family anchors post-release elapsed-time decay behavior in bucketed screening outputs against EPA environmental model evaluation principles.",
+        "Is the leading benchmark anchor scientifically representative here: advective_post_release_decay_anchor_fixture [edge_condition]"
       ]
     },
     {
@@ -2481,65 +2692,6 @@
       ]
     },
     {
-      "claim_id": "advective_residence_time_turnover_regime_v1",
-      "display_name": "Advective residence-time turnover regime interpretation",
-      "priority": "medium",
-      "mandatory_for_release": true,
-      "support_strength": "multi_anchor_multi_tier",
-      "challenge_status": "challenge",
-      "external_corroboration_status": "multi_official_multi_jurisdiction",
-      "external_corroboration_source_count": 4,
-      "external_corroboration_jurisdictions": [
-        "EU",
-        "US",
-        "OECD"
-      ],
-      "external_corroboration_lines": [
-        "Advective residence-time turnover regime interpretation: external corroboration status is multi_official_multi_jurisdiction from 4 official source(s).",
-        "Advective residence-time turnover regime interpretation: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Test Guidelines for Chemicals.",
-        "Corroboration jurisdictions: EU, US, OECD.",
-        "Corroboration scope: This claim is limited to the one-compartment advective screening trace, where residence time is interpreted through elapsed and active-emission turnover counts, turnover-boundary offsets, and retained mass as a fraction of the finite loss-limited plateau."
-      ],
-      "external_corroboration_actions": [
-        "No immediate external corroboration expansion is required under the current governed release bar."
-      ],
-      "source_grounding_lines": [
-        "Advective residence-time turnover regime interpretation: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Test Guidelines for Chemicals.",
-        "Advective residence-time turnover regime interpretation: governed method anchors include Fate MCP advective residence-time transport-regime method notes, Fate MCP benchmark fixture: advective_short_residence_time_clearance_anchor_fixture, Fate MCP benchmark fixture: advective_mixed_loss_transition_anchor_fixture."
-      ],
-      "reference_case_concept_lines": [
-        "ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
-        "Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence."
-      ],
-      "benchmark_anchor_lines": [
-        "advective_mixed_loss_transition_anchor_fixture [edge_condition]",
-        "advective_bounded_transport_reference_fixture [reference_style]",
-        "advective_flow_through_transport_reference_fixture [sensitivity]"
-      ],
-      "loss_regime_stability_status": "near_parity_transition",
-      "loss_regime_stability_lines": [
-        "This claim is anchored in a near-parity degradation-versus-clearance transition regime rather than a strongly one-sided loss regime.",
-        "Small changes in half-life or residence-time assumptions can move this claim across the loss-dominance boundary."
-      ],
-      "transport_regime_stability_status": "boundary_sensitive_transport_regime",
-      "transport_regime_stability_lines": [
-        "This claim is anchored close to a transport-regime boundary where modest residence-time shifts can move the run between storage-dominant, intermediate-turnover, and flow-through interpretations.",
-        "The bounded transport anchor is intended to show how close the retained mass is to its finite plateau while the turnover count remains boundary-sensitive."
-      ],
-      "challenge_lines": [
-        "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
-        "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
-        "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
-        "Support strength is multi_anchor_multi_tier with 9 supporting fixtures.",
-        "Governed reference-case mapping count for this claim: 5."
-      ],
-      "review_questions": [
-        "Does the scenario stay inside the declared claim boundary: This claim is limited to the one-compartment advective screening trace, where residence time is interpreted through elapsed and active-emission turnover counts, turnover-boundary offsets, and retained mass as a fraction of the finite loss-limited plateau.",
-        "Does the cited reference-case concept actually match the reviewer question: ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
-        "Is the leading benchmark anchor scientifically representative here: advective_mixed_loss_transition_anchor_fixture [edge_condition]"
-      ]
-    },
-    {
       "claim_id": "advective_mixed_loss_transition_margin_v1",
       "display_name": "Advective mixed-loss transition margin",
       "priority": "medium",
@@ -2597,24 +2749,84 @@
         "Does the cited reference-case concept actually match the reviewer question: ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
         "Is the leading benchmark anchor scientifically representative here: advective_mixed_loss_transition_anchor_fixture [edge_condition]"
       ]
+    },
+    {
+      "claim_id": "advective_residence_time_turnover_regime_v1",
+      "display_name": "Advective residence-time turnover regime interpretation",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "challenge_status": "challenge",
+      "external_corroboration_status": "multi_official_multi_jurisdiction",
+      "external_corroboration_source_count": 4,
+      "external_corroboration_jurisdictions": [
+        "EU",
+        "US",
+        "OECD"
+      ],
+      "external_corroboration_lines": [
+        "Advective residence-time turnover regime interpretation: external corroboration status is multi_official_multi_jurisdiction from 4 official source(s).",
+        "Advective residence-time turnover regime interpretation: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Test Guidelines for Chemicals.",
+        "Corroboration jurisdictions: EU, US, OECD.",
+        "Corroboration scope: This claim is limited to the one-compartment advective screening trace, where residence time is interpreted through elapsed and active-emission turnover counts, turnover-boundary offsets, and retained mass as a fraction of the finite loss-limited plateau."
+      ],
+      "external_corroboration_actions": [
+        "No immediate external corroboration expansion is required under the current governed release bar."
+      ],
+      "source_grounding_lines": [
+        "Advective residence-time turnover regime interpretation: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Test Guidelines for Chemicals.",
+        "Advective residence-time turnover regime interpretation: governed method anchors include Fate MCP advective residence-time transport-regime method notes, Fate MCP benchmark fixture: advective_short_residence_time_clearance_anchor_fixture, Fate MCP benchmark fixture: advective_mixed_loss_transition_anchor_fixture."
+      ],
+      "reference_case_concept_lines": [
+        "ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
+        "Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence."
+      ],
+      "benchmark_anchor_lines": [
+        "advective_mixed_loss_transition_anchor_fixture [edge_condition]",
+        "advective_bounded_transport_reference_fixture [reference_style]",
+        "advective_flow_through_transport_reference_fixture [sensitivity]"
+      ],
+      "loss_regime_stability_status": "near_parity_transition",
+      "loss_regime_stability_lines": [
+        "This claim is anchored in a near-parity degradation-versus-clearance transition regime rather than a strongly one-sided loss regime.",
+        "Small changes in half-life or residence-time assumptions can move this claim across the loss-dominance boundary."
+      ],
+      "transport_regime_stability_status": "boundary_sensitive_transport_regime",
+      "transport_regime_stability_lines": [
+        "This claim is anchored close to a transport-regime boundary where modest residence-time shifts can move the run between storage-dominant, intermediate-turnover, and flow-through interpretations.",
+        "The bounded transport anchor is intended to show how close the retained mass is to its finite plateau while the turnover count remains boundary-sensitive."
+      ],
+      "challenge_lines": [
+        "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
+        "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
+        "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
+        "Support strength is multi_anchor_multi_tier with 9 supporting fixtures.",
+        "Governed reference-case mapping count for this claim: 5."
+      ],
+      "review_questions": [
+        "Does the scenario stay inside the declared claim boundary: This claim is limited to the one-compartment advective screening trace, where residence time is interpreted through elapsed and active-emission turnover counts, turnover-boundary offsets, and retained mass as a fraction of the finite loss-limited plateau.",
+        "Does the cited reference-case concept actually match the reviewer question: ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
+        "Is the leading benchmark anchor scientifically representative here: advective_mixed_loss_transition_anchor_fixture [edge_condition]"
+      ]
     }
   ],
   "summary_lines": [
     "Scientific methods dossier for advective_screening_mass_balance.",
-    "Mandatory scientific validation claims covered: 16/16.",
-    "Total governed claims in scope: 17 with 17 currently benchmark-covered.",
+    "Mandatory scientific validation claims covered: 17/17.",
+    "Total governed claims in scope: 18 with 18 currently benchmark-covered.",
     "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
     "Highlighted claim grounding: Advective extreme-persistence clearance bound: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
-    "Highlighted regime stability: 3 near-parity transition claim(s), 1 stable-regime claim(s).",
-    "Highlighted transport stability: 3 boundary-sensitive transport claim(s), 0 stable transport-regime claim(s).",
-    "Post-release regime stability: 1 boundary-sensitive recovery claim(s), 1 half-recovery pace claim(s), 1 stable post-release recovery claim(s).",
-    "External corroboration breadth: 17/17 claim(s) carry multi-official multi-jurisdiction grounding.",
+    "Highlighted regime stability: 2 near-parity transition claim(s), 1 stable-regime claim(s).",
+    "Highlighted transport stability: 2 boundary-sensitive transport claim(s), 0 stable transport-regime claim(s).",
+    "Post-release regime stability: 2 boundary-sensitive recovery claim(s), 2 half-recovery pace claim(s), 1 stable post-release recovery claim(s).",
+    "External corroboration breadth: 18/18 claim(s) carry multi-official multi-jurisdiction grounding.",
     "Transport authority support: reference-style bounded-transport anchors now span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes.",
     "Transport transition support: reference-style transition anchors and flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "Post-release recovery support: reference-style bucket anchors show release-stop mass draining with explicit degraded-versus-advected recovery accounting after active emission ends.",
     "Post-release regime support: stable sub-boundary, boundary-sensitive, and flushing-dominant recovery windows are anchored around the one-turnover flushing threshold after release stop.",
     "Post-release directionality support: same-chemistry sub-boundary, boundary, and beyond-boundary anchors show retained release-stop mass crossing the one-turnover anchor in the governed direction as the recovery window extends.",
     "Post-release pace support: same-chemistry pre-half, half-recovery, and beyond-half anchors show the governed combined-loss half-recovery timescale directly rather than inferring recovery pace from the one-turnover boundary alone.",
+    "Post-release pace directionality support: same-chemistry pre-half, half-boundary, beyond-half, and extended-beyond-half anchors show retained release-stop mass crossing and moving materially below the 50% half-recovery anchor in the governed direction as the recovery window extends.",
     "Transition sensitivity support: explicit flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "This model family remains experimental and should be challenged with extra reviewer scrutiny even when its mandatory claims are covered.",
     "Promotion status: ready (0 blocking actions, 0 strengthening actions)."
@@ -2629,7 +2841,7 @@
     "Scientific review note: Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
   ],
   "source_grounding_lines": [
-    "Source grounding cites 5 external official references and 43 governed internal references across the filtered claim set.",
+    "Source grounding cites 5 external official references and 44 governed internal references across the filtered claim set.",
     "Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
     "Representative governed references: Fate MCP advective cumulative mass-balance method notes, Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture."
   ],
@@ -2642,7 +2854,7 @@
     "Advective degradation-dominant loss-share transition: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models."
   ],
   "reference_case_grounding_lines": [
-    "Scientific reference-case mapping resolves 17 governed case families across jurisdictions: EU, OECD, US.",
+    "Scientific reference-case mapping resolves 18 governed case families across jurisdictions: EU, OECD, US.",
     "Representative reference-case families: ECHA EUSES water screening case family, EPA flow-through water screening case family, Advective clearance edge-condition case family."
   ],
   "reference_case_concept_lines": [
@@ -2662,7 +2874,8 @@
     "OECD post-release recovery screening case family: This governed reference case family anchors post-release recovery interpretation against OECD degradation-and-accumulation reporting concepts for deterministic screening models.",
     "ECHA post-release flushing boundary case family: This governed reference case family anchors reviewer-facing interpretation of post-release recovery windows that sit near the one-turnover flushing boundary in a flowing-water screening model.",
     "EPA post-release recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress as the post-release recovery window moves from below the one-turnover flushing boundary to beyond it.",
-    "EPA post-release combined-loss recovery pace case family: This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model."
+    "EPA post-release combined-loss recovery pace case family: This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model.",
+    "OECD post-release half-recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants."
   ],
   "benchmark_reference_lines": [
     "Benchmark-backed claim support cites 31 supporting fixtures across the filtered claim set.",
@@ -2688,7 +2901,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T20:26:29.881105Z",
+    "generated_at": "2026-04-13T20:41:31.558342Z",
     "source_references": [
       {
         "source_id": "methods.advective_mass_balance_accounting.v1",
@@ -2901,8 +3114,8 @@
         "url": "docs://validation_framework"
       },
       {
-        "source_id": "methods.advective_post_release_half_recovery_pace.v1",
-        "title": "Fate MCP advective post-release half-recovery pace method notes",
+        "source_id": "methods.advective_post_release_half_recovery_directionality.v1",
+        "title": "Fate MCP advective post-release half-recovery directionality method notes",
         "effective_date": null,
         "url": "docs://validation_framework"
       },
@@ -2917,6 +3130,12 @@
         "title": "Fate MCP benchmark fixture: advective_post_release_half_recovery_reference_fixture",
         "effective_date": null,
         "url": "benchmarks://manifest"
+      },
+      {
+        "source_id": "methods.advective_post_release_half_recovery_pace.v1",
+        "title": "Fate MCP advective post-release half-recovery pace method notes",
+        "effective_date": null,
+        "url": "docs://validation_framework"
       },
       {
         "source_id": "methods.advective_override_handling.v1",

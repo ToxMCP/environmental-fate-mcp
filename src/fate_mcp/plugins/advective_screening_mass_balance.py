@@ -177,7 +177,9 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
         post_release_half_recovery_days: float | str
         post_release_half_recovery_turnovers: float | str
         post_release_half_recovery_offset_turnovers: float | str
+        post_release_half_recovery_transition_margin_turnovers: float | str
         post_release_recovery_window_multiple_of_half_recovery: float | str
+        post_release_retained_fraction_offset_from_half_recovery_anchor: float | str
         post_release_retained_fraction_ratio_to_half_recovery_anchor: float | str
         if post_release_elapsed_days > 0.0:
             release_stop_concentration, _ = self._concentration_at_time(
@@ -252,11 +254,17 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                 post_release_half_recovery_offset_turnovers = (
                     post_release_elapsed_turnover_count - post_release_half_recovery_turnovers
                 )
+                post_release_half_recovery_transition_margin_turnovers = abs(
+                    post_release_half_recovery_offset_turnovers
+                )
                 post_release_recovery_window_multiple_of_half_recovery = (
                     post_release_elapsed_turnover_count / post_release_half_recovery_turnovers
                     if abs(post_release_half_recovery_turnovers) > 1e-12
                     else "not_applicable"
                 )
+            post_release_retained_fraction_offset_from_half_recovery_anchor = (
+                post_release_retained_fraction_of_release_stop_mass - 0.5
+            )
             post_release_retained_fraction_ratio_to_half_recovery_anchor = (
                 post_release_retained_fraction_of_release_stop_mass / 0.5
             )
@@ -275,7 +283,9 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
             post_release_half_recovery_days = "not_applicable"
             post_release_half_recovery_turnovers = "not_applicable"
             post_release_half_recovery_offset_turnovers = "not_applicable"
+            post_release_half_recovery_transition_margin_turnovers = "not_applicable"
             post_release_recovery_window_multiple_of_half_recovery = "not_applicable"
+            post_release_retained_fraction_offset_from_half_recovery_anchor = "not_applicable"
             post_release_retained_fraction_ratio_to_half_recovery_anchor = "not_applicable"
         finite_plateau_mass_mg: float | str
         retained_mass_fraction_of_finite_plateau: float | str
@@ -588,9 +598,19 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                     unit="turnovers",
                 ),
                 CalculationTraceTerm(
+                    name="post_release_half_recovery_transition_margin_turnovers",
+                    value=post_release_half_recovery_transition_margin_turnovers,
+                    unit="turnovers",
+                ),
+                CalculationTraceTerm(
                     name="post_release_recovery_window_multiple_of_half_recovery",
                     value=post_release_recovery_window_multiple_of_half_recovery,
                     unit="multiple",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_retained_fraction_offset_from_half_recovery_anchor",
+                    value=post_release_retained_fraction_offset_from_half_recovery_anchor,
+                    unit="fraction",
                 ),
                 CalculationTraceTerm(
                     name="post_release_retained_fraction_ratio_to_half_recovery_anchor",

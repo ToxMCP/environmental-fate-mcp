@@ -1313,6 +1313,91 @@
         "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions."
       ]
     },
+    "advective_post_release_half_recovery_directionality_v1": {
+      "displayName": "Advective post-release half-recovery directionality",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": ["time_bucket"],
+      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "statement": "The advective screening kernel preserves retained-mass directionality relative to the combined-loss 50% recovery anchor, so reviewers can see the post-release window move from above the half-recovery boundary to materially below it under the same governed loss constants.",
+      "claimClass": "advective_post_release_pace_directionality",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1",
+        "oecd_post_release_half_recovery_directionality_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_post_release_half_recovery_directionality.v1",
+          "title": "Fate MCP advective post-release half-recovery directionality method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_half_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_half_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor.",
+        "The claim is satisfied when same-chemistry pre-half, boundary, beyond-half, and extended-beyond-half windows show retained release-stop mass moving in the governed direction relative to the 50% anchor rather than merely crossing it once.",
+        "The claim also requires explicit retained-mass offset and ratio terms relative to the half-recovery anchor so reviewers can challenge combined-loss post-release directionality without reconstructing the closed-form decay solution."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition post-release bucket anchor.",
+        "Supported by the advective_post_release_pre_half_recovery_sensitivity_fixture as a same-chemistry pre-half-recovery window with retained release-stop mass still above the 50% anchor.",
+        "Supported by the advective_post_release_half_recovery_reference_fixture at the governed combined-loss half-recovery boundary.",
+        "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions.",
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass is also anchored materially below the 50% half-recovery anchor as the recovery window extends further."
+      ]
+    },
     "advective_extreme_persistence_clearance_bound_v1": {
       "displayName": "Advective extreme-persistence clearance bound",
       "modelFamily": "advective_screening_mass_balance",

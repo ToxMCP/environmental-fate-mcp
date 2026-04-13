@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "case_count": 24,
+  "case_count": 25,
   "cases": [
     {
       "case_id": "advective_clearance_edge_case_family_v1",
@@ -743,6 +743,37 @@
       ],
       "review_notes": [
         "Use this case family when the reviewer needs a regulator-recognizable rationale for plateau-fraction and bounded-transport interpretation in the advective screening family."
+      ],
+      "source_pack": "defaults/v1/scientific_reference_cases.json"
+    },
+    {
+      "case_id": "oecd_post_release_half_recovery_directionality_case_family_v1",
+      "display_name": "OECD post-release half-recovery directionality case family",
+      "model_families": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "OECD"
+      ],
+      "source_type": "official_guidance_case_family",
+      "summary_lines": [
+        "This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants.",
+        "It is intended to ground directionality claims about combined-loss post-release depletion pace in a regulator-recognizable international screening posture rather than leaving that interpretation implicit in raw decay math."
+      ],
+      "applicability_lines": [
+        "Appropriate for post-release half-recovery directionality claims that need explicit pre-half, boundary, beyond-half, and extended-beyond-half retained-mass interpretation in the advective screening family.",
+        "Not a substitute for calibrated receiving-water recovery monitoring, hydrodynamic routing models, or site-specific depletion-curve fitting."
+      ],
+      "source_references": [
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        }
+      ],
+      "review_notes": [
+        "Use this case family when a reviewer needs an internationally recognizable explanation for why retained release-stop mass should not merely cross the 50% anchor, but continue moving materially below it as the post-release window extends."
       ],
       "source_pack": "defaults/v1/scientific_reference_cases.json"
     },

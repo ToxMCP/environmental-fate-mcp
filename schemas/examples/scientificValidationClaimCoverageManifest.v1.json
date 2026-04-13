@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "claim_count": 28,
-  "covered_claim_count": 28,
-  "mandatory_claim_count": 27,
+  "claim_count": 29,
+  "covered_claim_count": 29,
+  "mandatory_claim_count": 28,
   "uncovered_mandatory_claim_count": 0,
   "coverage": [
     {
@@ -410,6 +410,47 @@
         "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "gap_lines": []
+    },
+    {
+      "claim_id": "advective_post_release_half_recovery_directionality_v1",
+      "display_name": "Advective post-release half-recovery directionality",
+      "model_family": "advective_screening_mass_balance",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_fixture_count": 5,
+      "supporting_validation_tier_count": 3,
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "advective_post_release_half_recovery_reference_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture"
       ],
       "supporting_validation_tiers": [
         "edge_condition",

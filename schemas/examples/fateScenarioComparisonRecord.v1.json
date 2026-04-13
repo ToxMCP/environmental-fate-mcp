@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "comparison_id": "comparison-d978441432e5",
-  "base_scenario_id": "scenario-ef2d26bbbb3d",
-  "candidate_scenario_id": "scenario-9cd20704e20a",
+  "comparison_id": "comparison-5772cb497dd3",
+  "base_scenario_id": "scenario-18e1e6bb4344",
+  "candidate_scenario_id": "scenario-2236f8df9df3",
   "surface_deltas": [
     {
       "medium": "air",
@@ -49,7 +49,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T20:26:29.924378Z",
+    "generated_at": "2026-04-13T20:41:31.589796Z",
     "source_references": []
   },
   "limitations": [],

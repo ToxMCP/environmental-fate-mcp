@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "scireview-1967489580c7",
-  "scenario_id": "scenario-ef2d26bbbb3d",
-  "run_id": "run-054a18069129",
+  "review_packet_id": "scireview-7dbc1b8ceb5a",
+  "scenario_id": "scenario-18e1e6bb4344",
+  "run_id": "run-e7bb217e7fa3",
   "model_family": "reference_mass_balance",
   "fit_for_purpose": "screening",
   "review_status": "scientific_review_attention_needed",
@@ -47,7 +47,7 @@
   "summary_lines": [
     "Summarize whether the reference mass-balance run is scientifically reviewable within the declared screening boundary, highlighting applicability, parameter provenance, and top uncertainty drivers.",
     "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
-    "Scientific review packet covers run run-054a18069129 for model family reference_mass_balance.",
+    "Scientific review packet covers run run-e7bb217e7fa3 for model family reference_mass_balance.",
     "Fit verdict: good_fit (score=0.85).",
     "Parameter manifest exposes 16 resolved parameters and 5 ranked uncertainty drivers.",
     "Benchmark reference: Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
@@ -149,6 +149,7 @@
   ],
   "post_release_directionality_lines": [],
   "post_release_pace_lines": [],
+  "post_release_pace_directionality_lines": [],
   "loss_dominance_lines": [
     "ambient_air: degradation_only_loss (k_deg=0.3466/day)",
     "surface_water: degradation_only_loss (k_deg=0.05776/day)",

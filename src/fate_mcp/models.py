@@ -1072,6 +1072,7 @@ class ScientificReviewPacket(FateBaseModel):
     post_release_regime_lines: list[str] = Field(default_factory=list)
     post_release_directionality_lines: list[str] = Field(default_factory=list)
     post_release_pace_lines: list[str] = Field(default_factory=list)
+    post_release_pace_directionality_lines: list[str] = Field(default_factory=list)
     loss_dominance_lines: list[str] = Field(default_factory=list)
     loss_transition_lines: list[str] = Field(default_factory=list)
     checks: list[ScientificReviewCheck]
@@ -1109,6 +1110,7 @@ class ScientificReviewBrief(FateBaseModel):
     post_release_regime_lines: list[str] = Field(default_factory=list)
     post_release_directionality_lines: list[str] = Field(default_factory=list)
     post_release_pace_lines: list[str] = Field(default_factory=list)
+    post_release_pace_directionality_lines: list[str] = Field(default_factory=list)
     loss_dominance_lines: list[str] = Field(default_factory=list)
     loss_transition_lines: list[str] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)

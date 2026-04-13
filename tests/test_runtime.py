@@ -205,9 +205,15 @@ def test_advective_post_release_runtime_emits_recovery_trace_terms() -> None:
         float(term_map["post_release_elapsed_turnover_count"])
         - float(term_map["post_release_half_recovery_turnovers"])
     )
+    assert float(term_map["post_release_half_recovery_transition_margin_turnovers"]) == pytest.approx(
+        abs(float(term_map["post_release_half_recovery_offset_turnovers"]))
+    )
     assert float(term_map["post_release_recovery_window_multiple_of_half_recovery"]) == pytest.approx(
         float(term_map["post_release_elapsed_turnover_count"])
         / float(term_map["post_release_half_recovery_turnovers"])
+    )
+    assert float(term_map["post_release_retained_fraction_offset_from_half_recovery_anchor"]) == pytest.approx(
+        float(term_map["post_release_retained_fraction_of_release_stop_mass"]) - 0.5
     )
     assert float(term_map["post_release_retained_fraction_ratio_to_half_recovery_anchor"]) == pytest.approx(
         float(term_map["post_release_retained_fraction_of_release_stop_mass"]) / 0.5

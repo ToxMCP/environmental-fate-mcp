@@ -2044,6 +2044,7 @@ BENCHMARK_FIXTURES = [
             "advective_post_release_flushing_regime_transition_v1",
             "advective_post_release_flushing_directionality_v1",
             "advective_post_release_half_recovery_pace_v1",
+            "advective_post_release_half_recovery_directionality_v1",
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release decay"},
@@ -2107,7 +2108,9 @@ BENCHMARK_FIXTURES = [
                     "post_release_half_recovery_days": 7.20453731154783,
                     "post_release_half_recovery_turnovers": 0.36022686557739153,
                     "post_release_half_recovery_offset_turnovers": 0.13977313442260847,
+                    "post_release_half_recovery_transition_margin_turnovers": 0.13977313442260847,
                     "post_release_recovery_window_multiple_of_half_recovery": 1.3880141871111482,
+                    "post_release_retained_fraction_offset_from_half_recovery_anchor": -0.11790962721071435,
                     "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.7641807455785713
                 },
                 "tolerance": 1e-12
@@ -2129,6 +2132,7 @@ BENCHMARK_FIXTURES = [
             "advective_post_release_flushing_regime_transition_v1",
             "advective_post_release_flushing_directionality_v1",
             "advective_post_release_half_recovery_pace_v1",
+            "advective_post_release_half_recovery_directionality_v1",
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release recovery reference"},
@@ -2187,7 +2191,9 @@ BENCHMARK_FIXTURES = [
                     "post_release_half_recovery_days": 2.7363586308689225,
                     "post_release_half_recovery_turnovers": 0.45605977181148705,
                     "post_release_half_recovery_offset_turnovers": 0.8772735615218462,
+                    "post_release_half_recovery_transition_margin_turnovers": 0.8772735615218462,
                     "post_release_recovery_window_multiple_of_half_recovery": 2.9235933878519513,
+                    "post_release_retained_fraction_offset_from_half_recovery_anchor": -0.3682014309421366,
                     "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.2635971381157268
                 },
                 "tolerance": 1e-12
@@ -2204,7 +2210,8 @@ BENCHMARK_FIXTURES = [
         "tolerance_rationale": "The pre-half companion remains analytically traceable because the governed closed-form recovery solution is evaluated at an earlier post-release window under the same loss constants as the half-boundary and beyond-half reference cases.",
         "tolerance": 1e-12,
         "scientific_claim_ids": [
-            "advective_post_release_half_recovery_pace_v1"
+            "advective_post_release_half_recovery_pace_v1",
+            "advective_post_release_half_recovery_directionality_v1"
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective pre-half post-release recovery pace sensitivity"},
@@ -2255,7 +2262,9 @@ BENCHMARK_FIXTURES = [
                     "post_release_half_recovery_days": 2.7363586308689225,
                     "post_release_half_recovery_turnovers": 0.45605977181148705,
                     "post_release_half_recovery_offset_turnovers": -0.12272643847815373,
+                    "post_release_half_recovery_transition_margin_turnovers": 0.12272643847815373,
                     "post_release_recovery_window_multiple_of_half_recovery": 0.7308983469629878,
+                    "post_release_retained_fraction_offset_from_half_recovery_anchor": 0.10252861047854543,
                     "post_release_retained_fraction_ratio_to_half_recovery_anchor": 1.205057220957091
                 },
                 "tolerance": 1e-12
@@ -2272,7 +2281,8 @@ BENCHMARK_FIXTURES = [
         "tolerance_rationale": "The half-recovery boundary case remains analytically traceable because the retained release-stop mass decays under the same governed closed-form solution, here evaluated at exactly one combined-loss half-life after release stop under the same chemistry and residence-time assumptions as the companion recovery anchors.",
         "tolerance": 1e-12,
         "scientific_claim_ids": [
-            "advective_post_release_half_recovery_pace_v1"
+            "advective_post_release_half_recovery_pace_v1",
+            "advective_post_release_half_recovery_directionality_v1"
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release half-recovery boundary"},
@@ -2323,7 +2333,9 @@ BENCHMARK_FIXTURES = [
                     "post_release_half_recovery_days": 2.7363586308689225,
                     "post_release_half_recovery_turnovers": 0.45605977181148705,
                     "post_release_half_recovery_offset_turnovers": -2.7755575615628914e-16,
+                    "post_release_half_recovery_transition_margin_turnovers": 2.7755575615628914e-16,
                     "post_release_recovery_window_multiple_of_half_recovery": 0.9999999999999994,
+                    "post_release_retained_fraction_offset_from_half_recovery_anchor": 3.3306690738754696e-16,
                     "post_release_retained_fraction_ratio_to_half_recovery_anchor": 1.0000000000000007
                 },
                 "tolerance": 1e-12
@@ -2406,14 +2418,15 @@ BENCHMARK_FIXTURES = [
         "name": "advective_post_release_extended_flushing_sensitivity_fixture",
         "category": "parameter_override_sensitivity",
         "validation_tier": "sensitivity",
-        "scientific_basis": "Hand-worked advective water time-bucket case with the same bounded transport setup as the post-release recovery reference, but with a longer post-release window so retained release-stop mass is anchored further beyond the one-turnover flushing boundary.",
+        "scientific_basis": "Hand-worked advective water time-bucket case with the same bounded transport setup as the post-release recovery reference, but with a longer post-release window so retained release-stop mass is anchored further beyond both the one-turnover flushing boundary and the combined-loss half-recovery anchor.",
         "reference_type": "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
-        "expected_behavior": "Post-release retained mass continues to decline in the expected direction as the recovery window extends further beyond the one-turnover flushing boundary.",
+        "expected_behavior": "Post-release retained mass continues to decline in the expected direction as the recovery window extends further beyond both the one-turnover flushing boundary and the 50% combined-loss half-recovery anchor.",
         "tolerance_rationale": "The extended flushing companion remains analytically traceable because the same governed closed-form solution is evaluated at a longer post-release recovery window under the same loss constants.",
         "tolerance": 1e-12,
         "scientific_claim_ids": [
             "advective_post_release_flushing_regime_transition_v1",
-            "advective_post_release_flushing_directionality_v1"
+            "advective_post_release_flushing_directionality_v1",
+            "advective_post_release_half_recovery_directionality_v1"
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective extended post-release flushing sensitivity"},
@@ -2468,7 +2481,14 @@ BENCHMARK_FIXTURES = [
                     "post_release_transition_margin_turnovers": 1.0,
                     "post_release_boundary_retained_fraction_of_release_stop_mass": 0.2187424244521521,
                     "post_release_retained_fraction_offset_from_boundary": -0.17089417619694663,
-                    "post_release_retained_fraction_ratio_to_boundary": 0.21874242445215214
+                    "post_release_retained_fraction_ratio_to_boundary": 0.21874242445215214,
+                    "post_release_half_recovery_days": 2.7363586308689225,
+                    "post_release_half_recovery_turnovers": 0.45605977181148705,
+                    "post_release_half_recovery_offset_turnovers": 1.543940228188513,
+                    "post_release_half_recovery_transition_margin_turnovers": 1.543940228188513,
+                    "post_release_recovery_window_multiple_of_half_recovery": 4.385390081777927,
+                    "post_release_retained_fraction_offset_from_half_recovery_anchor": -0.45215175174479454,
+                    "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.09569649651041095
                 },
                 "tolerance": 1e-12
             }
