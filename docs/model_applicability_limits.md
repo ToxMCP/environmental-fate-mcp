@@ -1,0 +1,38 @@
+# Model Applicability Limits
+
+## Native in v0.1
+
+- `reference_mass_balance`
+  screening-oriented deterministic concentration kernel with governed applicability profile at `defaults://model-family-applicability-profile/reference_mass_balance`
+- `advective_screening_mass_balance`
+  experimental non-default screening kernel with first-order degradation plus governed residence-time clearance at `defaults://model-family-applicability-profile/advective_screening_mass_balance`
+
+## Extension hook in v0.1
+
+- `adapter_stub`
+- `external_result_adapter`
+  both extension paths now publish inspectable applicability declarations through `defaults://model-family-applicability-profiles`
+
+## Deferred
+
+- branded desktop-model ingestion as a public contract
+- GIS-scale dispersion
+- unrestricted probabilistic orchestration
+- full mechanistic food-chain transfer
+
+## Internal-only bridge in v0.1
+
+- concrete legacy screening desktop export import inside `external_result_adapter`
+
+## Review expectation
+
+- assessors should check the declared model-family applicability profile before treating outputs as more than concentration-only screening support
+- unsupported substance classes and deferred capabilities are explicit parts of the governed defaults surface
+- governed baseline-versus-challenge model-family selection is exposed through `defaults://model-family-selection-profiles`
+- governed assessor-facing review of baseline-versus-challenge selection recommendations is available before any model-family comparison packet is built
+- a composed assessor-facing challenge review preview and artifact are available when reviewers want the governed selection review and the optional governed comparison review bundled together
+- governed composed challenge-review policy is exposed separately through `defaults://model-family-challenge-review-profiles`
+- a composed scientific dossier and brief are available when reviewers want the governed challenge-review path and the model-family-specific scientific review outcomes bundled together
+- scientific review guidance for each supported model family is exposed separately through `defaults://scientific-review-profiles`
+- governed scientific review outcomes can be previewed before packet generation through `fate_preview_scientific_review_outcome`
+- the advective family is intentionally experimental and should be compared against the default reference family before decision-facing reuse

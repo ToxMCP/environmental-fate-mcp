@@ -1,0 +1,243 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilySelectionReviewChecklistTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "evidence_hint_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Hint Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale"
+      ],
+      "title": "ModelFamilySelectionReviewChecklistTemplate",
+      "type": "object"
+    },
+    "ModelFamilySelectionStatus": {
+      "enum": [
+        "default_baseline_only",
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "title": "ModelFamilySelectionStatus",
+      "type": "string"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "fit_for_purpose": {
+      "items": {
+        "$ref": "#/$defs/FitForPurpose"
+      },
+      "title": "Fit For Purpose",
+      "type": "array"
+    },
+    "supported_run_modes": {
+      "items": {
+        "$ref": "#/$defs/RunMode"
+      },
+      "title": "Supported Run Modes",
+      "type": "array"
+    },
+    "default_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "challenge_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "comparison_profile_id": {
+      "title": "Comparison Profile Id",
+      "type": "string"
+    },
+    "minimum_duration_days_for_challenge": {
+      "default": 0.0,
+      "minimum": 0.0,
+      "title": "Minimum Duration Days For Challenge",
+      "type": "number"
+    },
+    "trigger_parameter_names": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Trigger Parameter Names",
+      "type": "array"
+    },
+    "default_recommendation_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Default Recommendation Template"
+    },
+    "challenge_recommendation_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Challenge Recommendation Template"
+    },
+    "review_needed_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Needed Template"
+    },
+    "review_checklist": {
+      "items": {
+        "$ref": "#/$defs/ModelFamilySelectionReviewChecklistTemplate"
+      },
+      "title": "Review Checklist",
+      "type": "array"
+    },
+    "review_packet_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Packet Template"
+    },
+    "review_brief_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Brief Template"
+    },
+    "ready_recommendation_statuses": {
+      "items": {
+        "$ref": "#/$defs/ModelFamilySelectionStatus"
+      },
+      "title": "Ready Recommendation Statuses",
+      "type": "array"
+    },
+    "attention_statuses": {
+      "items": {
+        "$ref": "#/$defs/ModelFamilySelectionStatus"
+      },
+      "title": "Attention Statuses",
+      "type": "array"
+    },
+    "attention_if_any_checks_fail": {
+      "default": true,
+      "title": "Attention If Any Checks Fail",
+      "type": "boolean"
+    },
+    "attention_if_challenge_experimental": {
+      "default": true,
+      "title": "Attention If Challenge Experimental",
+      "type": "boolean"
+    },
+    "review_notes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Review Notes",
+      "type": "array"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "profile_id",
+    "display_name",
+    "default_model_family",
+    "challenge_model_family",
+    "comparison_profile_id",
+    "source_pack"
+  ],
+  "title": "ModelFamilySelectionProfile",
+  "type": "object"
+}

@@ -1,0 +1,131 @@
+{
+  "defaultsVersion": "v1",
+  "parameters": {
+    "ambient_air_volume_m3": {
+      "value": 1000000000.0,
+      "unit": "m3",
+      "sourceId": "screening.default.air.volume",
+      "title": "Regional ambient air screening volume",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_1_curated"
+    },
+    "surface_water_volume_m3": {
+      "value": 500000000.0,
+      "unit": "m3",
+      "sourceId": "screening.default.water.volume",
+      "title": "Regional surface water screening volume",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_1_curated"
+    },
+    "agricultural_soil_mass_kg": {
+      "value": 2500000000.0,
+      "unit": "kg",
+      "sourceId": "screening.default.soil.mass",
+      "title": "Agricultural soil screening mass",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_1_curated"
+    },
+    "freshwater_sediment_mass_kg": {
+      "value": 800000000.0,
+      "unit": "kg",
+      "sourceId": "screening.default.sediment.mass",
+      "title": "Freshwater sediment screening mass",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_1_curated"
+    },
+    "air_half_life_days": {
+      "value": 2.0,
+      "unit": "day",
+      "sourceId": "screening.default.air.halflife",
+      "title": "Air screening half-life",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_2_reference"
+    },
+    "air_residence_time_days": {
+      "value": 3.0,
+      "unit": "day",
+      "sourceId": "screening.default.air.residence_time",
+      "title": "Air screening residence time",
+      "effectiveDate": "2026-04-11",
+      "evidenceTier": "tier_2_reference"
+    },
+    "water_half_life_days": {
+      "value": 15.0,
+      "unit": "day",
+      "sourceId": "screening.default.water.halflife",
+      "title": "Water screening half-life",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_2_reference"
+    },
+    "water_residence_time_days": {
+      "value": 20.0,
+      "unit": "day",
+      "sourceId": "screening.default.water.residence_time",
+      "title": "Surface-water screening residence time",
+      "effectiveDate": "2026-04-11",
+      "evidenceTier": "tier_2_reference"
+    },
+    "soil_half_life_days": {
+      "value": 30.0,
+      "unit": "day",
+      "sourceId": "screening.default.soil.halflife",
+      "title": "Soil screening half-life",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_2_reference"
+    },
+    "soil_residence_time_days": {
+      "value": 180.0,
+      "unit": "day",
+      "sourceId": "screening.default.soil.residence_time",
+      "title": "Soil screening residence time",
+      "effectiveDate": "2026-04-11",
+      "evidenceTier": "tier_2_reference"
+    },
+    "sediment_half_life_days": {
+      "value": 45.0,
+      "unit": "day",
+      "sourceId": "screening.default.sediment.halflife",
+      "title": "Sediment screening half-life",
+      "effectiveDate": "2026-04-08",
+      "evidenceTier": "tier_2_reference"
+    },
+    "sediment_residence_time_days": {
+      "value": 365.0,
+      "unit": "day",
+      "sourceId": "screening.default.sediment.residence_time",
+      "title": "Sediment screening residence time",
+      "effectiveDate": "2026-04-11",
+      "evidenceTier": "tier_2_reference"
+    }
+  },
+  "mediaDefaults": {
+    "air": {
+      "compartment": "ambient_air",
+      "capacityParameter": "ambient_air_volume_m3",
+      "degradationHalfLifeParameter": "air_half_life_days",
+      "advectiveResidenceTimeParameter": "air_residence_time_days",
+      "unit": "mg/m3"
+    },
+    "water": {
+      "compartment": "surface_water",
+      "capacityParameter": "surface_water_volume_m3",
+      "degradationHalfLifeParameter": "water_half_life_days",
+      "advectiveResidenceTimeParameter": "water_residence_time_days",
+      "unit": "mg/L"
+    },
+    "soil": {
+      "compartment": "agricultural_soil",
+      "capacityParameter": "agricultural_soil_mass_kg",
+      "degradationHalfLifeParameter": "soil_half_life_days",
+      "advectiveResidenceTimeParameter": "soil_residence_time_days",
+      "unit": "mg/kg"
+    },
+    "sediment": {
+      "compartment": "freshwater_sediment",
+      "capacityParameter": "freshwater_sediment_mass_kg",
+      "degradationHalfLifeParameter": "sediment_half_life_days",
+      "advectiveResidenceTimeParameter": "sediment_residence_time_days",
+      "unit": "mg/kg"
+    }
+  }
+}

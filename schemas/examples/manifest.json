@@ -1,0 +1,392 @@
+{
+  "examples": [
+    {
+      "name": "adapterImportManifest.v1",
+      "path": "schemas/examples/adapterImportManifest.v1.json"
+    },
+    {
+      "name": "adapterUnitConversionRule.v1",
+      "path": "schemas/examples/adapterUnitConversionRule.v1.json"
+    },
+    {
+      "name": "applyPhyschemEvidenceRequest.v1",
+      "path": "schemas/examples/applyPhyschemEvidenceRequest.v1.json"
+    },
+    {
+      "name": "assessReleaseScenarioFitRequest.v1",
+      "path": "schemas/examples/assessReleaseScenarioFitRequest.v1.json"
+    },
+    {
+      "name": "buildConcentrationSurfaceBundleRequest.v1",
+      "path": "schemas/examples/buildConcentrationSurfaceBundleRequest.v1.json"
+    },
+    {
+      "name": "buildEnvironmentalReleaseScenarioRequest.v1",
+      "path": "schemas/examples/buildEnvironmentalReleaseScenarioRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyChallengeReviewBriefRequest.v1",
+      "path": "schemas/examples/buildModelFamilyChallengeReviewBriefRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyChallengeReviewPacketRequest.v1",
+      "path": "schemas/examples/buildModelFamilyChallengeReviewPacketRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyChallengeScientificDossierBriefRequest.v1",
+      "path": "schemas/examples/buildModelFamilyChallengeScientificDossierBriefRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyChallengeScientificDossierRequest.v1",
+      "path": "schemas/examples/buildModelFamilyChallengeScientificDossierRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyComparisonBriefRequest.v1",
+      "path": "schemas/examples/buildModelFamilyComparisonBriefRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyComparisonPacketRequest.v1",
+      "path": "schemas/examples/buildModelFamilyComparisonPacketRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyComparisonReviewBriefRequest.v1",
+      "path": "schemas/examples/buildModelFamilyComparisonReviewBriefRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilyComparisonReviewPacketRequest.v1",
+      "path": "schemas/examples/buildModelFamilyComparisonReviewPacketRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilySelectionReviewBriefRequest.v1",
+      "path": "schemas/examples/buildModelFamilySelectionReviewBriefRequest.v1.json"
+    },
+    {
+      "name": "buildModelFamilySelectionReviewPacketRequest.v1",
+      "path": "schemas/examples/buildModelFamilySelectionReviewPacketRequest.v1.json"
+    },
+    {
+      "name": "buildRegulatoryHandoffReviewBriefRequest.v1",
+      "path": "schemas/examples/buildRegulatoryHandoffReviewBriefRequest.v1.json"
+    },
+    {
+      "name": "buildRegulatoryHandoffReviewPacketRequest.v1",
+      "path": "schemas/examples/buildRegulatoryHandoffReviewPacketRequest.v1.json"
+    },
+    {
+      "name": "buildRunParameterManifestRequest.v1",
+      "path": "schemas/examples/buildRunParameterManifestRequest.v1.json"
+    },
+    {
+      "name": "buildRunUncertaintySummaryRequest.v1",
+      "path": "schemas/examples/buildRunUncertaintySummaryRequest.v1.json"
+    },
+    {
+      "name": "buildScientificMethodsDossierBriefRequest.v1",
+      "path": "schemas/examples/buildScientificMethodsDossierBriefRequest.v1.json"
+    },
+    {
+      "name": "buildScientificMethodsDossierRequest.v1",
+      "path": "schemas/examples/buildScientificMethodsDossierRequest.v1.json"
+    },
+    {
+      "name": "buildScientificReviewBriefRequest.v1",
+      "path": "schemas/examples/buildScientificReviewBriefRequest.v1.json"
+    },
+    {
+      "name": "buildScientificReviewPacketRequest.v1",
+      "path": "schemas/examples/buildScientificReviewPacketRequest.v1.json"
+    },
+    {
+      "name": "calculationTrace.v1",
+      "path": "schemas/examples/calculationTrace.v1.json"
+    },
+    {
+      "name": "compareFateScenariosRequest.v1",
+      "path": "schemas/examples/compareFateScenariosRequest.v1.json"
+    },
+    {
+      "name": "concentrationEstimation.timeBucket.v1",
+      "path": "schemas/examples/concentrationEstimation.timeBucket.v1.json"
+    },
+    {
+      "name": "concentrationSurfaceBundle.v1",
+      "path": "schemas/examples/concentrationSurfaceBundle.v1.json"
+    },
+    {
+      "name": "environmentalReleaseScenario.v1",
+      "path": "schemas/examples/environmentalReleaseScenario.v1.json"
+    },
+    {
+      "name": "estimateMultimediaConcentrationsRequest.v1",
+      "path": "schemas/examples/estimateMultimediaConcentrationsRequest.v1.json"
+    },
+    {
+      "name": "exportConcentrationSurfaceBundleRequest.v1",
+      "path": "schemas/examples/exportConcentrationSurfaceBundleRequest.v1.json"
+    },
+    {
+      "name": "exportExposureConsumptionPackageRequest.v1",
+      "path": "schemas/examples/exportExposureConsumptionPackageRequest.v1.json"
+    },
+    {
+      "name": "exportRegulatoryHandoffPackageRequest.v1",
+      "path": "schemas/examples/exportRegulatoryHandoffPackageRequest.v1.json"
+    },
+    {
+      "name": "exposureConsumptionPackage.v1",
+      "path": "schemas/examples/exposureConsumptionPackage.v1.json"
+    },
+    {
+      "name": "fateModelRunOptions.v1",
+      "path": "schemas/examples/fateModelRunOptions.v1.json"
+    },
+    {
+      "name": "fateParameterPolicy.v1",
+      "path": "schemas/examples/fateParameterPolicy.v1.json"
+    },
+    {
+      "name": "fateParameterPolicyFamily.v1",
+      "path": "schemas/examples/fateParameterPolicyFamily.v1.json"
+    },
+    {
+      "name": "fateParameterRecord.v1",
+      "path": "schemas/examples/fateParameterRecord.v1.json"
+    },
+    {
+      "name": "fateRegionProfile.v1",
+      "path": "schemas/examples/fateRegionProfile.v1.json"
+    },
+    {
+      "name": "fateScenarioComparisonRecord.v1",
+      "path": "schemas/examples/fateScenarioComparisonRecord.v1.json"
+    },
+    {
+      "name": "modelFamilyApplicabilityProfile.v1",
+      "path": "schemas/examples/modelFamilyApplicabilityProfile.v1.json"
+    },
+    {
+      "name": "modelFamilyChallengeReviewBrief.v1",
+      "path": "schemas/examples/modelFamilyChallengeReviewBrief.v1.json"
+    },
+    {
+      "name": "modelFamilyChallengeReviewPacket.v1",
+      "path": "schemas/examples/modelFamilyChallengeReviewPacket.v1.json"
+    },
+    {
+      "name": "modelFamilyChallengeReviewPreview.v1",
+      "path": "schemas/examples/modelFamilyChallengeReviewPreview.v1.json"
+    },
+    {
+      "name": "modelFamilyChallengeReviewProfile.v1",
+      "path": "schemas/examples/modelFamilyChallengeReviewProfile.v1.json"
+    },
+    {
+      "name": "modelFamilyChallengeReviewProfileManifest.v1",
+      "path": "schemas/examples/modelFamilyChallengeReviewProfileManifest.v1.json"
+    },
+    {
+      "name": "modelFamilyChallengeScientificDossier.v1",
+      "path": "schemas/examples/modelFamilyChallengeScientificDossier.v1.json"
+    },
+    {
+      "name": "modelFamilyChallengeScientificDossierBrief.v1",
+      "path": "schemas/examples/modelFamilyChallengeScientificDossierBrief.v1.json"
+    },
+    {
+      "name": "modelFamilyComparisonBrief.v1",
+      "path": "schemas/examples/modelFamilyComparisonBrief.v1.json"
+    },
+    {
+      "name": "modelFamilyComparisonPacket.v1",
+      "path": "schemas/examples/modelFamilyComparisonPacket.v1.json"
+    },
+    {
+      "name": "modelFamilyComparisonProfile.v1",
+      "path": "schemas/examples/modelFamilyComparisonProfile.v1.json"
+    },
+    {
+      "name": "modelFamilyComparisonProfileManifest.v1",
+      "path": "schemas/examples/modelFamilyComparisonProfileManifest.v1.json"
+    },
+    {
+      "name": "modelFamilyComparisonReviewBrief.v1",
+      "path": "schemas/examples/modelFamilyComparisonReviewBrief.v1.json"
+    },
+    {
+      "name": "modelFamilyComparisonReviewPacket.v1",
+      "path": "schemas/examples/modelFamilyComparisonReviewPacket.v1.json"
+    },
+    {
+      "name": "modelFamilyComparisonReviewPreview.v1",
+      "path": "schemas/examples/modelFamilyComparisonReviewPreview.v1.json"
+    },
+    {
+      "name": "modelFamilySelectionProfile.v1",
+      "path": "schemas/examples/modelFamilySelectionProfile.v1.json"
+    },
+    {
+      "name": "modelFamilySelectionProfileManifest.v1",
+      "path": "schemas/examples/modelFamilySelectionProfileManifest.v1.json"
+    },
+    {
+      "name": "modelFamilySelectionRecommendation.v1",
+      "path": "schemas/examples/modelFamilySelectionRecommendation.v1.json"
+    },
+    {
+      "name": "modelFamilySelectionReviewBrief.v1",
+      "path": "schemas/examples/modelFamilySelectionReviewBrief.v1.json"
+    },
+    {
+      "name": "modelFamilySelectionReviewPacket.v1",
+      "path": "schemas/examples/modelFamilySelectionReviewPacket.v1.json"
+    },
+    {
+      "name": "modelFamilySelectionReviewPreview.v1",
+      "path": "schemas/examples/modelFamilySelectionReviewPreview.v1.json"
+    },
+    {
+      "name": "physchemEvidenceApplicationResult.v1",
+      "path": "schemas/examples/physchemEvidenceApplicationResult.v1.json"
+    },
+    {
+      "name": "previewModelFamilyChallengeReviewRequest.v1",
+      "path": "schemas/examples/previewModelFamilyChallengeReviewRequest.v1.json"
+    },
+    {
+      "name": "previewModelFamilyComparisonReviewRequest.v1",
+      "path": "schemas/examples/previewModelFamilyComparisonReviewRequest.v1.json"
+    },
+    {
+      "name": "previewModelFamilySelectionReviewRequest.v1",
+      "path": "schemas/examples/previewModelFamilySelectionReviewRequest.v1.json"
+    },
+    {
+      "name": "previewRegulatoryHandoffResolutionRequest.v1",
+      "path": "schemas/examples/previewRegulatoryHandoffResolutionRequest.v1.json"
+    },
+    {
+      "name": "previewScientificReviewOutcomeRequest.v1",
+      "path": "schemas/examples/previewScientificReviewOutcomeRequest.v1.json"
+    },
+    {
+      "name": "recommendModelFamilySelectionRequest.v1",
+      "path": "schemas/examples/recommendModelFamilySelectionRequest.v1.json"
+    },
+    {
+      "name": "recommendRegulatoryHandoffProfileRequest.v1",
+      "path": "schemas/examples/recommendRegulatoryHandoffProfileRequest.v1.json"
+    },
+    {
+      "name": "reconcileReleaseEvidenceRequest.v1",
+      "path": "schemas/examples/reconcileReleaseEvidenceRequest.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffConsumerAliasManifest.v1",
+      "path": "schemas/examples/regulatoryHandoffConsumerAliasManifest.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffPackage.v1",
+      "path": "schemas/examples/regulatoryHandoffPackage.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffPackageSummary.v1",
+      "path": "schemas/examples/regulatoryHandoffPackageSummary.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffProfile.v1",
+      "path": "schemas/examples/regulatoryHandoffProfile.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffProfileRecommendation.v1",
+      "path": "schemas/examples/regulatoryHandoffProfileRecommendation.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffResolutionPreview.v1",
+      "path": "schemas/examples/regulatoryHandoffResolutionPreview.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffReviewBrief.v1",
+      "path": "schemas/examples/regulatoryHandoffReviewBrief.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffReviewPacket.v1",
+      "path": "schemas/examples/regulatoryHandoffReviewPacket.v1.json"
+    },
+    {
+      "name": "regulatoryHandoffTargetMatrixManifest.v1",
+      "path": "schemas/examples/regulatoryHandoffTargetMatrixManifest.v1.json"
+    },
+    {
+      "name": "releaseEvidenceReconciliationResult.v1",
+      "path": "schemas/examples/releaseEvidenceReconciliationResult.v1.json"
+    },
+    {
+      "name": "releaseScenarioFitAssessment.v1",
+      "path": "schemas/examples/releaseScenarioFitAssessment.v1.json"
+    },
+    {
+      "name": "runParameterManifest.v1",
+      "path": "schemas/examples/runParameterManifest.v1.json"
+    },
+    {
+      "name": "runUncertaintySummary.v1",
+      "path": "schemas/examples/runUncertaintySummary.v1.json"
+    },
+    {
+      "name": "scientificMethodsDossier.v1",
+      "path": "schemas/examples/scientificMethodsDossier.v1.json"
+    },
+    {
+      "name": "scientificMethodsDossierBrief.v1",
+      "path": "schemas/examples/scientificMethodsDossierBrief.v1.json"
+    },
+    {
+      "name": "scientificMethodsDossierClaimSummary.v1",
+      "path": "schemas/examples/scientificMethodsDossierClaimSummary.v1.json"
+    },
+    {
+      "name": "scientificReferenceCase.v1",
+      "path": "schemas/examples/scientificReferenceCase.v1.json"
+    },
+    {
+      "name": "scientificReferenceCaseManifest.v1",
+      "path": "schemas/examples/scientificReferenceCaseManifest.v1.json"
+    },
+    {
+      "name": "scientificReviewBrief.v1",
+      "path": "schemas/examples/scientificReviewBrief.v1.json"
+    },
+    {
+      "name": "scientificReviewOutcomePreview.v1",
+      "path": "schemas/examples/scientificReviewOutcomePreview.v1.json"
+    },
+    {
+      "name": "scientificReviewPacket.v1",
+      "path": "schemas/examples/scientificReviewPacket.v1.json"
+    },
+    {
+      "name": "scientificReviewProfile.v1",
+      "path": "schemas/examples/scientificReviewProfile.v1.json"
+    },
+    {
+      "name": "scientificReviewProfileManifest.v1",
+      "path": "schemas/examples/scientificReviewProfileManifest.v1.json"
+    },
+    {
+      "name": "scientificValidationClaim.v1",
+      "path": "schemas/examples/scientificValidationClaim.v1.json"
+    },
+    {
+      "name": "scientificValidationClaimCoverageManifest.v1",
+      "path": "schemas/examples/scientificValidationClaimCoverageManifest.v1.json"
+    },
+    {
+      "name": "scientificValidationClaimManifest.v1",
+      "path": "schemas/examples/scientificValidationClaimManifest.v1.json"
+    },
+    {
+      "name": "summarizeRegulatoryHandoffPackageRequest.v1",
+      "path": "schemas/examples/summarizeRegulatoryHandoffPackageRequest.v1.json"
+    }
+  ]
+}

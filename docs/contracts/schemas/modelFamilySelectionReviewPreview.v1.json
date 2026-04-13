@@ -1,0 +1,99 @@
+{
+  "$defs": {
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilySelectionStatus": {
+      "enum": [
+        "default_baseline_only",
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "title": "ModelFamilySelectionStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "selection_profile_id": {
+      "title": "Selection Profile Id",
+      "type": "string"
+    },
+    "recommendation_status": {
+      "$ref": "#/$defs/ModelFamilySelectionStatus"
+    },
+    "primary_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "challenge_model_family": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "triggered_check_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Check Codes",
+      "type": "array"
+    },
+    "governing_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Governing Rule Lines",
+      "type": "array"
+    },
+    "status_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Status Rule Lines",
+      "type": "array"
+    },
+    "triggered_signal_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Signal Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "selection_profile_id",
+    "recommendation_status",
+    "primary_model_family",
+    "review_status"
+  ],
+  "title": "ModelFamilySelectionReviewPreview",
+  "type": "object"
+}

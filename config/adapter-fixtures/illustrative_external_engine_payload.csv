@@ -1,0 +1,2 @@
+engine_name,engine_version,compartment_code,concentration,unit,context_scope,mode,interval_start,interval_end,notes
+illustrative-external-engine,2026.04,WATER_SURFACE,0.0125,mg/L,eu_screening_default,steady_state,,,Illustrative external engine payload fixture.

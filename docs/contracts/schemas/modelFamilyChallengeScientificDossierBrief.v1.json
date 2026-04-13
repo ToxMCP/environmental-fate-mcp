@@ -1,0 +1,277 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilyComparisonOutcome": {
+      "enum": [
+        "comparable_screening_outputs",
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "title": "ModelFamilyComparisonOutcome",
+      "type": "string"
+    },
+    "ModelFamilySelectionStatus": {
+      "enum": [
+        "default_baseline_only",
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "title": "ModelFamilySelectionStatus",
+      "type": "string"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "ScientificReviewOutcome": {
+      "enum": [
+        "acceptable_screening_use",
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "title": "ScientificReviewOutcome",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "dossier_id": {
+      "title": "Dossier Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "run_mode": {
+      "$ref": "#/$defs/RunMode"
+    },
+    "fit_for_purpose": {
+      "$ref": "#/$defs/FitForPurpose"
+    },
+    "selection_profile_id": {
+      "title": "Selection Profile Id",
+      "type": "string"
+    },
+    "challenge_review_profile_id": {
+      "title": "Challenge Review Profile Id",
+      "type": "string"
+    },
+    "primary_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "challenge_model_family": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "challenge_review_status": {
+      "title": "Challenge Review Status",
+      "type": "string"
+    },
+    "selection_recommendation_status": {
+      "$ref": "#/$defs/ModelFamilySelectionStatus"
+    },
+    "comparison_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Comparison Profile Id"
+    },
+    "comparison_outcome": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelFamilyComparisonOutcome"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "primary_review_outcome": {
+      "$ref": "#/$defs/ScientificReviewOutcome"
+    },
+    "challenge_review_outcome": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScientificReviewOutcome"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "primary_passed_check_count": {
+      "title": "Primary Passed Check Count",
+      "type": "integer"
+    },
+    "primary_total_check_count": {
+      "title": "Primary Total Check Count",
+      "type": "integer"
+    },
+    "challenge_passed_check_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Challenge Passed Check Count"
+    },
+    "challenge_total_check_count": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Challenge Total Check Count"
+    },
+    "summary_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Summary Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    },
+    "triggered_signal_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Signal Lines",
+      "type": "array"
+    },
+    "dominant_delta_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dominant Delta Lines",
+      "type": "array"
+    },
+    "primary_equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Primary Equation Lines",
+      "type": "array"
+    },
+    "challenge_equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Challenge Equation Lines",
+      "type": "array"
+    },
+    "primary_benchmark_reference_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Primary Benchmark Reference Lines",
+      "type": "array"
+    },
+    "challenge_benchmark_reference_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Challenge Benchmark Reference Lines",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "dossier_id",
+    "scenario_id",
+    "run_mode",
+    "fit_for_purpose",
+    "selection_profile_id",
+    "challenge_review_profile_id",
+    "primary_model_family",
+    "challenge_review_status",
+    "selection_recommendation_status",
+    "primary_review_outcome",
+    "primary_passed_check_count",
+    "primary_total_check_count",
+    "summary_lines"
+  ],
+  "title": "ModelFamilyChallengeScientificDossierBrief",
+  "type": "object"
+}

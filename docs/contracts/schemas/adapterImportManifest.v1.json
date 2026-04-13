@@ -1,0 +1,127 @@
+{
+  "$defs": {
+    "AdapterFixtureDescriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "fixture_name": {
+          "title": "Fixture Name",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "import_profile": {
+          "title": "Import Profile",
+          "type": "string"
+        },
+        "format": {
+          "title": "Format",
+          "type": "string"
+        },
+        "expected_engine_name": {
+          "title": "Expected Engine Name",
+          "type": "string"
+        },
+        "supported_modes": {
+          "items": {
+            "$ref": "#/$defs/RunMode"
+          },
+          "title": "Supported Modes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "fixture_name",
+        "path",
+        "import_profile",
+        "format",
+        "expected_engine_name",
+        "supported_modes"
+      ],
+      "title": "AdapterFixtureDescriptor",
+      "type": "object"
+    },
+    "AdapterImportProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "accepted_extensions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Accepted Extensions",
+          "type": "array"
+        },
+        "accepted_modes": {
+          "items": {
+            "$ref": "#/$defs/RunMode"
+          },
+          "title": "Accepted Modes",
+          "type": "array"
+        },
+        "internal_only": {
+          "default": true,
+          "title": "Internal Only",
+          "type": "boolean"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile_id",
+        "display_name",
+        "accepted_extensions",
+        "accepted_modes",
+        "description"
+      ],
+      "title": "AdapterImportProfile",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "profiles": {
+      "items": {
+        "$ref": "#/$defs/AdapterImportProfile"
+      },
+      "title": "Profiles",
+      "type": "array"
+    },
+    "fixtures": {
+      "items": {
+        "$ref": "#/$defs/AdapterFixtureDescriptor"
+      },
+      "title": "Fixtures",
+      "type": "array"
+    }
+  },
+  "required": [
+    "profiles",
+    "fixtures"
+  ],
+  "title": "AdapterImportManifest",
+  "type": "object"
+}

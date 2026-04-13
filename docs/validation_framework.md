@@ -1,0 +1,67 @@
+# Validation Framework
+
+Minimum validation scope for v0.1:
+
+- hand-worked mass-balance fixtures
+- hand-worked advective-screening fixtures for experimental native families
+- documented multi-medium, time-bucket, parameter-override, and adapter-equivalence fixtures
+- governed scientific validation claims mapped to benchmark fixtures, validation tiers, and reference types
+- governed scientific validation claim provenance checks for source references, methods-basis lines, and reference-case lines
+- governed scientific reference-case mapping checks for experimental medium/high-priority claims
+- governed scientific reference-case mapping checks for mandatory baseline reference-family claims
+- baseline reference-family support-depth checks so mandatory published baseline claims are not released on single-anchor or single-tier corroboration
+- high-priority experimental claim reference-case-depth checks so release-critical experimental claims are not grounded to only one governed case family
+- medium-priority experimental claim reference-case-depth checks so published experimental edge claims are not grounded to only one governed case family
+- scientific methods dossier claim-summary checks for claim-specific reference-case concept lines
+- scientific methods dossier claim-summary checks for claim-specific source-grounding lines
+- scientific methods dossier highlighted-claim checks for benchmark anchors, source grounding, and reference-case concepts
+- scientific methods dossier highlighted-claim checks for challenge status, challenge lines, and reviewer questions
+- scientific methods dossier highlighted-claim checks for claim-specific external corroboration lines
+- scientific methods dossier highlighted-claim checks for external corroboration status, official source counts, jurisdiction breadth, and brief-summary parity
+- scientific methods dossier highlighted-claim checks that thin external corroboration breadth is reflected in challenge status and challenge lines
+- scientific methods dossier highlighted-claim checks for claim-specific corroboration actions and brief-summary parity
+- scientific methods dossier brief checks for top-level recommended action lines when dossier-level recommended actions are present
+- scientific methods dossier recommended-action summary checks for promotion impact, priority, action class, and brief parity
+- scientific methods dossier promotion-status checks for top-level posture plus blocking-versus-strengthening action-count parity
+- scientific methods dossier promotion-blocker checks for blocker-summary presence, blocker-claim-id parity, and brief-summary visibility when posture is blocked
+- scientific methods dossier posture checks ensure the experimental family can soften to `strengthening_only` only after all governed high- and medium-priority corroboration bars are met
+- high- and medium-priority experimental claim support-depth checks so experimental families are not released on single-anchor evidence alone
+- high- and medium-priority experimental claim support-diversity checks so experimental families are not released on repeated same-tier corroboration alone where a governed second validation tier is expected
+- scientific review workflow checks for equation-component decomposition parity between the packet and brief summary surface
+- scientific review workflow checks for mass-balance component parity between the packet and brief summary surface, so native retained-versus-loss accounting remains reviewer-visible
+- scientific review workflow checks for transport-regime parity between the packet and brief summary surface, so residence-time regime interpretation remains reviewer-visible
+- scientific review workflow checks for turnover-boundary and finite-plateau transport context inside the transport-regime surface, so bounded transport interpretation remains reviewer-visible
+- benchmark claim-coverage checks now include advective loss-dominance transition claims backed by trace-term anchors, not just concentration endpoints
+- benchmark claim-coverage checks now also include a governed mixed-loss transition claim backed by trace-term anchors, so near-parity loss splits are explicitly covered rather than inferred from the extreme cases
+- benchmark claim-coverage checks now include a governed transition-directionality claim backed by flip-side sensitivity anchors, so the expected degradation-versus-clearance flip is validated directly rather than inferred from a single mixed-loss point
+- benchmark claim-coverage checks now include a governed cumulative mass-balance closure claim backed by multiple advective loss regimes, so native mass partition accounting is validated directly rather than assumed from the concentration solution
+- benchmark claim-coverage checks now include a governed residence-time turnover-regime claim backed by short-, mixed-, and long-residence anchors, so transport-regime interpretation is validated directly rather than inferred from raw residence time
+- benchmark claim-coverage checks now require a reference-style bounded-transport anchor for the residence-time turnover claim, so transport interpretation is not supported only by edge and sensitivity cases
+- scientific methods dossier checks now require highlighted claim regime-stability fields and summary lines, so near-parity transition claims remain distinguishable from stable regime anchors in reviewer-facing outputs
+- scientific methods dossier checks now require highlighted claim transport-stability fields and summary lines, so turnover-boundary claims remain distinguishable from stable storage and flow-through anchors
+- scientific methods dossier checks now require regime-stability summary lines and preserve claim-specific regime-transition actions, so near-parity claims remain operationally actionable in the review surface
+- scientific methods dossier checks now require claim-summary external corroboration fields and claim-set corroboration breadth summary lines, so external grounding diversity is preserved beyond the highlighted-claim subset
+- schema and example validation
+- defaults manifest hashing
+- model-family applicability profile coverage checks
+- model-family selection profile and recommendation consistency checks
+- model-family selection review preview/packet/brief consistency checks
+- model-family challenge review profile plus preview/packet/brief composition consistency checks
+- model-family challenge scientific dossier/brief consistency checks
+- experimental-family applicability and scientific review profile visibility checks
+- run parameter manifest consistency checks
+- deterministic uncertainty-driver summary checks
+- model-family comparison packet/brief consistency checks
+- model-family comparison profile and template consistency checks
+- model-family comparison review preview/packet/brief consistency checks
+- scientific review outcome/status preview consistency checks
+- scientific review packet/brief consistency checks
+- scientific methods dossier/brief consistency checks, including aggregate and claim-specific source-grounding lines, highlighted-claim digests, claim-specific external corroboration, challenge statuses/questions, and support-strength summaries
+- scientific review profile/checklist/template consistency checks
+- scientific review outcome/recommended-action consistency checks
+- negative-path validation for unsupported media and time semantics
+- comparison transparency checks
+- reconciliation transparency checks for competing release evidence
+- export bundle interoperability checks
+- adapter import manifest and normalization checks
+- regulatory handoff crosswalk interoperability checks

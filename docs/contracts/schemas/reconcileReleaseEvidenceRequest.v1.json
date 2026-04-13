@@ -1,0 +1,154 @@
+{
+  "$defs": {
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ReleaseEvidenceInput": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "total_release_mass_kg": {
+          "exclusiveMinimum": 0.0,
+          "title": "Total Release Mass Kg",
+          "type": "number"
+        },
+        "release_fractions": {
+          "items": {
+            "$ref": "#/$defs/ReleaseFraction"
+          },
+          "title": "Release Fractions",
+          "type": "array"
+        },
+        "source_reference": {
+          "$ref": "#/$defs/SourceReference"
+        },
+        "evidence_quality": {
+          "default": "reference",
+          "title": "Evidence Quality",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "total_release_mass_kg",
+        "release_fractions",
+        "source_reference"
+      ],
+      "title": "ReleaseEvidenceInput",
+      "type": "object"
+    },
+    "ReleaseFraction": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "fraction": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fraction",
+          "type": "number"
+        }
+      },
+      "required": [
+        "medium",
+        "fraction"
+      ],
+      "title": "ReleaseFraction",
+      "type": "object"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "chemical_identity": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Chemical Identity",
+      "type": "object"
+    },
+    "region_id": {
+      "default": "eu_screening_default",
+      "title": "Region Id",
+      "type": "string"
+    },
+    "context_label": {
+      "default": "regional_screening",
+      "title": "Context Label",
+      "type": "string"
+    },
+    "duration_days": {
+      "default": 30.0,
+      "exclusiveMinimum": 0.0,
+      "title": "Duration Days",
+      "type": "number"
+    },
+    "evidence_inputs": {
+      "items": {
+        "$ref": "#/$defs/ReleaseEvidenceInput"
+      },
+      "title": "Evidence Inputs",
+      "type": "array"
+    }
+  },
+  "required": [
+    "chemical_identity",
+    "evidence_inputs"
+  ],
+  "title": "ReconcileReleaseEvidenceRequest",
+  "type": "object"
+}

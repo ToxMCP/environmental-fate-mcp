@@ -1,0 +1,65 @@
+{
+  "fit_score": 0.85,
+  "model_family": "reference_mass_balance",
+  "fit_for_purpose": "screening",
+  "verdict": "good_fit",
+  "reasons": [
+    "Some parameter records are preserved for provenance but are not consumed by the reference runtime: log_kow"
+  ],
+  "applicability_profile": {
+    "model_family": "reference_mass_balance",
+    "fit_for_purpose": [
+      "screening",
+      "benchmark",
+      "downstream_export"
+    ],
+    "supported_substance_classes": [
+      "neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions",
+      "release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments",
+      "deterministic assessor-review and benchmark workflows that require transparent concentration-only outputs"
+    ],
+    "unsupported_substance_classes": [
+      "metals and metal species requiring speciation-aware fate treatment",
+      "nanomaterials or particulate systems requiring size-resolved transport behavior",
+      "strongly ionizing chemistries where screening partition and persistence assumptions are likely unstable",
+      "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics"
+    ],
+    "required_inputs": [
+      "total_release_mass_kg",
+      "release_fractions",
+      "duration_days",
+      "region_profile_id",
+      "media-specific capacity defaults or governed overrides",
+      "media-specific half-life defaults or governed overrides"
+    ],
+    "core_assumptions": [
+      "The runtime emits regional concentration surfaces rather than dose, exposure, or risk values.",
+      "Each release medium is represented as a single screening compartment with governed capacity defaults.",
+      "Finite-duration first-order decay is applied over the declared release duration and any post-release elapsed time.",
+      "Steady-state mode reports the end-of-duration screening concentration rather than an infinite-time equilibrium.",
+      "Only treatment assumptions explicitly marked as pre_release_global are numerically applied before release; all other treatment assumptions remain provenance-only.",
+      "Reference mass balance does not add explicit advective clearance or intermedia transfer terms."
+    ],
+    "deferred_capabilities": [
+      "explicit spatial dispersion and gradients",
+      "intermedia transfer coefficient modeling",
+      "probabilistic uncertainty propagation",
+      "transformation-product tracking",
+      "food-chain or dose translation workflows"
+    ],
+    "review_notes": [
+      "Use for concentration-only screening support, benchmark demonstrations, and downstream suite handoff preparation.",
+      "Review unsupported runtime parameters before treating outputs as more than screening indicators.",
+      "Escalate to richer model families when multiple complex media interactions dominate the decision context."
+    ],
+    "source_pack": "defaults/v1/model_family_applicability_profiles.json",
+    "applicability_note": "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+  },
+  "applicability_lines": [
+    "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Requested fit-for-purpose: screening.",
+    "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+    "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "claim_id": "advective_cumulative_mass_balance_closure_v1",
+  "display_name": "Advective cumulative mass-balance closure",
+  "statement": "The advective screening kernel preserves cumulative mass balance between emitted mass, retained compartment mass, degraded mass, and advected mass, with negligible closure error across degradation-dominant, clearance-dominant, and mixed-loss regimes.",
+  "claim_class": "advective_mass_balance_accounting",
+  "priority": "high",
+  "mandatory_for_release": true,
+  "supported_run_modes": [
+    "steady_state"
+  ],
+  "fit_for_purpose": [
+    "screening",
+    "benchmark"
+  ],
+  "required_validation_tiers": [
+    "edge_condition",
+    "sensitivity"
+  ],
+  "required_reference_types": [
+    "hand_worked_advective_loss_dominance_anchor",
+    "hand_worked_advective_loss_transition_anchor"
+  ],
+  "covered": true,
+  "support_strength": "multi_anchor_multi_tier",
+  "supporting_fixture_count": 7,
+  "reference_case_ids": [
+    "echa_euses_water_screening_case_family_v1",
+    "epa_flow_through_water_screening_case_family_v1",
+    "advective_clearance_edge_case_family_v1"
+  ],
+  "supporting_fixture_names": [
+    "advective_degradation_dominant_loss_share_anchor_fixture",
+    "advective_degradation_dominant_loss_share_companion_fixture",
+    "advective_clearance_dominant_loss_share_anchor_fixture",
+    "advective_clearance_dominant_loss_share_companion_fixture",
+    "advective_mixed_loss_transition_anchor_fixture",
+    "advective_mixed_loss_transition_companion_fixture",
+    "advective_bounded_transport_reference_fixture"
+  ],
+  "supporting_reference_types": [
+    "hand_worked_advective_bounded_transport_reference_fixture",
+    "hand_worked_advective_loss_dominance_anchor",
+    "hand_worked_advective_loss_dominance_sensitivity_fixture",
+    "hand_worked_advective_loss_transition_anchor",
+    "hand_worked_advective_loss_transition_sensitivity_fixture"
+  ],
+  "supporting_validation_tiers": [
+    "edge_condition",
+    "reference_style",
+    "sensitivity"
+  ],
+  "source_references": [
+    {
+      "source_id": "methods.advective_mass_balance_accounting.v1",
+      "title": "Fate MCP advective cumulative mass-balance method notes",
+      "effective_date": null,
+      "url": "docs://validation_framework"
+    },
+    {
+      "source_id": "echa.euses",
+      "title": "ECHA EUSES support page",
+      "effective_date": null,
+      "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+    },
+    {
+      "source_id": "epa.environmental_models_guidance",
+      "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+      "effective_date": null,
+      "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+    },
+    {
+      "source_id": "benchmark.advective_degradation_dominant_loss_share_anchor_fixture",
+      "title": "Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture",
+      "effective_date": null,
+      "url": "benchmarks://manifest"
+    },
+    {
+      "source_id": "benchmark.advective_clearance_dominant_loss_share_anchor_fixture",
+      "title": "Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture",
+      "effective_date": null,
+      "url": "benchmarks://manifest"
+    },
+    {
+      "source_id": "benchmark.advective_mixed_loss_transition_anchor_fixture",
+      "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_anchor_fixture",
+      "effective_date": null,
+      "url": "benchmarks://manifest"
+    }
+  ],
+  "external_corroboration_status": "multi_official_multi_jurisdiction",
+  "external_corroboration_source_count": 2,
+  "external_corroboration_jurisdictions": [
+    "EU",
+    "US"
+  ],
+  "external_corroboration_lines": [
+    "Advective cumulative mass-balance closure: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
+    "Advective cumulative mass-balance closure: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
+    "Corroboration jurisdictions: EU, US.",
+    "Corroboration scope: This claim is limited to the governed one-compartment advective screening equation and its cumulative trace accounting at elapsed time."
+  ],
+  "source_grounding_lines": [
+    "Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
+    "Advective cumulative mass-balance closure: governed method anchors include Fate MCP advective cumulative mass-balance method notes, Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture."
+  ],
+  "methods_basis_lines": [
+    "This claim is limited to the governed one-compartment advective screening equation and its cumulative trace accounting at elapsed time.",
+    "The claim is satisfied when emitted mass is partitioned into retained compartment mass plus degraded and advected cumulative losses with negligible residual closure error across distinct loss-share regimes."
+  ],
+  "reference_case_lines": [
+    "Supported by the advective_degradation_dominant_loss_share_anchor_fixture and companion case for degradation-heavy closure accounting.",
+    "Supported by the advective_clearance_dominant_loss_share_anchor_fixture and companion case for clearance-heavy closure accounting.",
+    "Supported by the advective_mixed_loss_transition_anchor_fixture and companion case for near-parity cumulative closure accounting.",
+    "advective_degradation_dominant_loss_share_anchor_fixture: The advective trace reports degradation as the dominant loss share when half-life is short relative to residence time.",
+    "advective_degradation_dominant_loss_share_companion_fixture: The advective trace continues to report degradation as the dominant loss share under a different short-half-life and long-residence regime."
+  ],
+  "reference_case_concept_lines": [
+    "ECHA EUSES water screening case family: This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
+    "EPA flow-through water screening case family: This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency.",
+    "Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence."
+  ],
+  "review_notes": [],
+  "gap_lines": []
+}

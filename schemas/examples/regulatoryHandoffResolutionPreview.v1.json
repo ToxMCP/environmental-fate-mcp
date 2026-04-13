@@ -1,0 +1,28 @@
+{
+  "requested_profile_id": null,
+  "consumer_name": "ToxClaw",
+  "recommended_profile_id": "toxclaw_orchestration_v1",
+  "resolved_profile_id": "toxclaw_orchestration_v1",
+  "resolution_method": "consumer_name_match",
+  "resolution_basis": "ToxClaw",
+  "resolution_confidence": 1.0,
+  "matched_hint": "ToxClaw",
+  "target_module": "ToxClaw",
+  "allowed_target_modules": [
+    "ToxClaw"
+  ],
+  "target_modules_preview": [
+    "ToxClaw"
+  ],
+  "downstream_field": "upstream_concentration_surface",
+  "required_entry_fields": [
+    "source_surface_id",
+    "concentration_value",
+    "concentration_unit",
+    "semantic_label"
+  ],
+  "status": "resolved",
+  "issues": [],
+  "tool_request_template": "Use fate_export_regulatory_handoff_package with the toxclaw_orchestration_v1 profile when an orchestration layer needs a neutral, profile-stable concentration surface handoff.",
+  "response_summary_template": "Return the regulatory handoff package and emphasize downstream_field, semantic_label, concentration_value, concentration_unit, and any limitations that should be passed unchanged through orchestration."
+}

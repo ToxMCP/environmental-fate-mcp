@@ -1,0 +1,899 @@
+{
+  "$defs": {
+    "CalculationTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "equation_id": {
+          "title": "Equation Id",
+          "type": "string"
+        },
+        "equation_text": {
+          "title": "Equation Text",
+          "type": "string"
+        },
+        "resolved_terms": {
+          "items": {
+            "$ref": "#/$defs/CalculationTraceTerm"
+          },
+          "title": "Resolved Terms",
+          "type": "array"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "equation_id",
+        "equation_text"
+      ],
+      "title": "CalculationTrace",
+      "type": "object"
+    },
+    "CalculationTraceTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "CalculationTraceTerm",
+      "type": "object"
+    },
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "ConcentrationEstimationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "surfaces": {
+          "items": {
+            "$ref": "#/$defs/ConcentrationSurface"
+          },
+          "title": "Surfaces",
+          "type": "array"
+        },
+        "run_summary": {
+          "$ref": "#/$defs/FateRunSummary"
+        },
+        "assumptions": {
+          "items": {
+            "$ref": "#/$defs/FateAssumptionRecord"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "surfaces",
+        "run_summary",
+        "assumptions"
+      ],
+      "title": "ConcentrationEstimationResult",
+      "type": "object"
+    },
+    "ConcentrationSurface": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "surface_id": {
+          "title": "Surface Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "geographic_scope": {
+          "$ref": "#/$defs/GeographicScope"
+        },
+        "time_window": {
+          "$ref": "#/$defs/TimeWindow"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "calculation_trace": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CalculationTrace"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "medium",
+        "compartment",
+        "geographic_scope",
+        "time_window",
+        "concentration_value",
+        "concentration_unit",
+        "model_family",
+        "fit_for_purpose",
+        "provenance"
+      ],
+      "title": "ConcentrationSurface",
+      "type": "object"
+    },
+    "EnvironmentalReleaseScenario": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "chemical_identity": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Chemical Identity",
+          "type": "object"
+        },
+        "total_release_mass_kg": {
+          "exclusiveMinimum": 0.0,
+          "title": "Total Release Mass Kg",
+          "type": "number"
+        },
+        "release_fractions": {
+          "items": {
+            "$ref": "#/$defs/ReleaseFraction"
+          },
+          "title": "Release Fractions",
+          "type": "array"
+        },
+        "duration_days": {
+          "exclusiveMinimum": 0.0,
+          "title": "Duration Days",
+          "type": "number"
+        },
+        "timing_pattern": {
+          "default": "continuous",
+          "title": "Timing Pattern",
+          "type": "string"
+        },
+        "geographic_scope": {
+          "$ref": "#/$defs/GeographicScope"
+        },
+        "treatment_assumptions": {
+          "items": {
+            "$ref": "#/$defs/TreatmentAssumption"
+          },
+          "title": "Treatment Assumptions",
+          "type": "array"
+        },
+        "parameter_records": {
+          "items": {
+            "$ref": "#/$defs/FateParameterRecord"
+          },
+          "title": "Parameter Records",
+          "type": "array"
+        },
+        "evidence_sources": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Evidence Sources",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "chemical_identity",
+        "total_release_mass_kg",
+        "release_fractions",
+        "duration_days",
+        "geographic_scope",
+        "provenance"
+      ],
+      "title": "EnvironmentalReleaseScenario",
+      "type": "object"
+    },
+    "ExecutionStatus": {
+      "enum": [
+        "completed",
+        "failed"
+      ],
+      "title": "ExecutionStatus",
+      "type": "string"
+    },
+    "FateAssumptionRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "source_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "value",
+        "source_classification",
+        "rationale"
+      ],
+      "title": "FateAssumptionRecord",
+      "type": "object"
+    },
+    "FateParameterRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "source_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evidence_quality": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Quality"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "value",
+        "unit",
+        "source_classification"
+      ],
+      "title": "FateParameterRecord",
+      "type": "object"
+    },
+    "FateRunSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "run_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "surfaces_emitted": {
+          "title": "Surfaces Emitted",
+          "type": "integer"
+        },
+        "assumptions_applied": {
+          "items": {
+            "$ref": "#/$defs/FateAssumptionRecord"
+          },
+          "title": "Assumptions Applied",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "result_metadata": {
+          "$ref": "#/$defs/ResultMetadata"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "model_family",
+        "run_mode",
+        "surfaces_emitted",
+        "assumptions_applied",
+        "result_metadata"
+      ],
+      "title": "FateRunSummary",
+      "type": "object"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "GeographicScope": {
+      "additionalProperties": false,
+      "properties": {
+        "region_id": {
+          "title": "Region Id",
+          "type": "string"
+        },
+        "context_label": {
+          "title": "Context Label",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "region_id",
+        "context_label"
+      ],
+      "title": "GeographicScope",
+      "type": "object"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "ReleaseFraction": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "fraction": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fraction",
+          "type": "number"
+        }
+      },
+      "required": [
+        "medium",
+        "fraction"
+      ],
+      "title": "ReleaseFraction",
+      "type": "object"
+    },
+    "ResultMetadata": {
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/ExecutionStatus",
+          "description": "Execution state for this request."
+        },
+        "executed_at": {
+          "description": "UTC timestamp when execution finished.",
+          "format": "date-time",
+          "title": "Executed At",
+          "type": "string"
+        },
+        "execution_mode": {
+          "default": "synchronous",
+          "description": "Reserved for future async use.",
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "result_id": {
+          "description": "Stable identifier for this result envelope.",
+          "title": "Result Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "executed_at",
+        "result_id"
+      ],
+      "title": "ResultMetadata",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "TimeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "bucket_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bucket Label"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "title": "TimeWindow",
+      "type": "object"
+    },
+    "TreatmentAssumption": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "removal_fraction": {
+          "default": 0.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Removal Fraction",
+          "type": "number"
+        },
+        "execution_mode": {
+          "$ref": "#/$defs/TreatmentExecutionMode",
+          "default": "provenance_only"
+        },
+        "media_scope": {
+          "items": {
+            "$ref": "#/$defs/Media"
+          },
+          "title": "Media Scope",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description"
+      ],
+      "title": "TreatmentAssumption",
+      "type": "object"
+    },
+    "TreatmentExecutionMode": {
+      "enum": [
+        "provenance_only",
+        "pre_release_global"
+      ],
+      "title": "TreatmentExecutionMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "result": {
+      "$ref": "#/$defs/ConcentrationEstimationResult"
+    },
+    "scenario": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EnvironmentalReleaseScenario"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "handoff_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Handoff Profile Id"
+    },
+    "consumer_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Consumer Name"
+    },
+    "target_modules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Modules",
+      "type": "array"
+    }
+  },
+  "required": [
+    "result"
+  ],
+  "title": "ExportRegulatoryHandoffPackageRequest",
+  "type": "object"
+}

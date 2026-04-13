@@ -1,0 +1,70 @@
+{
+  "defaultsVersion": "v1",
+  "files": [
+    {
+      "path": "defaults/v1/adapter_unit_conversions.json",
+      "sha256": "8d91c3bf3543027c8b612b81ae3c4c41e324db94af80b21f7f6e2f9f30daaeb3",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/core_defaults.json",
+      "sha256": "0b1fbd840bac0451ef3d213d91490adb9baf8f2b4a7c2a972567c2d6bcc8aa74",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_applicability_profiles.json",
+      "sha256": "a167300cf2c560187d50d6ede5bb6aff27bb0b1779b8c0774eebc0e5b13f7823",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_challenge_review_profiles.json",
+      "sha256": "3d7a189414e2f7171b9ee1fa3b759bf818f8ddc30f4ba442a74adbf4f55a1182",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_comparison_profiles.json",
+      "sha256": "301628b42016bada03130225a879f6baab2cf8e515e206a73993e882f02a09c0",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_selection_profiles.json",
+      "sha256": "2b91e7617817f568cd2ba8ff90e36ab21b05e1699d086a1d46f42015073d1258",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/physchem_parameter_policies.json",
+      "sha256": "83da6e8d50a8e37a04765aef1dacaba2ff8258c773a1070f8bbd2a36dc29792b",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/region_profiles.json",
+      "sha256": "d92a051feb849000df5910968ba7749b0a4593d050741d05c3c54eefd2ca0157",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/regulatory_handoff_profiles.json",
+      "sha256": "8176eca04e981f7ea4ee74f608dae82b46564173befd6223b0d4617e104550f0",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/scientific_reference_cases.json",
+      "sha256": "a6889103f6340dc264a9dba3f3f61a0e7e822af91e080d0471dbcd4d507465bb",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/scientific_review_profiles.json",
+      "sha256": "fe9c3dce3788e97c8c267b215c1dcf8599d3a1ab6c10be73ba9dbb9d92e8442a",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/scientific_validation_claims.json",
+      "sha256": "f6d50f8d1004d0680ff8d3d3b185dfc335c7eb3c38aab9942503005b23141a2b",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/extensions/nordic_screening_pack.json",
+      "sha256": "9917c2c8144362856e931e685d4c3f835d85cda79a0e90d8e253923d60c4fd05",
+      "defaultsVersion": "v1"
+    }
+  ]
+}

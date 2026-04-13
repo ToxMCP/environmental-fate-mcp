@@ -1,0 +1,64 @@
+{
+  "schema_version": "v1",
+  "comparison_packet_id": "familycmp-feea29ad06e8",
+  "scenario_id": "scenario-de42296cc220",
+  "run_mode": "steady_state",
+  "fit_for_purpose": "screening",
+  "comparison_profile_id": "reference_vs_advective_screening_v1",
+  "base_model_family": "reference_mass_balance",
+  "candidate_model_family": "advective_screening_mass_balance",
+  "comparison_outcome": "material_model_family_divergence",
+  "summary_lines": [
+    "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-de42296cc220.",
+    "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
+    "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
+    "Base fit verdict: good_fit (score=0.85).",
+    "Candidate fit verdict: good_fit (score=0.85).",
+    "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary.",
+    "Dominant delta: air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%)",
+    "Dominant delta: soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%)",
+    "Dominant delta: water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)",
+    "Base equation trace: ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Base equation trace: surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Base equation trace: agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Candidate equation trace: ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "Candidate equation trace: surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "Candidate equation trace: agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+  ],
+  "dominant_delta_lines": [
+    "air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%)",
+    "soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%)",
+    "water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)"
+  ],
+  "outcome_lines": [
+    "Treat the comparison as a material model-family divergence and review residence-time assumptions, equation traces, and applicability before preferring the experimental family."
+  ],
+  "recommended_actions": [
+    "Treat the candidate family as experimental and keep the default reference family as the screening baseline unless the transport question clearly requires the candidate assumptions.",
+    "Review the dominant surface deltas, residence-time assumptions, and equation traces before choosing which family better matches the decision context.",
+    "Use this comparison profile when the reference family is the screening baseline and the advective family is being challenged on the same scenario.",
+    "Interpret the candidate family as experimental and non-default even when the comparison shows material differences.",
+    "Escalate to richer transport methods when the decision context is dominated by spatial hydrodynamics or intermedia transfer."
+  ],
+  "base_equation_lines": [
+    "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+  ],
+  "candidate_equation_lines": [
+    "ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+  ],
+  "brief_template_used": "Summarize whether the experimental advective family materially changes the screening interpretation relative to the corrected reference family for the same scenario.",
+  "limitations": [
+    {
+      "code": "model_family_comparison",
+      "message": "Model-family comparison reflects deterministic Fate MCP outputs for one matched scenario and does not by itself endorse either family as the scientifically correct choice."
+    },
+    {
+      "code": "experimental_candidate_model_family",
+      "message": "Candidate model family advective_screening_mass_balance is published as experimental and should be treated as a challenge path rather than a default release baseline."
+    }
+  ]
+}

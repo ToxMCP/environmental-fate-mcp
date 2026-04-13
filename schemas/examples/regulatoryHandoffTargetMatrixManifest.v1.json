@@ -1,0 +1,30 @@
+{
+  "schema_version": "v1",
+  "mapping_count": 2,
+  "mappings": [
+    {
+      "profile_id": "exposure_scenario_mcp_v1",
+      "target_module": "Direct-Use Exposure MCP",
+      "consumer_hints": [
+        "direct-use exposure mcp",
+        "direct-use-exposure-mcp",
+        "exposure module",
+        "exposure scenario mcp",
+        "exposure-scenario-mcp",
+        "route-specific exposure"
+      ],
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "profile_id": "toxclaw_orchestration_v1",
+      "target_module": "ToxClaw",
+      "consumer_hints": [
+        "orchestration",
+        "suite orchestration",
+        "toxclaw",
+        "workflow orchestrator"
+      ],
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    }
+  ]
+}

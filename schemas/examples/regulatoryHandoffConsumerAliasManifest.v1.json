@@ -1,0 +1,102 @@
+{
+  "schema_version": "v1",
+  "alias_count": 10,
+  "conflict_count": 0,
+  "aliases": [
+    {
+      "normalized_alias": "direct use exposure mcp",
+      "alias_variants": [
+        "Direct-Use Exposure MCP",
+        "direct-use exposure mcp",
+        "direct-use-exposure-mcp"
+      ],
+      "profile_id": "exposure_scenario_mcp_v1",
+      "target_module": "Direct-Use Exposure MCP",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "exposure module",
+      "alias_variants": [
+        "exposure module"
+      ],
+      "profile_id": "exposure_scenario_mcp_v1",
+      "target_module": "Direct-Use Exposure MCP",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "exposure scenario mcp",
+      "alias_variants": [
+        "exposure scenario mcp",
+        "exposure-scenario-mcp"
+      ],
+      "profile_id": "exposure_scenario_mcp_v1",
+      "target_module": "Direct-Use Exposure MCP",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "exposure scenario mcp v1",
+      "alias_variants": [
+        "exposure_scenario_mcp_v1"
+      ],
+      "profile_id": "exposure_scenario_mcp_v1",
+      "target_module": "Direct-Use Exposure MCP",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "route specific exposure",
+      "alias_variants": [
+        "route-specific exposure"
+      ],
+      "profile_id": "exposure_scenario_mcp_v1",
+      "target_module": "Direct-Use Exposure MCP",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "orchestration",
+      "alias_variants": [
+        "orchestration"
+      ],
+      "profile_id": "toxclaw_orchestration_v1",
+      "target_module": "ToxClaw",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "suite orchestration",
+      "alias_variants": [
+        "suite orchestration"
+      ],
+      "profile_id": "toxclaw_orchestration_v1",
+      "target_module": "ToxClaw",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "toxclaw",
+      "alias_variants": [
+        "ToxClaw",
+        "toxclaw"
+      ],
+      "profile_id": "toxclaw_orchestration_v1",
+      "target_module": "ToxClaw",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "toxclaw orchestration v1",
+      "alias_variants": [
+        "toxclaw_orchestration_v1"
+      ],
+      "profile_id": "toxclaw_orchestration_v1",
+      "target_module": "ToxClaw",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "workflow orchestrator",
+      "alias_variants": [
+        "workflow orchestrator"
+      ],
+      "profile_id": "toxclaw_orchestration_v1",
+      "target_module": "ToxClaw",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    }
+  ],
+  "conflicts": []
+}

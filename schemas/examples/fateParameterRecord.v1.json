@@ -1,0 +1,10 @@
+{
+  "parameter": "water_half_life_days",
+  "value": 12.0,
+  "unit": "day",
+  "source_classification": "user_input",
+  "source_reference": null,
+  "evidence_quality": "reference",
+  "rationale": "Illustrative initial parameter override.",
+  "quality_flags": []
+}

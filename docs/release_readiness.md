@@ -1,0 +1,70 @@
+# Release Readiness
+
+Fate MCP v0.1 release readiness is gated on reproducible contracts, examples, defaults manifests, benchmark fixtures, and downstream-consumer interoperability.
+
+## Required checks
+
+- generated schemas and examples are current
+- defaults manifest hashes match shipped files
+- benchmark fixtures pass within declared tolerances
+- benchmark fixtures carry explicit scientific basis, reference type, expected behavior, and tolerance rationale
+- every published scientific validation claim is tied to at least one declared benchmark fixture
+- every mandatory scientific validation claim satisfies its required validation tier and reference-type coverage
+- every published scientific validation claim carries source references, methods-basis lines, and reference-case lines
+- mandatory baseline reference-family scientific claims resolve to governed scientific reference-case ids and do not remain single-reference-case only
+- mandatory baseline reference-family scientific claims do not remain single-anchor only or multi-anchor-but-single-tier only
+- high- and medium-priority experimental scientific claims resolve to governed scientific reference-case ids
+- high-priority experimental scientific claims do not remain single-reference-case only
+- medium-priority experimental scientific claims do not remain single-reference-case only
+- high- and medium-priority experimental scientific claims do not remain single-anchor only
+- high- and medium-priority experimental scientific claims do not remain multi-anchor-but-single-tier only when independent sensitivity-style corroboration is part of the governed release bar
+- every supported model family has a governed applicability profile
+- governed model-family selection profiles exist for published baseline-versus-experimental selection workflows
+- governed model-family comparison profiles exist for every published model-family comparison workflow
+- every experimental model family published in metadata has a governed applicability profile and scientific review profile
+- run parameter manifests remain consistent with scenario parameter records, runtime assumptions, and provenance
+- deterministic uncertainty summaries remain machine-readable and limitation-bound
+- model-family selection recommendations remain internally consistent with the governed selection profile, fit assessments, and challenge-trigger lines
+- model-family selection review previews, packets, and briefs remain internally consistent with the governed selection profile, recommendation artifact, and assessor-facing checklist guidance
+- scientific methods dossiers and briefs preserve top-level `promotion_status` plus blocking-versus-strengthening action counts
+- blocked scientific methods dossiers and briefs preserve explicit promotion-blocker summaries and blocker-claim ids
+- experimental scientific methods dossiers may resolve to `strengthening_only` rather than `blocked` once all governed high- and medium-priority evidence bars are met, while the baseline reference dossier may resolve to `ready`
+- composed model-family challenge review previews, packets, and briefs remain internally consistent with the governed challenge-review profile plus the embedded governed selection review and optional governed comparison review artifacts
+- composed model-family challenge scientific dossiers and briefs remain internally consistent with the governed challenge-review path plus the embedded baseline and optional challenge-family scientific review summaries
+- scientific methods dossier highlighted-claim digests preserve external corroboration status, official source counts, and jurisdiction breadth into the brief summary surface
+- scientific methods dossier highlighted-claim challenge status remains consistent with external corroboration breadth so thinly corroborated claims do not appear passively well supported
+- scientific methods dossier highlighted-claim digests preserve corroboration actions into the brief summary surface so thin external grounding produces an explicit next action
+- scientific methods dossier and brief recommended-actions surfaces preserve the leading claim-specific corroboration follow-ups when they are scientifically material
+- scientific methods dossier and brief recommended-action summaries preserve promotion impact so blocking follow-up is distinguishable from trust-strengthening follow-up
+- run-level scientific review packets and briefs preserve equation-component decomposition lines alongside equation traces so degradation-versus-clearance dominance is reviewable
+- run-level scientific review packets and briefs preserve mass-balance component lines alongside equation traces so emitted, retained, degraded, and advected partitions are reviewable with explicit closure error
+- run-level scientific review packets and briefs preserve transport-regime lines alongside residence-time trace terms so flow-through, intermediate-turnover, and storage-dominant interpretations are reviewable
+- run-level scientific review packets and briefs preserve transport-regime lines with turnover-boundary and finite-plateau context, so bounded transport interpretation is reviewable rather than only described in trace detail
+- mandatory advective loss-dominance claims are benchmark-covered with both edge-condition and sensitivity anchors, so dominance transitions are governed rather than inferred from a single trace example
+- mandatory advective mixed-loss transition claims are benchmark-covered with both edge-condition and sensitivity anchors, so near-parity degradation/clearance regimes are release-gated rather than left to reviewer interpretation alone
+- advective transition-directionality claims are benchmark-covered with flip-side sensitivity anchors, so small half-life or residence-time shifts across the near-parity boundary are explicitly challenged rather than implied
+- mandatory advective cumulative mass-balance closure claims are benchmark-covered across degradation-dominant, clearance-dominant, and mixed-loss anchors, so native trace accounting is release-gated rather than treated as a descriptive add-on
+- mandatory advective residence-time turnover-regime claims are benchmark-covered across short-, mixed-, and long-residence anchors, so transport interpretation is release-gated rather than left to reviewer inference
+- mandatory advective residence-time turnover-regime claims now also require a reference-style bounded-transport anchor, so turnover interpretation is not released on edge and sensitivity cases alone
+- scientific methods dossier highlighted claims now preserve loss-regime stability context, so near-parity transition claims cannot hide inside the same summary posture as stable one-sided loss anchors
+- scientific methods dossier highlighted claims now preserve transport-regime stability context, so turnover-boundary claims cannot hide inside the same summary posture as stable storage- or flow-through anchors
+- near-parity highlighted advective claims now emit regime-transition recommended actions, so transition-zone follow-up is governed rather than left to reviewer memory
+- scientific methods dossiers now preserve claim-set external corroboration breadth, so thinly diversified claim sets are visible at the summary level rather than only claim by claim
+- scientific review packets and briefs remain internally consistent with fit assessment, parameter manifest, and uncertainty summary artifacts
+- scientific methods dossiers and briefs remain internally consistent with governed claims, aggregate and claim-specific source grounding, highlighted claim digests, claim-specific external corroboration, challenge statuses/questions, support-strength summaries, benchmark coverage, and applicability policy
+- model-family comparison packets and briefs remain internally consistent with the shared scenario, fit assessments, surface deltas, and equation traces
+- model-family comparison review previews, packets, and briefs remain internally consistent with the governed comparison profile, comparison packet, and assessor-facing checklist guidance
+- scientific review profiles remain declared for every supported model family, with valid checklist templates and summary templates
+- scientific review outcome templates and driver-action templates remain declared for every supported scientific review profile
+- scientific review status and outcome previews remain consistent with packet-level status, outcome, governing-rule, and recommended-action lines
+- downstream concentration bundles parse without ad hoc mapping
+- regulatory handoff consumer aliases remain conflict-free after normalization
+- regulatory handoff preview and export selectors remain consistent
+- regulatory handoff target modules remain consistent with governed profile mappings
+- regulatory handoff summary artifacts remain consistent with the exported package and governed profile
+- regulatory handoff review packets remain internally consistent with preview, package, and summary artifacts
+- regulatory handoff review briefs remain consistent with governed review packets and profile-level checklist guidance
+- assessor-facing regulatory handoff artifacts preserve applicability, parameter-quality, and uncertainty summary lines when a matched scenario is supplied
+- adapter normalization fixtures remain equivalent across supported import paths
+- known limitations are published explicitly
+- failure modes remain machine-readable

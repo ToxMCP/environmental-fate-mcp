@@ -1,0 +1,106 @@
+{
+  "schema_version": "v1",
+  "profiles": [
+    {
+      "profile_id": "normalized_external_payload_json",
+      "display_name": "Normalized External Payload JSON",
+      "accepted_extensions": [
+        ".json"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "Canonical engine-like JSON payload consumed directly by the adapter harness."
+    },
+    {
+      "profile_id": "normalized_external_payload_csv",
+      "display_name": "Normalized External Payload CSV",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "Canonical engine-like CSV payload consumed directly by the adapter harness."
+    },
+    {
+      "profile_id": "legacy_screening_desktop_export_v1",
+      "display_name": "Legacy Screening Desktop Export",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "Concrete legacy desktop screening export normalized into Fate MCP concentrations."
+    }
+  ],
+  "fixtures": [
+    {
+      "fixture_name": "illustrative_external_engine_payload_json",
+      "path": "config/adapter-fixtures/illustrative_external_engine_payload.json",
+      "import_profile": "normalized_external_payload_json",
+      "format": "json",
+      "expected_engine_name": "illustrative-external-engine",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "illustrative_external_engine_payload_csv",
+      "path": "config/adapter-fixtures/illustrative_external_engine_payload.csv",
+      "import_profile": "normalized_external_payload_csv",
+      "format": "csv",
+      "expected_engine_name": "illustrative-external-engine",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "illustrative_external_engine_payload_alt_units",
+      "path": "config/adapter-fixtures/illustrative_external_engine_payload_alt_units.csv",
+      "import_profile": "normalized_external_payload_csv",
+      "format": "csv",
+      "expected_engine_name": "illustrative-external-engine",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "legacy_screening_desktop_export",
+      "path": "config/adapter-fixtures/legacy_screening_desktop_export.csv",
+      "import_profile": "legacy_screening_desktop_export_v1",
+      "format": "csv",
+      "expected_engine_name": "legacy-screening-desktop",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "legacy_screening_desktop_export_time_bucket",
+      "path": "config/adapter-fixtures/legacy_screening_desktop_export_time_bucket.csv",
+      "import_profile": "legacy_screening_desktop_export_v1",
+      "format": "csv",
+      "expected_engine_name": "legacy-screening-desktop",
+      "supported_modes": [
+        "time_bucket"
+      ]
+    },
+    {
+      "fixture_name": "legacy_screening_desktop_export_weight_basis",
+      "path": "config/adapter-fixtures/legacy_screening_desktop_export_weight_basis.csv",
+      "import_profile": "legacy_screening_desktop_export_v1",
+      "format": "csv",
+      "expected_engine_name": "legacy-screening-desktop",
+      "supported_modes": [
+        "steady_state"
+      ]
+    }
+  ]
+}

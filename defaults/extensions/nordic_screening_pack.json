@@ -1,0 +1,21 @@
+{
+  "defaultsVersion": "v1",
+  "profiles": [
+    {
+      "regionId": "nordic_screening_extension",
+      "displayName": "Nordic screening extension profile",
+      "compartmentScalars": {
+        "ambient_air": 0.9,
+        "surface_water": 0.7,
+        "agricultural_soil": 0.95,
+        "freshwater_sediment": 0.8
+      },
+      "knownGaps": [
+        "Representative extension pack only",
+        "No snowpack or sea-spray compartments in v0.1"
+      ],
+      "sourcePack": "defaults/extensions/nordic_screening_pack.json",
+      "applicabilityNote": "Illustrative extension hook for cooler-climate screening contexts."
+    }
+  ]
+}

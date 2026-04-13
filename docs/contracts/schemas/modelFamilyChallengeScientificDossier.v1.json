@@ -1,0 +1,776 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilyChallengeReviewBrief": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "review_packet_id": {
+          "title": "Review Packet Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "selection_profile_id": {
+          "title": "Selection Profile Id",
+          "type": "string"
+        },
+        "challenge_review_profile_id": {
+          "title": "Challenge Review Profile Id",
+          "type": "string"
+        },
+        "review_status": {
+          "title": "Review Status",
+          "type": "string"
+        },
+        "selection_recommendation_status": {
+          "$ref": "#/$defs/ModelFamilySelectionStatus"
+        },
+        "selection_review_status": {
+          "title": "Selection Review Status",
+          "type": "string"
+        },
+        "comparison_profile_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Comparison Profile Id"
+        },
+        "comparison_outcome": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ModelFamilyComparisonOutcome"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "comparison_review_status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Comparison Review Status"
+        },
+        "passed_check_count": {
+          "title": "Passed Check Count",
+          "type": "integer"
+        },
+        "total_check_count": {
+          "title": "Total Check Count",
+          "type": "integer"
+        },
+        "review_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Template Used"
+        },
+        "checklist_items": {
+          "items": {
+            "$ref": "#/$defs/ModelFamilyChallengeReviewChecklistItem"
+          },
+          "title": "Checklist Items",
+          "type": "array"
+        },
+        "brief_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Brief Lines",
+          "type": "array"
+        },
+        "triggered_signal_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Triggered Signal Lines",
+          "type": "array"
+        },
+        "dominant_delta_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dominant Delta Lines",
+          "type": "array"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        },
+        "primary_applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Primary Applicability Lines",
+          "type": "array"
+        },
+        "challenge_applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Challenge Applicability Lines",
+          "type": "array"
+        },
+        "comparison_guidance_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Comparison Guidance Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "review_packet_id",
+        "scenario_id",
+        "run_mode",
+        "fit_for_purpose",
+        "selection_profile_id",
+        "challenge_review_profile_id",
+        "review_status",
+        "selection_recommendation_status",
+        "selection_review_status",
+        "passed_check_count",
+        "total_check_count",
+        "brief_lines"
+      ],
+      "title": "ModelFamilyChallengeReviewBrief",
+      "type": "object"
+    },
+    "ModelFamilyChallengeReviewChecklistItem": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale",
+        "status"
+      ],
+      "title": "ModelFamilyChallengeReviewChecklistItem",
+      "type": "object"
+    },
+    "ModelFamilyComparisonOutcome": {
+      "enum": [
+        "comparable_screening_outputs",
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "title": "ModelFamilyComparisonOutcome",
+      "type": "string"
+    },
+    "ModelFamilySelectionStatus": {
+      "enum": [
+        "default_baseline_only",
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "title": "ModelFamilySelectionStatus",
+      "type": "string"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "ScientificReviewBrief": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "review_packet_id": {
+          "title": "Review Packet Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "review_status": {
+          "title": "Review Status",
+          "type": "string"
+        },
+        "review_outcome": {
+          "$ref": "#/$defs/ScientificReviewOutcome"
+        },
+        "passed_check_count": {
+          "title": "Passed Check Count",
+          "type": "integer"
+        },
+        "total_check_count": {
+          "title": "Total Check Count",
+          "type": "integer"
+        },
+        "review_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Template Used"
+        },
+        "checklist_items": {
+          "items": {
+            "$ref": "#/$defs/ScientificReviewChecklistItem"
+          },
+          "title": "Checklist Items",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "outcome_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Outcome Lines",
+          "type": "array"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        },
+        "parameter_quality_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Parameter Quality Lines",
+          "type": "array"
+        },
+        "applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicability Lines",
+          "type": "array"
+        },
+        "uncertainty_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Uncertainty Lines",
+          "type": "array"
+        },
+        "benchmark_reference_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Benchmark Reference Lines",
+          "type": "array"
+        },
+        "equation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Lines",
+          "type": "array"
+        },
+        "equation_component_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Component Lines",
+          "type": "array"
+        },
+        "mass_balance_component_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Mass Balance Component Lines",
+          "type": "array"
+        },
+        "transport_regime_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Transport Regime Lines",
+          "type": "array"
+        },
+        "loss_dominance_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Loss Dominance Lines",
+          "type": "array"
+        },
+        "loss_transition_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Loss Transition Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "review_packet_id",
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "fit_for_purpose",
+        "review_status",
+        "review_outcome",
+        "passed_check_count",
+        "total_check_count",
+        "summary_lines"
+      ],
+      "title": "ScientificReviewBrief",
+      "type": "object"
+    },
+    "ScientificReviewChecklistItem": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale",
+        "status"
+      ],
+      "title": "ScientificReviewChecklistItem",
+      "type": "object"
+    },
+    "ScientificReviewOutcome": {
+      "enum": [
+        "acceptable_screening_use",
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "title": "ScientificReviewOutcome",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "dossier_id": {
+      "title": "Dossier Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "run_mode": {
+      "$ref": "#/$defs/RunMode"
+    },
+    "fit_for_purpose": {
+      "$ref": "#/$defs/FitForPurpose"
+    },
+    "selection_profile_id": {
+      "title": "Selection Profile Id",
+      "type": "string"
+    },
+    "challenge_review_profile_id": {
+      "title": "Challenge Review Profile Id",
+      "type": "string"
+    },
+    "primary_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "challenge_model_family": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "challenge_review_status": {
+      "title": "Challenge Review Status",
+      "type": "string"
+    },
+    "selection_recommendation_status": {
+      "$ref": "#/$defs/ModelFamilySelectionStatus"
+    },
+    "comparison_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Comparison Profile Id"
+    },
+    "comparison_outcome": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelFamilyComparisonOutcome"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "challenge_review_packet_id": {
+      "title": "Challenge Review Packet Id",
+      "type": "string"
+    },
+    "primary_scientific_review_packet_id": {
+      "title": "Primary Scientific Review Packet Id",
+      "type": "string"
+    },
+    "challenge_scientific_review_packet_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Challenge Scientific Review Packet Id"
+    },
+    "challenge_review_brief": {
+      "$ref": "#/$defs/ModelFamilyChallengeReviewBrief"
+    },
+    "primary_scientific_review_brief": {
+      "$ref": "#/$defs/ScientificReviewBrief"
+    },
+    "challenge_scientific_review_brief": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScientificReviewBrief"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "summary_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Summary Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    },
+    "triggered_signal_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Signal Lines",
+      "type": "array"
+    },
+    "dominant_delta_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dominant Delta Lines",
+      "type": "array"
+    },
+    "primary_equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Primary Equation Lines",
+      "type": "array"
+    },
+    "challenge_equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Challenge Equation Lines",
+      "type": "array"
+    },
+    "primary_benchmark_reference_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Primary Benchmark Reference Lines",
+      "type": "array"
+    },
+    "challenge_benchmark_reference_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Challenge Benchmark Reference Lines",
+      "type": "array"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceBundle"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "run_mode",
+    "fit_for_purpose",
+    "selection_profile_id",
+    "challenge_review_profile_id",
+    "primary_model_family",
+    "challenge_review_status",
+    "selection_recommendation_status",
+    "challenge_review_packet_id",
+    "primary_scientific_review_packet_id",
+    "challenge_review_brief",
+    "primary_scientific_review_brief",
+    "summary_lines",
+    "provenance"
+  ],
+  "title": "ModelFamilyChallengeScientificDossier",
+  "type": "object"
+}

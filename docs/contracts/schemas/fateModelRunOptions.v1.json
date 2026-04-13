@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "run_mode": {
+      "$ref": "#/$defs/RunMode",
+      "default": "steady_state"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily",
+      "default": "reference_mass_balance"
+    },
+    "region_profile_id": {
+      "default": "eu_screening_default",
+      "title": "Region Profile Id",
+      "type": "string"
+    },
+    "fit_for_purpose": {
+      "$ref": "#/$defs/FitForPurpose",
+      "default": "screening"
+    },
+    "bucket_count": {
+      "default": 1,
+      "maximum": 24,
+      "minimum": 1,
+      "title": "Bucket Count",
+      "type": "integer"
+    },
+    "bucket_duration_days": {
+      "default": 7.0,
+      "exclusiveMinimum": 0.0,
+      "title": "Bucket Duration Days",
+      "type": "number"
+    },
+    "requested_media": {
+      "items": {
+        "$ref": "#/$defs/Media"
+      },
+      "title": "Requested Media",
+      "type": "array"
+    }
+  },
+  "title": "FateModelRunOptions",
+  "type": "object"
+}

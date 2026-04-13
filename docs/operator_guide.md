@@ -1,0 +1,99 @@
+# Fate MCP Operator Guide
+
+Fate MCP accepts environmental release scenarios and returns concentration surfaces for downstream use. The module is deterministic-first and auditable-first.
+
+## Supported workflows
+
+- build environmental release scenarios
+- attach evidence-backed parameter records
+- estimate multimedia concentrations
+- assess model-family applicability for a scenario/run pair
+- recommend whether to keep the default model-family baseline only or add a governed experimental challenge path
+- preview governed assessor-facing model-family selection review status
+- build assessor-facing model-family selection review packets
+- build assessor-facing model-family selection review briefs
+- preview governed assessor-facing model-family challenge review status
+- build composed assessor-facing model-family challenge review packets
+- build composed assessor-facing model-family challenge review briefs
+- build composed model-family challenge scientific dossiers
+- build composed model-family challenge scientific dossier briefs
+- build run parameter manifests
+- build deterministic run uncertainty summaries
+- build deterministic model-family comparison packets and briefs for matched-scenario review
+- preview governed assessor-facing model-family comparison review status
+- build assessor-facing model-family comparison review packets
+- build assessor-facing model-family comparison review briefs
+- preview governed scientific review outcomes before packet assembly
+- build assessor-facing scientific review packets
+- build assessor-facing scientific review briefs
+- build model-family scientific methods dossiers
+- build model-family scientific methods dossier briefs
+- build concentration bundles
+- compare fate scenarios
+- reconcile competing release evidence into a reviewable screening scenario
+- export downstream concentration packages
+- recommend governed regulatory handoff profiles for named downstream consumers
+- preview regulatory handoff resolution before export
+- export regulatory handoff crosswalk packages
+- summarize regulatory handoff packages for downstream review
+- build assessor-facing regulatory handoff review packets
+- build deterministic assessor-facing regulatory handoff review briefs
+- inspect governed handoff profiles, target matrices, consumer alias manifests, and adapter unit-conversion defaults
+- inspect governed model-family applicability profiles
+- inspect governed model-family selection profiles
+- inspect governed model-family challenge review profiles
+- inspect governed model-family comparison profiles
+- inspect governed scientific review profiles
+- inspect governed scientific validation claims and benchmark claim-coverage manifests
+- inspect governed scientific reference cases
+- inspect model-family scientific methods through governed dossier workflows, including source-grounding lines, claim-specific highlighted grounding lines, reference-case grounding lines, and benchmark support-strength summaries
+- inspect highlighted claim digests in the scientific methods dossier when you need a compact per-claim view of support strength, source grounding, reference-case concepts, and benchmark anchors
+- use highlighted claim challenge status, challenge lines, and reviewer questions when you need an assessor-facing prompt for how to challenge a high-risk claim
+- use highlighted claim external corroboration lines when you need to show which independent official sources are backing a published high-risk claim
+- use highlighted claim external corroboration status and jurisdictions when you need to show whether a claim is backed by one official source or by broader multi-jurisdiction external grounding
+- treat a highlighted claim with `single_official_source` or `none` corroboration status as challenge-worthy even when the benchmark matrix is otherwise strong
+- use highlighted claim corroboration actions when you need the shortest reviewer-facing answer to “what would strengthen this claim next?”
+- use the dossier and brief `recommended_actions` first when you need the shortest prioritized list of scientific follow-up work, because they now lift the strongest claim-specific corroboration actions out of the digest layer
+- use `recommended_action_summaries` when you need to separate promotion-blocking follow-up from general scientific hardening work without reading the free-text action wording
+- use dossier and brief `promotion_status`, `blocking_action_count`, and `strengthening_action_count` when you need the shortest machine-readable answer to whether the current claim set is blocked, merely being strengthened, or ready
+- use `promotion_blocker_summaries` and `promotion_blocker_claim_ids` when you need the shortest machine-readable answer to what is actually blocking promotion and which governed claims those blockers attach to
+- interpret `strengthening_only` on an experimental dossier as “the current governed bar is met, but the family remains non-default and should still accumulate independent support”
+- inspect claim-specific reference-case concept lines in the scientific methods dossier when you need to explain what each governed case family is actually corroborating
+- inspect claim-specific source-grounding lines in the scientific methods dossier when you need to explain which official sources are grounding a published claim
+- inspect scientific review `equation_component_lines` when you need the shortest run-level explanation of whether degradation or advective clearance is dominating the resolved loss term
+- inspect scientific review `mass_balance_component_lines` when you need the shortest run-level explanation of how emitted mass partitions into retained, degraded, and advected components
+- inspect scientific review `transport_regime_lines` when you need the shortest run-level explanation of whether a residence-time-driven run is flow-through, intermediate-turnover, or storage-dominant
+- inspect scientific review `transport_regime_lines` when you need turnover-boundary distance or finite-plateau context for a residence-time-driven run, not just the regime label itself
+- inspect scientific review `loss_dominance_lines` when you need the shortest run-level answer to whether an advective result is degradation-dominant, clearance-dominant, or mixed-loss
+- inspect scientific review `loss_transition_lines` when you need the shortest run-level answer to whether an advective result is near a degradation/clearance flip or safely inside one loss regime
+- inspect scientific methods dossier highlighted-claim regime-stability fields when you need the shortest claim-level answer to whether a governed advective claim is anchored in a stable regime or a transition zone
+- inspect scientific methods dossier highlighted-claim transport-stability fields when you need the shortest claim-level answer to whether a governed advective claim is anchored in a stable transport regime or close to a turnover boundary
+- treat highlighted claim `regime_transition` recommended actions as the default next step for near-parity advective claims, because those claims are telling you to stress-test the loss-dominance boundary rather than only accept the anchor cases
+- inspect the scientific methods dossier `External corroboration breadth:` summary line when you need a fast answer to how much of the filtered claim set is grounded by multi-official multi-jurisdiction support
+- treat the governed transition-directionality claim as the quickest diagnostic for whether small half-life or residence-time shifts around the advective near-parity boundary behave in the expected direction
+- treat a mandatory baseline reference-family claim without multi-case grounding as a scientific-release concern, not just a documentation gap
+- treat a mandatory baseline reference-family claim that is still single-anchor or single-tier as a scientific-release concern as well
+- treat single-case grounding on a high-priority experimental claim as a release concern even if benchmark coverage is otherwise green
+- treat single-case grounding on a medium-priority experimental edge claim as a release concern as well, especially for clearance and duration challenges
+- distinguish multi-anchor support from true multi-tier corroboration when challenging experimental advective claims
+- compare the default `reference_mass_balance` family against the experimental `advective_screening_mass_balance` family when residence-time clearance matters
+- challenge the experimental advective family with paired long-duration, long-residence, short-residence, and post-release bucket anchors before treating it as more than a governed challenge family
+- use MCP prompts to generate profile-specific or consumer-specific handoff request, summary, and review guidance
+- use MCP prompts to generate profile-specific model-family comparison request and summary guidance
+- use MCP prompts to generate governed model-family selection guidance
+- use MCP prompts to generate governed model-family selection review guidance
+- use MCP prompts to generate governed model-family challenge review guidance
+- use MCP prompts to generate composed model-family challenge scientific dossier guidance
+- use MCP prompts to generate model-family-specific scientific review guidance
+- use MCP prompts to generate model-family scientific methods dossier guidance
+- use MCP prompts to generate governed model-family comparison review guidance
+- use scientific review outcomes, review-status rule lines, governing-rule lines, and recommended-action lines to decide whether a run is acceptable, qualified, or should be escalated
+
+## Not supported in v0.1
+
+- direct human dose calculation
+- dietary intake workflows
+- PBPK execution
+- final risk characterization
+- full GIS dispersion
+- unrestricted probabilistic simulation

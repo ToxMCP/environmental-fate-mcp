@@ -1,0 +1,26 @@
+{
+  "scenario_id": "scenario-de42296cc220",
+  "selection_profile_id": "reference_baseline_advective_challenge_v1",
+  "recommendation_status": "default_with_experimental_challenge",
+  "primary_model_family": "reference_mass_balance",
+  "challenge_model_family": "advective_screening_mass_balance",
+  "review_status": "model_family_selection_review_attention_needed",
+  "triggered_check_codes": [],
+  "governing_rule_lines": [
+    "Attention is required because recommendation status default_with_experimental_challenge is governed as attention-worthy.",
+    "Attention is required because challenge model family advective_screening_mass_balance is published as experimental."
+  ],
+  "status_rule_lines": [
+    "Attention required because governed selection-review policy was triggered."
+  ],
+  "triggered_signal_lines": [
+    "Scenario duration 30 day meets or exceeds the governed challenge threshold of 30 day."
+  ],
+  "recommended_actions": [
+    "Use reference_mass_balance as the baseline run and compare it against advective_screening_mass_balance using comparison profile reference_vs_advective_screening_v1.",
+    "Treat the advective family as experimental and non-default even when it is recommended as a challenge path.",
+    "Use the governed comparison profile to compare reference and advective outputs before carrying the candidate family into assessor-facing review.",
+    "Do not skip the reference baseline when a challenge family is recommended.",
+    "Keep the selection recommendation in assessor-facing attention status until the governed challenge-path, applicability, or packet-check concerns are resolved."
+  ]
+}

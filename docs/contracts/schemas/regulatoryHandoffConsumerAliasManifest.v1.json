@@ -1,0 +1,105 @@
+{
+  "$defs": {
+    "RegulatoryHandoffConsumerAlias": {
+      "additionalProperties": false,
+      "properties": {
+        "normalized_alias": {
+          "title": "Normalized Alias",
+          "type": "string"
+        },
+        "alias_variants": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Alias Variants",
+          "type": "array"
+        },
+        "profile_id": {
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "target_module": {
+          "title": "Target Module",
+          "type": "string"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        }
+      },
+      "required": [
+        "normalized_alias",
+        "profile_id",
+        "target_module",
+        "source_pack"
+      ],
+      "title": "RegulatoryHandoffConsumerAlias",
+      "type": "object"
+    },
+    "RegulatoryHandoffConsumerAliasConflict": {
+      "additionalProperties": false,
+      "properties": {
+        "normalized_alias": {
+          "title": "Normalized Alias",
+          "type": "string"
+        },
+        "alias_variants": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Alias Variants",
+          "type": "array"
+        },
+        "profile_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Profile Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "normalized_alias"
+      ],
+      "title": "RegulatoryHandoffConsumerAliasConflict",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "alias_count": {
+      "title": "Alias Count",
+      "type": "integer"
+    },
+    "conflict_count": {
+      "title": "Conflict Count",
+      "type": "integer"
+    },
+    "aliases": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryHandoffConsumerAlias"
+      },
+      "title": "Aliases",
+      "type": "array"
+    },
+    "conflicts": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryHandoffConsumerAliasConflict"
+      },
+      "title": "Conflicts",
+      "type": "array"
+    }
+  },
+  "required": [
+    "alias_count",
+    "conflict_count",
+    "aliases"
+  ],
+  "title": "RegulatoryHandoffConsumerAliasManifest",
+  "type": "object"
+}

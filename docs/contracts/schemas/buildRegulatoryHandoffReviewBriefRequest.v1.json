@@ -1,0 +1,1239 @@
+{
+  "$defs": {
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "RegulatoryCrosswalkEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "source_surface_id": {
+          "title": "Source Surface Id",
+          "type": "string"
+        },
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "time_window": {
+          "$ref": "#/$defs/TimeWindow"
+        },
+        "semantic_label": {
+          "title": "Semantic Label",
+          "type": "string"
+        },
+        "downstream_field": {
+          "title": "Downstream Field",
+          "type": "string"
+        },
+        "route_hint": {
+          "title": "Route Hint",
+          "type": "string"
+        },
+        "equation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Id"
+        },
+        "equation_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Text"
+        },
+        "requires_dose_translation": {
+          "default": true,
+          "title": "Requires Dose Translation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "source_surface_id",
+        "medium",
+        "compartment",
+        "concentration_value",
+        "concentration_unit",
+        "time_window",
+        "semantic_label",
+        "downstream_field",
+        "route_hint"
+      ],
+      "title": "RegulatoryCrosswalkEntry",
+      "type": "object"
+    },
+    "RegulatoryHandoffEntrySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "source_surface_id": {
+          "title": "Source Surface Id",
+          "type": "string"
+        },
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "downstream_field": {
+          "title": "Downstream Field",
+          "type": "string"
+        },
+        "route_hint": {
+          "title": "Route Hint",
+          "type": "string"
+        },
+        "time_window_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "equation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Id"
+        },
+        "equation_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Text"
+        }
+      },
+      "required": [
+        "source_surface_id",
+        "medium",
+        "compartment",
+        "concentration_value",
+        "concentration_unit",
+        "downstream_field",
+        "route_hint",
+        "time_window_mode"
+      ],
+      "title": "RegulatoryHandoffEntrySummary",
+      "type": "object"
+    },
+    "RegulatoryHandoffPackage": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "package_id": {
+          "title": "Package Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "handoff_profile_id": {
+          "title": "Handoff Profile Id",
+          "type": "string"
+        },
+        "profile_resolution_method": {
+          "title": "Profile Resolution Method",
+          "type": "string"
+        },
+        "profile_resolution_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profile Resolution Basis"
+        },
+        "profile_resolution_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profile Resolution Confidence"
+        },
+        "source_module": {
+          "title": "Source Module",
+          "type": "string"
+        },
+        "source_model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "target_modules": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Target Modules",
+          "type": "array"
+        },
+        "crosswalk_entries": {
+          "items": {
+            "$ref": "#/$defs/RegulatoryCrosswalkEntry"
+          },
+          "title": "Crosswalk Entries",
+          "type": "array"
+        },
+        "parameter_manifest": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RunParameterManifest"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "uncertainty_summary": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RunUncertaintySummary"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "handoff_profile_id",
+        "profile_resolution_method",
+        "source_module",
+        "source_model_family",
+        "target_modules",
+        "crosswalk_entries",
+        "provenance"
+      ],
+      "title": "RegulatoryHandoffPackage",
+      "type": "object"
+    },
+    "RegulatoryHandoffPackageSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "package_id": {
+          "title": "Package Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "handoff_profile_id": {
+          "title": "Handoff Profile Id",
+          "type": "string"
+        },
+        "target_module": {
+          "title": "Target Module",
+          "type": "string"
+        },
+        "entry_count": {
+          "title": "Entry Count",
+          "type": "integer"
+        },
+        "downstream_field": {
+          "title": "Downstream Field",
+          "type": "string"
+        },
+        "time_window_modes": {
+          "items": {
+            "$ref": "#/$defs/RunMode"
+          },
+          "title": "Time Window Modes",
+          "type": "array"
+        },
+        "route_hints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Route Hints",
+          "type": "array"
+        },
+        "mediums": {
+          "items": {
+            "$ref": "#/$defs/Media"
+          },
+          "title": "Mediums",
+          "type": "array"
+        },
+        "compartments": {
+          "items": {
+            "$ref": "#/$defs/Compartment"
+          },
+          "title": "Compartments",
+          "type": "array"
+        },
+        "requires_dose_translation": {
+          "title": "Requires Dose Translation",
+          "type": "boolean"
+        },
+        "summary_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Summary Template Used"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "entry_samples": {
+          "items": {
+            "$ref": "#/$defs/RegulatoryHandoffEntrySummary"
+          },
+          "title": "Entry Samples",
+          "type": "array"
+        },
+        "parameter_quality_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Parameter Quality Lines",
+          "type": "array"
+        },
+        "applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicability Lines",
+          "type": "array"
+        },
+        "equation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "package_id",
+        "scenario_id",
+        "handoff_profile_id",
+        "target_module",
+        "entry_count",
+        "downstream_field",
+        "time_window_modes",
+        "route_hints",
+        "mediums",
+        "compartments",
+        "requires_dose_translation",
+        "summary_lines"
+      ],
+      "title": "RegulatoryHandoffPackageSummary",
+      "type": "object"
+    },
+    "RegulatoryHandoffResolutionPreview": {
+      "additionalProperties": false,
+      "properties": {
+        "requested_profile_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Profile Id"
+        },
+        "consumer_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Consumer Name"
+        },
+        "recommended_profile_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recommended Profile Id"
+        },
+        "resolved_profile_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolved Profile Id"
+        },
+        "resolution_method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolution Method"
+        },
+        "resolution_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolution Basis"
+        },
+        "resolution_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolution Confidence"
+        },
+        "matched_hint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Matched Hint"
+        },
+        "target_module": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Module"
+        },
+        "allowed_target_modules": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Target Modules",
+          "type": "array"
+        },
+        "target_modules_preview": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Target Modules Preview",
+          "type": "array"
+        },
+        "downstream_field": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Downstream Field"
+        },
+        "required_entry_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Entry Fields",
+          "type": "array"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "issues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "tool_request_template": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Request Template"
+        },
+        "response_summary_template": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Response Summary Template"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "RegulatoryHandoffResolutionPreview",
+      "type": "object"
+    },
+    "RegulatoryHandoffReviewCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "passed",
+        "message"
+      ],
+      "title": "RegulatoryHandoffReviewCheck",
+      "type": "object"
+    },
+    "RegulatoryHandoffReviewChecklistItem": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale",
+        "status"
+      ],
+      "title": "RegulatoryHandoffReviewChecklistItem",
+      "type": "object"
+    },
+    "RegulatoryHandoffReviewPacket": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "review_packet_id": {
+          "title": "Review Packet Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "handoff_profile_id": {
+          "title": "Handoff Profile Id",
+          "type": "string"
+        },
+        "target_module": {
+          "title": "Target Module",
+          "type": "string"
+        },
+        "source_model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "review_status": {
+          "title": "Review Status",
+          "type": "string"
+        },
+        "resolution_preview": {
+          "$ref": "#/$defs/RegulatoryHandoffResolutionPreview"
+        },
+        "package": {
+          "$ref": "#/$defs/RegulatoryHandoffPackage"
+        },
+        "summary": {
+          "$ref": "#/$defs/RegulatoryHandoffPackageSummary"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/RegulatoryHandoffReviewCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "review_checklist": {
+          "items": {
+            "$ref": "#/$defs/RegulatoryHandoffReviewChecklistItem"
+          },
+          "title": "Review Checklist",
+          "type": "array"
+        },
+        "parameter_quality_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Parameter Quality Lines",
+          "type": "array"
+        },
+        "applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicability Lines",
+          "type": "array"
+        },
+        "uncertainty_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Uncertainty Lines",
+          "type": "array"
+        },
+        "equation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Lines",
+          "type": "array"
+        },
+        "review_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Template Used"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "handoff_profile_id",
+        "target_module",
+        "source_model_family",
+        "review_status",
+        "resolution_preview",
+        "package",
+        "summary",
+        "checks",
+        "provenance"
+      ],
+      "title": "RegulatoryHandoffReviewPacket",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "RunParameterManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/RunParameterManifestEntry"
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "fit_for_purpose",
+        "entries",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "RunParameterManifest",
+      "type": "object"
+    },
+    "RunParameterManifestEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "resolved_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Resolved Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "evidence_quality": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Quality"
+        },
+        "runtime_consumed": {
+          "title": "Runtime Consumed",
+          "type": "boolean"
+        },
+        "source_reference_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Reference Ids",
+          "type": "array"
+        },
+        "quality_flag_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flag Codes",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "parameter",
+        "resolved_value",
+        "source_classification",
+        "runtime_consumed",
+        "rationale"
+      ],
+      "title": "RunParameterManifestEntry",
+      "type": "object"
+    },
+    "RunUncertaintySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "top_drivers": {
+          "items": {
+            "$ref": "#/$defs/UncertaintyDriver"
+          },
+          "title": "Top Drivers",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "top_drivers",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "RunUncertaintySummary",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "TimeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "bucket_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bucket Label"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "title": "TimeWindow",
+      "type": "object"
+    },
+    "UncertaintyDriver": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "driver_type": {
+          "title": "Driver Type",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "source_reference_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Reference Ids",
+          "type": "array"
+        },
+        "quality_flag_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flag Codes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "driver_type",
+        "reason",
+        "severity"
+      ],
+      "title": "UncertaintyDriver",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "review_packet": {
+      "$ref": "#/$defs/RegulatoryHandoffReviewPacket"
+    }
+  },
+  "required": [
+    "review_packet"
+  ],
+  "title": "BuildRegulatoryHandoffReviewBriefRequest",
+  "type": "object"
+}

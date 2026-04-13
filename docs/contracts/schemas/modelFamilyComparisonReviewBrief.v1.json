@@ -1,0 +1,234 @@
+{
+  "$defs": {
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilyComparisonOutcome": {
+      "enum": [
+        "comparable_screening_outputs",
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "title": "ModelFamilyComparisonOutcome",
+      "type": "string"
+    },
+    "ModelFamilyComparisonReviewChecklistItem": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale",
+        "status"
+      ],
+      "title": "ModelFamilyComparisonReviewChecklistItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "review_packet_id": {
+      "title": "Review Packet Id",
+      "type": "string"
+    },
+    "comparison_packet_id": {
+      "title": "Comparison Packet Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "comparison_profile_id": {
+      "title": "Comparison Profile Id",
+      "type": "string"
+    },
+    "base_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "candidate_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "comparison_outcome": {
+      "$ref": "#/$defs/ModelFamilyComparisonOutcome"
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "passed_check_count": {
+      "title": "Passed Check Count",
+      "type": "integer"
+    },
+    "total_check_count": {
+      "title": "Total Check Count",
+      "type": "integer"
+    },
+    "review_template_used": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Template Used"
+    },
+    "checklist_items": {
+      "items": {
+        "$ref": "#/$defs/ModelFamilyComparisonReviewChecklistItem"
+      },
+      "title": "Checklist Items",
+      "type": "array"
+    },
+    "brief_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Brief Lines",
+      "type": "array"
+    },
+    "dominant_delta_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dominant Delta Lines",
+      "type": "array"
+    },
+    "outcome_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Outcome Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    },
+    "base_applicability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Base Applicability Lines",
+      "type": "array"
+    },
+    "candidate_applicability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Candidate Applicability Lines",
+      "type": "array"
+    },
+    "base_benchmark_reference_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Base Benchmark Reference Lines",
+      "type": "array"
+    },
+    "candidate_benchmark_reference_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Candidate Benchmark Reference Lines",
+      "type": "array"
+    },
+    "base_equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Base Equation Lines",
+      "type": "array"
+    },
+    "candidate_equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Candidate Equation Lines",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "review_packet_id",
+    "comparison_packet_id",
+    "scenario_id",
+    "comparison_profile_id",
+    "base_model_family",
+    "candidate_model_family",
+    "comparison_outcome",
+    "review_status",
+    "passed_check_count",
+    "total_check_count",
+    "brief_lines"
+  ],
+  "title": "ModelFamilyComparisonReviewBrief",
+  "type": "object"
+}

@@ -1,0 +1,783 @@
+{
+  "result": {
+    "surfaces": [
+      {
+        "schema_version": "v1",
+        "surface_id": "surface-6cd00948ce8a",
+        "scenario_id": "scenario-de42296cc220",
+        "medium": "air",
+        "compartment": "ambient_air",
+        "geographic_scope": {
+          "region_id": "eu_screening_default",
+          "context_label": "regional_screening",
+          "notes": null
+        },
+        "time_window": {
+          "mode": "steady_state",
+          "start": null,
+          "end": null,
+          "bucket_label": null
+        },
+        "concentration_value": 0.00024044183555505707,
+        "concentration_unit": "mg/m3",
+        "model_family": "reference_mass_balance",
+        "fit_for_purpose": "screening",
+        "provenance": {
+          "schema_version": "v1",
+          "defaults_version": "v1",
+          "algorithm_version": "reference-mass-balance-0.1.0",
+          "generated_at": "2026-04-13T14:35:30.251604Z",
+          "source_references": [
+            {
+              "source_id": "example.release.note",
+              "title": "Illustrative release scenario",
+              "effective_date": "2026-04-08",
+              "url": null
+            }
+          ]
+        },
+        "calculation_trace": {
+          "equation_id": "finite_duration_continuous_release_first_order",
+          "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+          "resolved_terms": [
+            {
+              "name": "release_rate_mg_per_day",
+              "value": 83333.33333333333,
+              "unit": "mg/day"
+            },
+            {
+              "name": "capacity_value",
+              "value": 1000000000.0,
+              "unit": "m3"
+            },
+            {
+              "name": "declared_half_life_days",
+              "value": 2.0,
+              "unit": "day"
+            },
+            {
+              "name": "effective_half_life_days",
+              "value": 2.0,
+              "unit": "day"
+            },
+            {
+              "name": "decay_constant_per_day",
+              "value": 0.34657359027997264,
+              "unit": "1/day"
+            },
+            {
+              "name": "loss_characteristic_time_days",
+              "value": 2.8853900817779268,
+              "unit": "day"
+            },
+            {
+              "name": "elapsed_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "emission_duration_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "active_emission_duration_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "emitted_mass_to_elapsed_mg",
+              "value": 2500000.0,
+              "unit": "mg"
+            },
+            {
+              "name": "compartment_mass_at_elapsed_mg",
+              "value": 240441.83555505707,
+              "unit": "mg"
+            },
+            {
+              "name": "cumulative_degraded_mass_mg",
+              "value": 2259558.164444943,
+              "unit": "mg"
+            },
+            {
+              "name": "cumulative_advected_mass_mg",
+              "value": 0.0,
+              "unit": "mg"
+            },
+            {
+              "name": "mass_balance_closure_error_mg",
+              "value": 0.0,
+              "unit": "mg"
+            },
+            {
+              "name": "medium_release_fraction",
+              "value": 0.2,
+              "unit": "fraction"
+            },
+            {
+              "name": "effective_total_release_mass_kg",
+              "value": 12.5,
+              "unit": "kg"
+            },
+            {
+              "name": "region_scalar",
+              "value": 1.0,
+              "unit": "scalar"
+            }
+          ],
+          "notes": [
+            "steady_state outputs represent end-of-duration screening concentration, not an infinite-time equilibrium.",
+            "Air, soil, and sediment concentrations remain in the compartment-native screening unit."
+          ]
+        },
+        "quality_flags": [],
+        "limitations": [
+          {
+            "code": "screening_model",
+            "message": "Reference plugin is deterministic and screening-oriented."
+          },
+          {
+            "code": "screening_model",
+            "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+          },
+          {
+            "code": "finite_duration_screening_kernel",
+            "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+          }
+        ]
+      },
+      {
+        "schema_version": "v1",
+        "surface_id": "surface-24ede100229c",
+        "scenario_id": "scenario-de42296cc220",
+        "medium": "water",
+        "compartment": "surface_water",
+        "geographic_scope": {
+          "region_id": "eu_screening_default",
+          "context_label": "regional_screening",
+          "notes": null
+        },
+        "time_window": {
+          "mode": "steady_state",
+          "start": null,
+          "end": null,
+          "bucket_label": null
+        },
+        "concentration_value": 5.93830089619883e-06,
+        "concentration_unit": "mg/L",
+        "model_family": "reference_mass_balance",
+        "fit_for_purpose": "screening",
+        "provenance": {
+          "schema_version": "v1",
+          "defaults_version": "v1",
+          "algorithm_version": "reference-mass-balance-0.1.0",
+          "generated_at": "2026-04-13T14:35:30.251664Z",
+          "source_references": [
+            {
+              "source_id": "example.release.note",
+              "title": "Illustrative release scenario",
+              "effective_date": "2026-04-08",
+              "url": null
+            }
+          ]
+        },
+        "calculation_trace": {
+          "equation_id": "finite_duration_continuous_release_first_order",
+          "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+          "resolved_terms": [
+            {
+              "name": "release_rate_mg_per_day",
+              "value": 208333.33333333334,
+              "unit": "mg/day"
+            },
+            {
+              "name": "capacity_value",
+              "value": 500000000.0,
+              "unit": "m3"
+            },
+            {
+              "name": "declared_half_life_days",
+              "value": 12.0,
+              "unit": "day"
+            },
+            {
+              "name": "effective_half_life_days",
+              "value": 12.0,
+              "unit": "day"
+            },
+            {
+              "name": "decay_constant_per_day",
+              "value": 0.057762265046662105,
+              "unit": "1/day"
+            },
+            {
+              "name": "loss_characteristic_time_days",
+              "value": 17.312340490667562,
+              "unit": "day"
+            },
+            {
+              "name": "elapsed_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "emission_duration_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "active_emission_duration_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "emitted_mass_to_elapsed_mg",
+              "value": 6250000.0,
+              "unit": "mg"
+            },
+            {
+              "name": "compartment_mass_at_elapsed_mg",
+              "value": 2969150.448099415,
+              "unit": "mg"
+            },
+            {
+              "name": "cumulative_degraded_mass_mg",
+              "value": 3280849.551900585,
+              "unit": "mg"
+            },
+            {
+              "name": "cumulative_advected_mass_mg",
+              "value": 0.0,
+              "unit": "mg"
+            },
+            {
+              "name": "mass_balance_closure_error_mg",
+              "value": 0.0,
+              "unit": "mg"
+            },
+            {
+              "name": "medium_release_fraction",
+              "value": 0.5,
+              "unit": "fraction"
+            },
+            {
+              "name": "effective_total_release_mass_kg",
+              "value": 12.5,
+              "unit": "kg"
+            },
+            {
+              "name": "region_scalar",
+              "value": 1.0,
+              "unit": "scalar"
+            }
+          ],
+          "notes": [
+            "steady_state outputs represent end-of-duration screening concentration, not an infinite-time equilibrium.",
+            "Water concentrations are converted from mg/m3 to mg/L by dividing the resolved screening concentration by 1000."
+          ]
+        },
+        "quality_flags": [],
+        "limitations": [
+          {
+            "code": "screening_model",
+            "message": "Reference plugin is deterministic and screening-oriented."
+          },
+          {
+            "code": "screening_model",
+            "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+          },
+          {
+            "code": "finite_duration_screening_kernel",
+            "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+          }
+        ]
+      },
+      {
+        "schema_version": "v1",
+        "surface_id": "surface-346da5e026b3",
+        "scenario_id": "scenario-de42296cc220",
+        "medium": "soil",
+        "compartment": "agricultural_soil",
+        "geographic_scope": {
+          "region_id": "eu_screening_default",
+          "context_label": "regional_screening",
+          "notes": null
+        },
+        "time_window": {
+          "mode": "steady_state",
+          "start": null,
+          "end": null,
+          "bucket_label": null
+        },
+        "concentration_value": 0.0010820212806667226,
+        "concentration_unit": "mg/kg",
+        "model_family": "reference_mass_balance",
+        "fit_for_purpose": "screening",
+        "provenance": {
+          "schema_version": "v1",
+          "defaults_version": "v1",
+          "algorithm_version": "reference-mass-balance-0.1.0",
+          "generated_at": "2026-04-13T14:35:30.251716Z",
+          "source_references": [
+            {
+              "source_id": "example.release.note",
+              "title": "Illustrative release scenario",
+              "effective_date": "2026-04-08",
+              "url": null
+            }
+          ]
+        },
+        "calculation_trace": {
+          "equation_id": "finite_duration_continuous_release_first_order",
+          "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+          "resolved_terms": [
+            {
+              "name": "release_rate_mg_per_day",
+              "value": 125000.0,
+              "unit": "mg/day"
+            },
+            {
+              "name": "capacity_value",
+              "value": 2500000000.0,
+              "unit": "kg"
+            },
+            {
+              "name": "declared_half_life_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "effective_half_life_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "decay_constant_per_day",
+              "value": 0.023104906018664842,
+              "unit": "1/day"
+            },
+            {
+              "name": "loss_characteristic_time_days",
+              "value": 43.28085122666891,
+              "unit": "day"
+            },
+            {
+              "name": "elapsed_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "emission_duration_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "active_emission_duration_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
+              "name": "emitted_mass_to_elapsed_mg",
+              "value": 3750000.0,
+              "unit": "mg"
+            },
+            {
+              "name": "compartment_mass_at_elapsed_mg",
+              "value": 2705053.2016668064,
+              "unit": "mg"
+            },
+            {
+              "name": "cumulative_degraded_mass_mg",
+              "value": 1044946.7983331936,
+              "unit": "mg"
+            },
+            {
+              "name": "cumulative_advected_mass_mg",
+              "value": 0.0,
+              "unit": "mg"
+            },
+            {
+              "name": "mass_balance_closure_error_mg",
+              "value": 0.0,
+              "unit": "mg"
+            },
+            {
+              "name": "medium_release_fraction",
+              "value": 0.3,
+              "unit": "fraction"
+            },
+            {
+              "name": "effective_total_release_mass_kg",
+              "value": 12.5,
+              "unit": "kg"
+            },
+            {
+              "name": "region_scalar",
+              "value": 1.0,
+              "unit": "scalar"
+            }
+          ],
+          "notes": [
+            "steady_state outputs represent end-of-duration screening concentration, not an infinite-time equilibrium.",
+            "Air, soil, and sediment concentrations remain in the compartment-native screening unit."
+          ]
+        },
+        "quality_flags": [],
+        "limitations": [
+          {
+            "code": "screening_model",
+            "message": "Reference plugin is deterministic and screening-oriented."
+          },
+          {
+            "code": "screening_model",
+            "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+          },
+          {
+            "code": "finite_duration_screening_kernel",
+            "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+          }
+        ]
+      }
+    ],
+    "run_summary": {
+      "schema_version": "v1",
+      "run_id": "run-da1299b77530",
+      "scenario_id": "scenario-de42296cc220",
+      "model_family": "reference_mass_balance",
+      "run_mode": "steady_state",
+      "surfaces_emitted": 3,
+      "assumptions_applied": [
+        {
+          "parameter": "ambient_air_volume_m3",
+          "value": 1000000000.0,
+          "unit": "m3",
+          "source_classification": "curated_default",
+          "rationale": "Capacity used for air concentration calculation.",
+          "source_reference": {
+            "source_id": "screening.default.air.volume",
+            "title": "Regional ambient air screening volume",
+            "effective_date": "2026-04-08",
+            "url": null
+          },
+          "quality_flags": []
+        },
+        {
+          "parameter": "air_half_life_days",
+          "value": 2.0,
+          "unit": "day",
+          "source_classification": "curated_default",
+          "rationale": "Half-life used to attenuate air release over the declared scenario duration.",
+          "source_reference": {
+            "source_id": "screening.default.air.halflife",
+            "title": "Air screening half-life",
+            "effective_date": "2026-04-08",
+            "url": null
+          },
+          "quality_flags": []
+        },
+        {
+          "parameter": "air_region_scalar",
+          "value": 1.0,
+          "unit": "scalar",
+          "source_classification": "derived",
+          "rationale": "Region profile scalar applied to the default compartment capacity.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "air_effective_release_mass_kg",
+          "value": 2.5,
+          "unit": "kg",
+          "source_classification": "derived",
+          "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "air_decay_constant_per_day",
+          "value": 0.34657359027997264,
+          "unit": "1/day",
+          "source_classification": "derived",
+          "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "surface_water_volume_m3",
+          "value": 500000000.0,
+          "unit": "m3",
+          "source_classification": "curated_default",
+          "rationale": "Capacity used for water concentration calculation.",
+          "source_reference": {
+            "source_id": "screening.default.water.volume",
+            "title": "Regional surface water screening volume",
+            "effective_date": "2026-04-08",
+            "url": null
+          },
+          "quality_flags": []
+        },
+        {
+          "parameter": "water_half_life_days",
+          "value": 12.0,
+          "unit": "day",
+          "source_classification": "user_input",
+          "rationale": "User- or evidence-supplied half-life override used to attenuate water release over the declared scenario duration.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "water_region_scalar",
+          "value": 1.0,
+          "unit": "scalar",
+          "source_classification": "derived",
+          "rationale": "Region profile scalar applied to the default compartment capacity.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "water_effective_release_mass_kg",
+          "value": 6.25,
+          "unit": "kg",
+          "source_classification": "derived",
+          "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "water_decay_constant_per_day",
+          "value": 0.057762265046662105,
+          "unit": "1/day",
+          "source_classification": "derived",
+          "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "agricultural_soil_mass_kg",
+          "value": 2500000000.0,
+          "unit": "kg",
+          "source_classification": "curated_default",
+          "rationale": "Capacity used for soil concentration calculation.",
+          "source_reference": {
+            "source_id": "screening.default.soil.mass",
+            "title": "Agricultural soil screening mass",
+            "effective_date": "2026-04-08",
+            "url": null
+          },
+          "quality_flags": []
+        },
+        {
+          "parameter": "soil_half_life_days",
+          "value": 30.0,
+          "unit": "day",
+          "source_classification": "curated_default",
+          "rationale": "Half-life used to attenuate soil release over the declared scenario duration.",
+          "source_reference": {
+            "source_id": "screening.default.soil.halflife",
+            "title": "Soil screening half-life",
+            "effective_date": "2026-04-08",
+            "url": null
+          },
+          "quality_flags": []
+        },
+        {
+          "parameter": "soil_region_scalar",
+          "value": 1.0,
+          "unit": "scalar",
+          "source_classification": "derived",
+          "rationale": "Region profile scalar applied to the default compartment capacity.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "soil_effective_release_mass_kg",
+          "value": 3.75,
+          "unit": "kg",
+          "source_classification": "derived",
+          "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+          "source_reference": null,
+          "quality_flags": []
+        },
+        {
+          "parameter": "soil_decay_constant_per_day",
+          "value": 0.023104906018664842,
+          "unit": "1/day",
+          "source_classification": "derived",
+          "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+          "source_reference": null,
+          "quality_flags": []
+        }
+      ],
+      "warnings": [],
+      "result_metadata": {
+        "status": "completed",
+        "executed_at": "2026-04-13T14:35:30.251727Z",
+        "execution_mode": "synchronous",
+        "result_id": "result-scenario-de42296cc220"
+      }
+    },
+    "assumptions": [
+      {
+        "parameter": "ambient_air_volume_m3",
+        "value": 1000000000.0,
+        "unit": "m3",
+        "source_classification": "curated_default",
+        "rationale": "Capacity used for air concentration calculation.",
+        "source_reference": {
+          "source_id": "screening.default.air.volume",
+          "title": "Regional ambient air screening volume",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_half_life_days",
+        "value": 2.0,
+        "unit": "day",
+        "source_classification": "curated_default",
+        "rationale": "Half-life used to attenuate air release over the declared scenario duration.",
+        "source_reference": {
+          "source_id": "screening.default.air.halflife",
+          "title": "Air screening half-life",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_region_scalar",
+        "value": 1.0,
+        "unit": "scalar",
+        "source_classification": "derived",
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_effective_release_mass_kg",
+        "value": 2.5,
+        "unit": "kg",
+        "source_classification": "derived",
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_decay_constant_per_day",
+        "value": 0.34657359027997264,
+        "unit": "1/day",
+        "source_classification": "derived",
+        "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "surface_water_volume_m3",
+        "value": 500000000.0,
+        "unit": "m3",
+        "source_classification": "curated_default",
+        "rationale": "Capacity used for water concentration calculation.",
+        "source_reference": {
+          "source_id": "screening.default.water.volume",
+          "title": "Regional surface water screening volume",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "water_half_life_days",
+        "value": 12.0,
+        "unit": "day",
+        "source_classification": "user_input",
+        "rationale": "User- or evidence-supplied half-life override used to attenuate water release over the declared scenario duration.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "water_region_scalar",
+        "value": 1.0,
+        "unit": "scalar",
+        "source_classification": "derived",
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "water_effective_release_mass_kg",
+        "value": 6.25,
+        "unit": "kg",
+        "source_classification": "derived",
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "water_decay_constant_per_day",
+        "value": 0.057762265046662105,
+        "unit": "1/day",
+        "source_classification": "derived",
+        "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "agricultural_soil_mass_kg",
+        "value": 2500000000.0,
+        "unit": "kg",
+        "source_classification": "curated_default",
+        "rationale": "Capacity used for soil concentration calculation.",
+        "source_reference": {
+          "source_id": "screening.default.soil.mass",
+          "title": "Agricultural soil screening mass",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_half_life_days",
+        "value": 30.0,
+        "unit": "day",
+        "source_classification": "curated_default",
+        "rationale": "Half-life used to attenuate soil release over the declared scenario duration.",
+        "source_reference": {
+          "source_id": "screening.default.soil.halflife",
+          "title": "Soil screening half-life",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_region_scalar",
+        "value": 1.0,
+        "unit": "scalar",
+        "source_classification": "derived",
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_effective_release_mass_kg",
+        "value": 3.75,
+        "unit": "kg",
+        "source_classification": "derived",
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_decay_constant_per_day",
+        "value": 0.023104906018664842,
+        "unit": "1/day",
+        "source_classification": "derived",
+        "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+        "source_reference": null,
+        "quality_flags": []
+      }
+    ]
+  }
+}

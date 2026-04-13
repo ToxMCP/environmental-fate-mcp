@@ -1,0 +1,102 @@
+{
+  "schema_version": "v1",
+  "review_packet_id": "regreview-e2b48f88119c",
+  "scenario_id": "scenario-de42296cc220",
+  "handoff_profile_id": "exposure_scenario_mcp_v1",
+  "target_module": "Direct-Use Exposure MCP",
+  "review_status": "ready_for_assessor_review",
+  "passed_check_count": 5,
+  "total_check_count": 5,
+  "review_template_used": "Build a concise assessor review brief that confirms route hints, time semantics, concentration units, and downstream boundary notes remain intact for Direct-Use Exposure MCP.",
+  "checklist_items": [
+    {
+      "code": "route_hints_preserved",
+      "prompt": "Confirm route_hint values remain available to the downstream exposure module without reinterpretation inside Fate MCP.",
+      "rationale": "Direct-Use Exposure MCP needs route-facing context while preserving Fate MCP's concentration-only boundary.",
+      "status": "ready_for_assessor_confirmation",
+      "evidence_lines": [
+        "Target module: Direct-Use Exposure MCP.",
+        "Downstream field: environmental_media_concentration.",
+        "Route hints: inhalation_precursor, soil_contact_or_crop_uptake_precursor, water_contact_or_drinking_water_precursor.",
+        "Profile resolution: default_profile using exposure_scenario_mcp_v1."
+      ]
+    },
+    {
+      "code": "time_semantics_preserved",
+      "prompt": "Confirm time_window semantics are explicit enough for downstream route-specific use.",
+      "rationale": "Exposure interpretation must preserve steady-state versus time-bucket semantics rather than inferring them ad hoc.",
+      "status": "ready_for_assessor_confirmation",
+      "evidence_lines": [
+        "Crosswalk entry count: 3.",
+        "Time window modes: steady_state.",
+        "Compartments: agricultural_soil, ambient_air, surface_water."
+      ]
+    }
+  ],
+  "brief_lines": [
+    "Build a concise assessor review brief that confirms route hints, time semantics, concentration units, and downstream boundary notes remain intact for Direct-Use Exposure MCP.",
+    "Review status ready_for_assessor_review for target module Direct-Use Exposure MCP under profile exposure_scenario_mcp_v1.",
+    "Technical checks: 5/5 passed.",
+    "[ready_for_assessor_confirmation] Confirm route_hint values remain available to the downstream exposure module without reinterpretation inside Fate MCP.",
+    "Evidence: Target module: Direct-Use Exposure MCP. | Downstream field: environmental_media_concentration. | Route hints: inhalation_precursor, soil_contact_or_crop_uptake_precursor, water_contact_or_drinking_water_precursor. | Profile resolution: default_profile using exposure_scenario_mcp_v1.",
+    "[ready_for_assessor_confirmation] Confirm time_window semantics are explicit enough for downstream route-specific use.",
+    "Evidence: Crosswalk entry count: 3. | Time window modes: steady_state. | Compartments: agricultural_soil, ambient_air, surface_water.",
+    "Parameter quality: 15 parameters were consumed by runtime reference_mass_balance; 1 remain provenance-only for review.",
+    "Parameter quality: Applicability context follows reference_mass_balance for fit-for-purpose screening.",
+    "Parameter quality: 14 entries rely on governed curated-default or derived assumptions; 1 entries remain heuristic.",
+    "Parameter quality: User or evidence-backed parameters: log_kow, water_half_life_days.",
+    "Applicability: Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Applicability: Requested fit-for-purpose: screening.",
+    "Applicability: Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+    "Applicability: Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Applicability: Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
+    "Uncertainty: 5 deterministic uncertainty drivers were ranked for reference_mass_balance.",
+    "Uncertainty: These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
+    "Uncertainty: Top drivers: release_fractions (multi_medium_simplification_burden), agricultural_soil_mass_kg (default_screening_capacity), ambient_air_volume_m3 (default_screening_capacity), surface_water_volume_m3 (default_screening_capacity), log_kow (unsupported_runtime_parameter).",
+    "Equation trace: agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Equation trace: ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Equation trace: surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Limitations: Crosswalk exports concentrations only; downstream modules must perform route translation and dose calculation.; Crosswalk fields express ToxMCP handoff semantics, not final regulatory conclusions.; Crosswalk exported using governed handoff profile exposure_scenario_mcp_v1.; Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
+  ],
+  "parameter_quality_lines": [
+    "15 parameters were consumed by runtime reference_mass_balance; 1 remain provenance-only for review.",
+    "Applicability context follows reference_mass_balance for fit-for-purpose screening.",
+    "14 entries rely on governed curated-default or derived assumptions; 1 entries remain heuristic.",
+    "User or evidence-backed parameters: log_kow, water_half_life_days."
+  ],
+  "applicability_lines": [
+    "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Requested fit-for-purpose: screening.",
+    "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+    "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+  ],
+  "uncertainty_lines": [
+    "5 deterministic uncertainty drivers were ranked for reference_mass_balance.",
+    "These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
+    "Top drivers: release_fractions (multi_medium_simplification_burden), agricultural_soil_mass_kg (default_screening_capacity), ambient_air_volume_m3 (default_screening_capacity), surface_water_volume_m3 (default_screening_capacity), log_kow (unsupported_runtime_parameter)."
+  ],
+  "equation_lines": [
+    "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+  ],
+  "limitations": [
+    {
+      "code": "concentration_only",
+      "message": "Crosswalk exports concentrations only; downstream modules must perform route translation and dose calculation."
+    },
+    {
+      "code": "suite_handoff_semantics",
+      "message": "Crosswalk fields express ToxMCP handoff semantics, not final regulatory conclusions."
+    },
+    {
+      "code": "handoff_profile",
+      "message": "Crosswalk exported using governed handoff profile exposure_scenario_mcp_v1."
+    },
+    {
+      "code": "handoff_profile_resolution",
+      "message": "Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
+    }
+  ]
+}
