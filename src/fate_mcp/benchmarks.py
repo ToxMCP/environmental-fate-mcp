@@ -2038,7 +2038,10 @@ BENCHMARK_FIXTURES = [
         "expected_behavior": "Advective time-bucket outputs decay after release ends according to the governed combined degradation-plus-clearance loss term.",
         "tolerance_rationale": "The post-release bucket anchor is deterministic and directly traceable to the governed advective bucket equation.",
         "tolerance": 1e-12,
-        "scientific_claim_ids": ["advective_time_bucket_elapsed_time_v1"],
+        "scientific_claim_ids": [
+            "advective_time_bucket_elapsed_time_v1",
+            "advective_post_release_flushing_recovery_v1",
+        ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release decay"},
             "total_release_mass_kg": 10.0,
@@ -2079,6 +2082,158 @@ BENCHMARK_FIXTURES = [
                 "bucket_label": "bucket_4",
                 "value": 4.907967593147857e-06,
                 "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_4",
+                "terms": {
+                    "post_release_elapsed_days": 10.0,
+                    "post_release_retained_fraction_of_release_stop_mass": 0.38209037278928565,
+                    "post_release_removed_fraction_of_release_stop_mass": 0.6179096272107143,
+                    "post_release_degraded_fraction_of_release_stop_mass": 0.2967835309602801,
+                    "post_release_advected_fraction_of_release_stop_mass": 0.3211260962504342,
+                    "post_release_elapsed_turnover_count": 0.5,
+                    "post_release_flushing_boundary_offset_turnovers": -0.5
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "advective_post_release_recovery_reference_fixture",
+        "category": "reference_chemical_style",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked advective water time-bucket case expressed directly in release-stop mass recovery terms, anchoring post-release retained, degraded, and advected mass fractions under a bounded flowing-water screening regime.",
+        "reference_type": "hand_worked_advective_post_release_recovery_reference_fixture",
+        "expected_behavior": "Post-release advective bucket outputs preserve release-stop retained-mass decline with explicit degraded-versus-advected recovery accounting under a reference-style bounded-transport case.",
+        "tolerance_rationale": "The reference-style post-release recovery case remains analytically traceable because retained mass at release stop and the subsequent combined-loss decay share the same governed closed-form solution.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_time_bucket_elapsed_time_v1",
+            "advective_post_release_flushing_recovery_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective post-release recovery reference"},
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 12.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 8.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Reference-style post-release half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 6.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Reference-style post-release residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "run_mode": "time_bucket",
+            "bucket_count": 5,
+            "bucket_duration_days": 4.0,
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_5",
+                "value": 8.256826719727065e-07,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_5",
+                "terms": {
+                    "post_release_elapsed_days": 8.0,
+                    "post_release_retained_fraction_of_release_stop_mass": 0.1317985690578634,
+                    "post_release_removed_fraction_of_release_stop_mass": 0.8682014309421366,
+                    "post_release_degraded_fraction_of_release_stop_mass": 0.296963809861408,
+                    "post_release_advected_fraction_of_release_stop_mass": 0.5712376210807286,
+                    "post_release_elapsed_turnover_count": 1.3333333333333333,
+                    "post_release_flushing_boundary_offset_turnovers": 0.33333333333333326
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "advective_post_release_recovery_sensitivity_fixture",
+        "category": "parameter_override_sensitivity",
+        "validation_tier": "sensitivity",
+        "scientific_basis": "Hand-worked advective water time-bucket case with a shorter half-life and shorter residence time, corroborating post-release flushing and retained-mass decline under a second recovery window.",
+        "reference_type": "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+        "expected_behavior": "Post-release retained mass declines more aggressively when both degradation and advective clearance strengthen under an alternate recovery-window configuration.",
+        "tolerance_rationale": "The sensitivity companion remains analytically traceable because only the governed loss constants and elapsed recovery window differ from the anchor case.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_post_release_flushing_recovery_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective post-release recovery sensitivity"},
+            "total_release_mass_kg": 12.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 9.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 6.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Sensitivity post-release half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 4.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Sensitivity post-release residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "run_mode": "time_bucket",
+            "bucket_count": 4,
+            "bucket_duration_days": 4.5,
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_4",
+                "value": 2.617289269810636e-07,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_4",
+                "terms": {
+                    "post_release_elapsed_days": 9.0,
+                    "post_release_retained_fraction_of_release_stop_mass": 0.03726425320974901,
+                    "post_release_removed_fraction_of_release_stop_mass": 0.962735746790251,
+                    "post_release_degraded_fraction_of_release_stop_mass": 0.3042739559054851,
+                    "post_release_advected_fraction_of_release_stop_mass": 0.6584617908847659,
+                    "post_release_elapsed_turnover_count": 2.25,
+                    "post_release_flushing_boundary_offset_turnovers": 1.25
+                },
+                "tolerance": 1e-12
             }
         ]
     },

@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "selreview-b2d592a884b6",
-  "scenario_id": "scenario-cfab3831023d",
+  "review_packet_id": "selreview-db24e9a921f9",
+  "scenario_id": "scenario-77bced003de4",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -10,7 +10,7 @@
   "challenge_model_family": "advective_screening_mass_balance",
   "review_status": "model_family_selection_review_attention_needed",
   "review_preview": {
-    "scenario_id": "scenario-cfab3831023d",
+    "scenario_id": "scenario-77bced003de4",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
     "recommendation_status": "default_with_experimental_challenge",
     "primary_model_family": "reference_mass_balance",
@@ -37,7 +37,7 @@
   },
   "selection_recommendation": {
     "schema_version": "v1",
-    "scenario_id": "scenario-cfab3831023d",
+    "scenario_id": "scenario-77bced003de4",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -180,7 +180,7 @@
       "Scenario duration 30 day meets or exceeds the governed challenge threshold of 30 day."
     ],
     "summary_lines": [
-      "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-cfab3831023d.",
+      "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-77bced003de4.",
       "Primary baseline family: reference_mass_balance.",
       "Challenge family: advective_screening_mass_balance.",
       "Primary fit verdict: good_fit (score=0.85).",
@@ -200,7 +200,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T16:37:34.315640Z",
+      "generated_at": "2026-04-13T17:09:27.573923Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -292,7 +292,7 @@
   ],
   "summary_lines": [
     "Build a governed assessor-facing review packet for the model-family selection recommendation, preserving baseline-versus-experimental framing, trigger signals, fit/applicability context, and comparison-path guidance.",
-    "Selection review packet covers scenario scenario-cfab3831023d with baseline reference_mass_balance.",
+    "Selection review packet covers scenario scenario-77bced003de4 with baseline reference_mass_balance.",
     "Recommendation status: default_with_experimental_challenge.",
     "Review status: model_family_selection_review_attention_needed.",
     "Use this selection profile when the corrected reference family remains the suite baseline and the advective family is only a governed experimental challenge path."
@@ -329,7 +329,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T16:37:34.315744Z",
+    "generated_at": "2026-04-13T17:09:27.574022Z",
     "source_references": [
       {
         "source_id": "example.release.note",

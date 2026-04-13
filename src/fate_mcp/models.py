@@ -1068,6 +1068,7 @@ class ScientificReviewPacket(FateBaseModel):
     equation_component_lines: list[str] = Field(default_factory=list)
     mass_balance_component_lines: list[str] = Field(default_factory=list)
     transport_regime_lines: list[str] = Field(default_factory=list)
+    post_release_recovery_lines: list[str] = Field(default_factory=list)
     loss_dominance_lines: list[str] = Field(default_factory=list)
     loss_transition_lines: list[str] = Field(default_factory=list)
     checks: list[ScientificReviewCheck]
@@ -1101,6 +1102,7 @@ class ScientificReviewBrief(FateBaseModel):
     equation_component_lines: list[str] = Field(default_factory=list)
     mass_balance_component_lines: list[str] = Field(default_factory=list)
     transport_regime_lines: list[str] = Field(default_factory=list)
+    post_release_recovery_lines: list[str] = Field(default_factory=list)
     loss_dominance_lines: list[str] = Field(default_factory=list)
     loss_transition_lines: list[str] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)

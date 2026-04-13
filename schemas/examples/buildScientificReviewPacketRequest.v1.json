@@ -1,7 +1,7 @@
 {
   "scenario": {
     "schema_version": "v1",
-    "scenario_id": "scenario-cfab3831023d",
+    "scenario_id": "scenario-77bced003de4",
     "chemical_identity": {
       "preferredName": "Example substance",
       "casrn": "100-00-0"
@@ -63,7 +63,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T16:37:34.302960Z",
+      "generated_at": "2026-04-13T17:09:27.564359Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -85,8 +85,8 @@
     "surfaces": [
       {
         "schema_version": "v1",
-        "surface_id": "surface-0ee52444eba6",
-        "scenario_id": "scenario-cfab3831023d",
+        "surface_id": "surface-ef268545873f",
+        "scenario_id": "scenario-77bced003de4",
         "medium": "air",
         "compartment": "ambient_air",
         "geographic_scope": {
@@ -108,7 +108,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-13T16:37:34.303097Z",
+          "generated_at": "2026-04-13T17:09:27.564485Z",
           "source_references": [
             {
               "source_id": "example.release.note",
@@ -168,6 +168,11 @@
               "unit": "day"
             },
             {
+              "name": "post_release_elapsed_days",
+              "value": 0.0,
+              "unit": "day"
+            },
+            {
               "name": "emitted_mass_to_elapsed_mg",
               "value": 2500000.0,
               "unit": "mg"
@@ -191,6 +196,31 @@
               "name": "mass_balance_closure_error_mg",
               "value": 0.0,
               "unit": "mg"
+            },
+            {
+              "name": "release_stop_compartment_mass_mg",
+              "value": "not_applicable",
+              "unit": "mg"
+            },
+            {
+              "name": "post_release_retained_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_removed_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_degraded_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_advected_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
             },
             {
               "name": "medium_release_fraction",
@@ -231,8 +261,8 @@
       },
       {
         "schema_version": "v1",
-        "surface_id": "surface-7f1db7319c88",
-        "scenario_id": "scenario-cfab3831023d",
+        "surface_id": "surface-9118b3f0c1bc",
+        "scenario_id": "scenario-77bced003de4",
         "medium": "water",
         "compartment": "surface_water",
         "geographic_scope": {
@@ -254,7 +284,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-13T16:37:34.303163Z",
+          "generated_at": "2026-04-13T17:09:27.564552Z",
           "source_references": [
             {
               "source_id": "example.release.note",
@@ -314,6 +344,11 @@
               "unit": "day"
             },
             {
+              "name": "post_release_elapsed_days",
+              "value": 0.0,
+              "unit": "day"
+            },
+            {
               "name": "emitted_mass_to_elapsed_mg",
               "value": 6250000.0,
               "unit": "mg"
@@ -337,6 +372,31 @@
               "name": "mass_balance_closure_error_mg",
               "value": 0.0,
               "unit": "mg"
+            },
+            {
+              "name": "release_stop_compartment_mass_mg",
+              "value": "not_applicable",
+              "unit": "mg"
+            },
+            {
+              "name": "post_release_retained_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_removed_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_degraded_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_advected_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
             },
             {
               "name": "medium_release_fraction",
@@ -377,8 +437,8 @@
       },
       {
         "schema_version": "v1",
-        "surface_id": "surface-17808e20c075",
-        "scenario_id": "scenario-cfab3831023d",
+        "surface_id": "surface-3e2604a03972",
+        "scenario_id": "scenario-77bced003de4",
         "medium": "soil",
         "compartment": "agricultural_soil",
         "geographic_scope": {
@@ -400,7 +460,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-13T16:37:34.303216Z",
+          "generated_at": "2026-04-13T17:09:27.564608Z",
           "source_references": [
             {
               "source_id": "example.release.note",
@@ -460,6 +520,11 @@
               "unit": "day"
             },
             {
+              "name": "post_release_elapsed_days",
+              "value": 0.0,
+              "unit": "day"
+            },
+            {
               "name": "emitted_mass_to_elapsed_mg",
               "value": 3750000.0,
               "unit": "mg"
@@ -483,6 +548,31 @@
               "name": "mass_balance_closure_error_mg",
               "value": 0.0,
               "unit": "mg"
+            },
+            {
+              "name": "release_stop_compartment_mass_mg",
+              "value": "not_applicable",
+              "unit": "mg"
+            },
+            {
+              "name": "post_release_retained_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_removed_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_degraded_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
+            },
+            {
+              "name": "post_release_advected_fraction_of_release_stop_mass",
+              "value": "not_applicable",
+              "unit": "fraction"
             },
             {
               "name": "medium_release_fraction",
@@ -524,8 +614,8 @@
     ],
     "run_summary": {
       "schema_version": "v1",
-      "run_id": "run-fd8b4180c3c0",
-      "scenario_id": "scenario-cfab3831023d",
+      "run_id": "run-a5498dbfca8e",
+      "scenario_id": "scenario-77bced003de4",
       "model_family": "reference_mass_balance",
       "run_mode": "steady_state",
       "surfaces_emitted": 3,
@@ -694,9 +784,9 @@
       "warnings": [],
       "result_metadata": {
         "status": "completed",
-        "executed_at": "2026-04-13T16:37:34.303228Z",
+        "executed_at": "2026-04-13T17:09:27.564619Z",
         "execution_mode": "synchronous",
-        "result_id": "result-scenario-cfab3831023d"
+        "result_id": "result-scenario-77bced003de4"
       }
     },
     "assumptions": [

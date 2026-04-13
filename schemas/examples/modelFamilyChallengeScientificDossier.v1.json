@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "dossier_id": "mfscidossier-9263330965db",
-  "scenario_id": "scenario-cfab3831023d",
+  "dossier_id": "mfscidossier-cba0913f8854",
+  "scenario_id": "scenario-77bced003de4",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -12,13 +12,13 @@
   "selection_recommendation_status": "default_with_experimental_challenge",
   "comparison_profile_id": "reference_vs_advective_screening_v1",
   "comparison_outcome": "material_model_family_divergence",
-  "challenge_review_packet_id": "mfchallenge-2f8936ab0248",
-  "primary_scientific_review_packet_id": "scireview-043a467db7dd",
-  "challenge_scientific_review_packet_id": "scireview-30d596289eb1",
+  "challenge_review_packet_id": "mfchallenge-90bfc2ffa567",
+  "primary_scientific_review_packet_id": "scireview-81442c5da12d",
+  "challenge_scientific_review_packet_id": "scireview-5f5fd31db8f5",
   "challenge_review_brief": {
     "schema_version": "v1",
-    "review_packet_id": "mfchallenge-2f8936ab0248",
-    "scenario_id": "scenario-cfab3831023d",
+    "review_packet_id": "mfchallenge-90bfc2ffa567",
+    "scenario_id": "scenario-77bced003de4",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -72,7 +72,7 @@
     "brief_lines": [
       "Summarize whether the governed model-family challenge review is ready for assessor-facing reuse, preserving selection status, comparison status, dominant deltas, and applicability context.",
       "Build a governed assessor-facing composed challenge review packet that bundles the selection review path and, when triggered, the reference-versus-advective comparison review path without losing baseline-versus-experimental framing.",
-      "Challenge review packet covers scenario scenario-cfab3831023d with baseline reference_mass_balance.",
+      "Challenge review packet covers scenario scenario-77bced003de4 with baseline reference_mass_balance.",
       "Selection recommendation status: default_with_experimental_challenge.",
       "Overall challenge review status: model_family_challenge_review_attention_needed.",
       "This challenge review profile is intended for the composed reference-baseline and advective-challenge assessor workflow inside Fate MCP's concentration-only boundary.",
@@ -161,9 +161,9 @@
   },
   "primary_scientific_review_brief": {
     "schema_version": "v1",
-    "review_packet_id": "scireview-043a467db7dd",
-    "scenario_id": "scenario-cfab3831023d",
-    "run_id": "run-d951feb94c83",
+    "review_packet_id": "scireview-81442c5da12d",
+    "scenario_id": "scenario-77bced003de4",
+    "run_id": "run-763fc672ca9d",
     "model_family": "reference_mass_balance",
     "fit_for_purpose": "screening",
     "review_status": "scientific_review_attention_needed",
@@ -208,7 +208,7 @@
     "summary_lines": [
       "Summarize whether the reference mass-balance run is scientifically reviewable within the declared screening boundary, highlighting applicability, parameter provenance, and top uncertainty drivers.",
       "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
-      "Scientific review packet covers run run-d951feb94c83 for model family reference_mass_balance.",
+      "Scientific review packet covers run run-763fc672ca9d for model family reference_mass_balance.",
       "Fit verdict: good_fit (score=0.85).",
       "Parameter manifest exposes 16 resolved parameters and 5 ranked uncertainty drivers.",
       "Benchmark reference: Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
@@ -226,6 +226,9 @@
       "Transport regime: ambient_air: nonadvective_reference_regime (no residence-time turnover term)",
       "Transport regime: surface_water: nonadvective_reference_regime (no residence-time turnover term)",
       "Transport regime: agricultural_soil: nonadvective_reference_regime (no residence-time turnover term)",
+      "Post-release recovery: ambient_air: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "Post-release recovery: surface_water: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "Post-release recovery: agricultural_soil: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
       "Loss dominance: ambient_air: degradation_only_loss (k_deg=0.3466/day)",
       "Loss dominance: surface_water: degradation_only_loss (k_deg=0.05776/day)",
       "Loss dominance: agricultural_soil: degradation_only_loss (k_deg=0.0231/day)",
@@ -292,6 +295,11 @@
       "surface_water: nonadvective_reference_regime (no residence-time turnover term)",
       "agricultural_soil: nonadvective_reference_regime (no residence-time turnover term)"
     ],
+    "post_release_recovery_lines": [
+      "ambient_air: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "surface_water: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "agricultural_soil: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration)."
+    ],
     "loss_dominance_lines": [
       "ambient_air: degradation_only_loss (k_deg=0.3466/day)",
       "surface_water: degradation_only_loss (k_deg=0.05776/day)",
@@ -327,9 +335,9 @@
   },
   "challenge_scientific_review_brief": {
     "schema_version": "v1",
-    "review_packet_id": "scireview-30d596289eb1",
-    "scenario_id": "scenario-cfab3831023d",
-    "run_id": "run-056e8919aaaa",
+    "review_packet_id": "scireview-5f5fd31db8f5",
+    "scenario_id": "scenario-77bced003de4",
+    "run_id": "run-bae725bfa54e",
     "model_family": "advective_screening_mass_balance",
     "fit_for_purpose": "screening",
     "review_status": "scientific_review_attention_needed",
@@ -374,7 +382,7 @@
     "summary_lines": [
       "Summarize whether the advective screening run is scientifically reviewable within the declared concentration-only screening boundary.",
       "Build a scientific review packet that preserves advective screening scope, residence-time provenance, benchmark context, and deterministic uncertainty drivers.",
-      "Scientific review packet covers run run-056e8919aaaa for model family advective_screening_mass_balance.",
+      "Scientific review packet covers run run-bae725bfa54e for model family advective_screening_mass_balance.",
       "Fit verdict: good_fit (score=0.85).",
       "Parameter manifest exposes 25 resolved parameters and 5 ranked uncertainty drivers.",
       "Benchmark reference: Scientific validation claim coverage for advective_screening_mass_balance/steady_state: 12/12 governed claims covered.",
@@ -398,6 +406,9 @@
       "Transport regime: agricultural_soil: storage_dominant_transport_regime (turnovers_elapsed=0.167, turnovers_emission=0.167, residence_time=180 day)",
       "Transport regime: agricultural_soil: turnover regime remains 0.583 turnover(s) below the storage-to-intermediate boundary.",
       "Transport regime: agricultural_soil: retained mass is at 58 pct of the finite active-emission plateau.",
+      "Post-release recovery: ambient_air: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "Post-release recovery: surface_water: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "Post-release recovery: agricultural_soil: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
       "Loss dominance: ambient_air: mixed_loss_regime (deg_share=51%, adv_share=49%, k_total=0.6799/day)",
       "Loss dominance: surface_water: mixed_loss_regime (deg_share=53.6%, adv_share=46.4%, k_total=0.1078/day)",
       "Loss dominance: agricultural_soil: degradation_dominant (deg_share=80.6%, adv_share=19.4%, k_total=0.02866/day)",
@@ -470,6 +481,11 @@
       "agricultural_soil: turnover regime remains 0.583 turnover(s) below the storage-to-intermediate boundary.",
       "agricultural_soil: retained mass is at 58 pct of the finite active-emission plateau."
     ],
+    "post_release_recovery_lines": [
+      "ambient_air: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "surface_water: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "agricultural_soil: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration)."
+    ],
     "loss_dominance_lines": [
       "ambient_air: mixed_loss_regime (deg_share=51%, adv_share=49%, k_total=0.6799/day)",
       "surface_water: mixed_loss_regime (deg_share=53.6%, adv_share=46.4%, k_total=0.1078/day)",
@@ -505,7 +521,7 @@
   },
   "summary_lines": [
     "Build a composed scientific dossier that couples the governed model-family challenge review path with model-family-specific scientific review packets.",
-    "Challenge review status model_family_challenge_review_attention_needed governs scenario scenario-cfab3831023d.",
+    "Challenge review status model_family_challenge_review_attention_needed governs scenario scenario-77bced003de4.",
     "Primary family reference_mass_balance scientific review outcome: qualified_screening_use.",
     "Challenge family advective_screening_mass_balance scientific review outcome: qualified_screening_use."
   ],
@@ -560,7 +576,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T16:37:34.370280Z",
+    "generated_at": "2026-04-13T17:09:27.608763Z",
     "source_references": [
       {
         "source_id": "example.release.note",

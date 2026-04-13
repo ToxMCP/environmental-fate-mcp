@@ -31,14 +31,17 @@ Minimum validation scope for v0.1:
 - scientific review workflow checks for mass-balance component parity between the packet and brief summary surface, so native retained-versus-loss accounting remains reviewer-visible
 - scientific review workflow checks for transport-regime parity between the packet and brief summary surface, so residence-time regime interpretation remains reviewer-visible
 - scientific review workflow checks for turnover-boundary and finite-plateau transport context inside the transport-regime surface, so bounded transport interpretation remains reviewer-visible
+- scientific review workflow checks for post-release recovery parity between the packet and brief summary surface, so release-stop retained-versus-removed mass interpretation remains reviewer-visible
 - benchmark claim-coverage checks now include advective loss-dominance transition claims backed by trace-term anchors, not just concentration endpoints
 - benchmark claim-coverage checks now also include a governed mixed-loss transition claim backed by trace-term anchors, so near-parity loss splits are explicitly covered rather than inferred from the extreme cases
 - benchmark claim-coverage checks now include a governed transition-directionality claim backed by flip-side sensitivity anchors, so the expected degradation-versus-clearance flip is validated directly rather than inferred from a single mixed-loss point
 - benchmark claim-coverage checks now include a governed cumulative mass-balance closure claim backed by multiple advective loss regimes, so native mass partition accounting is validated directly rather than assumed from the concentration solution
 - benchmark claim-coverage checks now include a governed residence-time turnover-regime claim backed by short-, mixed-, and long-residence anchors, so transport-regime interpretation is validated directly rather than inferred from raw residence time
 - benchmark claim-coverage checks now require a reference-style bounded-transport anchor for the residence-time turnover claim, so transport interpretation is not supported only by edge and sensitivity cases
+- benchmark claim-coverage checks now include a governed post-release flushing/recovery claim backed by edge-condition, reference-style, and sensitivity anchors, so post-release retained-mass decline is validated directly rather than inferred from declining bucket concentrations
 - scientific methods dossier checks now require highlighted claim regime-stability fields and summary lines, so near-parity transition claims remain distinguishable from stable regime anchors in reviewer-facing outputs
 - scientific methods dossier checks now require highlighted claim transport-stability fields and summary lines, so turnover-boundary claims remain distinguishable from stable storage and flow-through anchors
+- scientific methods dossier checks now require post-release recovery support summary lines when the governed advective recovery claim is covered, so release-stop flushing interpretation remains visible at dossier level
 - scientific methods dossier checks now require regime-stability summary lines and preserve claim-specific regime-transition actions, so near-parity claims remain operationally actionable in the review surface
 - scientific methods dossier checks now require claim-summary external corroboration fields and claim-set corroboration breadth summary lines, so external grounding diversity is preserved beyond the highlighted-claim subset
 - schema and example validation

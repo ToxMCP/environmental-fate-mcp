@@ -160,6 +160,41 @@ def test_advective_time_bucket_runtime_is_invariant_to_bucket_partitioning_for_s
     assert two_bucket_result.surfaces[-1].calculation_trace is not None
 
 
+def test_advective_post_release_runtime_emits_recovery_trace_terms() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Advective post-release example"},
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+        )
+    )
+    result = runtime.estimate(
+        scenario,
+        FateModelRunOptions(
+            run_mode="time_bucket",
+            region_profile_id=scenario.geographic_scope.region_id,
+            model_family=ModelFamily.ADVECTIVE_SCREENING_MASS_BALANCE,
+            bucket_count=4,
+            bucket_duration_days=5.0,
+        ),
+    )
+    surface = result.surfaces[-1]
+    term_map = {
+        term.name: term.value for term in surface.calculation_trace.resolved_terms
+    }
+    assert surface.time_window.bucket_label == "bucket_4"
+    assert float(term_map["post_release_elapsed_days"]) == pytest.approx(10.0)
+    assert float(term_map["post_release_elapsed_turnover_count"]) > 0.0
+    assert 0.0 <= float(term_map["post_release_retained_fraction_of_release_stop_mass"]) <= 1.0
+    assert 0.0 <= float(term_map["post_release_removed_fraction_of_release_stop_mass"]) <= 1.0
+    assert float(term_map["post_release_removed_fraction_of_release_stop_mass"]) == pytest.approx(
+        float(term_map["post_release_degraded_fraction_of_release_stop_mass"])
+        + float(term_map["post_release_advected_fraction_of_release_stop_mass"])
+    )
+
+
 def test_executable_pre_release_treatment_reduces_concentration() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     baseline_scenario = runtime.build_environmental_release_scenario(

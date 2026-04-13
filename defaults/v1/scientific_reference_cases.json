@@ -102,6 +102,59 @@
         "Use this case family when a reviewer needs to distinguish elapsed-time decay semantics from arbitrary bucket pagination."
       ]
     },
+    "epa_post_release_flushing_screening_case_family_v1": {
+      "displayName": "EPA post-release flushing screening case family",
+      "modelFamilies": ["advective_screening_mass_balance"],
+      "jurisdictions": ["US"],
+      "sourceType": "official_modeling_guidance_case_family",
+      "summaryLines": [
+        "This governed reference case family anchors post-release flushing and retained-mass decline against EPA environmental model evaluation principles for time-varying screening scenarios.",
+        "It is intended for reviewer-facing discussion of how retained mass should drain after emission stops when a residence-time clearance term remains active."
+      ],
+      "applicabilityLines": [
+        "Appropriate when reviewers need a regulator-recognizable case family for post-release flushing or recovery interpretation in a deterministic flowing-water screening model.",
+        "Not a substitute for routed hydrodynamic transport, downstream travel-time modelling, or site-specific recovery observations."
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "reviewNotes": [
+        "Use this case family to ground post-release retained-mass decline and flushing interpretation without overstating transport realism."
+      ]
+    },
+    "oecd_post_release_recovery_screening_case_family_v1": {
+      "displayName": "OECD post-release recovery screening case family",
+      "modelFamilies": ["advective_screening_mass_balance"],
+      "jurisdictions": ["OECD"],
+      "sourceType": "official_guidance_case_family",
+      "summaryLines": [
+        "This governed reference case family anchors post-release recovery interpretation against OECD degradation-and-accumulation reporting concepts for deterministic screening models.",
+        "It is intended to support reviewer-facing discussion of retained mass decline after active emission stops, including the distinction between mass retained in the compartment and cumulative mass removed."
+      ],
+      "applicabilityLines": [
+        "Appropriate when reviewers need an OECD-recognizable case family for post-release retained-mass decline, degraded mass, and flushed mass interpretation.",
+        "Not a substitute for OECD test execution, measured field recovery data, or full multimedia fate modelling."
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        }
+      ],
+      "reviewNotes": [
+        "Use this case family to explain post-release retained-versus-removed mass interpretation in a regulator-recognizable way without claiming OECD model equivalence."
+      ]
+    },
     "echa_bounded_clearance_edge_case_family_v1": {
       "displayName": "ECHA bounded-clearance edge case family",
       "modelFamilies": ["advective_screening_mass_balance"],

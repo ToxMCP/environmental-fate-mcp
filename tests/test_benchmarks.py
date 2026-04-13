@@ -18,6 +18,9 @@ def test_benchmark_fixtures_pass() -> None:
     assert by_name["advective_flow_through_transport_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_transition_boundary_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_storage_dominant_transport_reference_fixture"]["traceTermComparisons"]
+    assert by_name["advective_post_release_decay_anchor_fixture"]["traceTermComparisons"]
+    assert by_name["advective_post_release_recovery_reference_fixture"]["traceTermComparisons"]
+    assert by_name["advective_post_release_recovery_sensitivity_fixture"]["traceTermComparisons"]
     assert by_name["advective_degradation_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_clearance_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_mixed_loss_transition_anchor_fixture"]["passed"] is True
@@ -25,6 +28,7 @@ def test_benchmark_fixtures_pass() -> None:
     assert by_name["advective_flow_through_transport_reference_fixture"]["passed"] is True
     assert by_name["advective_transition_boundary_reference_fixture"]["passed"] is True
     assert by_name["advective_storage_dominant_transport_reference_fixture"]["passed"] is True
+    assert by_name["advective_post_release_recovery_reference_fixture"]["passed"] is True
 
 
 def test_benchmark_manifest_includes_metadata_for_all_fixtures() -> None:
@@ -64,6 +68,15 @@ def test_benchmark_manifest_includes_metadata_for_all_fixtures() -> None:
         "multi_anchor_single_tier",
         "multi_anchor_multi_tier",
     }
+    assert coverage["advective_post_release_flushing_recovery_v1"]["support_strength"] == "multi_anchor_multi_tier"
+    assert "reference_style" in coverage["advective_post_release_flushing_recovery_v1"]["supporting_validation_tiers"]
+    assert {
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+    }.issubset(
+        set(coverage["advective_post_release_flushing_recovery_v1"]["supporting_reference_types"])
+    )
     assert coverage["advective_degradation_dominant_loss_share_v1"]["support_strength"] == "multi_anchor_multi_tier"
     assert coverage["advective_clearance_dominant_loss_share_v1"]["support_strength"] == "multi_anchor_multi_tier"
     assert coverage["advective_mixed_loss_transition_margin_v1"]["support_strength"] == "multi_anchor_multi_tier"

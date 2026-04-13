@@ -167,6 +167,60 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
         active_emission_turnover_count = active_emission_duration_days * advective_constant_per_day
         storage_boundary_offset_turnovers = elapsed_turnover_count - 0.75
         flow_through_boundary_offset_turnovers = elapsed_turnover_count - 2.0
+        post_release_elapsed_days = max(elapsed_days - scenario.duration_days, 0.0)
+        post_release_elapsed_turnover_count: float | str
+        post_release_flushing_boundary_offset_turnovers: float | str
+        if post_release_elapsed_days > 0.0:
+            release_stop_concentration, _ = self._concentration_at_time(
+                release_rate_mg_per_day=release_rate_mg_per_day,
+                capacity_value=capacity_value,
+                decay_constant_per_day=total_loss_constant_per_day,
+                emission_duration_days=scenario.duration_days,
+                elapsed_days=scenario.duration_days,
+            )
+            release_stop_compartment_mass_mg = release_stop_concentration * capacity_value
+            if release_stop_compartment_mass_mg <= 1e-12:
+                post_release_retained_fraction_of_release_stop_mass = 0.0
+                post_release_removed_fraction_of_release_stop_mass = 0.0
+                post_release_degraded_fraction_of_release_stop_mass = 0.0
+                post_release_advected_fraction_of_release_stop_mass = 0.0
+            else:
+                post_release_retained_fraction_of_release_stop_mass = min(
+                    max(
+                        compartment_mass_at_elapsed_mg / release_stop_compartment_mass_mg,
+                        0.0,
+                    ),
+                    1.0,
+                )
+                post_release_removed_fraction_of_release_stop_mass = min(
+                    max(
+                        1.0 - post_release_retained_fraction_of_release_stop_mass,
+                        0.0,
+                    ),
+                    1.0,
+                )
+                post_release_degraded_fraction_of_release_stop_mass = (
+                    post_release_removed_fraction_of_release_stop_mass
+                    * degradation_loss_share_fraction
+                )
+                post_release_advected_fraction_of_release_stop_mass = (
+                    post_release_removed_fraction_of_release_stop_mass
+                    * advective_clearance_share_fraction
+                )
+            post_release_elapsed_turnover_count = (
+                post_release_elapsed_days * advective_constant_per_day
+            )
+            post_release_flushing_boundary_offset_turnovers = (
+                post_release_elapsed_turnover_count - 1.0
+            )
+        else:
+            release_stop_compartment_mass_mg = "not_applicable"
+            post_release_retained_fraction_of_release_stop_mass = "not_applicable"
+            post_release_removed_fraction_of_release_stop_mass = "not_applicable"
+            post_release_degraded_fraction_of_release_stop_mass = "not_applicable"
+            post_release_advected_fraction_of_release_stop_mass = "not_applicable"
+            post_release_elapsed_turnover_count = "not_applicable"
+            post_release_flushing_boundary_offset_turnovers = "not_applicable"
         finite_plateau_mass_mg: float | str
         retained_mass_fraction_of_finite_plateau: float | str
         if total_loss_constant_per_day <= 1e-12:
@@ -363,6 +417,11 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                     unit="day",
                 ),
                 CalculationTraceTerm(
+                    name="post_release_elapsed_days",
+                    value=post_release_elapsed_days,
+                    unit="day",
+                ),
+                CalculationTraceTerm(
                     name="emitted_mass_to_elapsed_mg",
                     value=emitted_mass_to_elapsed_mg,
                     unit="mg",
@@ -401,6 +460,41 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                     name="mass_balance_closure_error_mg",
                     value=mass_balance_closure_error_mg,
                     unit="mg",
+                ),
+                CalculationTraceTerm(
+                    name="release_stop_compartment_mass_mg",
+                    value=release_stop_compartment_mass_mg,
+                    unit="mg",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_retained_fraction_of_release_stop_mass",
+                    value=post_release_retained_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_removed_fraction_of_release_stop_mass",
+                    value=post_release_removed_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_degraded_fraction_of_release_stop_mass",
+                    value=post_release_degraded_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_advected_fraction_of_release_stop_mass",
+                    value=post_release_advected_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_elapsed_turnover_count",
+                    value=post_release_elapsed_turnover_count,
+                    unit="turnovers",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_flushing_boundary_offset_turnovers",
+                    value=post_release_flushing_boundary_offset_turnovers,
+                    unit="turnovers",
                 ),
                 CalculationTraceTerm(name="medium_release_fraction", value=fraction, unit="fraction"),
                 CalculationTraceTerm(

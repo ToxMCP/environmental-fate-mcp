@@ -49,8 +49,8 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
     registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
     manifest = registry.scientific_validation_claim_manifest()
     claims = {claim.claim_id: claim for claim in manifest.claims}
-    assert manifest.claim_count >= 16
-    assert manifest.mandatory_claim_count >= 16
+    assert manifest.claim_count >= 25
+    assert manifest.mandatory_claim_count >= 17
     assert claims["reference_water_finite_duration_first_order_v1"].model_family.value == "reference_mass_balance"
     assert [mode.value for mode in claims["reference_time_bucket_elapsed_time_v1"].supported_run_modes] == [
         "time_bucket"
@@ -143,6 +143,22 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
         "epa_post_release_decay_bucket_case_family_v1",
         "echa_elapsed_time_flowing_water_screening_case_family_v1",
     ]
+    assert claims["advective_post_release_flushing_recovery_v1"].required_validation_tiers == [
+        "edge_condition",
+        "reference_style",
+        "sensitivity",
+    ]
+    assert claims["advective_post_release_flushing_recovery_v1"].required_reference_types == [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+    ]
+    assert claims["advective_post_release_flushing_recovery_v1"].reference_case_ids == [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+    ]
     assert claims["advective_extreme_persistence_clearance_bound_v1"].reference_case_ids == [
         "advective_clearance_edge_case_family_v1",
         "echa_bounded_clearance_edge_case_family_v1",
@@ -214,7 +230,7 @@ def test_scientific_reference_cases_are_governed_and_resolvable() -> None:
     registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
     manifest = registry.scientific_reference_case_manifest()
     cases = {case.case_id: case for case in manifest.cases}
-    assert manifest.case_count >= 15
+    assert manifest.case_count >= 21
     assert [item.value for item in cases["echa_euses_water_screening_case_family_v1"].model_families] == [
         "advective_screening_mass_balance"
     ]
@@ -223,6 +239,8 @@ def test_scientific_reference_cases_are_governed_and_resolvable() -> None:
     ]
     assert cases["epa_flow_through_water_screening_case_family_v1"].jurisdictions == ["US"]
     assert cases["epa_post_release_decay_bucket_case_family_v1"].source_references
+    assert cases["epa_post_release_flushing_screening_case_family_v1"].source_references
+    assert cases["oecd_post_release_recovery_screening_case_family_v1"].review_notes
     assert cases["epa_single_compartment_environmental_screening_case_family_v1"].source_references
     assert cases["echa_source_term_reduction_screening_case_family_v1"].review_notes
     assert cases["echa_bounded_clearance_edge_case_family_v1"].review_notes
@@ -234,7 +252,7 @@ def test_scientific_reference_cases_are_governed_and_resolvable() -> None:
     assert cases["epa_turnover_boundary_screening_case_family_v1"].source_references
     assert cases["oecd_bounded_transport_screening_case_family_v1"].review_notes
     advective_cases = registry.list_scientific_reference_cases(model_family="advective_screening_mass_balance")
-    assert len(advective_cases) >= 9
+    assert len(advective_cases) >= 11
     reference_cases = registry.list_scientific_reference_cases(model_family="reference_mass_balance")
     assert len(reference_cases) >= 6
     assert registry.scientific_reference_case("missing_case") is None

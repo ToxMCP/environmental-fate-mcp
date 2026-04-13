@@ -48,6 +48,11 @@
       "unit": "day"
     },
     {
+      "name": "post_release_elapsed_days",
+      "value": 0.0,
+      "unit": "day"
+    },
+    {
       "name": "emitted_mass_to_elapsed_mg",
       "value": 2500000.0,
       "unit": "mg"
@@ -71,6 +76,31 @@
       "name": "mass_balance_closure_error_mg",
       "value": 0.0,
       "unit": "mg"
+    },
+    {
+      "name": "release_stop_compartment_mass_mg",
+      "value": "not_applicable",
+      "unit": "mg"
+    },
+    {
+      "name": "post_release_retained_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
+    },
+    {
+      "name": "post_release_removed_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
+    },
+    {
+      "name": "post_release_degraded_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
+    },
+    {
+      "name": "post_release_advected_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
     },
     {
       "name": "medium_release_fraction",

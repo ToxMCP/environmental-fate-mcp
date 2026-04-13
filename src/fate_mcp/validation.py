@@ -924,6 +924,7 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
         and bool(packet_payload.get("equation_component_lines"))
         and bool(packet_payload.get("mass_balance_component_lines"))
         and bool(packet_payload.get("transport_regime_lines"))
+        and bool(packet_payload.get("post_release_recovery_lines"))
         and bool(packet_payload.get("loss_dominance_lines"))
         and bool(packet_payload.get("loss_transition_lines"))
         and bool(packet_payload.get("review_checklist"))
@@ -950,6 +951,7 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
         and brief_payload.get("equation_component_lines") == packet_payload.get("equation_component_lines")
         and brief_payload.get("mass_balance_component_lines") == packet_payload.get("mass_balance_component_lines")
         and brief_payload.get("transport_regime_lines") == packet_payload.get("transport_regime_lines")
+        and brief_payload.get("post_release_recovery_lines") == packet_payload.get("post_release_recovery_lines")
         and brief_payload.get("loss_dominance_lines") == packet_payload.get("loss_dominance_lines")
         and brief_payload.get("loss_transition_lines") == packet_payload.get("loss_transition_lines")
         and any(
@@ -962,6 +964,10 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
         )
         and any(
             line.startswith("Transport regime: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Post-release recovery: ")
             for line in brief_payload.get("summary_lines", [])
         )
         and any(
@@ -1110,6 +1116,17 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
             )
             or any(
                 line.startswith("Transition sensitivity support: ")
+                for line in dossier_payload.get("summary_lines", [])
+            )
+        )
+        and (
+            not any(
+                item.get("claim_id") == "advective_post_release_flushing_recovery_v1"
+                and item.get("covered")
+                for item in dossier_payload.get("claim_summaries", [])
+            )
+            or any(
+                line.startswith("Post-release recovery support: ")
                 for line in dossier_payload.get("summary_lines", [])
             )
         )

@@ -220,6 +220,13 @@
       "title": "Transport Regime Lines",
       "type": "array"
     },
+    "post_release_recovery_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Post Release Recovery Lines",
+      "type": "array"
+    },
     "loss_dominance_lines": {
       "items": {
         "type": "string"

@@ -48,7 +48,7 @@
     },
     {
       "path": "defaults/v1/scientific_reference_cases.json",
-      "sha256": "a6889103f6340dc264a9dba3f3f61a0e7e822af91e080d0471dbcd4d507465bb",
+      "sha256": "7f719285bca7aa7eeb2b1c3d04246a417bcb65e68b186878ff07f5fbf2691537",
       "defaultsVersion": "v1"
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       "path": "defaults/v1/scientific_validation_claims.json",
-      "sha256": "51eb2f93280b62d5b256bca63f940bbbe27bf6094843af447dd9b448eb3320c2",
+      "sha256": "cfdb2f0cc91ce3bbefeb35d2f78d64a2c96ff297e87c943b3c889757d787bc50",
       "defaultsVersion": "v1"
     },
     {

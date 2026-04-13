@@ -233,6 +233,46 @@ class ReferenceMassBalancePlugin:
             - compartment_mass_at_elapsed_mg
             - cumulative_degraded_mass_mg
         )
+        post_release_elapsed_days = max(elapsed_days - scenario.duration_days, 0.0)
+        if post_release_elapsed_days > 0.0:
+            release_stop_concentration, _ = self._concentration_at_time(
+                release_rate_mg_per_day=release_rate_mg_per_day,
+                capacity_value=capacity_value,
+                decay_constant_per_day=decay_constant_per_day,
+                emission_duration_days=scenario.duration_days,
+                elapsed_days=scenario.duration_days,
+            )
+            release_stop_compartment_mass_mg = release_stop_concentration * capacity_value
+            if release_stop_compartment_mass_mg <= 1e-12:
+                post_release_retained_fraction_of_release_stop_mass = 0.0
+                post_release_removed_fraction_of_release_stop_mass = 0.0
+                post_release_degraded_fraction_of_release_stop_mass = 0.0
+                post_release_advected_fraction_of_release_stop_mass = 0.0
+            else:
+                post_release_retained_fraction_of_release_stop_mass = min(
+                    max(
+                        compartment_mass_at_elapsed_mg / release_stop_compartment_mass_mg,
+                        0.0,
+                    ),
+                    1.0,
+                )
+                post_release_removed_fraction_of_release_stop_mass = min(
+                    max(
+                        1.0 - post_release_retained_fraction_of_release_stop_mass,
+                        0.0,
+                    ),
+                    1.0,
+                )
+                post_release_degraded_fraction_of_release_stop_mass = (
+                    post_release_removed_fraction_of_release_stop_mass
+                )
+                post_release_advected_fraction_of_release_stop_mass = 0.0
+        else:
+            release_stop_compartment_mass_mg = "not_applicable"
+            post_release_retained_fraction_of_release_stop_mass = "not_applicable"
+            post_release_removed_fraction_of_release_stop_mass = "not_applicable"
+            post_release_degraded_fraction_of_release_stop_mass = "not_applicable"
+            post_release_advected_fraction_of_release_stop_mass = "not_applicable"
         concentration_value = raw_concentration / 1000.0 if medium == Media.WATER else raw_concentration
 
         assumptions = [
@@ -327,6 +367,11 @@ class ReferenceMassBalancePlugin:
                 CalculationTraceTerm(name="emission_duration_days", value=scenario.duration_days, unit="day"),
                 CalculationTraceTerm(name="active_emission_duration_days", value=active_emission_duration_days, unit="day"),
                 CalculationTraceTerm(
+                    name="post_release_elapsed_days",
+                    value=post_release_elapsed_days,
+                    unit="day",
+                ),
+                CalculationTraceTerm(
                     name="emitted_mass_to_elapsed_mg",
                     value=emitted_mass_to_elapsed_mg,
                     unit="mg",
@@ -350,6 +395,31 @@ class ReferenceMassBalancePlugin:
                     name="mass_balance_closure_error_mg",
                     value=mass_balance_closure_error_mg,
                     unit="mg",
+                ),
+                CalculationTraceTerm(
+                    name="release_stop_compartment_mass_mg",
+                    value=release_stop_compartment_mass_mg,
+                    unit="mg",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_retained_fraction_of_release_stop_mass",
+                    value=post_release_retained_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_removed_fraction_of_release_stop_mass",
+                    value=post_release_removed_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_degraded_fraction_of_release_stop_mass",
+                    value=post_release_degraded_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_advected_fraction_of_release_stop_mass",
+                    value=post_release_advected_fraction_of_release_stop_mass,
+                    unit="fraction",
                 ),
                 CalculationTraceTerm(name="medium_release_fraction", value=fraction, unit="fraction"),
                 CalculationTraceTerm(name="effective_total_release_mass_kg", value=effective_total_release_mass_kg, unit="kg"),

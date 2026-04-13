@@ -620,6 +620,72 @@ def _transport_regime_lines_from_surfaces(surfaces: list) -> list[str]:
     return lines
 
 
+def _post_release_recovery_lines_from_surfaces(surfaces: list) -> list[str]:
+    lines: list[str] = []
+    seen: set[tuple[str, str]] = set()
+    for surface in surfaces:
+        if surface.calculation_trace is None:
+            continue
+        key = (surface.compartment.value, surface.calculation_trace.equation_id)
+        if key in seen:
+            continue
+        seen.add(key)
+        terms = {term.name: term.value for term in surface.calculation_trace.resolved_terms}
+        if {"elapsed_days", "emission_duration_days"}.issubset(terms):
+            post_release_elapsed_days = float(
+                terms.get(
+                    "post_release_elapsed_days",
+                    max(float(terms["elapsed_days"]) - float(terms["emission_duration_days"]), 0.0),
+                )
+            )
+            if post_release_elapsed_days <= 0.0:
+                lines.append(
+                    f"{surface.compartment.value}: no_post_release_recovery_window "
+                    f"(elapsed time does not extend beyond the active emission duration)."
+                )
+                continue
+            if {
+                "post_release_retained_fraction_of_release_stop_mass",
+                "post_release_removed_fraction_of_release_stop_mass",
+            }.issubset(terms):
+                lines.append(
+                    f"{surface.compartment.value}: post_release_recovery_active "
+                    f"(elapsed_since_release_stop={_format_trace_term_value(post_release_elapsed_days)} day, "
+                    f"retained_from_release_stop={_format_trace_term_value(float(terms['post_release_retained_fraction_of_release_stop_mass']) * 100.0, 2)}%, "
+                    f"removed_since_release_stop={_format_trace_term_value(float(terms['post_release_removed_fraction_of_release_stop_mass']) * 100.0, 2)}%)."
+                )
+            if {
+                "post_release_degraded_fraction_of_release_stop_mass",
+                "post_release_advected_fraction_of_release_stop_mass",
+            }.issubset(terms):
+                lines.append(
+                    f"{surface.compartment.value}: post_release_loss_split "
+                    f"(degraded={_format_trace_term_value(float(terms['post_release_degraded_fraction_of_release_stop_mass']) * 100.0, 2)}%, "
+                    f"advected={_format_trace_term_value(float(terms['post_release_advected_fraction_of_release_stop_mass']) * 100.0, 2)}% of release-stop mass)."
+                )
+            if "post_release_elapsed_turnover_count" in terms:
+                turnover_count = float(terms["post_release_elapsed_turnover_count"])
+                boundary_offset = float(
+                    terms.get(
+                        "post_release_flushing_boundary_offset_turnovers",
+                        turnover_count - 1.0,
+                    )
+                )
+                if turnover_count >= 1.0:
+                    lines.append(
+                        f"{surface.compartment.value}: post_release_flushing_window "
+                        f"spans {_format_trace_term_value(turnover_count, 3)} turnover(s), "
+                        f"{_format_trace_term_value(abs(boundary_offset), 3)} beyond the one-turnover flushing boundary."
+                    )
+                else:
+                    lines.append(
+                        f"{surface.compartment.value}: post_release_flushing_window "
+                        f"spans {_format_trace_term_value(turnover_count, 3)} turnover(s), "
+                        f"{_format_trace_term_value(abs(boundary_offset), 3)} below the one-turnover flushing boundary."
+                    )
+    return lines
+
+
 def _normalized_evidence_quality(evidence_quality: str | None) -> str:
     return (evidence_quality or "reference").strip().lower()
 
@@ -1083,6 +1149,10 @@ def _scientific_methods_highlighted_claim_challenge_lines(
         lines.append(
             "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation."
         )
+    elif transport_regime_stability_status == "post_release_flushing_recovery_regime":
+        lines.append(
+            "Challenge because this claim depends on a post-release recovery window, so reviewer confidence depends on whether the elapsed post-release interval is long enough to support the claimed flushing or retention interpretation."
+        )
     elif transport_regime_stability_status in {
         "storage_dominant_transport_regime",
         "flow_through_transport_regime",
@@ -1161,6 +1231,14 @@ def _scientific_methods_highlighted_claim_transport_regime_stability(
     claim_summary: ScientificMethodsDossierClaimSummary,
 ) -> tuple[str, list[str]]:
     fixture_names = claim_summary.supporting_fixture_names
+    if any("post_release" in name for name in fixture_names):
+        return (
+            "post_release_flushing_recovery_regime",
+            [
+                "This claim is anchored in an explicit post-release recovery window where retained compartment mass drains after active emission stops.",
+                "The supporting anchors emphasize release-stop mass retention, removed-fraction accounting, and turnover-aware flushing interpretation rather than active-emission accumulation.",
+            ],
+        )
     if any("mixed_loss_transition" in name or "bounded_transport_reference" in name for name in fixture_names):
         return (
             "boundary_sensitive_transport_regime",
@@ -1241,6 +1319,10 @@ def _scientific_methods_highlighted_claim_review_questions(
         questions.append(
             "Could a modest residence-time change move this scenario across the storage/intermediate or intermediate/flow-through transport-regime boundary?"
         )
+    if transport_regime_stability_status == "post_release_flushing_recovery_regime":
+        questions.append(
+            "Is the post-release recovery window long enough after release stop to support the claimed flushing or retention interpretation?"
+        )
     return questions[:3]
 
 
@@ -1288,6 +1370,22 @@ def _advective_transition_reference_support_ready(
         and flip_claim.covered
         and flip_claim.support_strength == ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER
     )
+
+
+def _advective_post_release_recovery_support_ready(
+    claim_summaries_by_id: dict[str, ScientificMethodsDossierClaimSummary],
+) -> bool:
+    recovery_claim = claim_summaries_by_id.get("advective_post_release_flushing_recovery_v1")
+    if not recovery_claim or not recovery_claim.covered:
+        return False
+    if recovery_claim.support_strength != ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER:
+        return False
+    if "reference_style" not in recovery_claim.supporting_validation_tiers:
+        return False
+    return {
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+    }.issubset(set(recovery_claim.supporting_reference_types))
 
 
 def _scientific_methods_recommended_action_summaries(
@@ -1554,6 +1652,30 @@ def _scientific_methods_highlighted_claim_summaries(
                 len(selected_claims) - 1,
             )
             selected_claims[replace_index] = transport_claim
+        post_release_claim = next(
+            (
+                item
+                for item in ranked_claims
+                if item.claim_id == "advective_post_release_flushing_recovery_v1"
+            ),
+            None,
+        )
+        if post_release_claim and all(
+            item.claim_id != post_release_claim.claim_id for item in selected_claims
+        ):
+            protected_ids = {
+                "advective_mixed_loss_transition_margin_v1",
+                "advective_residence_time_turnover_regime_v1",
+            }
+            replace_index = next(
+                (
+                    idx
+                    for idx in range(len(selected_claims) - 1, -1, -1)
+                    if selected_claims[idx].claim_id not in protected_ids
+                ),
+                len(selected_claims) - 1,
+            )
+            selected_claims[replace_index] = post_release_claim
         stable_loss_claim = next(
             (
                 item
@@ -1575,6 +1697,7 @@ def _scientific_methods_highlighted_claim_summaries(
             protected_ids = {
                 "advective_mixed_loss_transition_margin_v1",
                 "advective_residence_time_turnover_regime_v1",
+                "advective_post_release_flushing_recovery_v1",
             }
             replace_index = next(
                 (
@@ -5036,6 +5159,7 @@ def build_scientific_review_packet(
     equation_component_lines = _equation_component_lines_from_surfaces(request.result.surfaces)
     mass_balance_component_lines = _mass_balance_component_lines_from_surfaces(request.result.surfaces)
     transport_regime_lines = _transport_regime_lines_from_surfaces(request.result.surfaces)
+    post_release_recovery_lines = _post_release_recovery_lines_from_surfaces(request.result.surfaces)
     loss_dominance_lines = _loss_dominance_lines_from_surfaces(request.result.surfaces)
     loss_transition_lines = _loss_transition_lines_from_surfaces(request.result.surfaces)
     benchmark_lines = _benchmark_reference_lines(
@@ -5085,6 +5209,7 @@ def build_scientific_review_packet(
         equation_component_lines=equation_component_lines,
         mass_balance_component_lines=mass_balance_component_lines,
         transport_regime_lines=transport_regime_lines,
+        post_release_recovery_lines=post_release_recovery_lines,
         loss_dominance_lines=loss_dominance_lines,
         loss_transition_lines=loss_transition_lines,
         checks=checks,
@@ -5129,6 +5254,9 @@ def build_scientific_review_brief(
         "Transport regime: " + line for line in review_packet.transport_regime_lines
     )
     summary_lines.extend(
+        "Post-release recovery: " + line for line in review_packet.post_release_recovery_lines
+    )
+    summary_lines.extend(
         "Loss dominance: " + line for line in review_packet.loss_dominance_lines
     )
     summary_lines.extend(
@@ -5161,6 +5289,7 @@ def build_scientific_review_brief(
         equation_component_lines=review_packet.equation_component_lines,
         mass_balance_component_lines=review_packet.mass_balance_component_lines,
         transport_regime_lines=review_packet.transport_regime_lines,
+        post_release_recovery_lines=review_packet.post_release_recovery_lines,
         loss_dominance_lines=review_packet.loss_dominance_lines,
         loss_transition_lines=review_packet.loss_transition_lines,
         limitations=review_packet.limitations,
@@ -5283,6 +5412,13 @@ def build_scientific_methods_dossier(
     ):
         summary_lines.append(
             "Transport transition support: reference-style transition anchors and flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary."
+        )
+    if (
+        request.model_family.value == "advective_screening_mass_balance"
+        and _advective_post_release_recovery_support_ready(claim_summaries_by_id)
+    ):
+        summary_lines.append(
+            "Post-release recovery support: reference-style bucket anchors show release-stop mass draining with explicit degraded-versus-advected recovery accounting after active emission ends."
         )
     flip_directionality_claim = next(
         (

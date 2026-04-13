@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "claim_count": 24,
-  "covered_claim_count": 24,
-  "mandatory_claim_count": 23,
+  "claim_count": 25,
+  "covered_claim_count": 25,
+  "mandatory_claim_count": 24,
   "uncovered_mandatory_claim_count": 0,
   "coverage": [
     {
@@ -302,6 +302,43 @@
       "gap_lines": []
     },
     {
+      "claim_id": "advective_post_release_flushing_recovery_v1",
+      "display_name": "Advective post-release flushing and recovery accounting",
+      "model_family": "advective_screening_mass_balance",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_fixture_count": 3,
+      "supporting_validation_tier_count": 3,
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "gap_lines": []
+    },
+    {
       "claim_id": "advective_residence_time_override_application_v1",
       "display_name": "Advective residence-time override application",
       "model_family": "advective_screening_mass_balance",
@@ -430,23 +467,27 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 2,
-      "supporting_validation_tier_count": 2,
+      "supporting_fixture_count": 3,
+      "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "advective_time_bucket_invariance_fixture",
-        "advective_post_release_decay_anchor_fixture"
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture"
       ],
       "supporting_categories": [
+        "reference_chemical_style",
         "time_bucket_invariance",
         "time_bucket_regression_anchor"
       ],
       "supporting_reference_types": [
         "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_time_bucket_fixture"
       ],
       "supporting_validation_tiers": [
         "edge_condition",
-        "invariance"
+        "invariance",
+        "reference_style"
       ],
       "satisfies_required_reference_types": true,
       "satisfies_required_validation_tiers": true,

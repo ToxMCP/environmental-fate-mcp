@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "comparison_packet_id": "familycmp-32fade4dfc5d",
-  "scenario_id": "scenario-cfab3831023d",
+  "comparison_packet_id": "familycmp-2524f7bfda5d",
+  "scenario_id": "scenario-77bced003de4",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -140,9 +140,9 @@
   },
   "comparison": {
     "schema_version": "v1",
-    "comparison_id": "comparison-03d5f3f0c108",
-    "base_scenario_id": "scenario-cfab3831023d",
-    "candidate_scenario_id": "scenario-cfab3831023d",
+    "comparison_id": "comparison-96357c2781f1",
+    "base_scenario_id": "scenario-77bced003de4",
+    "candidate_scenario_id": "scenario-77bced003de4",
     "surface_deltas": [
       {
         "medium": "air",
@@ -192,7 +192,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T16:37:34.316379Z",
+      "generated_at": "2026-04-13T17:09:27.574683Z",
       "source_references": []
     },
     "limitations": [],
@@ -263,7 +263,7 @@
     }
   ],
   "summary_lines": [
-    "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-cfab3831023d.",
+    "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-77bced003de4.",
     "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
     "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
     "Base fit verdict: good_fit (score=0.85).",
@@ -311,7 +311,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T16:37:34.344469Z",
+    "generated_at": "2026-04-13T17:09:27.580005Z",
     "source_references": [
       {
         "source_id": "example.release.note",
