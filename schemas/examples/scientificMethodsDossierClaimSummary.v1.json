@@ -22,7 +22,7 @@
   ],
   "covered": true,
   "support_strength": "multi_anchor_multi_tier",
-  "supporting_fixture_count": 7,
+  "supporting_fixture_count": 10,
   "reference_case_ids": [
     "echa_euses_water_screening_case_family_v1",
     "epa_flow_through_water_screening_case_family_v1",
@@ -35,14 +35,20 @@
     "advective_clearance_dominant_loss_share_companion_fixture",
     "advective_mixed_loss_transition_anchor_fixture",
     "advective_mixed_loss_transition_companion_fixture",
-    "advective_bounded_transport_reference_fixture"
+    "advective_bounded_transport_reference_fixture",
+    "advective_flow_through_transport_reference_fixture",
+    "advective_transition_boundary_reference_fixture",
+    "advective_storage_dominant_transport_reference_fixture"
   ],
   "supporting_reference_types": [
     "hand_worked_advective_bounded_transport_reference_fixture",
+    "hand_worked_advective_flow_through_transport_reference_fixture",
     "hand_worked_advective_loss_dominance_anchor",
     "hand_worked_advective_loss_dominance_sensitivity_fixture",
     "hand_worked_advective_loss_transition_anchor",
-    "hand_worked_advective_loss_transition_sensitivity_fixture"
+    "hand_worked_advective_loss_transition_sensitivity_fixture",
+    "hand_worked_advective_storage_dominant_transport_reference_fixture",
+    "hand_worked_advective_transition_boundary_reference_fixture"
   ],
   "supporting_validation_tiers": [
     "edge_condition",

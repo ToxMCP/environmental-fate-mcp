@@ -834,6 +834,232 @@ BENCHMARK_FIXTURES = [
         ]
     },
     {
+        "name": "advective_flow_through_transport_reference_fixture",
+        "category": "advective_transport_regime_reference",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked advective water screening case expressed directly in stable flow-through bounded-transport terms, using large positive flow-through boundary offset and a plateau fraction effectively at unity.",
+        "reference_type": "hand_worked_advective_flow_through_transport_reference_fixture",
+        "expected_behavior": "The advective trace reports stable flow-through transport with retained mass essentially at the finite active-emission plateau and a large positive flow-through boundary offset.",
+        "tolerance_rationale": "The flow-through bounded-transport reference remains analytically traceable because the turnover counts, boundary offsets, plateau fraction, and cumulative mass terms come directly from the governed combined-loss equation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_residence_time_turnover_regime_v1",
+            "advective_cumulative_mass_balance_closure_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective flow-through transport reference"},
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 15.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 5.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Benchmark flow-through transport half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 0.5,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Benchmark flow-through transport residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "value": 6.234522497536118e-07,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "elapsed_turnover_count": 30.0,
+                    "active_emission_turnover_count": 30.0,
+                    "storage_boundary_offset_turnovers": 29.25,
+                    "flow_through_boundary_offset_turnovers": 28.0,
+                    "retained_mass_fraction_of_finite_plateau": 0.9999999999999885,
+                    "finite_plateau_mass_mg": 311726.12487680954
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "compartment_mass_at_elapsed_mg": 311726.12487680593,
+                    "cumulative_degraded_mass_mg": 628009.6596110412,
+                    "cumulative_advected_mass_mg": 9060264.215512153,
+                    "mass_balance_closure_error_mg": 0.0
+                },
+                "tolerance": 1e-6
+            }
+        ]
+    },
+    {
+        "name": "advective_transition_boundary_reference_fixture",
+        "category": "advective_transport_regime_reference",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked advective water screening case expressed directly in near-boundary transport and mixed-loss terms, using an intermediate turnover count and a small degradation-versus-clearance margin.",
+        "reference_type": "hand_worked_advective_transition_boundary_reference_fixture",
+        "expected_behavior": "The advective trace reports boundary-sensitive intermediate transport together with a small mixed-loss dominance margin and finite bounded-transport plateau fraction.",
+        "tolerance_rationale": "The transition-boundary reference remains analytically traceable because the mixed-loss share, turnover-boundary offsets, plateau fraction, and cumulative mass terms all resolve from the same governed combined-loss equation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_residence_time_turnover_regime_v1",
+            "advective_mixed_loss_transition_margin_v1",
+            "advective_cumulative_mass_balance_closure_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective transition-boundary transport reference"},
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 18.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 8.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Benchmark transition-boundary half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 10.5,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Benchmark transition-boundary residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "value": 5.8776993269409705e-06,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "elapsed_turnover_count": 1.7142857142857142,
+                    "active_emission_turnover_count": 1.7142857142857142,
+                    "storage_boundary_offset_turnovers": 0.9642857142857142,
+                    "flow_through_boundary_offset_turnovers": -0.2857142857142858,
+                    "retained_mass_fraction_of_finite_plateau": 0.9621402550750082,
+                    "finite_plateau_mass_mg": 3054491.9495561207,
+                    "degradation_loss_share_fraction": 0.4763728086475221,
+                    "advective_clearance_share_fraction": 0.5236271913524778,
+                    "loss_dominance_margin_fraction": 0.047254382704955744
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "compartment_mass_at_elapsed_mg": 2938849.6634704852,
+                    "cumulative_degraded_mass_mg": 3363740.0180949606,
+                    "cumulative_advected_mass_mg": 3697410.318434553,
+                    "mass_balance_closure_error_mg": 9.313225746154785e-10
+                },
+                "tolerance": 1e-6
+            }
+        ]
+    },
+    {
+        "name": "advective_storage_dominant_transport_reference_fixture",
+        "category": "advective_transport_regime_reference",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked advective water screening case expressed directly in stable storage-dominant bounded-transport terms, using a negative storage-boundary offset and a large remaining plateau gap under finite loss.",
+        "reference_type": "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "expected_behavior": "The advective trace reports stable storage-dominant transport with retained mass materially below the finite active-emission plateau and a negative storage-boundary offset.",
+        "tolerance_rationale": "The storage-dominant bounded-transport reference remains analytically traceable because the turnover counts, boundary offsets, plateau fraction, and cumulative mass terms are all direct outputs of the governed combined-loss equation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_residence_time_turnover_regime_v1",
+            "advective_cumulative_mass_balance_closure_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective storage-dominant transport reference"},
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 30.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 12.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Benchmark storage-dominant transport half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 120.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Benchmark storage-dominant transport residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "value": 8.697766996187716e-06,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "elapsed_turnover_count": 0.25,
+                    "active_emission_turnover_count": 0.25,
+                    "storage_boundary_offset_turnovers": -0.5,
+                    "flow_through_boundary_offset_turnovers": -1.75,
+                    "retained_mass_fraction_of_finite_plateau": 0.8623261712742041,
+                    "finite_plateau_mass_mg": 5043200.175251312
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "compartment_mass_at_elapsed_mg": 4348883.498093858,
+                    "cumulative_degraded_mass_mg": 4938623.708586675,
+                    "cumulative_advected_mass_mg": 712492.7933194657,
+                    "mass_balance_closure_error_mg": 8.149072527885437e-10
+                },
+                "tolerance": 1e-6
+            }
+        ]
+    },
+    {
         "name": "advective_transition_flip_to_degradation_fixture",
         "category": "advective_loss_transition_sensitivity",
         "validation_tier": "sensitivity",

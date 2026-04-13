@@ -52,7 +52,7 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 7,
+      "supporting_fixture_count": 10,
       "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "advective_degradation_dominant_loss_share_anchor_fixture",
@@ -61,7 +61,10 @@
         "advective_clearance_dominant_loss_share_companion_fixture",
         "advective_mixed_loss_transition_anchor_fixture",
         "advective_mixed_loss_transition_companion_fixture",
-        "advective_bounded_transport_reference_fixture"
+        "advective_bounded_transport_reference_fixture",
+        "advective_flow_through_transport_reference_fixture",
+        "advective_transition_boundary_reference_fixture",
+        "advective_storage_dominant_transport_reference_fixture"
       ],
       "supporting_categories": [
         "advective_loss_dominance_anchor",
@@ -72,10 +75,13 @@
       ],
       "supporting_reference_types": [
         "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
         "hand_worked_advective_loss_dominance_anchor",
         "hand_worked_advective_loss_dominance_sensitivity_fixture",
         "hand_worked_advective_loss_transition_anchor",
-        "hand_worked_advective_loss_transition_sensitivity_fixture"
+        "hand_worked_advective_loss_transition_sensitivity_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
       ],
       "supporting_validation_tiers": [
         "edge_condition",
@@ -269,22 +275,26 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 2,
-      "supporting_validation_tier_count": 2,
+      "supporting_fixture_count": 3,
+      "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "advective_mixed_loss_transition_anchor_fixture",
-        "advective_mixed_loss_transition_companion_fixture"
+        "advective_mixed_loss_transition_companion_fixture",
+        "advective_transition_boundary_reference_fixture"
       ],
       "supporting_categories": [
         "advective_loss_transition_anchor",
-        "advective_loss_transition_sensitivity"
+        "advective_loss_transition_sensitivity",
+        "advective_transport_regime_reference"
       ],
       "supporting_reference_types": [
         "hand_worked_advective_loss_transition_anchor",
-        "hand_worked_advective_loss_transition_sensitivity_fixture"
+        "hand_worked_advective_loss_transition_sensitivity_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
       ],
       "supporting_validation_tiers": [
         "edge_condition",
+        "reference_style",
         "sensitivity"
       ],
       "satisfies_required_reference_types": true,
@@ -338,11 +348,14 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 6,
+      "supporting_fixture_count": 9,
       "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "advective_mixed_loss_transition_anchor_fixture",
         "advective_bounded_transport_reference_fixture",
+        "advective_flow_through_transport_reference_fixture",
+        "advective_transition_boundary_reference_fixture",
+        "advective_storage_dominant_transport_reference_fixture",
         "advective_short_residence_time_clearance_anchor_fixture",
         "advective_short_residence_time_clearance_companion_fixture",
         "advective_long_residence_time_accumulation_anchor_fixture",
@@ -357,9 +370,12 @@
       "supporting_reference_types": [
         "hand_worked_advective_bounded_transport_reference_fixture",
         "hand_worked_advective_clearance_edge_anchor",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
         "hand_worked_advective_loss_transition_anchor",
         "hand_worked_advective_override_fixture",
-        "hand_worked_advective_residence_edge_anchor"
+        "hand_worked_advective_residence_edge_anchor",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
       ],
       "supporting_validation_tiers": [
         "edge_condition",

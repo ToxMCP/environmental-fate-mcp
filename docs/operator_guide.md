@@ -57,7 +57,7 @@ Fate MCP accepts environmental release scenarios and returns concentration surfa
 - use `recommended_action_summaries` when you need to separate promotion-blocking follow-up from general scientific hardening work without reading the free-text action wording
 - use dossier and brief `promotion_status`, `blocking_action_count`, and `strengthening_action_count` when you need the shortest machine-readable answer to whether the current claim set is blocked, merely being strengthened, or ready
 - use `promotion_blocker_summaries` and `promotion_blocker_claim_ids` when you need the shortest machine-readable answer to what is actually blocking promotion and which governed claims those blockers attach to
-- interpret `strengthening_only` on an experimental dossier as “the current governed bar is met, but the family remains non-default and should still accumulate independent support”
+- interpret `strengthening_only` on an experimental dossier as “the current release gate is met, but the transport-authority or reference-style support bar is still being strengthened,” and interpret `ready` as meaning that the governed experimental-evidence bar has been satisfied for the filtered claim set even though the family remains non-default
 - inspect claim-specific reference-case concept lines in the scientific methods dossier when you need to explain what each governed case family is actually corroborating
 - inspect claim-specific source-grounding lines in the scientific methods dossier when you need to explain which official sources are grounding a published claim
 - inspect scientific review `equation_component_lines` when you need the shortest run-level explanation of whether degradation or advective clearance is dominating the resolved loss term

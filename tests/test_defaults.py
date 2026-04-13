@@ -70,7 +70,12 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
     ]
     assert claims["advective_mixed_loss_transition_margin_v1"].required_validation_tiers == [
         "edge_condition",
+        "reference_style",
         "sensitivity",
+    ]
+    assert claims["advective_mixed_loss_transition_margin_v1"].required_reference_types == [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_transition_boundary_reference_fixture",
     ]
     assert claims["advective_loss_regime_flip_directionality_v1"].required_validation_tiers == [
         "edge_condition",
@@ -94,6 +99,9 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
         "hand_worked_advective_residence_edge_anchor",
         "hand_worked_advective_loss_transition_anchor",
         "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture",
     ]
     assert claims["advective_long_duration_combined_loss_plateau_v1"].required_reference_types == [
         "hand_worked_advective_duration_edge_anchor"

@@ -1084,6 +1084,20 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
             line.startswith("Highlighted transport stability: ")
             for line in dossier_payload.get("summary_lines", [])
         )
+        and (
+            dossier_payload.get("model_family") != "advective_screening_mass_balance"
+            or any(
+                line.startswith("Transport authority support: ")
+                for line in dossier_payload.get("summary_lines", [])
+            )
+        )
+        and (
+            dossier_payload.get("model_family") != "advective_screening_mass_balance"
+            or any(
+                line.startswith("Transport transition support: ")
+                for line in dossier_payload.get("summary_lines", [])
+            )
+        )
         and any(
             line.startswith("External corroboration breadth: ")
             for line in dossier_payload.get("summary_lines", [])

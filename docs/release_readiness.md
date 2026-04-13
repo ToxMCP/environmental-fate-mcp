@@ -28,7 +28,7 @@ Fate MCP v0.1 release readiness is gated on reproducible contracts, examples, de
 - model-family selection review previews, packets, and briefs remain internally consistent with the governed selection profile, recommendation artifact, and assessor-facing checklist guidance
 - scientific methods dossiers and briefs preserve top-level `promotion_status` plus blocking-versus-strengthening action counts
 - blocked scientific methods dossiers and briefs preserve explicit promotion-blocker summaries and blocker-claim ids
-- experimental scientific methods dossiers may resolve to `strengthening_only` rather than `blocked` once all governed high- and medium-priority evidence bars are met, while the baseline reference dossier may resolve to `ready`
+- experimental scientific methods dossiers may resolve to `ready` once the governed high- and medium-priority evidence bars are met and the advective transport-authority/transition reference-style bar is satisfied, while weaker experimental evidence still resolves to `strengthening_only` or `blocked` as appropriate
 - composed model-family challenge review previews, packets, and briefs remain internally consistent with the governed challenge-review profile plus the embedded governed selection review and optional governed comparison review artifacts
 - composed model-family challenge scientific dossiers and briefs remain internally consistent with the governed challenge-review path plus the embedded baseline and optional challenge-family scientific review summaries
 - scientific methods dossier highlighted-claim digests preserve external corroboration status, official source counts, and jurisdiction breadth into the brief summary surface

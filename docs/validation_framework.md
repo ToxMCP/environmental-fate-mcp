@@ -24,7 +24,7 @@ Minimum validation scope for v0.1:
 - scientific methods dossier recommended-action summary checks for promotion impact, priority, action class, and brief parity
 - scientific methods dossier promotion-status checks for top-level posture plus blocking-versus-strengthening action-count parity
 - scientific methods dossier promotion-blocker checks for blocker-summary presence, blocker-claim-id parity, and brief-summary visibility when posture is blocked
-- scientific methods dossier posture checks ensure the experimental family can soften to `strengthening_only` only after all governed high- and medium-priority corroboration bars are met
+- scientific methods dossier posture checks ensure the experimental family reaches `ready` only after all governed high- and medium-priority corroboration bars are met plus the explicit advective transport-authority and transition reference-style support bar is satisfied
 - high- and medium-priority experimental claim support-depth checks so experimental families are not released on single-anchor evidence alone
 - high- and medium-priority experimental claim support-diversity checks so experimental families are not released on repeated same-tier corroboration alone where a governed second validation tier is expected
 - scientific review workflow checks for equation-component decomposition parity between the packet and brief summary surface

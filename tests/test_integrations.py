@@ -977,7 +977,7 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
     assert dossier.benchmark_reference_lines
     assert dossier.support_strength_lines
     assert dossier.edge_condition_lines
-    assert dossier.recommended_actions
+    assert not dossier.recommended_actions
     assert dossier.provenance.source_references
     assert any(
         item.claim_id == "advective_short_residence_time_clearance_anchor_v1"
@@ -1068,11 +1068,28 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
     )
     assert turnover_claim.support_strength.value == "multi_anchor_multi_tier"
     assert "reference_style" in turnover_claim.supporting_validation_tiers
+    assert {
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture",
+    }.issubset(set(turnover_claim.supporting_reference_types))
+    mixed_loss_claim = next(
+        item for item in dossier.claim_summaries if item.claim_id == "advective_mixed_loss_transition_margin_v1"
+    )
+    assert "reference_style" in mixed_loss_claim.supporting_validation_tiers
+    assert (
+        "hand_worked_advective_transition_boundary_reference_fixture"
+        in mixed_loss_claim.supporting_reference_types
+    )
     assert any(line.startswith("Highlighted regime stability: ") for line in dossier.summary_lines)
     assert any(line.startswith("Highlighted transport stability: ") for line in dossier.summary_lines)
     assert any(line.startswith("External corroboration breadth: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Transport authority support: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Transport transition support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Transition sensitivity support: ") for line in dossier.summary_lines)
     assert not any(item.action_class == "regime_transition" for item in dossier.recommended_action_summaries)
+    assert dossier.promotion_status.value == "ready"
 
 
 def test_build_scientific_methods_dossier_brief_reflects_dossier() -> None:
@@ -1145,25 +1162,13 @@ def test_build_scientific_methods_dossier_lifts_claim_actions_into_recommended_a
     brief = build_scientific_methods_dossier_brief(
         BuildScientificMethodsDossierBriefRequest(dossier=dossier),
     )
-    assert any(
-        item.promotion_impact.value == "strengthening"
-        for item in dossier.recommended_action_summaries
-    )
-    assert dossier.promotion_status.value == "strengthening_only"
+    assert dossier.promotion_status.value == "ready"
     assert dossier.blocking_action_count == 0
-    assert dossier.strengthening_action_count == 1
+    assert dossier.strengthening_action_count == 0
     assert not dossier.promotion_blocker_summaries
-    assert any(
-        item.action_class == "experimental_validation"
-        and "trust-strengthening support" in item.action
-        for item in dossier.recommended_action_summaries
-    )
+    assert not dossier.recommended_action_summaries
     assert not any(item.action_class == "regime_transition" for item in dossier.recommended_action_summaries)
-    assert any(
-        line.startswith("Recommended action: ")
-        and "[strengthening/" in line
-        for line in brief.summary_lines
-    )
+    assert not any(line.startswith("Recommended action: ") for line in brief.summary_lines)
 
 
 def test_export_regulatory_handoff_package_builds_crosswalk_entries() -> None:

@@ -554,10 +554,12 @@
       "mandatory_for_release": true,
       "required_validation_tiers": [
         "edge_condition",
+        "reference_style",
         "sensitivity"
       ],
       "required_reference_types": [
-        "hand_worked_advective_loss_transition_anchor"
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_transition_boundary_reference_fixture"
       ],
       "source_references": [
         {
@@ -601,6 +603,12 @@
           "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_companion_fixture",
           "effective_date": null,
           "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_boundary_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_boundary_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
         }
       ],
       "reference_case_ids": [
@@ -619,6 +627,7 @@
       "reference_case_lines": [
         "Supported by the advective_mixed_loss_transition_anchor_fixture near-parity loss-transition anchor.",
         "Supported by the advective_mixed_loss_transition_companion_fixture mixed-loss corroboration case.",
+        "Supported by the advective_transition_boundary_reference_fixture so the near-parity boundary is also anchored by a reference-style bounded-transport case rather than only edge and sensitivity fixtures.",
         "Mapped to the ECHA and EPA transition-boundary screening case families for reviewer-facing directional-sensitivity interpretation.",
         "Mapped to the EPA turnover-boundary and OECD bounded-transport case families so the transition claim is grounded against residence-time interpretation as well as loss-share math."
       ],
@@ -739,7 +748,10 @@
         "hand_worked_advective_clearance_edge_anchor",
         "hand_worked_advective_residence_edge_anchor",
         "hand_worked_advective_loss_transition_anchor",
-        "hand_worked_advective_bounded_transport_reference_fixture"
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
       ],
       "source_references": [
         {
@@ -795,6 +807,24 @@
           "title": "Fate MCP benchmark fixture: advective_bounded_transport_reference_fixture",
           "effective_date": null,
           "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_flow_through_transport_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_flow_through_transport_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_storage_dominant_transport_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_storage_dominant_transport_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_boundary_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_boundary_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
         }
       ],
       "reference_case_ids": [
@@ -812,7 +842,8 @@
         "Supported by the advective_short_residence_time_clearance_anchor_fixture and companion case for flow-through transport interpretation.",
         "Supported by the advective_mixed_loss_transition_anchor_fixture as an intermediate-turnover transport anchor.",
         "Supported by the advective_long_residence_time_accumulation_anchor_fixture and companion case for storage-dominant transport interpretation.",
-        "Supported by the advective_bounded_transport_reference_fixture for explicit bounded-plateau and turnover-boundary interpretation."
+        "Supported by the advective_bounded_transport_reference_fixture for explicit bounded-plateau and turnover-boundary interpretation.",
+        "Supported by the advective_flow_through_transport_reference_fixture, advective_transition_boundary_reference_fixture, and advective_storage_dominant_transport_reference_fixture so reference-style bounded transport anchors span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes."
       ],
       "review_notes": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",

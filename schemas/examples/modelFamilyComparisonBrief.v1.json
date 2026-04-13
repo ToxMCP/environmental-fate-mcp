@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "comparison_packet_id": "familycmp-feea29ad06e8",
-  "scenario_id": "scenario-de42296cc220",
+  "comparison_packet_id": "familycmp-32fade4dfc5d",
+  "scenario_id": "scenario-cfab3831023d",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -9,7 +9,7 @@
   "candidate_model_family": "advective_screening_mass_balance",
   "comparison_outcome": "material_model_family_divergence",
   "summary_lines": [
-    "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-de42296cc220.",
+    "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-cfab3831023d.",
     "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
     "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
     "Base fit verdict: good_fit (score=0.85).",

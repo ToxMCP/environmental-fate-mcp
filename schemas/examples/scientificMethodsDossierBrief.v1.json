@@ -1,11 +1,11 @@
 {
   "schema_version": "v1",
-  "dossier_id": "scimethods-5d49deeee930",
+  "dossier_id": "scimethods-c9556de10271",
   "model_family": "advective_screening_mass_balance",
   "run_mode_filter": null,
-  "promotion_status": "strengthening_only",
+  "promotion_status": "ready",
   "blocking_action_count": 0,
-  "strengthening_action_count": 1,
+  "strengthening_action_count": 0,
   "claim_count": 13,
   "mandatory_claim_count": 12,
   "covered_mandatory_claim_count": 12,
@@ -67,7 +67,7 @@
         "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
         "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
         "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
-        "Support strength is multi_anchor_multi_tier with 7 supporting fixtures.",
+        "Support strength is multi_anchor_multi_tier with 10 supporting fixtures.",
         "Governed reference-case mapping count for this claim: 3."
       ],
       "review_questions": [
@@ -219,7 +219,8 @@
       ],
       "benchmark_anchor_lines": [
         "advective_mixed_loss_transition_anchor_fixture [edge_condition]",
-        "advective_mixed_loss_transition_companion_fixture [sensitivity]"
+        "advective_mixed_loss_transition_companion_fixture [reference_style]",
+        "advective_transition_boundary_reference_fixture [sensitivity]"
       ],
       "loss_regime_stability_status": "near_parity_transition",
       "loss_regime_stability_lines": [
@@ -235,7 +236,7 @@
         "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
         "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
         "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
-        "Support strength is multi_anchor_multi_tier with 2 supporting fixtures.",
+        "Support strength is multi_anchor_multi_tier with 3 supporting fixtures.",
         "Governed reference-case mapping count for this claim: 6."
       ],
       "review_questions": [
@@ -278,7 +279,7 @@
       "benchmark_anchor_lines": [
         "advective_mixed_loss_transition_anchor_fixture [edge_condition]",
         "advective_bounded_transport_reference_fixture [reference_style]",
-        "advective_short_residence_time_clearance_anchor_fixture [sensitivity]"
+        "advective_flow_through_transport_reference_fixture [sensitivity]"
       ],
       "loss_regime_stability_status": "near_parity_transition",
       "loss_regime_stability_lines": [
@@ -294,7 +295,7 @@
         "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
         "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
         "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
-        "Support strength is multi_anchor_multi_tier with 6 supporting fixtures.",
+        "Support strength is multi_anchor_multi_tier with 9 supporting fixtures.",
         "Governed reference-case mapping count for this claim: 5."
       ],
       "review_questions": [
@@ -313,10 +314,12 @@
     "Highlighted regime stability: 3 near-parity transition claim(s), 1 stable-regime claim(s).",
     "Highlighted transport stability: 3 boundary-sensitive transport claim(s), 1 stable transport-regime claim(s).",
     "External corroboration breadth: 13/13 claim(s) carry multi-official multi-jurisdiction grounding.",
+    "Transport authority support: reference-style bounded-transport anchors now span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes.",
+    "Transport transition support: reference-style transition anchors and flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "Transition sensitivity support: explicit flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "This model family remains experimental and should be challenged with extra reviewer scrutiny even when its mandatory claims are covered.",
-    "Promotion status: strengthening_only (0 blocking actions, 1 strengthening actions).",
-    "Source grounding: Source grounding cites 5 external official references and 29 governed internal references across the filtered claim set.",
+    "Promotion status: ready (0 blocking actions, 0 strengthening actions).",
+    "Source grounding: Source grounding cites 5 external official references and 32 governed internal references across the filtered claim set.",
     "Source grounding: Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
     "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
     "Highlighted claim grounding: Advective extreme-persistence clearance bound: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -344,10 +347,9 @@
     "Reference-case concept: EPA flow-through water screening case family: This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency.",
     "Support strength: High-priority mandatory claims with multi-anchor support for advective_screening_mass_balance: 4/4.",
     "Support strength: No in-scope claims are limited to a single benchmark anchor.",
-    "Benchmark context: Benchmark-backed claim support cites 21 supporting fixtures across the filtered claim set.",
+    "Benchmark context: Benchmark-backed claim support cites 24 supporting fixtures across the filtered claim set.",
     "Benchmark context: Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture.",
-    "Edge anchors: advective_degradation_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports degradation as the dominant loss share when half-life is short relative to residence time. | advective_degradation_dominant_loss_share_companion_fixture [sensitivity]: The advective trace continues to report degradation as the dominant loss share under a different short-half-life and long-residence regime. | advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports clearance as the dominant loss share when residence time is short relative to half-life.",
-    "Recommended action: [strengthening/medium/experimental_validation] Maintain independent edge-condition and reference-style validation as trust-strengthening support while this experimental family remains non-default."
+    "Edge anchors: advective_degradation_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports degradation as the dominant loss share when half-life is short relative to residence time. | advective_degradation_dominant_loss_share_companion_fixture [sensitivity]: The advective trace continues to report degradation as the dominant loss share under a different short-half-life and long-residence regime. | advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports clearance as the dominant loss share when residence time is short relative to half-life."
   ],
   "applicability_lines": [
     "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
@@ -359,7 +361,7 @@
     "Scientific review note: Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
   ],
   "source_grounding_lines": [
-    "Source grounding cites 5 external official references and 29 governed internal references across the filtered claim set.",
+    "Source grounding cites 5 external official references and 32 governed internal references across the filtered claim set.",
     "Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
     "Representative governed references: Fate MCP advective cumulative mass-balance method notes, Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture."
   ],
@@ -390,7 +392,7 @@
     "OECD bounded-transport screening case family: This governed reference case family anchors finite, bounded one-compartment transport reasoning where retained mass approaches a loss-limited plateau rather than growing without bound."
   ],
   "benchmark_reference_lines": [
-    "Benchmark-backed claim support cites 21 supporting fixtures across the filtered claim set.",
+    "Benchmark-backed claim support cites 24 supporting fixtures across the filtered claim set.",
     "Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture."
   ],
   "support_strength_lines": [
@@ -399,19 +401,8 @@
   ],
   "promotion_blocker_claim_ids": [],
   "promotion_blocker_summaries": [],
-  "recommended_action_summaries": [
-    {
-      "action": "Maintain independent edge-condition and reference-style validation as trust-strengthening support while this experimental family remains non-default.",
-      "priority": "medium",
-      "promotion_impact": "strengthening",
-      "action_class": "experimental_validation",
-      "source_claim_id": null,
-      "source_claim_display_name": null
-    }
-  ],
-  "recommended_actions": [
-    "Maintain independent edge-condition and reference-style validation as trust-strengthening support while this experimental family remains non-default."
-  ],
+  "recommended_action_summaries": [],
+  "recommended_actions": [],
   "limitations": [
     {
       "code": "claim_coverage_not_regulatory_acceptance",

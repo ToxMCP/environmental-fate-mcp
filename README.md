@@ -40,7 +40,7 @@ Fate MCP is the ToxMCP module for deterministic environmental release to concent
 - Scientific methods dossiers now also expose highlighted-claim transport-regime stability, so reviewers can see whether an advective claim is anchored in a stable transport regime or close to a turnover boundary
 - Near-parity highlighted advective claims now promote claim-specific boundary-sensitivity follow-up actions, so transition-zone claims trigger concrete reviewer work rather than passive description
 - Scientific methods dossiers now expose claim-set external corroboration breadth, so reviewers can see how much of a filtered claim set is backed by multi-official multi-jurisdiction grounding
-- The baseline reference-family scientific methods dossier can now resolve to `ready`, and the experimental advective dossier can resolve to `strengthening_only` once the governed evidentiary bar is met
+- The baseline reference-family scientific methods dossier can now resolve to `ready`, and the experimental advective dossier can now also resolve to `ready` once the governed transport-authority, transition-sensitivity, and corroboration bars are all met
 - Model-family scientific methods dossiers and briefs that summarize governed claims, official source grounding, benchmark support strength, and applicability policy
 - Versioned defaults and region-profile registries
 - Governed model-family applicability profiles with inspectable defaults resources

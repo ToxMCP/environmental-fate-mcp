@@ -1244,6 +1244,52 @@ def _scientific_methods_highlighted_claim_review_questions(
     return questions[:3]
 
 
+_ADVECTIVE_TRANSPORT_REFERENCE_TYPES = {
+    "hand_worked_advective_bounded_transport_reference_fixture",
+    "hand_worked_advective_flow_through_transport_reference_fixture",
+    "hand_worked_advective_storage_dominant_transport_reference_fixture",
+    "hand_worked_advective_transition_boundary_reference_fixture",
+}
+
+
+def _advective_transport_authority_support_ready(
+    claim_summaries_by_id: dict[str, ScientificMethodsDossierClaimSummary],
+) -> bool:
+    turnover_claim = claim_summaries_by_id.get("advective_residence_time_turnover_regime_v1")
+    if not turnover_claim or not turnover_claim.covered:
+        return False
+    if turnover_claim.support_strength != ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER:
+        return False
+    if "reference_style" not in turnover_claim.supporting_validation_tiers:
+        return False
+    return _ADVECTIVE_TRANSPORT_REFERENCE_TYPES.issubset(
+        set(turnover_claim.supporting_reference_types)
+    )
+
+
+def _advective_transition_reference_support_ready(
+    claim_summaries_by_id: dict[str, ScientificMethodsDossierClaimSummary],
+) -> bool:
+    mixed_claim = claim_summaries_by_id.get("advective_mixed_loss_transition_margin_v1")
+    flip_claim = claim_summaries_by_id.get("advective_loss_regime_flip_directionality_v1")
+    if not mixed_claim or not mixed_claim.covered:
+        return False
+    if mixed_claim.support_strength != ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER:
+        return False
+    if "reference_style" not in mixed_claim.supporting_validation_tiers:
+        return False
+    if (
+        "hand_worked_advective_transition_boundary_reference_fixture"
+        not in mixed_claim.supporting_reference_types
+    ):
+        return False
+    return bool(
+        flip_claim
+        and flip_claim.covered
+        and flip_claim.support_strength == ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER
+    )
+
+
 def _scientific_methods_recommended_action_summaries(
     defaults_registry: DefaultsRegistry,
     claim_summaries: list[ScientificMethodsDossierClaimSummary],
@@ -1253,6 +1299,12 @@ def _scientific_methods_recommended_action_summaries(
 ) -> list[ScientificMethodsRecommendedActionSummary]:
     summaries: list[ScientificMethodsRecommendedActionSummary] = []
     claim_summaries_by_id = {item.claim_id: item for item in claim_summaries}
+    transport_authority_support_ready = _advective_transport_authority_support_ready(
+        claim_summaries_by_id
+    )
+    transition_reference_support_ready = _advective_transition_reference_support_ready(
+        claim_summaries_by_id
+    )
     if uncovered_mandatory_claim_count:
         summaries.append(
             ScientificMethodsRecommendedActionSummary(
@@ -1292,18 +1344,8 @@ def _scientific_methods_recommended_action_summaries(
                     source_claim_display_name=item.display_name,
                 )
             )
-        turnover_claim = claim_summaries_by_id.get("advective_residence_time_turnover_regime_v1")
-        flip_claim = claim_summaries_by_id.get("advective_loss_regime_flip_directionality_v1")
-        boundary_transition_support_ready = bool(
-            turnover_claim
-            and turnover_claim.covered
-            and turnover_claim.support_strength
-            == ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER
-            and "reference_style" in turnover_claim.supporting_validation_tiers
-            and flip_claim
-            and flip_claim.covered
-            and flip_claim.support_strength
-            == ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER
+        boundary_transition_support_ready = (
+            transport_authority_support_ready and transition_reference_support_ready
         )
         if (
             item.loss_regime_stability_status == "near_parity_transition"
@@ -1358,22 +1400,28 @@ def _scientific_methods_recommended_action_summaries(
                 for item in priority_claims
             )
         )
-        summaries.append(
-            ScientificMethodsRecommendedActionSummary(
-                action=(
-                    "Expand independent edge-condition and reference-style validation before promoting this experimental family beyond challenge use."
-                    if experimental_blocking
-                    else "Maintain independent edge-condition and reference-style validation as trust-strengthening support while this experimental family remains non-default."
-                ),
-                priority=ScientificMethodsRecommendedActionPriority.MEDIUM,
-                promotion_impact=(
-                    ScientificMethodsRecommendedActionPromotionImpact.BLOCKING
-                    if experimental_blocking
-                    else ScientificMethodsRecommendedActionPromotionImpact.STRENGTHENING
-                ),
-                action_class="experimental_validation",
+        experimental_strengthening_needed = True
+        if model_family.value == "advective_screening_mass_balance":
+            experimental_strengthening_needed = not (
+                transport_authority_support_ready and transition_reference_support_ready
             )
-        )
+        if experimental_blocking or experimental_strengthening_needed:
+            summaries.append(
+                ScientificMethodsRecommendedActionSummary(
+                    action=(
+                        "Expand independent edge-condition and reference-style validation before promoting this experimental family beyond challenge use."
+                        if experimental_blocking
+                        else "Maintain independent edge-condition, reference-style, and transition-boundary validation as trust-strengthening support while this experimental family remains non-default."
+                    ),
+                    priority=ScientificMethodsRecommendedActionPriority.MEDIUM,
+                    promotion_impact=(
+                        ScientificMethodsRecommendedActionPromotionImpact.BLOCKING
+                        if experimental_blocking
+                        else ScientificMethodsRecommendedActionPromotionImpact.STRENGTHENING
+                    ),
+                    action_class="experimental_validation",
+                )
+            )
     summaries.sort(
         key=lambda item: (
             {"blocking": 0, "strengthening": 1}.get(item.promotion_impact.value, 99),
@@ -5221,6 +5269,21 @@ def build_scientific_methods_dossier(
         "External corroboration breadth: "
         + f"{multi_jurisdiction_claim_count}/{len(claim_summaries)} claim(s) carry multi-official multi-jurisdiction grounding."
     )
+    claim_summaries_by_id = {item.claim_id: item for item in claim_summaries}
+    if (
+        request.model_family.value == "advective_screening_mass_balance"
+        and _advective_transport_authority_support_ready(claim_summaries_by_id)
+    ):
+        summary_lines.append(
+            "Transport authority support: reference-style bounded-transport anchors now span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes."
+        )
+    if (
+        request.model_family.value == "advective_screening_mass_balance"
+        and _advective_transition_reference_support_ready(claim_summaries_by_id)
+    ):
+        summary_lines.append(
+            "Transport transition support: reference-style transition anchors and flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary."
+        )
     flip_directionality_claim = next(
         (
             item

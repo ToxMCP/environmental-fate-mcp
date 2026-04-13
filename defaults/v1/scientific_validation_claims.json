@@ -711,7 +711,10 @@
         "hand_worked_advective_clearance_edge_anchor",
         "hand_worked_advective_residence_edge_anchor",
         "hand_worked_advective_loss_transition_anchor",
-        "hand_worked_advective_bounded_transport_reference_fixture"
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
       ],
       "referenceCaseIds": [
         "echa_euses_water_screening_case_family_v1",
@@ -765,6 +768,21 @@
           "source_id": "benchmark.advective_bounded_transport_reference_fixture",
           "title": "Fate MCP benchmark fixture: advective_bounded_transport_reference_fixture",
           "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_flow_through_transport_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_flow_through_transport_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_storage_dominant_transport_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_storage_dominant_transport_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_boundary_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_boundary_reference_fixture",
+          "url": "benchmarks://manifest"
         }
       ],
       "methodsBasisLines": [
@@ -775,7 +793,8 @@
         "Supported by the advective_short_residence_time_clearance_anchor_fixture and companion case for flow-through transport interpretation.",
         "Supported by the advective_mixed_loss_transition_anchor_fixture as an intermediate-turnover transport anchor.",
         "Supported by the advective_long_residence_time_accumulation_anchor_fixture and companion case for storage-dominant transport interpretation.",
-        "Supported by the advective_bounded_transport_reference_fixture for explicit bounded-plateau and turnover-boundary interpretation."
+        "Supported by the advective_bounded_transport_reference_fixture for explicit bounded-plateau and turnover-boundary interpretation.",
+        "Supported by the advective_flow_through_transport_reference_fixture, advective_transition_boundary_reference_fixture, and advective_storage_dominant_transport_reference_fixture so reference-style bounded transport anchors span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes."
       ]
     },
     "advective_mixed_loss_transition_margin_v1": {
@@ -787,8 +806,11 @@
       "claimClass": "advective_loss_dominance",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "sensitivity"],
-      "requiredReferenceTypes": ["hand_worked_advective_loss_transition_anchor"],
+      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
       "referenceCaseIds": [
         "echa_euses_water_screening_case_family_v1",
         "epa_flow_through_water_screening_case_family_v1",
@@ -832,6 +854,11 @@
           "source_id": "benchmark.advective_mixed_loss_transition_companion_fixture",
           "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_companion_fixture",
           "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_boundary_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_boundary_reference_fixture",
+          "url": "benchmarks://manifest"
         }
       ],
       "methodsBasisLines": [
@@ -842,6 +869,7 @@
       "referenceCaseLines": [
         "Supported by the advective_mixed_loss_transition_anchor_fixture near-parity loss-transition anchor.",
         "Supported by the advective_mixed_loss_transition_companion_fixture mixed-loss corroboration case.",
+        "Supported by the advective_transition_boundary_reference_fixture so the near-parity boundary is also anchored by a reference-style bounded-transport case rather than only edge and sensitivity fixtures.",
         "Mapped to the ECHA and EPA transition-boundary screening case families for reviewer-facing directional-sensitivity interpretation.",
         "Mapped to the EPA turnover-boundary and OECD bounded-transport case families so the transition claim is grounded against residence-time interpretation as well as loss-share math."
       ]
