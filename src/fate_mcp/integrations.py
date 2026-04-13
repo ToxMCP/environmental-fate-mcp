@@ -683,6 +683,31 @@ def _post_release_recovery_lines_from_surfaces(surfaces: list) -> list[str]:
                         f"spans {_format_trace_term_value(turnover_count, 3)} turnover(s), "
                         f"{_format_trace_term_value(abs(boundary_offset), 3)} below the one-turnover flushing boundary."
                     )
+            if {
+                "post_release_boundary_retained_fraction_of_release_stop_mass",
+                "post_release_retained_fraction_offset_from_boundary",
+                "post_release_retained_fraction_of_release_stop_mass",
+            }.issubset(terms):
+                retained_fraction = float(
+                    terms["post_release_retained_fraction_of_release_stop_mass"]
+                )
+                boundary_retained_fraction = float(
+                    terms["post_release_boundary_retained_fraction_of_release_stop_mass"]
+                )
+                retained_offset = float(
+                    terms["post_release_retained_fraction_offset_from_boundary"]
+                )
+                direction = "above"
+                if retained_offset < -1e-12:
+                    direction = "below"
+                elif abs(retained_offset) <= 1e-12:
+                    direction = "at"
+                lines.append(
+                    f"{surface.compartment.value}: post_release_retained_mass_relative_to_boundary "
+                    f"(retained={_format_trace_term_value(retained_fraction * 100.0, 2)}%, "
+                    f"one_turnover_anchor={_format_trace_term_value(boundary_retained_fraction * 100.0, 2)}%, "
+                    f"offset={_format_trace_term_value(retained_offset * 100.0, 2)} pct, {direction} the one-turnover retained-mass anchor)."
+                )
     return lines
 
 
@@ -1482,6 +1507,7 @@ def _advective_post_release_regime_support_ready(
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
     }.issubset(set(regime_claim.supporting_reference_types))
 
 
@@ -5596,6 +5622,9 @@ def build_scientific_methods_dossier(
     ):
         summary_lines.append(
             "Post-release regime support: stable sub-boundary, boundary-sensitive, and flushing-dominant recovery windows are anchored around the one-turnover flushing threshold after release stop."
+        )
+        summary_lines.append(
+            "Post-release directionality support: retained release-stop mass is now benchmark-anchored against the one-turnover retained-mass boundary and continues to decline in the expected direction as recovery windows extend further beyond that threshold."
         )
     flip_directionality_claim = next(
         (

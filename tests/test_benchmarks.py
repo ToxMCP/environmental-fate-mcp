@@ -22,6 +22,7 @@ def test_benchmark_fixtures_pass() -> None:
     assert by_name["advective_post_release_boundary_transition_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_post_release_recovery_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_post_release_recovery_sensitivity_fixture"]["traceTermComparisons"]
+    assert by_name["advective_post_release_extended_flushing_sensitivity_fixture"]["traceTermComparisons"]
     assert by_name["advective_degradation_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_clearance_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_mixed_loss_transition_anchor_fixture"]["passed"] is True
@@ -31,6 +32,7 @@ def test_benchmark_fixtures_pass() -> None:
     assert by_name["advective_storage_dominant_transport_reference_fixture"]["passed"] is True
     assert by_name["advective_post_release_boundary_transition_reference_fixture"]["passed"] is True
     assert by_name["advective_post_release_recovery_reference_fixture"]["passed"] is True
+    assert by_name["advective_post_release_extended_flushing_sensitivity_fixture"]["passed"] is True
 
 
 def test_benchmark_manifest_includes_metadata_for_all_fixtures() -> None:
@@ -86,6 +88,7 @@ def test_benchmark_manifest_includes_metadata_for_all_fixtures() -> None:
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
     }.issubset(
         set(coverage["advective_post_release_flushing_regime_transition_v1"]["supporting_reference_types"])
     )

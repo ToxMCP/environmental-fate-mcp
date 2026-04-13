@@ -171,6 +171,8 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
         post_release_elapsed_turnover_count: float | str
         post_release_flushing_boundary_offset_turnovers: float | str
         post_release_transition_margin_turnovers: float | str
+        post_release_boundary_retained_fraction_of_release_stop_mass: float | str
+        post_release_retained_fraction_offset_from_boundary: float | str
         if post_release_elapsed_days > 0.0:
             release_stop_concentration, _ = self._concentration_at_time(
                 release_rate_mg_per_day=release_rate_mg_per_day,
@@ -217,6 +219,13 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
             post_release_transition_margin_turnovers = abs(
                 post_release_flushing_boundary_offset_turnovers
             )
+            post_release_boundary_retained_fraction_of_release_stop_mass = math.exp(
+                -total_loss_constant_per_day * residence_time_days
+            )
+            post_release_retained_fraction_offset_from_boundary = (
+                post_release_retained_fraction_of_release_stop_mass
+                - post_release_boundary_retained_fraction_of_release_stop_mass
+            )
         else:
             release_stop_compartment_mass_mg = "not_applicable"
             post_release_retained_fraction_of_release_stop_mass = "not_applicable"
@@ -226,6 +235,8 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
             post_release_elapsed_turnover_count = "not_applicable"
             post_release_flushing_boundary_offset_turnovers = "not_applicable"
             post_release_transition_margin_turnovers = "not_applicable"
+            post_release_boundary_retained_fraction_of_release_stop_mass = "not_applicable"
+            post_release_retained_fraction_offset_from_boundary = "not_applicable"
         finite_plateau_mass_mg: float | str
         retained_mass_fraction_of_finite_plateau: float | str
         if total_loss_constant_per_day <= 1e-12:
@@ -505,6 +516,16 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                     name="post_release_transition_margin_turnovers",
                     value=post_release_transition_margin_turnovers,
                     unit="turnovers",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_boundary_retained_fraction_of_release_stop_mass",
+                    value=post_release_boundary_retained_fraction_of_release_stop_mass,
+                    unit="fraction",
+                ),
+                CalculationTraceTerm(
+                    name="post_release_retained_fraction_offset_from_boundary",
+                    value=post_release_retained_fraction_offset_from_boundary,
+                    unit="fraction",
                 ),
                 CalculationTraceTerm(name="medium_release_fraction", value=fraction, unit="fraction"),
                 CalculationTraceTerm(

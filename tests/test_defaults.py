@@ -170,6 +170,7 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
     ]
     assert claims["advective_post_release_flushing_regime_transition_v1"].reference_case_ids == [
         "epa_post_release_decay_bucket_case_family_v1",

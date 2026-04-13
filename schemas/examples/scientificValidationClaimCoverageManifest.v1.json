@@ -349,12 +349,13 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 4,
+      "supporting_fixture_count": 5,
       "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "advective_post_release_decay_anchor_fixture",
         "advective_post_release_recovery_reference_fixture",
         "advective_post_release_recovery_sensitivity_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture",
         "advective_post_release_boundary_transition_reference_fixture"
       ],
       "supporting_categories": [
@@ -365,6 +366,7 @@
       "supporting_reference_types": [
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
         "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_recovery_sensitivity_fixture"
       ],

@@ -756,7 +756,8 @@
         "hand_worked_advective_post_release_bucket_anchor",
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
-        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture"
       ],
       "source_references": [
         {
@@ -806,6 +807,12 @@
           "title": "Fate MCP benchmark fixture: advective_post_release_recovery_sensitivity_fixture",
           "effective_date": null,
           "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
         }
       ],
       "reference_case_ids": [
@@ -816,13 +823,15 @@
       ],
       "methods_basis_lines": [
         "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose post-release turnover count relative to the one-turnover flushing boundary.",
-        "The claim is satisfied when sub-boundary, near-boundary, and beyond-boundary recovery windows remain distinguishable through the governed post-release trace terms and aligned retained-versus-removed release-stop mass interpretation."
+        "The claim is satisfied when sub-boundary, near-boundary, and beyond-boundary recovery windows remain distinguishable through the governed post-release trace terms and aligned retained-versus-removed release-stop mass interpretation.",
+        "The claim also requires a stronger beyond-boundary sensitivity anchor so retained release-stop mass decline remains directionally consistent as the post-release recovery window extends further beyond one full flushing turnover."
       ],
       "reference_case_lines": [
         "Supported by the advective_post_release_decay_anchor_fixture edge-condition anchor below the one-turnover flushing boundary.",
         "Supported by the advective_post_release_boundary_transition_reference_fixture at the one-turnover post-release transition boundary.",
         "Supported by the advective_post_release_recovery_reference_fixture as a stable flushing-dominant reference-style recovery window.",
-        "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate stronger-flushing sensitivity case."
+        "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate stronger-flushing sensitivity case.",
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass decline is also anchored further beyond the one-turnover boundary."
       ],
       "review_notes": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",

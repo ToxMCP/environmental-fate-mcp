@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "dossier_id": "scimethods-6960a9040d70",
+  "dossier_id": "scimethods-30c5f382acc1",
   "model_family": "advective_screening_mass_balance",
   "run_mode_filter": null,
   "promotion_status": "ready",
@@ -1234,11 +1234,12 @@
         "hand_worked_advective_post_release_bucket_anchor",
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
-        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture"
       ],
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 4,
+      "supporting_fixture_count": 5,
       "reference_case_ids": [
         "epa_post_release_decay_bucket_case_family_v1",
         "epa_post_release_flushing_screening_case_family_v1",
@@ -1249,11 +1250,13 @@
         "advective_post_release_decay_anchor_fixture",
         "advective_post_release_recovery_reference_fixture",
         "advective_post_release_recovery_sensitivity_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture",
         "advective_post_release_boundary_transition_reference_fixture"
       ],
       "supporting_reference_types": [
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
         "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_recovery_sensitivity_fixture"
       ],
@@ -1310,6 +1313,12 @@
           "title": "Fate MCP benchmark fixture: advective_post_release_recovery_sensitivity_fixture",
           "effective_date": null,
           "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
         }
       ],
       "external_corroboration_status": "multi_official_multi_jurisdiction",
@@ -1331,13 +1340,15 @@
       ],
       "methods_basis_lines": [
         "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose post-release turnover count relative to the one-turnover flushing boundary.",
-        "The claim is satisfied when sub-boundary, near-boundary, and beyond-boundary recovery windows remain distinguishable through the governed post-release trace terms and aligned retained-versus-removed release-stop mass interpretation."
+        "The claim is satisfied when sub-boundary, near-boundary, and beyond-boundary recovery windows remain distinguishable through the governed post-release trace terms and aligned retained-versus-removed release-stop mass interpretation.",
+        "The claim also requires a stronger beyond-boundary sensitivity anchor so retained release-stop mass decline remains directionally consistent as the post-release recovery window extends further beyond one full flushing turnover."
       ],
       "reference_case_lines": [
         "Supported by the advective_post_release_decay_anchor_fixture edge-condition anchor below the one-turnover flushing boundary.",
         "Supported by the advective_post_release_boundary_transition_reference_fixture at the one-turnover post-release transition boundary.",
         "Supported by the advective_post_release_recovery_reference_fixture as a stable flushing-dominant reference-style recovery window.",
         "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate stronger-flushing sensitivity case.",
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass decline is also anchored further beyond the one-turnover boundary.",
         "advective_post_release_decay_anchor_fixture: Advective time-bucket outputs decay after release ends according to the governed combined degradation-plus-clearance loss term.",
         "advective_post_release_recovery_reference_fixture: Post-release advective bucket outputs preserve release-stop retained-mass decline with explicit degraded-versus-advected recovery accounting under a reference-style bounded-transport case."
       ],
@@ -1992,7 +2003,7 @@
       "challenge_lines": [
         "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
         "Challenge because this claim is anchored close to the one-turnover post-release flushing boundary, where modest recovery-window or residence-time shifts can change the reviewer-facing recovery interpretation.",
-        "Support strength is multi_anchor_multi_tier with 4 supporting fixtures.",
+        "Support strength is multi_anchor_multi_tier with 5 supporting fixtures.",
         "Governed reference-case mapping count for this claim: 4."
       ],
       "review_questions": [
@@ -2191,6 +2202,7 @@
     "Transport transition support: reference-style transition anchors and flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "Post-release recovery support: reference-style bucket anchors show release-stop mass draining with explicit degraded-versus-advected recovery accounting after active emission ends.",
     "Post-release regime support: stable sub-boundary, boundary-sensitive, and flushing-dominant recovery windows are anchored around the one-turnover flushing threshold after release stop.",
+    "Post-release directionality support: retained release-stop mass is now benchmark-anchored against the one-turnover retained-mass boundary and continues to decline in the expected direction as recovery windows extend further beyond that threshold.",
     "Transition sensitivity support: explicit flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "This model family remains experimental and should be challenged with extra reviewer scrutiny even when its mandatory claims are covered.",
     "Promotion status: ready (0 blocking actions, 0 strengthening actions)."
@@ -2205,7 +2217,7 @@
     "Scientific review note: Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
   ],
   "source_grounding_lines": [
-    "Source grounding cites 5 external official references and 37 governed internal references across the filtered claim set.",
+    "Source grounding cites 5 external official references and 38 governed internal references across the filtered claim set.",
     "Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
     "Representative governed references: Fate MCP advective cumulative mass-balance method notes, Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture."
   ],
@@ -2239,7 +2251,7 @@
     "ECHA post-release flushing boundary case family: This governed reference case family anchors reviewer-facing interpretation of post-release recovery windows that sit near the one-turnover flushing boundary in a flowing-water screening model."
   ],
   "benchmark_reference_lines": [
-    "Benchmark-backed claim support cites 27 supporting fixtures across the filtered claim set.",
+    "Benchmark-backed claim support cites 28 supporting fixtures across the filtered claim set.",
     "Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture."
   ],
   "support_strength_lines": [
@@ -2262,7 +2274,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T17:34:07.116560Z",
+    "generated_at": "2026-04-13T18:32:07.808236Z",
     "source_references": [
       {
         "source_id": "methods.advective_mass_balance_accounting.v1",
@@ -2453,6 +2465,12 @@
       {
         "source_id": "benchmark.advective_post_release_boundary_transition_reference_fixture",
         "title": "Fate MCP benchmark fixture: advective_post_release_boundary_transition_reference_fixture",
+        "effective_date": null,
+        "url": "benchmarks://manifest"
+      },
+      {
+        "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+        "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
         "effective_date": null,
         "url": "benchmarks://manifest"
       },
