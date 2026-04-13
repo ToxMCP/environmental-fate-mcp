@@ -954,6 +954,7 @@ def test_build_scientific_review_brief_reflects_packet_context() -> None:
     assert brief.post_release_recovery_lines == packet.post_release_recovery_lines
     assert brief.post_release_regime_lines == packet.post_release_regime_lines
     assert brief.post_release_directionality_lines == packet.post_release_directionality_lines
+    assert brief.post_release_pace_lines == packet.post_release_pace_lines
     assert brief.loss_dominance_lines == packet.loss_dominance_lines
     assert brief.loss_transition_lines == packet.loss_transition_lines
     assert any(line.startswith("Equation components: ") for line in brief.summary_lines)
@@ -964,6 +965,10 @@ def test_build_scientific_review_brief_reflects_packet_context() -> None:
     assert (
         not brief.post_release_directionality_lines
         or any(line.startswith("Post-release directionality: ") for line in brief.summary_lines)
+    )
+    assert (
+        not brief.post_release_pace_lines
+        or any(line.startswith("Post-release pace: ") for line in brief.summary_lines)
     )
     assert any(line.startswith("Loss dominance: ") for line in brief.summary_lines)
     assert any(line.startswith("Loss transition: ") for line in brief.summary_lines)
@@ -1081,6 +1086,10 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
         for item in dossier.highlighted_claim_summaries
     )
     assert any(
+        item.transport_regime_stability_status == "boundary_sensitive_post_release_recovery_pace"
+        for item in dossier.highlighted_claim_summaries
+    )
+    assert any(
         item.claim_id == "advective_residence_time_turnover_regime_v1"
         for item in dossier.highlighted_claim_summaries
     )
@@ -1090,6 +1099,10 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
     )
     assert any(
         item.claim_id == "advective_post_release_flushing_regime_transition_v1"
+        for item in dossier.highlighted_claim_summaries
+    )
+    assert any(
+        item.claim_id == "advective_post_release_half_recovery_pace_v1"
         for item in dossier.highlighted_claim_summaries
     )
     turnover_claim = next(
@@ -1149,6 +1162,19 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
     }.issubset(set(post_release_directionality_claim.supporting_reference_types))
+    post_release_pace_claim = next(
+        item
+        for item in dossier.claim_summaries
+        if item.claim_id == "advective_post_release_half_recovery_pace_v1"
+    )
+    assert post_release_pace_claim.support_strength.value == "multi_anchor_multi_tier"
+    assert "reference_style" in post_release_pace_claim.supporting_validation_tiers
+    assert {
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+    }.issubset(set(post_release_pace_claim.supporting_reference_types))
     assert any(line.startswith("Highlighted regime stability: ") for line in dossier.summary_lines)
     assert any(line.startswith("Highlighted transport stability: ") for line in dossier.summary_lines)
     assert any(line.startswith("Post-release regime stability: ") for line in dossier.summary_lines)
@@ -1158,6 +1184,7 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
     assert any(line.startswith("Post-release recovery support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Post-release regime support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Post-release directionality support: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Post-release pace support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Transition sensitivity support: ") for line in dossier.summary_lines)
     assert not any(item.action_class == "regime_transition" for item in dossier.recommended_action_summaries)
     assert dossier.promotion_status.value == "ready"

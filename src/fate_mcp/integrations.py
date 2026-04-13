@@ -828,6 +828,65 @@ def _post_release_directionality_lines_from_surfaces(surfaces: list) -> list[str
     return lines
 
 
+def _post_release_pace_lines_from_surfaces(surfaces: list) -> list[str]:
+    lines: list[str] = []
+    seen: set[tuple[str, str]] = set()
+    for surface in surfaces:
+        if surface.calculation_trace is None:
+            continue
+        key = (surface.compartment.value, surface.calculation_trace.equation_id)
+        if key in seen:
+            continue
+        seen.add(key)
+        terms = {term.name: term.value for term in surface.calculation_trace.resolved_terms}
+        required_terms = {
+            "post_release_elapsed_days",
+            "post_release_elapsed_turnover_count",
+            "post_release_half_recovery_turnovers",
+            "post_release_half_recovery_offset_turnovers",
+            "post_release_recovery_window_multiple_of_half_recovery",
+            "post_release_retained_fraction_ratio_to_half_recovery_anchor",
+        }
+        if not required_terms.issubset(terms):
+            continue
+        post_release_elapsed_days = float(terms["post_release_elapsed_days"])
+        if post_release_elapsed_days <= 0.0:
+            lines.append(
+                f"{surface.compartment.value}: no_post_release_recovery_pace_window "
+                f"(elapsed time does not extend beyond the active emission duration)."
+            )
+            continue
+        half_recovery_turnovers = terms["post_release_half_recovery_turnovers"]
+        if isinstance(half_recovery_turnovers, str):
+            lines.append(
+                f"{surface.compartment.value}: unbounded_post_release_recovery_pace "
+                f"(combined-loss half-recovery pace is not finite under the resolved loss constants)."
+            )
+            continue
+        offset = float(terms["post_release_half_recovery_offset_turnovers"])
+        multiple = float(terms["post_release_recovery_window_multiple_of_half_recovery"])
+        retained_ratio = float(terms["post_release_retained_fraction_ratio_to_half_recovery_anchor"])
+        if abs(offset) <= 0.05:
+            lines.append(
+                f"{surface.compartment.value}: half_recovery_boundary_post_release_pace "
+                f"(post-release window spans {_format_trace_term_value(multiple, 3)}x the combined-loss half-recovery pace, "
+                f"retained release-stop mass is {_format_trace_term_value(retained_ratio, 3)}x the 50% anchor)."
+            )
+        elif offset < 0.0:
+            lines.append(
+                f"{surface.compartment.value}: pre_half_recovery_post_release_pace "
+                f"(post-release window spans {_format_trace_term_value(multiple, 3)}x the combined-loss half-recovery pace, "
+                f"{_format_trace_term_value(abs(offset), 3)} turnover(s) before the 50% retained-mass anchor)."
+            )
+        else:
+            lines.append(
+                f"{surface.compartment.value}: beyond_half_recovery_post_release_pace "
+                f"(post-release window spans {_format_trace_term_value(multiple, 3)}x the combined-loss half-recovery pace, "
+                f"{_format_trace_term_value(abs(offset), 3)} turnover(s) beyond the 50% retained-mass anchor)."
+            )
+    return lines
+
+
 def _normalized_evidence_quality(evidence_quality: str | None) -> str:
     return (evidence_quality or "reference").strip().lower()
 
@@ -1232,6 +1291,8 @@ def _scientific_methods_highlighted_claim_challenge_status(
         return ScientificHighlightedClaimChallengeStatus.CHALLENGE
     if transport_regime_stability_status == "boundary_sensitive_post_release_recovery_regime":
         return ScientificHighlightedClaimChallengeStatus.CHALLENGE
+    if transport_regime_stability_status == "boundary_sensitive_post_release_recovery_pace":
+        return ScientificHighlightedClaimChallengeStatus.CHALLENGE
     return ScientificHighlightedClaimChallengeStatus.WELL_SUPPORTED
 
 
@@ -1300,6 +1361,10 @@ def _scientific_methods_highlighted_claim_challenge_lines(
     elif transport_regime_stability_status == "post_release_flushing_recovery_regime":
         lines.append(
             "Challenge because this claim depends on a post-release recovery window, so reviewer confidence depends on whether the elapsed post-release interval is long enough to support the claimed flushing or retention interpretation."
+        )
+    elif transport_regime_stability_status == "boundary_sensitive_post_release_recovery_pace":
+        lines.append(
+            "Challenge because this claim is anchored close to the combined-loss half-recovery pace boundary, where modest recovery-window or loss-constant shifts can change whether retained release-stop mass is still above or already below the 50% anchor."
         )
     elif transport_regime_stability_status in {
         "storage_dominant_transport_regime",
@@ -1385,6 +1450,14 @@ def _scientific_methods_highlighted_claim_transport_regime_stability(
             [
                 "This claim is anchored near the one-turnover post-release flushing boundary, where retained release-stop mass can still be interpreted as either recovery-limited or flushing-dominant.",
                 "The supporting anchors are intended to show how small recovery-window or residence-time shifts move the run across the post-release flushing transition rather than merely changing the magnitude of retained mass.",
+            ],
+        )
+    if any("post_release_half_recovery" in name for name in fixture_names):
+        return (
+            "boundary_sensitive_post_release_recovery_pace",
+            [
+                "This claim is anchored around the combined-loss half-recovery pace, where retained release-stop mass sits near the 50% recovery anchor under the resolved degradation-plus-clearance constants.",
+                "The supporting anchors are intended to show how modest post-release window shifts move the run from pre-half-recovery to beyond-half-recovery interpretation under the same chemistry and residence-time assumptions.",
             ],
         )
     if any("post_release" in name for name in fixture_names):
@@ -1478,6 +1551,10 @@ def _scientific_methods_highlighted_claim_review_questions(
     if transport_regime_stability_status == "boundary_sensitive_post_release_recovery_regime":
         questions.append(
             "Could a modest residence-time or post-release recovery-window change move this scenario across the one-turnover flushing boundary after release stop?"
+        )
+    if transport_regime_stability_status == "boundary_sensitive_post_release_recovery_pace":
+        questions.append(
+            "Could a modest post-release recovery-window or loss-constant change move this scenario across the combined-loss half-recovery boundary for retained release-stop mass?"
         )
     if transport_regime_stability_status == "post_release_flushing_recovery_regime":
         questions.append(
@@ -1587,6 +1664,24 @@ def _advective_post_release_directionality_support_ready(
         "hand_worked_advective_post_release_recovery_reference_fixture",
         "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
     }.issubset(set(directionality_claim.supporting_reference_types))
+
+
+def _advective_post_release_pace_support_ready(
+    claim_summaries_by_id: dict[str, ScientificMethodsDossierClaimSummary],
+) -> bool:
+    pace_claim = claim_summaries_by_id.get("advective_post_release_half_recovery_pace_v1")
+    if not pace_claim or not pace_claim.covered:
+        return False
+    if pace_claim.support_strength != ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER:
+        return False
+    if "reference_style" not in pace_claim.supporting_validation_tiers:
+        return False
+    return {
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+    }.issubset(set(pace_claim.supporting_reference_types))
 
 
 def _scientific_methods_recommended_action_summaries(
@@ -1834,7 +1929,8 @@ def _scientific_methods_highlighted_claim_summaries(
             item.claim_id,
         ),
     )
-    selected_claims = list(ranked_claims[:5])
+    selected_claim_limit = 7 if model_family.value == "advective_screening_mass_balance" else 5
+    selected_claims = list(ranked_claims[:selected_claim_limit])
     if model_family.value == "advective_screening_mass_balance":
         transition_claim = next(
             (
@@ -1944,6 +2040,7 @@ def _scientific_methods_highlighted_claim_summaries(
                 "advective_residence_time_turnover_regime_v1",
                 "advective_post_release_flushing_recovery_v1",
                 "advective_post_release_flushing_regime_transition_v1",
+                "advective_post_release_half_recovery_pace_v1",
             }
             replace_index = next(
                 (
@@ -1954,6 +2051,33 @@ def _scientific_methods_highlighted_claim_summaries(
                 len(selected_claims) - 1,
             )
             selected_claims[replace_index] = post_release_directionality_claim
+        post_release_pace_claim = next(
+            (
+                item
+                for item in ranked_claims
+                if item.claim_id == "advective_post_release_half_recovery_pace_v1"
+            ),
+            None,
+        )
+        if post_release_pace_claim and all(
+            item.claim_id != post_release_pace_claim.claim_id for item in selected_claims
+        ):
+            protected_ids = {
+                "advective_mixed_loss_transition_margin_v1",
+                "advective_residence_time_turnover_regime_v1",
+                "advective_post_release_flushing_recovery_v1",
+                "advective_post_release_flushing_regime_transition_v1",
+                "advective_post_release_flushing_directionality_v1",
+            }
+            replace_index = next(
+                (
+                    idx
+                    for idx in range(len(selected_claims) - 1, -1, -1)
+                    if selected_claims[idx].claim_id not in protected_ids
+                ),
+                len(selected_claims) - 1,
+            )
+            selected_claims[replace_index] = post_release_pace_claim
         stable_loss_claim = next(
             (
                 item
@@ -5443,6 +5567,7 @@ def build_scientific_review_packet(
     post_release_directionality_lines = _post_release_directionality_lines_from_surfaces(
         request.result.surfaces
     )
+    post_release_pace_lines = _post_release_pace_lines_from_surfaces(request.result.surfaces)
     loss_dominance_lines = _loss_dominance_lines_from_surfaces(request.result.surfaces)
     loss_transition_lines = _loss_transition_lines_from_surfaces(request.result.surfaces)
     benchmark_lines = _benchmark_reference_lines(
@@ -5495,6 +5620,7 @@ def build_scientific_review_packet(
         post_release_recovery_lines=post_release_recovery_lines,
         post_release_regime_lines=post_release_regime_lines,
         post_release_directionality_lines=post_release_directionality_lines,
+        post_release_pace_lines=post_release_pace_lines,
         loss_dominance_lines=loss_dominance_lines,
         loss_transition_lines=loss_transition_lines,
         checks=checks,
@@ -5549,6 +5675,9 @@ def build_scientific_review_brief(
         for line in review_packet.post_release_directionality_lines
     )
     summary_lines.extend(
+        "Post-release pace: " + line for line in review_packet.post_release_pace_lines
+    )
+    summary_lines.extend(
         "Loss dominance: " + line for line in review_packet.loss_dominance_lines
     )
     summary_lines.extend(
@@ -5584,6 +5713,7 @@ def build_scientific_review_brief(
         post_release_recovery_lines=review_packet.post_release_recovery_lines,
         post_release_regime_lines=review_packet.post_release_regime_lines,
         post_release_directionality_lines=review_packet.post_release_directionality_lines,
+        post_release_pace_lines=review_packet.post_release_pace_lines,
         loss_dominance_lines=review_packet.loss_dominance_lines,
         loss_transition_lines=review_packet.loss_transition_lines,
         limitations=review_packet.limitations,
@@ -5639,6 +5769,12 @@ def build_scientific_methods_dossier(
         for item in highlighted_claim_summaries
         if item.transport_regime_stability_status
         == "boundary_sensitive_post_release_recovery_regime"
+    )
+    boundary_sensitive_post_release_pace_count = sum(
+        1
+        for item in highlighted_claim_summaries
+        if item.transport_regime_stability_status
+        == "boundary_sensitive_post_release_recovery_pace"
     )
     stable_post_release_count = sum(
         1
@@ -5702,6 +5838,7 @@ def build_scientific_methods_dossier(
         summary_lines.append(
             "Post-release regime stability: "
             + f"{boundary_sensitive_post_release_count} boundary-sensitive recovery claim(s), "
+            + f"{boundary_sensitive_post_release_pace_count} half-recovery pace claim(s), "
             + f"{stable_post_release_count} stable post-release recovery claim(s)."
         )
     summary_lines.append(
@@ -5743,6 +5880,13 @@ def build_scientific_methods_dossier(
     ):
         summary_lines.append(
             "Post-release directionality support: same-chemistry sub-boundary, boundary, and beyond-boundary anchors show retained release-stop mass crossing the one-turnover anchor in the governed direction as the recovery window extends."
+        )
+    if (
+        request.model_family.value == "advective_screening_mass_balance"
+        and _advective_post_release_pace_support_ready(claim_summaries_by_id)
+    ):
+        summary_lines.append(
+            "Post-release pace support: same-chemistry pre-half, half-recovery, and beyond-half anchors show the governed combined-loss half-recovery timescale directly rather than inferring recovery pace from the one-turnover boundary alone."
         )
     flip_directionality_claim = next(
         (

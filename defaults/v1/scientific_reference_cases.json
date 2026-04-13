@@ -208,6 +208,30 @@
         "Use this case family when a reviewer needs a regulator-recognizable explanation for why retained release-stop mass should cross below the one-turnover anchor as the recovery window extends."
       ]
     },
+    "epa_post_release_recovery_pace_case_family_v1": {
+      "displayName": "EPA post-release combined-loss recovery pace case family",
+      "modelFamilies": ["advective_screening_mass_balance"],
+      "jurisdictions": ["US"],
+      "sourceType": "official_guidance_case_family",
+      "summaryLines": [
+        "This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model.",
+        "It is intended to explain why post-release recovery pace can cross the 50% retained-mass anchor before the one-turnover flushing boundary when degradation and advection both contribute to loss."
+      ],
+      "applicabilityLines": [
+        "Appropriate for post-release recovery-pace claims that need explicit pre-half, boundary, and beyond-half retained-mass interpretation in the advective screening family.",
+        "Not a substitute for calibrated hydrodynamic recovery modelling, monitoring-derived depletion curves, or full receiving-water post-release analysis."
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "reviewNotes": [
+        "Use this case family when a reviewer needs a regulator-recognizable explanation for why the combined-loss half-recovery pace can be materially earlier than the one-turnover flushing boundary."
+      ]
+    },
     "echa_bounded_clearance_edge_case_family_v1": {
       "displayName": "ECHA bounded-clearance edge case family",
       "modelFamilies": ["advective_screening_mass_balance"],

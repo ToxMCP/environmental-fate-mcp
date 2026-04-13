@@ -2043,6 +2043,7 @@ BENCHMARK_FIXTURES = [
             "advective_post_release_flushing_recovery_v1",
             "advective_post_release_flushing_regime_transition_v1",
             "advective_post_release_flushing_directionality_v1",
+            "advective_post_release_half_recovery_pace_v1",
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release decay"},
@@ -2102,7 +2103,12 @@ BENCHMARK_FIXTURES = [
                     "post_release_transition_margin_turnovers": 0.5,
                     "post_release_boundary_retained_fraction_of_release_stop_mass": 0.1459930529782552,
                     "post_release_retained_fraction_offset_from_boundary": 0.23609731981103044,
-                    "post_release_retained_fraction_ratio_to_boundary": 2.6171818795117305
+                    "post_release_retained_fraction_ratio_to_boundary": 2.6171818795117305,
+                    "post_release_half_recovery_days": 7.20453731154783,
+                    "post_release_half_recovery_turnovers": 0.36022686557739153,
+                    "post_release_half_recovery_offset_turnovers": 0.13977313442260847,
+                    "post_release_recovery_window_multiple_of_half_recovery": 1.3880141871111482,
+                    "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.7641807455785713
                 },
                 "tolerance": 1e-12
             }
@@ -2122,6 +2128,7 @@ BENCHMARK_FIXTURES = [
             "advective_post_release_flushing_recovery_v1",
             "advective_post_release_flushing_regime_transition_v1",
             "advective_post_release_flushing_directionality_v1",
+            "advective_post_release_half_recovery_pace_v1",
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release recovery reference"},
@@ -2176,7 +2183,148 @@ BENCHMARK_FIXTURES = [
                     "post_release_transition_margin_turnovers": 0.33333333333333326,
                     "post_release_boundary_retained_fraction_of_release_stop_mass": 0.2187424244521521,
                     "post_release_retained_fraction_offset_from_boundary": -0.08694385539428871,
-                    "post_release_retained_fraction_ratio_to_boundary": 0.6025286104785454
+                    "post_release_retained_fraction_ratio_to_boundary": 0.6025286104785454,
+                    "post_release_half_recovery_days": 2.7363586308689225,
+                    "post_release_half_recovery_turnovers": 0.45605977181148705,
+                    "post_release_half_recovery_offset_turnovers": 0.8772735615218462,
+                    "post_release_recovery_window_multiple_of_half_recovery": 2.9235933878519513,
+                    "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.2635971381157268
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "category": "parameter_override_sensitivity",
+        "validation_tier": "sensitivity",
+        "scientific_basis": "Hand-worked advective water time-bucket case with the same bounded transport setup as the half-recovery boundary and beyond-half reference cases, but with a shorter post-release window so retained release-stop mass remains above the combined-loss 50% anchor.",
+        "reference_type": "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "expected_behavior": "Post-release retained mass remains above the combined-loss half-recovery anchor while the recovery window is still shorter than the governed half-recovery pace under the same chemistry and residence-time assumptions used by the half-boundary and beyond-half anchors.",
+        "tolerance_rationale": "The pre-half companion remains analytically traceable because the governed closed-form recovery solution is evaluated at an earlier post-release window under the same loss constants as the half-boundary and beyond-half reference cases.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_post_release_half_recovery_pace_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective pre-half post-release recovery pace sensitivity"},
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 12.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 8.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Pre-half post-release half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 6.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Pre-half post-release residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "run_mode": "time_bucket",
+            "bucket_count": 7,
+            "bucket_duration_days": 2.0,
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_7",
+                "value": 3.7746800788217333e-06,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_7",
+                "terms": {
+                    "post_release_elapsed_days": 2.0,
+                    "post_release_elapsed_turnover_count": 0.3333333333333333,
+                    "post_release_retained_fraction_of_release_stop_mass": 0.6025286104785454,
+                    "post_release_half_recovery_days": 2.7363586308689225,
+                    "post_release_half_recovery_turnovers": 0.45605977181148705,
+                    "post_release_half_recovery_offset_turnovers": -0.12272643847815373,
+                    "post_release_recovery_window_multiple_of_half_recovery": 0.7308983469629878,
+                    "post_release_retained_fraction_ratio_to_half_recovery_anchor": 1.205057220957091
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "advective_post_release_half_recovery_reference_fixture",
+        "category": "reference_chemical_style",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked advective water time-bucket case positioned exactly at the combined-loss half-recovery boundary under the same bounded transport setup as the companion pre-half and beyond-half recovery anchors.",
+        "reference_type": "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "expected_behavior": "Post-release advective bucket outputs preserve a boundary-sensitive recovery-pace interpretation when retained release-stop mass sits at the governed 50% half-recovery anchor.",
+        "tolerance_rationale": "The half-recovery boundary case remains analytically traceable because the retained release-stop mass decays under the same governed closed-form solution, here evaluated at exactly one combined-loss half-life after release stop under the same chemistry and residence-time assumptions as the companion recovery anchors.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_post_release_half_recovery_pace_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective post-release half-recovery boundary"},
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 12.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 8.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Half-recovery boundary post-release half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 6.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Half-recovery boundary post-release residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "run_mode": "time_bucket",
+            "bucket_count": 6,
+            "bucket_duration_days": 2.456059771811487,
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_6",
+                "value": 3.13236584385908e-06,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_6",
+                "terms": {
+                    "post_release_elapsed_days": 2.7363586308689207,
+                    "post_release_elapsed_turnover_count": 0.45605977181148677,
+                    "post_release_retained_fraction_of_release_stop_mass": 0.5000000000000003,
+                    "post_release_half_recovery_days": 2.7363586308689225,
+                    "post_release_half_recovery_turnovers": 0.45605977181148705,
+                    "post_release_half_recovery_offset_turnovers": -2.7755575615628914e-16,
+                    "post_release_recovery_window_multiple_of_half_recovery": 0.9999999999999994,
+                    "post_release_retained_fraction_ratio_to_half_recovery_anchor": 1.0000000000000007
                 },
                 "tolerance": 1e-12
             }

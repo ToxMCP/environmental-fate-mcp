@@ -1,17 +1,17 @@
 {
   "review_packet": {
     "schema_version": "v1",
-    "review_packet_id": "cmpreview-e0f6693fa672",
-    "comparison_packet_id": "familycmp-fe498c2b90e3",
-    "scenario_id": "scenario-5f023b1c1ad7",
+    "review_packet_id": "cmpreview-7c85dc6912de",
+    "comparison_packet_id": "familycmp-40fcdc74b85f",
+    "scenario_id": "scenario-ef2d26bbbb3d",
     "comparison_profile_id": "reference_vs_advective_screening_v1",
     "base_model_family": "reference_mass_balance",
     "candidate_model_family": "advective_screening_mass_balance",
     "comparison_outcome": "material_model_family_divergence",
     "review_status": "model_family_comparison_review_attention_needed",
     "review_preview": {
-      "comparison_packet_id": "familycmp-fe498c2b90e3",
-      "scenario_id": "scenario-5f023b1c1ad7",
+      "comparison_packet_id": "familycmp-40fcdc74b85f",
+      "scenario_id": "scenario-ef2d26bbbb3d",
       "comparison_profile_id": "reference_vs_advective_screening_v1",
       "comparison_outcome": "material_model_family_divergence",
       "review_status": "model_family_comparison_review_attention_needed",
@@ -37,8 +37,8 @@
     },
     "comparison_packet": {
       "schema_version": "v1",
-      "comparison_packet_id": "familycmp-fe498c2b90e3",
-      "scenario_id": "scenario-5f023b1c1ad7",
+      "comparison_packet_id": "familycmp-40fcdc74b85f",
+      "scenario_id": "scenario-ef2d26bbbb3d",
       "run_mode": "steady_state",
       "fit_for_purpose": "screening",
       "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -177,9 +177,9 @@
       },
       "comparison": {
         "schema_version": "v1",
-        "comparison_id": "comparison-2f116d26e22b",
-        "base_scenario_id": "scenario-5f023b1c1ad7",
-        "candidate_scenario_id": "scenario-5f023b1c1ad7",
+        "comparison_id": "comparison-cd0a09710495",
+        "base_scenario_id": "scenario-ef2d26bbbb3d",
+        "candidate_scenario_id": "scenario-ef2d26bbbb3d",
         "surface_deltas": [
           {
             "medium": "air",
@@ -229,7 +229,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-13T19:56:09.191278Z",
+          "generated_at": "2026-04-13T20:26:29.881897Z",
           "source_references": []
         },
         "limitations": [],
@@ -300,7 +300,7 @@
         }
       ],
       "summary_lines": [
-        "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-5f023b1c1ad7.",
+        "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-ef2d26bbbb3d.",
         "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
         "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
         "Base fit verdict: good_fit (score=0.85).",
@@ -348,7 +348,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T19:56:09.194790Z",
+        "generated_at": "2026-04-13T20:26:29.886003Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -482,7 +482,7 @@
     ],
     "summary_lines": [
       "Build a governed assessor-facing review packet for the reference-versus-advective screening comparison, preserving baseline-versus-experimental framing, fit/applicability context, dominant deltas, and equation traces.",
-      "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-5f023b1c1ad7.",
+      "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-ef2d26bbbb3d.",
       "Comparison outcome: material_model_family_divergence.",
       "Review status: model_family_comparison_review_attention_needed.",
       "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary."
@@ -542,7 +542,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T19:56:09.194900Z",
+      "generated_at": "2026-04-13T20:26:29.886143Z",
       "source_references": [
         {
           "source_id": "example.release.note",

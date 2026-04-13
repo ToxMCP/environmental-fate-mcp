@@ -1,7 +1,7 @@
 {
   "scenario": {
     "schema_version": "v1",
-    "scenario_id": "scenario-5f023b1c1ad7",
+    "scenario_id": "scenario-ef2d26bbbb3d",
     "chemical_identity": {
       "preferredName": "Example substance",
       "casrn": "100-00-0"
@@ -74,7 +74,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T19:56:09.184659Z",
+      "generated_at": "2026-04-13T20:26:29.874837Z",
       "source_references": [
         {
           "source_id": "example.release.note",
