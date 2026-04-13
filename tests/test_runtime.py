@@ -195,6 +195,10 @@ def test_advective_post_release_runtime_emits_recovery_trace_terms() -> None:
         float(term_map["post_release_retained_fraction_of_release_stop_mass"])
         - float(term_map["post_release_boundary_retained_fraction_of_release_stop_mass"])
     )
+    assert float(term_map["post_release_retained_fraction_ratio_to_boundary"]) == pytest.approx(
+        float(term_map["post_release_retained_fraction_of_release_stop_mass"])
+        / float(term_map["post_release_boundary_retained_fraction_of_release_stop_mass"])
+    )
     assert 0.0 <= float(term_map["post_release_retained_fraction_of_release_stop_mass"]) <= 1.0
     assert 0.0 <= float(term_map["post_release_removed_fraction_of_release_stop_mass"]) <= 1.0
     assert float(term_map["post_release_removed_fraction_of_release_stop_mass"]) == pytest.approx(

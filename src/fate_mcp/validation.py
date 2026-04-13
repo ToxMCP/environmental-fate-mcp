@@ -954,6 +954,8 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
         and brief_payload.get("transport_regime_lines") == packet_payload.get("transport_regime_lines")
         and brief_payload.get("post_release_recovery_lines") == packet_payload.get("post_release_recovery_lines")
         and brief_payload.get("post_release_regime_lines") == packet_payload.get("post_release_regime_lines")
+        and brief_payload.get("post_release_directionality_lines")
+        == packet_payload.get("post_release_directionality_lines")
         and brief_payload.get("loss_dominance_lines") == packet_payload.get("loss_dominance_lines")
         and brief_payload.get("loss_transition_lines") == packet_payload.get("loss_transition_lines")
         and any(
@@ -967,6 +969,13 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
         and any(
             line.startswith("Transport regime: ")
             for line in brief_payload.get("summary_lines", [])
+        )
+        and (
+            not packet_payload.get("post_release_directionality_lines")
+            or any(
+                line.startswith("Post-release directionality: ")
+                for line in brief_payload.get("summary_lines", [])
+            )
         )
         and any(
             line.startswith("Post-release recovery: ")
@@ -1149,7 +1158,7 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         )
         and (
             not any(
-                item.get("claim_id") == "advective_post_release_flushing_regime_transition_v1"
+                item.get("claim_id") == "advective_post_release_flushing_directionality_v1"
                 and item.get("covered")
                 for item in dossier_payload.get("claim_summaries", [])
             )

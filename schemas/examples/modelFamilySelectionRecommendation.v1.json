@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "scenario_id": "scenario-44d49dad2e4f",
+  "scenario_id": "scenario-5f023b1c1ad7",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -143,7 +143,7 @@
     "Scenario duration 30 day meets or exceeds the governed challenge threshold of 30 day."
   ],
   "summary_lines": [
-    "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-44d49dad2e4f.",
+    "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-5f023b1c1ad7.",
     "Primary baseline family: reference_mass_balance.",
     "Challenge family: advective_screening_mass_balance.",
     "Primary fit verdict: good_fit (score=0.85).",
@@ -163,7 +163,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T18:32:07.808487Z",
+    "generated_at": "2026-04-13T19:56:09.190780Z",
     "source_references": [
       {
         "source_id": "example.release.note",

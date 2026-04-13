@@ -178,6 +178,25 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
         "oecd_post_release_recovery_screening_case_family_v1",
         "echa_post_release_flushing_boundary_case_family_v1",
     ]
+    assert claims["advective_post_release_flushing_directionality_v1"].required_validation_tiers == [
+        "edge_condition",
+        "reference_style",
+        "sensitivity",
+    ]
+    assert claims["advective_post_release_flushing_directionality_v1"].required_reference_types == [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_subboundary_sensitivity_fixture",
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+    ]
+    assert claims["advective_post_release_flushing_directionality_v1"].reference_case_ids == [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_directionality_case_family_v1",
+    ]
     assert claims["advective_extreme_persistence_clearance_bound_v1"].reference_case_ids == [
         "advective_clearance_edge_case_family_v1",
         "echa_bounded_clearance_edge_case_family_v1",
@@ -261,6 +280,7 @@ def test_scientific_reference_cases_are_governed_and_resolvable() -> None:
     assert cases["epa_post_release_flushing_screening_case_family_v1"].source_references
     assert cases["oecd_post_release_recovery_screening_case_family_v1"].review_notes
     assert cases["echa_post_release_flushing_boundary_case_family_v1"].source_references
+    assert cases["epa_post_release_directionality_case_family_v1"].source_references
     assert cases["epa_single_compartment_environmental_screening_case_family_v1"].source_references
     assert cases["echa_source_term_reduction_screening_case_family_v1"].review_notes
     assert cases["echa_bounded_clearance_edge_case_family_v1"].review_notes

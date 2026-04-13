@@ -662,6 +662,13 @@
           "title": "Post Release Regime Lines",
           "type": "array"
         },
+        "post_release_directionality_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Directionality Lines",
+          "type": "array"
+        },
         "loss_dominance_lines": {
           "items": {
             "type": "string"

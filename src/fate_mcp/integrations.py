@@ -702,11 +702,17 @@ def _post_release_recovery_lines_from_surfaces(surfaces: list) -> list[str]:
                     direction = "below"
                 elif abs(retained_offset) <= 1e-12:
                     direction = "at"
+                ratio_fragment = ""
+                if "post_release_retained_fraction_ratio_to_boundary" in terms:
+                    ratio_fragment = (
+                        ", "
+                        + f"ratio={_format_trace_term_value(float(terms['post_release_retained_fraction_ratio_to_boundary']), 3)}x anchor"
+                    )
                 lines.append(
                     f"{surface.compartment.value}: post_release_retained_mass_relative_to_boundary "
                     f"(retained={_format_trace_term_value(retained_fraction * 100.0, 2)}%, "
                     f"one_turnover_anchor={_format_trace_term_value(boundary_retained_fraction * 100.0, 2)}%, "
-                    f"offset={_format_trace_term_value(retained_offset * 100.0, 2)} pct, {direction} the one-turnover retained-mass anchor)."
+                    f"offset={_format_trace_term_value(retained_offset * 100.0, 2)} pct{ratio_fragment}, {direction} the one-turnover retained-mass anchor)."
                 )
     return lines
 
@@ -768,6 +774,56 @@ def _post_release_regime_lines_from_surfaces(surfaces: list) -> list[str]:
                 f"{surface.compartment.value}: flushing_dominant_post_release_recovery_regime "
                 f"(post-release window spans {_format_trace_term_value(turnover_count, 3)} turnover(s), "
                 f"{_format_trace_term_value(abs(boundary_offset), 3)} beyond the one-turnover flushing boundary)."
+            )
+    return lines
+
+
+def _post_release_directionality_lines_from_surfaces(surfaces: list) -> list[str]:
+    lines: list[str] = []
+    seen: set[tuple[str, str]] = set()
+    for surface in surfaces:
+        if surface.calculation_trace is None:
+            continue
+        key = (surface.compartment.value, surface.calculation_trace.equation_id)
+        if key in seen:
+            continue
+        seen.add(key)
+        terms = {term.name: term.value for term in surface.calculation_trace.resolved_terms}
+        required_terms = {
+            "post_release_elapsed_days",
+            "post_release_elapsed_turnover_count",
+            "post_release_flushing_boundary_offset_turnovers",
+            "post_release_retained_fraction_ratio_to_boundary",
+        }
+        if not required_terms.issubset(terms):
+            continue
+        post_release_elapsed_days = float(terms["post_release_elapsed_days"])
+        if post_release_elapsed_days <= 0.0:
+            lines.append(
+                f"{surface.compartment.value}: no_post_release_directionality_window "
+                f"(elapsed time does not extend beyond the active emission duration)."
+            )
+            continue
+        turnover_count = float(terms["post_release_elapsed_turnover_count"])
+        boundary_offset = float(terms["post_release_flushing_boundary_offset_turnovers"])
+        retained_ratio = float(terms["post_release_retained_fraction_ratio_to_boundary"])
+        if abs(retained_ratio - 1.0) <= 0.05:
+            lines.append(
+                f"{surface.compartment.value}: boundary_matched_post_release_directionality "
+                f"(retained release-stop mass sits at {_format_trace_term_value(retained_ratio, 3)}x the one-turnover anchor "
+                f"with {_format_trace_term_value(turnover_count, 3)} turnover(s) of post-release recovery)."
+            )
+        elif boundary_offset < 0.0:
+            lines.append(
+                f"{surface.compartment.value}: subboundary_post_release_directionality "
+                f"(retained release-stop mass remains {_format_trace_term_value(retained_ratio, 3)}x the one-turnover anchor, "
+                f"{_format_trace_term_value(abs(boundary_offset), 3)} turnover(s) before the flushing boundary)."
+            )
+        else:
+            lines.append(
+                f"{surface.compartment.value}: beyond_boundary_post_release_directionality "
+                f"(retained release-stop mass has declined to {_format_trace_term_value(retained_ratio, 3)}x the one-turnover anchor, "
+                f"{_format_trace_term_value(abs(boundary_offset), 3)} turnover(s) beyond the flushing boundary)."
             )
     return lines
 
@@ -1511,6 +1567,28 @@ def _advective_post_release_regime_support_ready(
     }.issubset(set(regime_claim.supporting_reference_types))
 
 
+def _advective_post_release_directionality_support_ready(
+    claim_summaries_by_id: dict[str, ScientificMethodsDossierClaimSummary],
+) -> bool:
+    directionality_claim = claim_summaries_by_id.get("advective_post_release_flushing_directionality_v1")
+    if not directionality_claim or not directionality_claim.covered:
+        return False
+    if (
+        directionality_claim.support_strength
+        != ScientificClaimSupportStrength.MULTI_ANCHOR_MULTI_TIER
+    ):
+        return False
+    if "reference_style" not in directionality_claim.supporting_validation_tiers:
+        return False
+    return {
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_subboundary_sensitivity_fixture",
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+    }.issubset(set(directionality_claim.supporting_reference_types))
+
+
 def _scientific_methods_recommended_action_summaries(
     defaults_registry: DefaultsRegistry,
     claim_summaries: list[ScientificMethodsDossierClaimSummary],
@@ -1849,6 +1927,33 @@ def _scientific_methods_highlighted_claim_summaries(
                 len(selected_claims) - 1,
             )
             selected_claims[replace_index] = post_release_transition_claim
+        post_release_directionality_claim = next(
+            (
+                item
+                for item in ranked_claims
+                if item.claim_id == "advective_post_release_flushing_directionality_v1"
+            ),
+            None,
+        )
+        if post_release_directionality_claim and all(
+            item.claim_id != post_release_directionality_claim.claim_id
+            for item in selected_claims
+        ):
+            protected_ids = {
+                "advective_mixed_loss_transition_margin_v1",
+                "advective_residence_time_turnover_regime_v1",
+                "advective_post_release_flushing_recovery_v1",
+                "advective_post_release_flushing_regime_transition_v1",
+            }
+            replace_index = next(
+                (
+                    idx
+                    for idx in range(len(selected_claims) - 1, -1, -1)
+                    if selected_claims[idx].claim_id not in protected_ids
+                ),
+                len(selected_claims) - 1,
+            )
+            selected_claims[replace_index] = post_release_directionality_claim
         stable_loss_claim = next(
             (
                 item
@@ -5335,6 +5440,9 @@ def build_scientific_review_packet(
     transport_regime_lines = _transport_regime_lines_from_surfaces(request.result.surfaces)
     post_release_recovery_lines = _post_release_recovery_lines_from_surfaces(request.result.surfaces)
     post_release_regime_lines = _post_release_regime_lines_from_surfaces(request.result.surfaces)
+    post_release_directionality_lines = _post_release_directionality_lines_from_surfaces(
+        request.result.surfaces
+    )
     loss_dominance_lines = _loss_dominance_lines_from_surfaces(request.result.surfaces)
     loss_transition_lines = _loss_transition_lines_from_surfaces(request.result.surfaces)
     benchmark_lines = _benchmark_reference_lines(
@@ -5386,6 +5494,7 @@ def build_scientific_review_packet(
         transport_regime_lines=transport_regime_lines,
         post_release_recovery_lines=post_release_recovery_lines,
         post_release_regime_lines=post_release_regime_lines,
+        post_release_directionality_lines=post_release_directionality_lines,
         loss_dominance_lines=loss_dominance_lines,
         loss_transition_lines=loss_transition_lines,
         checks=checks,
@@ -5436,6 +5545,10 @@ def build_scientific_review_brief(
         "Post-release regime: " + line for line in review_packet.post_release_regime_lines
     )
     summary_lines.extend(
+        "Post-release directionality: " + line
+        for line in review_packet.post_release_directionality_lines
+    )
+    summary_lines.extend(
         "Loss dominance: " + line for line in review_packet.loss_dominance_lines
     )
     summary_lines.extend(
@@ -5470,6 +5583,7 @@ def build_scientific_review_brief(
         transport_regime_lines=review_packet.transport_regime_lines,
         post_release_recovery_lines=review_packet.post_release_recovery_lines,
         post_release_regime_lines=review_packet.post_release_regime_lines,
+        post_release_directionality_lines=review_packet.post_release_directionality_lines,
         loss_dominance_lines=review_packet.loss_dominance_lines,
         loss_transition_lines=review_packet.loss_transition_lines,
         limitations=review_packet.limitations,
@@ -5623,8 +5737,12 @@ def build_scientific_methods_dossier(
         summary_lines.append(
             "Post-release regime support: stable sub-boundary, boundary-sensitive, and flushing-dominant recovery windows are anchored around the one-turnover flushing threshold after release stop."
         )
+    if (
+        request.model_family.value == "advective_screening_mass_balance"
+        and _advective_post_release_directionality_support_ready(claim_summaries_by_id)
+    ):
         summary_lines.append(
-            "Post-release directionality support: retained release-stop mass is now benchmark-anchored against the one-turnover retained-mass boundary and continues to decline in the expected direction as recovery windows extend further beyond that threshold."
+            "Post-release directionality support: same-chemistry sub-boundary, boundary, and beyond-boundary anchors show retained release-stop mass crossing the one-turnover anchor in the governed direction as the recovery window extends."
         )
     flip_directionality_claim = next(
         (

@@ -184,6 +184,30 @@
         "Use this case family when a reviewer needs an EU-recognizable explanation for why post-release retention and flushing can remain boundary-sensitive around a one-turnover recovery window."
       ]
     },
+    "epa_post_release_directionality_case_family_v1": {
+      "displayName": "EPA post-release recovery directionality case family",
+      "modelFamilies": ["advective_screening_mass_balance"],
+      "jurisdictions": ["US"],
+      "sourceType": "official_guidance_case_family",
+      "summaryLines": [
+        "This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress as the post-release recovery window moves from below the one-turnover flushing boundary to beyond it.",
+        "It is intended to ground directionality claims about retained-mass decline and bounded post-release flushing progression in a regulator-recognizable US environmental modelling posture."
+      ],
+      "applicabilityLines": [
+        "Appropriate for post-release directionality claims that need explicit sub-boundary, boundary, and beyond-boundary recovery interpretation in the advective screening family.",
+        "Not a substitute for routed receiving-water recovery modelling, monitoring data, or calibrated hydrodynamic post-release analysis."
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "reviewNotes": [
+        "Use this case family when a reviewer needs a regulator-recognizable explanation for why retained release-stop mass should cross below the one-turnover anchor as the recovery window extends."
+      ]
+    },
     "echa_bounded_clearance_edge_case_family_v1": {
       "displayName": "ECHA bounded-clearance edge case family",
       "modelFamilies": ["advective_screening_mass_balance"],
