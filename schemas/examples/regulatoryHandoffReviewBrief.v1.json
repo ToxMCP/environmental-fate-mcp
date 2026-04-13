@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "regreview-ac1a893dcbf5",
-  "scenario_id": "scenario-77bced003de4",
+  "review_packet_id": "regreview-e438f056d2be",
+  "scenario_id": "scenario-c98586c9b614",
   "handoff_profile_id": "exposure_scenario_mcp_v1",
   "target_module": "Direct-Use Exposure MCP",
   "review_status": "ready_for_assessor_review",

@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "claim_count": 25,
-  "mandatory_claim_count": 24,
+  "claim_count": 26,
+  "mandatory_claim_count": 25,
   "claims": [
     {
       "claim_id": "advective_clearance_dominant_loss_share_v1",
@@ -687,6 +687,12 @@
           "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
         },
         {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
           "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
           "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
           "effective_date": null,
@@ -709,7 +715,8 @@
         "epa_environmental_models_elapsed_time_case_family_v1",
         "epa_post_release_decay_bucket_case_family_v1",
         "epa_post_release_flushing_screening_case_family_v1",
-        "oecd_post_release_recovery_screening_case_family_v1"
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
       ],
       "methods_basis_lines": [
         "This claim is limited to governed advective time-bucket outputs where elapsed time extends beyond the declared release duration and the kernel applies combined degradation-plus-clearance decay to the retained release-stop mass.",
@@ -719,6 +726,103 @@
         "Supported by the advective_post_release_decay_anchor_fixture edge-condition bucket anchor for post-release retained-mass decline.",
         "Supported by the advective_post_release_recovery_reference_fixture so post-release recovery is grounded by a reference-style bounded-transport bucket case.",
         "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate post-release flushing case with a different recovery window."
+      ],
+      "review_notes": [],
+      "source_pack": "defaults/v1/scientific_validation_claims.json",
+      "applicability_note": null
+    },
+    {
+      "claim_id": "advective_post_release_flushing_regime_transition_v1",
+      "display_name": "Advective post-release flushing regime transition",
+      "model_family": "advective_screening_mass_balance",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel classifies post-release recovery windows relative to the one-turnover flushing boundary so retained release-stop mass can be interpreted as sub-flushing, boundary-sensitive, or flushing-dominant rather than only as a raw retained fraction.",
+      "claim_class": "advective_post_release_transition",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "required_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "required_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "source_references": [
+        {
+          "source_id": "methods.advective_post_release_regime_transition.v1",
+          "title": "Fate MCP advective post-release regime-transition method notes",
+          "effective_date": null,
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_boundary_transition_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_boundary_transition_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_sensitivity_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "reference_case_ids": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "methods_basis_lines": [
+        "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose post-release turnover count relative to the one-turnover flushing boundary.",
+        "The claim is satisfied when sub-boundary, near-boundary, and beyond-boundary recovery windows remain distinguishable through the governed post-release trace terms and aligned retained-versus-removed release-stop mass interpretation."
+      ],
+      "reference_case_lines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition anchor below the one-turnover flushing boundary.",
+        "Supported by the advective_post_release_boundary_transition_reference_fixture at the one-turnover post-release transition boundary.",
+        "Supported by the advective_post_release_recovery_reference_fixture as a stable flushing-dominant reference-style recovery window.",
+        "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate stronger-flushing sensitivity case."
       ],
       "review_notes": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",

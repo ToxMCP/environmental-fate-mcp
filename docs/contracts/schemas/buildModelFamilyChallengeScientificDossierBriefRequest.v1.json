@@ -655,6 +655,13 @@
           "title": "Post Release Recovery Lines",
           "type": "array"
         },
+        "post_release_regime_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Regime Lines",
+          "type": "array"
+        },
         "loss_dominance_lines": {
           "items": {
             "type": "string"

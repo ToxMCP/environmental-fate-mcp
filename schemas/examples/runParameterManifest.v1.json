@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "scenario_id": "scenario-77bced003de4",
-  "run_id": "run-a5498dbfca8e",
+  "scenario_id": "scenario-c98586c9b614",
+  "run_id": "run-48097dffd42d",
   "model_family": "reference_mass_balance",
   "fit_for_purpose": "screening",
   "entries": [
@@ -212,7 +212,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T17:09:27.565651Z",
+    "generated_at": "2026-04-13T17:34:07.108133Z",
     "source_references": [
       {
         "source_id": "example.release.note",

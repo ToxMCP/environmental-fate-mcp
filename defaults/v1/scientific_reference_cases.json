@@ -155,6 +155,35 @@
         "Use this case family to explain post-release retained-versus-removed mass interpretation in a regulator-recognizable way without claiming OECD model equivalence."
       ]
     },
+    "echa_post_release_flushing_boundary_case_family_v1": {
+      "displayName": "ECHA post-release flushing boundary case family",
+      "modelFamilies": ["advective_screening_mass_balance"],
+      "jurisdictions": ["EU"],
+      "sourceType": "official_guidance_case_family",
+      "summaryLines": [
+        "This governed reference case family anchors reviewer-facing interpretation of post-release recovery windows that sit near the one-turnover flushing boundary in a flowing-water screening model.",
+        "It is intended to explain why retained release-stop mass can remain boundary-sensitive even after active emission ends when residence-time turnover is close to one full flushing window."
+      ],
+      "applicabilityLines": [
+        "Appropriate for post-release turnover-boundary and recovery-interpretation claims in the advective screening family.",
+        "Not a substitute for routed hydrodynamic recovery modelling, site observations, or full EUSES implementation."
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        }
+      ],
+      "reviewNotes": [
+        "Use this case family when a reviewer needs an EU-recognizable explanation for why post-release retention and flushing can remain boundary-sensitive around a one-turnover recovery window."
+      ]
+    },
     "echa_bounded_clearance_edge_case_family_v1": {
       "displayName": "ECHA bounded-clearance edge case family",
       "modelFamilies": ["advective_screening_mass_balance"],

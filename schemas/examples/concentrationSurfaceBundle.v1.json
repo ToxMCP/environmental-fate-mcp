@@ -1,12 +1,12 @@
 {
   "schema_version": "v1",
-  "bundle_id": "bundle-fbf8be46aad2",
-  "scenario_id": "scenario-77bced003de4",
+  "bundle_id": "bundle-e176a9898d27",
+  "scenario_id": "scenario-c98586c9b614",
   "surfaces": [
     {
       "schema_version": "v1",
-      "surface_id": "surface-ef268545873f",
-      "scenario_id": "scenario-77bced003de4",
+      "surface_id": "surface-e8e696c44895",
+      "scenario_id": "scenario-c98586c9b614",
       "medium": "air",
       "compartment": "ambient_air",
       "geographic_scope": {
@@ -28,7 +28,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T17:09:27.564485Z",
+        "generated_at": "2026-04-13T17:34:07.106958Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -181,8 +181,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-9118b3f0c1bc",
-      "scenario_id": "scenario-77bced003de4",
+      "surface_id": "surface-5dd806d409d8",
+      "scenario_id": "scenario-c98586c9b614",
       "medium": "water",
       "compartment": "surface_water",
       "geographic_scope": {
@@ -204,7 +204,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T17:09:27.564552Z",
+        "generated_at": "2026-04-13T17:34:07.107024Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -357,8 +357,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-3e2604a03972",
-      "scenario_id": "scenario-77bced003de4",
+      "surface_id": "surface-576eca1768ea",
+      "scenario_id": "scenario-c98586c9b614",
       "medium": "soil",
       "compartment": "agricultural_soil",
       "geographic_scope": {
@@ -380,7 +380,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T17:09:27.564608Z",
+        "generated_at": "2026-04-13T17:34:07.107080Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -534,8 +534,8 @@
   ],
   "run_summary": {
     "schema_version": "v1",
-    "run_id": "run-a5498dbfca8e",
-    "scenario_id": "scenario-77bced003de4",
+    "run_id": "run-48097dffd42d",
+    "scenario_id": "scenario-c98586c9b614",
     "model_family": "reference_mass_balance",
     "run_mode": "steady_state",
     "surfaces_emitted": 3,
@@ -704,9 +704,9 @@
     "warnings": [],
     "result_metadata": {
       "status": "completed",
-      "executed_at": "2026-04-13T17:09:27.564619Z",
+      "executed_at": "2026-04-13T17:34:07.107092Z",
       "execution_mode": "synchronous",
-      "result_id": "result-scenario-77bced003de4"
+      "result_id": "result-scenario-c98586c9b614"
     }
   },
   "assumptions": [

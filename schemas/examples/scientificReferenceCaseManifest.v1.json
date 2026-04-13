@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "case_count": 21,
+  "case_count": 22,
   "cases": [
     {
       "case_id": "advective_clearance_edge_case_family_v1",
@@ -260,6 +260,43 @@
       ],
       "review_notes": [
         "Use this case family when the reviewer needs to see that multi-medium outputs are grounded to declared release fractions rather than implicit transfer physics."
+      ],
+      "source_pack": "defaults/v1/scientific_reference_cases.json"
+    },
+    {
+      "case_id": "echa_post_release_flushing_boundary_case_family_v1",
+      "display_name": "ECHA post-release flushing boundary case family",
+      "model_families": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
+      "source_type": "official_guidance_case_family",
+      "summary_lines": [
+        "This governed reference case family anchors reviewer-facing interpretation of post-release recovery windows that sit near the one-turnover flushing boundary in a flowing-water screening model.",
+        "It is intended to explain why retained release-stop mass can remain boundary-sensitive even after active emission ends when residence-time turnover is close to one full flushing window."
+      ],
+      "applicability_lines": [
+        "Appropriate for post-release turnover-boundary and recovery-interpretation claims in the advective screening family.",
+        "Not a substitute for routed hydrodynamic recovery modelling, site observations, or full EUSES implementation."
+      ],
+      "source_references": [
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        }
+      ],
+      "review_notes": [
+        "Use this case family when a reviewer needs an EU-recognizable explanation for why post-release retention and flushing can remain boundary-sensitive around a one-turnover recovery window."
       ],
       "source_pack": "defaults/v1/scientific_reference_cases.json"
     },

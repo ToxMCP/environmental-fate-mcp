@@ -2041,6 +2041,7 @@ BENCHMARK_FIXTURES = [
         "scientific_claim_ids": [
             "advective_time_bucket_elapsed_time_v1",
             "advective_post_release_flushing_recovery_v1",
+            "advective_post_release_flushing_regime_transition_v1",
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release decay"},
@@ -2096,7 +2097,8 @@ BENCHMARK_FIXTURES = [
                     "post_release_degraded_fraction_of_release_stop_mass": 0.2967835309602801,
                     "post_release_advected_fraction_of_release_stop_mass": 0.3211260962504342,
                     "post_release_elapsed_turnover_count": 0.5,
-                    "post_release_flushing_boundary_offset_turnovers": -0.5
+                    "post_release_flushing_boundary_offset_turnovers": -0.5,
+                    "post_release_transition_margin_turnovers": 0.5
                 },
                 "tolerance": 1e-12
             }
@@ -2113,7 +2115,8 @@ BENCHMARK_FIXTURES = [
         "tolerance": 1e-12,
         "scientific_claim_ids": [
             "advective_time_bucket_elapsed_time_v1",
-            "advective_post_release_flushing_recovery_v1"
+            "advective_post_release_flushing_recovery_v1",
+            "advective_post_release_flushing_regime_transition_v1"
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release recovery reference"},
@@ -2164,7 +2167,8 @@ BENCHMARK_FIXTURES = [
                     "post_release_degraded_fraction_of_release_stop_mass": 0.296963809861408,
                     "post_release_advected_fraction_of_release_stop_mass": 0.5712376210807286,
                     "post_release_elapsed_turnover_count": 1.3333333333333333,
-                    "post_release_flushing_boundary_offset_turnovers": 0.33333333333333326
+                    "post_release_flushing_boundary_offset_turnovers": 0.33333333333333326,
+                    "post_release_transition_margin_turnovers": 0.33333333333333326
                 },
                 "tolerance": 1e-12
             }
@@ -2180,7 +2184,8 @@ BENCHMARK_FIXTURES = [
         "tolerance_rationale": "The sensitivity companion remains analytically traceable because only the governed loss constants and elapsed recovery window differ from the anchor case.",
         "tolerance": 1e-12,
         "scientific_claim_ids": [
-            "advective_post_release_flushing_recovery_v1"
+            "advective_post_release_flushing_recovery_v1",
+            "advective_post_release_flushing_regime_transition_v1"
         ],
         "scenario": {
             "chemical_identity": {"preferredName": "Benchmark advective post-release recovery sensitivity"},
@@ -2231,7 +2236,76 @@ BENCHMARK_FIXTURES = [
                     "post_release_degraded_fraction_of_release_stop_mass": 0.3042739559054851,
                     "post_release_advected_fraction_of_release_stop_mass": 0.6584617908847659,
                     "post_release_elapsed_turnover_count": 2.25,
-                    "post_release_flushing_boundary_offset_turnovers": 1.25
+                    "post_release_flushing_boundary_offset_turnovers": 1.25,
+                    "post_release_transition_margin_turnovers": 1.25
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "advective_post_release_boundary_transition_reference_fixture",
+        "category": "reference_chemical_style",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked advective water time-bucket case positioned exactly at the one-turnover post-release flushing boundary, anchoring reviewer-facing recovery-regime transition interpretation rather than only retained-mass magnitude.",
+        "reference_type": "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "expected_behavior": "Post-release advective bucket outputs preserve a boundary-sensitive recovery interpretation when the elapsed post-release window equals one full residence-time turnover.",
+        "tolerance_rationale": "The boundary-transition case remains analytically traceable because the retained release-stop mass decays under the same governed closed-form solution, here evaluated at exactly one turnover after release stop.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_post_release_flushing_regime_transition_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {"preferredName": "Benchmark advective post-release boundary transition"},
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 10.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 8.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Boundary-transition post-release half-life override."
+                },
+                {
+                    "parameter": "water_residence_time_days",
+                    "value": 5.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Boundary-transition post-release residence-time override."
+                }
+            ]
+        },
+        "run_options": {
+            "run_mode": "time_bucket",
+            "bucket_count": 4,
+            "bucket_duration_days": 3.75,
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_4",
+                "value": 1.5696646877178637e-06,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "bucket_label": "bucket_4",
+                "terms": {
+                    "post_release_elapsed_days": 5.0,
+                    "post_release_retained_fraction_of_release_stop_mass": 0.23854030532701778,
+                    "post_release_removed_fraction_of_release_stop_mass": 0.7614596946729822,
+                    "post_release_degraded_fraction_of_release_stop_mass": 0.23016561908762184,
+                    "post_release_advected_fraction_of_release_stop_mass": 0.5312940755853603,
+                    "post_release_elapsed_turnover_count": 1.0,
+                    "post_release_flushing_boundary_offset_turnovers": 0.0,
+                    "post_release_transition_margin_turnovers": 0.0
                 },
                 "tolerance": 1e-12
             }

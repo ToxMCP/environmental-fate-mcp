@@ -187,6 +187,9 @@ def test_advective_post_release_runtime_emits_recovery_trace_terms() -> None:
     assert surface.time_window.bucket_label == "bucket_4"
     assert float(term_map["post_release_elapsed_days"]) == pytest.approx(10.0)
     assert float(term_map["post_release_elapsed_turnover_count"]) > 0.0
+    assert float(term_map["post_release_transition_margin_turnovers"]) == pytest.approx(
+        abs(float(term_map["post_release_flushing_boundary_offset_turnovers"]))
+    )
     assert 0.0 <= float(term_map["post_release_retained_fraction_of_release_stop_mass"]) <= 1.0
     assert 0.0 <= float(term_map["post_release_removed_fraction_of_release_stop_mass"]) <= 1.0
     assert float(term_map["post_release_removed_fraction_of_release_stop_mass"]) == pytest.approx(
