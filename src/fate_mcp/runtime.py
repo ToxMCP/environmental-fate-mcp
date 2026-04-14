@@ -302,7 +302,8 @@ class FateRuntime:
                     concentration_unit=base.concentration_unit,
                     median_value=med_val,
                     p90_value=p90_val,
-                    p95_value=p95_val
+                    p95_value=p95_val,
+                    absolute_p95_minus_median=p95_val - med_val,
                 )
             )
 

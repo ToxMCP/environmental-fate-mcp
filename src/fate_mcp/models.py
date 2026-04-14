@@ -880,6 +880,7 @@ class ProbabilisticSurfaceSummary(FateBaseModel):
     median_value: float
     p90_value: float
     p95_value: float
+    absolute_p95_minus_median: float
 
 
 class ProbabilisticRunSummary(FateBaseModel):
@@ -908,6 +909,67 @@ class ProbabilisticConcentrationResult(FateBaseModel):
     dominant_uncertainty_drivers: list[str] = Field(default_factory=list)
     uncertainty_limitation_lines: list[str] = Field(default_factory=list)
     run_summary: ProbabilisticRunSummary
+
+
+class ProbabilisticReviewSurfaceSummary(FateBaseModel):
+    surface_id: str
+    medium: Media
+    compartment: Compartment
+    concentration_unit: str
+    median_value: float
+    p90_value: float
+    p95_value: float
+    absolute_p95_minus_median: float
+
+
+class ProbabilisticReviewCheck(FateBaseModel):
+    code: str
+    passed: bool
+    message: str
+
+
+class ProbabilisticReviewPacket(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    review_packet_id: str = Field(default_factory=lambda: f"probreview-{uuid4().hex[:12]}")
+    scenario_id: str
+    run_id: str
+    model_family: ModelFamily
+    run_mode: RunMode
+    review_status: str
+    probabilistic_result: ProbabilisticConcentrationResult
+    summary_lines: list[str]
+    recommended_actions: list[str] = Field(default_factory=list)
+    sensitivity_lines: list[str] = Field(default_factory=list)
+    percentile_surface_lines: list[str] = Field(default_factory=list)
+    failed_iteration_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
+    uncertainty_limitation_lines: list[str] = Field(default_factory=list)
+    checks: list[ProbabilisticReviewCheck]
+    review_template_used: str | None = None
+    provenance: ProvenanceBundle
+    limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
+
+
+class ProbabilisticReviewBrief(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    review_packet_id: str
+    scenario_id: str
+    run_id: str
+    model_family: ModelFamily
+    run_mode: RunMode
+    review_status: str
+    passed_check_count: int
+    total_check_count: int
+    review_template_used: str | None = None
+    brief_lines: list[str]
+    recommended_actions: list[str] = Field(default_factory=list)
+    sensitivity_lines: list[str] = Field(default_factory=list)
+    percentile_surface_lines: list[str] = Field(default_factory=list)
+    failed_iteration_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
+    uncertainty_limitation_lines: list[str] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
 
 
 class ConcentrationEstimationResult(FateBaseModel):
@@ -1976,6 +2038,22 @@ class BuildRunParameterManifestRequest(FateBaseModel):
 class BuildRunUncertaintySummaryRequest(FateBaseModel):
     scenario: EnvironmentalReleaseScenario
     result: ConcentrationEstimationResult
+
+
+class EstimateProbabilisticMultimediaConcentrationsRequest(FateBaseModel):
+    scenario: EnvironmentalReleaseScenario
+    run_options: FateModelRunOptions
+    iterations: int = Field(default=100, ge=1)
+    seed: int | None = None
+
+
+class BuildProbabilisticReviewPacketRequest(FateBaseModel):
+    scenario: EnvironmentalReleaseScenario
+    result: ProbabilisticConcentrationResult
+
+
+class BuildProbabilisticReviewBriefRequest(FateBaseModel):
+    review_packet: ProbabilisticReviewPacket
 
 
 class BuildScientificReviewPacketRequest(FateBaseModel):

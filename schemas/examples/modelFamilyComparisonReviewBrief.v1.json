@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "cmpreview-8e5dbb107e14",
-  "comparison_packet_id": "familycmp-8240471438be",
-  "scenario_id": "scenario-4cdd1024992b",
+  "review_packet_id": "cmpreview-13835d9a212f",
+  "comparison_packet_id": "familycmp-15d52cb43055",
+  "scenario_id": "scenario-d21d3d1262b3",
   "comparison_profile_id": "reference_vs_advective_screening_v1",
   "base_model_family": "reference_mass_balance",
   "candidate_model_family": "advective_screening_mass_balance",
@@ -50,7 +50,7 @@
   "brief_lines": [
     "Summarize whether the governed reference-versus-advective comparison is ready for assessor-facing review, highlighting applicability, dominant deltas, and experimental-family caution.",
     "Build a governed assessor-facing review packet for the reference-versus-advective screening comparison, preserving baseline-versus-experimental framing, fit/applicability context, dominant deltas, and equation traces.",
-    "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-4cdd1024992b.",
+    "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-d21d3d1262b3.",
     "Comparison outcome: material_model_family_divergence.",
     "Review status: model_family_comparison_review_attention_needed.",
     "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary.",

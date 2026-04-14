@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "package_id": "regpkg-a2cc0045d5cb",
-  "scenario_id": "scenario-4cdd1024992b",
+  "package_id": "regpkg-c34117bb4d21",
+  "scenario_id": "scenario-d21d3d1262b3",
   "handoff_profile_id": "exposure_scenario_mcp_v1",
   "target_module": "Direct-Use Exposure MCP",
   "entry_count": 3,
@@ -36,7 +36,7 @@
   ],
   "entry_samples": [
     {
-      "source_surface_id": "surface-49a3799a3c00",
+      "source_surface_id": "surface-fada97b453e5",
       "medium": "air",
       "compartment": "ambient_air",
       "concentration_value": 0.00024044183555505707,
@@ -48,7 +48,7 @@
       "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
     },
     {
-      "source_surface_id": "surface-2f1b8b20d0fb",
+      "source_surface_id": "surface-bf51406a1d10",
       "medium": "water",
       "compartment": "surface_water",
       "concentration_value": 5.93830089619883e-06,
@@ -60,7 +60,7 @@
       "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
     },
     {
-      "source_surface_id": "surface-e52355132dd8",
+      "source_surface_id": "surface-5595ab45a007",
       "medium": "soil",
       "compartment": "agricultural_soil",
       "concentration_value": 0.0010820212806667226,

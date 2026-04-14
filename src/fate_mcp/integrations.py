@@ -20,6 +20,8 @@ from fate_mcp.models import (
     BuildScientificMethodsDossierRequest,
     BuildModelFamilySelectionReviewBriefRequest,
     BuildModelFamilySelectionReviewPacketRequest,
+    BuildProbabilisticReviewBriefRequest,
+    BuildProbabilisticReviewPacketRequest,
     BuildRunParameterManifestRequest,
     BuildModelFamilyComparisonBriefRequest,
     BuildModelFamilyComparisonPacketRequest,
@@ -78,6 +80,10 @@ from fate_mcp.models import (
     PhyschemEvidenceConflict,
     PhyschemEvidenceObservation,
     PhyschemEvidenceRecord,
+    ProbabilisticConcentrationResult,
+    ProbabilisticReviewBrief,
+    ProbabilisticReviewCheck,
+    ProbabilisticReviewPacket,
     PreviewRegulatoryHandoffResolutionRequest,
     QualityFlag,
     RegulatoryCrosswalkEntry,
@@ -5745,6 +5751,186 @@ def build_run_uncertainty_summary(
         summary_lines=summary_lines,
         limitations=limitations,
         provenance=provenance_builder.bundle(_collect_source_references(scenario, result)),
+    )
+
+
+def _probabilistic_review_checks(
+    result: ProbabilisticConcentrationResult,
+) -> list[ProbabilisticReviewCheck]:
+    expected_surface_count = len(result.surface_summaries)
+    seeded = result.sampling_seed is not None
+    checks = [
+        ProbabilisticReviewCheck(
+            code="probabilistic_iterations_completed",
+            passed=result.completed_iteration_count > 0,
+            message=(
+                f"Completed {result.completed_iteration_count} probabilistic iterations out of "
+                f"{result.iteration_count} requested."
+            ),
+        ),
+        ProbabilisticReviewCheck(
+            code="probabilistic_percentile_surface_parity",
+            passed=(
+                len(result.median_surfaces) == expected_surface_count
+                and len(result.p90_surfaces) == expected_surface_count
+                and len(result.p95_surfaces) == expected_surface_count
+            ),
+            message=(
+                "Median, P90, and P95 surface sets remain aligned with the probabilistic surface "
+                "summary inventory."
+            ),
+        ),
+        ProbabilisticReviewCheck(
+            code="probabilistic_sampling_seed_recorded",
+            passed=seeded,
+            message=(
+                f"Sampling seed {'recorded' if seeded else 'not recorded'} for probabilistic execution."
+            ),
+        ),
+        ProbabilisticReviewCheck(
+            code="probabilistic_failed_iterations_absent",
+            passed=result.failed_iteration_count == 0,
+            message=(
+                f"Probabilistic execution recorded {result.failed_iteration_count} failed iterations."
+            ),
+        ),
+    ]
+    return checks
+
+
+def build_probabilistic_review_packet(
+    request: BuildProbabilisticReviewPacketRequest,
+    provenance_builder: ProvenanceBuilder,
+) -> ProbabilisticReviewPacket:
+    result = request.result
+    checks = _probabilistic_review_checks(result)
+    blockers = []
+    if result.completed_iteration_count == 0:
+        blockers.append("Probabilistic execution produced no completed iterations.")
+    review_status = (
+        "ready_for_assessor_review"
+        if not blockers and all(check.passed for check in checks)
+        else "probabilistic_review_attention_needed"
+    )
+    percentile_surface_lines = [
+        (
+            f"{summary.medium.value}/{summary.compartment.value}: median={summary.median_value:.6g} "
+            f"{summary.concentration_unit}, p90={summary.p90_value:.6g}, p95={summary.p95_value:.6g}, "
+            f"p95-minus-median={summary.absolute_p95_minus_median:.6g}."
+        )
+        for summary in result.surface_summaries[:6]
+    ]
+    sensitivity_lines = [
+        "Sampled uncertainty drivers: "
+        + ", ".join(result.dominant_uncertainty_drivers)
+        + "."
+        if result.dominant_uncertainty_drivers
+        else "Sampled uncertainty drivers were not recorded."
+    ]
+    failed_iteration_lines = [
+        f"{reason}: {count} failed iterations."
+        for reason, count in sorted(result.run_summary.failed_iteration_reasons.items())
+    ]
+    scientific_unsuitability_lines = _scientific_unsuitability_lines(
+        result.run_summary.escalation_concerns
+    )
+    recommended_actions = []
+    if result.failed_iteration_count > 0:
+        recommended_actions.append(
+            "Review failed iteration reasons before reusing percentile surfaces in decision-facing workflows."
+        )
+    if result.sampling_seed is None:
+        recommended_actions.append(
+            "Record an explicit sampling seed for strict reproducibility when assessor replay is required."
+        )
+    if result.dominant_uncertainty_drivers:
+        recommended_actions.append(
+            "Treat sampled drivers as screening sensitivity indicators only until a formal sensitivity summary is implemented."
+        )
+    summary_lines = [
+        "Build a probabilistic review packet that preserves percentile surfaces, sampled drivers, iteration health, and reproducibility context.",
+        (
+            f"Probabilistic review packet covers run {result.run_summary.run_id} for model family "
+            f"{result.run_summary.model_family.value}."
+        ),
+        (
+            f"Completed {result.completed_iteration_count}/{result.iteration_count} iterations with "
+            f"{result.sampled_parameter_count} sampled parameters."
+        ),
+    ]
+    if result.sampling_seed is not None:
+        summary_lines.append(f"Sampling seed: {result.sampling_seed}.")
+    limitations = []
+    if result.median_surfaces:
+        limitations.extend(result.median_surfaces[0].limitations[:1])
+    limitations.append(
+        LimitationNote(
+            code="probabilistic_driver_summary_screening_only",
+            message=(
+                "Probabilistic review lines expose sampled drivers and percentile spread, but they do not "
+                "replace a formal global sensitivity analysis."
+            ),
+        )
+    )
+    return ProbabilisticReviewPacket(
+        scenario_id=request.scenario.scenario_id,
+        run_id=result.run_summary.run_id,
+        model_family=result.run_summary.model_family,
+        run_mode=result.run_summary.run_mode,
+        review_status=review_status,
+        probabilistic_result=result,
+        summary_lines=summary_lines,
+        recommended_actions=recommended_actions,
+        sensitivity_lines=sensitivity_lines,
+        percentile_surface_lines=percentile_surface_lines,
+        failed_iteration_lines=failed_iteration_lines,
+        scientific_unsuitability_lines=scientific_unsuitability_lines,
+        uncertainty_limitation_lines=result.uncertainty_limitation_lines,
+        checks=checks,
+        review_template_used=(
+            "Summarize whether the probabilistic percentile surfaces are reviewable within the declared Fate MCP boundary."
+        ),
+        provenance=provenance_builder.bundle(_collect_source_references(request.scenario)),
+        limitations=limitations,
+        blockers=blockers,
+    )
+
+
+def build_probabilistic_review_brief(
+    request: BuildProbabilisticReviewBriefRequest,
+    provenance_builder: ProvenanceBuilder,
+) -> ProbabilisticReviewBrief:
+    del provenance_builder
+    review_packet = request.review_packet
+    passed_check_count = sum(1 for check in review_packet.checks if check.passed)
+    brief_lines = [review_packet.review_template_used or "Summarize the probabilistic review packet."]
+    brief_lines.extend(review_packet.summary_lines)
+    brief_lines.extend("Percentile surface: " + line for line in review_packet.percentile_surface_lines)
+    brief_lines.extend("Sensitivity: " + line for line in review_packet.sensitivity_lines)
+    brief_lines.extend("Failed iterations: " + line for line in review_packet.failed_iteration_lines)
+    brief_lines.extend(
+        "Scientific unsuitability: " + line for line in review_packet.scientific_unsuitability_lines
+    )
+    for check in review_packet.checks:
+        brief_lines.append(f"[{'pass' if check.passed else 'attention'}] {check.message}")
+    return ProbabilisticReviewBrief(
+        review_packet_id=review_packet.review_packet_id,
+        scenario_id=review_packet.scenario_id,
+        run_id=review_packet.run_id,
+        model_family=review_packet.model_family,
+        run_mode=review_packet.run_mode,
+        review_status=review_packet.review_status,
+        passed_check_count=passed_check_count,
+        total_check_count=len(review_packet.checks),
+        review_template_used=review_packet.review_template_used,
+        brief_lines=brief_lines,
+        recommended_actions=review_packet.recommended_actions,
+        sensitivity_lines=review_packet.sensitivity_lines,
+        percentile_surface_lines=review_packet.percentile_surface_lines,
+        failed_iteration_lines=review_packet.failed_iteration_lines,
+        scientific_unsuitability_lines=review_packet.scientific_unsuitability_lines,
+        uncertainty_limitation_lines=review_packet.uncertainty_limitation_lines,
+        limitations=review_packet.limitations,
     )
 
 

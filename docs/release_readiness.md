@@ -64,6 +64,7 @@ Fate MCP v0.1 release readiness is gated on reproducible contracts, examples, de
 - near-parity highlighted advective claims now emit regime-transition recommended actions, so transition-zone follow-up is governed rather than left to reviewer memory
 - scientific methods dossiers now preserve claim-set external corroboration breadth, so thinly diversified claim sets are visible at the summary level rather than only claim by claim
 - scientific review packets and briefs remain internally consistent with fit assessment, parameter manifest, and uncertainty summary artifacts
+- probabilistic review packets and briefs remain internally consistent with percentile surface summaries, failed-iteration taxonomy, sampled-driver lines, and scientific-unsuitability context
 - scientific methods dossiers and briefs remain internally consistent with governed claims, aggregate and claim-specific source grounding, highlighted claim digests, claim-specific external corroboration, challenge statuses/questions, support-strength summaries, benchmark coverage, and applicability policy
 - model-family comparison packets and briefs remain internally consistent with the shared scenario, fit assessments, surface deltas, and equation traces
 - model-family comparison review previews, packets, and briefs remain internally consistent with the governed comparison profile, comparison packet, and assessor-facing checklist guidance

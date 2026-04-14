@@ -16,6 +16,8 @@ from fate_mcp.integrations import (
     build_model_family_challenge_review_packet,
     build_model_family_selection_review_brief,
     build_model_family_selection_review_packet,
+    build_probabilistic_review_brief,
+    build_probabilistic_review_packet,
     build_run_parameter_manifest,
     build_scientific_methods_dossier,
     build_scientific_methods_dossier_brief,
@@ -48,6 +50,8 @@ from fate_mcp.models import (
     BuildModelFamilyChallengeReviewPacketRequest,
     BuildModelFamilySelectionReviewBriefRequest,
     BuildModelFamilySelectionReviewPacketRequest,
+    BuildProbabilisticReviewBriefRequest,
+    BuildProbabilisticReviewPacketRequest,
     BuildScientificMethodsDossierBriefRequest,
     BuildScientificMethodsDossierRequest,
     BuildScientificReviewBriefRequest,
@@ -62,6 +66,7 @@ from fate_mcp.models import (
     Media,
     ModelFamily,
     ModelFamilySelectionStatus,
+    ParameterDistribution,
     PhyschemEvidenceRecord,
     PreviewModelFamilyComparisonReviewRequest,
     PreviewModelFamilyChallengeReviewRequest,
@@ -415,6 +420,62 @@ def test_build_run_uncertainty_summary_reports_unexecuted_treatment_assumptions(
     summary = build_run_uncertainty_summary(scenario, result, runtime.provenance)
     driver_types = {driver.driver_type for driver in summary.top_drivers}
     assert "unexecuted_treatment_assumption" in driver_types
+
+
+def test_build_probabilistic_review_packet_and_brief_preserve_percentile_reporting() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Probabilistic review example"},
+            total_release_mass_kg=5.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+            parameter_records=[
+                FateParameterRecord(
+                    parameter="water_half_life_days",
+                    value=12.0,
+                    unit="day",
+                    source_classification=SourceClassification.USER_INPUT,
+                    rationale="Probabilistic review driver.",
+                    evidence_quality="reference",
+                    distribution=ParameterDistribution(
+                        distribution_type="uniform",
+                        parameters={"low": 8.0, "high": 16.0},
+                    ),
+                )
+            ],
+        )
+    )
+    probabilistic_result = runtime.estimate_probabilistic(
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+        iterations=8,
+        seed=23,
+    )
+    packet = build_probabilistic_review_packet(
+        BuildProbabilisticReviewPacketRequest(
+            scenario=scenario,
+            result=probabilistic_result,
+        ),
+        runtime.provenance,
+    )
+    brief = build_probabilistic_review_brief(
+        BuildProbabilisticReviewBriefRequest(review_packet=packet),
+        runtime.provenance,
+    )
+
+    assert packet.scenario_id == scenario.scenario_id
+    assert packet.model_family == probabilistic_result.run_summary.model_family
+    assert packet.percentile_surface_lines
+    assert any("p95-minus-median=" in line for line in packet.percentile_surface_lines)
+    assert packet.sensitivity_lines
+    assert packet.uncertainty_limitation_lines == probabilistic_result.uncertainty_limitation_lines
+    assert packet.review_template_used is not None
+    assert brief.review_packet_id == packet.review_packet_id
+    assert brief.passed_check_count <= brief.total_check_count
+    assert brief.percentile_surface_lines == packet.percentile_surface_lines
+    assert brief.sensitivity_lines == packet.sensitivity_lines
+    assert any("Percentile surface:" in line for line in brief.brief_lines)
 
 
 def test_build_model_family_comparison_packet_and_brief_compare_reference_and_advective() -> None:

@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "reconciled_scenario": {
     "schema_version": "v1",
-    "scenario_id": "scenario-b2aa2a4a381e",
+    "scenario_id": "scenario-f1aabffba266",
     "chemical_identity": {
       "preferredName": "Example substance",
       "casrn": "100-00-0"
@@ -45,7 +45,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-14T19:03:10.701717Z",
+      "generated_at": "2026-04-14T19:26:30.690915Z",
       "source_references": [
         {
           "source_id": "example.release.a",
@@ -237,7 +237,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-14T19:03:10.701742Z",
+    "generated_at": "2026-04-14T19:26:30.690939Z",
     "source_references": [
       {
         "source_id": "example.release.a",

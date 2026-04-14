@@ -39,7 +39,18 @@
         "evidence_quality": "reference",
         "rationale": "Illustrative initial parameter override.",
         "quality_flags": [],
-        "distribution": null
+        "distribution": {
+          "distribution_type": "uniform",
+          "parameters": {
+            "low": 8.0,
+            "high": 16.0
+          },
+          "bounds": null,
+          "sampling_basis": "illustrative_screening_range",
+          "source_references": [],
+          "methods_basis_lines": [],
+          "limitation_lines": []
+        }
       },
       {
         "parameter": "log_kow",
@@ -83,7 +94,17 @@
       }
     ]
   },
-  "run_mode": "steady_state",
-  "fit_for_purpose": "screening",
-  "selection_profile_id": "reference_baseline_advective_challenge_v1"
+  "run_options": {
+    "schema_version": "v1",
+    "run_mode": "steady_state",
+    "model_family": "reference_mass_balance",
+    "region_profile_id": "eu_screening_default",
+    "fit_for_purpose": "screening",
+    "bucket_count": 1,
+    "bucket_duration_days": 7.0,
+    "requested_media": [],
+    "escalation_concerns": []
+  },
+  "iterations": 12,
+  "seed": 17
 }

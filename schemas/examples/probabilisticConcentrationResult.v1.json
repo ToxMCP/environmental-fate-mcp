@@ -1,0 +1,718 @@
+{
+  "median_surfaces": [
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-41169557cca5-median",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "air",
+      "compartment": "ambient_air",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 0.00024044183555505707,
+      "concentration_unit": "mg/m3",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637419Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "median probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    },
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-3de2172e2b1e-median",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "soil",
+      "compartment": "agricultural_soil",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 0.0010820212806667226,
+      "concentration_unit": "mg/kg",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637493Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "median probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    },
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-4da878d0d19b-median",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "water",
+      "compartment": "surface_water",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 6.155406476620715e-06,
+      "concentration_unit": "mg/L",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637458Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "median probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    }
+  ],
+  "p90_surfaces": [
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-41169557cca5-p90",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "air",
+      "compartment": "ambient_air",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 0.00024044183555505707,
+      "concentration_unit": "mg/m3",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637419Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p90 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    },
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-3de2172e2b1e-p90",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "soil",
+      "compartment": "agricultural_soil",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 0.0010820212806667226,
+      "concentration_unit": "mg/kg",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637493Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p90 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    },
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-4da878d0d19b-p90",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "water",
+      "compartment": "surface_water",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 6.6188418322385e-06,
+      "concentration_unit": "mg/L",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637458Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p90 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    }
+  ],
+  "p95_surfaces": [
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-41169557cca5-p95",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "air",
+      "compartment": "ambient_air",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 0.00024044183555505707,
+      "concentration_unit": "mg/m3",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637419Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p95 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    },
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-3de2172e2b1e-p95",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "soil",
+      "compartment": "agricultural_soil",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 0.0010820212806667226,
+      "concentration_unit": "mg/kg",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637493Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p95 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    },
+    {
+      "schema_version": "v1",
+      "surface_id": "surface-4da878d0d19b-p95",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "medium": "water",
+      "compartment": "surface_water",
+      "geographic_scope": {
+        "region_id": "eu_screening_default",
+        "context_label": "regional_screening",
+        "notes": null
+      },
+      "time_window": {
+        "mode": "steady_state",
+        "start": null,
+        "end": null,
+        "bucket_label": null
+      },
+      "concentration_value": 6.760793490024277e-06,
+      "concentration_unit": "mg/L",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-14T19:26:30.637458Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          }
+        ]
+      },
+      "calculation_trace": null,
+      "quality_flags": [],
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p95 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ]
+    }
+  ],
+  "surface_summaries": [
+    {
+      "surface_id": "surface-41169557cca5",
+      "medium": "air",
+      "compartment": "ambient_air",
+      "concentration_unit": "mg/m3",
+      "median_value": 0.00024044183555505707,
+      "p90_value": 0.00024044183555505707,
+      "p95_value": 0.00024044183555505707,
+      "absolute_p95_minus_median": 0.0
+    },
+    {
+      "surface_id": "surface-3de2172e2b1e",
+      "medium": "soil",
+      "compartment": "agricultural_soil",
+      "concentration_unit": "mg/kg",
+      "median_value": 0.0010820212806667226,
+      "p90_value": 0.0010820212806667226,
+      "p95_value": 0.0010820212806667226,
+      "absolute_p95_minus_median": 0.0
+    },
+    {
+      "surface_id": "surface-4da878d0d19b",
+      "medium": "water",
+      "compartment": "surface_water",
+      "concentration_unit": "mg/L",
+      "median_value": 6.155406476620715e-06,
+      "p90_value": 6.6188418322385e-06,
+      "p95_value": 6.760793490024277e-06,
+      "absolute_p95_minus_median": 6.053870134035625e-07
+    }
+  ],
+  "iteration_count": 12,
+  "completed_iteration_count": 12,
+  "failed_iteration_count": 0,
+  "sampling_seed": 17,
+  "sampled_parameter_count": 1,
+  "dominant_uncertainty_drivers": [
+    "water_half_life_days"
+  ],
+  "uncertainty_limitation_lines": [
+    "Probabilistic orchestration completed with governed distribution sampling and percentile aggregation.",
+    "dominant_uncertainty_drivers enumerates sampled parameters only; formal sensitivity ranking is not yet implemented.",
+    "run_summary.assumptions_applied preserves invariant assumptions only; iteration-varying sampled and derived assumptions are not expanded verbatim."
+  ],
+  "run_summary": {
+    "schema_version": "v1",
+    "run_id": "probrun-1eca0c1dd40b",
+    "scenario_id": "scenario-d21d3d1262b3",
+    "model_family": "reference_mass_balance",
+    "run_mode": "steady_state",
+    "surfaces_emitted": 3,
+    "assumptions_applied": [
+      {
+        "parameter": "agricultural_soil_mass_kg",
+        "value": 2500000000.0,
+        "unit": "kg",
+        "source_classification": "curated_default",
+        "rationale": "Capacity used for soil concentration calculation.",
+        "source_reference": {
+          "source_id": "screening.default.soil.mass",
+          "title": "Agricultural soil screening mass",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_decay_constant_per_day",
+        "value": 0.34657359027997264,
+        "unit": "1/day",
+        "source_classification": "derived",
+        "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_effective_release_mass_kg",
+        "value": 2.5,
+        "unit": "kg",
+        "source_classification": "derived",
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_half_life_days",
+        "value": 2.0,
+        "unit": "day",
+        "source_classification": "curated_default",
+        "rationale": "Half-life used to attenuate air release over the declared scenario duration.",
+        "source_reference": {
+          "source_id": "screening.default.air.halflife",
+          "title": "Air screening half-life",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "air_region_scalar",
+        "value": 1.0,
+        "unit": "scalar",
+        "source_classification": "derived",
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "ambient_air_volume_m3",
+        "value": 1000000000.0,
+        "unit": "m3",
+        "source_classification": "curated_default",
+        "rationale": "Capacity used for air concentration calculation.",
+        "source_reference": {
+          "source_id": "screening.default.air.volume",
+          "title": "Regional ambient air screening volume",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_decay_constant_per_day",
+        "value": 0.023104906018664842,
+        "unit": "1/day",
+        "source_classification": "derived",
+        "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_effective_release_mass_kg",
+        "value": 3.75,
+        "unit": "kg",
+        "source_classification": "derived",
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_half_life_days",
+        "value": 30.0,
+        "unit": "day",
+        "source_classification": "curated_default",
+        "rationale": "Half-life used to attenuate soil release over the declared scenario duration.",
+        "source_reference": {
+          "source_id": "screening.default.soil.halflife",
+          "title": "Soil screening half-life",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "soil_region_scalar",
+        "value": 1.0,
+        "unit": "scalar",
+        "source_classification": "derived",
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "surface_water_volume_m3",
+        "value": 500000000.0,
+        "unit": "m3",
+        "source_classification": "curated_default",
+        "rationale": "Capacity used for water concentration calculation.",
+        "source_reference": {
+          "source_id": "screening.default.water.volume",
+          "title": "Regional surface water screening volume",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        "quality_flags": []
+      },
+      {
+        "parameter": "water_effective_release_mass_kg",
+        "value": 6.25,
+        "unit": "kg",
+        "source_classification": "derived",
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_reference": null,
+        "quality_flags": []
+      },
+      {
+        "parameter": "water_region_scalar",
+        "value": 1.0,
+        "unit": "scalar",
+        "source_classification": "derived",
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_reference": null,
+        "quality_flags": []
+      }
+    ],
+    "escalation_concerns": [],
+    "warnings": [],
+    "failed_iteration_reasons": {},
+    "result_metadata": {
+      "status": "completed",
+      "executed_at": "2026-04-14T19:26:30.640265Z",
+      "execution_mode": "synchronous",
+      "result_id": "result-scenario-d21d3d1262b3-prob"
+    }
+  }
+}

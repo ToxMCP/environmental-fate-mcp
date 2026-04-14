@@ -65,6 +65,14 @@
       "path": "schemas/examples/buildModelFamilySelectionReviewPacketRequest.v1.json"
     },
     {
+      "name": "buildProbabilisticReviewBriefRequest.v1",
+      "path": "schemas/examples/buildProbabilisticReviewBriefRequest.v1.json"
+    },
+    {
+      "name": "buildProbabilisticReviewPacketRequest.v1",
+      "path": "schemas/examples/buildProbabilisticReviewPacketRequest.v1.json"
+    },
+    {
       "name": "buildRegulatoryHandoffReviewBriefRequest.v1",
       "path": "schemas/examples/buildRegulatoryHandoffReviewBriefRequest.v1.json"
     },
@@ -119,6 +127,10 @@
     {
       "name": "estimateMultimediaConcentrationsRequest.v1",
       "path": "schemas/examples/estimateMultimediaConcentrationsRequest.v1.json"
+    },
+    {
+      "name": "estimateProbabilisticMultimediaConcentrationsRequest.v1",
+      "path": "schemas/examples/estimateProbabilisticMultimediaConcentrationsRequest.v1.json"
     },
     {
       "name": "exportConcentrationSurfaceBundleRequest.v1",
@@ -267,6 +279,18 @@
     {
       "name": "previewScientificReviewOutcomeRequest.v1",
       "path": "schemas/examples/previewScientificReviewOutcomeRequest.v1.json"
+    },
+    {
+      "name": "probabilisticConcentrationResult.v1",
+      "path": "schemas/examples/probabilisticConcentrationResult.v1.json"
+    },
+    {
+      "name": "probabilisticReviewBrief.v1",
+      "path": "schemas/examples/probabilisticReviewBrief.v1.json"
+    },
+    {
+      "name": "probabilisticReviewPacket.v1",
+      "path": "schemas/examples/probabilisticReviewPacket.v1.json"
     },
     {
       "name": "recommendModelFamilySelectionRequest.v1",

@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "regreview-c0888a1fe58c",
-  "scenario_id": "scenario-4cdd1024992b",
+  "review_packet_id": "regreview-ff15d45256b6",
+  "scenario_id": "scenario-d21d3d1262b3",
   "handoff_profile_id": "exposure_scenario_mcp_v1",
   "target_module": "Direct-Use Exposure MCP",
   "source_model_family": "reference_mass_balance",
@@ -37,8 +37,8 @@
   },
   "package": {
     "schema_version": "v1",
-    "package_id": "regpkg-a2cc0045d5cb",
-    "scenario_id": "scenario-4cdd1024992b",
+    "package_id": "regpkg-c34117bb4d21",
+    "scenario_id": "scenario-d21d3d1262b3",
     "handoff_profile_id": "exposure_scenario_mcp_v1",
     "profile_resolution_method": "default_profile",
     "profile_resolution_basis": "exposure_scenario_mcp_v1",
@@ -50,7 +50,7 @@
     ],
     "crosswalk_entries": [
       {
-        "source_surface_id": "surface-49a3799a3c00",
+        "source_surface_id": "surface-fada97b453e5",
         "medium": "air",
         "compartment": "ambient_air",
         "concentration_value": 0.00024044183555505707,
@@ -69,7 +69,7 @@
         "requires_dose_translation": true
       },
       {
-        "source_surface_id": "surface-2f1b8b20d0fb",
+        "source_surface_id": "surface-bf51406a1d10",
         "medium": "water",
         "compartment": "surface_water",
         "concentration_value": 5.93830089619883e-06,
@@ -88,7 +88,7 @@
         "requires_dose_translation": true
       },
       {
-        "source_surface_id": "surface-e52355132dd8",
+        "source_surface_id": "surface-5595ab45a007",
         "medium": "soil",
         "compartment": "agricultural_soil",
         "concentration_value": 0.0010820212806667226,
@@ -109,8 +109,8 @@
     ],
     "parameter_manifest": {
       "schema_version": "v1",
-      "scenario_id": "scenario-4cdd1024992b",
-      "run_id": "run-e81726df3392",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "run_id": "run-089da7ec6fb7",
       "model_family": "reference_mass_balance",
       "fit_for_purpose": "screening",
       "escalation_concerns": [],
@@ -322,7 +322,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-14T19:03:10.701835Z",
+        "generated_at": "2026-04-14T19:26:30.691024Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -365,8 +365,8 @@
     },
     "uncertainty_summary": {
       "schema_version": "v1",
-      "scenario_id": "scenario-4cdd1024992b",
-      "run_id": "run-e81726df3392",
+      "scenario_id": "scenario-d21d3d1262b3",
+      "run_id": "run-089da7ec6fb7",
       "model_family": "reference_mass_balance",
       "top_drivers": [
         {
@@ -435,7 +435,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-14T19:03:10.701911Z",
+        "generated_at": "2026-04-14T19:26:30.691091Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -480,7 +480,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-14T19:03:10.701946Z",
+      "generated_at": "2026-04-14T19:26:30.691124Z",
       "source_references": []
     },
     "limitations": [
@@ -505,8 +505,8 @@
   },
   "summary": {
     "schema_version": "v1",
-    "package_id": "regpkg-a2cc0045d5cb",
-    "scenario_id": "scenario-4cdd1024992b",
+    "package_id": "regpkg-c34117bb4d21",
+    "scenario_id": "scenario-d21d3d1262b3",
     "handoff_profile_id": "exposure_scenario_mcp_v1",
     "target_module": "Direct-Use Exposure MCP",
     "entry_count": 3,
@@ -541,7 +541,7 @@
     ],
     "entry_samples": [
       {
-        "source_surface_id": "surface-49a3799a3c00",
+        "source_surface_id": "surface-fada97b453e5",
         "medium": "air",
         "compartment": "ambient_air",
         "concentration_value": 0.00024044183555505707,
@@ -553,7 +553,7 @@
         "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
       },
       {
-        "source_surface_id": "surface-2f1b8b20d0fb",
+        "source_surface_id": "surface-bf51406a1d10",
         "medium": "water",
         "compartment": "surface_water",
         "concentration_value": 5.93830089619883e-06,
@@ -565,7 +565,7 @@
         "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
       },
       {
-        "source_surface_id": "surface-e52355132dd8",
+        "source_surface_id": "surface-5595ab45a007",
         "medium": "soil",
         "compartment": "agricultural_soil",
         "concentration_value": 0.0010820212806667226,
@@ -635,7 +635,7 @@
     {
       "code": "summary_matches_package",
       "passed": true,
-      "message": "Summary covers 3 crosswalk entries for downstream field environmental_media_concentration from package regpkg-a2cc0045d5cb."
+      "message": "Summary covers 3 crosswalk entries for downstream field environmental_media_concentration from package regpkg-c34117bb4d21."
     },
     {
       "code": "concentration_boundary_preserved",
@@ -702,7 +702,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-14T19:03:10.702021Z",
+    "generated_at": "2026-04-14T19:26:30.691199Z",
     "source_references": []
   },
   "limitations": [

@@ -22,6 +22,8 @@ from fate_mcp.integrations import (
     build_model_family_challenge_review_packet,
     build_model_family_selection_review_brief,
     build_model_family_selection_review_packet,
+    build_probabilistic_review_brief,
+    build_probabilistic_review_packet,
     build_scientific_methods_dossier,
     build_scientific_methods_dossier_brief,
     build_run_parameter_manifest,
@@ -56,6 +58,8 @@ from fate_mcp.models import (
     BuildModelFamilyChallengeReviewPacketRequest,
     BuildModelFamilySelectionReviewBriefRequest,
     BuildModelFamilySelectionReviewPacketRequest,
+    BuildProbabilisticReviewBriefRequest,
+    BuildProbabilisticReviewPacketRequest,
     BuildScientificMethodsDossierBriefRequest,
     BuildScientificMethodsDossierRequest,
     BuildRunParameterManifestRequest,
@@ -67,6 +71,7 @@ from fate_mcp.models import (
     BuildConcentrationSurfaceBundleRequest,
     BuildEnvironmentalReleaseScenarioRequest,
     CompareFateScenariosRequest,
+    EstimateProbabilisticMultimediaConcentrationsRequest,
     EstimateMultimediaConcentrationsRequest,
     ExportConcentrationSurfaceBundleRequest,
     ExportExposureConsumptionPackageRequest,
@@ -160,6 +165,19 @@ def fate_estimate_multimedia_concentrations(
 
 
 @mcp.tool()
+def fate_estimate_probabilistic_multimedia_concentrations(
+    request: EstimateProbabilisticMultimediaConcentrationsRequest,
+):
+    """Estimate probabilistic percentile concentration surfaces by orchestrating governed distribution sampling over the deterministic kernels."""
+    return RUNTIME.estimate_probabilistic(
+        request.scenario,
+        request.run_options,
+        iterations=request.iterations,
+        seed=request.seed,
+    )
+
+
+@mcp.tool()
 def fate_build_concentration_surface_bundle(request: BuildConcentrationSurfaceBundleRequest):
     """Package concentration surfaces and run metadata for downstream consumers."""
     return build_concentration_surface_bundle(request.result)
@@ -193,6 +211,18 @@ def fate_build_run_parameter_manifest(request: BuildRunParameterManifestRequest)
 def fate_build_run_uncertainty_summary(request: BuildRunUncertaintySummaryRequest):
     """Build a deterministic reviewer-facing uncertainty-driver summary without probabilistic inference."""
     return build_run_uncertainty_summary(request.scenario, request.result, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_build_probabilistic_review_packet(request: BuildProbabilisticReviewPacketRequest):
+    """Build an assessor-facing probabilistic review packet that preserves percentile surfaces, sampled drivers, and iteration health."""
+    return build_probabilistic_review_packet(request, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_build_probabilistic_review_brief(request: BuildProbabilisticReviewBriefRequest):
+    """Render a compact assessor-facing brief from a probabilistic review packet."""
+    return build_probabilistic_review_brief(request, RUNTIME.provenance)
 
 
 @mcp.tool()

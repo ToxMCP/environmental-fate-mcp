@@ -37,6 +37,7 @@ Minimum validation scope for v0.1:
 - scientific review workflow checks now also preserve post-release directionality parity between the packet and brief summary surface, so retained-mass progression above, at, and below the one-turnover anchor remains reviewer-visible
 - scientific review workflow checks now also preserve post-release pace parity between the packet and brief summary surface, so combined-loss half-recovery interpretation remains reviewer-visible
 - scientific review workflow checks now also preserve post-release pace directionality parity between the packet and brief summary surface, so retained-mass progression above, at, and materially below the 50% combined-loss recovery anchor remains reviewer-visible
+- probabilistic review workflow checks preserve percentile surface parity, sampled-driver lines, failed-iteration reporting, and scientific-unsuitability context between the packet and brief summary surface
 - benchmark claim-coverage checks now include advective loss-dominance transition claims backed by trace-term anchors, not just concentration endpoints
 - benchmark claim-coverage checks now also include a governed mixed-loss transition claim backed by trace-term anchors, so near-parity loss splits are explicitly covered rather than inferred from the extreme cases
 - benchmark claim-coverage checks now include a governed transition-directionality claim backed by flip-side sensitivity anchors, so the expected degradation-versus-clearance flip is validated directly rather than inferred from a single mixed-loss point

@@ -64,6 +64,8 @@ Fate MCP is the ToxMCP module for deterministic environmental release to concent
 - Governed adapter unit conversions, including soil/sediment dry-weight normalization
 - Machine-readable run parameter manifests with runtime-consumed versus preserved-only parameter state
 - Deterministic run uncertainty summaries that rank reviewer-facing drivers without probabilistic claims
+- Probabilistic percentile concentration estimation as an additive orchestration layer over the deterministic kernels, with separate result contracts rather than overloaded deterministic outputs
+- Probabilistic review packets and briefs that bundle percentile surfaces, sampled uncertainty drivers, iteration health, reproducibility context, and scientific-unsuitability lines into assessor-facing artifacts
 - Benchmark manifests that publish scientific-claim coverage, validation tiers, and supporting reference fixtures
 - Experimental advective-family claims strengthened with paired corroboration anchors for long-duration, long-residence, short-residence, and post-release bucket behavior
 - Experimental advective-family medium/high-priority claims strengthened to multi-tier corroboration so release gating distinguishes independent support tiers from repeated same-tier anchors

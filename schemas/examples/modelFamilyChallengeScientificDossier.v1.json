@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "dossier_id": "mfscidossier-d42ec7298a00",
-  "scenario_id": "scenario-4cdd1024992b",
+  "dossier_id": "mfscidossier-f3d119b57f7e",
+  "scenario_id": "scenario-d21d3d1262b3",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -12,13 +12,13 @@
   "selection_recommendation_status": "default_with_experimental_challenge",
   "comparison_profile_id": "reference_vs_advective_screening_v1",
   "comparison_outcome": "material_model_family_divergence",
-  "challenge_review_packet_id": "mfchallenge-411d9925d110",
-  "primary_scientific_review_packet_id": "scireview-917ab2e080b5",
-  "challenge_scientific_review_packet_id": "scireview-fefb7e182bd1",
+  "challenge_review_packet_id": "mfchallenge-2cb3b99f88e4",
+  "primary_scientific_review_packet_id": "scireview-26a743b6fe90",
+  "challenge_scientific_review_packet_id": "scireview-b57601058856",
   "challenge_review_brief": {
     "schema_version": "v1",
-    "review_packet_id": "mfchallenge-411d9925d110",
-    "scenario_id": "scenario-4cdd1024992b",
+    "review_packet_id": "mfchallenge-2cb3b99f88e4",
+    "scenario_id": "scenario-d21d3d1262b3",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -72,7 +72,7 @@
     "brief_lines": [
       "Summarize whether the governed model-family challenge review is ready for assessor-facing reuse, preserving selection status, comparison status, dominant deltas, and applicability context.",
       "Build a governed assessor-facing composed challenge review packet that bundles the selection review path and, when triggered, the reference-versus-advective comparison review path without losing baseline-versus-experimental framing.",
-      "Challenge review packet covers scenario scenario-4cdd1024992b with baseline reference_mass_balance.",
+      "Challenge review packet covers scenario scenario-d21d3d1262b3 with baseline reference_mass_balance.",
       "Selection recommendation status: default_with_experimental_challenge.",
       "Overall challenge review status: model_family_challenge_review_attention_needed.",
       "This challenge review profile is intended for the composed reference-baseline and advective-challenge assessor workflow inside Fate MCP's concentration-only boundary.",
@@ -162,9 +162,9 @@
   },
   "primary_scientific_review_brief": {
     "schema_version": "v1",
-    "review_packet_id": "scireview-917ab2e080b5",
-    "scenario_id": "scenario-4cdd1024992b",
-    "run_id": "run-52caa06f5072",
+    "review_packet_id": "scireview-26a743b6fe90",
+    "scenario_id": "scenario-d21d3d1262b3",
+    "run_id": "run-3b056bf8dc70",
     "model_family": "reference_mass_balance",
     "fit_for_purpose": "screening",
     "review_status": "scientific_review_attention_needed",
@@ -209,7 +209,7 @@
     "summary_lines": [
       "Summarize whether the reference mass-balance run is scientifically reviewable within the declared screening boundary, highlighting applicability, parameter provenance, and top uncertainty drivers.",
       "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
-      "Scientific review packet covers run run-52caa06f5072 for model family reference_mass_balance.",
+      "Scientific review packet covers run run-3b056bf8dc70 for model family reference_mass_balance.",
       "Fit verdict: good_fit (score=0.85).",
       "Parameter manifest exposes 16 resolved parameters and 5 ranked uncertainty drivers.",
       "Benchmark reference: Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
@@ -348,9 +348,9 @@
   },
   "challenge_scientific_review_brief": {
     "schema_version": "v1",
-    "review_packet_id": "scireview-fefb7e182bd1",
-    "scenario_id": "scenario-4cdd1024992b",
-    "run_id": "run-0151c9035171",
+    "review_packet_id": "scireview-b57601058856",
+    "scenario_id": "scenario-d21d3d1262b3",
+    "run_id": "run-a042b95ffc45",
     "model_family": "advective_screening_mass_balance",
     "fit_for_purpose": "screening",
     "review_status": "scientific_review_attention_needed",
@@ -395,7 +395,7 @@
     "summary_lines": [
       "Summarize whether the advective screening run is scientifically reviewable within the declared concentration-only screening boundary.",
       "Build a scientific review packet that preserves advective screening scope, residence-time provenance, benchmark context, and deterministic uncertainty drivers.",
-      "Scientific review packet covers run run-0151c9035171 for model family advective_screening_mass_balance.",
+      "Scientific review packet covers run run-a042b95ffc45 for model family advective_screening_mass_balance.",
       "Fit verdict: good_fit (score=0.85).",
       "Parameter manifest exposes 25 resolved parameters and 5 ranked uncertainty drivers.",
       "Benchmark reference: Scientific validation claim coverage for advective_screening_mass_balance/steady_state: 12/12 governed claims covered.",
@@ -567,7 +567,7 @@
   },
   "summary_lines": [
     "Build a composed scientific dossier that couples the governed model-family challenge review path with model-family-specific scientific review packets.",
-    "Challenge review status model_family_challenge_review_attention_needed governs scenario scenario-4cdd1024992b.",
+    "Challenge review status model_family_challenge_review_attention_needed governs scenario scenario-d21d3d1262b3.",
     "Primary family reference_mass_balance scientific review outcome: qualified_screening_use.",
     "Challenge family advective_screening_mass_balance scientific review outcome: qualified_screening_use."
   ],
@@ -622,7 +622,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-14T19:03:10.701525Z",
+    "generated_at": "2026-04-14T19:26:30.690728Z",
     "source_references": [
       {
         "source_id": "example.release.note",

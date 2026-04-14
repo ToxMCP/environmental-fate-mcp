@@ -1,0 +1,923 @@
+{
+  "$defs": {
+    "CalculationTrace": {
+      "additionalProperties": false,
+      "properties": {
+        "equation_id": {
+          "title": "Equation Id",
+          "type": "string"
+        },
+        "equation_text": {
+          "title": "Equation Text",
+          "type": "string"
+        },
+        "resolved_terms": {
+          "items": {
+            "$ref": "#/$defs/CalculationTraceTerm"
+          },
+          "title": "Resolved Terms",
+          "type": "array"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "equation_id",
+        "equation_text"
+      ],
+      "title": "CalculationTrace",
+      "type": "object"
+    },
+    "CalculationTraceTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "CalculationTraceTerm",
+      "type": "object"
+    },
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "ConcentrationSurface": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "surface_id": {
+          "title": "Surface Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "geographic_scope": {
+          "$ref": "#/$defs/GeographicScope"
+        },
+        "time_window": {
+          "$ref": "#/$defs/TimeWindow"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "calculation_trace": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CalculationTrace"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "medium",
+        "compartment",
+        "geographic_scope",
+        "time_window",
+        "concentration_value",
+        "concentration_unit",
+        "model_family",
+        "fit_for_purpose",
+        "provenance"
+      ],
+      "title": "ConcentrationSurface",
+      "type": "object"
+    },
+    "EscalationConcern": {
+      "enum": [
+        "extreme_persistence",
+        "strong_spatial_heterogeneity",
+        "point_source_plume_dependence",
+        "pfas_like_transport",
+        "jurisdictional_probabilistic_requirement"
+      ],
+      "title": "EscalationConcern",
+      "type": "string"
+    },
+    "ExecutionStatus": {
+      "enum": [
+        "completed",
+        "failed"
+      ],
+      "title": "ExecutionStatus",
+      "type": "string"
+    },
+    "FateAssumptionRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "source_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "value",
+        "source_classification",
+        "rationale"
+      ],
+      "title": "FateAssumptionRecord",
+      "type": "object"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "GeographicScope": {
+      "additionalProperties": false,
+      "properties": {
+        "region_id": {
+          "title": "Region Id",
+          "type": "string"
+        },
+        "context_label": {
+          "title": "Context Label",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "region_id",
+        "context_label"
+      ],
+      "title": "GeographicScope",
+      "type": "object"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ProbabilisticConcentrationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "median_surfaces": {
+          "items": {
+            "$ref": "#/$defs/ConcentrationSurface"
+          },
+          "title": "Median Surfaces",
+          "type": "array"
+        },
+        "p90_surfaces": {
+          "items": {
+            "$ref": "#/$defs/ConcentrationSurface"
+          },
+          "title": "P90 Surfaces",
+          "type": "array"
+        },
+        "p95_surfaces": {
+          "items": {
+            "$ref": "#/$defs/ConcentrationSurface"
+          },
+          "title": "P95 Surfaces",
+          "type": "array"
+        },
+        "surface_summaries": {
+          "items": {
+            "$ref": "#/$defs/ProbabilisticSurfaceSummary"
+          },
+          "title": "Surface Summaries",
+          "type": "array"
+        },
+        "iteration_count": {
+          "title": "Iteration Count",
+          "type": "integer"
+        },
+        "completed_iteration_count": {
+          "title": "Completed Iteration Count",
+          "type": "integer"
+        },
+        "failed_iteration_count": {
+          "title": "Failed Iteration Count",
+          "type": "integer"
+        },
+        "sampling_seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sampling Seed"
+        },
+        "sampled_parameter_count": {
+          "title": "Sampled Parameter Count",
+          "type": "integer"
+        },
+        "dominant_uncertainty_drivers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dominant Uncertainty Drivers",
+          "type": "array"
+        },
+        "uncertainty_limitation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Uncertainty Limitation Lines",
+          "type": "array"
+        },
+        "run_summary": {
+          "$ref": "#/$defs/ProbabilisticRunSummary"
+        }
+      },
+      "required": [
+        "median_surfaces",
+        "p90_surfaces",
+        "p95_surfaces",
+        "iteration_count",
+        "completed_iteration_count",
+        "failed_iteration_count",
+        "sampled_parameter_count",
+        "run_summary"
+      ],
+      "title": "ProbabilisticConcentrationResult",
+      "type": "object"
+    },
+    "ProbabilisticReviewCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "passed",
+        "message"
+      ],
+      "title": "ProbabilisticReviewCheck",
+      "type": "object"
+    },
+    "ProbabilisticReviewPacket": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "review_packet_id": {
+          "title": "Review Packet Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "run_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "review_status": {
+          "title": "Review Status",
+          "type": "string"
+        },
+        "probabilistic_result": {
+          "$ref": "#/$defs/ProbabilisticConcentrationResult"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        },
+        "sensitivity_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Sensitivity Lines",
+          "type": "array"
+        },
+        "percentile_surface_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Percentile Surface Lines",
+          "type": "array"
+        },
+        "failed_iteration_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Failed Iteration Lines",
+          "type": "array"
+        },
+        "scientific_unsuitability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Unsuitability Lines",
+          "type": "array"
+        },
+        "uncertainty_limitation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Uncertainty Limitation Lines",
+          "type": "array"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/ProbabilisticReviewCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "review_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Template Used"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "run_mode",
+        "review_status",
+        "probabilistic_result",
+        "summary_lines",
+        "checks",
+        "provenance"
+      ],
+      "title": "ProbabilisticReviewPacket",
+      "type": "object"
+    },
+    "ProbabilisticRunSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "run_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "surfaces_emitted": {
+          "title": "Surfaces Emitted",
+          "type": "integer"
+        },
+        "assumptions_applied": {
+          "items": {
+            "$ref": "#/$defs/FateAssumptionRecord"
+          },
+          "title": "Assumptions Applied",
+          "type": "array"
+        },
+        "escalation_concerns": {
+          "items": {
+            "$ref": "#/$defs/EscalationConcern"
+          },
+          "title": "Escalation Concerns",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "failed_iteration_reasons": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Failed Iteration Reasons",
+          "type": "object"
+        },
+        "result_metadata": {
+          "$ref": "#/$defs/ResultMetadata"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "model_family",
+        "run_mode",
+        "surfaces_emitted",
+        "assumptions_applied",
+        "result_metadata"
+      ],
+      "title": "ProbabilisticRunSummary",
+      "type": "object"
+    },
+    "ProbabilisticSurfaceSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "surface_id": {
+          "title": "Surface Id",
+          "type": "string"
+        },
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "median_value": {
+          "title": "Median Value",
+          "type": "number"
+        },
+        "p90_value": {
+          "title": "P90 Value",
+          "type": "number"
+        },
+        "p95_value": {
+          "title": "P95 Value",
+          "type": "number"
+        },
+        "absolute_p95_minus_median": {
+          "title": "Absolute P95 Minus Median",
+          "type": "number"
+        }
+      },
+      "required": [
+        "surface_id",
+        "medium",
+        "compartment",
+        "concentration_unit",
+        "median_value",
+        "p90_value",
+        "p95_value",
+        "absolute_p95_minus_median"
+      ],
+      "title": "ProbabilisticSurfaceSummary",
+      "type": "object"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "ResultMetadata": {
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/ExecutionStatus",
+          "description": "Execution state for this request."
+        },
+        "executed_at": {
+          "description": "UTC timestamp when execution finished.",
+          "format": "date-time",
+          "title": "Executed At",
+          "type": "string"
+        },
+        "execution_mode": {
+          "default": "synchronous",
+          "description": "Reserved for future async use.",
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "result_id": {
+          "description": "Stable identifier for this result envelope.",
+          "title": "Result Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "executed_at",
+        "result_id"
+      ],
+      "title": "ResultMetadata",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "TimeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "bucket_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bucket Label"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "title": "TimeWindow",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "review_packet": {
+      "$ref": "#/$defs/ProbabilisticReviewPacket"
+    }
+  },
+  "required": [
+    "review_packet"
+  ],
+  "title": "BuildProbabilisticReviewBriefRequest",
+  "type": "object"
+}

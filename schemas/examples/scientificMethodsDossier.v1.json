@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "dossier_id": "scimethods-68d289854e17",
+  "dossier_id": "scimethods-52385e4c17ca",
   "model_family": "advective_screening_mass_balance",
   "run_mode_filter": null,
   "promotion_status": "ready",
@@ -3014,7 +3014,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-14T19:03:10.667422Z",
+    "generated_at": "2026-04-14T19:26:30.646839Z",
     "source_references": [
       {
         "source_id": "methods.advective_mass_balance_accounting.v1",

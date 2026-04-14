@@ -17,6 +17,8 @@ from fate_mcp.integrations import (
     build_model_family_challenge_review_packet,
     build_model_family_selection_review_brief,
     build_model_family_selection_review_packet,
+    build_probabilistic_review_brief,
+    build_probabilistic_review_packet,
     build_run_parameter_manifest,
     build_scientific_methods_dossier,
     build_scientific_methods_dossier_brief,
@@ -50,6 +52,8 @@ from fate_mcp.models import (
     BuildModelFamilyChallengeReviewPacketRequest,
     BuildModelFamilySelectionReviewBriefRequest,
     BuildModelFamilySelectionReviewPacketRequest,
+    BuildProbabilisticReviewBriefRequest,
+    BuildProbabilisticReviewPacketRequest,
     BuildScientificMethodsDossierBriefRequest,
     BuildScientificMethodsDossierRequest,
     BuildRunParameterManifestRequest,
@@ -61,6 +65,7 @@ from fate_mcp.models import (
     BuildConcentrationSurfaceBundleRequest,
     BuildEnvironmentalReleaseScenarioRequest,
     CompareFateScenariosRequest,
+    EstimateProbabilisticMultimediaConcentrationsRequest,
     ExportConcentrationSurfaceBundleRequest,
     ExportExposureConsumptionPackageRequest,
     ExportRegulatoryHandoffPackageRequest,
@@ -68,6 +73,7 @@ from fate_mcp.models import (
     FateParameterRecord,
     FitForPurpose,
     Media,
+    ParameterDistribution,
     RecommendRegulatoryHandoffProfileRequest,
     RecommendModelFamilySelectionRequest,
     ReleaseFraction,
@@ -190,6 +196,40 @@ def build_examples(runtime: FateRuntime) -> dict[str, dict]:
     uncertainty_summary = build_run_uncertainty_summary(
         scenario,
         steady_result,
+        runtime.provenance,
+    )
+    probabilistic_scenario = scenario.model_copy(deep=True)
+    probabilistic_scenario.parameter_records = [
+        record.model_copy(
+            update={
+                "distribution": ParameterDistribution(
+                    distribution_type="uniform",
+                    parameters={"low": 8.0, "high": 16.0},
+                    sampling_basis="illustrative_screening_range",
+                )
+            }
+        )
+        if record.parameter == "water_half_life_days"
+        else record
+        for record in probabilistic_scenario.parameter_records
+    ]
+    probabilistic_result = runtime.estimate_probabilistic(
+        probabilistic_scenario,
+        steady_run_options,
+        iterations=12,
+        seed=17,
+    )
+    probabilistic_review_packet = build_probabilistic_review_packet(
+        BuildProbabilisticReviewPacketRequest(
+            scenario=probabilistic_scenario,
+            result=probabilistic_result,
+        ),
+        runtime.provenance,
+    )
+    probabilistic_review_brief = build_probabilistic_review_brief(
+        BuildProbabilisticReviewBriefRequest(
+            review_packet=probabilistic_review_packet,
+        ),
         runtime.provenance,
     )
     scientific_review_outcome_preview = preview_scientific_review_outcome(
@@ -431,6 +471,12 @@ def build_examples(runtime: FateRuntime) -> dict[str, dict]:
             "scenario": scenario.model_dump(mode="json"),
             "run_options": steady_run_options.model_dump(mode="json"),
         },
+        "estimateProbabilisticMultimediaConcentrationsRequest.v1": EstimateProbabilisticMultimediaConcentrationsRequest(
+            scenario=probabilistic_scenario,
+            run_options=steady_run_options,
+            iterations=12,
+            seed=17,
+        ).model_dump(mode="json"),
         "buildConcentrationSurfaceBundleRequest.v1": BuildConcentrationSurfaceBundleRequest(
             result=steady_result
         ).model_dump(mode="json"),
@@ -462,6 +508,16 @@ def build_examples(runtime: FateRuntime) -> dict[str, dict]:
             result=steady_result,
         ).model_dump(mode="json"),
         "runUncertaintySummary.v1": uncertainty_summary.model_dump(mode="json"),
+        "probabilisticConcentrationResult.v1": probabilistic_result.model_dump(mode="json"),
+        "buildProbabilisticReviewPacketRequest.v1": BuildProbabilisticReviewPacketRequest(
+            scenario=probabilistic_scenario,
+            result=probabilistic_result,
+        ).model_dump(mode="json"),
+        "probabilisticReviewPacket.v1": probabilistic_review_packet.model_dump(mode="json"),
+        "buildProbabilisticReviewBriefRequest.v1": BuildProbabilisticReviewBriefRequest(
+            review_packet=probabilistic_review_packet
+        ).model_dump(mode="json"),
+        "probabilisticReviewBrief.v1": probabilistic_review_brief.model_dump(mode="json"),
         "previewScientificReviewOutcomeRequest.v1": PreviewScientificReviewOutcomeRequest(
             scenario=scenario,
             result=steady_result,
