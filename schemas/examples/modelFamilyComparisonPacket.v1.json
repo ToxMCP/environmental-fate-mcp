@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "comparison_packet_id": "familycmp-f795f3f80cf9",
-  "scenario_id": "scenario-18e1e6bb4344",
+  "comparison_packet_id": "familycmp-8240471438be",
+  "scenario_id": "scenario-4cdd1024992b",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -32,7 +32,12 @@
         "metals and metal species requiring speciation-aware fate treatment",
         "nanomaterials or particulate systems requiring size-resolved transport behavior",
         "strongly ionizing chemistries where screening partition and persistence assumptions are likely unstable",
-        "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics"
+        "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics",
+        "extreme persistence requiring higher-tier modeling",
+        "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+        "point-source plume dependence requiring explicit near-field dispersion models",
+        "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+        "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
       ],
       "required_inputs": [
         "total_release_mass_kg",
@@ -71,7 +76,8 @@
       "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
       "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
       "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
-    ]
+    ],
+    "scientific_unsuitability_lines": []
   },
   "candidate_fit_assessment": {
     "fit_score": 0.85,
@@ -97,7 +103,12 @@
         "metals and metal species requiring speciation-aware fate treatment",
         "nanomaterials or particulate systems requiring size-resolved transport behavior",
         "assessments requiring explicit intermedia mass transfer, plume dynamics, or spatial hydrodynamics",
-        "cases where residence-time defaults are too coarse to represent local transport conditions credibly"
+        "cases where residence-time defaults are too coarse to represent local transport conditions credibly",
+        "extreme persistence requiring higher-tier modeling",
+        "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+        "point-source plume dependence requiring explicit near-field dispersion models",
+        "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+        "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
       ],
       "required_inputs": [
         "total_release_mass_kg",
@@ -136,13 +147,14 @@
       "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
       "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
       "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
-    ]
+    ],
+    "scientific_unsuitability_lines": []
   },
   "comparison": {
     "schema_version": "v1",
-    "comparison_id": "comparison-60feaf91c471",
-    "base_scenario_id": "scenario-18e1e6bb4344",
-    "candidate_scenario_id": "scenario-18e1e6bb4344",
+    "comparison_id": "comparison-9f6ca3d27f85",
+    "base_scenario_id": "scenario-4cdd1024992b",
+    "candidate_scenario_id": "scenario-4cdd1024992b",
     "surface_deltas": [
       {
         "medium": "air",
@@ -192,10 +204,11 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.559140Z",
+      "generated_at": "2026-04-14T19:03:10.668159Z",
       "source_references": []
     },
     "limitations": [],
+    "blockers": [],
     "quality_flags": []
   },
   "base_surface_samples": [
@@ -263,7 +276,7 @@
     }
   ],
   "summary_lines": [
-    "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-18e1e6bb4344.",
+    "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-4cdd1024992b.",
     "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
     "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
     "Base fit verdict: good_fit (score=0.85).",
@@ -311,7 +324,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T20:41:31.563410Z",
+    "generated_at": "2026-04-14T19:03:10.673658Z",
     "source_references": [
       {
         "source_id": "example.release.note",
@@ -378,5 +391,6 @@
       "code": "experimental_candidate_model_family",
       "message": "Candidate model family advective_screening_mass_balance is published as experimental and should be treated as a challenge path rather than a default release baseline."
     }
-  ]
+  ],
+  "blockers": []
 }

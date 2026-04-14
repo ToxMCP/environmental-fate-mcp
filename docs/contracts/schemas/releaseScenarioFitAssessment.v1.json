@@ -133,6 +133,13 @@
       },
       "title": "Applicability Lines",
       "type": "array"
+    },
+    "scientific_unsuitability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Unsuitability Lines",
+      "type": "array"
     }
   },
   "required": [

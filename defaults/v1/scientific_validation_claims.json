@@ -4,14 +4,23 @@
     "reference_air_finite_duration_first_order_v1": {
       "displayName": "Reference air finite-duration first-order screening equation",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium air screening equation under governed defaults.",
       "claimClass": "single_medium_finite_duration_equation",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["reference_style"],
-      "requiredReferenceTypes": ["hand_worked_screening_equation"],
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
       "referenceCaseIds": [
         "oecd_single_medium_first_order_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -53,14 +62,23 @@
     "reference_water_finite_duration_first_order_v1": {
       "displayName": "Reference water finite-duration first-order screening equation",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium water screening equation under governed defaults.",
       "claimClass": "single_medium_finite_duration_equation",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["reference_style"],
-      "requiredReferenceTypes": ["hand_worked_screening_equation"],
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
       "referenceCaseIds": [
         "oecd_single_medium_first_order_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -99,14 +117,23 @@
     "reference_soil_finite_duration_first_order_v1": {
       "displayName": "Reference soil finite-duration first-order screening equation",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium soil screening equation under governed defaults.",
       "claimClass": "single_medium_finite_duration_equation",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["reference_style"],
-      "requiredReferenceTypes": ["hand_worked_screening_equation"],
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
       "referenceCaseIds": [
         "oecd_single_medium_first_order_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -145,14 +172,23 @@
     "reference_sediment_finite_duration_first_order_v1": {
       "displayName": "Reference sediment finite-duration first-order screening equation",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium sediment screening equation under governed defaults.",
       "claimClass": "single_medium_finite_duration_equation",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["reference_style"],
-      "requiredReferenceTypes": ["hand_worked_screening_equation"],
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
       "referenceCaseIds": [
         "oecd_single_medium_first_order_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -191,14 +227,23 @@
     "reference_multi_medium_partition_v1": {
       "displayName": "Reference multi-medium partitioned screening output",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel reproduces a hand-worked multi-medium air-water partitioned screening case with one surface per declared medium.",
       "claimClass": "multi_medium_partition",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["reference_style"],
-      "requiredReferenceTypes": ["hand_worked_partition_fixture"],
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_partition_fixture"
+      ],
       "referenceCaseIds": [
         "echa_partitioned_release_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -237,14 +282,24 @@
     "reference_time_bucket_elapsed_time_v1": {
       "displayName": "Reference time-bucket elapsed-time semantics",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["time_bucket"],
-      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
       "statement": "The reference kernel evaluates time buckets against elapsed physical time and supports post-release decay rather than bucket-count scaling.",
       "claimClass": "time_bucket_semantics",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["invariance"],
-      "requiredReferenceTypes": ["hand_worked_time_bucket_fixture"],
+      "requiredValidationTiers": [
+        "invariance"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_time_bucket_fixture"
+      ],
       "referenceCaseIds": [
         "epa_elapsed_time_bucket_screening_case_family_v1",
         "oecd_single_medium_first_order_screening_case_family_v1"
@@ -283,14 +338,23 @@
     "reference_parameter_override_application_v1": {
       "displayName": "Reference runtime parameter override application",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel uses a scenario parameter override in place of the governed curated default when the runtime supports that parameter.",
       "claimClass": "parameter_override",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["sensitivity"],
-      "requiredReferenceTypes": ["hand_worked_override_fixture"],
+      "requiredValidationTiers": [
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_override_fixture"
+      ],
       "referenceCaseIds": [
         "echa_parameter_transparency_screening_case_family_v1",
         "epa_parameterization_override_screening_case_family_v1",
@@ -330,14 +394,23 @@
     "reference_executable_treatment_reduction_v1": {
       "displayName": "Reference executable treatment reduction",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel applies treatment assumptions marked as pre_release_global before release-to-concentration estimation.",
       "claimClass": "treatment_execution",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition"],
-      "requiredReferenceTypes": ["hand_worked_treatment_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_treatment_anchor"
+      ],
       "referenceCaseIds": [
         "echa_source_term_reduction_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -376,14 +449,23 @@
     "reference_short_half_life_attenuation_v1": {
       "displayName": "Reference short half-life attenuation anchor",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel strongly attenuates concentration for a short water half-life override according to the finite-duration first-order equation.",
       "claimClass": "decay_edge_condition",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition"],
-      "requiredReferenceTypes": ["hand_worked_decay_edge_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_decay_edge_anchor"
+      ],
       "referenceCaseIds": [
         "oecd_single_medium_first_order_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -422,14 +504,23 @@
     "reference_long_duration_rate_anchor_v1": {
       "displayName": "Reference long-duration near-plateau anchor",
       "modelFamily": "reference_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The reference kernel approaches the expected finite-duration first-order plateau when duration is long relative to the governed half-life at a fixed release rate.",
       "claimClass": "duration_edge_condition",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition"],
-      "requiredReferenceTypes": ["hand_worked_duration_edge_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_duration_edge_anchor"
+      ],
       "referenceCaseIds": [
         "oecd_single_medium_first_order_screening_case_family_v1",
         "epa_single_compartment_environmental_screening_case_family_v1"
@@ -468,14 +559,23 @@
     "advective_water_finite_duration_first_order_v1": {
       "displayName": "Advective water finite-duration first-order screening equation",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel reproduces the hand-worked finite-duration water screening equation with degradation plus first-order advective clearance.",
       "claimClass": "advective_single_medium_equation",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["reference_style"],
-      "requiredReferenceTypes": ["hand_worked_advective_screening_equation"],
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_screening_equation"
+      ],
       "referenceCaseIds": [
         "echa_euses_water_screening_case_family_v1",
         "epa_flow_through_water_screening_case_family_v1"
@@ -537,14 +637,24 @@
     "advective_degradation_dominant_loss_share_v1": {
       "displayName": "Advective degradation-dominant loss-share transition",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel reports degradation as the dominant contribution to total loss when half-life is short relative to residence time.",
       "claimClass": "advective_loss_dominance",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "sensitivity"],
-      "requiredReferenceTypes": ["hand_worked_advective_loss_dominance_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_dominance_anchor"
+      ],
       "referenceCaseIds": [
         "echa_euses_water_screening_case_family_v1",
         "epa_flow_through_water_screening_case_family_v1"
@@ -588,14 +698,24 @@
     "advective_clearance_dominant_loss_share_v1": {
       "displayName": "Advective clearance-dominant loss-share transition",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel reports advective clearance as the dominant contribution to total loss when residence time is short relative to half-life.",
       "claimClass": "advective_loss_dominance",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "sensitivity"],
-      "requiredReferenceTypes": ["hand_worked_advective_loss_dominance_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_dominance_anchor"
+      ],
       "referenceCaseIds": [
         "advective_clearance_edge_case_family_v1",
         "echa_bounded_clearance_edge_case_family_v1"
@@ -639,13 +759,21 @@
     "advective_cumulative_mass_balance_closure_v1": {
       "displayName": "Advective cumulative mass-balance closure",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel preserves cumulative mass balance between emitted mass, retained compartment mass, degraded mass, and advected mass, with negligible closure error across degradation-dominant, clearance-dominant, and mixed-loss regimes.",
       "claimClass": "advective_mass_balance_accounting",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_loss_dominance_anchor",
         "hand_worked_advective_loss_transition_anchor"
@@ -700,13 +828,22 @@
     "advective_residence_time_turnover_regime_v1": {
       "displayName": "Advective residence-time turnover regime interpretation",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel exposes residence-time turnover counts, turnover-boundary offsets, and bounded plateau-fraction context that distinguish storage-dominant, intermediate-turnover, and flow-through transport regimes in reviewer-facing transport interpretation.",
       "claimClass": "advective_transport_regime",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_clearance_edge_anchor",
         "hand_worked_advective_residence_edge_anchor",
@@ -800,13 +937,22 @@
     "advective_mixed_loss_transition_margin_v1": {
       "displayName": "Advective mixed-loss transition margin",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel reports a mixed-loss transition regime when degradation and advective clearance remain near parity and neither dominates the combined loss term by a wide margin.",
       "claimClass": "advective_loss_dominance",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_loss_transition_anchor",
         "hand_worked_advective_transition_boundary_reference_fixture"
@@ -877,13 +1023,21 @@
     "advective_loss_regime_flip_directionality_v1": {
       "displayName": "Advective loss-regime flip directionality",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel flips the dominant loss interpretation in the expected direction when small half-life or residence-time shifts move a near-parity configuration across the degradation-versus-clearance boundary.",
       "claimClass": "advective_loss_transition_sensitivity",
       "priority": "medium",
       "mandatoryForRelease": false,
-      "requiredValidationTiers": ["edge_condition", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_loss_transition_anchor",
         "hand_worked_advective_transition_sensitivity_fixture"
@@ -945,14 +1099,24 @@
     "advective_time_bucket_elapsed_time_v1": {
       "displayName": "Advective time-bucket elapsed-time semantics",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["time_bucket"],
-      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
       "statement": "The advective screening kernel evaluates time buckets against elapsed physical time with combined first-order degradation and advective clearance.",
       "claimClass": "advective_time_bucket_semantics",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["invariance"],
-      "requiredReferenceTypes": ["hand_worked_advective_time_bucket_fixture"],
+      "requiredValidationTiers": [
+        "invariance"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_time_bucket_fixture"
+      ],
       "referenceCaseIds": [
         "epa_environmental_models_elapsed_time_case_family_v1",
         "epa_post_release_decay_bucket_case_family_v1",
@@ -998,13 +1162,23 @@
     "advective_post_release_flushing_recovery_v1": {
       "displayName": "Advective post-release flushing and recovery accounting",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["time_bucket"],
-      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
       "statement": "The advective screening kernel preserves post-release retained-mass decline after active emission stops and exposes release-stop mass fractions for retained, degraded, and advected mass within the bucketed screening trace.",
       "claimClass": "advective_post_release_recovery",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_post_release_bucket_anchor",
         "hand_worked_advective_post_release_recovery_reference_fixture",
@@ -1072,13 +1246,23 @@
     "advective_post_release_flushing_regime_transition_v1": {
       "displayName": "Advective post-release flushing regime transition",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["time_bucket"],
-      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
       "statement": "The advective screening kernel classifies post-release recovery windows relative to the one-turnover flushing boundary so retained release-stop mass can be interpreted as sub-flushing, boundary-sensitive, or flushing-dominant rather than only as a raw retained fraction.",
       "claimClass": "advective_post_release_transition",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_post_release_bucket_anchor",
         "hand_worked_advective_post_release_boundary_transition_reference_fixture",
@@ -1155,13 +1339,23 @@
     "advective_post_release_flushing_directionality_v1": {
       "displayName": "Advective post-release flushing directionality",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["time_bucket"],
-      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
       "statement": "The advective screening kernel preserves directional retained-mass decline relative to the one-turnover post-release anchor as the recovery window moves from sub-boundary to beyond-boundary under the governed combined-loss solution.",
       "claimClass": "advective_post_release_directionality",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_post_release_bucket_anchor",
         "hand_worked_advective_post_release_subboundary_sensitivity_fixture",
@@ -1239,13 +1433,23 @@
     "advective_post_release_half_recovery_pace_v1": {
       "displayName": "Advective post-release half-recovery pace",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["time_bucket"],
-      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
       "statement": "The advective screening kernel preserves the combined-loss half-recovery pace for retained release-stop mass, so reviewers can interpret whether a post-release recovery window is still before, at, or beyond the 50% retained-mass anchor under the governed degradation-plus-clearance solution.",
       "claimClass": "advective_post_release_pace",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_post_release_bucket_anchor",
         "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
@@ -1316,13 +1520,23 @@
     "advective_post_release_half_recovery_directionality_v1": {
       "displayName": "Advective post-release half-recovery directionality",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["time_bucket"],
-      "fitForPurpose": ["screening", "benchmark", "downstream_export"],
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
       "statement": "The advective screening kernel preserves retained-mass directionality relative to the combined-loss 50% recovery anchor, so reviewers can see the post-release window move from above the half-recovery boundary to materially below it under the same governed loss constants.",
       "claimClass": "advective_post_release_pace_directionality",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition", "reference_style", "sensitivity"],
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
       "requiredReferenceTypes": [
         "hand_worked_advective_post_release_bucket_anchor",
         "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
@@ -1401,14 +1615,23 @@
     "advective_extreme_persistence_clearance_bound_v1": {
       "displayName": "Advective extreme-persistence clearance bound",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel remains bounded by residence-time clearance when degradation is effectively absent.",
       "claimClass": "advective_edge_condition",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition"],
-      "requiredReferenceTypes": ["hand_worked_advective_edge_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_edge_anchor"
+      ],
       "referenceCaseIds": [
         "advective_clearance_edge_case_family_v1",
         "echa_bounded_clearance_edge_case_family_v1"
@@ -1464,14 +1687,23 @@
     "advective_residence_time_override_application_v1": {
       "displayName": "Advective residence-time override application",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel uses a supported water residence-time override in place of the governed curated default when computing first-order advective clearance.",
       "claimClass": "advective_parameter_override",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["sensitivity"],
-      "requiredReferenceTypes": ["hand_worked_advective_override_fixture"],
+      "requiredValidationTiers": [
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_override_fixture"
+      ],
       "referenceCaseIds": [
         "echa_euses_water_screening_case_family_v1",
         "advective_clearance_edge_case_family_v1",
@@ -1533,14 +1765,23 @@
     "advective_short_residence_time_clearance_anchor_v1": {
       "displayName": "Advective short-residence-time clearance anchor",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel suppresses concentration when a short residence time dominates the total loss term, even under effectively persistent conditions.",
       "claimClass": "advective_clearance_edge_condition",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition"],
-      "requiredReferenceTypes": ["hand_worked_advective_clearance_edge_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_clearance_edge_anchor"
+      ],
       "referenceCaseIds": [
         "advective_clearance_edge_case_family_v1",
         "echa_bounded_clearance_edge_case_family_v1"
@@ -1584,14 +1825,23 @@
     "advective_long_duration_combined_loss_plateau_v1": {
       "displayName": "Advective long-duration combined-loss plateau anchor",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel approaches the finite-duration combined-loss plateau when duration is long relative to both degradation half-life and residence time.",
       "claimClass": "advective_duration_edge_condition",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition"],
-      "requiredReferenceTypes": ["hand_worked_advective_duration_edge_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_duration_edge_anchor"
+      ],
       "referenceCaseIds": [
         "advective_duration_plateau_case_family_v1",
         "epa_flow_through_water_screening_case_family_v1"
@@ -1641,14 +1891,23 @@
     "advective_long_residence_time_accumulation_anchor_v1": {
       "displayName": "Advective long-residence-time accumulation anchor",
       "modelFamily": "advective_screening_mass_balance",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["screening", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
       "statement": "The advective screening kernel yields materially higher concentration when a long residence-time override weakens advective clearance under effectively persistent conditions.",
       "claimClass": "advective_clearance_edge_condition",
       "priority": "medium",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["edge_condition"],
-      "requiredReferenceTypes": ["hand_worked_advective_residence_edge_anchor"],
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_residence_edge_anchor"
+      ],
       "referenceCaseIds": [
         "advective_clearance_edge_case_family_v1",
         "echa_bounded_clearance_edge_case_family_v1"
@@ -1692,14 +1951,23 @@
     "external_adapter_canonical_equivalence_v1": {
       "displayName": "External adapter canonical surface equivalence",
       "modelFamily": "external_result_adapter",
-      "supportedRunModes": ["steady_state"],
-      "fitForPurpose": ["downstream_export", "benchmark"],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "downstream_export",
+        "benchmark"
+      ],
       "statement": "The external result adapter normalizes governed JSON, CSV, and alternate-unit fixtures into identical canonical concentration-surface signatures.",
       "claimClass": "adapter_equivalence",
       "priority": "high",
       "mandatoryForRelease": true,
-      "requiredValidationTiers": ["equivalence"],
-      "requiredReferenceTypes": ["governed_fixture_equivalence"],
+      "requiredValidationTiers": [
+        "equivalence"
+      ],
+      "requiredReferenceTypes": [
+        "governed_fixture_equivalence"
+      ],
       "sourceReferences": [
         {
           "source_id": "methods.external_result_adapter.v1",
@@ -1721,6 +1989,70 @@
       ],
       "reviewNotes": [
         "This is an import-normalization claim, not a claim about the external engine's native transport physics."
+      ]
+    },
+    "advective_post_release_late_recovery_regime_v1": {
+      "displayName": "Advective post-release late-recovery regime",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel distinguishes simple sub-half-recovery windows from stable late-recovery regimes under the bounded combined-loss depletion authority layer, so reviewers can confidently identify deep recovery rather than just treating it as generically below the 50% anchor.",
+      "claimClass": "advective_late_recovery",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "sensitivity",
+        "reference_style",
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_late_recovery_reference_fixture",
+        "hand_worked_advective_post_release_late_recovery_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "oecd_post_release_half_recovery_directionality_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "methods.advective_post_release_late_recovery.v1",
+          "title": "Fate MCP advective post-release late-recovery regime method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim evaluates advective time-bucket outputs that extend far beyond the combined-loss half-recovery boundary.",
+        "The claim asserts that late-stage depletion is specifically identified by a 4x half-recovery pace multiple and a retained mass ratio below 12.5%."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture where the recovery window extends far enough to formally anchor the late-recovery depletion authority layer."
       ]
     }
   }

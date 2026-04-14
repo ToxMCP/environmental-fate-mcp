@@ -6,5 +6,6 @@
   "fit_for_purpose": "screening",
   "bucket_count": 1,
   "bucket_duration_days": 7.0,
-  "requested_media": []
+  "requested_media": [],
+  "escalation_concerns": []
 }

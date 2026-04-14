@@ -35,6 +35,19 @@ class Compartment(str, Enum):
     FRESHWATER_SEDIMENT = "freshwater_sediment"
 
 
+class SemanticLossClassification(str, Enum):
+    NONE = "none"
+    MINOR = "minor"
+    MATERIAL_BUT_BOUNDED = "material_but_bounded"
+    NON_EQUIVALENT = "non_equivalent"
+
+class EscalationConcern(str, Enum):
+    EXTREME_PERSISTENCE = "extreme_persistence"
+    STRONG_SPATIAL_HETEROGENEITY = "strong_spatial_heterogeneity"
+    POINT_SOURCE_PLUME = "point_source_plume_dependence"
+    PFAS_LIKE_TRANSPORT = "pfas_like_transport"
+    PROBABILISTIC_REQUIREMENT = "jurisdictional_probabilistic_requirement"
+
 class RunMode(str, Enum):
     STEADY_STATE = "steady_state"
     TIME_BUCKET = "time_bucket"
@@ -181,6 +194,7 @@ class ScientificReferenceCase(FateBaseModel):
     source_type: str
     summary_lines: list[str] = Field(default_factory=list)
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     source_references: list[SourceReference] = Field(default_factory=list)
     review_notes: list[str] = Field(default_factory=list)
     source_pack: str
@@ -342,6 +356,7 @@ class ScientificMethodsDossier(FateBaseModel):
     highlighted_claim_summaries: list[ScientificMethodsHighlightedClaimSummary] = Field(default_factory=list)
     summary_lines: list[str]
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     source_grounding_lines: list[str] = Field(default_factory=list)
     highlighted_claim_grounding_lines: list[str] = Field(default_factory=list)
     reference_case_grounding_lines: list[str] = Field(default_factory=list)
@@ -359,6 +374,7 @@ class ScientificMethodsDossier(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class ScientificMethodsDossierBrief(FateBaseModel):
@@ -379,6 +395,7 @@ class ScientificMethodsDossierBrief(FateBaseModel):
     highlighted_claim_summaries: list[ScientificMethodsHighlightedClaimSummary] = Field(default_factory=list)
     summary_lines: list[str]
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     source_grounding_lines: list[str] = Field(default_factory=list)
     highlighted_claim_grounding_lines: list[str] = Field(default_factory=list)
     reference_case_grounding_lines: list[str] = Field(default_factory=list)
@@ -516,6 +533,7 @@ class ReleaseFraction(FateBaseModel):
 
 class TreatmentAssumption(FateBaseModel):
     description: str
+    semantic_mapping: AdapterSemanticMapping | None = None
     removal_fraction: float = Field(ge=0.0, le=1.0, default=0.0)
     execution_mode: TreatmentExecutionMode = Field(default=TreatmentExecutionMode.PROVENANCE_ONLY)
     media_scope: list[Media] = Field(default_factory=list)
@@ -531,6 +549,64 @@ class FateAssumptionRecord(FateBaseModel):
     quality_flags: list[QualityFlag] = Field(default_factory=list)
 
 
+class ParameterDistribution(FateBaseModel):
+    distribution_type: str
+    parameters: dict[str, float]
+    bounds: list[float] | None = None
+    sampling_basis: str | None = None
+    source_references: list[SourceReference] = Field(default_factory=list)
+    methods_basis_lines: list[str] = Field(default_factory=list)
+    limitation_lines: list[str] = Field(default_factory=list)
+
+    @field_validator("distribution_type")
+    @classmethod
+    def validate_distribution_type(cls, value: str) -> str:
+        supported = {"normal", "lognormal", "uniform"}
+        if value not in supported:
+            raise ValueError(
+                f"unsupported distribution_type '{value}'; supported values are {sorted(supported)}"
+            )
+        return value
+
+    @field_validator("bounds")
+    @classmethod
+    def validate_bounds(cls, value: list[float] | None) -> list[float] | None:
+        if value is None:
+            return value
+        if len(value) != 2:
+            raise ValueError("distribution bounds must contain exactly two values [lower, upper]")
+        if value[0] > value[1]:
+            raise ValueError("distribution bounds must be ordered as [lower, upper]")
+        return value
+
+    @model_validator(mode="after")
+    def validate_distribution_parameters(self) -> "ParameterDistribution":
+        required_parameters = {
+            "uniform": {"low", "high"},
+            "normal": {"mu", "sigma"},
+            "lognormal": {"mu", "sigma"},
+        }
+        required = required_parameters[self.distribution_type]
+        missing = sorted(required - set(self.parameters))
+        if missing:
+            raise ValueError(
+                f"{self.distribution_type} distribution requires parameters {sorted(required)}; "
+                f"missing {missing}"
+            )
+        if self.distribution_type == "uniform" and self.parameters["low"] > self.parameters["high"]:
+            raise ValueError("uniform distribution requires low <= high")
+        if self.distribution_type in {"normal", "lognormal"} and self.parameters["sigma"] <= 0.0:
+            raise ValueError(f"{self.distribution_type} distribution requires sigma > 0")
+        if self.distribution_type == "lognormal":
+            lower_bound = self.bounds[0] if self.bounds is not None else None
+            upper_bound = self.bounds[1] if self.bounds is not None else None
+            if upper_bound is not None and upper_bound <= 0.0:
+                raise ValueError("lognormal distribution upper bound must be positive")
+            if lower_bound is not None and lower_bound < 0.0:
+                raise ValueError("lognormal distribution lower bound must be non-negative")
+        return self
+
+
 class FateParameterRecord(FateBaseModel):
     parameter: str
     value: float
@@ -540,6 +616,7 @@ class FateParameterRecord(FateBaseModel):
     evidence_quality: str | None = None
     rationale: str | None = None
     quality_flags: list[QualityFlag] = Field(default_factory=list)
+    distribution: ParameterDistribution | None = None
 
 
 class FateParameterPolicy(FateBaseModel):
@@ -570,6 +647,14 @@ class FateParameterPolicyFamily(FateBaseModel):
     applicability_note: str | None = None
 
 
+class AdapterSemanticMapping(FateBaseModel):
+    semantic_loss: SemanticLossClassification = Field(default=SemanticLossClassification.MINOR)
+    compartment_semantics: str = Field(default="")
+    time_semantics: str = Field(default="")
+    spatial_scale_semantics: str = Field(default="")
+    basis_semantics: str = Field(default="")
+    release_partition_semantics: str = Field(default="")
+
 class AdapterImportProfile(FateBaseModel):
     profile_id: str
     display_name: str
@@ -577,6 +662,7 @@ class AdapterImportProfile(FateBaseModel):
     accepted_modes: list[RunMode]
     internal_only: bool = True
     description: str
+    semantic_mapping: AdapterSemanticMapping | None = None
 
 
 class AdapterFixtureDescriptor(FateBaseModel):
@@ -739,6 +825,7 @@ class FateModelRunOptions(FateBaseModel):
     bucket_count: int = Field(default=1, ge=1, le=24)
     bucket_duration_days: float = Field(default=7.0, gt=0.0)
     requested_media: list[Media] = Field(default_factory=list)
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
 
 
 class CalculationTraceTerm(FateBaseModel):
@@ -780,8 +867,47 @@ class FateRunSummary(FateBaseModel):
     run_mode: RunMode
     surfaces_emitted: int
     assumptions_applied: list[FateAssumptionRecord]
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
     warnings: list[QualityFlag] = Field(default_factory=list)
     result_metadata: ResultMetadata
+
+
+class ProbabilisticSurfaceSummary(FateBaseModel):
+    surface_id: str
+    medium: Media
+    compartment: Compartment
+    concentration_unit: str
+    median_value: float
+    p90_value: float
+    p95_value: float
+
+
+class ProbabilisticRunSummary(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    run_id: str = Field(default_factory=lambda: f"probrun-{uuid4().hex[:12]}")
+    scenario_id: str
+    model_family: ModelFamily
+    run_mode: RunMode
+    surfaces_emitted: int
+    assumptions_applied: list[FateAssumptionRecord]
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
+    warnings: list[QualityFlag] = Field(default_factory=list)
+    failed_iteration_reasons: dict[str, int] = Field(default_factory=dict)
+    result_metadata: ResultMetadata
+
+class ProbabilisticConcentrationResult(FateBaseModel):
+    median_surfaces: list[ConcentrationSurface]
+    p90_surfaces: list[ConcentrationSurface]
+    p95_surfaces: list[ConcentrationSurface]
+    surface_summaries: list[ProbabilisticSurfaceSummary] = Field(default_factory=list)
+    iteration_count: int
+    completed_iteration_count: int
+    failed_iteration_count: int
+    sampling_seed: int | None = None
+    sampled_parameter_count: int
+    dominant_uncertainty_drivers: list[str] = Field(default_factory=list)
+    uncertainty_limitation_lines: list[str] = Field(default_factory=list)
+    run_summary: ProbabilisticRunSummary
 
 
 class ConcentrationEstimationResult(FateBaseModel):
@@ -826,6 +952,7 @@ class FateScenarioComparisonRecord(FateBaseModel):
     dominant_drivers: list[str]
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
     quality_flags: list[QualityFlag] = Field(default_factory=list)
 
 
@@ -838,6 +965,7 @@ class ExposureConsumptionPackage(FateBaseModel):
     time_semantics: list[TimeWindow]
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class RegulatoryCrosswalkEntry(FateBaseModel):
@@ -871,6 +999,7 @@ class RegulatoryHandoffPackage(FateBaseModel):
     uncertainty_summary: RunUncertaintySummary | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class RegulatoryHandoffEntrySummary(FateBaseModel):
@@ -904,8 +1033,10 @@ class RegulatoryHandoffPackageSummary(FateBaseModel):
     entry_samples: list[RegulatoryHandoffEntrySummary] = Field(default_factory=list)
     parameter_quality_lines: list[str] = Field(default_factory=list)
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     equation_lines: list[str] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class RegulatoryHandoffReviewCheck(FateBaseModel):
@@ -937,11 +1068,13 @@ class RegulatoryHandoffReviewPacket(FateBaseModel):
     review_checklist: list[RegulatoryHandoffReviewChecklistItem] = Field(default_factory=list)
     parameter_quality_lines: list[str] = Field(default_factory=list)
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     uncertainty_lines: list[str] = Field(default_factory=list)
     equation_lines: list[str] = Field(default_factory=list)
     review_template_used: str | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class RegulatoryHandoffReviewBrief(FateBaseModel):
@@ -958,6 +1091,7 @@ class RegulatoryHandoffReviewBrief(FateBaseModel):
     brief_lines: list[str]
     parameter_quality_lines: list[str] = Field(default_factory=list)
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     uncertainty_lines: list[str] = Field(default_factory=list)
     equation_lines: list[str] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)
@@ -1080,6 +1214,7 @@ class ScientificReviewPacket(FateBaseModel):
     review_template_used: str | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class ScientificReviewBrief(FateBaseModel):
@@ -1100,6 +1235,7 @@ class ScientificReviewBrief(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     parameter_quality_lines: list[str] = Field(default_factory=list)
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     uncertainty_lines: list[str] = Field(default_factory=list)
     benchmark_reference_lines: list[str] = Field(default_factory=list)
     equation_lines: list[str] = Field(default_factory=list)
@@ -1183,6 +1319,7 @@ class ModelFamilyComparisonPacket(FateBaseModel):
     brief_template_used: str | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class ModelFamilyComparisonReviewPacket(FateBaseModel):
@@ -1205,6 +1342,7 @@ class ModelFamilyComparisonReviewPacket(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     base_applicability_lines: list[str] = Field(default_factory=list)
     candidate_applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     base_benchmark_reference_lines: list[str] = Field(default_factory=list)
     candidate_benchmark_reference_lines: list[str] = Field(default_factory=list)
     base_equation_lines: list[str] = Field(default_factory=list)
@@ -1212,6 +1350,7 @@ class ModelFamilyComparisonReviewPacket(FateBaseModel):
     review_template_used: str | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class ModelFamilyComparisonBrief(FateBaseModel):
@@ -1254,6 +1393,7 @@ class ModelFamilyComparisonReviewBrief(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     base_applicability_lines: list[str] = Field(default_factory=list)
     candidate_applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     base_benchmark_reference_lines: list[str] = Field(default_factory=list)
     candidate_benchmark_reference_lines: list[str] = Field(default_factory=list)
     base_equation_lines: list[str] = Field(default_factory=list)
@@ -1316,10 +1456,12 @@ class ModelFamilySelectionReviewPacket(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     primary_applicability_lines: list[str] = Field(default_factory=list)
     challenge_applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     comparison_guidance_lines: list[str] = Field(default_factory=list)
     review_template_used: str | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class ModelFamilySelectionReviewBrief(FateBaseModel):
@@ -1342,6 +1484,7 @@ class ModelFamilySelectionReviewBrief(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     primary_applicability_lines: list[str] = Field(default_factory=list)
     challenge_applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     comparison_guidance_lines: list[str] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)
 
@@ -1374,10 +1517,12 @@ class ModelFamilyChallengeReviewPacket(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     primary_applicability_lines: list[str] = Field(default_factory=list)
     challenge_applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     comparison_guidance_lines: list[str] = Field(default_factory=list)
     review_template_used: str | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class ModelFamilyChallengeReviewBrief(FateBaseModel):
@@ -1404,6 +1549,7 @@ class ModelFamilyChallengeReviewBrief(FateBaseModel):
     recommended_actions: list[str] = Field(default_factory=list)
     primary_applicability_lines: list[str] = Field(default_factory=list)
     challenge_applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     comparison_guidance_lines: list[str] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)
 
@@ -1438,6 +1584,7 @@ class ModelFamilyChallengeScientificDossier(FateBaseModel):
     challenge_benchmark_reference_lines: list[str] = Field(default_factory=list)
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class ModelFamilyChallengeScientificDossierBrief(FateBaseModel):
@@ -1530,6 +1677,7 @@ class ModelFamilySelectionRecommendation(FateBaseModel):
     recommendation_template_used: str | None = None
     provenance: ProvenanceBundle
     limitations: list[LimitationNote] = Field(default_factory=list)
+    blockers: list[str] = Field(default_factory=list)
 
 
 class BuildEnvironmentalReleaseScenarioRequest(FateBaseModel):
@@ -1595,6 +1743,7 @@ class PhyschemEvidenceConflict(FateBaseModel):
     parameter: str
     conflict_type: str
     description: str
+    semantic_mapping: AdapterSemanticMapping | None = None
     observed_values: list[str]
     contributing_sources: list[str]
 
@@ -1628,6 +1777,7 @@ class ReleaseScenarioFitAssessment(FateBaseModel):
     reasons: list[str]
     applicability_profile: ModelFamilyApplicabilityProfile
     applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
 
 
 class RunParameterManifestEntry(FateBaseModel):
@@ -1648,6 +1798,7 @@ class RunParameterManifest(FateBaseModel):
     run_id: str
     model_family: ModelFamily
     fit_for_purpose: FitForPurpose
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
     entries: list[RunParameterManifestEntry]
     summary_lines: list[str]
     limitations: list[LimitationNote] = Field(default_factory=list)
@@ -1730,6 +1881,7 @@ class ReleaseEvidenceConflict(FateBaseModel):
     field: str
     conflict_type: str
     description: str
+    semantic_mapping: AdapterSemanticMapping | None = None
     observed_values: list[str]
     contributing_labels: list[str]
 
@@ -1739,6 +1891,7 @@ class ReleaseVectorConflict(FateBaseModel):
     cosine_similarity: float = Field(ge=-1.0, le=1.0)
     threshold: float = Field(ge=0.0, le=1.0)
     description: str
+    semantic_mapping: AdapterSemanticMapping | None = None
     observed_vectors: list[str]
 
 
@@ -1866,6 +2019,7 @@ class BuildModelFamilyComparisonPacketRequest(FateBaseModel):
     bucket_count: int = Field(default=1, ge=1, le=24)
     bucket_duration_days: float = Field(default=7.0, gt=0.0)
     requested_media: list[Media] = Field(default_factory=list)
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
     max_surface_samples: int = Field(default=4, ge=1, le=12)
 
     @model_validator(mode="after")
@@ -1911,6 +2065,7 @@ class PreviewModelFamilyChallengeReviewRequest(FateBaseModel):
     bucket_count: int = Field(default=4, ge=1, le=24)
     bucket_duration_days: float = Field(default=7.0, gt=0.0, le=365.0)
     requested_media: list[Media] = Field(default_factory=list)
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
     max_surface_samples: int = Field(default=3, ge=1, le=10)
 
 
@@ -1922,6 +2077,7 @@ class BuildModelFamilyChallengeReviewPacketRequest(FateBaseModel):
     bucket_count: int = Field(default=4, ge=1, le=24)
     bucket_duration_days: float = Field(default=7.0, gt=0.0, le=365.0)
     requested_media: list[Media] = Field(default_factory=list)
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
     max_surface_samples: int = Field(default=3, ge=1, le=10)
 
 
@@ -1937,6 +2093,7 @@ class BuildModelFamilyChallengeScientificDossierRequest(FateBaseModel):
     bucket_count: int = Field(default=4, ge=1, le=24)
     bucket_duration_days: float = Field(default=7.0, gt=0.0, le=365.0)
     requested_media: list[Media] = Field(default_factory=list)
+    escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
     max_surface_samples: int = Field(default=3, ge=1, le=10)
 
 

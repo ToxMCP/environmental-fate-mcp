@@ -9,6 +9,8 @@ from pydantic import BaseModel, Field
 
 from fate_mcp.errors import FateRegistryError, FateValidationError
 from fate_mcp.models import (
+    AdapterSemanticMapping,
+    SemanticLossClassification,
     AdapterFixtureDescriptor,
     AdapterImportManifest,
     AdapterImportProfile,
@@ -76,6 +78,13 @@ REQUIRED_EXTERNAL_PAYLOAD_CSV_COLUMNS = [
 ]
 
 LEGACY_DESKTOP_EXPORT_TYPE = "legacy_screening_desktop_export_v1"
+EUSES_EXPORT_TYPE = "euses_screening_export_v1"
+EPI_SUITE_EXPORT_TYPE = "epi_suite_screening_export_v1"
+SUPPORTED_DESKTOP_EXPORT_TYPES = {
+    LEGACY_DESKTOP_EXPORT_TYPE,
+    EUSES_EXPORT_TYPE,
+    EPI_SUITE_EXPORT_TYPE,
+}
 LEGACY_DESKTOP_EXPORT_COLUMNS = [
     "compartment_label",
     "bulk_concentration",
@@ -111,6 +120,36 @@ ADAPTER_IMPORT_PROFILES = [
         accepted_extensions=[".csv"],
         accepted_modes=[RunMode.STEADY_STATE, RunMode.TIME_BUCKET],
         description="Concrete legacy desktop screening export normalized into Fate MCP concentrations.",
+    ),
+    AdapterImportProfile(
+        profile_id=EUSES_EXPORT_TYPE,
+        display_name="EUSES Desktop Screening Export",
+        accepted_extensions=[".csv"],
+        accepted_modes=[RunMode.STEADY_STATE, RunMode.TIME_BUCKET],
+        description="EUSES screening export normalized into Fate MCP concentrations.",
+        semantic_mapping=AdapterSemanticMapping(
+            semantic_loss=SemanticLossClassification.MINOR,
+            compartment_semantics="EUSES regional compartments map to Fate MCP generic compartments.",
+            time_semantics="Steady-state mode maps end-of-duration screening without resolving multi-year temporal profiles.",
+            spatial_scale_semantics="Regional scale assumed; continental scale explicitly excluded from screening normalizations.",
+            basis_semantics="Dry weight normalization applied to soil/sediment.",
+            release_partition_semantics="Release fractions map 1:1."
+        ),
+    ),
+    AdapterImportProfile(
+        profile_id=EPI_SUITE_EXPORT_TYPE,
+        display_name="EPI Suite Desktop Screening Export",
+        accepted_extensions=[".csv"],
+        accepted_modes=[RunMode.STEADY_STATE, RunMode.TIME_BUCKET],
+        description="EPI Suite screening export normalized into Fate MCP concentrations.",
+        semantic_mapping=AdapterSemanticMapping(
+            semantic_loss=SemanticLossClassification.MATERIAL_BUT_BOUNDED,
+            compartment_semantics="Level III Mackay compartments map directly to Fate MCP.",
+            time_semantics="Steady state assumed as standard EPI Suite Level III default.",
+            spatial_scale_semantics="Default generic environment area.",
+            basis_semantics="Dry weight mapped.",
+            release_partition_semantics="Maps directly to Level III emission modes."
+        ),
     ),
 ]
 ADAPTER_FIXTURE_CATALOG = [
@@ -160,6 +199,22 @@ ADAPTER_FIXTURE_CATALOG = [
         "import_profile": LEGACY_DESKTOP_EXPORT_TYPE,
         "format": "csv",
         "expected_engine_name": "legacy-screening-desktop",
+        "supported_modes": [RunMode.STEADY_STATE],
+    },
+    {
+        "fixture_name": "euses_screening_export",
+        "path": "config/adapter-fixtures/euses_screening_export.csv",
+        "import_profile": EUSES_EXPORT_TYPE,
+        "format": "csv",
+        "expected_engine_name": "euses-screening-desktop",
+        "supported_modes": [RunMode.STEADY_STATE],
+    },
+    {
+        "fixture_name": "epi_suite_screening_export",
+        "path": "config/adapter-fixtures/epi_suite_screening_export.csv",
+        "import_profile": EPI_SUITE_EXPORT_TYPE,
+        "format": "csv",
+        "expected_engine_name": "epi-suite-screening",
         "supported_modes": [RunMode.STEADY_STATE],
     },
 ]
@@ -331,12 +386,20 @@ def _require_time_bucket_bounds(
 def external_payload_from_legacy_desktop_export_csv(text: str) -> ExternalEngineResultPayload:
     metadata, table_text = _parse_legacy_export_metadata(text)
     export_type = metadata.get("export_type")
-    if export_type != LEGACY_DESKTOP_EXPORT_TYPE:
+    if export_type not in SUPPORTED_DESKTOP_EXPORT_TYPES:
         raise FateValidationError(
             code="legacy_external_payload_unknown_type",
             message=f"Unsupported legacy desktop export type: {export_type or '<missing>'}.",
-            suggestion=f"Set export_type to {LEGACY_DESKTOP_EXPORT_TYPE} for this importer.",
+            suggestion=f"Set export_type to one of {SUPPORTED_DESKTOP_EXPORT_TYPES} for this importer.",
             details={"exportType": export_type},
+        )
+    profile = next((p for p in ADAPTER_IMPORT_PROFILES if p.profile_id == export_type), None)
+    if profile and profile.semantic_mapping and profile.semantic_mapping.semantic_loss == SemanticLossClassification.NON_EQUIVALENT:
+        raise FateValidationError(
+            code="adapter_semantic_loss_non_equivalent",
+            message=f"Export type {export_type} cannot be imported because semantic loss is NON_EQUIVALENT.",
+            suggestion="Use an import profile that maps structurally equivalent or bounded compartments and modes.",
+            details={"exportType": export_type}
         )
     mode = metadata.get("mode", "steady_state") or "steady_state"
     if mode not in {"steady_state", "time_bucket"}:
@@ -638,6 +701,14 @@ def normalize_external_payload(
                 ),
             )
         )
+        unsupported_limitations = []
+        if record.mode == "steady_state" and (record.interval_start is not None or record.interval_end is not None):
+            unsupported_limitations.append(
+                LimitationNote(
+                    code="adapter_unsupported_time_bounds",
+                    message="Time interval bounds were provided in steady_state mode and were ignored during normalization.",
+                )
+            )
         normalized_surfaces.append(
             ConcentrationSurface(
                 scenario_id=scenario.scenario_id,
@@ -655,6 +726,7 @@ def normalize_external_payload(
                         code="external_result_adapter",
                         message="Surface was normalized from an external engine-like payload through the adapter harness.",
                     ),
+                    *unsupported_limitations,
                     *(
                         [
                             LimitationNote(
@@ -708,6 +780,7 @@ def normalize_external_payload(
         run_mode=run_options.run_mode,
         surfaces_emitted=len(normalized_surfaces),
         assumptions_applied=assumptions,
+        escalation_concerns=run_options.escalation_concerns,
         warnings=warnings,
         result_metadata=ResultMetadata.completed(result_id=f"result-{scenario.scenario_id}-external"),
     )

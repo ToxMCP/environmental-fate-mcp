@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "regreview-3cd8daad4463",
-  "scenario_id": "scenario-18e1e6bb4344",
+  "review_packet_id": "regreview-c0888a1fe58c",
+  "scenario_id": "scenario-4cdd1024992b",
   "handoff_profile_id": "exposure_scenario_mcp_v1",
   "target_module": "Direct-Use Exposure MCP",
   "source_model_family": "reference_mass_balance",
@@ -37,8 +37,8 @@
   },
   "package": {
     "schema_version": "v1",
-    "package_id": "regpkg-03dcfe4d7377",
-    "scenario_id": "scenario-18e1e6bb4344",
+    "package_id": "regpkg-a2cc0045d5cb",
+    "scenario_id": "scenario-4cdd1024992b",
     "handoff_profile_id": "exposure_scenario_mcp_v1",
     "profile_resolution_method": "default_profile",
     "profile_resolution_basis": "exposure_scenario_mcp_v1",
@@ -50,7 +50,7 @@
     ],
     "crosswalk_entries": [
       {
-        "source_surface_id": "surface-7ce36175a789",
+        "source_surface_id": "surface-49a3799a3c00",
         "medium": "air",
         "compartment": "ambient_air",
         "concentration_value": 0.00024044183555505707,
@@ -69,7 +69,7 @@
         "requires_dose_translation": true
       },
       {
-        "source_surface_id": "surface-b5600eee1fa6",
+        "source_surface_id": "surface-2f1b8b20d0fb",
         "medium": "water",
         "compartment": "surface_water",
         "concentration_value": 5.93830089619883e-06,
@@ -88,7 +88,7 @@
         "requires_dose_translation": true
       },
       {
-        "source_surface_id": "surface-05ca6162d54e",
+        "source_surface_id": "surface-e52355132dd8",
         "medium": "soil",
         "compartment": "agricultural_soil",
         "concentration_value": 0.0010820212806667226,
@@ -109,10 +109,11 @@
     ],
     "parameter_manifest": {
       "schema_version": "v1",
-      "scenario_id": "scenario-18e1e6bb4344",
-      "run_id": "run-e7bb217e7fa3",
+      "scenario_id": "scenario-4cdd1024992b",
+      "run_id": "run-e81726df3392",
       "model_family": "reference_mass_balance",
       "fit_for_purpose": "screening",
+      "escalation_concerns": [],
       "entries": [
         {
           "parameter": "agricultural_soil_mass_kg",
@@ -321,7 +322,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.586464Z",
+        "generated_at": "2026-04-14T19:03:10.701835Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -364,8 +365,8 @@
     },
     "uncertainty_summary": {
       "schema_version": "v1",
-      "scenario_id": "scenario-18e1e6bb4344",
-      "run_id": "run-e7bb217e7fa3",
+      "scenario_id": "scenario-4cdd1024992b",
+      "run_id": "run-e81726df3392",
       "model_family": "reference_mass_balance",
       "top_drivers": [
         {
@@ -434,7 +435,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.586530Z",
+        "generated_at": "2026-04-14T19:03:10.701911Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -479,7 +480,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.586565Z",
+      "generated_at": "2026-04-14T19:03:10.701946Z",
       "source_references": []
     },
     "limitations": [
@@ -499,12 +500,13 @@
         "code": "handoff_profile_resolution",
         "message": "Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
       }
-    ]
+    ],
+    "blockers": []
   },
   "summary": {
     "schema_version": "v1",
-    "package_id": "regpkg-03dcfe4d7377",
-    "scenario_id": "scenario-18e1e6bb4344",
+    "package_id": "regpkg-a2cc0045d5cb",
+    "scenario_id": "scenario-4cdd1024992b",
     "handoff_profile_id": "exposure_scenario_mcp_v1",
     "target_module": "Direct-Use Exposure MCP",
     "entry_count": 3,
@@ -539,7 +541,7 @@
     ],
     "entry_samples": [
       {
-        "source_surface_id": "surface-7ce36175a789",
+        "source_surface_id": "surface-49a3799a3c00",
         "medium": "air",
         "compartment": "ambient_air",
         "concentration_value": 0.00024044183555505707,
@@ -551,7 +553,7 @@
         "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
       },
       {
-        "source_surface_id": "surface-b5600eee1fa6",
+        "source_surface_id": "surface-2f1b8b20d0fb",
         "medium": "water",
         "compartment": "surface_water",
         "concentration_value": 5.93830089619883e-06,
@@ -563,7 +565,7 @@
         "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
       },
       {
-        "source_surface_id": "surface-05ca6162d54e",
+        "source_surface_id": "surface-e52355132dd8",
         "medium": "soil",
         "compartment": "agricultural_soil",
         "concentration_value": 0.0010820212806667226,
@@ -588,6 +590,7 @@
       "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
       "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
     ],
+    "scientific_unsuitability_lines": [],
     "equation_lines": [
       "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
       "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
@@ -610,7 +613,8 @@
         "code": "handoff_profile_resolution",
         "message": "Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
       }
-    ]
+    ],
+    "blockers": []
   },
   "checks": [
     {
@@ -631,12 +635,17 @@
     {
       "code": "summary_matches_package",
       "passed": true,
-      "message": "Summary covers 3 crosswalk entries for downstream field environmental_media_concentration from package regpkg-03dcfe4d7377."
+      "message": "Summary covers 3 crosswalk entries for downstream field environmental_media_concentration from package regpkg-a2cc0045d5cb."
     },
     {
       "code": "concentration_boundary_preserved",
       "passed": true,
       "message": "Review packet preserves the concentration-only boundary and keeps dose translation explicitly downstream."
+    },
+    {
+      "code": "no_handoff_blockers",
+      "passed": true,
+      "message": "No blockers were identified during handoff package export."
     }
   ],
   "review_checklist": [
@@ -677,6 +686,7 @@
     "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
     "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
   ],
+  "scientific_unsuitability_lines": [],
   "uncertainty_lines": [
     "5 deterministic uncertainty drivers were ranked for reference_mass_balance.",
     "These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
@@ -692,7 +702,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T20:41:31.586649Z",
+    "generated_at": "2026-04-14T19:03:10.702021Z",
     "source_references": []
   },
   "limitations": [
@@ -712,5 +722,6 @@
       "code": "handoff_profile_resolution",
       "message": "Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
     }
-  ]
+  ],
+  "blockers": []
 }

@@ -61,6 +61,13 @@
           "title": "Limitations",
           "type": "array"
         },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
+        },
         "quality_flags": {
           "items": {
             "$ref": "#/$defs/QualityFlag"
@@ -363,6 +370,13 @@
           },
           "title": "Limitations",
           "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
         }
       },
       "required": [
@@ -541,6 +555,13 @@
           "title": "Candidate Applicability Lines",
           "type": "array"
         },
+        "scientific_unsuitability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Unsuitability Lines",
+          "type": "array"
+        },
         "base_benchmark_reference_lines": {
           "items": {
             "type": "string"
@@ -589,6 +610,13 @@
             "$ref": "#/$defs/LimitationNote"
           },
           "title": "Limitations",
+          "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
           "type": "array"
         }
       },
@@ -771,6 +799,13 @@
             "type": "string"
           },
           "title": "Applicability Lines",
+          "type": "array"
+        },
+        "scientific_unsuitability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Unsuitability Lines",
           "type": "array"
         }
       },

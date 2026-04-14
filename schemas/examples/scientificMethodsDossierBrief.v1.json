@@ -1,14 +1,14 @@
 {
   "schema_version": "v1",
-  "dossier_id": "scimethods-f0e22b636caf",
+  "dossier_id": "scimethods-68d289854e17",
   "model_family": "advective_screening_mass_balance",
   "run_mode_filter": null,
   "promotion_status": "ready",
   "blocking_action_count": 0,
   "strengthening_action_count": 0,
-  "claim_count": 18,
-  "mandatory_claim_count": 17,
-  "covered_mandatory_claim_count": 17,
+  "claim_count": 19,
+  "mandatory_claim_count": 18,
+  "covered_mandatory_claim_count": 18,
   "uncovered_mandatory_claim_count": 0,
   "highlighted_claim_ids": [
     "advective_clearance_dominant_loss_share_v1",
@@ -482,14 +482,14 @@
   ],
   "summary_lines": [
     "Scientific methods dossier for advective_screening_mass_balance.",
-    "Mandatory scientific validation claims covered: 17/17.",
-    "Total governed claims in scope: 18 with 18 currently benchmark-covered.",
+    "Mandatory scientific validation claims covered: 18/18.",
+    "Total governed claims in scope: 19 with 19 currently benchmark-covered.",
     "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
     "Highlighted claim grounding: Advective extreme-persistence clearance bound: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
     "Highlighted regime stability: 2 near-parity transition claim(s), 1 stable-regime claim(s).",
     "Highlighted transport stability: 2 boundary-sensitive transport claim(s), 0 stable transport-regime claim(s).",
     "Post-release regime stability: 2 boundary-sensitive recovery claim(s), 2 half-recovery pace claim(s), 1 stable post-release recovery claim(s).",
-    "External corroboration breadth: 18/18 claim(s) carry multi-official multi-jurisdiction grounding.",
+    "External corroboration breadth: 19/19 claim(s) carry multi-official multi-jurisdiction grounding.",
     "Transport authority support: reference-style bounded-transport anchors now span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes.",
     "Transport transition support: reference-style transition anchors and flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "Post-release recovery support: reference-style bucket anchors show release-stop mass draining with explicit degraded-versus-advected recovery accounting after active emission ends.",
@@ -497,10 +497,11 @@
     "Post-release directionality support: same-chemistry sub-boundary, boundary, and beyond-boundary anchors show retained release-stop mass crossing the one-turnover anchor in the governed direction as the recovery window extends.",
     "Post-release pace support: same-chemistry pre-half, half-recovery, and beyond-half anchors show the governed combined-loss half-recovery timescale directly rather than inferring recovery pace from the one-turnover boundary alone.",
     "Post-release pace directionality support: same-chemistry pre-half, half-boundary, beyond-half, and extended-beyond-half anchors show retained release-stop mass crossing and moving materially below the 50% half-recovery anchor in the governed direction as the recovery window extends.",
+    "Late recovery regime support: exceptional beyond-half anchors show the deep depletion authority layer actively distinguishing stable late-recovery from mere sub-half-recovery windows.",
     "Transition sensitivity support: explicit flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "This model family remains experimental and should be challenged with extra reviewer scrutiny even when its mandatory claims are covered.",
     "Promotion status: ready (0 blocking actions, 0 strengthening actions).",
-    "Source grounding: Source grounding cites 5 external official references and 44 governed internal references across the filtered claim set.",
+    "Source grounding: Source grounding cites 5 external official references and 45 governed internal references across the filtered claim set.",
     "Source grounding: Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
     "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
     "Highlighted claim grounding: Advective extreme-persistence clearance bound: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -528,7 +529,7 @@
     "Reference-case concept: EPA flow-through water screening case family: This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency.",
     "Support strength: High-priority mandatory claims with multi-anchor support for advective_screening_mass_balance: 4/4.",
     "Support strength: No in-scope claims are limited to a single benchmark anchor.",
-    "Benchmark context: Benchmark-backed claim support cites 31 supporting fixtures across the filtered claim set.",
+    "Benchmark context: Benchmark-backed claim support cites 33 supporting fixtures across the filtered claim set.",
     "Benchmark context: Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture.",
     "Edge anchors: advective_degradation_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports degradation as the dominant loss share when half-life is short relative to residence time. | advective_degradation_dominant_loss_share_companion_fixture [sensitivity]: The advective trace continues to report degradation as the dominant loss share under a different short-half-life and long-residence regime. | advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports clearance as the dominant loss share when residence time is short relative to half-life."
   ],
@@ -541,8 +542,9 @@
     "Governed scientific review checklist count for advective_screening_mass_balance: 3.",
     "Scientific review note: Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
   ],
+  "scientific_unsuitability_lines": [],
   "source_grounding_lines": [
-    "Source grounding cites 5 external official references and 44 governed internal references across the filtered claim set.",
+    "Source grounding cites 5 external official references and 45 governed internal references across the filtered claim set.",
     "Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
     "Representative governed references: Fate MCP advective cumulative mass-balance method notes, Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture."
   ],
@@ -579,7 +581,7 @@
     "OECD post-release half-recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants."
   ],
   "benchmark_reference_lines": [
-    "Benchmark-backed claim support cites 31 supporting fixtures across the filtered claim set.",
+    "Benchmark-backed claim support cites 33 supporting fixtures across the filtered claim set.",
     "Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture."
   ],
   "support_strength_lines": [

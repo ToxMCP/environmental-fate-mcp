@@ -2,8 +2,8 @@
   "surfaces": [
     {
       "schema_version": "v1",
-      "surface_id": "surface-69c9fcea3f19",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-1bd32f556881",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "air",
       "compartment": "ambient_air",
       "geographic_scope": {
@@ -13,8 +13,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-04-13T20:41:31.550276Z",
-        "end": "2026-04-23T20:41:31.550276Z",
+        "start": "2026-04-14T19:03:10.642719Z",
+        "end": "2026-04-24T19:03:10.642719Z",
         "bucket_label": "bucket_1"
       },
       "concentration_value": 0.00023293513681019718,
@@ -25,7 +25,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550595Z",
+        "generated_at": "2026-04-14T19:03:10.643321Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -178,8 +178,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-15809c4cb5ed",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-f79b58ce24da",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "air",
       "compartment": "ambient_air",
       "geographic_scope": {
@@ -189,8 +189,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-04-23T20:41:31.550276Z",
-        "end": "2026-05-03T20:41:31.550276Z",
+        "start": "2026-04-24T19:03:10.642719Z",
+        "end": "2026-05-04T19:03:10.642719Z",
         "bucket_label": "bucket_2"
       },
       "concentration_value": 0.00024021435983551586,
@@ -201,7 +201,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550636Z",
+        "generated_at": "2026-04-14T19:03:10.643361Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -354,8 +354,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-d0be81c7b3ef",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-5074ede5cb47",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "air",
       "compartment": "ambient_air",
       "geographic_scope": {
@@ -365,8 +365,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-05-03T20:41:31.550276Z",
-        "end": "2026-05-13T20:41:31.550276Z",
+        "start": "2026-05-04T19:03:10.642719Z",
+        "end": "2026-05-14T19:03:10.642719Z",
         "bucket_label": "bucket_3"
       },
       "concentration_value": 0.00024044183555505707,
@@ -377,7 +377,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550673Z",
+        "generated_at": "2026-04-14T19:03:10.643396Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -530,8 +530,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-6a5f7b09b65a",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-86bf82816a30",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "water",
       "compartment": "surface_water",
       "geographic_scope": {
@@ -541,8 +541,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-04-13T20:41:31.550276Z",
-        "end": "2026-04-23T20:41:31.550276Z",
+        "start": "2026-04-14T19:03:10.642719Z",
+        "end": "2026-04-24T19:03:10.642719Z",
         "bucket_label": "bucket_1"
       },
       "concentration_value": 3.1650491277398157e-06,
@@ -553,7 +553,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550711Z",
+        "generated_at": "2026-04-14T19:03:10.643431Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -706,8 +706,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-22b00dd13445",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-6b0fef08b373",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "water",
       "compartment": "surface_water",
       "geographic_scope": {
@@ -717,8 +717,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-04-23T20:41:31.550276Z",
-        "end": "2026-05-03T20:41:31.550276Z",
+        "start": "2026-04-24T19:03:10.642719Z",
+        "end": "2026-05-04T19:03:10.642719Z",
         "bucket_label": "bucket_2"
       },
       "concentration_value": 4.9413728912011295e-06,
@@ -729,7 +729,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550747Z",
+        "generated_at": "2026-04-14T19:03:10.643465Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -882,8 +882,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-2d3b28f46b47",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-b774d101ec82",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "water",
       "compartment": "surface_water",
       "geographic_scope": {
@@ -893,8 +893,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-05-03T20:41:31.550276Z",
-        "end": "2026-05-13T20:41:31.550276Z",
+        "start": "2026-05-04T19:03:10.642719Z",
+        "end": "2026-05-14T19:03:10.642719Z",
         "bucket_label": "bucket_3"
       },
       "concentration_value": 5.93830089619883e-06,
@@ -905,7 +905,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550783Z",
+        "generated_at": "2026-04-14T19:03:10.643497Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -1058,8 +1058,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-ac88d3df4115",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-67046b5acaea",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "soil",
       "compartment": "agricultural_soil",
       "geographic_scope": {
@@ -1069,8 +1069,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-04-13T20:41:31.550276Z",
-        "end": "2026-04-23T20:41:31.550276Z",
+        "start": "2026-04-14T19:03:10.642719Z",
+        "end": "2026-04-24T19:03:10.642719Z",
         "bucket_label": "bucket_1"
       },
       "concentration_value": 0.0004464408421511112,
@@ -1081,7 +1081,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550838Z",
+        "generated_at": "2026-04-14T19:03:10.643532Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -1234,8 +1234,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-e997ac78dafb",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-2dd49a4d485a",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "soil",
       "compartment": "agricultural_soil",
       "geographic_scope": {
@@ -1245,8 +1245,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-04-23T20:41:31.550276Z",
-        "end": "2026-05-03T20:41:31.550276Z",
+        "start": "2026-04-24T19:03:10.642719Z",
+        "end": "2026-05-04T19:03:10.642719Z",
         "bucket_label": "bucket_2"
       },
       "concentration_value": 0.0008007811733872328,
@@ -1257,7 +1257,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550878Z",
+        "generated_at": "2026-04-14T19:03:10.643589Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -1410,8 +1410,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-37b40f6d859e",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-8c1e5fe33b1e",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "soil",
       "compartment": "agricultural_soil",
       "geographic_scope": {
@@ -1421,8 +1421,8 @@
       },
       "time_window": {
         "mode": "time_bucket",
-        "start": "2026-05-03T20:41:31.550276Z",
-        "end": "2026-05-13T20:41:31.550276Z",
+        "start": "2026-05-04T19:03:10.642719Z",
+        "end": "2026-05-14T19:03:10.642719Z",
         "bucket_label": "bucket_3"
       },
       "concentration_value": 0.0010820212806667226,
@@ -1433,7 +1433,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550914Z",
+        "generated_at": "2026-04-14T19:03:10.643625Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -1587,8 +1587,8 @@
   ],
   "run_summary": {
     "schema_version": "v1",
-    "run_id": "run-2da13c87252e",
-    "scenario_id": "scenario-18e1e6bb4344",
+    "run_id": "run-b14e5fa10e0b",
+    "scenario_id": "scenario-4cdd1024992b",
     "model_family": "reference_mass_balance",
     "run_mode": "time_bucket",
     "surfaces_emitted": 9,
@@ -2074,12 +2074,13 @@
         "quality_flags": []
       }
     ],
+    "escalation_concerns": [],
     "warnings": [],
     "result_metadata": {
       "status": "completed",
-      "executed_at": "2026-04-13T20:41:31.550920Z",
+      "executed_at": "2026-04-14T19:03:10.643632Z",
       "execution_mode": "synchronous",
-      "result_id": "result-scenario-18e1e6bb4344"
+      "result_id": "result-scenario-4cdd1024992b"
     }
   },
   "assumptions": [

@@ -1,7 +1,7 @@
 {
   "scenario": {
     "schema_version": "v1",
-    "scenario_id": "scenario-18e1e6bb4344",
+    "scenario_id": "scenario-4cdd1024992b",
     "chemical_identity": {
       "preferredName": "Example substance",
       "casrn": "100-00-0"
@@ -38,7 +38,8 @@
         "source_reference": null,
         "evidence_quality": "heuristic",
         "rationale": "Illustrative preserved-only screening descriptor.",
-        "quality_flags": []
+        "quality_flags": [],
+        "distribution": null
       },
       {
         "parameter": "water_half_life_days",
@@ -53,7 +54,8 @@
         },
         "evidence_quality": "reference",
         "rationale": "Weighted reconciliation across physicochemical evidence inputs using policy evidence_quality_weighted_mean in inverse_rate space.",
-        "quality_flags": []
+        "quality_flags": [],
+        "distribution": null
       }
     ],
     "evidence_sources": [
@@ -74,7 +76,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.551552Z",
+      "generated_at": "2026-04-14T19:03:10.643855Z",
       "source_references": [
         {
           "source_id": "example.release.note",

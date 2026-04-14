@@ -1209,6 +1209,17 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
             )
         )
         and (
+            not any(
+                item.get("claim_id") == "advective_post_release_late_recovery_regime_v1"
+                and item.get("covered")
+                for item in dossier_payload.get("claim_summaries", [])
+            )
+            or any(
+                line.startswith("Late recovery regime support: ")
+                for line in dossier_payload.get("summary_lines", [])
+            )
+        )
+        and (
             not dossier_payload.get("promotion_blocker_summaries")
             or any(
                 line.startswith("Promotion blocker: ")

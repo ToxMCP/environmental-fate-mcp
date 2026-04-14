@@ -252,6 +252,13 @@
       "title": "Limitations",
       "type": "array"
     },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blockers",
+      "type": "array"
+    },
     "quality_flags": {
       "items": {
         "$ref": "#/$defs/QualityFlag"

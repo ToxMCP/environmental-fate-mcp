@@ -235,6 +235,16 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
         "epa_post_release_recovery_pace_case_family_v1",
         "oecd_post_release_half_recovery_directionality_case_family_v1",
     ]
+    assert set(claims["advective_post_release_late_recovery_regime_v1"].required_validation_tiers) == {
+        "sensitivity",
+        "reference_style",
+        "edge_condition",
+    }
+    assert set(claims["advective_post_release_late_recovery_regime_v1"].required_reference_types) == {
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_late_recovery_reference_fixture",
+        "hand_worked_advective_post_release_late_recovery_edge_anchor",
+    }
     assert claims["advective_extreme_persistence_clearance_bound_v1"].reference_case_ids == [
         "advective_clearance_edge_case_family_v1",
         "echa_bounded_clearance_edge_case_family_v1",
@@ -538,3 +548,22 @@ def test_regulatory_handoff_target_matrix_manifest_is_loaded() -> None:
     mappings = {mapping.profile_id: mapping for mapping in manifest.mappings}
     assert mappings["exposure_scenario_mcp_v1"].target_module == "Direct-Use Exposure MCP"
     assert "toxclaw" in [hint.lower() for hint in mappings["toxclaw_orchestration_v1"].consumer_hints]
+
+def test_regulatory_handoff_profiles_for_jurisdictions() -> None:
+    from pathlib import Path
+    from fate_mcp.defaults import DefaultsRegistry
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    
+    # ECHA REACH CSR
+    echa_profile = registry.regulatory_handoff_profile("echa_csr_v1")
+    assert echa_profile is not None
+    assert echa_profile.target_module == "ECHA REACH Submission"
+    assert "echa" in echa_profile.consumer_hints
+    assert any(check.code == "csr_compartments_complete" for check in echa_profile.review_checklist)
+    
+    # EPA PMN
+    epa_profile = registry.regulatory_handoff_profile("epa_pmn_v1")
+    assert epa_profile is not None
+    assert epa_profile.target_module == "EPA PMN Submission"
+    assert "epa" in epa_profile.consumer_hints
+    assert any(check.code == "pmn_release_context_preserved" for check in epa_profile.review_checklist)

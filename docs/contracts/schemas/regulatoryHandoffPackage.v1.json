@@ -10,6 +10,17 @@
       "title": "Compartment",
       "type": "string"
     },
+    "EscalationConcern": {
+      "enum": [
+        "extreme_persistence",
+        "strong_spatial_heterogeneity",
+        "point_source_plume_dependence",
+        "pfas_like_transport",
+        "jurisdictional_probabilistic_requirement"
+      ],
+      "title": "EscalationConcern",
+      "type": "string"
+    },
     "FitForPurpose": {
       "enum": [
         "screening",
@@ -205,6 +216,13 @@
         },
         "fit_for_purpose": {
           "$ref": "#/$defs/FitForPurpose"
+        },
+        "escalation_concerns": {
+          "items": {
+            "$ref": "#/$defs/EscalationConcern"
+          },
+          "title": "Escalation Concerns",
+          "type": "array"
         },
         "entries": {
           "items": {
@@ -633,6 +651,13 @@
         "$ref": "#/$defs/LimitationNote"
       },
       "title": "Limitations",
+      "type": "array"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blockers",
       "type": "array"
     }
   },

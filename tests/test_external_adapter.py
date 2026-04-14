@@ -20,6 +20,9 @@ from fate_mcp.plugins.external_result_adapter import (
 )
 from fate_mcp.runtime import FateRuntime
 
+from fate_mcp.plugins.headless import HeadlessEngineConfig, HeadlessEngineWrapper
+
+
 
 def test_external_result_adapter_harness_plugin_returns_normalized_outputs() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
@@ -338,3 +341,193 @@ def test_external_result_adapter_converts_weight_basis_to_canonical_dry_weight()
         for surface in result.surfaces
         for note in surface.limitations
     )
+
+def test_external_result_adapter_euses_export_fixture_can_be_loaded() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "External adapter EUSES example"},
+            total_release_mass_kg=8.0,
+            release_fractions=[
+                ReleaseFraction(medium=Media.AIR, fraction=0.5),
+                ReleaseFraction(medium=Media.WATER, fraction=0.5),
+            ],
+            duration_days=10.0,
+        )
+    )
+    fixture_path = (
+        Path(__file__).resolve().parents[1]
+        / "config"
+        / "adapter-fixtures"
+        / "euses_screening_export.csv"
+    )
+    payload = load_external_payload(fixture_path)
+    result = normalize_external_payload(
+        payload,
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+        runtime.provenance,
+    )
+    assert payload.engine_name == "euses-screening-desktop"
+    assert {surface.compartment.value for surface in result.surfaces} == {
+        "ambient_air",
+        "surface_water",
+    }
+
+
+def test_external_result_adapter_epi_suite_export_fixture_can_be_loaded() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "External adapter EPI Suite example"},
+            total_release_mass_kg=8.0,
+            release_fractions=[
+                ReleaseFraction(medium=Media.AIR, fraction=0.5),
+                ReleaseFraction(medium=Media.WATER, fraction=0.5),
+            ],
+            duration_days=10.0,
+        )
+    )
+    fixture_path = (
+        Path(__file__).resolve().parents[1]
+        / "config"
+        / "adapter-fixtures"
+        / "epi_suite_screening_export.csv"
+    )
+    payload = load_external_payload(fixture_path)
+    result = normalize_external_payload(
+        payload,
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+        runtime.provenance,
+    )
+    assert payload.engine_name == "epi-suite-screening"
+    assert {surface.compartment.value for surface in result.surfaces} == {
+        "ambient_air",
+        "surface_water",
+    }
+
+
+def test_external_result_adapter_adds_limitation_for_unsupported_time_bounds() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "External adapter unsupported time example"},
+            total_release_mass_kg=8.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+        )
+    )
+    payload = ExternalEngineResultPayload(
+        engine_name="test-engine",
+        engine_version="1.0",
+        surfaces=[
+            ExternalEngineSurfacePayload(
+                compartment_code="WATER_SURFACE",
+                concentration=0.5,
+                unit="mg/L",
+                context_scope=scenario.geographic_scope.region_id,
+                mode="steady_state",
+                interval_start="2026-04-01T00:00:00Z",  # unsupported bounds for steady_state
+                interval_end="2026-04-02T00:00:00Z",
+                notes=[],
+            )
+        ],
+    )
+    result = normalize_external_payload(
+        payload,
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+        runtime.provenance,
+    )
+    
+    assert len(result.surfaces) == 1
+    limitations = result.surfaces[0].limitations
+    assert any(note.code == "adapter_unsupported_time_bounds" for note in limitations)
+
+def test_headless_engine_missing_executable() -> None:
+    config = HeadlessEngineConfig(
+        engine_id="nonexistent-engine",
+        executable_name="missing-exe-path-12345",
+        expected_version="1.0"
+    )
+    wrapper = HeadlessEngineWrapper(config)
+    with pytest.raises(FateValidationError) as exc:
+        wrapper.check_dependencies()
+    assert exc.value.payload.code == "headless_engine_missing"
+    assert "missing-exe-path-12345" in exc.value.payload.message
+
+
+def test_headless_engine_execution_failed(tmp_path) -> None:
+    config = HeadlessEngineConfig(
+        engine_id="mock-engine",
+        executable_name="python",  # a valid executable to pass dependency check
+        expected_version="1.0"
+    )
+    wrapper = HeadlessEngineWrapper(config)
+    
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Headless adapter example"},
+            total_release_mass_kg=8.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+        )
+    )
+    run_options = FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id)
+    
+    # Since we are mocking, we just let it run without creating the output file in tmp_path
+    with pytest.raises(FateValidationError) as exc:
+        wrapper.run(scenario, run_options, tmp_path)
+    assert exc.value.payload.code == "headless_engine_execution_failed"
+
+
+def test_headless_engine_bad_output(tmp_path) -> None:
+    config = HeadlessEngineConfig(
+        engine_id="mock-engine",
+        executable_name="python",
+        expected_version="1.0"
+    )
+    wrapper = HeadlessEngineWrapper(config)
+    
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Headless adapter example"},
+            total_release_mass_kg=8.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+        )
+    )
+    run_options = FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id)
+    
+    # create a bad output file
+    output_file = tmp_path / "output.csv"
+    output_file.write_text("bad,csv,file\n1,2,3\n")
+    
+    with pytest.raises(FateValidationError) as exc:
+        wrapper.run(scenario, run_options, tmp_path)
+    assert exc.value.payload.code == "headless_engine_bad_output"
+    assert "metadata line is malformed" in exc.value.payload.message
+
+def test_external_result_adapter_blocks_non_equivalent_semantic_loss(tmp_path, monkeypatch) -> None:
+    from fate_mcp.models import SemanticLossClassification, AdapterSemanticMapping
+    from fate_mcp.plugins.external_result_adapter import ADAPTER_IMPORT_PROFILES
+    
+    profile = next(p for p in ADAPTER_IMPORT_PROFILES if p.profile_id == "euses_screening_export_v1")
+    monkeypatch.setattr(
+        profile.semantic_mapping,
+        "semantic_loss",
+        SemanticLossClassification.NON_EQUIVALENT,
+    )
+
+    fixture_path = (
+        Path(__file__).resolve().parents[1]
+        / "config"
+        / "adapter-fixtures"
+        / "euses_screening_export.csv"
+    )
+    with pytest.raises(FateValidationError) as exc:
+        load_external_payload(fixture_path)
+    assert exc.value.payload.code == "adapter_semantic_loss_non_equivalent"

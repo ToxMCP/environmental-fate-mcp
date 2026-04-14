@@ -22,7 +22,12 @@
       "metals and metal species requiring speciation-aware fate treatment",
       "nanomaterials or particulate systems requiring size-resolved transport behavior",
       "strongly ionizing chemistries where screening partition and persistence assumptions are likely unstable",
-      "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics"
+      "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics",
+      "extreme persistence requiring higher-tier modeling",
+      "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+      "point-source plume dependence requiring explicit near-field dispersion models",
+      "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+      "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
     ],
     "required_inputs": [
       "total_release_mass_kg",
@@ -61,5 +66,6 @@
     "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
     "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
     "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
-  ]
+  ],
+  "scientific_unsuitability_lines": []
 }

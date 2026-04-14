@@ -1,5 +1,41 @@
 {
   "$defs": {
+    "AdapterSemanticMapping": {
+      "additionalProperties": false,
+      "properties": {
+        "semantic_loss": {
+          "$ref": "#/$defs/SemanticLossClassification",
+          "default": "minor"
+        },
+        "compartment_semantics": {
+          "default": "",
+          "title": "Compartment Semantics",
+          "type": "string"
+        },
+        "time_semantics": {
+          "default": "",
+          "title": "Time Semantics",
+          "type": "string"
+        },
+        "spatial_scale_semantics": {
+          "default": "",
+          "title": "Spatial Scale Semantics",
+          "type": "string"
+        },
+        "basis_semantics": {
+          "default": "",
+          "title": "Basis Semantics",
+          "type": "string"
+        },
+        "release_partition_semantics": {
+          "default": "",
+          "title": "Release Partition Semantics",
+          "type": "string"
+        }
+      },
+      "title": "AdapterSemanticMapping",
+      "type": "object"
+    },
     "EnvironmentalReleaseScenario": {
       "additionalProperties": false,
       "properties": {
@@ -153,6 +189,17 @@
           },
           "title": "Quality Flags",
           "type": "array"
+        },
+        "distribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParameterDistribution"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [
@@ -232,6 +279,76 @@
       ],
       "title": "Media",
       "type": "string"
+    },
+    "ParameterDistribution": {
+      "additionalProperties": false,
+      "properties": {
+        "distribution_type": {
+          "title": "Distribution Type",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "bounds": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bounds"
+        },
+        "sampling_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sampling Basis"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        },
+        "methods_basis_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Methods Basis Lines",
+          "type": "array"
+        },
+        "limitation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitation Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "distribution_type",
+        "parameters"
+      ],
+      "title": "ParameterDistribution",
+      "type": "object"
     },
     "ProvenanceBundle": {
       "additionalProperties": false,
@@ -321,6 +438,16 @@
       "title": "RunMode",
       "type": "string"
     },
+    "SemanticLossClassification": {
+      "enum": [
+        "none",
+        "minor",
+        "material_but_bounded",
+        "non_equivalent"
+      ],
+      "title": "SemanticLossClassification",
+      "type": "string"
+    },
     "Severity": {
       "enum": [
         "info",
@@ -390,6 +517,17 @@
         "description": {
           "title": "Description",
           "type": "string"
+        },
+        "semantic_mapping": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AdapterSemanticMapping"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "removal_fraction": {
           "default": 0.0,

@@ -75,6 +75,17 @@
         "description": {
           "title": "Description",
           "type": "string"
+        },
+        "semantic_mapping": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AdapterSemanticMapping"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [
@@ -87,12 +98,58 @@
       "title": "AdapterImportProfile",
       "type": "object"
     },
+    "AdapterSemanticMapping": {
+      "additionalProperties": false,
+      "properties": {
+        "semantic_loss": {
+          "$ref": "#/$defs/SemanticLossClassification",
+          "default": "minor"
+        },
+        "compartment_semantics": {
+          "default": "",
+          "title": "Compartment Semantics",
+          "type": "string"
+        },
+        "time_semantics": {
+          "default": "",
+          "title": "Time Semantics",
+          "type": "string"
+        },
+        "spatial_scale_semantics": {
+          "default": "",
+          "title": "Spatial Scale Semantics",
+          "type": "string"
+        },
+        "basis_semantics": {
+          "default": "",
+          "title": "Basis Semantics",
+          "type": "string"
+        },
+        "release_partition_semantics": {
+          "default": "",
+          "title": "Release Partition Semantics",
+          "type": "string"
+        }
+      },
+      "title": "AdapterSemanticMapping",
+      "type": "object"
+    },
     "RunMode": {
       "enum": [
         "steady_state",
         "time_bucket"
       ],
       "title": "RunMode",
+      "type": "string"
+    },
+    "SemanticLossClassification": {
+      "enum": [
+        "none",
+        "minor",
+        "material_but_bounded",
+        "non_equivalent"
+      ],
+      "title": "SemanticLossClassification",
       "type": "string"
     }
   },

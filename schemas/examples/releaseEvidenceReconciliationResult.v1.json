@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "reconciled_scenario": {
     "schema_version": "v1",
-    "scenario_id": "scenario-4bae4eb622dd",
+    "scenario_id": "scenario-b2aa2a4a381e",
     "chemical_identity": {
       "preferredName": "Example substance",
       "casrn": "100-00-0"
@@ -45,7 +45,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.586345Z",
+      "generated_at": "2026-04-14T19:03:10.701717Z",
       "source_references": [
         {
           "source_id": "example.release.a",
@@ -187,6 +187,7 @@
       "field": "total_release_mass_kg",
       "conflict_type": "spread_exceeds_threshold",
       "description": "Release mass evidence differs by more than the allowed relative spread threshold after evidence-quality weighting.",
+      "semantic_mapping": null,
       "observed_values": [
         "monitoring_record_a: 10.0 kg (quality=measured, weight=1.00)",
         "monitoring_record_b: 16.0 kg (quality=heuristic, weight=0.20)"
@@ -200,6 +201,7 @@
       "field": "release_fraction_water",
       "conflict_type": "spread_exceeds_threshold",
       "description": "Release fraction evidence for water differs by more than the allowed absolute spread threshold after evidence-quality weighting.",
+      "semantic_mapping": null,
       "observed_values": [
         "monitoring_record_a: 0.7 (quality=measured, weight=1.00)",
         "monitoring_record_b: 0.3 (quality=heuristic, weight=0.20)"
@@ -213,6 +215,7 @@
       "field": "release_fraction_soil",
       "conflict_type": "spread_exceeds_threshold",
       "description": "Release fraction evidence for soil differs by more than the allowed absolute spread threshold after evidence-quality weighting.",
+      "semantic_mapping": null,
       "observed_values": [
         "monitoring_record_a: 0.3 (quality=measured, weight=1.00)",
         "monitoring_record_b: 0.7 (quality=heuristic, weight=0.20)"
@@ -234,7 +237,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T20:41:31.586372Z",
+    "generated_at": "2026-04-14T19:03:10.701742Z",
     "source_references": [
       {
         "source_id": "example.release.a",
