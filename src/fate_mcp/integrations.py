@@ -294,6 +294,34 @@ def _resolve_model_family_applicability(
     return profile
 
 
+def _scientific_unsuitability_lines(escalation_concerns: list[str]) -> list[str]:
+    lines = []
+    for concern in escalation_concerns:
+        val = getattr(concern, 'value', concern)
+        if val == "extreme_persistence":
+            lines.append("Scientific unsuitability trigger: extreme persistence requires higher-tier modeling or prolonged clearance anchors.")
+        elif val == "strong_spatial_heterogeneity":
+            lines.append("Scientific unsuitability trigger: strong spatial heterogeneity requires GIS/routed spatial dispersion.")
+        elif val == "point_source_plume_dependence":
+            lines.append("Scientific unsuitability trigger: point-source plume dependence requires explicit near-field dispersion models.")
+        elif val == "pfas_like_transport":
+            lines.append("Scientific unsuitability trigger: PFAS-like transport concerns require specialized multimedia distribution logic.")
+        elif val == "jurisdictional_probabilistic_requirement":
+            lines.append("Scientific unsuitability trigger: jurisdictional requirement for probabilistic output cannot be satisfied by deterministic screening.")
+        else:
+            lines.append(f"Scientific unsuitability trigger: flagged for {val}.")
+    return sorted(lines)
+
+
+def _selection_recommendation_unsuitability_lines(
+    recommendation: ModelFamilySelectionRecommendation,
+) -> list[str]:
+    lines: list[str] = []
+    for note in recommendation.limitations:
+        if note.message.startswith("Scientific unsuitability trigger:"):
+            lines.append(note.message)
+    return sorted(set(lines))
+
 def _applicability_lines(
     profile: ModelFamilyApplicabilityProfile,
     fit_for_purpose: FitForPurpose,
@@ -878,6 +906,12 @@ def _post_release_pace_lines_from_surfaces(surfaces: list) -> list[str]:
                 f"(post-release window spans {_format_trace_term_value(multiple, 3)}x the combined-loss half-recovery pace, "
                 f"{_format_trace_term_value(abs(offset), 3)} turnover(s) before the 50% retained-mass anchor)."
             )
+        elif multiple >= 4.0:
+            lines.append(
+                f"{surface.compartment.value}: far_beyond_half_recovery_post_release_pace "
+                f"(post-release window spans {_format_trace_term_value(multiple, 3)}x the combined-loss half-recovery pace, "
+                f"entering a stable late-recovery regime under the same bounded combined-loss semantics)."
+            )
         else:
             lines.append(
                 f"{surface.compartment.value}: beyond_half_recovery_post_release_pace "
@@ -940,6 +974,13 @@ def _post_release_pace_directionality_lines_from_surfaces(surfaces: list) -> lis
                 f"(retained={_format_trace_term_value(retained_fraction * 100.0, 2)}%, "
                 f"ratio={_format_trace_term_value(retained_ratio, 3)}x the 50% anchor{margin_fragment}, "
                 f"{_format_trace_term_value(retained_offset * 100.0, 2)} pct above the governed half-recovery retained-mass boundary)."
+            )
+        elif retained_ratio <= 0.125:
+            lines.append(
+                f"{surface.compartment.value}: late_recovery_regime_retained_mass_directionality "
+                f"(retained={_format_trace_term_value(retained_fraction * 100.0, 2)}%, "
+                f"ratio={_format_trace_term_value(retained_ratio, 3)}x the 50% anchor{margin_fragment}, "
+                f"depletion authority layer distinguishes this as a stable late-recovery regime)."
             )
         else:
             lines.append(
@@ -1772,6 +1813,21 @@ def _advective_post_release_pace_directionality_support_ready(
     }.issubset(set(directionality_claim.supporting_reference_types))
 
 
+def _advective_post_release_late_recovery_support_ready(
+    claim_summaries_by_id: dict[str, ScientificMethodsDossierClaimSummary],
+) -> bool:
+    late_recovery_claim = claim_summaries_by_id.get(
+        "advective_post_release_late_recovery_regime_v1"
+    )
+    if not late_recovery_claim or not late_recovery_claim.covered:
+        return False
+    if "sensitivity" not in late_recovery_claim.supporting_validation_tiers:
+        return False
+    return {
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+    }.issubset(set(late_recovery_claim.supporting_reference_types))
+
+
 def _scientific_methods_recommended_action_summaries(
     defaults_registry: DefaultsRegistry,
     claim_summaries: list[ScientificMethodsDossierClaimSummary],
@@ -1798,6 +1854,9 @@ def _scientific_methods_recommended_action_summaries(
     )
     post_release_pace_directionality_support_ready = (
         _advective_post_release_pace_directionality_support_ready(claim_summaries_by_id)
+    )
+    post_release_late_recovery_support_ready = (
+        _advective_post_release_late_recovery_support_ready(claim_summaries_by_id)
     )
     if uncovered_mandatory_claim_count:
         summaries.append(
@@ -1940,6 +1999,7 @@ def _scientific_methods_recommended_action_summaries(
                 and post_release_directionality_support_ready
                 and post_release_pace_support_ready
                 and post_release_pace_directionality_support_ready
+                and post_release_late_recovery_support_ready
             )
         if experimental_blocking or experimental_strengthening_needed:
             summaries.append(
@@ -2025,6 +2085,7 @@ def _scientific_methods_promotion_blockers(
     for item in blocker_summaries:
         if item.source_claim_id and item.source_claim_id not in blocker_claim_ids:
             blocker_claim_ids.append(item.source_claim_id)
+    # Let us intercept unsuitability in the caller because unsuitability comes from the run parameter manifest, not recommended actions.
     return blocker_claim_ids, blocker_summaries
 
 
@@ -3560,6 +3621,9 @@ def build_model_family_selection_review_packet(
         triggered_signal_lines=recommendation.triggered_signal_lines,
         recommended_actions=review_preview.recommended_actions,
         primary_applicability_lines=recommendation.primary_fit_assessment.applicability_lines,
+        scientific_unsuitability_lines=_selection_recommendation_unsuitability_lines(
+            recommendation
+        ),
         challenge_applicability_lines=(
             recommendation.challenge_fit_assessment.applicability_lines
             if recommendation.challenge_fit_assessment is not None
@@ -4589,6 +4653,9 @@ def build_model_family_comparison_packet(
             message="Model-family comparison reflects deterministic Fate MCP outputs for one matched scenario and does not by itself endorse either family as the scientifically correct choice.",
         )
     ]
+    for limit in comparison.limitations:
+        if limit not in limitations:
+            limitations.append(limit)
     if request.candidate_model_family.value in EXPERIMENTAL_MODEL_FAMILIES:
         limitations.append(
             LimitationNote(
@@ -5469,6 +5536,8 @@ def build_run_parameter_manifest(
         summary_lines.append(
             "User or evidence-backed parameters: " + ", ".join(sorted(evidence_backed)) + "."
         )
+    
+    summary_lines.extend(_scientific_unsuitability_lines(result.run_summary.escalation_concerns))
 
     limitations = []
     if preserved_only_count:
@@ -5493,6 +5562,7 @@ def build_run_parameter_manifest(
         run_id=result.run_summary.run_id,
         model_family=result.run_summary.model_family,
         fit_for_purpose=fit_for_purpose,
+        escalation_concerns=result.run_summary.escalation_concerns,
         entries=entries,
         summary_lines=summary_lines,
         limitations=limitations,
@@ -6053,6 +6123,13 @@ def build_scientific_methods_dossier(
         summary_lines.append(
             "Post-release pace directionality support: same-chemistry pre-half, half-boundary, beyond-half, and extended-beyond-half anchors show retained release-stop mass crossing and moving materially below the 50% half-recovery anchor in the governed direction as the recovery window extends."
         )
+    if (
+        request.model_family.value == "advective_screening_mass_balance"
+        and _advective_post_release_late_recovery_support_ready(claim_summaries_by_id)
+    ):
+        summary_lines.append(
+            "Late recovery regime support: exceptional beyond-half anchors show the deep depletion authority layer actively distinguishing stable late-recovery from mere sub-half-recovery windows."
+        )
     flip_directionality_claim = next(
         (
             item
@@ -6254,6 +6331,7 @@ def export_exposure_consumption_package(
         geographic_scope=result.surfaces[0].geographic_scope,
         time_semantics=[surface.time_window for surface in result.surfaces],
         provenance=provenance_builder.bundle(),
+        blockers=[],
         limitations=[
             LimitationNote(
                 code="concentration_only",
@@ -6461,16 +6539,24 @@ def export_regulatory_handoff_package(
             if isinstance(payload[field], str) and payload[field] == "":
                 missing_required_fields.add(field)
     missing_required_fields = sorted(missing_required_fields)
+    blockers = _scientific_unsuitability_lines(result.run_summary.escalation_concerns)
     if missing_required_fields:
-        raise FateValidationError(
-            code="regulatory_handoff_profile_requirement_unmet",
-            message=(
-                f"Regulatory handoff profile {handoff_profile.profile_id} requires fields that were not populated: "
-                f"{missing_required_fields}."
-            ),
-            suggestion="Adjust the handoff profile or the crosswalk export logic so all required fields are populated.",
-            details={"missingRequiredFields": missing_required_fields},
+        blockers.append(
+            f"Regulatory handoff profile {handoff_profile.profile_id} requires fields that were not populated: {missing_required_fields}."
         )
+
+    if handoff_profile.profile_id == "echa_csr_v1":
+        compartments = {entry.compartment.value for entry in crosswalk_entries}
+        required_compartments = {"ambient_air", "surface_water", "agricultural_soil", "freshwater_sediment"}
+        if not required_compartments.issubset(compartments):
+            missing_compartments = sorted(required_compartments - compartments)
+            blockers.append(f"ECHA CSR requires concentration surfaces for {missing_compartments}.")
+
+    if handoff_profile.profile_id == "epa_pmn_v1":
+        modes = {entry.time_window.mode.value for entry in crosswalk_entries}
+        if "time_bucket" not in modes:
+            blockers.append("EPA PMN submission requires time-bucket semantics, but steady-state surfaces were provided.")
+
     return RegulatoryHandoffPackage(
         scenario_id=result.run_summary.scenario_id,
         handoff_profile_id=handoff_profile.profile_id,
@@ -6484,6 +6570,7 @@ def export_regulatory_handoff_package(
         parameter_manifest=parameter_manifest,
         uncertainty_summary=uncertainty_summary,
         provenance=provenance_builder.bundle(),
+        blockers=blockers,
         limitations=[
             LimitationNote(
                 code="concentration_only",
@@ -6747,6 +6834,7 @@ def summarize_regulatory_handoff_package(
         applicability_lines=applicability_lines,
         equation_lines=equation_lines,
         limitations=package.limitations,
+        blockers=package.blockers,
     )
 
 
@@ -6858,6 +6946,15 @@ def build_regulatory_handoff_review_packet(
                 "explicitly downstream."
             ),
         ),
+        RegulatoryHandoffReviewCheck(
+            code="no_handoff_blockers",
+            passed=not bool(package.blockers),
+            message=(
+                "No blockers were identified during handoff package export."
+                if not package.blockers
+                else "Handoff package export reported blockers: " + "; ".join(package.blockers)
+            ),
+        ),
     ]
     review_checklist = _build_regulatory_review_checklist(
         handoff_profile,
@@ -6888,6 +6985,7 @@ def build_regulatory_handoff_review_packet(
         review_template_used=handoff_profile.review_brief_template,
         provenance=provenance_builder.bundle(),
         limitations=package.limitations,
+        blockers=package.blockers,
     )
 
 

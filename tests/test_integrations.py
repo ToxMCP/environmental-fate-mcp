@@ -1217,10 +1217,8 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
     assert any(line.startswith("Post-release regime support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Post-release directionality support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Post-release pace support: ") for line in dossier.summary_lines)
-    assert any(
-        line.startswith("Post-release pace directionality support: ")
-        for line in dossier.summary_lines
-    )
+    assert any(line.startswith("Post-release pace directionality support: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Late recovery regime support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Transition sensitivity support: ") for line in dossier.summary_lines)
     assert not any(item.action_class == "regime_transition" for item in dossier.recommended_action_summaries)
     assert dossier.promotion_status.value == "ready"

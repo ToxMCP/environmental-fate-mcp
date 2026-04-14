@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "claim_count": 29,
-  "mandatory_claim_count": 28,
+  "claim_count": 30,
+  "mandatory_claim_count": 29,
   "claims": [
     {
       "claim_id": "advective_clearance_dominant_loss_share_v1",
@@ -1146,6 +1146,79 @@
         "Supported by the advective_post_release_pre_half_recovery_sensitivity_fixture as a same-chemistry pre-half-recovery window with retained release-stop mass still above the 50% anchor.",
         "Supported by the advective_post_release_half_recovery_reference_fixture at the governed combined-loss half-recovery boundary.",
         "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions."
+      ],
+      "review_notes": [],
+      "source_pack": "defaults/v1/scientific_validation_claims.json",
+      "applicability_note": null
+    },
+    {
+      "claim_id": "advective_post_release_late_recovery_regime_v1",
+      "display_name": "Advective post-release late-recovery regime",
+      "model_family": "advective_screening_mass_balance",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel distinguishes simple sub-half-recovery windows from stable late-recovery regimes under the bounded combined-loss depletion authority layer, so reviewers can confidently identify deep recovery rather than just treating it as generically below the 50% anchor.",
+      "claim_class": "advective_late_recovery",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "required_validation_tiers": [
+        "sensitivity",
+        "reference_style",
+        "edge_condition"
+      ],
+      "required_reference_types": [
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_late_recovery_reference_fixture",
+        "hand_worked_advective_post_release_late_recovery_edge_anchor"
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "methods.advective_post_release_late_recovery.v1",
+          "title": "Fate MCP advective post-release late-recovery regime method notes",
+          "effective_date": null,
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "effective_date": null,
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "reference_case_ids": [
+        "oecd_post_release_half_recovery_directionality_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "methods_basis_lines": [
+        "This claim evaluates advective time-bucket outputs that extend far beyond the combined-loss half-recovery boundary.",
+        "The claim asserts that late-stage depletion is specifically identified by a 4x half-recovery pace multiple and a retained mass ratio below 12.5%."
+      ],
+      "reference_case_lines": [
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture where the recovery window extends far enough to formally anchor the late-recovery depletion authority layer."
       ],
       "review_notes": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",

@@ -1,12 +1,12 @@
 {
   "schema_version": "v1",
-  "package_id": "package-a5fe187af4be",
-  "scenario_id": "scenario-18e1e6bb4344",
+  "package_id": "package-186479cfebe8",
+  "scenario_id": "scenario-4cdd1024992b",
   "surfaces": [
     {
       "schema_version": "v1",
-      "surface_id": "surface-7ce36175a789",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-49a3799a3c00",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "air",
       "compartment": "ambient_air",
       "geographic_scope": {
@@ -28,7 +28,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550405Z",
+        "generated_at": "2026-04-14T19:03:10.642818Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -181,8 +181,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-b5600eee1fa6",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-2f1b8b20d0fb",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "water",
       "compartment": "surface_water",
       "geographic_scope": {
@@ -204,7 +204,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550457Z",
+        "generated_at": "2026-04-14T19:03:10.642865Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -357,8 +357,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-05ca6162d54e",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "surface_id": "surface-e52355132dd8",
+      "scenario_id": "scenario-4cdd1024992b",
       "medium": "soil",
       "compartment": "agricultural_soil",
       "geographic_scope": {
@@ -380,7 +380,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-13T20:41:31.550498Z",
+        "generated_at": "2026-04-14T19:03:10.642903Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -561,7 +561,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T20:41:31.590953Z",
+    "generated_at": "2026-04-14T19:03:10.706618Z",
     "source_references": []
   },
   "limitations": [
@@ -569,5 +569,6 @@
       "code": "concentration_only",
       "message": "Package exports concentrations only; downstream consumers must perform concentration-to-dose translation."
     }
-  ]
+  ],
+  "blockers": []
 }

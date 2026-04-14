@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "selreview-63d13a1ae634",
-  "scenario_id": "scenario-18e1e6bb4344",
+  "review_packet_id": "selreview-71ed7f4ade92",
+  "scenario_id": "scenario-4cdd1024992b",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -52,7 +52,7 @@
   "brief_lines": [
     "Summarize whether the governed model-family selection recommendation is ready for assessor-facing reuse, highlighting trigger signals, applicability, and experimental-family caution where relevant.",
     "Build a governed assessor-facing review packet for the model-family selection recommendation, preserving baseline-versus-experimental framing, trigger signals, fit/applicability context, and comparison-path guidance.",
-    "Selection review packet covers scenario scenario-18e1e6bb4344 with baseline reference_mass_balance.",
+    "Selection review packet covers scenario scenario-4cdd1024992b with baseline reference_mass_balance.",
     "Recommendation status: default_with_experimental_challenge.",
     "Review status: model_family_selection_review_attention_needed.",
     "Use this selection profile when the corrected reference family remains the suite baseline and the advective family is only a governed experimental challenge path.",
@@ -99,6 +99,7 @@
     "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
     "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
   ],
+  "scientific_unsuitability_lines": [],
   "comparison_guidance_lines": [
     "Governed comparison profile reference_vs_advective_screening_v1 should be used before carrying the challenge family into assessor-facing comparison review."
   ],

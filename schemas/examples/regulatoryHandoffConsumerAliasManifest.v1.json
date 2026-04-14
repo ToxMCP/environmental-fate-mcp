@@ -1,8 +1,125 @@
 {
   "schema_version": "v1",
-  "alias_count": 10,
+  "alias_count": 23,
   "conflict_count": 0,
   "aliases": [
+    {
+      "normalized_alias": "chemical safety report",
+      "alias_variants": [
+        "chemical safety report"
+      ],
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "csr",
+      "alias_variants": [
+        "csr"
+      ],
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "echa",
+      "alias_variants": [
+        "echa"
+      ],
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "echa csr",
+      "alias_variants": [
+        "echa csr"
+      ],
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "echa csr v1",
+      "alias_variants": [
+        "echa_csr_v1"
+      ],
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "echa reach submission",
+      "alias_variants": [
+        "ECHA REACH Submission"
+      ],
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "reach",
+      "alias_variants": [
+        "reach"
+      ],
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "epa",
+      "alias_variants": [
+        "epa"
+      ],
+      "profile_id": "epa_pmn_v1",
+      "target_module": "EPA PMN Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "epa pmn",
+      "alias_variants": [
+        "epa pmn"
+      ],
+      "profile_id": "epa_pmn_v1",
+      "target_module": "EPA PMN Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "epa pmn submission",
+      "alias_variants": [
+        "EPA PMN Submission"
+      ],
+      "profile_id": "epa_pmn_v1",
+      "target_module": "EPA PMN Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "epa pmn v1",
+      "alias_variants": [
+        "epa_pmn_v1"
+      ],
+      "profile_id": "epa_pmn_v1",
+      "target_module": "EPA PMN Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "pmn",
+      "alias_variants": [
+        "pmn"
+      ],
+      "profile_id": "epa_pmn_v1",
+      "target_module": "EPA PMN Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "normalized_alias": "premanufacture notice",
+      "alias_variants": [
+        "premanufacture notice"
+      ],
+      "profile_id": "epa_pmn_v1",
+      "target_module": "EPA PMN Submission",
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
     {
       "normalized_alias": "direct use exposure mcp",
       "alias_variants": [

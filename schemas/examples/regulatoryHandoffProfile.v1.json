@@ -1,49 +1,46 @@
 {
-  "profile_id": "exposure_scenario_mcp_v1",
-  "display_name": "Direct-Use Exposure MCP Handoff",
-  "target_module": "Direct-Use Exposure MCP",
-  "downstream_field": "environmental_media_concentration",
+  "profile_id": "echa_csr_v1",
+  "display_name": "ECHA REACH Chemical Safety Report (CSR)",
+  "target_module": "ECHA REACH Submission",
+  "downstream_field": "csr_environmental_exposure",
   "required_entry_fields": [
     "source_surface_id",
     "concentration_value",
     "concentration_unit",
-    "time_window",
-    "route_hint"
+    "medium",
+    "compartment",
+    "time_window"
   ],
   "consumer_hints": [
-    "direct-use exposure mcp",
-    "direct-use-exposure-mcp",
-    "exposure scenario mcp",
-    "exposure-scenario-mcp",
-    "route-specific exposure",
-    "exposure module"
+    "echa",
+    "reach",
+    "csr",
+    "chemical safety report",
+    "echa csr"
   ],
   "review_checklist": [
     {
-      "code": "route_hints_preserved",
-      "prompt": "Confirm route_hint values remain available to the downstream exposure module without reinterpretation inside Fate MCP.",
-      "rationale": "Direct-Use Exposure MCP needs route-facing context while preserving Fate MCP's concentration-only boundary.",
+      "code": "csr_provenance_preserved",
+      "prompt": "Confirm adapter provenance and governed limitations are explicitly preserved in the CSR package.",
+      "rationale": "ECHA submissions require explicit methodology and tool attribution, especially when native Fate MCP models or external EUSES adapters are used.",
       "evidence_hint_fields": [
-        "target_module",
-        "downstream_field",
-        "route_hints",
-        "profile_resolution_method"
+        "limitations",
+        "provenance"
       ]
     },
     {
-      "code": "time_semantics_preserved",
-      "prompt": "Confirm time_window semantics are explicit enough for downstream route-specific use.",
-      "rationale": "Exposure interpretation must preserve steady-state versus time-bucket semantics rather than inferring them ad hoc.",
+      "code": "csr_compartments_complete",
+      "prompt": "Confirm concentration surfaces cover the mandatory REACH compartments (air, water, soil, sediment).",
+      "rationale": "CSR environmental exposure assessments require a complete multimedia set for a given release scenario.",
       "evidence_hint_fields": [
-        "entry_count",
-        "time_window_modes",
-        "compartments"
+        "mediums",
+        "entry_count"
       ]
     }
   ],
-  "tool_request_template": "Use fate_export_regulatory_handoff_package with the exposure_scenario_mcp_v1 profile when a downstream route-specific direct-use exposure module needs concentration surfaces plus route hints.",
-  "response_summary_template": "Return the regulatory handoff package and call out route_hint, concentration_value, concentration_unit, time_window, and any limitation or quality-flag context that the downstream direct-use exposure module must preserve.",
-  "review_brief_template": "Build a concise assessor review brief that confirms route hints, time semantics, concentration units, and downstream boundary notes remain intact for Direct-Use Exposure MCP.",
+  "tool_request_template": "Use fate_export_regulatory_handoff_package with the echa_csr_v1 profile to generate a structured package for an ECHA REACH CSR submission.",
+  "response_summary_template": "Return the CSR regulatory handoff package, highlighting the included compartments, source provenance, and any blocking limitations that prevent full REACH compliance.",
+  "review_brief_template": "Build a concise assessor review brief confirming that the CSR package contains required compartments and preserves all underlying Fate MCP or adapter provenance.",
   "source_pack": "defaults/v1/regulatory_handoff_profiles.json",
-  "applicability_note": "Use when handing Fate MCP outputs into the next route-specific exposure module."
+  "applicability_note": "Use when structuring Fate MCP outputs for an ECHA REACH Chemical Safety Report submission."
 }

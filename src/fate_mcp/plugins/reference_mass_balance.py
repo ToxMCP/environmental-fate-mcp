@@ -122,6 +122,16 @@ class ReferenceMassBalancePlugin:
                     ),
                 )
             )
+            if len(executed_assumptions) > 1:
+                limitations.append(
+                    LimitationNote(
+                        code="pre_release_global_treatment_additive_semantics",
+                        message=(
+                            "Multiple pre_release_global treatment assumptions are combined additively as one "
+                            "global removal fraction, not sequentially as staged treatment steps."
+                        ),
+                    )
+                )
         if provenance_only_assumptions:
             warnings.append(
                 QualityFlag(
@@ -526,6 +536,7 @@ class ReferenceMassBalancePlugin:
             run_mode=run_options.run_mode,
             surfaces_emitted=len(surfaces),
             assumptions_applied=assumptions,
+            escalation_concerns=run_options.escalation_concerns,
             warnings=warnings,
             result_metadata=ResultMetadata.completed(result_id=f"result-{scenario.scenario_id}"),
         )

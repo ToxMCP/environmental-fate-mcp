@@ -13,7 +13,7 @@
     },
     {
       "path": "defaults/v1/model_family_applicability_profiles.json",
-      "sha256": "a167300cf2c560187d50d6ede5bb6aff27bb0b1779b8c0774eebc0e5b13f7823",
+      "sha256": "7fcc82faccd4611de5cf2b1e7fa8c786423324ec59f436c8c6e66eb86cca34d4",
       "defaultsVersion": "v1"
     },
     {
@@ -43,7 +43,7 @@
     },
     {
       "path": "defaults/v1/regulatory_handoff_profiles.json",
-      "sha256": "8176eca04e981f7ea4ee74f608dae82b46564173befd6223b0d4617e104550f0",
+      "sha256": "99267b8ca1171d2e2cd682a4598eb6c7ac69e89230042f4f460d47aeb121f652",
       "defaultsVersion": "v1"
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       "path": "defaults/v1/scientific_validation_claims.json",
-      "sha256": "e340b91d7a5af95764b4ae99e5d0217307e9f552b55cf7ad496fb1c1fc681d3f",
+      "sha256": "864a80b628ffb8b9856fcfbd6c9b1bf92d12587c7ae012f4f22633901d9d1fc3",
       "defaultsVersion": "v1"
     },
     {

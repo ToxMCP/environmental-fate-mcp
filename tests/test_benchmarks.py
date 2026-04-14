@@ -26,6 +26,9 @@ def test_benchmark_fixtures_pass() -> None:
     assert by_name["advective_post_release_recovery_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_post_release_recovery_sensitivity_fixture"]["traceTermComparisons"]
     assert by_name["advective_post_release_extended_flushing_sensitivity_fixture"]["traceTermComparisons"]
+    assert by_name["advective_post_release_late_recovery_reference_fixture"]["traceTermComparisons"]
+    assert by_name["advective_post_release_late_recovery_edge_anchor"]["traceTermComparisons"]
+    assert by_name["external_adapter_equivalence_fixture"]["comparisons"]
     assert by_name["advective_degradation_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_clearance_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_mixed_loss_transition_anchor_fixture"]["passed"] is True
@@ -39,6 +42,9 @@ def test_benchmark_fixtures_pass() -> None:
     assert by_name["advective_post_release_subboundary_directionality_sensitivity_fixture"]["passed"] is True
     assert by_name["advective_post_release_recovery_reference_fixture"]["passed"] is True
     assert by_name["advective_post_release_extended_flushing_sensitivity_fixture"]["passed"] is True
+    assert by_name["advective_post_release_late_recovery_reference_fixture"]["passed"] is True
+    assert by_name["advective_post_release_late_recovery_edge_anchor"]["passed"] is True
+    assert by_name["external_adapter_equivalence_fixture"]["passed"] is True
 
 
 def test_benchmark_manifest_includes_metadata_for_all_fixtures() -> None:

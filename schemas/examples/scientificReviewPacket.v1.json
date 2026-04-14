@@ -1,15 +1,15 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "scireview-7dbc1b8ceb5a",
-  "scenario_id": "scenario-18e1e6bb4344",
-  "run_id": "run-e7bb217e7fa3",
+  "review_packet_id": "scireview-a1ddd998a98e",
+  "scenario_id": "scenario-4cdd1024992b",
+  "run_id": "run-e81726df3392",
   "model_family": "reference_mass_balance",
   "fit_for_purpose": "screening",
   "review_status": "scientific_review_attention_needed",
   "review_outcome": "qualified_screening_use",
   "outcome_preview": {
-    "scenario_id": "scenario-18e1e6bb4344",
-    "run_id": "run-e7bb217e7fa3",
+    "scenario_id": "scenario-4cdd1024992b",
+    "run_id": "run-e81726df3392",
     "model_family": "reference_mass_balance",
     "fit_for_purpose": "screening",
     "review_profile_model_family": "reference_mass_balance",
@@ -63,7 +63,12 @@
         "metals and metal species requiring speciation-aware fate treatment",
         "nanomaterials or particulate systems requiring size-resolved transport behavior",
         "strongly ionizing chemistries where screening partition and persistence assumptions are likely unstable",
-        "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics"
+        "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics",
+        "extreme persistence requiring higher-tier modeling",
+        "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+        "point-source plume dependence requiring explicit near-field dispersion models",
+        "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+        "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
       ],
       "required_inputs": [
         "total_release_mass_kg",
@@ -102,14 +107,16 @@
       "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
       "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
       "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
-    ]
+    ],
+    "scientific_unsuitability_lines": []
   },
   "parameter_manifest": {
     "schema_version": "v1",
-    "scenario_id": "scenario-18e1e6bb4344",
-    "run_id": "run-e7bb217e7fa3",
+    "scenario_id": "scenario-4cdd1024992b",
+    "run_id": "run-e81726df3392",
     "model_family": "reference_mass_balance",
     "fit_for_purpose": "screening",
+    "escalation_concerns": [],
     "entries": [
       {
         "parameter": "agricultural_soil_mass_kg",
@@ -318,7 +325,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.552033Z",
+      "generated_at": "2026-04-14T19:03:10.644350Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -361,8 +368,8 @@
   },
   "uncertainty_summary": {
     "schema_version": "v1",
-    "scenario_id": "scenario-18e1e6bb4344",
-    "run_id": "run-e7bb217e7fa3",
+    "scenario_id": "scenario-4cdd1024992b",
+    "run_id": "run-e81726df3392",
     "model_family": "reference_mass_balance",
     "top_drivers": [
       {
@@ -431,7 +438,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.552093Z",
+      "generated_at": "2026-04-14T19:03:10.644410Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -506,7 +513,7 @@
   ],
   "summary_lines": [
     "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
-    "Scientific review packet covers run run-e7bb217e7fa3 for model family reference_mass_balance.",
+    "Scientific review packet covers run run-e81726df3392 for model family reference_mass_balance.",
     "Fit verdict: good_fit (score=0.85).",
     "Parameter manifest exposes 16 resolved parameters and 5 ranked uncertainty drivers."
   ],
@@ -572,7 +579,7 @@
     {
       "code": "scenario_result_match",
       "passed": true,
-      "message": "Scenario scenario-18e1e6bb4344 matches result scenario-18e1e6bb4344."
+      "message": "Scenario scenario-4cdd1024992b matches result scenario-4cdd1024992b."
     },
     {
       "code": "applicability_profile_declared",
@@ -634,7 +641,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-13T20:41:31.554789Z",
+    "generated_at": "2026-04-14T19:03:10.646700Z",
     "source_references": [
       {
         "source_id": "example.release.note",
@@ -695,5 +702,6 @@
       "code": "default_dependent_runtime",
       "message": "Some runtime outputs depend on curated defaults rather than scenario-specific measurements."
     }
-  ]
+  ],
+  "blockers": []
 }

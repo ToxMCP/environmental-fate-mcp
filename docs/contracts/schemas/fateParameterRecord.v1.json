@@ -1,5 +1,75 @@
 {
   "$defs": {
+    "ParameterDistribution": {
+      "additionalProperties": false,
+      "properties": {
+        "distribution_type": {
+          "title": "Distribution Type",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "bounds": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bounds"
+        },
+        "sampling_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sampling Basis"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        },
+        "methods_basis_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Methods Basis Lines",
+          "type": "array"
+        },
+        "limitation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitation Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "distribution_type",
+        "parameters"
+      ],
+      "title": "ParameterDistribution",
+      "type": "object"
+    },
     "QualityFlag": {
       "additionalProperties": false,
       "properties": {
@@ -145,6 +215,17 @@
       },
       "title": "Quality Flags",
       "type": "array"
+    },
+    "distribution": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ParameterDistribution"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     }
   },
   "required": [

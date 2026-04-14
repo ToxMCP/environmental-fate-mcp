@@ -1,7 +1,30 @@
 {
   "schema_version": "v1",
-  "mapping_count": 2,
+  "mapping_count": 4,
   "mappings": [
+    {
+      "profile_id": "echa_csr_v1",
+      "target_module": "ECHA REACH Submission",
+      "consumer_hints": [
+        "chemical safety report",
+        "csr",
+        "echa",
+        "echa csr",
+        "reach"
+      ],
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
+    {
+      "profile_id": "epa_pmn_v1",
+      "target_module": "EPA PMN Submission",
+      "consumer_hints": [
+        "epa",
+        "epa pmn",
+        "pmn",
+        "premanufacture notice"
+      ],
+      "source_pack": "defaults/v1/regulatory_handoff_profiles.json"
+    },
     {
       "profile_id": "exposure_scenario_mcp_v1",
       "target_module": "Direct-Use Exposure MCP",

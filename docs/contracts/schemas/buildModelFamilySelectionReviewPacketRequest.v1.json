@@ -231,6 +231,13 @@
           },
           "title": "Limitations",
           "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
         }
       },
       "required": [
@@ -327,6 +334,13 @@
             "type": "string"
           },
           "title": "Applicability Lines",
+          "type": "array"
+        },
+        "scientific_unsuitability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Unsuitability Lines",
           "type": "array"
         }
       },

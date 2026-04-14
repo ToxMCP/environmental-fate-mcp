@@ -2,12 +2,16 @@ from pathlib import Path
 
 import pytest
 
+from fate_mcp.errors import FateValidationError
 from fate_mcp.models import (
     BuildEnvironmentalReleaseScenarioRequest,
+    FateParameterRecord,
     FateModelRunOptions,
     Media,
     ModelFamily,
+    ParameterDistribution,
     ReleaseFraction,
+    SourceClassification,
     TreatmentAssumption,
     TreatmentExecutionMode,
 )
@@ -298,6 +302,38 @@ def test_provenance_only_treatment_is_warned_but_not_applied() -> None:
     assert any(flag.code == "unexecuted_treatment_assumption" for flag in provenance_only.run_summary.warnings)
 
 
+def test_multiple_pre_release_global_treatments_disclose_additive_semantics() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Treatment semantics example"},
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+            treatment_assumptions=[
+                TreatmentAssumption(
+                    description="Stage 1",
+                    removal_fraction=0.2,
+                    execution_mode=TreatmentExecutionMode.PRE_RELEASE_GLOBAL,
+                ),
+                TreatmentAssumption(
+                    description="Stage 2",
+                    removal_fraction=0.3,
+                    execution_mode=TreatmentExecutionMode.PRE_RELEASE_GLOBAL,
+                ),
+            ],
+        )
+    )
+    result = runtime.estimate(
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+    )
+    assert any(
+        note.code == "pre_release_global_treatment_additive_semantics"
+        for note in result.surfaces[0].limitations
+    )
+
+
 def test_adapter_stub_plugin_returns_normalized_outputs() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
@@ -317,3 +353,157 @@ def test_adapter_stub_plugin_returns_normalized_outputs() -> None:
     )
     assert result.run_summary.model_family == ModelFamily.ADAPTER_STUB
     assert all(surface.model_family == ModelFamily.ADAPTER_STUB for surface in result.surfaces)
+
+def test_estimate_probabilistic_runs_iterations_and_aggregates() -> None:
+    from fate_mcp.models import ParameterDistribution
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Probabilistic example"},
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+        )
+    )
+    # Give the first parameter a distribution
+    from fate_mcp.models import FateParameterRecord, SourceClassification
+    p = FateParameterRecord(
+        parameter="water_half_life_days",
+        value=10.0,
+        unit="day",
+        source_classification=SourceClassification.USER_INPUT,
+        rationale="Test"
+    )
+    scenario.parameter_records.append(p)
+    p.distribution = ParameterDistribution(
+        distribution_type="uniform",
+        parameters={"low": p.value * 0.5, "high": p.value * 1.5}
+    )
+    
+    result = runtime.estimate_probabilistic(
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+        iterations=5,
+        seed=42
+    )
+    
+    assert result.iteration_count == 5
+    assert result.completed_iteration_count == 5
+    assert result.sampled_parameter_count == 1
+    assert len(result.median_surfaces) == 1
+    assert result.median_surfaces[0].concentration_value > 0
+    assert result.median_surfaces[0].calculation_trace is None
+    assert result.p90_surfaces[0].calculation_trace is None
+    assert result.p95_surfaces[0].calculation_trace is None
+    assert result.median_surfaces[0].surface_id.endswith("-median")
+    assert any(
+        note.code == "probabilistic_surface_aggregation"
+        for note in result.p95_surfaces[0].limitations
+    )
+
+def test_estimate_probabilistic_fails_without_distributions() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Deterministic example"},
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+        )
+    )
+    with pytest.raises(FateValidationError) as exc:
+        runtime.estimate_probabilistic(
+            scenario,
+            FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+            iterations=5
+        )
+    assert exc.value.payload.code == "probabilistic_orchestration_missing_distributions"
+
+
+def test_parameter_distribution_rejects_unsupported_distribution_type() -> None:
+    with pytest.raises(ValueError, match="unsupported distribution_type"):
+        ParameterDistribution(
+            distribution_type="weird",
+            parameters={},
+        )
+
+
+def test_estimate_probabilistic_fails_when_distribution_bounds_are_unsampleable() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Probabilistic bounds example"},
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+        )
+    )
+    scenario.parameter_records.append(
+        FateParameterRecord(
+            parameter="water_half_life_days",
+            value=10.0,
+            unit="day",
+            source_classification=SourceClassification.USER_INPUT,
+            rationale="Test impossible bounds",
+            distribution=ParameterDistribution(
+                distribution_type="uniform",
+                parameters={"low": 5.0, "high": 6.0},
+                bounds=[0.0, 1.0],
+            ),
+        )
+    )
+
+    with pytest.raises(FateValidationError) as exc:
+        runtime.estimate_probabilistic(
+            scenario,
+            FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+            iterations=2,
+            seed=7,
+        )
+
+    assert exc.value.payload.code == "parameter_distribution_sampling_out_of_bounds"
+
+
+def test_estimate_probabilistic_is_reproducible_for_same_seed() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Probabilistic reproducibility example"},
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+            treatment_assumptions=[
+                TreatmentAssumption(
+                    description="Executable pre-release treatment",
+                    removal_fraction=0.2,
+                    execution_mode=TreatmentExecutionMode.PRE_RELEASE_GLOBAL,
+                )
+            ],
+        )
+    )
+    scenario.parameter_records.append(
+        FateParameterRecord(
+            parameter="water_half_life_days",
+            value=10.0,
+            unit="day",
+            source_classification=SourceClassification.USER_INPUT,
+            rationale="Reproducibility test",
+            distribution=ParameterDistribution(
+                distribution_type="uniform",
+                parameters={"low": 8.0, "high": 12.0},
+            ),
+        )
+    )
+
+    options = FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id)
+    first = runtime.estimate_probabilistic(scenario, options, iterations=6, seed=19)
+    second = runtime.estimate_probabilistic(scenario, options, iterations=6, seed=19)
+
+    assert [surface.concentration_value for surface in first.median_surfaces] == pytest.approx(
+        [surface.concentration_value for surface in second.median_surfaces]
+    )
+    first_parameters = [assumption.parameter for assumption in first.run_summary.assumptions_applied]
+    second_parameters = [assumption.parameter for assumption in second.run_summary.assumptions_applied]
+    assert first_parameters == second_parameters
+    assert "water_half_life_days" not in first_parameters
+    assert len(first_parameters) == len(set(first_parameters))

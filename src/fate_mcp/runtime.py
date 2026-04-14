@@ -1,15 +1,23 @@
 from __future__ import annotations
+import random
+import statistics
+import copy
 
 import math
 from pathlib import Path
 
 from fate_mcp.defaults import DefaultsRegistry
 from fate_mcp.evidence import evidence_weight, is_low_confidence_evidence
-from fate_mcp.errors import FateValidationError
+from fate_mcp.errors import FateValidationError, FateRegistryError
 from fate_mcp.models import (
+    ProbabilisticConcentrationResult,
+    ProbabilisticSurfaceSummary,
+    ProbabilisticRunSummary,
     BuildEnvironmentalReleaseScenarioRequest,
     ConcentrationEstimationResult,
     EnvironmentalReleaseScenario,
+    FateAssumptionRecord,
+    ResultMetadata,
     FateModelRunOptions,
     GeographicScope,
     LimitationNote,
@@ -40,6 +48,7 @@ from fate_mcp.provenance import ProvenanceBuilder
 MASS_RELATIVE_SPREAD_THRESHOLD = 0.25
 FRACTION_ABSOLUTE_SPREAD_THRESHOLD = 0.15
 VECTOR_COSINE_SIMILARITY_THRESHOLD = 0.5
+MAX_DISTRIBUTION_SAMPLE_ATTEMPTS = 100
 
 
 class PluginRegistry:
@@ -131,6 +140,287 @@ class FateRuntime:
             )
         plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)
         return plugin.run(scenario, run_options)
+
+    def estimate_probabilistic(
+        self,
+        scenario: EnvironmentalReleaseScenario,
+        run_options: FateModelRunOptions,
+        iterations: int = 100,
+        seed: int | None = None,
+    ) -> ProbabilisticConcentrationResult:
+        if scenario.geographic_scope.region_id != run_options.region_profile_id:
+            raise FateValidationError(
+                code="region_profile_mismatch",
+                message="Run options region profile must match the scenario geographic scope.",
+                suggestion="Align the scenario region and run options region_profile_id.",
+            )
+        if iterations < 1:
+            raise FateValidationError(
+                code="probabilistic_orchestration_invalid_iteration_count",
+                message="Probabilistic orchestration requires at least one iteration.",
+                suggestion="Set iterations to a positive integer.",
+            )
+        
+        plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)
+        
+        rng = random.Random(seed) if seed is not None else random.Random()
+        
+        # Identify parameters with distributions
+        dist_params = [p for p in scenario.parameter_records if p.distribution is not None]
+        
+        if not dist_params:
+            raise FateValidationError(
+                code="probabilistic_orchestration_missing_distributions",
+                message="No parameter distributions found in scenario.",
+                suggestion="Provide ParameterDistribution entries for uncertain parameters.",
+            )
+            
+        completed_iterations = 0
+        failed_iterations = 0
+        iteration_surfaces = {}  # (medium, compartment, bucket) -> list of surfaces
+        expected_surface_keys: set[tuple[str, str, str | None]] | None = None
+        
+        aggregated_assumptions_by_parameter: dict[str, set[str]] = {}
+        aggregated_warnings = set()
+        failed_iteration_reasons = {}
+        
+        for _ in range(iterations):
+            # Sample parameters
+            sampled_records = []
+            for p in scenario.parameter_records:
+                if p.distribution:
+                    val = self._sample_distribution_value(
+                        parameter_name=p.parameter,
+                        distribution=p.distribution,
+                        rng=rng,
+                    )
+                    new_p = p.model_copy(update={"value": val})
+                    sampled_records.append(new_p)
+                else:
+                    sampled_records.append(p)
+                    
+            scenario_copy = scenario.model_copy(update={"parameter_records": sampled_records})
+            
+            try:
+                res = plugin.run(scenario_copy, run_options)
+                completed_iterations += 1
+                for a in res.assumptions:
+                    aggregated_assumptions_by_parameter.setdefault(a.parameter, set()).add(
+                        a.model_dump_json()
+                    )
+                for w in res.run_summary.warnings:
+                    aggregated_warnings.add(w.model_dump_json())
+
+                current_surface_keys = {
+                    (s.medium.value, s.compartment.value, s.time_window.bucket_label)
+                    for s in res.surfaces
+                }
+                if expected_surface_keys is None:
+                    expected_surface_keys = current_surface_keys
+                elif current_surface_keys != expected_surface_keys:
+                    raise FateValidationError(
+                        code="probabilistic_orchestration_inconsistent_surface_set",
+                        message=(
+                            "Probabilistic iterations produced inconsistent concentration surface identities "
+                            "across successful runs."
+                        ),
+                        suggestion=(
+                            "Use a stable scenario/run configuration so every probabilistic iteration emits "
+                            "the same surface set."
+                        ),
+                        details={
+                            "expectedSurfaceKeys": sorted(expected_surface_keys),
+                            "observedSurfaceKeys": sorted(current_surface_keys),
+                        },
+                    )
+
+                for s in res.surfaces:
+                    key = (s.medium.value, s.compartment.value, s.time_window.bucket_label)
+                    if key not in iteration_surfaces:
+                        iteration_surfaces[key] = []
+                    iteration_surfaces[key].append(s)
+            except (FateValidationError, FateRegistryError) as exc:
+                failed_iterations += 1
+                reason = exc.payload.code if hasattr(exc, 'payload') else str(exc)
+                failed_iteration_reasons[reason] = failed_iteration_reasons.get(reason, 0) + 1
+                
+        if completed_iterations == 0:
+            raise FateValidationError(
+                code="probabilistic_orchestration_failed",
+                message="All iterations failed.",
+                suggestion="Check parameter bounds and run options.",
+            )
+            
+        # Aggregate
+        median_surfaces = []
+        p90_surfaces = []
+        p95_surfaces = []
+        surface_summaries = []
+        
+        for key in sorted(iteration_surfaces):
+            surfaces = iteration_surfaces[key]
+            vals = [s.concentration_value for s in surfaces]
+            vals.sort()
+            
+            med_val = statistics.median(vals)
+            if len(vals) >= 2:
+                quantiles = statistics.quantiles(vals, n=100, method='inclusive')
+                p90_val = quantiles[89]
+                p95_val = quantiles[94]
+            else:
+                p90_val = vals[0]
+                p95_val = vals[0]
+            
+            base = surfaces[0]
+            median_surfaces.append(
+                self._build_aggregated_surface_copy(
+                    base=base,
+                    concentration_value=med_val,
+                    percentile_label="median",
+                )
+            )
+            p90_surfaces.append(
+                self._build_aggregated_surface_copy(
+                    base=base,
+                    concentration_value=p90_val,
+                    percentile_label="p90",
+                )
+            )
+            p95_surfaces.append(
+                self._build_aggregated_surface_copy(
+                    base=base,
+                    concentration_value=p95_val,
+                    percentile_label="p95",
+                )
+            )
+            
+            surface_summaries.append(
+                ProbabilisticSurfaceSummary(
+                    surface_id=base.surface_id,
+                    medium=base.medium,
+                    compartment=base.compartment,
+                    concentration_unit=base.concentration_unit,
+                    median_value=med_val,
+                    p90_value=p90_val,
+                    p95_value=p95_val
+                )
+            )
+
+        invariant_assumption_records = [
+            FateAssumptionRecord.model_validate_json(next(iter(serialized_records)))
+            for _, serialized_records in sorted(aggregated_assumptions_by_parameter.items())
+            if len(serialized_records) == 1
+        ]
+
+        return ProbabilisticConcentrationResult(
+            median_surfaces=median_surfaces,
+            p90_surfaces=p90_surfaces,
+            p95_surfaces=p95_surfaces,
+            surface_summaries=surface_summaries,
+            iteration_count=iterations,
+            completed_iteration_count=completed_iterations,
+            failed_iteration_count=failed_iterations,
+            sampling_seed=seed,
+            sampled_parameter_count=len(dist_params),
+            dominant_uncertainty_drivers=sorted(p.parameter for p in dist_params),
+            uncertainty_limitation_lines=[
+                "Probabilistic orchestration completed with governed distribution sampling and percentile aggregation.",
+                "dominant_uncertainty_drivers enumerates sampled parameters only; formal sensitivity ranking is not yet implemented.",
+                "run_summary.assumptions_applied preserves invariant assumptions only; iteration-varying sampled and derived assumptions are not expanded verbatim.",
+            ],
+            run_summary=ProbabilisticRunSummary(
+                scenario_id=scenario.scenario_id,
+                model_family=run_options.model_family,
+                run_mode=run_options.run_mode,
+                surfaces_emitted=len(surface_summaries),
+                assumptions_applied=invariant_assumption_records,
+                escalation_concerns=run_options.escalation_concerns,
+                warnings=[
+                    QualityFlag.model_validate_json(w)
+                    for w in sorted(aggregated_warnings)
+                ],
+                failed_iteration_reasons=dict(sorted(failed_iteration_reasons.items())),
+                result_metadata=ResultMetadata.completed(result_id=f"result-{scenario.scenario_id}-prob"),
+            )
+        )
+
+    def _build_aggregated_surface_copy(
+        self,
+        *,
+        base,
+        concentration_value: float,
+        percentile_label: str,
+    ):
+        limitations = list(base.limitations)
+        limitations.append(
+            LimitationNote(
+                code="probabilistic_surface_aggregation",
+                message=(
+                    f"{percentile_label} probabilistic surface is an aggregated percentile summary; "
+                    "iteration-specific closed-form calculation_trace terms are intentionally omitted."
+                ),
+            )
+        )
+        return base.model_copy(
+            update={
+                "surface_id": f"{base.surface_id}-{percentile_label}",
+                "concentration_value": concentration_value,
+                "calculation_trace": None,
+                "limitations": limitations,
+            }
+        )
+
+    def _sample_distribution_value(
+        self,
+        parameter_name: str,
+        distribution,
+        rng: random.Random,
+    ) -> float:
+        lower_bound: float | None = None
+        upper_bound: float | None = None
+        if distribution.bounds is not None:
+            lower_bound, upper_bound = distribution.bounds
+
+        for _ in range(MAX_DISTRIBUTION_SAMPLE_ATTEMPTS):
+            if distribution.distribution_type == "lognormal":
+                sampled_value = rng.lognormvariate(
+                    distribution.parameters["mu"],
+                    distribution.parameters["sigma"],
+                )
+            elif distribution.distribution_type == "normal":
+                sampled_value = rng.gauss(
+                    distribution.parameters["mu"],
+                    distribution.parameters["sigma"],
+                )
+            elif distribution.distribution_type == "uniform":
+                sampled_value = rng.uniform(
+                    distribution.parameters["low"],
+                    distribution.parameters["high"],
+                )
+            else:
+                raise FateValidationError(
+                    code="unsupported_parameter_distribution_type",
+                    message=(
+                        f"Parameter {parameter_name} requested unsupported distribution type "
+                        f"{distribution.distribution_type}."
+                    ),
+                    suggestion="Use a supported distribution type declared in the governed probabilistic tier.",
+                )
+
+            if lower_bound is not None and sampled_value < lower_bound:
+                continue
+            if upper_bound is not None and sampled_value > upper_bound:
+                continue
+            return sampled_value
+
+        raise FateValidationError(
+            code="parameter_distribution_sampling_out_of_bounds",
+            message=(
+                f"Parameter {parameter_name} could not be sampled within declared bounds after "
+                f"{MAX_DISTRIBUTION_SAMPLE_ATTEMPTS} attempts."
+            ),
+            suggestion="Relax the distribution bounds or reconcile them with the declared distribution parameters.",
+        )
 
     def reconcile_release_evidence(
         self,

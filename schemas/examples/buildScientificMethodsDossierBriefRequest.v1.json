@@ -1,15 +1,15 @@
 {
   "dossier": {
     "schema_version": "v1",
-    "dossier_id": "scimethods-f0e22b636caf",
+    "dossier_id": "scimethods-68d289854e17",
     "model_family": "advective_screening_mass_balance",
     "run_mode_filter": null,
     "promotion_status": "ready",
     "blocking_action_count": 0,
     "strengthening_action_count": 0,
-    "claim_count": 18,
-    "mandatory_claim_count": 17,
-    "covered_mandatory_claim_count": 17,
+    "claim_count": 19,
+    "mandatory_claim_count": 18,
+    "covered_mandatory_claim_count": 18,
     "uncovered_mandatory_claim_count": 0,
     "claim_summaries": [
       {
@@ -1814,6 +1814,117 @@
         "gap_lines": []
       },
       {
+        "claim_id": "advective_post_release_late_recovery_regime_v1",
+        "display_name": "Advective post-release late-recovery regime",
+        "statement": "The advective screening kernel distinguishes simple sub-half-recovery windows from stable late-recovery regimes under the bounded combined-loss depletion authority layer, so reviewers can confidently identify deep recovery rather than just treating it as generically below the 50% anchor.",
+        "claim_class": "advective_late_recovery",
+        "priority": "medium",
+        "mandatory_for_release": true,
+        "supported_run_modes": [
+          "time_bucket"
+        ],
+        "fit_for_purpose": [
+          "screening",
+          "benchmark",
+          "downstream_export"
+        ],
+        "required_validation_tiers": [
+          "sensitivity",
+          "reference_style",
+          "edge_condition"
+        ],
+        "required_reference_types": [
+          "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+          "hand_worked_advective_post_release_late_recovery_reference_fixture",
+          "hand_worked_advective_post_release_late_recovery_edge_anchor"
+        ],
+        "covered": true,
+        "support_strength": "multi_anchor_multi_tier",
+        "supporting_fixture_count": 3,
+        "reference_case_ids": [
+          "oecd_post_release_half_recovery_directionality_case_family_v1",
+          "epa_post_release_recovery_pace_case_family_v1"
+        ],
+        "supporting_fixture_names": [
+          "advective_post_release_extended_flushing_sensitivity_fixture",
+          "advective_post_release_late_recovery_reference_fixture",
+          "advective_post_release_late_recovery_edge_anchor"
+        ],
+        "supporting_reference_types": [
+          "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+          "hand_worked_advective_post_release_late_recovery_edge_anchor",
+          "hand_worked_advective_post_release_late_recovery_reference_fixture"
+        ],
+        "supporting_validation_tiers": [
+          "edge_condition",
+          "reference_style",
+          "sensitivity"
+        ],
+        "source_references": [
+          {
+            "source_id": "epa.environmental_models_guidance",
+            "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+            "effective_date": null,
+            "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+          },
+          {
+            "source_id": "oecd.harmonised_templates.degradation_accumulation",
+            "title": "OECD Harmonised Templates: Degradation and Accumulation",
+            "effective_date": null,
+            "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+          },
+          {
+            "source_id": "echa.guidance.ircsa",
+            "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+            "effective_date": null,
+            "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+          },
+          {
+            "source_id": "methods.advective_post_release_late_recovery.v1",
+            "title": "Fate MCP advective post-release late-recovery regime method notes",
+            "effective_date": null,
+            "url": "docs://validation_framework"
+          },
+          {
+            "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+            "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+            "effective_date": null,
+            "url": "benchmarks://manifest"
+          }
+        ],
+        "external_corroboration_status": "multi_official_multi_jurisdiction",
+        "external_corroboration_source_count": 3,
+        "external_corroboration_jurisdictions": [
+          "OECD",
+          "US"
+        ],
+        "external_corroboration_lines": [
+          "Advective post-release late-recovery regime: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
+          "Advective post-release late-recovery regime: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+          "Corroboration jurisdictions: OECD, US.",
+          "Corroboration scope: This claim evaluates advective time-bucket outputs that extend far beyond the combined-loss half-recovery boundary."
+        ],
+        "source_grounding_lines": [
+          "Advective post-release late-recovery regime: externally grounded by EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
+          "Advective post-release late-recovery regime: governed method anchors include Fate MCP advective post-release late-recovery regime method notes, Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture."
+        ],
+        "methods_basis_lines": [
+          "This claim evaluates advective time-bucket outputs that extend far beyond the combined-loss half-recovery boundary.",
+          "The claim asserts that late-stage depletion is specifically identified by a 4x half-recovery pace multiple and a retained mass ratio below 12.5%."
+        ],
+        "reference_case_lines": [
+          "Supported by the advective_post_release_extended_flushing_sensitivity_fixture where the recovery window extends far enough to formally anchor the late-recovery depletion authority layer.",
+          "advective_post_release_extended_flushing_sensitivity_fixture: Post-release retained mass continues to decline in the expected direction as the recovery window extends further beyond both the one-turnover flushing boundary and the 50% combined-loss half-recovery anchor.",
+          "advective_post_release_late_recovery_reference_fixture: Post-release retained mass drops well below 12.5% of the combined-loss 50% anchor, triggering the late-recovery regime directionality in a reference-style context."
+        ],
+        "reference_case_concept_lines": [
+          "OECD post-release half-recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants.",
+          "EPA post-release combined-loss recovery pace case family: This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model."
+        ],
+        "review_notes": [],
+        "gap_lines": []
+      },
+      {
         "claim_id": "advective_residence_time_override_application_v1",
         "display_name": "Advective residence-time override application",
         "statement": "The advective screening kernel uses a supported water residence-time override in place of the governed curated default when computing first-order advective clearance.",
@@ -2813,14 +2924,14 @@
     ],
     "summary_lines": [
       "Scientific methods dossier for advective_screening_mass_balance.",
-      "Mandatory scientific validation claims covered: 17/17.",
-      "Total governed claims in scope: 18 with 18 currently benchmark-covered.",
+      "Mandatory scientific validation claims covered: 18/18.",
+      "Total governed claims in scope: 19 with 19 currently benchmark-covered.",
       "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
       "Highlighted claim grounding: Advective extreme-persistence clearance bound: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
       "Highlighted regime stability: 2 near-parity transition claim(s), 1 stable-regime claim(s).",
       "Highlighted transport stability: 2 boundary-sensitive transport claim(s), 0 stable transport-regime claim(s).",
       "Post-release regime stability: 2 boundary-sensitive recovery claim(s), 2 half-recovery pace claim(s), 1 stable post-release recovery claim(s).",
-      "External corroboration breadth: 18/18 claim(s) carry multi-official multi-jurisdiction grounding.",
+      "External corroboration breadth: 19/19 claim(s) carry multi-official multi-jurisdiction grounding.",
       "Transport authority support: reference-style bounded-transport anchors now span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes.",
       "Transport transition support: reference-style transition anchors and flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
       "Post-release recovery support: reference-style bucket anchors show release-stop mass draining with explicit degraded-versus-advected recovery accounting after active emission ends.",
@@ -2828,6 +2939,7 @@
       "Post-release directionality support: same-chemistry sub-boundary, boundary, and beyond-boundary anchors show retained release-stop mass crossing the one-turnover anchor in the governed direction as the recovery window extends.",
       "Post-release pace support: same-chemistry pre-half, half-recovery, and beyond-half anchors show the governed combined-loss half-recovery timescale directly rather than inferring recovery pace from the one-turnover boundary alone.",
       "Post-release pace directionality support: same-chemistry pre-half, half-boundary, beyond-half, and extended-beyond-half anchors show retained release-stop mass crossing and moving materially below the 50% half-recovery anchor in the governed direction as the recovery window extends.",
+      "Late recovery regime support: exceptional beyond-half anchors show the deep depletion authority layer actively distinguishing stable late-recovery from mere sub-half-recovery windows.",
       "Transition sensitivity support: explicit flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
       "This model family remains experimental and should be challenged with extra reviewer scrutiny even when its mandatory claims are covered.",
       "Promotion status: ready (0 blocking actions, 0 strengthening actions)."
@@ -2841,8 +2953,9 @@
       "Governed scientific review checklist count for advective_screening_mass_balance: 3.",
       "Scientific review note: Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
     ],
+    "scientific_unsuitability_lines": [],
     "source_grounding_lines": [
-      "Source grounding cites 5 external official references and 44 governed internal references across the filtered claim set.",
+      "Source grounding cites 5 external official references and 45 governed internal references across the filtered claim set.",
       "Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
       "Representative governed references: Fate MCP advective cumulative mass-balance method notes, Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture, Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture."
     ],
@@ -2879,7 +2992,7 @@
       "OECD post-release half-recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants."
     ],
     "benchmark_reference_lines": [
-      "Benchmark-backed claim support cites 31 supporting fixtures across the filtered claim set.",
+      "Benchmark-backed claim support cites 33 supporting fixtures across the filtered claim set.",
       "Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture."
     ],
     "support_strength_lines": [
@@ -2902,7 +3015,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.558342Z",
+      "generated_at": "2026-04-14T19:03:10.667422Z",
       "source_references": [
         {
           "source_id": "methods.advective_mass_balance_accounting.v1",
@@ -3139,6 +3252,12 @@
           "url": "docs://validation_framework"
         },
         {
+          "source_id": "methods.advective_post_release_late_recovery.v1",
+          "title": "Fate MCP advective post-release late-recovery regime method notes",
+          "effective_date": null,
+          "url": "docs://validation_framework"
+        },
+        {
           "source_id": "methods.advective_override_handling.v1",
           "title": "Fate MCP advective runtime-override method notes",
           "effective_date": null,
@@ -3209,6 +3328,7 @@
         "code": "experimental_model_family",
         "message": "This dossier covers an experimental model family that remains non-default pending broader validation."
       }
-    ]
+    ],
+    "blockers": []
   }
 }

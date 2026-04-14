@@ -12,7 +12,8 @@
         "time_bucket"
       ],
       "internal_only": true,
-      "description": "Canonical engine-like JSON payload consumed directly by the adapter harness."
+      "description": "Canonical engine-like JSON payload consumed directly by the adapter harness.",
+      "semantic_mapping": null
     },
     {
       "profile_id": "normalized_external_payload_csv",
@@ -25,7 +26,8 @@
         "time_bucket"
       ],
       "internal_only": true,
-      "description": "Canonical engine-like CSV payload consumed directly by the adapter harness."
+      "description": "Canonical engine-like CSV payload consumed directly by the adapter harness.",
+      "semantic_mapping": null
     },
     {
       "profile_id": "legacy_screening_desktop_export_v1",
@@ -38,7 +40,50 @@
         "time_bucket"
       ],
       "internal_only": true,
-      "description": "Concrete legacy desktop screening export normalized into Fate MCP concentrations."
+      "description": "Concrete legacy desktop screening export normalized into Fate MCP concentrations.",
+      "semantic_mapping": null
+    },
+    {
+      "profile_id": "euses_screening_export_v1",
+      "display_name": "EUSES Desktop Screening Export",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "EUSES screening export normalized into Fate MCP concentrations.",
+      "semantic_mapping": {
+        "semantic_loss": "minor",
+        "compartment_semantics": "EUSES regional compartments map to Fate MCP generic compartments.",
+        "time_semantics": "Steady-state mode maps end-of-duration screening without resolving multi-year temporal profiles.",
+        "spatial_scale_semantics": "Regional scale assumed; continental scale explicitly excluded from screening normalizations.",
+        "basis_semantics": "Dry weight normalization applied to soil/sediment.",
+        "release_partition_semantics": "Release fractions map 1:1."
+      }
+    },
+    {
+      "profile_id": "epi_suite_screening_export_v1",
+      "display_name": "EPI Suite Desktop Screening Export",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "EPI Suite screening export normalized into Fate MCP concentrations.",
+      "semantic_mapping": {
+        "semantic_loss": "material_but_bounded",
+        "compartment_semantics": "Level III Mackay compartments map directly to Fate MCP.",
+        "time_semantics": "Steady state assumed as standard EPI Suite Level III default.",
+        "spatial_scale_semantics": "Default generic environment area.",
+        "basis_semantics": "Dry weight mapped.",
+        "release_partition_semantics": "Maps directly to Level III emission modes."
+      }
     }
   ],
   "fixtures": [
@@ -98,6 +143,26 @@
       "import_profile": "legacy_screening_desktop_export_v1",
       "format": "csv",
       "expected_engine_name": "legacy-screening-desktop",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "euses_screening_export",
+      "path": "config/adapter-fixtures/euses_screening_export.csv",
+      "import_profile": "euses_screening_export_v1",
+      "format": "csv",
+      "expected_engine_name": "euses-screening-desktop",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "epi_suite_screening_export",
+      "path": "config/adapter-fixtures/epi_suite_screening_export.csv",
+      "import_profile": "epi_suite_screening_export_v1",
+      "format": "csv",
+      "expected_engine_name": "epi-suite-screening",
       "supported_modes": [
         "steady_state"
       ]

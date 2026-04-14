@@ -6,5 +6,6 @@
   "source_reference": null,
   "evidence_quality": "reference",
   "rationale": "Illustrative initial parameter override.",
-  "quality_flags": []
+  "quality_flags": [],
+  "distribution": null
 }

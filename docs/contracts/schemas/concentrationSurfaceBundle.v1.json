@@ -192,6 +192,17 @@
       "title": "DependencyDescriptor",
       "type": "object"
     },
+    "EscalationConcern": {
+      "enum": [
+        "extreme_persistence",
+        "strong_spatial_heterogeneity",
+        "point_source_plume_dependence",
+        "pfas_like_transport",
+        "jurisdictional_probabilistic_requirement"
+      ],
+      "title": "EscalationConcern",
+      "type": "string"
+    },
     "ExecutionStatus": {
       "enum": [
         "completed",
@@ -296,6 +307,13 @@
             "$ref": "#/$defs/FateAssumptionRecord"
           },
           "title": "Assumptions Applied",
+          "type": "array"
+        },
+        "escalation_concerns": {
+          "items": {
+            "$ref": "#/$defs/EscalationConcern"
+          },
+          "title": "Escalation Concerns",
           "type": "array"
         },
         "warnings": {

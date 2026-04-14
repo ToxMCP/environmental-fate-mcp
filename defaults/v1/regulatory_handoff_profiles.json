@@ -91,6 +91,93 @@
       "responseSummaryTemplate": "Return the regulatory handoff package and emphasize downstream_field, semantic_label, concentration_value, concentration_unit, and any limitations that should be passed unchanged through orchestration.",
       "reviewBriefTemplate": "Build a concise assessor review brief that confirms orchestration-facing field stability, concentration-only scope, and any limitations that ToxClaw must preserve unchanged.",
       "applicabilityNote": "Use when orchestration layers need a neutral concentration-surface handoff rather than a route-facing field name."
+    },
+    "echa_csr_v1": {
+      "displayName": "ECHA REACH Chemical Safety Report (CSR)",
+      "targetModule": "ECHA REACH Submission",
+      "downstreamField": "csr_environmental_exposure",
+      "consumerHints": [
+        "echa",
+        "reach",
+        "csr",
+        "chemical safety report",
+        "echa csr"
+      ],
+      "reviewChecklist": [
+        {
+          "code": "csr_provenance_preserved",
+          "prompt": "Confirm adapter provenance and governed limitations are explicitly preserved in the CSR package.",
+          "rationale": "ECHA submissions require explicit methodology and tool attribution, especially when native Fate MCP models or external EUSES adapters are used.",
+          "evidenceHintFields": [
+            "limitations",
+            "provenance"
+          ]
+        },
+        {
+          "code": "csr_compartments_complete",
+          "prompt": "Confirm concentration surfaces cover the mandatory REACH compartments (air, water, soil, sediment).",
+          "rationale": "CSR environmental exposure assessments require a complete multimedia set for a given release scenario.",
+          "evidenceHintFields": [
+            "mediums",
+            "entry_count"
+          ]
+        }
+      ],
+      "requiredEntryFields": [
+        "source_surface_id",
+        "concentration_value",
+        "concentration_unit",
+        "medium",
+        "compartment",
+        "time_window"
+      ],
+      "toolRequestTemplate": "Use fate_export_regulatory_handoff_package with the echa_csr_v1 profile to generate a structured package for an ECHA REACH CSR submission.",
+      "responseSummaryTemplate": "Return the CSR regulatory handoff package, highlighting the included compartments, source provenance, and any blocking limitations that prevent full REACH compliance.",
+      "reviewBriefTemplate": "Build a concise assessor review brief confirming that the CSR package contains required compartments and preserves all underlying Fate MCP or adapter provenance.",
+      "applicabilityNote": "Use when structuring Fate MCP outputs for an ECHA REACH Chemical Safety Report submission."
+    },
+    "epa_pmn_v1": {
+      "displayName": "EPA Premanufacture Notice (PMN)",
+      "targetModule": "EPA PMN Submission",
+      "downstreamField": "pmn_environmental_release",
+      "consumerHints": [
+        "epa",
+        "pmn",
+        "premanufacture notice",
+        "epa pmn"
+      ],
+      "reviewChecklist": [
+        {
+          "code": "pmn_release_context_preserved",
+          "prompt": "Confirm time-bucket semantics and geographic scope are clearly surfaced in the PMN package.",
+          "rationale": "EPA PMN review relies heavily on release day counts (time buckets) and specific release sites.",
+          "evidenceHintFields": [
+            "time_window_modes",
+            "geographic_scope"
+          ]
+        },
+        {
+          "code": "pmn_provenance_preserved",
+          "prompt": "Confirm adapter provenance (e.g., EPI Suite) and limitations are attached to the handoff surfaces.",
+          "rationale": "EPA reviewers need to see if canonical EPA tools were used via adapter or if Fate native engines generated the results.",
+          "evidenceHintFields": [
+            "limitations",
+            "provenance"
+          ]
+        }
+      ],
+      "requiredEntryFields": [
+        "source_surface_id",
+        "concentration_value",
+        "concentration_unit",
+        "medium",
+        "compartment",
+        "time_window"
+      ],
+      "toolRequestTemplate": "Use fate_export_regulatory_handoff_package with the epa_pmn_v1 profile to structure Fate MCP outputs for an EPA PMN submission.",
+      "responseSummaryTemplate": "Return the PMN regulatory handoff package, highlighting the time-bucket semantics, geographic scope, and explicit adapter/native provenance.",
+      "reviewBriefTemplate": "Build a concise assessor review brief confirming that the PMN package captures required temporal context and preserves methodology provenance.",
+      "applicabilityNote": "Use when structuring Fate MCP outputs for a US EPA Premanufacture Notice submission."
     }
   }
 }

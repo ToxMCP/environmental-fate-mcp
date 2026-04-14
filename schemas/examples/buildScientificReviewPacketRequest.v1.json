@@ -1,7 +1,7 @@
 {
   "scenario": {
     "schema_version": "v1",
-    "scenario_id": "scenario-18e1e6bb4344",
+    "scenario_id": "scenario-4cdd1024992b",
     "chemical_identity": {
       "preferredName": "Example substance",
       "casrn": "100-00-0"
@@ -38,7 +38,8 @@
         "source_reference": null,
         "evidence_quality": "reference",
         "rationale": "Illustrative initial parameter override.",
-        "quality_flags": []
+        "quality_flags": [],
+        "distribution": null
       },
       {
         "parameter": "log_kow",
@@ -48,7 +49,8 @@
         "source_reference": null,
         "evidence_quality": "heuristic",
         "rationale": "Illustrative preserved-only screening descriptor.",
-        "quality_flags": []
+        "quality_flags": [],
+        "distribution": null
       }
     ],
     "evidence_sources": [
@@ -63,7 +65,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.550276Z",
+      "generated_at": "2026-04-14T19:03:10.642719Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -85,8 +87,8 @@
     "surfaces": [
       {
         "schema_version": "v1",
-        "surface_id": "surface-7ce36175a789",
-        "scenario_id": "scenario-18e1e6bb4344",
+        "surface_id": "surface-49a3799a3c00",
+        "scenario_id": "scenario-4cdd1024992b",
         "medium": "air",
         "compartment": "ambient_air",
         "geographic_scope": {
@@ -108,7 +110,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-13T20:41:31.550405Z",
+          "generated_at": "2026-04-14T19:03:10.642818Z",
           "source_references": [
             {
               "source_id": "example.release.note",
@@ -261,8 +263,8 @@
       },
       {
         "schema_version": "v1",
-        "surface_id": "surface-b5600eee1fa6",
-        "scenario_id": "scenario-18e1e6bb4344",
+        "surface_id": "surface-2f1b8b20d0fb",
+        "scenario_id": "scenario-4cdd1024992b",
         "medium": "water",
         "compartment": "surface_water",
         "geographic_scope": {
@@ -284,7 +286,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-13T20:41:31.550457Z",
+          "generated_at": "2026-04-14T19:03:10.642865Z",
           "source_references": [
             {
               "source_id": "example.release.note",
@@ -437,8 +439,8 @@
       },
       {
         "schema_version": "v1",
-        "surface_id": "surface-05ca6162d54e",
-        "scenario_id": "scenario-18e1e6bb4344",
+        "surface_id": "surface-e52355132dd8",
+        "scenario_id": "scenario-4cdd1024992b",
         "medium": "soil",
         "compartment": "agricultural_soil",
         "geographic_scope": {
@@ -460,7 +462,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-13T20:41:31.550498Z",
+          "generated_at": "2026-04-14T19:03:10.642903Z",
           "source_references": [
             {
               "source_id": "example.release.note",
@@ -614,8 +616,8 @@
     ],
     "run_summary": {
       "schema_version": "v1",
-      "run_id": "run-e7bb217e7fa3",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "run_id": "run-e81726df3392",
+      "scenario_id": "scenario-4cdd1024992b",
       "model_family": "reference_mass_balance",
       "run_mode": "steady_state",
       "surfaces_emitted": 3,
@@ -781,12 +783,13 @@
           "quality_flags": []
         }
       ],
+      "escalation_concerns": [],
       "warnings": [],
       "result_metadata": {
         "status": "completed",
-        "executed_at": "2026-04-13T20:41:31.550507Z",
+        "executed_at": "2026-04-14T19:03:10.642911Z",
         "execution_mode": "synchronous",
-        "result_id": "result-scenario-18e1e6bb4344"
+        "result_id": "result-scenario-4cdd1024992b"
       }
     },
     "assumptions": [

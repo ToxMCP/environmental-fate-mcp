@@ -461,6 +461,13 @@
       },
       "title": "Limitations",
       "type": "array"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blockers",
+      "type": "array"
     }
   },
   "required": [

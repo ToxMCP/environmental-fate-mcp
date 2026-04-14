@@ -21,6 +21,7 @@
         "Appropriate for claims about bounded concentration under effective persistence and directional sensitivity to residence-time assumptions.",
         "Not a substitute for calibrated flow, routing, or site-specific hydrology."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.euses",
@@ -59,6 +60,7 @@
         "Appropriate for finite-duration plateau reasoning within deterministic screening math.",
         "Not a claim of infinite-time equilibrium, spatial dispersion, or field-scale hydrodynamic realism."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -96,6 +98,7 @@
         "Appropriate for extreme-persistence or residence-time edge claims in the advective screening family.",
         "Not a claim of full multimedia EUSES equivalence or a substitute for site-specific water-body characterization."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -133,6 +136,7 @@
         "Appropriate for EU-grounded explanation of elapsed-time semantics in bounded flowing-water screening outputs.",
         "Not a substitute for routed hydrologic or hydrodynamic time-series modelling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -170,6 +174,7 @@
         "Appropriate for reviewer-facing mapping of flowing-water screening concepts where bounded clearance and compartment residence time are material.",
         "Not a substitute for full multimedia EUSES implementation or dossier-specific environmental exposure modelling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -207,6 +212,7 @@
         "Appropriate when reviewers need an EU-grounded explanation of how explicit parameter overrides replace curated defaults within the declared screening boundary.",
         "Not a substitute for full uncertainty analysis, dossier-specific parameter qualification, or calibration workflows."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -244,6 +250,7 @@
         "Appropriate for reviewer-facing discussion of declared release fractions that yield one concentration surface per medium.",
         "Not a substitute for multimedia fate models with explicit transfer coefficients or dynamic exchange."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -281,6 +288,7 @@
         "Appropriate for post-release turnover-boundary and recovery-interpretation claims in the advective screening family.",
         "Not a substitute for routed hydrodynamic recovery modelling, site observations, or full EUSES implementation."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -318,6 +326,7 @@
         "Appropriate for reviewer-facing explanation of pre-release mass reduction within the release-to-concentration boundary.",
         "Not a substitute for detailed wastewater-treatment, abatement, or process-model simulation."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -349,6 +358,7 @@
         "Appropriate for near-parity loss-transition and residence-time override claims in the experimental advective family.",
         "Not a substitute for full multimedia EUSES implementation or dossier-specific exposure modelling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "echa.guidance.ircsa",
@@ -386,6 +396,7 @@
         "Appropriate for reviewer-facing discussion of elapsed-time semantics in bounded bucketed screening outputs.",
         "Not a substitute for transient routed time-series modelling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -417,6 +428,7 @@
         "Appropriate when reviewers need to understand why elapsed physical time and post-release decay are preserved in the bucketed screening surface.",
         "Not a claim of EPA model approval, calibration, or one-to-one equivalence with any EPA transport engine."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -448,6 +460,7 @@
         "Appropriate when reviewers need a regulator-recognizable case family for finite-duration flow-through water screening behavior.",
         "Not a claim of calibration to a specific EPA fate engine or a substitute for routed hydrologic transport modelling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -479,6 +492,7 @@
         "Appropriate when reviewers need to understand how curated defaults, explicit overrides, and preserved-only inputs are distinguished in the baseline kernel.",
         "Not a substitute for full uncertainty or calibration workflows."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -510,6 +524,7 @@
         "Appropriate for time-bucket screening claims where elapsed time and post-release loss remain explicit in the model family.",
         "Not a substitute for transient transport routing or full hydrodynamic time-series modeling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -541,6 +556,7 @@
         "Appropriate for post-release directionality claims that need explicit sub-boundary, boundary, and beyond-boundary recovery interpretation in the advective screening family.",
         "Not a substitute for routed receiving-water recovery modelling, monitoring data, or calibrated hydrodynamic post-release analysis."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -572,6 +588,7 @@
         "Appropriate when reviewers need a regulator-recognizable case family for post-release flushing or recovery interpretation in a deterministic flowing-water screening model.",
         "Not a substitute for routed hydrodynamic transport, downstream travel-time modelling, or site-specific recovery observations."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -603,6 +620,7 @@
         "Appropriate for post-release recovery-pace claims that need explicit pre-half, boundary, and beyond-half retained-mass interpretation in the advective screening family.",
         "Not a substitute for calibrated hydrodynamic recovery modelling, monitoring-derived depletion curves, or full receiving-water post-release analysis."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -634,6 +652,7 @@
         "Appropriate when reviewers need a regulator-recognizable framing for simple compartment screening calculations under explicit assumptions and defaults.",
         "Not a substitute for routed transport, hydrodynamic, or site-specific environmental modelling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -665,6 +684,7 @@
         "Appropriate when a reviewer needs to understand why near-parity degradation-versus-clearance claims require extra sensitivity scrutiny.",
         "Not a substitute for site-specific transport modelling or detailed uncertainty analysis."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -696,6 +716,7 @@
         "Appropriate when reviewers need a regulator-recognizable explanation for turnover-count boundaries and bounded transport under finite residence time.",
         "Not a substitute for site-specific transport modelling or calibrated flow routing."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "epa.environmental_models_guidance",
@@ -727,6 +748,7 @@
         "Appropriate when reviewers need a regulator-recognizable explanation for why finite residence time and first-order loss produce bounded retained mass.",
         "Not a claim that Fate MCP implements an OECD model or guideline directly."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "oecd.test_guidelines.section3",
@@ -764,6 +786,7 @@
         "Appropriate for post-release half-recovery directionality claims that need explicit pre-half, boundary, beyond-half, and extended-beyond-half retained-mass interpretation in the advective screening family.",
         "Not a substitute for calibrated receiving-water recovery monitoring, hydrodynamic routing models, or site-specific depletion-curve fitting."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "oecd.harmonised_templates.degradation_accumulation",
@@ -795,6 +818,7 @@
         "Appropriate when reviewers need an OECD-recognizable case family for post-release retained-mass decline, degraded mass, and flushed mass interpretation.",
         "Not a substitute for OECD test execution, measured field recovery data, or full multimedia fate modelling."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "oecd.test_guidelines.section3",
@@ -832,6 +856,7 @@
         "Appropriate for reviewer-facing explanation of single-medium first-order screening behavior in air, water, soil, and sediment compartments.",
         "Not a claim that Fate MCP implements any OECD test guideline or reporting template directly."
       ],
+      "scientific_unsuitability_lines": [],
       "source_references": [
         {
           "source_id": "oecd.test_guidelines.section3",

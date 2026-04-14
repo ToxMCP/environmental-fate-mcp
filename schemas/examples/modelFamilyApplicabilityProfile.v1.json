@@ -14,7 +14,12 @@
     "metals and metal species requiring speciation-aware fate treatment",
     "nanomaterials or particulate systems requiring size-resolved transport behavior",
     "assessments requiring explicit intermedia mass transfer, plume dynamics, or spatial hydrodynamics",
-    "cases where residence-time defaults are too coarse to represent local transport conditions credibly"
+    "cases where residence-time defaults are too coarse to represent local transport conditions credibly",
+    "extreme persistence requiring higher-tier modeling",
+    "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+    "point-source plume dependence requiring explicit near-field dispersion models",
+    "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+    "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
   ],
   "required_inputs": [
     "total_release_mass_kg",

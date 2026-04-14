@@ -1,8 +1,8 @@
 {
   "dossier": {
     "schema_version": "v1",
-    "dossier_id": "mfscidossier-2f9d1ac5f4df",
-    "scenario_id": "scenario-18e1e6bb4344",
+    "dossier_id": "mfscidossier-d42ec7298a00",
+    "scenario_id": "scenario-4cdd1024992b",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -13,13 +13,13 @@
     "selection_recommendation_status": "default_with_experimental_challenge",
     "comparison_profile_id": "reference_vs_advective_screening_v1",
     "comparison_outcome": "material_model_family_divergence",
-    "challenge_review_packet_id": "mfchallenge-5e6c4e1b1bb9",
-    "primary_scientific_review_packet_id": "scireview-146021dc5084",
-    "challenge_scientific_review_packet_id": "scireview-05667d64b7ba",
+    "challenge_review_packet_id": "mfchallenge-411d9925d110",
+    "primary_scientific_review_packet_id": "scireview-917ab2e080b5",
+    "challenge_scientific_review_packet_id": "scireview-fefb7e182bd1",
     "challenge_review_brief": {
       "schema_version": "v1",
-      "review_packet_id": "mfchallenge-5e6c4e1b1bb9",
-      "scenario_id": "scenario-18e1e6bb4344",
+      "review_packet_id": "mfchallenge-411d9925d110",
+      "scenario_id": "scenario-4cdd1024992b",
       "run_mode": "steady_state",
       "fit_for_purpose": "screening",
       "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -73,7 +73,7 @@
       "brief_lines": [
         "Summarize whether the governed model-family challenge review is ready for assessor-facing reuse, preserving selection status, comparison status, dominant deltas, and applicability context.",
         "Build a governed assessor-facing composed challenge review packet that bundles the selection review path and, when triggered, the reference-versus-advective comparison review path without losing baseline-versus-experimental framing.",
-        "Challenge review packet covers scenario scenario-18e1e6bb4344 with baseline reference_mass_balance.",
+        "Challenge review packet covers scenario scenario-4cdd1024992b with baseline reference_mass_balance.",
         "Selection recommendation status: default_with_experimental_challenge.",
         "Overall challenge review status: model_family_challenge_review_attention_needed.",
         "This challenge review profile is intended for the composed reference-baseline and advective-challenge assessor workflow inside Fate MCP's concentration-only boundary.",
@@ -138,6 +138,7 @@
         "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
         "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
       ],
+      "scientific_unsuitability_lines": [],
       "comparison_guidance_lines": [
         "Governed comparison profile reference_vs_advective_screening_v1 should be used before carrying the challenge family into assessor-facing comparison review."
       ],
@@ -162,9 +163,9 @@
     },
     "primary_scientific_review_brief": {
       "schema_version": "v1",
-      "review_packet_id": "scireview-146021dc5084",
-      "scenario_id": "scenario-18e1e6bb4344",
-      "run_id": "run-55d218483c45",
+      "review_packet_id": "scireview-917ab2e080b5",
+      "scenario_id": "scenario-4cdd1024992b",
+      "run_id": "run-52caa06f5072",
       "model_family": "reference_mass_balance",
       "fit_for_purpose": "screening",
       "review_status": "scientific_review_attention_needed",
@@ -209,7 +210,7 @@
       "summary_lines": [
         "Summarize whether the reference mass-balance run is scientifically reviewable within the declared screening boundary, highlighting applicability, parameter provenance, and top uncertainty drivers.",
         "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
-        "Scientific review packet covers run run-55d218483c45 for model family reference_mass_balance.",
+        "Scientific review packet covers run run-52caa06f5072 for model family reference_mass_balance.",
         "Fit verdict: good_fit (score=0.85).",
         "Parameter manifest exposes 16 resolved parameters and 5 ranked uncertainty drivers.",
         "Benchmark reference: Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
@@ -269,6 +270,7 @@
         "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
         "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
       ],
+      "scientific_unsuitability_lines": [],
       "uncertainty_lines": [
         "5 deterministic uncertainty drivers were ranked for reference_mass_balance.",
         "These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
@@ -347,9 +349,9 @@
     },
     "challenge_scientific_review_brief": {
       "schema_version": "v1",
-      "review_packet_id": "scireview-05667d64b7ba",
-      "scenario_id": "scenario-18e1e6bb4344",
-      "run_id": "run-2e0cd3c37335",
+      "review_packet_id": "scireview-fefb7e182bd1",
+      "scenario_id": "scenario-4cdd1024992b",
+      "run_id": "run-0151c9035171",
       "model_family": "advective_screening_mass_balance",
       "fit_for_purpose": "screening",
       "review_status": "scientific_review_attention_needed",
@@ -394,7 +396,7 @@
       "summary_lines": [
         "Summarize whether the advective screening run is scientifically reviewable within the declared concentration-only screening boundary.",
         "Build a scientific review packet that preserves advective screening scope, residence-time provenance, benchmark context, and deterministic uncertainty drivers.",
-        "Scientific review packet covers run run-2e0cd3c37335 for model family advective_screening_mass_balance.",
+        "Scientific review packet covers run run-0151c9035171 for model family advective_screening_mass_balance.",
         "Fit verdict: good_fit (score=0.85).",
         "Parameter manifest exposes 25 resolved parameters and 5 ranked uncertainty drivers.",
         "Benchmark reference: Scientific validation claim coverage for advective_screening_mass_balance/steady_state: 12/12 governed claims covered.",
@@ -469,6 +471,7 @@
         "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
         "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
       ],
+      "scientific_unsuitability_lines": [],
       "uncertainty_lines": [
         "5 deterministic uncertainty drivers were ranked for advective_screening_mass_balance.",
         "These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
@@ -565,7 +568,7 @@
     },
     "summary_lines": [
       "Build a composed scientific dossier that couples the governed model-family challenge review path with model-family-specific scientific review packets.",
-      "Challenge review status model_family_challenge_review_attention_needed governs scenario scenario-18e1e6bb4344.",
+      "Challenge review status model_family_challenge_review_attention_needed governs scenario scenario-4cdd1024992b.",
       "Primary family reference_mass_balance scientific review outcome: qualified_screening_use.",
       "Challenge family advective_screening_mass_balance scientific review outcome: qualified_screening_use."
     ],
@@ -620,7 +623,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-13T20:41:31.586151Z",
+      "generated_at": "2026-04-14T19:03:10.701525Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -719,6 +722,7 @@
         "code": "screening_model",
         "message": "Advective screening plugin is deterministic and screening-oriented."
       }
-    ]
+    ],
+    "blockers": []
   }
 }
