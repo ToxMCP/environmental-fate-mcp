@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "handoff_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Handoff Profile Id"
+    },
+    "consumer_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Consumer Name"
+    },
+    "target_modules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Modules",
+      "type": "array"
+    }
+  },
+  "title": "PreviewRegulatoryHandoffResolutionRequest",
+  "type": "object"
+}

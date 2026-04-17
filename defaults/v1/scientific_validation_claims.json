@@ -1,0 +1,2065 @@
+{
+  "defaultsVersion": "v1",
+  "claims": {
+    "reference_air_finite_duration_first_order_v1": {
+      "displayName": "Reference air finite-duration first-order screening equation",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium air screening equation under governed defaults.",
+      "claimClass": "single_medium_finite_duration_equation",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
+      "referenceCaseIds": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_mass_balance.v1",
+          "title": "Fate MCP governed reference-mass-balance method notes",
+          "url": "docs://model_applicability_limits"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.air_reference_chemical_style_fixture",
+          "title": "Fate MCP benchmark fixture: air_reference_chemical_style_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to a one-compartment finite-duration first-order air screening calculation under the declared release-to-concentration boundary.",
+        "Benchmark support is anchored to the governed ambient-air volume, air half-life default, and explicit end-of-duration evaluation."
+      ],
+      "referenceCaseLines": [
+        "Supported by the air_reference_chemical_style_fixture hand-worked reference case.",
+        "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ],
+      "reviewNotes": [
+        "This is a single-compartment air screening claim rather than a spatial transport claim."
+      ],
+      "pluginCodeReferences": [
+        "fate_mcp.plugins.reference_mass_balance:ReferenceMassBalancePlugin._build_surface"
+      ]
+    },
+    "reference_water_finite_duration_first_order_v1": {
+      "displayName": "Reference water finite-duration first-order screening equation",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium water screening equation under governed defaults.",
+      "claimClass": "single_medium_finite_duration_equation",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
+      "referenceCaseIds": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_mass_balance.v1",
+          "title": "Fate MCP governed reference-mass-balance method notes",
+          "url": "docs://model_applicability_limits"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.water_reference_chemical_style_fixture",
+          "title": "Fate MCP benchmark fixture: water_reference_chemical_style_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to a one-compartment finite-duration first-order water screening calculation under governed default dilution volume and water half-life assumptions.",
+        "Water concentrations are benchmarked at the end of the declared release duration and remain within the screening kernel boundary."
+      ],
+      "referenceCaseLines": [
+        "Supported by the water_reference_chemical_style_fixture hand-worked reference case.",
+        "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ],
+      "pluginCodeReferences": [
+        "fate_mcp.plugins.reference_mass_balance:ReferenceMassBalancePlugin._build_surface"
+      ]
+    },
+    "reference_soil_finite_duration_first_order_v1": {
+      "displayName": "Reference soil finite-duration first-order screening equation",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium soil screening equation under governed defaults.",
+      "claimClass": "single_medium_finite_duration_equation",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
+      "referenceCaseIds": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_mass_balance.v1",
+          "title": "Fate MCP governed reference-mass-balance method notes",
+          "url": "docs://model_applicability_limits"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.soil_reference_chemical_style_fixture",
+          "title": "Fate MCP benchmark fixture: soil_reference_chemical_style_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to a one-compartment finite-duration first-order soil screening calculation with governed soil mass and degradation assumptions.",
+        "The claim does not cover vertical transport, erosion, or intermedia transfer."
+      ],
+      "referenceCaseLines": [
+        "Supported by the soil_reference_chemical_style_fixture hand-worked reference case.",
+        "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "reference_sediment_finite_duration_first_order_v1": {
+      "displayName": "Reference sediment finite-duration first-order screening equation",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium sediment screening equation under governed defaults.",
+      "claimClass": "single_medium_finite_duration_equation",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation"
+      ],
+      "referenceCaseIds": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_mass_balance.v1",
+          "title": "Fate MCP governed reference-mass-balance method notes",
+          "url": "docs://model_applicability_limits"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.sediment_reference_chemical_style_fixture",
+          "title": "Fate MCP benchmark fixture: sediment_reference_chemical_style_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to a one-compartment finite-duration first-order sediment screening calculation with governed sediment mass and degradation assumptions.",
+        "The claim does not represent burial, resuspension, or explicit sediment-water exchange."
+      ],
+      "referenceCaseLines": [
+        "Supported by the sediment_reference_chemical_style_fixture hand-worked reference case.",
+        "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "reference_multi_medium_partition_v1": {
+      "displayName": "Reference multi-medium partitioned screening output",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel reproduces a hand-worked multi-medium air-water partitioned screening case with one surface per declared medium.",
+      "claimClass": "multi_medium_partition",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_partition_fixture"
+      ],
+      "referenceCaseIds": [
+        "echa_partitioned_release_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_mass_balance.v1",
+          "title": "Fate MCP governed reference-mass-balance method notes",
+          "url": "docs://model_applicability_limits"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.multi_medium_mass_balance_fixture",
+          "title": "Fate MCP benchmark fixture: multi_medium_mass_balance_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim covers one-surface-per-medium partitioning across declared release fractions within the simplified screening kernel.",
+        "The claim does not imply explicit transfer dynamics between compartments."
+      ],
+      "referenceCaseLines": [
+        "Supported by the multi_medium_mass_balance_fixture hand-worked partition reference case.",
+        "Grounded to ECHA partitioned-release screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "reference_time_bucket_elapsed_time_v1": {
+      "displayName": "Reference time-bucket elapsed-time semantics",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The reference kernel evaluates time buckets against elapsed physical time and supports post-release decay rather than bucket-count scaling.",
+      "claimClass": "time_bucket_semantics",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "invariance"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_time_bucket_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_elapsed_time_bucket_screening_case_family_v1",
+        "oecd_single_medium_first_order_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_time_bucket.v1",
+          "title": "Fate MCP governed reference time-bucket method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "benchmark.time_bucket_invariance_fixture",
+          "title": "Fate MCP benchmark fixture: time_bucket_invariance_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim covers elapsed-time bucket semantics with finite-duration loading and optional post-release decay.",
+        "The claim excludes any bucket-count-dependent scaling or pagination heuristics."
+      ],
+      "referenceCaseLines": [
+        "Supported by the time_bucket_invariance_fixture hand-worked elapsed-time reference case.",
+        "Grounded to EPA elapsed-time bucket screening concepts and OECD first-order screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "reference_parameter_override_application_v1": {
+      "displayName": "Reference runtime parameter override application",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel uses a scenario parameter override in place of the governed curated default when the runtime supports that parameter.",
+      "claimClass": "parameter_override",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_override_fixture"
+      ],
+      "referenceCaseIds": [
+        "echa_parameter_transparency_screening_case_family_v1",
+        "epa_parameterization_override_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_override_handling.v1",
+          "title": "Fate MCP governed runtime-override method notes",
+          "url": "docs://provenance_policy"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.parameter_override_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: parameter_override_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to runtime-supported parameters that explicitly override curated defaults in the reference kernel.",
+        "Unsupported parameters may still be preserved in provenance but are not part of this claim."
+      ],
+      "referenceCaseLines": [
+        "Supported by the parameter_override_sensitivity_fixture hand-worked override case.",
+        "Grounded to EPA parameterization-and-override screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "reference_executable_treatment_reduction_v1": {
+      "displayName": "Reference executable treatment reduction",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel applies treatment assumptions marked as pre_release_global before release-to-concentration estimation.",
+      "claimClass": "treatment_execution",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_treatment_anchor"
+      ],
+      "referenceCaseIds": [
+        "echa_source_term_reduction_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_treatment_execution.v1",
+          "title": "Fate MCP executable treatment method notes",
+          "url": "docs://operator_guide"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.reference_treatment_reduction_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: reference_treatment_reduction_anchor_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim covers only treatment assumptions explicitly marked as pre_release_global.",
+        "Any treatment semantics outside that executable scope remain provenance-only and are not part of this claim."
+      ],
+      "referenceCaseLines": [
+        "Supported by the reference_treatment_reduction_anchor_fixture hand-worked treatment-reduction case.",
+        "Grounded to ECHA source-term reduction screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "reference_short_half_life_attenuation_v1": {
+      "displayName": "Reference short half-life attenuation anchor",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel strongly attenuates concentration for a short water half-life override according to the finite-duration first-order equation.",
+      "claimClass": "decay_edge_condition",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_decay_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_decay_edge_conditions.v1",
+          "title": "Fate MCP decay edge-condition method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.reference_short_half_life_attenuation_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: reference_short_half_life_attenuation_anchor_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim anchors strong first-order attenuation behavior under a short half-life override.",
+        "The claim is a screening edge-condition check rather than a substitute for a richer degradation model."
+      ],
+      "referenceCaseLines": [
+        "Supported by the reference_short_half_life_attenuation_anchor_fixture decay edge anchor.",
+        "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "reference_long_duration_rate_anchor_v1": {
+      "displayName": "Reference long-duration near-plateau anchor",
+      "modelFamily": "reference_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The reference kernel approaches the expected finite-duration first-order plateau when duration is long relative to the governed half-life at a fixed release rate.",
+      "claimClass": "duration_edge_condition",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_duration_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.reference_duration_edge_conditions.v1",
+          "title": "Fate MCP duration edge-condition method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.reference_long_duration_rate_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: reference_long_duration_rate_anchor_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim anchors long-duration finite-duration behavior at a fixed release rate.",
+        "The claim does not assert infinite-time equilibrium; it remains bounded by the declared release duration."
+      ],
+      "referenceCaseLines": [
+        "Supported by the reference_long_duration_rate_anchor_fixture duration edge anchor.",
+        "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
+      ]
+    },
+    "advective_water_finite_duration_first_order_v1": {
+      "displayName": "Advective water finite-duration first-order screening equation",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel reproduces the hand-worked finite-duration water screening equation with degradation plus first-order advective clearance.",
+      "claimClass": "advective_single_medium_equation",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "reference_style"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_screening_equation"
+      ],
+      "referenceCaseIds": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_screening_mass_balance.v1",
+          "title": "Fate MCP governed advective-screening method notes",
+          "url": "docs://model_applicability_limits"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_water_reference_chemical_style_fixture",
+          "title": "Fate MCP benchmark fixture: advective_water_reference_chemical_style_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_duration_plateau_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_duration_plateau_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_duration_plateau_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_duration_plateau_companion_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_duration_plateau_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_duration_plateau_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim covers a one-compartment finite-duration water screening equation with first-order degradation plus first-order advective clearance.",
+        "The claim remains within a screening kernel and does not imply explicit spatial routing or hydrodynamic transport.",
+        "Source grounding aligns this governed screening family with regulator-recognizable environmental exposure concepts such as compartment residence time and bounded flow-through clearance, without claiming direct implementation of EUSES or any full multimedia model."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_water_reference_chemical_style_fixture hand-worked advective reference case.",
+        "Supported by the advective_long_duration_plateau_anchor_fixture long-duration advective anchor.",
+        "Supported by the advective_long_duration_plateau_companion_fixture long-duration corroboration anchor.",
+        "Supported by the advective_long_duration_plateau_sensitivity_fixture alternate-clearance duration corroboration anchor."
+      ]
+    },
+    "advective_degradation_dominant_loss_share_v1": {
+      "displayName": "Advective degradation-dominant loss-share transition",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel reports degradation as the dominant contribution to total loss when half-life is short relative to residence time.",
+      "claimClass": "advective_loss_dominance",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_dominance_anchor"
+      ],
+      "referenceCaseIds": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_loss_dominance.v1",
+          "title": "Fate MCP advective loss-dominance method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_degradation_dominant_loss_share_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_degradation_dominant_loss_share_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_companion_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
+        "The claim is satisfied when degradation remains the larger resolved loss-share component under a short-half-life and long-residence screening regime."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_degradation_dominant_loss_share_anchor_fixture degradation-dominant loss-share anchor.",
+        "Supported by the advective_degradation_dominant_loss_share_companion_fixture degradation-dominant corroboration case."
+      ]
+    },
+    "advective_clearance_dominant_loss_share_v1": {
+      "displayName": "Advective clearance-dominant loss-share transition",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel reports advective clearance as the dominant contribution to total loss when residence time is short relative to half-life.",
+      "claimClass": "advective_loss_dominance",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_dominance_anchor"
+      ],
+      "referenceCaseIds": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_loss_dominance.v1",
+          "title": "Fate MCP advective loss-dominance method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_clearance_dominant_loss_share_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_clearance_dominant_loss_share_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_companion_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
+        "The claim is satisfied when advective clearance remains the larger resolved loss-share component under a short-residence and effectively persistent screening regime."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_clearance_dominant_loss_share_anchor_fixture clearance-dominant loss-share anchor.",
+        "Supported by the advective_clearance_dominant_loss_share_companion_fixture clearance-dominant corroboration case."
+      ]
+    },
+    "advective_cumulative_mass_balance_closure_v1": {
+      "displayName": "Advective cumulative mass-balance closure",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel preserves cumulative mass balance between emitted mass, retained compartment mass, degraded mass, and advected mass, with negligible closure error across degradation-dominant, clearance-dominant, and mixed-loss regimes.",
+      "claimClass": "advective_mass_balance_accounting",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_dominance_anchor",
+        "hand_worked_advective_loss_transition_anchor"
+      ],
+      "referenceCaseIds": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_mass_balance_accounting.v1",
+          "title": "Fate MCP advective cumulative mass-balance method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_degradation_dominant_loss_share_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_degradation_dominant_loss_share_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_clearance_dominant_loss_share_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_clearance_dominant_loss_share_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_mixed_loss_transition_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_anchor_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to the governed one-compartment advective screening equation and its cumulative trace accounting at elapsed time.",
+        "The claim is satisfied when emitted mass is partitioned into retained compartment mass plus degraded and advected cumulative losses with negligible residual closure error across distinct loss-share regimes."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_degradation_dominant_loss_share_anchor_fixture and companion case for degradation-heavy closure accounting.",
+        "Supported by the advective_clearance_dominant_loss_share_anchor_fixture and companion case for clearance-heavy closure accounting.",
+        "Supported by the advective_mixed_loss_transition_anchor_fixture and companion case for near-parity cumulative closure accounting."
+      ]
+    },
+    "advective_residence_time_turnover_regime_v1": {
+      "displayName": "Advective residence-time turnover regime interpretation",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel exposes residence-time turnover counts, turnover-boundary offsets, and bounded plateau-fraction context that distinguish storage-dominant, intermediate-turnover, and flow-through transport regimes in reviewer-facing transport interpretation.",
+      "claimClass": "advective_transport_regime",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_clearance_edge_anchor",
+        "hand_worked_advective_residence_edge_anchor",
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "referenceCaseIds": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_transport_regime.v1",
+          "title": "Fate MCP advective residence-time transport-regime method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "benchmark.advective_short_residence_time_clearance_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_short_residence_time_clearance_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_mixed_loss_transition_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_residence_time_accumulation_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_residence_time_accumulation_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_bounded_transport_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_bounded_transport_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_flow_through_transport_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_flow_through_transport_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_storage_dominant_transport_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_storage_dominant_transport_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_boundary_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_boundary_reference_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to the one-compartment advective screening trace, where residence time is interpreted through elapsed and active-emission turnover counts, turnover-boundary offsets, and retained mass as a fraction of the finite loss-limited plateau.",
+        "The claim is satisfied when short residence times produce flow-through turnover counts, long residence times produce storage-dominant turnover counts, near-parity residence times remain in an intermediate turnover regime, and the bounded plateau fraction stays reviewer-interpretable."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_short_residence_time_clearance_anchor_fixture and companion case for flow-through transport interpretation.",
+        "Supported by the advective_mixed_loss_transition_anchor_fixture as an intermediate-turnover transport anchor.",
+        "Supported by the advective_long_residence_time_accumulation_anchor_fixture and companion case for storage-dominant transport interpretation.",
+        "Supported by the advective_bounded_transport_reference_fixture for explicit bounded-plateau and turnover-boundary interpretation.",
+        "Supported by the advective_flow_through_transport_reference_fixture, advective_transition_boundary_reference_fixture, and advective_storage_dominant_transport_reference_fixture so reference-style bounded transport anchors span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes."
+      ]
+    },
+    "advective_mixed_loss_transition_margin_v1": {
+      "displayName": "Advective mixed-loss transition margin",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel reports a mixed-loss transition regime when degradation and advective clearance remain near parity and neither dominates the combined loss term by a wide margin.",
+      "claimClass": "advective_loss_dominance",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "referenceCaseIds": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_loss_dominance.v1",
+          "title": "Fate MCP advective loss-dominance method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "benchmark.advective_mixed_loss_transition_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_mixed_loss_transition_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_companion_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_boundary_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_boundary_reference_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
+        "The claim is satisfied when the resolved loss-share margin remains small enough that neither degradation nor advective clearance exceeds the other by more than a narrow transition band.",
+        "Source grounding aligns this claim with regulator-recognizable transition-boundary screening concepts where modest half-life or residence-time shifts can move a one-compartment flowing-water screening run across the dominant-loss boundary while transport turnover remains boundary-sensitive."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_mixed_loss_transition_anchor_fixture near-parity loss-transition anchor.",
+        "Supported by the advective_mixed_loss_transition_companion_fixture mixed-loss corroboration case.",
+        "Supported by the advective_transition_boundary_reference_fixture so the near-parity boundary is also anchored by a reference-style bounded-transport case rather than only edge and sensitivity fixtures.",
+        "Mapped to the ECHA and EPA transition-boundary screening case families for reviewer-facing directional-sensitivity interpretation.",
+        "Mapped to the EPA turnover-boundary and OECD bounded-transport case families so the transition claim is grounded against residence-time interpretation as well as loss-share math."
+      ]
+    },
+    "advective_loss_regime_flip_directionality_v1": {
+      "displayName": "Advective loss-regime flip directionality",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel flips the dominant loss interpretation in the expected direction when small half-life or residence-time shifts move a near-parity configuration across the degradation-versus-clearance boundary.",
+      "claimClass": "advective_loss_transition_sensitivity",
+      "priority": "medium",
+      "mandatoryForRelease": false,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_transition_sensitivity_fixture"
+      ],
+      "referenceCaseIds": [
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_loss_dominance.v1",
+          "title": "Fate MCP advective loss-dominance method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "benchmark.advective_mixed_loss_transition_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_mixed_loss_transition_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_flip_to_degradation_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_flip_to_degradation_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_transition_flip_to_clearance_fixture",
+          "title": "Fate MCP benchmark fixture: advective_transition_flip_to_clearance_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to directional sensitivity around the governed near-parity transition band in the advective screening equation.",
+        "The claim is satisfied when a small half-life shift or residence-time shift around the near-parity anchor changes the larger resolved loss-share component in the expected direction without breaking bounded screening behavior or residence-time interpretation."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_mixed_loss_transition_anchor_fixture near-parity transition anchor.",
+        "Supported by the advective_transition_flip_to_degradation_fixture degradation-side transition sensitivity anchor.",
+        "Supported by the advective_transition_flip_to_clearance_fixture clearance-side transition sensitivity anchor.",
+        "Mapped to the EPA turnover-boundary and OECD bounded-transport case families for reviewer-facing directional transport interpretation."
+      ]
+    },
+    "advective_time_bucket_elapsed_time_v1": {
+      "displayName": "Advective time-bucket elapsed-time semantics",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel evaluates time buckets against elapsed physical time with combined first-order degradation and advective clearance.",
+      "claimClass": "advective_time_bucket_semantics",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "invariance"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_time_bucket_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "echa_elapsed_time_flowing_water_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_time_bucket.v1",
+          "title": "Fate MCP governed advective time-bucket method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_time_bucket_invariance_fixture",
+          "title": "Fate MCP benchmark fixture: advective_time_bucket_invariance_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim covers elapsed-time advective bucket semantics with combined degradation and residence-time loss.",
+        "The claim excludes bucket-count scaling shortcuts and requires explicit elapsed-time evaluation.",
+        "Buckets may extend beyond the release duration, in which case the governed method applies post-release combined-loss decay rather than continuing emission."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_time_bucket_invariance_fixture hand-worked advective bucket reference case.",
+        "Supported by the advective_post_release_decay_anchor_fixture post-release decay bucket anchor."
+      ]
+    },
+    "advective_post_release_flushing_recovery_v1": {
+      "displayName": "Advective post-release flushing and recovery accounting",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel preserves post-release retained-mass decline after active emission stops and exposes release-stop mass fractions for retained, degraded, and advected mass within the bucketed screening trace.",
+      "claimClass": "advective_post_release_recovery",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_post_release_recovery.v1",
+          "title": "Fate MCP advective post-release flushing and recovery method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to governed advective time-bucket outputs where elapsed time extends beyond the declared release duration and the kernel applies combined degradation-plus-clearance decay to the retained release-stop mass.",
+        "The claim is satisfied when post-release buckets expose retained, degraded, and advected fractions of release-stop mass with negligible closure error and without resuming emission after the declared release period."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition bucket anchor for post-release retained-mass decline.",
+        "Supported by the advective_post_release_recovery_reference_fixture so post-release recovery is grounded by a reference-style bounded-transport bucket case.",
+        "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate post-release flushing case with a different recovery window."
+      ]
+    },
+    "advective_post_release_flushing_regime_transition_v1": {
+      "displayName": "Advective post-release flushing regime transition",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel classifies post-release recovery windows relative to the one-turnover flushing boundary so retained release-stop mass can be interpreted as sub-flushing, boundary-sensitive, or flushing-dominant rather than only as a raw retained fraction.",
+      "claimClass": "advective_post_release_transition",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_post_release_regime_transition.v1",
+          "title": "Fate MCP advective post-release regime-transition method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_boundary_transition_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_boundary_transition_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose post-release turnover count relative to the one-turnover flushing boundary.",
+        "The claim is satisfied when sub-boundary, near-boundary, and beyond-boundary recovery windows remain distinguishable through the governed post-release trace terms and aligned retained-versus-removed release-stop mass interpretation.",
+        "The claim also requires a stronger beyond-boundary sensitivity anchor so retained release-stop mass decline remains directionally consistent as the post-release recovery window extends further beyond one full flushing turnover."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition anchor below the one-turnover flushing boundary.",
+        "Supported by the advective_post_release_boundary_transition_reference_fixture at the one-turnover post-release transition boundary.",
+        "Supported by the advective_post_release_recovery_reference_fixture as a stable flushing-dominant reference-style recovery window.",
+        "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate stronger-flushing sensitivity case.",
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass decline is also anchored further beyond the one-turnover boundary."
+      ]
+    },
+    "advective_post_release_flushing_directionality_v1": {
+      "displayName": "Advective post-release flushing directionality",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel preserves directional retained-mass decline relative to the one-turnover post-release anchor as the recovery window moves from sub-boundary to beyond-boundary under the governed combined-loss solution.",
+      "claimClass": "advective_post_release_directionality",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_subboundary_sensitivity_fixture",
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_directionality_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_post_release_directionality.v1",
+          "title": "Fate MCP advective post-release directionality method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_subboundary_directionality_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_subboundary_directionality_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_boundary_transition_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_boundary_transition_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the one-turnover flushing anchor.",
+        "The claim is satisfied when same-chemistry sub-boundary, boundary, and beyond-boundary recovery windows show retained release-stop mass progressing in the governed direction relative to the one-turnover anchor rather than only changing by arbitrary magnitude.",
+        "The claim also requires explicit retained-mass-to-boundary ratio terms so reviewers can challenge post-release directionality without reconstructing the closed-form decay calculation."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition anchor below the one-turnover flushing boundary.",
+        "Supported by the advective_post_release_subboundary_directionality_sensitivity_fixture as a same-chemistry sub-boundary recovery window with retained mass still above the one-turnover anchor.",
+        "Supported by the advective_post_release_boundary_transition_reference_fixture at the one-turnover post-release boundary.",
+        "Supported by the advective_post_release_recovery_reference_fixture as a stable beyond-boundary reference-style recovery window.",
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass is also anchored further below the one-turnover anchor as recovery extends."
+      ]
+    },
+    "advective_post_release_half_recovery_pace_v1": {
+      "displayName": "Advective post-release half-recovery pace",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel preserves the combined-loss half-recovery pace for retained release-stop mass, so reviewers can interpret whether a post-release recovery window is still before, at, or beyond the 50% retained-mass anchor under the governed degradation-plus-clearance solution.",
+      "claimClass": "advective_post_release_pace",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_post_release_half_recovery_pace.v1",
+          "title": "Fate MCP advective post-release half-recovery pace method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_half_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_half_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose the combined-loss half-recovery pace for retained release-stop mass.",
+        "The claim is satisfied when pre-half, boundary, and beyond-half post-release windows remain distinguishable through the governed half-recovery turnover terms rather than inferred only from the one-turnover flushing boundary.",
+        "The claim also requires explicit window-multiple and retained-mass-to-half-anchor terms so reviewers can challenge recovery pace without reconstructing the combined-loss closed-form solution."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition post-release bucket anchor.",
+        "Supported by the advective_post_release_pre_half_recovery_sensitivity_fixture as a same-chemistry pre-half-recovery window with retained release-stop mass still above the 50% anchor.",
+        "Supported by the advective_post_release_half_recovery_reference_fixture at the governed combined-loss half-recovery boundary.",
+        "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions."
+      ]
+    },
+    "advective_post_release_half_recovery_directionality_v1": {
+      "displayName": "Advective post-release half-recovery directionality",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel preserves retained-mass directionality relative to the combined-loss 50% recovery anchor, so reviewers can see the post-release window move from above the half-recovery boundary to materially below it under the same governed loss constants.",
+      "claimClass": "advective_post_release_pace_directionality",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "referenceCaseIds": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1",
+        "oecd_post_release_half_recovery_directionality_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_post_release_half_recovery_directionality.v1",
+          "title": "Fate MCP advective post-release half-recovery directionality method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_decay_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_decay_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_pre_half_recovery_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_half_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_half_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_recovery_reference_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_recovery_reference_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor.",
+        "The claim is satisfied when same-chemistry pre-half, boundary, beyond-half, and extended-beyond-half windows show retained release-stop mass moving in the governed direction relative to the 50% anchor rather than merely crossing it once.",
+        "The claim also requires explicit retained-mass offset and ratio terms relative to the half-recovery anchor so reviewers can challenge combined-loss post-release directionality without reconstructing the closed-form decay solution."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_decay_anchor_fixture edge-condition post-release bucket anchor.",
+        "Supported by the advective_post_release_pre_half_recovery_sensitivity_fixture as a same-chemistry pre-half-recovery window with retained release-stop mass still above the 50% anchor.",
+        "Supported by the advective_post_release_half_recovery_reference_fixture at the governed combined-loss half-recovery boundary.",
+        "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions.",
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass is also anchored materially below the 50% half-recovery anchor as the recovery window extends further."
+      ]
+    },
+    "advective_extreme_persistence_clearance_bound_v1": {
+      "displayName": "Advective extreme-persistence clearance bound",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel remains bounded by residence-time clearance when degradation is effectively absent.",
+      "claimClass": "advective_edge_condition",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_clearance_edges.v1",
+          "title": "Fate MCP advective clearance edge-condition method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_extreme_persistence_clearance_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_extreme_persistence_clearance_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_residence_time_accumulation_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_residence_time_accumulation_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_residence_time_accumulation_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_residence_time_accumulation_companion_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_duration_plateau_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_duration_plateau_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim anchors the advective family when degradation is negligible and residence-time clearance dominates the total loss term.",
+        "The claim is an edge-condition bound within the experimental advective screening family.",
+        "The purpose of this claim is to show the governed family remains bounded by clearance assumptions rather than drifting toward unbounded accumulation under effective persistence."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_extreme_persistence_clearance_anchor_fixture edge-condition case.",
+        "Supported by the advective_long_residence_time_accumulation_anchor_fixture weak-clearance companion edge case.",
+        "Supported by the advective_long_residence_time_accumulation_companion_fixture long-residence corroboration case."
+      ]
+    },
+    "advective_residence_time_override_application_v1": {
+      "displayName": "Advective residence-time override application",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel uses a supported water residence-time override in place of the governed curated default when computing first-order advective clearance.",
+      "claimClass": "advective_parameter_override",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "sensitivity"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_override_fixture"
+      ],
+      "referenceCaseIds": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_override_handling.v1",
+          "title": "Fate MCP advective runtime-override method notes",
+          "url": "docs://provenance_policy"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_residence_time_override_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_residence_time_override_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_short_residence_time_clearance_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_short_residence_time_clearance_companion_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_residence_time_accumulation_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_residence_time_accumulation_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_residence_time_accumulation_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_residence_time_accumulation_companion_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim is limited to runtime-supported residence-time parameters in the advective screening family.",
+        "The claim demonstrates that governed default residence times can be replaced by scenario-specific supported overrides.",
+        "The override semantics are limited to compartment residence time in the deterministic advective screening equation and do not imply calibration to site-specific hydrology.",
+        "Where a run sits near the governed loss transition, residence-time overrides can also move the resolved dominant-loss interpretation, which is why this claim is mapped to transition-boundary case families as well as clearance-edge families."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_residence_time_override_sensitivity_fixture hand-worked override case.",
+        "Supported by the advective_short_residence_time_clearance_companion_fixture short-residence override corroboration case.",
+        "Supported by the advective_long_residence_time_accumulation_anchor_fixture long-residence override edge case.",
+        "Supported by the advective_long_residence_time_accumulation_companion_fixture long-residence override corroboration case.",
+        "Supported by the advective_long_duration_plateau_sensitivity_fixture long-duration override corroboration case.",
+        "Mapped to the ECHA and EPA transition-boundary screening case families for reviewer-facing override sensitivity around the loss-regime boundary."
+      ]
+    },
+    "advective_short_residence_time_clearance_anchor_v1": {
+      "displayName": "Advective short-residence-time clearance anchor",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel suppresses concentration when a short residence time dominates the total loss term, even under effectively persistent conditions.",
+      "claimClass": "advective_clearance_edge_condition",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_clearance_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_clearance_edges.v1",
+          "title": "Fate MCP advective clearance edge-condition method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_short_residence_time_clearance_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_short_residence_time_clearance_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_short_residence_time_clearance_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_short_residence_time_clearance_companion_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim anchors clearance-dominant suppression in the experimental advective family under effectively persistent degradation assumptions.",
+        "The claim is an edge-condition check, not a broad hydrodynamic calibration statement."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_short_residence_time_clearance_anchor_fixture clearance-dominant edge case.",
+        "Supported by the advective_short_residence_time_clearance_companion_fixture short-residence corroboration case."
+      ]
+    },
+    "advective_long_duration_combined_loss_plateau_v1": {
+      "displayName": "Advective long-duration combined-loss plateau anchor",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel approaches the finite-duration combined-loss plateau when duration is long relative to both degradation half-life and residence time.",
+      "claimClass": "advective_duration_edge_condition",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_duration_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "advective_duration_plateau_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_duration_edges.v1",
+          "title": "Fate MCP advective duration edge-condition method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_long_duration_plateau_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_duration_plateau_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_duration_plateau_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_duration_plateau_companion_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_duration_plateau_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_duration_plateau_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim anchors the long-duration limit of the governed advective screening equation at a fixed release rate.",
+        "The claim remains finite-duration and does not assert infinite-time equilibrium or site-specific hydrodynamic realism."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_long_duration_plateau_anchor_fixture duration edge anchor.",
+        "Supported by the advective_long_duration_plateau_companion_fixture corroborating duration edge anchor.",
+        "Supported by the advective_long_duration_plateau_sensitivity_fixture duration corroboration under an alternate residence-time regime."
+      ]
+    },
+    "advective_long_residence_time_accumulation_anchor_v1": {
+      "displayName": "Advective long-residence-time accumulation anchor",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The advective screening kernel yields materially higher concentration when a long residence-time override weakens advective clearance under effectively persistent conditions.",
+      "claimClass": "advective_clearance_edge_condition",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_residence_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.advective_clearance_edges.v1",
+          "title": "Fate MCP advective clearance edge-condition method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "benchmark.advective_long_residence_time_accumulation_anchor_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_residence_time_accumulation_anchor_fixture",
+          "url": "benchmarks://manifest"
+        },
+        {
+          "source_id": "benchmark.advective_long_residence_time_accumulation_companion_fixture",
+          "title": "Fate MCP benchmark fixture: advective_long_residence_time_accumulation_companion_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim anchors the weak-clearance side of the governed advective family under effectively persistent degradation assumptions.",
+        "The claim is an edge-condition screening anchor that demonstrates directional sensitivity to residence time without claiming hydrodynamic calibration."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_long_residence_time_accumulation_anchor_fixture weak-clearance edge case.",
+        "Supported by the advective_long_residence_time_accumulation_companion_fixture corroborating weak-clearance edge case."
+      ]
+    },
+    "external_adapter_canonical_equivalence_v1": {
+      "displayName": "External adapter canonical surface equivalence",
+      "modelFamily": "external_result_adapter",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "downstream_export",
+        "benchmark"
+      ],
+      "statement": "The external result adapter normalizes governed JSON, CSV, and alternate-unit fixtures into identical canonical concentration-surface signatures.",
+      "claimClass": "adapter_equivalence",
+      "priority": "high",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "equivalence"
+      ],
+      "requiredReferenceTypes": [
+        "governed_fixture_equivalence"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "methods.external_result_adapter.v1",
+          "title": "Fate MCP external-result-adapter normalization method notes",
+          "url": "docs://adapter_spi"
+        },
+        {
+          "source_id": "benchmark.external_adapter_equivalence_fixture",
+          "title": "Fate MCP benchmark fixture: external_adapter_equivalence_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim covers adapter-side normalization into canonical Fate MCP surfaces.",
+        "The claim does not make any statement about the scientific validity of the external engine that produced the source export."
+      ],
+      "referenceCaseLines": [
+        "Supported by the external_adapter_equivalence_fixture governed equivalence case."
+      ],
+      "reviewNotes": [
+        "This is an import-normalization claim, not a claim about the external engine's native transport physics."
+      ]
+    },
+    "advective_post_release_late_recovery_regime_v1": {
+      "displayName": "Advective post-release late-recovery regime",
+      "modelFamily": "advective_screening_mass_balance",
+      "supportedRunModes": [
+        "time_bucket"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "statement": "The advective screening kernel distinguishes simple sub-half-recovery windows from stable late-recovery regimes under the bounded combined-loss depletion authority layer, so reviewers can confidently identify deep recovery rather than just treating it as generically below the 50% anchor.",
+      "claimClass": "advective_late_recovery",
+      "priority": "medium",
+      "mandatoryForRelease": true,
+      "requiredValidationTiers": [
+        "sensitivity",
+        "reference_style",
+        "edge_condition"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_late_recovery_reference_fixture",
+        "hand_worked_advective_post_release_late_recovery_edge_anchor"
+      ],
+      "referenceCaseIds": [
+        "oecd_post_release_half_recovery_directionality_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates: Degradation and Accumulation",
+          "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates-degradation-and-accumulation.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "methods.advective_post_release_late_recovery.v1",
+          "title": "Fate MCP advective post-release late-recovery regime method notes",
+          "url": "docs://validation_framework"
+        },
+        {
+          "source_id": "benchmark.advective_post_release_extended_flushing_sensitivity_fixture",
+          "title": "Fate MCP benchmark fixture: advective_post_release_extended_flushing_sensitivity_fixture",
+          "url": "benchmarks://manifest"
+        }
+      ],
+      "methodsBasisLines": [
+        "This claim evaluates advective time-bucket outputs that extend far beyond the combined-loss half-recovery boundary.",
+        "The claim asserts that late-stage depletion is specifically identified by a 4x half-recovery pace multiple and a retained mass ratio below 12.5%."
+      ],
+      "referenceCaseLines": [
+        "Supported by the advective_post_release_extended_flushing_sensitivity_fixture where the recovery window extends far enough to formally anchor the late-recovery depletion authority layer."
+      ]
+    }
+  }
+}

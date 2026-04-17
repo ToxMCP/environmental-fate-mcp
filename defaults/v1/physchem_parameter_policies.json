@@ -1,0 +1,115 @@
+{
+  "defaultsVersion": "v1",
+  "families": {
+    "screening_capacity_volume": {
+      "expectedUnit": "m3",
+      "runtimeSupported": true,
+      "conflictRelativeSpreadThreshold": 0.25,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "linear",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": false
+    },
+    "screening_capacity_mass": {
+      "expectedUnit": "kg",
+      "runtimeSupported": true,
+      "conflictRelativeSpreadThreshold": 0.3,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "linear",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": false
+    },
+    "screening_half_life": {
+      "expectedUnit": "day",
+      "runtimeSupported": true,
+      "conflictRelativeSpreadThreshold": 0.5,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "inverse_rate",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": true
+    },
+    "screening_residence_time": {
+      "expectedUnit": "day",
+      "runtimeSupported": true,
+      "conflictRelativeSpreadThreshold": 0.5,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "linear",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": false
+    },
+    "future_adapter_parameter": {
+      "runtimeSupported": false,
+      "conflictRelativeSpreadThreshold": 0.2,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "linear",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": false
+    },
+    "log10_descriptor": {
+      "expectedUnit": "log10",
+      "runtimeSupported": false,
+      "conflictRelativeSpreadThreshold": 0.5,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "log10",
+      "conflictMetric": "absolute_log_spread",
+      "disallowConservativeEmpiricalBlend": true
+    }
+  },
+  "parameters": {
+    "ambient_air_volume_m3": {
+      "family": "screening_capacity_volume",
+      "applicabilityNote": "Screening air capacity override used directly by the reference runtime."
+    },
+    "surface_water_volume_m3": {
+      "family": "screening_capacity_volume",
+      "applicabilityNote": "Screening water capacity override used directly by the reference runtime."
+    },
+    "agricultural_soil_mass_kg": {
+      "family": "screening_capacity_mass",
+      "applicabilityNote": "Screening soil mass override used directly by the reference runtime."
+    },
+    "freshwater_sediment_mass_kg": {
+      "family": "screening_capacity_mass",
+      "applicabilityNote": "Screening sediment mass override used directly by the reference runtime."
+    },
+    "air_half_life_days": {
+      "family": "screening_half_life",
+      "applicabilityNote": "Air degradation override used directly by the reference runtime."
+    },
+    "water_half_life_days": {
+      "family": "screening_half_life",
+      "applicabilityNote": "Water degradation override used directly by the reference runtime."
+    },
+    "soil_half_life_days": {
+      "family": "screening_half_life",
+      "conflictRelativeSpreadThreshold": 0.4,
+      "applicabilityNote": "Soil degradation override used directly by the reference runtime."
+    },
+    "sediment_half_life_days": {
+      "family": "screening_half_life",
+      "conflictRelativeSpreadThreshold": 0.4,
+      "applicabilityNote": "Sediment degradation override used directly by the reference runtime."
+    },
+    "air_residence_time_days": {
+      "family": "screening_residence_time",
+      "applicabilityNote": "Air residence-time override used directly by the advective screening runtime."
+    },
+    "water_residence_time_days": {
+      "family": "screening_residence_time",
+      "applicabilityNote": "Water residence-time override used directly by the advective screening runtime."
+    },
+    "soil_residence_time_days": {
+      "family": "screening_residence_time",
+      "applicabilityNote": "Soil residence-time override used directly by the advective screening runtime."
+    },
+    "sediment_residence_time_days": {
+      "family": "screening_residence_time",
+      "applicabilityNote": "Sediment residence-time override used directly by the advective screening runtime."
+    },
+    "log_kow": {
+      "family": "log10_descriptor",
+      "expectedUnit": "log10",
+      "applicabilityNote": "Preserved for provenance and future adapters, but not consumed by the reference runtime in v0.1."
+    }
+  }
+}

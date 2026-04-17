@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "ModelFamilyComparisonOutcome": {
+      "enum": [
+        "comparable_screening_outputs",
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "title": "ModelFamilyComparisonOutcome",
+      "type": "string"
+    },
+    "ModelFamilySelectionStatus": {
+      "enum": [
+        "default_baseline_only",
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "title": "ModelFamilySelectionStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "selection_profile_id": {
+      "title": "Selection Profile Id",
+      "type": "string"
+    },
+    "challenge_review_profile_id": {
+      "title": "Challenge Review Profile Id",
+      "type": "string"
+    },
+    "selection_recommendation_status": {
+      "$ref": "#/$defs/ModelFamilySelectionStatus"
+    },
+    "selection_review_status": {
+      "title": "Selection Review Status",
+      "type": "string"
+    },
+    "comparison_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Comparison Profile Id"
+    },
+    "comparison_outcome": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ModelFamilyComparisonOutcome"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "comparison_review_status": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Comparison Review Status"
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "triggered_check_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Check Codes",
+      "type": "array"
+    },
+    "triggered_component_statuses": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Component Statuses",
+      "type": "array"
+    },
+    "governing_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Governing Rule Lines",
+      "type": "array"
+    },
+    "status_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Status Rule Lines",
+      "type": "array"
+    },
+    "triggered_signal_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Signal Lines",
+      "type": "array"
+    },
+    "dominant_delta_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dominant Delta Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "selection_profile_id",
+    "challenge_review_profile_id",
+    "selection_recommendation_status",
+    "selection_review_status",
+    "review_status"
+  ],
+  "title": "ModelFamilyChallengeReviewPreview",
+  "type": "object"
+}

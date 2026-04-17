@@ -1,0 +1,119 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ScientificReviewOutcome": {
+      "enum": [
+        "acceptable_screening_use",
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "title": "ScientificReviewOutcome",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "fit_for_purpose": {
+      "$ref": "#/$defs/FitForPurpose"
+    },
+    "review_profile_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "review_outcome": {
+      "$ref": "#/$defs/ScientificReviewOutcome"
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "triggered_fit_verdicts": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Fit Verdicts",
+      "type": "array"
+    },
+    "triggered_driver_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Driver Types",
+      "type": "array"
+    },
+    "triggered_check_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Check Codes",
+      "type": "array"
+    },
+    "governing_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Governing Rule Lines",
+      "type": "array"
+    },
+    "status_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Status Rule Lines",
+      "type": "array"
+    },
+    "outcome_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Outcome Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "run_id",
+    "model_family",
+    "fit_for_purpose",
+    "review_profile_model_family",
+    "review_outcome",
+    "review_status"
+  ],
+  "title": "ScientificReviewOutcomePreview",
+  "type": "object"
+}

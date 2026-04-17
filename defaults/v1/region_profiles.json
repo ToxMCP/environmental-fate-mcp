@@ -1,0 +1,36 @@
+{
+  "defaultsVersion": "v1",
+  "profiles": [
+    {
+      "regionId": "eu_screening_default",
+      "displayName": "European regional screening default",
+      "compartmentScalars": {
+        "ambient_air": 1.0,
+        "surface_water": 1.0,
+        "agricultural_soil": 1.0,
+        "freshwater_sediment": 1.0
+      },
+      "knownGaps": [
+        "No coastal marine compartment in v0.1",
+        "No explicit sludge or dust pack in v0.1"
+      ],
+      "sourcePack": "defaults/v1/region_profiles.json",
+      "applicabilityNote": "Baseline regional screening profile for general v0.1 use."
+    },
+    {
+      "regionId": "temperate_river_basin",
+      "displayName": "Temperate river-basin screening profile",
+      "compartmentScalars": {
+        "ambient_air": 0.85,
+        "surface_water": 0.6,
+        "agricultural_soil": 1.1,
+        "freshwater_sediment": 0.75
+      },
+      "knownGaps": [
+        "Representative screening profile only"
+      ],
+      "sourcePack": "defaults/v1/region_profiles.json",
+      "applicabilityNote": "Useful for river-basin style screening cases with reduced water capacity."
+    }
+  ]
+}

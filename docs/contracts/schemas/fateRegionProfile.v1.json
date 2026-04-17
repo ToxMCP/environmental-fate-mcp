@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "region_id": {
+      "title": "Region Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "compartment_scalars": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "propertyNames": {
+        "$ref": "#/$defs/Compartment"
+      },
+      "title": "Compartment Scalars",
+      "type": "object"
+    },
+    "known_gaps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Known Gaps",
+      "type": "array"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "region_id",
+    "display_name",
+    "compartment_scalars",
+    "source_pack"
+  ],
+  "title": "FateRegionProfile",
+  "type": "object"
+}

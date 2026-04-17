@@ -1,0 +1,155 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilyApplicabilityProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "items": {
+            "$ref": "#/$defs/FitForPurpose"
+          },
+          "title": "Fit For Purpose",
+          "type": "array"
+        },
+        "supported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Substance Classes",
+          "type": "array"
+        },
+        "unsupported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unsupported Substance Classes",
+          "type": "array"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "core_assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Core Assumptions",
+          "type": "array"
+        },
+        "deferred_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Deferred Capabilities",
+          "type": "array"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        },
+        "applicability_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applicability Note"
+        }
+      },
+      "required": [
+        "model_family",
+        "source_pack"
+      ],
+      "title": "ModelFamilyApplicabilityProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "fit_score": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Fit Score",
+      "type": "number"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "fit_for_purpose": {
+      "$ref": "#/$defs/FitForPurpose"
+    },
+    "verdict": {
+      "title": "Verdict",
+      "type": "string"
+    },
+    "reasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "applicability_profile": {
+      "$ref": "#/$defs/ModelFamilyApplicabilityProfile"
+    },
+    "applicability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicability Lines",
+      "type": "array"
+    },
+    "scientific_unsuitability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Unsuitability Lines",
+      "type": "array"
+    }
+  },
+  "required": [
+    "fit_score",
+    "model_family",
+    "fit_for_purpose",
+    "verdict",
+    "reasons",
+    "applicability_profile"
+  ],
+  "title": "ReleaseScenarioFitAssessment",
+  "type": "object"
+}

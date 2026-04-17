@@ -1,0 +1,398 @@
+{
+  "comparison_packet": {
+    "schema_version": "v1",
+    "comparison_packet_id": "familycmp-f48b5edbd366",
+    "scenario_id": "scenario-0b6762303adb",
+    "run_mode": "steady_state",
+    "fit_for_purpose": "screening",
+    "comparison_profile_id": "reference_vs_advective_screening_v1",
+    "base_model_family": "reference_mass_balance",
+    "candidate_model_family": "advective_screening_mass_balance",
+    "comparison_outcome": "material_model_family_divergence",
+    "base_fit_assessment": {
+      "fit_score": 0.85,
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "verdict": "good_fit",
+      "reasons": [
+        "Some parameter records are preserved for provenance but are not consumed by the reference runtime: log_kow"
+      ],
+      "applicability_profile": {
+        "model_family": "reference_mass_balance",
+        "fit_for_purpose": [
+          "screening",
+          "benchmark",
+          "downstream_export"
+        ],
+        "supported_substance_classes": [
+          "neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions",
+          "release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments",
+          "deterministic assessor-review and benchmark workflows that require transparent concentration-only outputs"
+        ],
+        "unsupported_substance_classes": [
+          "metals and metal species requiring speciation-aware fate treatment",
+          "nanomaterials or particulate systems requiring size-resolved transport behavior",
+          "strongly ionizing chemistries where screening partition and persistence assumptions are likely unstable",
+          "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics",
+          "extreme persistence requiring higher-tier modeling",
+          "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+          "point-source plume dependence requiring explicit near-field dispersion models",
+          "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+          "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
+        ],
+        "required_inputs": [
+          "total_release_mass_kg",
+          "release_fractions",
+          "duration_days",
+          "region_profile_id",
+          "media-specific capacity defaults or governed overrides",
+          "media-specific half-life defaults or governed overrides"
+        ],
+        "core_assumptions": [
+          "The runtime emits regional concentration surfaces rather than dose, exposure, or risk values.",
+          "Each release medium is represented as a single screening compartment with governed capacity defaults.",
+          "Finite-duration first-order decay is applied over the declared release duration and any post-release elapsed time.",
+          "Steady-state mode reports the end-of-duration screening concentration rather than an infinite-time equilibrium.",
+          "Only treatment assumptions explicitly marked as pre_release_global are numerically applied before release; all other treatment assumptions remain provenance-only.",
+          "Reference mass balance does not add explicit advective clearance or intermedia transfer terms."
+        ],
+        "deferred_capabilities": [
+          "explicit spatial dispersion and gradients",
+          "intermedia transfer coefficient modeling",
+          "probabilistic uncertainty propagation",
+          "transformation-product tracking",
+          "food-chain or dose translation workflows"
+        ],
+        "review_notes": [
+          "Use for concentration-only screening support, benchmark demonstrations, and downstream suite handoff preparation.",
+          "Review unsupported runtime parameters before treating outputs as more than screening indicators.",
+          "Escalate to richer model families when multiple complex media interactions dominate the decision context."
+        ],
+        "source_pack": "defaults/v1/model_family_applicability_profiles.json",
+        "applicability_note": "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+      },
+      "applicability_lines": [
+        "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+        "Requested fit-for-purpose: screening.",
+        "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+        "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+        "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+      ],
+      "scientific_unsuitability_lines": []
+    },
+    "candidate_fit_assessment": {
+      "fit_score": 0.85,
+      "model_family": "advective_screening_mass_balance",
+      "fit_for_purpose": "screening",
+      "verdict": "good_fit",
+      "reasons": [
+        "Some parameter records are preserved for provenance but are not consumed by the reference runtime: log_kow"
+      ],
+      "applicability_profile": {
+        "model_family": "advective_screening_mass_balance",
+        "fit_for_purpose": [
+          "screening",
+          "benchmark",
+          "downstream_export"
+        ],
+        "supported_substance_classes": [
+          "screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term",
+          "regional air, water, soil, or sediment releases where first-order degradation plus first-order advective clearance are an acceptable deterministic simplification",
+          "review workflows that need a concentration-only output with calculation traces for both degradation and residence-time loss terms"
+        ],
+        "unsupported_substance_classes": [
+          "metals and metal species requiring speciation-aware fate treatment",
+          "nanomaterials or particulate systems requiring size-resolved transport behavior",
+          "assessments requiring explicit intermedia mass transfer, plume dynamics, or spatial hydrodynamics",
+          "cases where residence-time defaults are too coarse to represent local transport conditions credibly",
+          "extreme persistence requiring higher-tier modeling",
+          "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+          "point-source plume dependence requiring explicit near-field dispersion models",
+          "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+          "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
+        ],
+        "required_inputs": [
+          "total_release_mass_kg",
+          "release_fractions",
+          "duration_days",
+          "region_profile_id",
+          "media-specific capacity defaults or governed overrides",
+          "media-specific half-life defaults or governed overrides",
+          "media-specific residence-time defaults or governed overrides"
+        ],
+        "core_assumptions": [
+          "The runtime emits regional concentration surfaces rather than dose, exposure, or risk values.",
+          "Each release medium is represented as a single screening compartment with governed capacity defaults.",
+          "Finite-duration first-order degradation and first-order advective clearance are combined into one total loss constant per medium.",
+          "Steady-state mode reports the end-of-duration screening concentration rather than an infinite-time equilibrium.",
+          "Only treatment assumptions explicitly marked as pre_release_global are numerically applied before release; all other treatment assumptions remain provenance-only."
+        ],
+        "deferred_capabilities": [
+          "explicit spatial dispersion and gradients",
+          "intermedia transfer coefficient modeling",
+          "probabilistic uncertainty propagation",
+          "transformation-product tracking",
+          "food-chain or dose translation workflows"
+        ],
+        "review_notes": [
+          "Use when a screening workflow needs a governed residence-time clearance term in addition to first-order degradation.",
+          "Treat the family as experimental and compare it against the corrected reference family before using it in decision-facing review materials.",
+          "Escalate to richer model families when spatial hydrodynamics, drainage structure, or intermedia exchange dominate the question."
+        ],
+        "source_pack": "defaults/v1/model_family_applicability_profiles.json",
+        "applicability_note": "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+      },
+      "applicability_lines": [
+        "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+        "Requested fit-for-purpose: screening.",
+        "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
+        "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+        "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+      ],
+      "scientific_unsuitability_lines": []
+    },
+    "comparison": {
+      "schema_version": "v1",
+      "comparison_id": "comparison-216f7c7adacf",
+      "base_scenario_id": "scenario-0b6762303adb",
+      "candidate_scenario_id": "scenario-0b6762303adb",
+      "surface_deltas": [
+        {
+          "medium": "air",
+          "compartment": "ambient_air",
+          "base_value": 0.00024044183555505707,
+          "candidate_value": 0.00012256579588130624,
+          "concentration_unit": "mg/m3",
+          "absolute_delta": -0.00011787603967375082,
+          "relative_delta": -0.4902476285028993
+        },
+        {
+          "medium": "water",
+          "compartment": "surface_water",
+          "base_value": 5.93830089619883e-06,
+          "candidate_value": 3.714023438739669e-06,
+          "concentration_unit": "mg/L",
+          "absolute_delta": -2.224277457459161e-06,
+          "relative_delta": -0.37456462653870315
+        },
+        {
+          "medium": "soil",
+          "compartment": "agricultural_soil",
+          "base_value": 0.0010820212806667226,
+          "candidate_value": 0.0010061930371586863,
+          "concentration_unit": "mg/kg",
+          "absolute_delta": -7.582824350803622e-05,
+          "relative_delta": -0.07008017759254438
+        }
+      ],
+      "changed_assumptions": [
+        "air_advective_clearance_constant_per_day:0.3333333333333333",
+        "air_residence_time_days:3.0",
+        "air_total_loss_constant_per_day:0.679906923613306",
+        "soil_advective_clearance_constant_per_day:0.005555555555555556",
+        "soil_residence_time_days:180.0",
+        "soil_total_loss_constant_per_day:0.0286604615742204",
+        "water_advective_clearance_constant_per_day:0.05",
+        "water_residence_time_days:20.0",
+        "water_total_loss_constant_per_day:0.10776226504666211"
+      ],
+      "dominant_drivers": [
+        "air/ambient_air delta=-0.000117876 mg/m3",
+        "soil/agricultural_soil delta=-7.58282e-05 mg/kg",
+        "water/surface_water delta=-2.22428e-06 mg/L"
+      ],
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-04-17T08:19:40.200230Z",
+        "source_references": []
+      },
+      "limitations": [],
+      "blockers": [],
+      "quality_flags": []
+    },
+    "base_surface_samples": [
+      {
+        "medium": "air",
+        "compartment": "ambient_air",
+        "concentration_value": 0.00024044183555505707,
+        "concentration_unit": "mg/m3",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "finite_duration_continuous_release_first_order",
+        "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+      },
+      {
+        "medium": "water",
+        "compartment": "surface_water",
+        "concentration_value": 5.93830089619883e-06,
+        "concentration_unit": "mg/L",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "finite_duration_continuous_release_first_order",
+        "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+      },
+      {
+        "medium": "soil",
+        "compartment": "agricultural_soil",
+        "concentration_value": 0.0010820212806667226,
+        "concentration_unit": "mg/kg",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "finite_duration_continuous_release_first_order",
+        "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+      }
+    ],
+    "candidate_surface_samples": [
+      {
+        "medium": "air",
+        "compartment": "ambient_air",
+        "concentration_value": 0.00012256579588130624,
+        "concentration_unit": "mg/m3",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "advective_screening_continuous_release_first_order",
+        "equation_text": "C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+      },
+      {
+        "medium": "water",
+        "compartment": "surface_water",
+        "concentration_value": 3.714023438739669e-06,
+        "concentration_unit": "mg/L",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "advective_screening_continuous_release_first_order",
+        "equation_text": "C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+      },
+      {
+        "medium": "soil",
+        "compartment": "agricultural_soil",
+        "concentration_value": 0.0010061930371586863,
+        "concentration_unit": "mg/kg",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "advective_screening_continuous_release_first_order",
+        "equation_text": "C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+      }
+    ],
+    "summary_lines": [
+      "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+      "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
+      "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
+      "Base fit verdict: good_fit (score=0.85).",
+      "Candidate fit verdict: good_fit (score=0.85).",
+      "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary."
+    ],
+    "dominant_delta_lines": [
+      "air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%)",
+      "soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%)",
+      "water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)"
+    ],
+    "outcome_lines": [
+      "Treat the comparison as a material model-family divergence and review residence-time assumptions, equation traces, and applicability before preferring the experimental family."
+    ],
+    "base_benchmark_reference_lines": [
+      "Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
+      "Representative covered claims: Reference air finite-duration first-order screening equation, Reference executable treatment reduction, Reference long-duration near-plateau anchor.",
+      "Representative supporting fixtures: air_reference_chemical_style_fixture, reference_air_capacity_sensitivity_fixture, reference_treatment_reduction_anchor_fixture."
+    ],
+    "candidate_benchmark_reference_lines": [
+      "Scientific validation claim coverage for advective_screening_mass_balance/steady_state: 12/12 governed claims covered.",
+      "Representative covered claims: Advective clearance-dominant loss-share transition, Advective cumulative mass-balance closure, Advective degradation-dominant loss-share transition.",
+      "Representative supporting fixtures: advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_transition_flip_to_clearance_fixture."
+    ],
+    "base_equation_lines": [
+      "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+      "surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+      "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+    ],
+    "candidate_equation_lines": [
+      "ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+      "surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+      "agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+    ],
+    "recommended_actions": [
+      "Treat the candidate family as experimental and keep the default reference family as the screening baseline unless the transport question clearly requires the candidate assumptions.",
+      "Review the dominant surface deltas, residence-time assumptions, and equation traces before choosing which family better matches the decision context.",
+      "Use this comparison profile when the reference family is the screening baseline and the advective family is being challenged on the same scenario.",
+      "Interpret the candidate family as experimental and non-default even when the comparison shows material differences.",
+      "Escalate to richer transport methods when the decision context is dominated by spatial hydrodynamics or intermedia transfer."
+    ],
+    "packet_template_used": "Build a deterministic model-family comparison packet that treats the corrected reference mass-balance family as the release baseline and the advective family as a governed experimental challenge path.",
+    "brief_template_used": "Summarize whether the experimental advective family materially changes the screening interpretation relative to the corrected reference family for the same scenario.",
+    "provenance": {
+      "schema_version": "v1",
+      "defaults_version": "v1",
+      "algorithm_version": "reference-mass-balance-0.1.0",
+      "generated_at": "2026-04-17T08:19:40.204745Z",
+      "source_references": [
+        {
+          "source_id": "example.release.note",
+          "title": "Illustrative release scenario",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.air.volume",
+          "title": "Regional ambient air screening volume",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.air.halflife",
+          "title": "Air screening half-life",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.air.residence_time",
+          "title": "Air screening residence time",
+          "effective_date": "2026-04-11",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.water.volume",
+          "title": "Regional surface water screening volume",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.water.residence_time",
+          "title": "Surface-water screening residence time",
+          "effective_date": "2026-04-11",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.soil.mass",
+          "title": "Agricultural soil screening mass",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.soil.halflife",
+          "title": "Soil screening half-life",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "screening.default.soil.residence_time",
+          "title": "Soil screening residence time",
+          "effective_date": "2026-04-11",
+          "url": null
+        }
+      ]
+    },
+    "limitations": [
+      {
+        "code": "model_family_comparison",
+        "message": "Model-family comparison reflects deterministic Environmental Fate MCP outputs for one matched scenario and does not by itself endorse either family as the scientifically correct choice."
+      },
+      {
+        "code": "experimental_candidate_model_family",
+        "message": "Candidate model family advective_screening_mass_balance is published as experimental and should be treated as a challenge path rather than a default release baseline."
+      }
+    ],
+    "blockers": []
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "defaultsVersion": "v1",
+  "files": [
+    {
+      "path": "defaults/v1/adapter_unit_conversions.json",
+      "sha256": "8d91c3bf3543027c8b612b81ae3c4c41e324db94af80b21f7f6e2f9f30daaeb3",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/core_defaults.json",
+      "sha256": "0b1fbd840bac0451ef3d213d91490adb9baf8f2b4a7c2a972567c2d6bcc8aa74",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_applicability_profiles.json",
+      "sha256": "7fcc82faccd4611de5cf2b1e7fa8c786423324ec59f436c8c6e66eb86cca34d4",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_challenge_review_profiles.json",
+      "sha256": "3d7a189414e2f7171b9ee1fa3b759bf818f8ddc30f4ba442a74adbf4f55a1182",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_comparison_profiles.json",
+      "sha256": "301628b42016bada03130225a879f6baab2cf8e515e206a73993e882f02a09c0",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/model_family_selection_profiles.json",
+      "sha256": "2b91e7617817f568cd2ba8ff90e36ab21b05e1699d086a1d46f42015073d1258",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/physchem_parameter_policies.json",
+      "sha256": "83da6e8d50a8e37a04765aef1dacaba2ff8258c773a1070f8bbd2a36dc29792b",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/reconciliation_thresholds.json",
+      "sha256": "6e3051b4d9313c96e80bae104069fe71beece938af485cffd9bd9311668d8f8f",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/region_profiles.json",
+      "sha256": "d92a051feb849000df5910968ba7749b0a4593d050741d05c3c54eefd2ca0157",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/regulatory_handoff_profiles.json",
+      "sha256": "99267b8ca1171d2e2cd682a4598eb6c7ac69e89230042f4f460d47aeb121f652",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/scientific_reference_cases.json",
+      "sha256": "d6f3b8bdf05d28b693c14615d25ea1a5e3d2d1dd426bd0f9531f1b5dde114c8b",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/scientific_review_profiles.json",
+      "sha256": "fe9c3dce3788e97c8c267b215c1dcf8599d3a1ab6c10be73ba9dbb9d92e8442a",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/scientific_validation_claims.json",
+      "sha256": "e644a122bc9ff8bc1ed9ae5cdc83ba0a188b32bb217e34912863da0d925904f0",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/extensions/nordic_screening_pack.json",
+      "sha256": "9917c2c8144362856e931e685d4c3f835d85cda79a0e90d8e253923d60c4fd05",
+      "defaultsVersion": "v1"
+    }
+  ]
+}

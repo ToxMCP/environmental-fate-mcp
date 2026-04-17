@@ -1,0 +1,171 @@
+{
+  "schema_version": "v1",
+  "profiles": [
+    {
+      "profile_id": "normalized_external_payload_json",
+      "display_name": "Normalized External Payload JSON",
+      "accepted_extensions": [
+        ".json"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "Canonical engine-like JSON payload consumed directly by the adapter harness.",
+      "semantic_mapping": null
+    },
+    {
+      "profile_id": "normalized_external_payload_csv",
+      "display_name": "Normalized External Payload CSV",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "Canonical engine-like CSV payload consumed directly by the adapter harness.",
+      "semantic_mapping": null
+    },
+    {
+      "profile_id": "legacy_screening_desktop_export_v1",
+      "display_name": "Legacy Screening Desktop Export",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "Concrete legacy desktop screening export normalized into Environmental Fate MCP concentrations.",
+      "semantic_mapping": null
+    },
+    {
+      "profile_id": "euses_screening_export_v1",
+      "display_name": "EUSES Desktop Screening Export",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "EUSES screening export normalized into Environmental Fate MCP concentrations.",
+      "semantic_mapping": {
+        "semantic_loss": "minor",
+        "compartment_semantics": "EUSES regional compartments map to Environmental Fate MCP generic compartments.",
+        "time_semantics": "Steady-state mode maps end-of-duration screening without resolving multi-year temporal profiles.",
+        "spatial_scale_semantics": "Regional scale assumed; continental scale explicitly excluded from screening normalizations.",
+        "basis_semantics": "Dry weight normalization applied to soil/sediment.",
+        "release_partition_semantics": "Release fractions map 1:1."
+      }
+    },
+    {
+      "profile_id": "epi_suite_screening_export_v1",
+      "display_name": "EPI Suite Desktop Screening Export",
+      "accepted_extensions": [
+        ".csv"
+      ],
+      "accepted_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "internal_only": true,
+      "description": "EPI Suite screening export normalized into Environmental Fate MCP concentrations.",
+      "semantic_mapping": {
+        "semantic_loss": "material_but_bounded",
+        "compartment_semantics": "Level III Mackay compartments map directly to Environmental Fate MCP.",
+        "time_semantics": "Steady state assumed as standard EPI Suite Level III default.",
+        "spatial_scale_semantics": "Default generic environment area.",
+        "basis_semantics": "Dry weight mapped.",
+        "release_partition_semantics": "Maps directly to Level III emission modes."
+      }
+    }
+  ],
+  "fixtures": [
+    {
+      "fixture_name": "illustrative_external_engine_payload_json",
+      "path": "config/adapter-fixtures/illustrative_external_engine_payload.json",
+      "import_profile": "normalized_external_payload_json",
+      "format": "json",
+      "expected_engine_name": "illustrative-external-engine",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "illustrative_external_engine_payload_csv",
+      "path": "config/adapter-fixtures/illustrative_external_engine_payload.csv",
+      "import_profile": "normalized_external_payload_csv",
+      "format": "csv",
+      "expected_engine_name": "illustrative-external-engine",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "illustrative_external_engine_payload_alt_units",
+      "path": "config/adapter-fixtures/illustrative_external_engine_payload_alt_units.csv",
+      "import_profile": "normalized_external_payload_csv",
+      "format": "csv",
+      "expected_engine_name": "illustrative-external-engine",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "legacy_screening_desktop_export",
+      "path": "config/adapter-fixtures/legacy_screening_desktop_export.csv",
+      "import_profile": "legacy_screening_desktop_export_v1",
+      "format": "csv",
+      "expected_engine_name": "legacy-screening-desktop",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "legacy_screening_desktop_export_time_bucket",
+      "path": "config/adapter-fixtures/legacy_screening_desktop_export_time_bucket.csv",
+      "import_profile": "legacy_screening_desktop_export_v1",
+      "format": "csv",
+      "expected_engine_name": "legacy-screening-desktop",
+      "supported_modes": [
+        "time_bucket"
+      ]
+    },
+    {
+      "fixture_name": "legacy_screening_desktop_export_weight_basis",
+      "path": "config/adapter-fixtures/legacy_screening_desktop_export_weight_basis.csv",
+      "import_profile": "legacy_screening_desktop_export_v1",
+      "format": "csv",
+      "expected_engine_name": "legacy-screening-desktop",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "euses_screening_export",
+      "path": "config/adapter-fixtures/euses_screening_export.csv",
+      "import_profile": "euses_screening_export_v1",
+      "format": "csv",
+      "expected_engine_name": "euses-screening-desktop",
+      "supported_modes": [
+        "steady_state"
+      ]
+    },
+    {
+      "fixture_name": "epi_suite_screening_export",
+      "path": "config/adapter-fixtures/epi_suite_screening_export.csv",
+      "import_profile": "epi_suite_screening_export_v1",
+      "format": "csv",
+      "expected_engine_name": "epi-suite-screening",
+      "supported_modes": [
+        "steady_state"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "defaultsVersion": "v1",
+  "description": "Numerical thresholds for reconciliation, comparison, and agreement checks.",
+  "thresholds": {
+    "mass_relative_spread": {
+      "value": 0.25,
+      "description": "Maximum acceptable relative spread for mass-based reconciliation agreement."
+    },
+    "fraction_absolute_spread": {
+      "value": 0.15,
+      "description": "Maximum acceptable absolute spread for fraction-based reconciliation agreement."
+    },
+    "vector_cosine_similarity": {
+      "value": 0.5,
+      "description": "Minimum cosine similarity for vector-shape agreement in model-family comparisons."
+    }
+  }
+}

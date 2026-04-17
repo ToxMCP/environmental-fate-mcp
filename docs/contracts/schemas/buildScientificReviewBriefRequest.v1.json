@@ -1,0 +1,1012 @@
+{
+  "$defs": {
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "EscalationConcern": {
+      "enum": [
+        "extreme_persistence",
+        "strong_spatial_heterogeneity",
+        "point_source_plume_dependence",
+        "pfas_like_transport",
+        "jurisdictional_probabilistic_requirement"
+      ],
+      "title": "EscalationConcern",
+      "type": "string"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilyApplicabilityProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "items": {
+            "$ref": "#/$defs/FitForPurpose"
+          },
+          "title": "Fit For Purpose",
+          "type": "array"
+        },
+        "supported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Substance Classes",
+          "type": "array"
+        },
+        "unsupported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unsupported Substance Classes",
+          "type": "array"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "core_assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Core Assumptions",
+          "type": "array"
+        },
+        "deferred_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Deferred Capabilities",
+          "type": "array"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        },
+        "applicability_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applicability Note"
+        }
+      },
+      "required": [
+        "model_family",
+        "source_pack"
+      ],
+      "title": "ModelFamilyApplicabilityProfile",
+      "type": "object"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "ReleaseScenarioFitAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "fit_score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fit Score",
+          "type": "number"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "verdict": {
+          "title": "Verdict",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "applicability_profile": {
+          "$ref": "#/$defs/ModelFamilyApplicabilityProfile"
+        },
+        "applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicability Lines",
+          "type": "array"
+        },
+        "scientific_unsuitability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Unsuitability Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "fit_score",
+        "model_family",
+        "fit_for_purpose",
+        "verdict",
+        "reasons",
+        "applicability_profile"
+      ],
+      "title": "ReleaseScenarioFitAssessment",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "RunParameterManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "escalation_concerns": {
+          "items": {
+            "$ref": "#/$defs/EscalationConcern"
+          },
+          "title": "Escalation Concerns",
+          "type": "array"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/RunParameterManifestEntry"
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "fit_for_purpose",
+        "entries",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "RunParameterManifest",
+      "type": "object"
+    },
+    "RunParameterManifestEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "resolved_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Resolved Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "evidence_quality": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Quality"
+        },
+        "runtime_consumed": {
+          "title": "Runtime Consumed",
+          "type": "boolean"
+        },
+        "source_reference_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Reference Ids",
+          "type": "array"
+        },
+        "quality_flag_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flag Codes",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "parameter",
+        "resolved_value",
+        "source_classification",
+        "runtime_consumed",
+        "rationale"
+      ],
+      "title": "RunParameterManifestEntry",
+      "type": "object"
+    },
+    "RunUncertaintySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "top_drivers": {
+          "items": {
+            "$ref": "#/$defs/UncertaintyDriver"
+          },
+          "title": "Top Drivers",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "top_drivers",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "RunUncertaintySummary",
+      "type": "object"
+    },
+    "ScientificReviewCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "passed",
+        "message"
+      ],
+      "title": "ScientificReviewCheck",
+      "type": "object"
+    },
+    "ScientificReviewChecklistItem": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale",
+        "status"
+      ],
+      "title": "ScientificReviewChecklistItem",
+      "type": "object"
+    },
+    "ScientificReviewOutcome": {
+      "enum": [
+        "acceptable_screening_use",
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "title": "ScientificReviewOutcome",
+      "type": "string"
+    },
+    "ScientificReviewOutcomePreview": {
+      "additionalProperties": false,
+      "properties": {
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "review_profile_model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "review_outcome": {
+          "$ref": "#/$defs/ScientificReviewOutcome"
+        },
+        "review_status": {
+          "title": "Review Status",
+          "type": "string"
+        },
+        "triggered_fit_verdicts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Triggered Fit Verdicts",
+          "type": "array"
+        },
+        "triggered_driver_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Triggered Driver Types",
+          "type": "array"
+        },
+        "triggered_check_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Triggered Check Codes",
+          "type": "array"
+        },
+        "governing_rule_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Governing Rule Lines",
+          "type": "array"
+        },
+        "status_rule_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Status Rule Lines",
+          "type": "array"
+        },
+        "outcome_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Outcome Lines",
+          "type": "array"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "fit_for_purpose",
+        "review_profile_model_family",
+        "review_outcome",
+        "review_status"
+      ],
+      "title": "ScientificReviewOutcomePreview",
+      "type": "object"
+    },
+    "ScientificReviewPacket": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "review_packet_id": {
+          "title": "Review Packet Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "review_status": {
+          "title": "Review Status",
+          "type": "string"
+        },
+        "review_outcome": {
+          "$ref": "#/$defs/ScientificReviewOutcome"
+        },
+        "outcome_preview": {
+          "$ref": "#/$defs/ScientificReviewOutcomePreview"
+        },
+        "fit_assessment": {
+          "$ref": "#/$defs/ReleaseScenarioFitAssessment"
+        },
+        "parameter_manifest": {
+          "$ref": "#/$defs/RunParameterManifest"
+        },
+        "uncertainty_summary": {
+          "$ref": "#/$defs/RunUncertaintySummary"
+        },
+        "surface_samples": {
+          "items": {
+            "$ref": "#/$defs/ScientificReviewSurfaceSummary"
+          },
+          "title": "Surface Samples",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "outcome_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Outcome Lines",
+          "type": "array"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        },
+        "benchmark_reference_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Benchmark Reference Lines",
+          "type": "array"
+        },
+        "equation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Lines",
+          "type": "array"
+        },
+        "equation_component_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Component Lines",
+          "type": "array"
+        },
+        "mass_balance_component_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Mass Balance Component Lines",
+          "type": "array"
+        },
+        "transport_regime_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Transport Regime Lines",
+          "type": "array"
+        },
+        "post_release_recovery_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Recovery Lines",
+          "type": "array"
+        },
+        "post_release_regime_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Regime Lines",
+          "type": "array"
+        },
+        "post_release_directionality_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Directionality Lines",
+          "type": "array"
+        },
+        "post_release_pace_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Pace Lines",
+          "type": "array"
+        },
+        "post_release_pace_directionality_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Post Release Pace Directionality Lines",
+          "type": "array"
+        },
+        "loss_dominance_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Loss Dominance Lines",
+          "type": "array"
+        },
+        "loss_transition_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Loss Transition Lines",
+          "type": "array"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/ScientificReviewCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "review_checklist": {
+          "items": {
+            "$ref": "#/$defs/ScientificReviewChecklistItem"
+          },
+          "title": "Review Checklist",
+          "type": "array"
+        },
+        "review_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Template Used"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "fit_for_purpose",
+        "review_status",
+        "review_outcome",
+        "outcome_preview",
+        "fit_assessment",
+        "parameter_manifest",
+        "uncertainty_summary",
+        "summary_lines",
+        "checks",
+        "provenance"
+      ],
+      "title": "ScientificReviewPacket",
+      "type": "object"
+    },
+    "ScientificReviewSurfaceSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "time_window_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "bucket_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bucket Label"
+        },
+        "equation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Id"
+        },
+        "equation_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Text"
+        }
+      },
+      "required": [
+        "medium",
+        "compartment",
+        "concentration_value",
+        "concentration_unit",
+        "time_window_mode"
+      ],
+      "title": "ScientificReviewSurfaceSummary",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "UncertaintyDriver": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "driver_type": {
+          "title": "Driver Type",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "source_reference_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Reference Ids",
+          "type": "array"
+        },
+        "quality_flag_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flag Codes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "driver_type",
+        "reason",
+        "severity"
+      ],
+      "title": "UncertaintyDriver",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "review_packet": {
+      "$ref": "#/$defs/ScientificReviewPacket"
+    }
+  },
+  "required": [
+    "review_packet"
+  ],
+  "title": "BuildScientificReviewBriefRequest",
+  "type": "object"
+}

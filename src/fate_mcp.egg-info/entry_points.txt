@@ -1,0 +1,4 @@
+[console_scripts]
+fate-mcp = fate_mcp.__main__:main
+fate-mcp-generate-artifacts = fate_mcp.contracts:main
+fate-mcp-validate = fate_mcp.validation:main

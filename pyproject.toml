@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "environmental-fate-mcp"
+version = "0.1.0"
+description = "Environmental Fate MCP for auditable environmental release-to-concentration workflows"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "ToxMCP" }]
+dependencies = [
+  "mcp[cli]>=1.27.0,<2.0.0",
+  "pydantic>=2.8,<3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2",
+  "pytest-cov>=5.0",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+environmental-fate-mcp = "fate_mcp.__main__:main"
+environmental-fate-mcp-generate-artifacts = "fate_mcp.contracts:main"
+environmental-fate-mcp-validate = "fate_mcp.validation:main"
+fate-mcp = "fate_mcp.__main__:main"
+fate-mcp-generate-artifacts = "fate_mcp.contracts:main"
+fate-mcp-validate = "fate_mcp.validation:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

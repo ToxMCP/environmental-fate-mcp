@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install dependencies
+        run: uv sync --extra dev
+      - name: Generate artifacts
+        run: uv run fate-mcp-generate-artifacts
+      - name: Ensure artifacts are up to date
+        run: |
+          git diff --exit-code || (
+            echo "::error::Generated artifacts are out of date. Run 'uv run fate-mcp-generate-artifacts' and commit the changes." &&
+            exit 1
+          )
+      - name: Run tests
+        run: uv run pytest

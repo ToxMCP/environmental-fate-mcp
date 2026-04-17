@@ -1,0 +1,150 @@
+{
+  "schema_version": "v1",
+  "review_packet_id": "cmpreview-cd128a1d6331",
+  "comparison_packet_id": "familycmp-f48b5edbd366",
+  "scenario_id": "scenario-0b6762303adb",
+  "comparison_profile_id": "reference_vs_advective_screening_v1",
+  "base_model_family": "reference_mass_balance",
+  "candidate_model_family": "advective_screening_mass_balance",
+  "comparison_outcome": "material_model_family_divergence",
+  "review_status": "model_family_comparison_review_attention_needed",
+  "passed_check_count": 5,
+  "total_check_count": 5,
+  "review_template_used": "Summarize whether the governed reference-versus-advective comparison is ready for assessor-facing review, highlighting applicability, dominant deltas, and experimental-family caution.",
+  "checklist_items": [
+    {
+      "code": "comparison_scope_confirmed",
+      "prompt": "Confirm the comparison remains inside the governed reference-versus-advective screening scope and that the candidate family is being treated as a challenge path rather than a default replacement.",
+      "rationale": "Assessor-facing comparison review should preserve the declared baseline-versus-experimental relationship rather than implying family interchangeability.",
+      "status": "ready_for_assessor_confirmation",
+      "evidence_lines": [
+        "Comparison outcome: material_model_family_divergence.",
+        "Comparison profile: reference_vs_advective_screening_v1.",
+        "Limitations: Model-family comparison reflects deterministic Environmental Fate MCP outputs for one matched scenario and does not by itself endorse either family as the scientifically correct choice.; Candidate model family advective_screening_mass_balance is published as experimental and should be treated as a challenge path rather than a default release baseline."
+      ]
+    },
+    {
+      "code": "fit_and_applicability_reviewed",
+      "prompt": "Review whether both model families remain inside their governed applicability profiles for the matched scenario.",
+      "rationale": "Comparison results are only meaningful when both families are being run inside their declared screening scope.",
+      "status": "ready_for_assessor_confirmation",
+      "evidence_lines": [
+        "Base fit verdict: good_fit (score=0.85).",
+        "Candidate fit verdict: good_fit (score=0.85).",
+        "Base applicability: Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions. | Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment. | Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
+        "Candidate applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term. | Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment. | Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+      ]
+    },
+    {
+      "code": "equation_and_delta_context_reviewed",
+      "prompt": "Review the dominant surface deltas together with the executed equation traces before preferring or qualifying the candidate family.",
+      "rationale": "Assessor-facing comparison review should make the executed screening equations and the main divergence points explicit.",
+      "status": "ready_for_assessor_confirmation",
+      "evidence_lines": [
+        "Dominant deltas: air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%) | soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%) | water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)",
+        "Base equation trace: ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t)) | surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t)) | agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+        "Candidate equation trace: ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t)) | surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t)) | agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+      ]
+    }
+  ],
+  "brief_lines": [
+    "Summarize whether the governed reference-versus-advective comparison is ready for assessor-facing review, highlighting applicability, dominant deltas, and experimental-family caution.",
+    "Build a governed assessor-facing review packet for the reference-versus-advective screening comparison, preserving baseline-versus-experimental framing, fit/applicability context, dominant deltas, and equation traces.",
+    "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+    "Comparison outcome: material_model_family_divergence.",
+    "Review status: model_family_comparison_review_attention_needed.",
+    "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary.",
+    "Dominant delta: air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%)",
+    "Dominant delta: soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%)",
+    "Dominant delta: water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)",
+    "Base applicability: Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Base applicability: Requested fit-for-purpose: screening.",
+    "Base applicability: Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+    "Base applicability: Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Base applicability: Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
+    "Candidate applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Candidate applicability: Requested fit-for-purpose: screening.",
+    "Candidate applicability: Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
+    "Candidate applicability: Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Candidate applicability: Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance.",
+    "Base benchmark context: Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
+    "Base benchmark context: Representative covered claims: Reference air finite-duration first-order screening equation, Reference executable treatment reduction, Reference long-duration near-plateau anchor.",
+    "Base benchmark context: Representative supporting fixtures: air_reference_chemical_style_fixture, reference_air_capacity_sensitivity_fixture, reference_treatment_reduction_anchor_fixture.",
+    "Candidate benchmark context: Scientific validation claim coverage for advective_screening_mass_balance/steady_state: 12/12 governed claims covered.",
+    "Candidate benchmark context: Representative covered claims: Advective clearance-dominant loss-share transition, Advective cumulative mass-balance closure, Advective degradation-dominant loss-share transition.",
+    "Candidate benchmark context: Representative supporting fixtures: advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_transition_flip_to_clearance_fixture.",
+    "Base equation trace: ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Base equation trace: surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Base equation trace: agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Candidate equation trace: ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "Candidate equation trace: surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "Candidate equation trace: agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "[ready_for_assessor_confirmation] Confirm the comparison remains inside the governed reference-versus-advective screening scope and that the candidate family is being treated as a challenge path rather than a default replacement.",
+    "Evidence: Comparison outcome: material_model_family_divergence. | Comparison profile: reference_vs_advective_screening_v1. | Limitations: Model-family comparison reflects deterministic Environmental Fate MCP outputs for one matched scenario and does not by itself endorse either family as the scientifically correct choice.; Candidate model family advective_screening_mass_balance is published as experimental and should be treated as a challenge path rather than a default release baseline.",
+    "[ready_for_assessor_confirmation] Review whether both model families remain inside their governed applicability profiles for the matched scenario.",
+    "Evidence: Base fit verdict: good_fit (score=0.85). | Candidate fit verdict: good_fit (score=0.85). | Base applicability: Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions. | Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment. | Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary. | Candidate applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term. | Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment. | Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance.",
+    "[ready_for_assessor_confirmation] Review the dominant surface deltas together with the executed equation traces before preferring or qualifying the candidate family.",
+    "Evidence: Dominant deltas: air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%) | soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%) | water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%) | Base equation trace: ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t)) | surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t)) | agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t)) | Candidate equation trace: ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t)) | surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t)) | agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+  ],
+  "dominant_delta_lines": [
+    "air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%)",
+    "soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%)",
+    "water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)"
+  ],
+  "outcome_lines": [
+    "Treat the comparison as a material model-family divergence and review residence-time assumptions, equation traces, and applicability before preferring the experimental family."
+  ],
+  "recommended_actions": [
+    "Treat the candidate family as experimental and keep the default reference family as the screening baseline unless the transport question clearly requires the candidate assumptions.",
+    "Review the dominant surface deltas, residence-time assumptions, and equation traces before choosing which family better matches the decision context.",
+    "Use this comparison profile when the reference family is the screening baseline and the advective family is being challenged on the same scenario.",
+    "Interpret the candidate family as experimental and non-default even when the comparison shows material differences.",
+    "Escalate to richer transport methods when the decision context is dominated by spatial hydrodynamics or intermedia transfer.",
+    "Keep the comparison in assessor-facing attention status until the governed divergence, experimental-family, or packet-check concerns are resolved."
+  ],
+  "base_applicability_lines": [
+    "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Requested fit-for-purpose: screening.",
+    "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+    "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+  ],
+  "candidate_applicability_lines": [
+    "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Requested fit-for-purpose: screening.",
+    "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
+    "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+  ],
+  "scientific_unsuitability_lines": [],
+  "base_benchmark_reference_lines": [
+    "Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
+    "Representative covered claims: Reference air finite-duration first-order screening equation, Reference executable treatment reduction, Reference long-duration near-plateau anchor.",
+    "Representative supporting fixtures: air_reference_chemical_style_fixture, reference_air_capacity_sensitivity_fixture, reference_treatment_reduction_anchor_fixture."
+  ],
+  "candidate_benchmark_reference_lines": [
+    "Scientific validation claim coverage for advective_screening_mass_balance/steady_state: 12/12 governed claims covered.",
+    "Representative covered claims: Advective clearance-dominant loss-share transition, Advective cumulative mass-balance closure, Advective degradation-dominant loss-share transition.",
+    "Representative supporting fixtures: advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_transition_flip_to_clearance_fixture."
+  ],
+  "base_equation_lines": [
+    "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+  ],
+  "candidate_equation_lines": [
+    "ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+  ],
+  "limitations": [
+    {
+      "code": "model_family_comparison",
+      "message": "Model-family comparison reflects deterministic Environmental Fate MCP outputs for one matched scenario and does not by itself endorse either family as the scientifically correct choice."
+    },
+    {
+      "code": "experimental_candidate_model_family",
+      "message": "Candidate model family advective_screening_mass_balance is published as experimental and should be treated as a challenge path rather than a default release baseline."
+    }
+  ]
+}

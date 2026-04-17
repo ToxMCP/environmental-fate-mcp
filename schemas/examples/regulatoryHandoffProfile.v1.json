@@ -1,0 +1,46 @@
+{
+  "profile_id": "echa_csr_v1",
+  "display_name": "ECHA REACH Chemical Safety Report (CSR)",
+  "target_module": "ECHA REACH Submission",
+  "downstream_field": "csr_environmental_exposure",
+  "required_entry_fields": [
+    "source_surface_id",
+    "concentration_value",
+    "concentration_unit",
+    "medium",
+    "compartment",
+    "time_window"
+  ],
+  "consumer_hints": [
+    "echa",
+    "reach",
+    "csr",
+    "chemical safety report",
+    "echa csr"
+  ],
+  "review_checklist": [
+    {
+      "code": "csr_provenance_preserved",
+      "prompt": "Confirm adapter provenance and governed limitations are explicitly preserved in the CSR package.",
+      "rationale": "ECHA submissions require explicit methodology and tool attribution, especially when native Fate MCP models or external EUSES adapters are used.",
+      "evidence_hint_fields": [
+        "limitations",
+        "provenance"
+      ]
+    },
+    {
+      "code": "csr_compartments_complete",
+      "prompt": "Confirm concentration surfaces cover the mandatory REACH compartments (air, water, soil, sediment).",
+      "rationale": "CSR environmental exposure assessments require a complete multimedia set for a given release scenario.",
+      "evidence_hint_fields": [
+        "mediums",
+        "entry_count"
+      ]
+    }
+  ],
+  "tool_request_template": "Use fate_export_regulatory_handoff_package with the echa_csr_v1 profile to generate a structured package for an ECHA REACH CSR submission.",
+  "response_summary_template": "Return the CSR regulatory handoff package, highlighting the included compartments, source provenance, and any blocking limitations that prevent full REACH compliance.",
+  "review_brief_template": "Build a concise assessor review brief confirming that the CSR package contains required compartments and preserves all underlying Fate MCP or adapter provenance.",
+  "source_pack": "defaults/v1/regulatory_handoff_profiles.json",
+  "applicability_note": "Use when structuring Fate MCP outputs for an ECHA REACH Chemical Safety Report submission."
+}

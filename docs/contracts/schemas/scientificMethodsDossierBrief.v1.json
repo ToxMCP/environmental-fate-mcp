@@ -1,0 +1,503 @@
+{
+  "$defs": {
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "ScientificClaimSupportStrength": {
+      "enum": [
+        "uncovered",
+        "single_anchor",
+        "multi_anchor_single_tier",
+        "multi_anchor_multi_tier"
+      ],
+      "title": "ScientificClaimSupportStrength",
+      "type": "string"
+    },
+    "ScientificExternalCorroborationStatus": {
+      "enum": [
+        "none",
+        "single_official_source",
+        "multi_official_single_jurisdiction",
+        "multi_official_multi_jurisdiction"
+      ],
+      "title": "ScientificExternalCorroborationStatus",
+      "type": "string"
+    },
+    "ScientificHighlightedClaimChallengeStatus": {
+      "enum": [
+        "well_supported",
+        "challenge",
+        "escalate"
+      ],
+      "title": "ScientificHighlightedClaimChallengeStatus",
+      "type": "string"
+    },
+    "ScientificMethodsHighlightedClaimSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_id": {
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/$defs/ScientificValidationClaimPriority"
+        },
+        "mandatory_for_release": {
+          "title": "Mandatory For Release",
+          "type": "boolean"
+        },
+        "support_strength": {
+          "$ref": "#/$defs/ScientificClaimSupportStrength",
+          "default": "uncovered"
+        },
+        "challenge_status": {
+          "$ref": "#/$defs/ScientificHighlightedClaimChallengeStatus",
+          "default": "challenge"
+        },
+        "external_corroboration_status": {
+          "$ref": "#/$defs/ScientificExternalCorroborationStatus",
+          "default": "none"
+        },
+        "external_corroboration_source_count": {
+          "default": 0,
+          "title": "External Corroboration Source Count",
+          "type": "integer"
+        },
+        "external_corroboration_jurisdictions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "External Corroboration Jurisdictions",
+          "type": "array"
+        },
+        "external_corroboration_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "External Corroboration Lines",
+          "type": "array"
+        },
+        "external_corroboration_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "External Corroboration Actions",
+          "type": "array"
+        },
+        "source_grounding_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Grounding Lines",
+          "type": "array"
+        },
+        "reference_case_concept_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reference Case Concept Lines",
+          "type": "array"
+        },
+        "benchmark_anchor_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Benchmark Anchor Lines",
+          "type": "array"
+        },
+        "loss_regime_stability_status": {
+          "default": "not_applicable",
+          "title": "Loss Regime Stability Status",
+          "type": "string"
+        },
+        "loss_regime_stability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Loss Regime Stability Lines",
+          "type": "array"
+        },
+        "transport_regime_stability_status": {
+          "default": "not_applicable",
+          "title": "Transport Regime Stability Status",
+          "type": "string"
+        },
+        "transport_regime_stability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Transport Regime Stability Lines",
+          "type": "array"
+        },
+        "challenge_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Challenge Lines",
+          "type": "array"
+        },
+        "review_questions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Questions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "claim_id",
+        "display_name",
+        "priority",
+        "mandatory_for_release"
+      ],
+      "title": "ScientificMethodsHighlightedClaimSummary",
+      "type": "object"
+    },
+    "ScientificMethodsPromotionBlockerSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "action_class": {
+          "title": "Action Class",
+          "type": "string"
+        },
+        "source_claim_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Claim Id"
+        },
+        "source_claim_display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Claim Display Name"
+        }
+      },
+      "required": [
+        "action",
+        "action_class"
+      ],
+      "title": "ScientificMethodsPromotionBlockerSummary",
+      "type": "object"
+    },
+    "ScientificMethodsPromotionStatus": {
+      "enum": [
+        "blocked",
+        "strengthening_only",
+        "ready"
+      ],
+      "title": "ScientificMethodsPromotionStatus",
+      "type": "string"
+    },
+    "ScientificMethodsRecommendedActionPriority": {
+      "enum": [
+        "critical",
+        "high",
+        "medium"
+      ],
+      "title": "ScientificMethodsRecommendedActionPriority",
+      "type": "string"
+    },
+    "ScientificMethodsRecommendedActionPromotionImpact": {
+      "enum": [
+        "blocking",
+        "strengthening"
+      ],
+      "title": "ScientificMethodsRecommendedActionPromotionImpact",
+      "type": "string"
+    },
+    "ScientificMethodsRecommendedActionSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/$defs/ScientificMethodsRecommendedActionPriority",
+          "default": "medium"
+        },
+        "promotion_impact": {
+          "$ref": "#/$defs/ScientificMethodsRecommendedActionPromotionImpact",
+          "default": "strengthening"
+        },
+        "action_class": {
+          "title": "Action Class",
+          "type": "string"
+        },
+        "source_claim_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Claim Id"
+        },
+        "source_claim_display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Claim Display Name"
+        }
+      },
+      "required": [
+        "action",
+        "action_class"
+      ],
+      "title": "ScientificMethodsRecommendedActionSummary",
+      "type": "object"
+    },
+    "ScientificValidationClaimPriority": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "title": "ScientificValidationClaimPriority",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "dossier_id": {
+      "title": "Dossier Id",
+      "type": "string"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "run_mode_filter": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RunMode"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "promotion_status": {
+      "$ref": "#/$defs/ScientificMethodsPromotionStatus",
+      "default": "ready"
+    },
+    "blocking_action_count": {
+      "default": 0,
+      "title": "Blocking Action Count",
+      "type": "integer"
+    },
+    "strengthening_action_count": {
+      "default": 0,
+      "title": "Strengthening Action Count",
+      "type": "integer"
+    },
+    "claim_count": {
+      "title": "Claim Count",
+      "type": "integer"
+    },
+    "mandatory_claim_count": {
+      "title": "Mandatory Claim Count",
+      "type": "integer"
+    },
+    "covered_mandatory_claim_count": {
+      "title": "Covered Mandatory Claim Count",
+      "type": "integer"
+    },
+    "uncovered_mandatory_claim_count": {
+      "title": "Uncovered Mandatory Claim Count",
+      "type": "integer"
+    },
+    "highlighted_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Highlighted Claim Ids",
+      "type": "array"
+    },
+    "highlighted_claim_summaries": {
+      "items": {
+        "$ref": "#/$defs/ScientificMethodsHighlightedClaimSummary"
+      },
+      "title": "Highlighted Claim Summaries",
+      "type": "array"
+    },
+    "summary_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Summary Lines",
+      "type": "array"
+    },
+    "applicability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicability Lines",
+      "type": "array"
+    },
+    "scientific_unsuitability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Unsuitability Lines",
+      "type": "array"
+    },
+    "source_grounding_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Source Grounding Lines",
+      "type": "array"
+    },
+    "highlighted_claim_grounding_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Highlighted Claim Grounding Lines",
+      "type": "array"
+    },
+    "reference_case_grounding_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reference Case Grounding Lines",
+      "type": "array"
+    },
+    "reference_case_concept_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reference Case Concept Lines",
+      "type": "array"
+    },
+    "benchmark_reference_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Benchmark Reference Lines",
+      "type": "array"
+    },
+    "support_strength_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Support Strength Lines",
+      "type": "array"
+    },
+    "promotion_blocker_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Promotion Blocker Claim Ids",
+      "type": "array"
+    },
+    "promotion_blocker_summaries": {
+      "items": {
+        "$ref": "#/$defs/ScientificMethodsPromotionBlockerSummary"
+      },
+      "title": "Promotion Blocker Summaries",
+      "type": "array"
+    },
+    "recommended_action_summaries": {
+      "items": {
+        "$ref": "#/$defs/ScientificMethodsRecommendedActionSummary"
+      },
+      "title": "Recommended Action Summaries",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "dossier_id",
+    "model_family",
+    "claim_count",
+    "mandatory_claim_count",
+    "covered_mandatory_claim_count",
+    "uncovered_mandatory_claim_count",
+    "summary_lines"
+  ],
+  "title": "ScientificMethodsDossierBrief",
+  "type": "object"
+}

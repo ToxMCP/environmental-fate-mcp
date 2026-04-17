@@ -1,0 +1,71 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "compartment_code": {
+      "title": "Compartment Code",
+      "type": "string"
+    },
+    "canonical_unit": {
+      "title": "Canonical Unit",
+      "type": "string"
+    },
+    "canonical_basis": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Canonical Basis"
+    },
+    "supported_units": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Supported Units",
+      "type": "array"
+    },
+    "conversion_factors_to_canonical": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Conversion Factors To Canonical",
+      "type": "object"
+    },
+    "unit_basis_labels": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Unit Basis Labels",
+      "type": "object"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "compartment_code",
+    "canonical_unit",
+    "supported_units",
+    "conversion_factors_to_canonical",
+    "source_pack"
+  ],
+  "title": "AdapterUnitConversionRule",
+  "type": "object"
+}

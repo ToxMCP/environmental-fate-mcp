@@ -1,0 +1,7 @@
+[console_scripts]
+environmental-fate-mcp = fate_mcp.__main__:main
+environmental-fate-mcp-generate-artifacts = fate_mcp.contracts:main
+environmental-fate-mcp-validate = fate_mcp.validation:main
+fate-mcp = fate_mcp.__main__:main
+fate-mcp-generate-artifacts = fate_mcp.contracts:main
+fate-mcp-validate = fate_mcp.validation:main

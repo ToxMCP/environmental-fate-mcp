@@ -1,0 +1,243 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "ScientificValidationClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_id": {
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "supported_run_modes": {
+          "items": {
+            "$ref": "#/$defs/RunMode"
+          },
+          "title": "Supported Run Modes",
+          "type": "array"
+        },
+        "fit_for_purpose": {
+          "items": {
+            "$ref": "#/$defs/FitForPurpose"
+          },
+          "title": "Fit For Purpose",
+          "type": "array"
+        },
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        },
+        "claim_class": {
+          "title": "Claim Class",
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/$defs/ScientificValidationClaimPriority",
+          "default": "high"
+        },
+        "mandatory_for_release": {
+          "default": true,
+          "title": "Mandatory For Release",
+          "type": "boolean"
+        },
+        "required_validation_tiers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Validation Tiers",
+          "type": "array"
+        },
+        "required_reference_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Reference Types",
+          "type": "array"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        },
+        "reference_case_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reference Case Ids",
+          "type": "array"
+        },
+        "methods_basis_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Methods Basis Lines",
+          "type": "array"
+        },
+        "reference_case_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reference Case Lines",
+          "type": "array"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "plugin_code_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Plugin Code References",
+          "type": "array"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        },
+        "applicability_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applicability Note"
+        }
+      },
+      "required": [
+        "claim_id",
+        "display_name",
+        "model_family",
+        "statement",
+        "claim_class",
+        "source_pack"
+      ],
+      "title": "ScientificValidationClaim",
+      "type": "object"
+    },
+    "ScientificValidationClaimPriority": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "title": "ScientificValidationClaimPriority",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "claim_count": {
+      "title": "Claim Count",
+      "type": "integer"
+    },
+    "mandatory_claim_count": {
+      "title": "Mandatory Claim Count",
+      "type": "integer"
+    },
+    "claims": {
+      "items": {
+        "$ref": "#/$defs/ScientificValidationClaim"
+      },
+      "title": "Claims",
+      "type": "array"
+    }
+  },
+  "required": [
+    "claim_count",
+    "mandatory_claim_count",
+    "claims"
+  ],
+  "title": "ScientificValidationClaimManifest",
+  "type": "object"
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "v1",
+  "package_id": "regpkg-17fc70cebf13",
+  "scenario_id": "scenario-0b6762303adb",
+  "handoff_profile_id": "exposure_scenario_mcp_v1",
+  "target_module": "Direct-Use Exposure MCP",
+  "entry_count": 3,
+  "downstream_field": "environmental_media_concentration",
+  "time_window_modes": [
+    "steady_state"
+  ],
+  "route_hints": [
+    "inhalation_precursor",
+    "soil_contact_or_crop_uptake_precursor",
+    "water_contact_or_drinking_water_precursor"
+  ],
+  "mediums": [
+    "air",
+    "soil",
+    "water"
+  ],
+  "compartments": [
+    "agricultural_soil",
+    "ambient_air",
+    "surface_water"
+  ],
+  "requires_dose_translation": true,
+  "summary_template_used": "Return the regulatory handoff package and call out route_hint, concentration_value, concentration_unit, time_window, and any limitation or quality-flag context that the downstream direct-use exposure module must preserve.",
+  "summary_lines": [
+    "Return the regulatory handoff package and call out route_hint, concentration_value, concentration_unit, time_window, and any limitation or quality-flag context that the downstream direct-use exposure module must preserve.",
+    "Target module Direct-Use Exposure MCP receives 3 crosswalk entries via governed profile exposure_scenario_mcp_v1.",
+    "Downstream field environmental_media_concentration carries media concentrations for agricultural_soil, ambient_air, surface_water.",
+    "Route hints present: inhalation_precursor, soil_contact_or_crop_uptake_precursor, water_contact_or_drinking_water_precursor.",
+    "Time semantics present: steady_state.",
+    "Limitations: Crosswalk exports concentrations only; downstream modules must perform route translation and dose calculation.; Crosswalk fields express ToxMCP handoff semantics, not final regulatory conclusions.; Crosswalk exported using governed handoff profile exposure_scenario_mcp_v1.; Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
+  ],
+  "entry_samples": [
+    {
+      "source_surface_id": "surface-bfa78712cafc",
+      "medium": "air",
+      "compartment": "ambient_air",
+      "concentration_value": 0.00024044183555505707,
+      "concentration_unit": "mg/m3",
+      "downstream_field": "environmental_media_concentration",
+      "route_hint": "inhalation_precursor",
+      "time_window_mode": "steady_state",
+      "equation_id": "finite_duration_continuous_release_first_order",
+      "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+    },
+    {
+      "source_surface_id": "surface-5e8cf12e736b",
+      "medium": "water",
+      "compartment": "surface_water",
+      "concentration_value": 5.93830089619883e-06,
+      "concentration_unit": "mg/L",
+      "downstream_field": "environmental_media_concentration",
+      "route_hint": "water_contact_or_drinking_water_precursor",
+      "time_window_mode": "steady_state",
+      "equation_id": "finite_duration_continuous_release_first_order",
+      "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+    },
+    {
+      "source_surface_id": "surface-062094f444ff",
+      "medium": "soil",
+      "compartment": "agricultural_soil",
+      "concentration_value": 0.0010820212806667226,
+      "concentration_unit": "mg/kg",
+      "downstream_field": "environmental_media_concentration",
+      "route_hint": "soil_contact_or_crop_uptake_precursor",
+      "time_window_mode": "steady_state",
+      "equation_id": "finite_duration_continuous_release_first_order",
+      "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+    }
+  ],
+  "parameter_quality_lines": [
+    "15 parameters were consumed by runtime reference_mass_balance; 1 remain provenance-only for review.",
+    "Applicability context follows reference_mass_balance for fit-for-purpose screening.",
+    "14 entries rely on governed curated-default or derived assumptions; 1 entries remain heuristic.",
+    "User or evidence-backed parameters: log_kow, water_half_life_days."
+  ],
+  "applicability_lines": [
+    "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Requested fit-for-purpose: screening.",
+    "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+    "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+  ],
+  "scientific_unsuitability_lines": [],
+  "equation_lines": [
+    "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+  ],
+  "limitations": [
+    {
+      "code": "concentration_only",
+      "message": "Crosswalk exports concentrations only; downstream modules must perform route translation and dose calculation."
+    },
+    {
+      "code": "suite_handoff_semantics",
+      "message": "Crosswalk fields express ToxMCP handoff semantics, not final regulatory conclusions."
+    },
+    {
+      "code": "handoff_profile",
+      "message": "Crosswalk exported using governed handoff profile exposure_scenario_mcp_v1."
+    },
+    {
+      "code": "handoff_profile_resolution",
+      "message": "Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
+    }
+  ],
+  "blockers": []
+}

@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: fate-mcp
+Version: 0.1.0
+Summary: Fate MCP for deterministic environmental release to concentration workflows
+Author: ToxMCP
+License: MIT
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: mcp[cli]<2.0.0,>=1.27.0
+Requires-Dist: pydantic<3.0,>=2.8
+Provides-Extra: dev
+Requires-Dist: pytest>=8.2; extra == "dev"
+Requires-Dist: pytest-cov>=5.0; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"
+
+# Fate MCP
+
+Fate MCP is the ToxMCP module for deterministic environmental release to concentration workflows. It owns source-to-concentration semantics for environmental media and explicitly does not own direct human dose, dietary intake, PBPK execution, or final risk characterization.
+
+## Current scope
+
+- Typed environmental release scenarios
+- Deterministic steady-state concentration estimation
+- Bounded time-bucket concentration estimation
+- Versioned defaults and region-profile registries
+- Assumption and provenance ledgers
+- Concentration-surface bundles for downstream consumers
+- Machine-readable schemas, examples, and release artifacts
+
+## Repository layout
+
+- `src/fate_mcp/`: package code and MCP server surface
+- `defaults/v1/`: curated defaults and region profiles
+- `docs/contracts/schemas/`: generated JSON Schema files
+- `schemas/examples/`: generated example payloads
+- `docs/adr/`: architecture decisions
+- `tests/`: validation, runtime, defaults, and integration tests
+
+## Developer commands
+
+```bash
+uv sync --extra dev
+uv run fate-mcp-generate-artifacts
+uv run pytest
+uv run fate-mcp
+```
+
+## Boundary summary
+
+- Fate MCP owns environmental release scenarios, multimedia transfer, compartment concentration estimation, concentration surfaces, and downstream concentration bundles.
+- Fate MCP does not own direct human dose calculation, dietary intake, PBPK execution, risk characterization, or arbitrary model-native file ingestion as the public contract.

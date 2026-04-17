@@ -1,0 +1,53 @@
+{
+  "chemical_identity": {
+    "preferredName": "Example substance",
+    "casrn": "100-00-0"
+  },
+  "region_id": "eu_screening_default",
+  "context_label": "regional_screening",
+  "duration_days": 30.0,
+  "evidence_inputs": [
+    {
+      "label": "monitoring_record_a",
+      "total_release_mass_kg": 10.0,
+      "release_fractions": [
+        {
+          "medium": "water",
+          "fraction": 0.7
+        },
+        {
+          "medium": "soil",
+          "fraction": 0.3
+        }
+      ],
+      "source_reference": {
+        "source_id": "example.release.a",
+        "title": "Illustrative monitoring record A",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      "evidence_quality": "measured"
+    },
+    {
+      "label": "monitoring_record_b",
+      "total_release_mass_kg": 16.0,
+      "release_fractions": [
+        {
+          "medium": "water",
+          "fraction": 0.3
+        },
+        {
+          "medium": "soil",
+          "fraction": 0.7
+        }
+      ],
+      "source_reference": {
+        "source_id": "example.release.b",
+        "title": "Illustrative monitoring record B",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      "evidence_quality": "heuristic"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "comparison_packet_id": "familycmp-f48b5edbd366",
+  "scenario_id": "scenario-0b6762303adb",
+  "comparison_profile_id": "reference_vs_advective_screening_v1",
+  "comparison_outcome": "material_model_family_divergence",
+  "review_status": "model_family_comparison_review_attention_needed",
+  "triggered_check_codes": [],
+  "governing_rule_lines": [
+    "Attention is required because comparison outcome material_model_family_divergence is governed as attention-worthy.",
+    "Attention is required because candidate model family advective_screening_mass_balance is published as experimental."
+  ],
+  "status_rule_lines": [
+    "Attention required because governed comparison-review policy was triggered."
+  ],
+  "outcome_lines": [
+    "Treat the comparison as a material model-family divergence and review residence-time assumptions, equation traces, and applicability before preferring the experimental family."
+  ],
+  "recommended_actions": [
+    "Treat the candidate family as experimental and keep the default reference family as the screening baseline unless the transport question clearly requires the candidate assumptions.",
+    "Review the dominant surface deltas, residence-time assumptions, and equation traces before choosing which family better matches the decision context.",
+    "Use this comparison profile when the reference family is the screening baseline and the advective family is being challenged on the same scenario.",
+    "Interpret the candidate family as experimental and non-default even when the comparison shows material differences.",
+    "Escalate to richer transport methods when the decision context is dominated by spatial hydrodynamics or intermedia transfer.",
+    "Keep the comparison in assessor-facing attention status until the governed divergence, experimental-family, or packet-check concerns are resolved."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "compartment_code": "AIR_REGIONAL",
+  "canonical_unit": "mg/m3",
+  "canonical_basis": null,
+  "supported_units": [
+    "mg/M3",
+    "mg/m3",
+    "ng/m3",
+    "ug/M3",
+    "ug/m3"
+  ],
+  "conversion_factors_to_canonical": {
+    "mg/m3": 1.0,
+    "mg/M3": 1.0,
+    "ug/m3": 0.001,
+    "ug/M3": 0.001,
+    "ng/m3": 1e-06
+  },
+  "unit_basis_labels": {},
+  "source_pack": "defaults/v1/adapter_unit_conversions.json",
+  "applicability_note": "Canonical ambient air concentrations remain in mg/m3 for Fate MCP outputs."
+}

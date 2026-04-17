@@ -1,0 +1,704 @@
+{
+  "$defs": {
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "FateScenarioComparisonRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "comparison_id": {
+          "title": "Comparison Id",
+          "type": "string"
+        },
+        "base_scenario_id": {
+          "title": "Base Scenario Id",
+          "type": "string"
+        },
+        "candidate_scenario_id": {
+          "title": "Candidate Scenario Id",
+          "type": "string"
+        },
+        "surface_deltas": {
+          "items": {
+            "$ref": "#/$defs/SurfaceDelta"
+          },
+          "title": "Surface Deltas",
+          "type": "array"
+        },
+        "changed_assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Changed Assumptions",
+          "type": "array"
+        },
+        "dominant_drivers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dominant Drivers",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "base_scenario_id",
+        "candidate_scenario_id",
+        "surface_deltas",
+        "changed_assumptions",
+        "dominant_drivers",
+        "provenance"
+      ],
+      "title": "FateScenarioComparisonRecord",
+      "type": "object"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilyApplicabilityProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "items": {
+            "$ref": "#/$defs/FitForPurpose"
+          },
+          "title": "Fit For Purpose",
+          "type": "array"
+        },
+        "supported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Substance Classes",
+          "type": "array"
+        },
+        "unsupported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unsupported Substance Classes",
+          "type": "array"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "core_assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Core Assumptions",
+          "type": "array"
+        },
+        "deferred_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Deferred Capabilities",
+          "type": "array"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        },
+        "applicability_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applicability Note"
+        }
+      },
+      "required": [
+        "model_family",
+        "source_pack"
+      ],
+      "title": "ModelFamilyApplicabilityProfile",
+      "type": "object"
+    },
+    "ModelFamilyComparisonOutcome": {
+      "enum": [
+        "comparable_screening_outputs",
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "title": "ModelFamilyComparisonOutcome",
+      "type": "string"
+    },
+    "ModelFamilyComparisonPacket": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "comparison_packet_id": {
+          "title": "Comparison Packet Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "comparison_profile_id": {
+          "title": "Comparison Profile Id",
+          "type": "string"
+        },
+        "base_model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "candidate_model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "comparison_outcome": {
+          "$ref": "#/$defs/ModelFamilyComparisonOutcome"
+        },
+        "base_fit_assessment": {
+          "$ref": "#/$defs/ReleaseScenarioFitAssessment"
+        },
+        "candidate_fit_assessment": {
+          "$ref": "#/$defs/ReleaseScenarioFitAssessment"
+        },
+        "comparison": {
+          "$ref": "#/$defs/FateScenarioComparisonRecord"
+        },
+        "base_surface_samples": {
+          "items": {
+            "$ref": "#/$defs/ScientificReviewSurfaceSummary"
+          },
+          "title": "Base Surface Samples",
+          "type": "array"
+        },
+        "candidate_surface_samples": {
+          "items": {
+            "$ref": "#/$defs/ScientificReviewSurfaceSummary"
+          },
+          "title": "Candidate Surface Samples",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "dominant_delta_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dominant Delta Lines",
+          "type": "array"
+        },
+        "outcome_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Outcome Lines",
+          "type": "array"
+        },
+        "base_benchmark_reference_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Base Benchmark Reference Lines",
+          "type": "array"
+        },
+        "candidate_benchmark_reference_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidate Benchmark Reference Lines",
+          "type": "array"
+        },
+        "base_equation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Base Equation Lines",
+          "type": "array"
+        },
+        "candidate_equation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidate Equation Lines",
+          "type": "array"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        },
+        "packet_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Packet Template Used"
+        },
+        "brief_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Brief Template Used"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_mode",
+        "fit_for_purpose",
+        "comparison_profile_id",
+        "base_model_family",
+        "candidate_model_family",
+        "comparison_outcome",
+        "base_fit_assessment",
+        "candidate_fit_assessment",
+        "comparison",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "ModelFamilyComparisonPacket",
+      "type": "object"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "ReleaseScenarioFitAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "fit_score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fit Score",
+          "type": "number"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "verdict": {
+          "title": "Verdict",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "applicability_profile": {
+          "$ref": "#/$defs/ModelFamilyApplicabilityProfile"
+        },
+        "applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicability Lines",
+          "type": "array"
+        },
+        "scientific_unsuitability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Unsuitability Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "fit_score",
+        "model_family",
+        "fit_for_purpose",
+        "verdict",
+        "reasons",
+        "applicability_profile"
+      ],
+      "title": "ReleaseScenarioFitAssessment",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "ScientificReviewSurfaceSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "time_window_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "bucket_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bucket Label"
+        },
+        "equation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Id"
+        },
+        "equation_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Text"
+        }
+      },
+      "required": [
+        "medium",
+        "compartment",
+        "concentration_value",
+        "concentration_unit",
+        "time_window_mode"
+      ],
+      "title": "ScientificReviewSurfaceSummary",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "SurfaceDelta": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "candidate_value": {
+          "title": "Candidate Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "absolute_delta": {
+          "title": "Absolute Delta",
+          "type": "number"
+        },
+        "relative_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relative Delta"
+        }
+      },
+      "required": [
+        "medium",
+        "compartment",
+        "base_value",
+        "candidate_value",
+        "concentration_unit",
+        "absolute_delta"
+      ],
+      "title": "SurfaceDelta",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "comparison_packet": {
+      "$ref": "#/$defs/ModelFamilyComparisonPacket"
+    }
+  },
+  "required": [
+    "comparison_packet"
+  ],
+  "title": "BuildModelFamilyComparisonBriefRequest",
+  "type": "object"
+}

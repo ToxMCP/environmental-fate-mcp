@@ -1,0 +1,81 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "family": {
+      "title": "Family",
+      "type": "string"
+    },
+    "expected_unit": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expected Unit"
+    },
+    "runtime_supported": {
+      "title": "Runtime Supported",
+      "type": "boolean"
+    },
+    "conflict_relative_spread_threshold": {
+      "minimum": 0.0,
+      "title": "Conflict Relative Spread Threshold",
+      "type": "number"
+    },
+    "weighting_strategy": {
+      "title": "Weighting Strategy",
+      "type": "string"
+    },
+    "reconciliation_domain": {
+      "default": "linear",
+      "title": "Reconciliation Domain",
+      "type": "string"
+    },
+    "conflict_metric": {
+      "default": "relative_spread",
+      "title": "Conflict Metric",
+      "type": "string"
+    },
+    "disallow_conservative_empirical_blend": {
+      "default": false,
+      "title": "Disallow Conservative Empirical Blend",
+      "type": "boolean"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "parameter_names": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Parameter Names",
+      "type": "array"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "family",
+    "runtime_supported",
+    "conflict_relative_spread_threshold",
+    "weighting_strategy",
+    "source_pack"
+  ],
+  "title": "FateParameterPolicyFamily",
+  "type": "object"
+}

@@ -1,0 +1,38 @@
+{
+  "case_id": "echa_euses_water_screening_case_family_v1",
+  "display_name": "ECHA EUSES water screening case family",
+  "model_families": [
+    "advective_screening_mass_balance"
+  ],
+  "jurisdictions": [
+    "EU"
+  ],
+  "source_type": "official_guidance_case_family",
+  "summary_lines": [
+    "This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
+    "It is used as a screening reference family for residence-time and bounded-clearance reasoning, not as a claim that Fate MCP implements EUSES directly."
+  ],
+  "applicability_lines": [
+    "Appropriate for reviewer-facing mapping of flowing-water screening concepts where bounded clearance and compartment residence time are material.",
+    "Not a substitute for full multimedia EUSES implementation or dossier-specific environmental exposure modelling."
+  ],
+  "scientific_unsuitability_lines": [],
+  "source_references": [
+    {
+      "source_id": "echa.guidance.ircsa",
+      "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+      "effective_date": null,
+      "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+    },
+    {
+      "source_id": "echa.euses",
+      "title": "ECHA EUSES support page",
+      "effective_date": null,
+      "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+    }
+  ],
+  "review_notes": [
+    "Use this case family to ground screening logic in regulator-recognizable water-compartment exposure concepts without overstating model equivalence."
+  ],
+  "source_pack": "defaults/v1/scientific_reference_cases.json"
+}

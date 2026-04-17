@@ -1,0 +1,422 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ModelFamilyApplicabilityProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "items": {
+            "$ref": "#/$defs/FitForPurpose"
+          },
+          "title": "Fit For Purpose",
+          "type": "array"
+        },
+        "supported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supported Substance Classes",
+          "type": "array"
+        },
+        "unsupported_substance_classes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unsupported Substance Classes",
+          "type": "array"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "core_assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Core Assumptions",
+          "type": "array"
+        },
+        "deferred_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Deferred Capabilities",
+          "type": "array"
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        },
+        "applicability_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applicability Note"
+        }
+      },
+      "required": [
+        "model_family",
+        "source_pack"
+      ],
+      "title": "ModelFamilyApplicabilityProfile",
+      "type": "object"
+    },
+    "ModelFamilySelectionRecommendation": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "selection_profile_id": {
+          "title": "Selection Profile Id",
+          "type": "string"
+        },
+        "recommendation_status": {
+          "$ref": "#/$defs/ModelFamilySelectionStatus"
+        },
+        "primary_model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "challenge_model_family": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ModelFamily"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "comparison_profile_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Comparison Profile Id"
+        },
+        "primary_fit_assessment": {
+          "$ref": "#/$defs/ReleaseScenarioFitAssessment"
+        },
+        "challenge_fit_assessment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReleaseScenarioFitAssessment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "triggered_parameters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Triggered Parameters",
+          "type": "array"
+        },
+        "triggered_signal_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Triggered Signal Lines",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "recommended_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Recommended Actions",
+          "type": "array"
+        },
+        "recommendation_template_used": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recommendation Template Used"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "blockers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Blockers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_mode",
+        "fit_for_purpose",
+        "selection_profile_id",
+        "recommendation_status",
+        "primary_model_family",
+        "primary_fit_assessment",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "ModelFamilySelectionRecommendation",
+      "type": "object"
+    },
+    "ModelFamilySelectionStatus": {
+      "enum": [
+        "default_baseline_only",
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "title": "ModelFamilySelectionStatus",
+      "type": "string"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "ReleaseScenarioFitAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "fit_score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fit Score",
+          "type": "number"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "verdict": {
+          "title": "Verdict",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "applicability_profile": {
+          "$ref": "#/$defs/ModelFamilyApplicabilityProfile"
+        },
+        "applicability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applicability Lines",
+          "type": "array"
+        },
+        "scientific_unsuitability_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Unsuitability Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "fit_score",
+        "model_family",
+        "fit_for_purpose",
+        "verdict",
+        "reasons",
+        "applicability_profile"
+      ],
+      "title": "ReleaseScenarioFitAssessment",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "selection_recommendation": {
+      "$ref": "#/$defs/ModelFamilySelectionRecommendation"
+    }
+  },
+  "required": [
+    "selection_recommendation"
+  ],
+  "title": "PreviewModelFamilySelectionReviewRequest",
+  "type": "object"
+}

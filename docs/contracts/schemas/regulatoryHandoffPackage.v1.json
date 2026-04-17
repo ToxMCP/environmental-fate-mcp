@@ -1,0 +1,689 @@
+{
+  "$defs": {
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "EscalationConcern": {
+      "enum": [
+        "extreme_persistence",
+        "strong_spatial_heterogeneity",
+        "point_source_plume_dependence",
+        "pfas_like_transport",
+        "jurisdictional_probabilistic_requirement"
+      ],
+      "title": "EscalationConcern",
+      "type": "string"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "RegulatoryCrosswalkEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "source_surface_id": {
+          "title": "Source Surface Id",
+          "type": "string"
+        },
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "time_window": {
+          "$ref": "#/$defs/TimeWindow"
+        },
+        "semantic_label": {
+          "title": "Semantic Label",
+          "type": "string"
+        },
+        "downstream_field": {
+          "title": "Downstream Field",
+          "type": "string"
+        },
+        "route_hint": {
+          "title": "Route Hint",
+          "type": "string"
+        },
+        "equation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Id"
+        },
+        "equation_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Text"
+        },
+        "requires_dose_translation": {
+          "default": true,
+          "title": "Requires Dose Translation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "source_surface_id",
+        "medium",
+        "compartment",
+        "concentration_value",
+        "concentration_unit",
+        "time_window",
+        "semantic_label",
+        "downstream_field",
+        "route_hint"
+      ],
+      "title": "RegulatoryCrosswalkEntry",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "RunParameterManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "fit_for_purpose": {
+          "$ref": "#/$defs/FitForPurpose"
+        },
+        "escalation_concerns": {
+          "items": {
+            "$ref": "#/$defs/EscalationConcern"
+          },
+          "title": "Escalation Concerns",
+          "type": "array"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/RunParameterManifestEntry"
+          },
+          "title": "Entries",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "fit_for_purpose",
+        "entries",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "RunParameterManifest",
+      "type": "object"
+    },
+    "RunParameterManifestEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "resolved_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Resolved Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "evidence_quality": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Quality"
+        },
+        "runtime_consumed": {
+          "title": "Runtime Consumed",
+          "type": "boolean"
+        },
+        "source_reference_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Reference Ids",
+          "type": "array"
+        },
+        "quality_flag_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flag Codes",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "parameter",
+        "resolved_value",
+        "source_classification",
+        "runtime_consumed",
+        "rationale"
+      ],
+      "title": "RunParameterManifestEntry",
+      "type": "object"
+    },
+    "RunUncertaintySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "top_drivers": {
+          "items": {
+            "$ref": "#/$defs/UncertaintyDriver"
+          },
+          "title": "Top Drivers",
+          "type": "array"
+        },
+        "summary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Summary Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        }
+      },
+      "required": [
+        "scenario_id",
+        "run_id",
+        "model_family",
+        "top_drivers",
+        "summary_lines",
+        "provenance"
+      ],
+      "title": "RunUncertaintySummary",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "TimeWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "bucket_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bucket Label"
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "title": "TimeWindow",
+      "type": "object"
+    },
+    "UncertaintyDriver": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "driver_type": {
+          "title": "Driver Type",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "source_reference_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Reference Ids",
+          "type": "array"
+        },
+        "quality_flag_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quality Flag Codes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "driver_type",
+        "reason",
+        "severity"
+      ],
+      "title": "UncertaintyDriver",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "package_id": {
+      "title": "Package Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "handoff_profile_id": {
+      "title": "Handoff Profile Id",
+      "type": "string"
+    },
+    "profile_resolution_method": {
+      "title": "Profile Resolution Method",
+      "type": "string"
+    },
+    "profile_resolution_basis": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Profile Resolution Basis"
+    },
+    "profile_resolution_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Profile Resolution Confidence"
+    },
+    "source_module": {
+      "title": "Source Module",
+      "type": "string"
+    },
+    "source_model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "target_modules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Modules",
+      "type": "array"
+    },
+    "crosswalk_entries": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryCrosswalkEntry"
+      },
+      "title": "Crosswalk Entries",
+      "type": "array"
+    },
+    "parameter_manifest": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RunParameterManifest"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "uncertainty_summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RunUncertaintySummary"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceBundle"
+    },
+    "target_module_acknowledgement_schema_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "URL of the JSON Schema that the target downstream MCP advertises for handoff acknowledgement.",
+      "title": "Target Module Acknowledgement Schema Url"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blockers",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "handoff_profile_id",
+    "profile_resolution_method",
+    "source_module",
+    "source_model_family",
+    "target_modules",
+    "crosswalk_entries",
+    "provenance"
+  ],
+  "title": "RegulatoryHandoffPackage",
+  "type": "object"
+}

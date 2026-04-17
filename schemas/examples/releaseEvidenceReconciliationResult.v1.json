@@ -1,0 +1,279 @@
+{
+  "schema_version": "v1",
+  "reconciled_scenario": {
+    "schema_version": "v1",
+    "scenario_id": "scenario-63013b07030c",
+    "chemical_identity": {
+      "preferredName": "Example substance",
+      "casrn": "100-00-0"
+    },
+    "total_release_mass_kg": 11.0,
+    "release_fractions": [
+      {
+        "medium": "water",
+        "fraction": 0.6333333333333334
+      },
+      {
+        "medium": "soil",
+        "fraction": 0.36666666666666664
+      }
+    ],
+    "duration_days": 30.0,
+    "timing_pattern": "continuous",
+    "geographic_scope": {
+      "region_id": "eu_screening_default",
+      "context_label": "regional_screening",
+      "notes": null
+    },
+    "treatment_assumptions": [],
+    "parameter_records": [],
+    "evidence_sources": [
+      {
+        "source_id": "example.release.a",
+        "title": "Illustrative monitoring record A",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      {
+        "source_id": "example.release.b",
+        "title": "Illustrative monitoring record B",
+        "effective_date": "2026-04-08",
+        "url": null
+      }
+    ],
+    "provenance": {
+      "schema_version": "v1",
+      "defaults_version": "v1",
+      "algorithm_version": "reference-mass-balance-0.1.0",
+      "generated_at": "2026-04-17T08:19:40.229388Z",
+      "source_references": [
+        {
+          "source_id": "example.release.a",
+          "title": "Illustrative monitoring record A",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "example.release.b",
+          "title": "Illustrative monitoring record B",
+          "effective_date": "2026-04-08",
+          "url": null
+        }
+      ]
+    },
+    "temperature_c": 25.0,
+    "quality_flags": [
+      {
+        "code": "release_evidence_conflict",
+        "severity": "warning",
+        "message": "One or more release evidence fields remain in conflict after reconciliation."
+      },
+      {
+        "code": "low_confidence_release_evidence",
+        "severity": "warning",
+        "message": "Low-confidence release evidence contributed to reconciliation: monitoring_record_b"
+      }
+    ],
+    "limitations": [
+      {
+        "code": "region_profile",
+        "message": "Scenario uses region profile European regional screening default."
+      },
+      {
+        "code": "reconciliation_uses_means",
+        "message": "The reconciled screening scenario uses evidence-quality-weighted means across conflicting evidence inputs."
+      },
+      {
+        "code": "weighted_by_evidence_quality",
+        "message": "Reconciliation used evidence-quality weighting to reduce the influence of surrogate or heuristic inputs."
+      }
+    ]
+  },
+  "evidence_observations": [
+    {
+      "label": "monitoring_record_a",
+      "source_reference": {
+        "source_id": "example.release.a",
+        "title": "Illustrative monitoring record A",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      "evidence_quality": "measured",
+      "evidence_weight": 1.0,
+      "total_release_mass_kg": 10.0,
+      "release_fractions": [
+        {
+          "medium": "water",
+          "fraction": 0.7
+        },
+        {
+          "medium": "soil",
+          "fraction": 0.3
+        }
+      ]
+    },
+    {
+      "label": "monitoring_record_b",
+      "source_reference": {
+        "source_id": "example.release.b",
+        "title": "Illustrative monitoring record B",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      "evidence_quality": "heuristic",
+      "evidence_weight": 0.2,
+      "total_release_mass_kg": 16.0,
+      "release_fractions": [
+        {
+          "medium": "water",
+          "fraction": 0.3
+        },
+        {
+          "medium": "soil",
+          "fraction": 0.7
+        }
+      ]
+    }
+  ],
+  "reconciled_scalars": [
+    {
+      "field": "total_release_mass_kg",
+      "reconciled_value": 11.0,
+      "unit": "kg",
+      "weighting_strategy": "evidence_quality_weighted_mean",
+      "total_weight": 1.2,
+      "min_value": 10.0,
+      "max_value": 16.0,
+      "relative_spread": 0.5454545454545454,
+      "status": "conflict",
+      "contributing_labels": [
+        "monitoring_record_a",
+        "monitoring_record_b"
+      ]
+    }
+  ],
+  "reconciled_release_fractions": [
+    {
+      "medium": "water",
+      "reconciled_fraction": 0.6333333333333334,
+      "weighting_strategy": "evidence_quality_weighted_mean",
+      "total_weight": 1.2,
+      "min_fraction": 0.3,
+      "max_fraction": 0.7,
+      "absolute_spread": 0.39999999999999997,
+      "status": "conflict",
+      "contributing_labels": [
+        "monitoring_record_a",
+        "monitoring_record_b"
+      ]
+    },
+    {
+      "medium": "soil",
+      "reconciled_fraction": 0.36666666666666664,
+      "weighting_strategy": "evidence_quality_weighted_mean",
+      "total_weight": 1.2,
+      "min_fraction": 0.3,
+      "max_fraction": 0.7,
+      "absolute_spread": 0.39999999999999997,
+      "status": "conflict",
+      "contributing_labels": [
+        "monitoring_record_a",
+        "monitoring_record_b"
+      ]
+    }
+  ],
+  "agreed_values": {},
+  "conflicts": [
+    {
+      "field": "total_release_mass_kg",
+      "conflict_type": "spread_exceeds_threshold",
+      "description": "Release mass evidence differs by more than the allowed relative spread threshold after evidence-quality weighting.",
+      "semantic_mapping": null,
+      "observed_values": [
+        "monitoring_record_a: 10.0 kg (quality=measured, weight=1.00)",
+        "monitoring_record_b: 16.0 kg (quality=heuristic, weight=0.20)"
+      ],
+      "contributing_labels": [
+        "monitoring_record_a",
+        "monitoring_record_b"
+      ]
+    },
+    {
+      "field": "release_fraction_water",
+      "conflict_type": "spread_exceeds_threshold",
+      "description": "Release fraction evidence for water differs by more than the allowed absolute spread threshold after evidence-quality weighting.",
+      "semantic_mapping": null,
+      "observed_values": [
+        "monitoring_record_a: 0.7 (quality=measured, weight=1.00)",
+        "monitoring_record_b: 0.3 (quality=heuristic, weight=0.20)"
+      ],
+      "contributing_labels": [
+        "monitoring_record_a",
+        "monitoring_record_b"
+      ]
+    },
+    {
+      "field": "release_fraction_soil",
+      "conflict_type": "spread_exceeds_threshold",
+      "description": "Release fraction evidence for soil differs by more than the allowed absolute spread threshold after evidence-quality weighting.",
+      "semantic_mapping": null,
+      "observed_values": [
+        "monitoring_record_a: 0.3 (quality=measured, weight=1.00)",
+        "monitoring_record_b: 0.7 (quality=heuristic, weight=0.20)"
+      ],
+      "contributing_labels": [
+        "monitoring_record_a",
+        "monitoring_record_b"
+      ]
+    }
+  ],
+  "vector_conflicts": [],
+  "unresolved_conflict_count": 3,
+  "recommended_next_actions": [
+    "Resolve competing release-mass estimates before higher-confidence or regulatory use.",
+    "Resolve conflicting release-media allocations for: soil, water.",
+    "Replace low-confidence release evidence where possible: monitoring_record_b."
+  ],
+  "provenance": {
+    "schema_version": "v1",
+    "defaults_version": "v1",
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "generated_at": "2026-04-17T08:19:40.229412Z",
+    "source_references": [
+      {
+        "source_id": "example.release.a",
+        "title": "Illustrative monitoring record A",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      {
+        "source_id": "example.release.b",
+        "title": "Illustrative monitoring record B",
+        "effective_date": "2026-04-08",
+        "url": null
+      }
+    ]
+  },
+  "quality_flags": [
+    {
+      "code": "release_evidence_conflict",
+      "severity": "warning",
+      "message": "One or more release evidence fields remain in conflict after reconciliation."
+    },
+    {
+      "code": "low_confidence_release_evidence",
+      "severity": "warning",
+      "message": "Low-confidence release evidence contributed to reconciliation: monitoring_record_b"
+    }
+  ],
+  "limitations": [
+    {
+      "code": "reconciliation_uses_means",
+      "message": "The reconciled screening scenario uses evidence-quality-weighted means across conflicting evidence inputs."
+    },
+    {
+      "code": "weighted_by_evidence_quality",
+      "message": "Reconciliation used evidence-quality weighting to reduce the influence of surrogate or heuristic inputs."
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "requested_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Requested Profile Id"
+    },
+    "consumer_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Consumer Name"
+    },
+    "recommended_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recommended Profile Id"
+    },
+    "resolved_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resolved Profile Id"
+    },
+    "resolution_method": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resolution Method"
+    },
+    "resolution_basis": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resolution Basis"
+    },
+    "resolution_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resolution Confidence"
+    },
+    "matched_hint": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Matched Hint"
+    },
+    "target_module": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Target Module"
+    },
+    "allowed_target_modules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Target Modules",
+      "type": "array"
+    },
+    "target_modules_preview": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Modules Preview",
+      "type": "array"
+    },
+    "downstream_field": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Downstream Field"
+    },
+    "required_entry_fields": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Entry Fields",
+      "type": "array"
+    },
+    "status": {
+      "title": "Status",
+      "type": "string"
+    },
+    "issues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "tool_request_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Request Template"
+    },
+    "response_summary_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Response Summary Template"
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "title": "RegulatoryHandoffResolutionPreview",
+  "type": "object"
+}
