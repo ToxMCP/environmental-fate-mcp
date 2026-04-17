@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto-escalation of scientific review outcome to `escalate_model_review` when any surface carries an `ERROR` quality flag.
 - Public governance docs (`SECURITY.md`, `SUPPORT.md`, `CONTRIBUTING.md`) and GitHub collaboration templates.
 - A public release checklist for tagged release preparation and repository-setting review.
+- A deterministic public release bundle generator with release notes, checksums, and machine-readable release reports.
 
 ### Changed
 - Project license changed from MIT to Apache License 2.0.

@@ -26,9 +26,11 @@ dev = [
 environmental-fate-mcp = "fate_mcp.__main__:main"
 environmental-fate-mcp-generate-artifacts = "fate_mcp.contracts:main"
 environmental-fate-mcp-validate = "fate_mcp.validation:main"
+environmental-fate-mcp-build-release-bundle = "fate_mcp.release_artifacts:main"
 fate-mcp = "fate_mcp.__main__:main"
 fate-mcp-generate-artifacts = "fate_mcp.contracts:main"
 fate-mcp-validate = "fate_mcp.validation:main"
+fate-mcp-build-release-bundle = "fate_mcp.release_artifacts:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }

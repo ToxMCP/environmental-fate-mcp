@@ -16,6 +16,7 @@ This checklist is the public-facing companion to the deeper release-readiness ru
 
 - [ ] `uv sync --extra dev`
 - [ ] `uv run fate-mcp-generate-artifacts`
+- [ ] `uv run fate-mcp-build-release-bundle`
 - [ ] generated artifacts are deterministic across reruns
 - [ ] `uv run pytest`
 - [ ] `uv run environmental-fate-mcp-validate`

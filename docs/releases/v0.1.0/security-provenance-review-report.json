@@ -1,0 +1,9 @@
+{
+  "notes": [
+    "No secret handling is implemented in v0.1.",
+    "Defaults and assumption provenance are explicit and machine-readable.",
+    "Quality flags and limitation notes are emitted in normalized outputs."
+  ],
+  "status": "provenance_explicit_review_pending",
+  "version": "0.1.0"
+}

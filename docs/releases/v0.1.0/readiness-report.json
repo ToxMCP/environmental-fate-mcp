@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "name": "schemas-generated",
+      "passed": true
+    },
+    {
+      "name": "examples-generated",
+      "passed": true
+    },
+    {
+      "name": "defaults-manifest-generated",
+      "passed": true
+    },
+    {
+      "name": "benchmarks-passed",
+      "passed": true
+    },
+    {
+      "name": "failure-modes-passed",
+      "passed": true
+    },
+    {
+      "name": "downstream-interoperability-passed",
+      "passed": true
+    },
+    {
+      "name": "regulatory-handoff-governance-passed",
+      "passed": true
+    },
+    {
+      "name": "adapter-interoperability-passed",
+      "passed": true
+    },
+    {
+      "name": "reconciliation-transparency-passed",
+      "passed": true
+    },
+    {
+      "name": "scientific-review-artifacts-passed",
+      "passed": true
+    },
+    {
+      "name": "scientific-claim-coverage-passed",
+      "passed": true
+    },
+    {
+      "name": "scientific-review-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "scientific-methods-dossier-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "model-family-selection-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "model-family-selection-review-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "model-family-challenge-review-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "model-family-challenge-scientific-dossier-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "model-family-comparison-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "model-family-comparison-review-workflow-passed",
+      "passed": true
+    }
+  ],
+  "status": "ready_for_screening_release",
+  "version": "0.1.0"
+}

@@ -14,10 +14,12 @@ jobs:
         run: uv sync --extra dev
       - name: Generate artifacts
         run: uv run fate-mcp-generate-artifacts
+      - name: Build public release bundle
+        run: uv run environmental-fate-mcp-build-release-bundle
       - name: Ensure artifacts are up to date
         run: |
           git diff --exit-code || (
-            echo "::error::Generated artifacts are out of date. Run 'uv run fate-mcp-generate-artifacts' and commit the changes." &&
+            echo "::error::Generated artifacts or release bundle files are out of date. Run 'uv run fate-mcp-generate-artifacts' and 'uv run environmental-fate-mcp-build-release-bundle' and commit the changes." &&
             exit 1
           )
       - name: Run tests

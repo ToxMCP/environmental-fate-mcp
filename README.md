@@ -148,6 +148,7 @@ See:
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
+- [docs/releases/v0.1.0/release-notes.md](./docs/releases/v0.1.0/release-notes.md)
 
 ## Governance
 
@@ -161,6 +162,7 @@ See:
 ```bash
 uv sync --extra dev
 uv run environmental-fate-mcp-generate-artifacts
+uv run environmental-fate-mcp-build-release-bundle
 uv run pytest
 uv run environmental-fate-mcp-validate
 uv run environmental-fate-mcp

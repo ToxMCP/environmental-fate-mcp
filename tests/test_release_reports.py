@@ -1,7 +1,9 @@
+import json
+from hashlib import sha256
 from pathlib import Path
 
 from fate_mcp.contracts import generate_contract_artifacts
-from fate_mcp.release_artifacts import build_release_reports
+from fate_mcp.release_artifacts import build_release_reports, write_release_bundle
 
 
 def test_release_reports_include_validation_and_known_gaps() -> None:
@@ -173,3 +175,43 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "fate_preview_model_family_comparison_review" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_model_family_comparison_review_packet" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_model_family_comparison_review_brief" in reports["metadata-report"]["supportedWorkflows"]
+
+
+def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    generate_contract_artifacts(repo_root)
+    bundle_dir = tmp_path / "v0.1.0-test"
+    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.1.0-test")
+    assert result_dir == bundle_dir
+
+    manifest = json.loads((bundle_dir / "release-bundle-manifest.json").read_text())
+    assert manifest["version"] == "0.1.0"
+    assert manifest["releaseRef"] == "v0.1.0-test"
+
+    release_notes = (bundle_dir / "release-notes.md").read_text()
+    assert "# Environmental Fate MCP v0.1.0-test" in release_notes
+    assert "Release status: `ready_for_screening_release`" in release_notes
+    assert "Machine-readable release reports are published" in release_notes
+
+    bundle_readme = (bundle_dir / "README.md").read_text()
+    assert "deterministic public release bundle" in bundle_readme
+    assert "release-bundle-manifest.json" in bundle_readme
+    assert "SHA256SUMS" in bundle_readme
+
+    for item in manifest["files"]:
+        digest = sha256((bundle_dir / item["path"]).read_bytes()).hexdigest()
+        assert digest == item["sha256"]
+
+    checksum_entries = {}
+    for line in (bundle_dir / "SHA256SUMS").read_text().splitlines():
+        digest, _, filename = line.partition("  ")
+        checksum_entries[filename] = digest
+    assert checksum_entries["release-bundle-manifest.json"] == sha256(
+        (bundle_dir / "release-bundle-manifest.json").read_bytes()
+    ).hexdigest()
+    assert checksum_entries["release-notes.md"] == sha256((bundle_dir / "release-notes.md").read_bytes()).hexdigest()
+
+    first_pass = {path.name: path.read_text() for path in bundle_dir.iterdir() if path.is_file()}
+    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.1.0-test")
+    second_pass = {path.name: path.read_text() for path in bundle_dir.iterdir() if path.is_file()}
+    assert first_pass == second_pass

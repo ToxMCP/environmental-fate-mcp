@@ -1,0 +1,47 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "608ff86e5277834693f3411295d042d35342d5219992e293f425bb8a65cbeec5"
+    },
+    {
+      "path": "adapter-validation-report.json",
+      "sha256": "9da20cb8c7ddaf2eeb8463439b0e687446a35048135af98a5a970d4557ad7258"
+    },
+    {
+      "path": "benchmark-manifest.json",
+      "sha256": "ed70b02c968fdbc0600a269f434e19f51edaf3ab82ed337d52ff4e17f111b6ca"
+    },
+    {
+      "path": "known-gap-report.json",
+      "sha256": "3dbb3a4e3f0b1364170ce77ce916a7c27e2143b3216b81fb50f36d4fa82dd9b7"
+    },
+    {
+      "path": "metadata-report.json",
+      "sha256": "b8c7cdd23f002477226c4e364e96489867f450b87d3c652820905a404eb231b4"
+    },
+    {
+      "path": "readiness-report.json",
+      "sha256": "e9358ed5c4be2c18c8a17397a80ebd0c0c9e5f11db016444df3cde4eae996273"
+    },
+    {
+      "path": "release-notes.md",
+      "sha256": "983c8736faef2be60a4cab431242220f66dc539fd11bc5c8525278e9ac0d2d0d"
+    },
+    {
+      "path": "scientific-claim-coverage-report.json",
+      "sha256": "e02868fd3710f6f8fedec5ff28c82e7a6db5b830eb6a81cf85338680ac269000"
+    },
+    {
+      "path": "security-provenance-review-report.json",
+      "sha256": "fb345dd6aaae29a8692e71d96a22c97ba43de6dd8ab533b741d71a36714ec04e"
+    },
+    {
+      "path": "validation-dossier.json",
+      "sha256": "0065a2fee5fbe4e1e27094bc39a7a78c423e4af78a5d12ea63dab547cbc3c4c5"
+    }
+  ],
+  "releaseRef": "v0.1.0",
+  "status": "ready_for_screening_release",
+  "version": "0.1.0"
+}

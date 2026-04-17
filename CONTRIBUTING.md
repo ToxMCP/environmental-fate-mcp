@@ -17,6 +17,7 @@ Please keep these invariants intact:
 ```bash
 uv sync --extra dev
 uv run fate-mcp-generate-artifacts
+uv run fate-mcp-build-release-bundle
 uv run pytest
 uv run environmental-fate-mcp-validate
 ```
@@ -51,9 +52,10 @@ Poor fits:
 If your change touches contracts, examples, defaults, or generated artifacts:
 
 1. Regenerate artifacts.
-2. Confirm regeneration is deterministic.
-3. Confirm `git diff` only reflects intended changes.
-4. Run the full validator, not just tests.
+2. Rebuild the public release bundle.
+3. Confirm regeneration is deterministic.
+4. Confirm `git diff` only reflects intended changes.
+5. Run the full validator, not just tests.
 
 If your change touches runtime scientific behavior:
 

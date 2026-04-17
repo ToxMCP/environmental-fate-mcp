@@ -1,0 +1,102 @@
+{
+  "checkCount": 5,
+  "checks": [
+    {
+      "name": "normalized_json_csv_equivalence",
+      "status": "ok"
+    },
+    {
+      "name": "adapter_unit_conversion_equivalence",
+      "status": "ok"
+    },
+    {
+      "name": "adapter_basis_conversion_equivalence",
+      "status": "ok"
+    },
+    {
+      "name": "legacy_steady_compartments_preserved",
+      "status": "ok"
+    },
+    {
+      "name": "legacy_time_bucket_bounds_preserved",
+      "status": "ok"
+    }
+  ],
+  "legacySteadyImport": {
+    "compartments": [
+      "ambient_air",
+      "surface_water"
+    ],
+    "engineName": "legacy-screening-desktop",
+    "surfaceCount": 2
+  },
+  "legacyTimeBucketImport": {
+    "bounds": [
+      {
+        "end": "2026-04-08T00:00:00+00:00",
+        "start": "2026-04-01T00:00:00+00:00"
+      },
+      {
+        "end": "2026-04-15T00:00:00+00:00",
+        "start": "2026-04-08T00:00:00+00:00"
+      }
+    ],
+    "engineName": "legacy-screening-desktop",
+    "surfaceCount": 2,
+    "timeWindowModes": [
+      "time_bucket",
+      "time_bucket"
+    ]
+  },
+  "normalizedFixtureEquivalence": {
+    "alternateUnitSignature": [
+      {
+        "compartment": "surface_water",
+        "end": null,
+        "mode": "steady_state",
+        "start": null,
+        "unit": "mg/L",
+        "value": 0.0125
+      }
+    ],
+    "csvSignature": [
+      {
+        "compartment": "surface_water",
+        "end": null,
+        "mode": "steady_state",
+        "start": null,
+        "unit": "mg/L",
+        "value": 0.0125
+      }
+    ],
+    "jsonSignature": [
+      {
+        "compartment": "surface_water",
+        "end": null,
+        "mode": "steady_state",
+        "start": null,
+        "unit": "mg/L",
+        "value": 0.0125
+      }
+    ],
+    "weightBasisSignature": [
+      {
+        "compartment": "agricultural_soil",
+        "end": null,
+        "mode": "steady_state",
+        "start": null,
+        "unit": "mg/kg",
+        "value": 10.0
+      },
+      {
+        "compartment": "freshwater_sediment",
+        "end": null,
+        "mode": "steady_state",
+        "start": null,
+        "unit": "mg/kg",
+        "value": 10.0
+      }
+    ]
+  },
+  "passed": true
+}
