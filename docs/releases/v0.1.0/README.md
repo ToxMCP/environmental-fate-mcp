@@ -12,7 +12,7 @@ Release status: `ready_for_screening_release`.
 - `validation-dossier.json`: Full validation dossier across scientific, interoperability, and release checks.
 - `adapter-validation-report.json`: Focused validation report for governed adapter interoperability.
 - `known-gap-report.json`: Declared known gaps that remain intentionally out of scope for this release.
-- `release-notes.md`: Human-readable release notes draft for the exact release reference.
+- `release-notes.md`: Human-readable release notes for the exact release reference.
 - `README.md`: Index of the release bundle contents.
 - `release-bundle-manifest.json`: Bundle manifest with SHA-256 checksums for bundled release files.
 - `SHA256SUMS`: SHA-256 checksums for release bundle verification.

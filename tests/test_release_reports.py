@@ -73,6 +73,13 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["validation-dossier"]["downstreamInteroperability"]["regulatoryReviewPacketMatchesPackage"] is True
     assert reports["validation-dossier"]["downstreamInteroperability"]["regulatoryReviewBriefMatchesPacket"] is True
     assert reports["adapter-validation-report"]["passed"] is True
+    assert (
+        reports["security-provenance-review-report"]["status"]
+        == "documented_provenance_controls_with_declared_scope_limits"
+    )
+    assert reports["security-provenance-review-report"]["scope"]
+    assert reports["security-provenance-review-report"]["controls"]
+    assert reports["security-provenance-review-report"]["limitations"]
     assert reports["metadata-report"]["regulatoryHandoffProfileCount"] >= 2
     assert reports["metadata-report"]["regulatoryHandoffPromptTemplateCount"] >= 2
     assert reports["metadata-report"]["regulatoryHandoffConsumerHintCount"] >= 4
@@ -197,6 +204,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     assert "deterministic public release bundle" in bundle_readme
     assert "release-bundle-manifest.json" in bundle_readme
     assert "SHA256SUMS" in bundle_readme
+    assert "release notes for the exact release reference" in bundle_readme
 
     for item in manifest["files"]:
         digest = sha256((bundle_dir / item["path"]).read_bytes()).hexdigest()

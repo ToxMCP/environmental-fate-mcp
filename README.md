@@ -188,7 +188,7 @@ Legacy CLI aliases remain available:
 - `defaults/v1/`: curated defaults, applicability profiles, scientific validation claims, and reference cases
 - `docs/contracts/schemas/`: generated JSON Schema files
 - `schemas/examples/`: generated example payloads
-- `docs/releases/`: generated release notes stubs and release-documentation surface
+- `docs/releases/`: generated release bundles and release-documentation surface
 - `docs/adr/`: architecture decisions
 - `tests/`: runtime, defaults, validation, adapter, integration, invariants, and manifest-hash regression coverage
 

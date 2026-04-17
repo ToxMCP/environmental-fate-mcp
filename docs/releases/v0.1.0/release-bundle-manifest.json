@@ -2,7 +2,7 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "608ff86e5277834693f3411295d042d35342d5219992e293f425bb8a65cbeec5"
+      "sha256": "502445d424f2d6154c053583d5ad803ea29908186f07bb8835aaa4166f897b93"
     },
     {
       "path": "adapter-validation-report.json",
@@ -34,7 +34,7 @@
     },
     {
       "path": "security-provenance-review-report.json",
-      "sha256": "fb345dd6aaae29a8692e71d96a22c97ba43de6dd8ab533b741d71a36714ec04e"
+      "sha256": "a3b58a513427687b94a886b18db8aa109c47a607df28dd40819ab85375c10768"
     },
     {
       "path": "validation-dossier.json",

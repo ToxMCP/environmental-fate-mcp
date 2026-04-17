@@ -46,7 +46,7 @@ REPORT_DESCRIPTIONS = {
     "validation-dossier.json": "Full validation dossier across scientific, interoperability, and release checks.",
     "adapter-validation-report.json": "Focused validation report for governed adapter interoperability.",
     "known-gap-report.json": "Declared known gaps that remain intentionally out of scope for this release.",
-    "release-notes.md": "Human-readable release notes draft for the exact release reference.",
+    "release-notes.md": "Human-readable release notes for the exact release reference.",
     "README.md": "Index of the release bundle contents.",
     "release-bundle-manifest.json": "Bundle manifest with SHA-256 checksums for bundled release files.",
     "SHA256SUMS": "SHA-256 checksums for release bundle verification.",
@@ -620,11 +620,23 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
     }
     security_provenance_review = {
         "version": VERSION,
-        "status": "provenance_explicit_review_pending",
-        "notes": [
-            "No secret handling is implemented in v0.1.",
+        "status": "documented_provenance_controls_with_declared_scope_limits",
+        "scope": [
+            "Release-bundle provenance posture for the public screening MCP surface.",
+            "Control summary for generated artifacts, defaults provenance, and downstream handoff integrity.",
+        ],
+        "controls": [
             "Defaults and assumption provenance are explicit and machine-readable.",
-            "Quality flags and limitation notes are emitted in normalized outputs.",
+            "Concentration bundles and regulatory handoff packages carry SHA-256 integrity hashes.",
+            "Quality flags and limitation notes are emitted in normalized outputs and review artifacts.",
+        ],
+        "limitations": [
+            "No secret handling is implemented in v0.1 because the public screening workflows do not require credential-bearing inputs.",
+            "This report summarizes product-level provenance controls; it is not a substitute for deployment-specific security hardening or independent security assessment.",
+        ],
+        "notes": [
+            "Environmental Fate MCP is a bounded screening service inside the broader ToxMCP suite.",
+            "Provenance, quality, and declared limitation fields are intended to support assessor review rather than replace it.",
         ],
     }
     known_gap_report = {
