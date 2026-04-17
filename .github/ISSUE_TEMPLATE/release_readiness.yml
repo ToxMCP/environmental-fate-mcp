@@ -1,0 +1,53 @@
+name: Release Readiness / Blocker
+description: Flag a concern that could block or weaken a public release.
+title: "[Release]: "
+labels:
+  - release
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for release blockers or concerns about public trust, auditability, reproducibility, or documentation.
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Release blocker
+        - High concern
+        - Medium concern
+        - Low concern / polish
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Reproducibility
+        - Startup / packaging behavior
+        - Validation / CI gating
+        - Scientific documentation
+        - Regulatory handoff trust
+        - Public repository hygiene
+        - Supply-chain / release process
+    validations:
+      required: true
+  - type: textarea
+    id: concern
+    attributes:
+      label: Concern
+      description: Describe the gap or blocker clearly.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Include diffs, validator output, screenshots, or links to the exact file/line if possible.
+  - type: textarea
+    id: release_impact
+    attributes:
+      label: Why this matters for release
+    validations:
+      required: true

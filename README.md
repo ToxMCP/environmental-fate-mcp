@@ -149,6 +149,13 @@ See:
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
 
+## Governance
+
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
+- [SECURITY.md](./SECURITY.md)
+- [SUPPORT.md](./SUPPORT.md)
+- [docs/releases/public_release_checklist.md](./docs/releases/public_release_checklist.md)
+
 ## Quick start
 
 ```bash

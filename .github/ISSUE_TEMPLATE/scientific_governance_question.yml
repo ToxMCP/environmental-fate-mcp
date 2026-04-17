@@ -1,0 +1,53 @@
+name: Scientific Governance Question
+description: Ask about model applicability, scientific review posture, claimed support, or declared limitations.
+title: "[Scientific]: "
+labels:
+  - scientific-review
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for questions about model-family applicability, documented limitations, scientific review outputs, benchmark support, or release claims.
+  - type: dropdown
+    id: model_family
+    attributes:
+      label: Model family
+      options:
+        - reference_mass_balance
+        - advective_screening_mass_balance
+        - external_result_adapter
+        - adapter_stub
+        - Not sure
+    validations:
+      required: true
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - Applicability / suitability
+        - Benchmark or claim coverage
+        - Scientific review packet or brief interpretation
+        - Probabilistic workflow interpretation
+        - Regulatory handoff semantics
+        - Boundary with another ToxMCP module
+        - Documentation clarification
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: State the scientific or governance question directly.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Include relevant scenario features, jurisdictional context, or output artifacts.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence
+      description: Link relevant docs, claims, review artifacts, or benchmark fixtures if you already know them.

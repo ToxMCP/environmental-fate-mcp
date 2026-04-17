@@ -1,0 +1,61 @@
+name: Bug Report
+description: Report a defect in runtime behavior, generated artifacts, validation, or repository release hygiene.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for reproducible defects in code, contracts, generated artifacts, validation, or release behavior.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Runtime / concentration estimation
+        - Generated schemas / examples
+        - Validation / release gating
+        - Scientific review artifacts
+        - Regulatory handoff packaging
+        - Documentation / public release surface
+        - CI / packaging
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit / version
+      description: Include commit SHA, branch, release tag, or package version.
+      placeholder: "0809555 or v0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Be concrete enough for someone else to reproduce the problem locally.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Validation or log evidence
+      description: Paste validator output, stack traces, or diff summaries as needed.
+  - type: textarea
+    id: impact
+    attributes:
+      label: Scientific or release impact
+      description: Note whether the issue affects auditability, verifiability, scientific review, or downstream trust.

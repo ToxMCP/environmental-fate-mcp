@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `temperature_c` field on scenarios with a limitation note when non-default temperatures are used.
 - Scientific invariant tests for mass-balance closure, advection bounds, linear mass scaling, and half-life monotonicity.
 - Auto-escalation of scientific review outcome to `escalate_model_review` when any surface carries an `ERROR` quality flag.
+- Public governance docs (`SECURITY.md`, `SUPPORT.md`, `CONTRIBUTING.md`) and GitHub collaboration templates.
+- A public release checklist for tagged release preparation and repository-setting review.
 
 ### Changed
 - Project license changed from MIT to Apache License 2.0.
