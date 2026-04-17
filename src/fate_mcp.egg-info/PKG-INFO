@@ -3,7 +3,7 @@ Name: fate-mcp
 Version: 0.1.0
 Summary: Fate MCP for deterministic environmental release to concentration workflows
 Author: ToxMCP
-License: MIT
+License: Apache License 2.0
 Requires-Python: >=3.12
 Description-Content-Type: text/markdown
 Requires-Dist: mcp[cli]<2.0.0,>=1.27.0

@@ -1,7 +1,7 @@
 # Environmental Fate MCP
 
 [![CI](https://github.com/ToxMCP/environmental-fate-mcp/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ToxMCP/environmental-fate-mcp/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/ToxMCP/environmental-fate-mcp)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Release](https://img.shields.io/github/v/release/ToxMCP/environmental-fate-mcp?sort=semver)](https://github.com/ToxMCP/environmental-fate-mcp/releases)
 [![Status](https://img.shields.io/badge/Status-Ready%20for%20Screening-2E8B57)](./docs/release_readiness.md)
 [![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
@@ -196,4 +196,4 @@ The detailed boundary and limitation notes are in [docs/fate_model_boundary_guid
 
 ## License
 
-MIT.
+Apache License 2.0.

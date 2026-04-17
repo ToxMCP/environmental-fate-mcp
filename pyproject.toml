@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Environmental Fate MCP for auditable environmental release-to-concentration workflows"
 readme = "README.md"
 requires-python = ">=3.12"
-license = { text = "MIT" }
+license = { text = "Apache License 2.0" }
 authors = [{ name = "ToxMCP" }]
 dependencies = [
   "mcp[cli]>=1.27.0,<2.0.0",
@@ -32,6 +32,7 @@ fate-mcp-validate = "fate_mcp.validation:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
+license-files = ["LICENSE"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

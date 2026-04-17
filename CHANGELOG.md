@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto-escalation of scientific review outcome to `escalate_model_review` when any surface carries an `ERROR` quality flag.
 
 ### Changed
+- Project license changed from MIT to Apache License 2.0.
 - Non-positive half-life now raises a fatal `FateValidationError` instead of being silently clamped to 0.1 day.
 - Probabilistic iteration cap reduced from unbounded to maximum 10,000 via Pydantic schema validation.
 - Resource path inputs (`schema_name`, `example_name`, `doc_name`) are now validated against a whitelist before filesystem access.
