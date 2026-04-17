@@ -10,7 +10,7 @@ This one-page checklist is the **minimum viable review path** for using the Envi
 - [ ] **Select model family:**
   - Simple single-medium screening → `reference_mass_balance`
   - Screening with advective loss (water/soil flushing) → `advective_screening_mass_balance`
-  - Time-varying release pattern → `time_bucket_mass_balance` or `advective_time_bucket_mass_balance`
+  - Time-varying release pattern → use `run_mode = time_bucket` with either `reference_mass_balance` or `advective_screening_mass_balance`
   - Reusing an external engine result → `external_result_adapter`
 - [ ] **Pick a region profile** that matches your regulatory jurisdiction (e.g., `eu_screening_default`, `us_epa_default`).
 - [ ] **Gather release evidence:** total mass (kg), release fractions by medium, and duration (days).
@@ -112,4 +112,4 @@ This performs 15+ validation checks across artifacts, benchmarks, contracts, and
 
 ---
 
-*Last updated: 2026-04-15*
+*Last updated: 2026-04-17*

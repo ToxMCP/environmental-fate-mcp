@@ -1,8 +1,8 @@
 {
   "comparison_packet": {
     "schema_version": "v1",
-    "comparison_packet_id": "familycmp-f48b5edbd366",
-    "scenario_id": "scenario-0b6762303adb",
+    "comparison_packet_id": "familycmp-bbb85df25293",
+    "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -153,9 +153,9 @@
     },
     "comparison": {
       "schema_version": "v1",
-      "comparison_id": "comparison-216f7c7adacf",
-      "base_scenario_id": "scenario-0b6762303adb",
-      "candidate_scenario_id": "scenario-0b6762303adb",
+      "comparison_id": "comparison-1c747e6ffa37",
+      "base_scenario_id": "scenario-306863db9176",
+      "candidate_scenario_id": "scenario-306863db9176",
       "surface_deltas": [
         {
           "medium": "air",
@@ -205,7 +205,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.200230Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": []
       },
       "limitations": [],
@@ -277,7 +277,7 @@
       }
     ],
     "summary_lines": [
-      "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+      "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-306863db9176.",
       "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
       "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
       "Base fit verdict: good_fit (score=0.85).",
@@ -325,7 +325,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.204745Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",

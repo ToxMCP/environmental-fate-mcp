@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "selreview-7e53abaaad8d",
-  "scenario_id": "scenario-0b6762303adb",
+  "review_packet_id": "selreview-92a3e8cc5656",
+  "scenario_id": "scenario-306863db9176",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -52,7 +52,7 @@
   "brief_lines": [
     "Summarize whether the governed model-family selection recommendation is ready for assessor-facing reuse, highlighting trigger signals, applicability, and experimental-family caution where relevant.",
     "Build a governed assessor-facing review packet for the model-family selection recommendation, preserving baseline-versus-experimental framing, trigger signals, fit/applicability context, and comparison-path guidance.",
-    "Selection review packet covers scenario scenario-0b6762303adb with baseline reference_mass_balance.",
+    "Selection review packet covers scenario scenario-306863db9176 with baseline reference_mass_balance.",
     "Recommendation status: default_with_experimental_challenge.",
     "Review status: model_family_selection_review_attention_needed.",
     "Use this selection profile when the corrected reference family remains the suite baseline and the advective family is only a governed experimental challenge path.",

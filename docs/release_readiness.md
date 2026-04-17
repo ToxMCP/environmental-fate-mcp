@@ -1,10 +1,13 @@
 # Release Readiness
 
 Environmental Fate MCP v0.1 release readiness is gated on reproducible contracts, examples, defaults manifests, benchmark fixtures, and downstream-consumer interoperability.
+Released artifacts must remain deterministic across regeneration, and server startup must validate the shipped artifact set without mutating it.
 
 ## Required checks
 
 - generated schemas and examples are current
+- generated example payloads are deterministic across reruns
+- server startup validates shipped artifacts without regenerating them
 - defaults manifest hashes match shipped files
 - benchmark fixtures pass within declared tolerances
 - benchmark fixtures carry explicit scientific basis, reference type, expected behavior, and tolerance rationale
@@ -72,6 +75,7 @@ Environmental Fate MCP v0.1 release readiness is gated on reproducible contracts
 - scientific review outcome templates and driver-action templates remain declared for every supported scientific review profile
 - scientific review status and outcome previews remain consistent with packet-level status, outcome, governing-rule, and recommended-action lines
 - downstream concentration bundles parse without ad hoc mapping
+- downstream concentration bundles and regulatory handoff packages carry integrity hashes and concentration-only disclaimers
 - regulatory handoff consumer aliases remain conflict-free after normalization
 - regulatory handoff preview and export selectors remain consistent
 - regulatory handoff target modules remain consistent with governed profile mappings

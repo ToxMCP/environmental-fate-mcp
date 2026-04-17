@@ -1,12 +1,12 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "regreview-3757b814c811",
-  "scenario_id": "scenario-0b6762303adb",
+  "review_packet_id": "regreview-f7ebc515c29f",
+  "scenario_id": "scenario-306863db9176",
   "handoff_profile_id": "exposure_scenario_mcp_v1",
   "target_module": "Direct-Use Exposure MCP",
   "review_status": "ready_for_assessor_review",
-  "passed_check_count": 6,
-  "total_check_count": 6,
+  "passed_check_count": 8,
+  "total_check_count": 8,
   "review_template_used": "Build a concise assessor review brief that confirms route hints, time semantics, concentration units, and downstream boundary notes remain intact for Direct-Use Exposure MCP.",
   "checklist_items": [
     {
@@ -36,7 +36,7 @@
   "brief_lines": [
     "Build a concise assessor review brief that confirms route hints, time semantics, concentration units, and downstream boundary notes remain intact for Direct-Use Exposure MCP.",
     "Review status ready_for_assessor_review for target module Direct-Use Exposure MCP under profile exposure_scenario_mcp_v1.",
-    "Technical checks: 6/6 passed.",
+    "Technical checks: 8/8 passed.",
     "[ready_for_assessor_confirmation] Confirm route_hint values remain available to the downstream exposure module without reinterpretation inside Fate MCP.",
     "Evidence: Target module: Direct-Use Exposure MCP. | Downstream field: environmental_media_concentration. | Route hints: inhalation_precursor, soil_contact_or_crop_uptake_precursor, water_contact_or_drinking_water_precursor. | Profile resolution: default_profile using exposure_scenario_mcp_v1.",
     "[ready_for_assessor_confirmation] Confirm time_window semantics are explicit enough for downstream route-specific use.",

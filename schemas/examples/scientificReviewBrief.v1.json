@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "scireview-48bcd473bbeb",
-  "scenario_id": "scenario-0b6762303adb",
-  "run_id": "run-83506b56fc97",
+  "review_packet_id": "scireview-5bc425d3226b",
+  "scenario_id": "scenario-306863db9176",
+  "run_id": "run-54d637570c66",
   "model_family": "reference_mass_balance",
   "fit_for_purpose": "screening",
   "review_status": "scientific_review_attention_needed",
@@ -47,7 +47,7 @@
   "summary_lines": [
     "Summarize whether the reference mass-balance run is scientifically reviewable within the declared screening boundary, highlighting applicability, parameter provenance, and top uncertainty drivers.",
     "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
-    "Scientific review packet covers run run-83506b56fc97 for model family reference_mass_balance.",
+    "Scientific review packet covers run run-54d637570c66 for model family reference_mass_balance.",
     "Fit verdict: good_fit (score=0.85).",
     "Parameter manifest exposes 16 resolved parameters and 5 ranked uncertainty drivers.",
     "Benchmark reference: Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",

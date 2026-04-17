@@ -1,16 +1,16 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "cmpreview-cd128a1d6331",
-  "comparison_packet_id": "familycmp-f48b5edbd366",
-  "scenario_id": "scenario-0b6762303adb",
+  "review_packet_id": "cmpreview-9a95bb3655c8",
+  "comparison_packet_id": "familycmp-bbb85df25293",
+  "scenario_id": "scenario-306863db9176",
   "comparison_profile_id": "reference_vs_advective_screening_v1",
   "base_model_family": "reference_mass_balance",
   "candidate_model_family": "advective_screening_mass_balance",
   "comparison_outcome": "material_model_family_divergence",
   "review_status": "model_family_comparison_review_attention_needed",
   "review_preview": {
-    "comparison_packet_id": "familycmp-f48b5edbd366",
-    "scenario_id": "scenario-0b6762303adb",
+    "comparison_packet_id": "familycmp-bbb85df25293",
+    "scenario_id": "scenario-306863db9176",
     "comparison_profile_id": "reference_vs_advective_screening_v1",
     "comparison_outcome": "material_model_family_divergence",
     "review_status": "model_family_comparison_review_attention_needed",
@@ -36,8 +36,8 @@
   },
   "comparison_packet": {
     "schema_version": "v1",
-    "comparison_packet_id": "familycmp-f48b5edbd366",
-    "scenario_id": "scenario-0b6762303adb",
+    "comparison_packet_id": "familycmp-bbb85df25293",
+    "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -188,9 +188,9 @@
     },
     "comparison": {
       "schema_version": "v1",
-      "comparison_id": "comparison-216f7c7adacf",
-      "base_scenario_id": "scenario-0b6762303adb",
-      "candidate_scenario_id": "scenario-0b6762303adb",
+      "comparison_id": "comparison-1c747e6ffa37",
+      "base_scenario_id": "scenario-306863db9176",
+      "candidate_scenario_id": "scenario-306863db9176",
       "surface_deltas": [
         {
           "medium": "air",
@@ -240,7 +240,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.200230Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": []
       },
       "limitations": [],
@@ -312,7 +312,7 @@
       }
     ],
     "summary_lines": [
-      "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+      "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-306863db9176.",
       "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
       "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
       "Base fit verdict: good_fit (score=0.85).",
@@ -360,7 +360,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.204745Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -495,7 +495,7 @@
   ],
   "summary_lines": [
     "Build a governed assessor-facing review packet for the reference-versus-advective screening comparison, preserving baseline-versus-experimental framing, fit/applicability context, dominant deltas, and equation traces.",
-    "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+    "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-306863db9176.",
     "Comparison outcome: material_model_family_divergence.",
     "Review status: model_family_comparison_review_attention_needed.",
     "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary."
@@ -556,7 +556,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-17T08:19:40.204876Z",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
     "source_references": [
       {
         "source_id": "example.release.note",

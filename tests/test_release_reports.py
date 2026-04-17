@@ -58,6 +58,15 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["validation-dossier"]["modelFamilyComparisonWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilyComparisonReviewWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["downstreamInteroperability"]["surfacesHaveCalculationTraces"] is True
+    assert reports["validation-dossier"]["downstreamInteroperability"]["bundleHasIntegrityHash"] is True
+    assert reports["validation-dossier"]["downstreamInteroperability"]["bundleHasRegulatoryUseDisclaimer"] is True
+    assert reports["validation-dossier"]["downstreamInteroperability"]["regulatoryPackageHasIntegrityHash"] is True
+    assert (
+        reports["validation-dossier"]["downstreamInteroperability"][
+            "regulatoryPackageHasRegulatoryUseDisclaimer"
+        ]
+        is True
+    )
     assert reports["validation-dossier"]["scientificReviewArtifacts"]["surfacesHaveEquationTraces"] is True
     assert reports["validation-dossier"]["downstreamInteroperability"]["regulatoryReviewPacketMatchesPackage"] is True
     assert reports["validation-dossier"]["downstreamInteroperability"]["regulatoryReviewBriefMatchesPacket"] is True

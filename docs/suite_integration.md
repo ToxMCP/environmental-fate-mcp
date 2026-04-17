@@ -1,6 +1,6 @@
 # Suite Integration Guide
 
-Environmental Fate MCP exports concentration surfaces and concentration bundles for downstream services.
+Environmental Fate MCP is one bounded module in the broader ToxMCP suite. It exports concentration surfaces and concentration bundles for downstream services rather than trying to absorb dose, intake, PBPK, or final decision responsibilities.
 It also publishes governed defaults and region-profile manifests for deterministic scenario construction.
 It now also exposes a regulatory handoff crosswalk package and an adapter import manifest for suite-level orchestration.
 

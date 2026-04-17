@@ -9,8 +9,8 @@
 
 > Part of **ToxMCP** Suite -> https://github.com/ToxMCP/toxmcp
 
-**Private MCP server for auditable environmental release-to-concentration screening, governed scientific review, and downstream regulatory handoff packaging.**
-It turns environmental release assumptions into deterministic and bounded probabilistic concentration surfaces, scientific review packets, scientific methods dossiers, and downstream handoff artifacts without taking over direct human dose, dietary intake, PBPK execution, final risk characterization, or model-native external engine execution as the public contract.
+**Governed MCP server for auditable environmental release-to-concentration screening, scientific review, and downstream regulatory handoff packaging.**
+Environmental Fate MCP is one bounded module inside the broader ToxMCP suite. It turns environmental release assumptions into deterministic and bounded probabilistic concentration surfaces, scientific review packets, scientific methods dossiers, and downstream handoff artifacts without taking over direct human dose, dietary intake, PBPK execution, final risk characterization, or model-native external engine execution as the public contract.
 
 ## Architecture
 
@@ -84,12 +84,12 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current generated `v0.1.0` release artifacts report:
+Current local release verification and generated `v0.1.0` artifacts report:
 
-- `133` passing tests
+- `135` passing tests
 - `107` JSON schemas
 - `103` generated examples
-- `43` supported tools and `10` prompts
+- `39` supported workflows surfaced through `46` tools and `14` prompts
 - `54` benchmark fixtures with claim-coverage enforcement
 - `30` governed scientific validation claims with plugin-code traceability
 - `25` governed scientific reference cases
@@ -107,7 +107,7 @@ Environmental Fate MCP gives the suite a dedicated environmental-fate layer that
 
 - **deterministic-first** for transparent screening and reviewer-facing challenge use
 - **governed** through versioned defaults packs, applicability profiles, validation claims, reference cases, and explicit limitations
-- **auditable** with structured correlation-ID logging (optional JSONL file output via `FATE_MCP_AUDIT_LOG_PATH`) and tamper-evident SHA-256 integrity hashes on every concentration bundle
+- **auditable** with structured correlation-ID logging (optional JSONL file output via `FATE_MCP_AUDIT_LOG_PATH`) and tamper-evident SHA-256 integrity hashes on every concentration bundle and regulatory handoff package
 - **MCP-native** with typed tools, resources, prompts, schemas, examples, request skeletons, and release artifacts
 - **bounded** so it complements Direct-Use Exposure MCP, Dietary Exposure MCP, PBPK MCP, and downstream review services instead of claiming their responsibilities
 - **fail-closed** on non-physical inputs (non-positive half-lives and residence times raise hard errors rather than being silently clamped)
@@ -133,10 +133,12 @@ Current validation artifacts report:
 - `ready_for_screening_release` release status
 - `0` uncovered mandatory scientific validation claims
 - `0` stale claims without benchmark or code traceability
+- deterministic example generation enforced for committed release artifacts
+- server startup validates shipped artifacts without regenerating them
 - deterministic and probabilistic review workflow parity enforced through validation
 - adapter normalization, scientific review, scientific methods dossier, model-family challenge, and regulatory handoff workflows included in release gating
 - scientific invariant tests proving mass-balance closure, advection bounds, mass linearity, and half-life monotonicity
-- CI fails if generated artifacts or defaults manifest hashes drift from committed state
+- CI fails if generated artifacts or defaults manifest hashes drift from committed state, if the full release validator fails, or if startup validation cannot load the shipped artifacts
 
 See:
 

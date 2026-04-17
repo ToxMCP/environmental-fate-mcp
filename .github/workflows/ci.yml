@@ -22,3 +22,7 @@ jobs:
           )
       - name: Run tests
         run: uv run pytest
+      - name: Run release validator
+        run: uv run environmental-fate-mcp-validate
+      - name: Smoke startup validation
+        run: uv run python -c "from fate_mcp.server import create_server; create_server()"

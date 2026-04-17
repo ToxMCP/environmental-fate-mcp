@@ -1395,6 +1395,10 @@ def test_export_regulatory_handoff_package_builds_crosswalk_entries() -> None:
     assert handoff.target_modules == ["Direct-Use Exposure MCP"]
     assert len(handoff.crosswalk_entries) == len(result.surfaces)
     assert handoff.crosswalk_entries[0].route_hint == "water_contact_or_drinking_water_precursor"
+    assert handoff.integrity_hash is not None
+    assert len(handoff.integrity_hash) == 64
+    assert "concentration surfaces" in handoff.regulatory_use_disclaimer.lower()
+    assert "not a human dose" in handoff.regulatory_use_disclaimer.lower()
     assert handoff.target_module_acknowledgement_schema_url is not None
     assert "exposureScenarioAcknowledgement" in handoff.target_module_acknowledgement_schema_url
 
@@ -1453,6 +1457,7 @@ def test_build_regulatory_handoff_review_packet_builds_default_review_bundle() -
     assert review_packet.target_module == "Direct-Use Exposure MCP"
     assert review_packet.resolution_preview.resolution_method == "default_profile"
     assert review_packet.package.package_id == review_packet.summary.package_id
+    assert review_packet.package.integrity_hash is not None
     assert review_packet.review_checklist
     assert review_packet.review_template_used is not None
     assert review_packet.parameter_quality_lines

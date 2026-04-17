@@ -1,6 +1,8 @@
 from pathlib import Path
 
 from fate_mcp.contracts import generate_contract_artifacts
+from fate_mcp.examples import build_examples
+from fate_mcp.runtime import FateRuntime
 from fate_mcp.validation import validate_generated_artifacts
 
 
@@ -88,3 +90,9 @@ def test_contract_generation_and_validation() -> None:
     assert (repo_root / "docs" / "contracts" / "schemas" / "recommendRegulatoryHandoffProfileRequest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "regulatoryHandoffProfileRecommendation.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "regulatoryHandoffPackage.v1.json").exists()
+
+
+def test_build_examples_is_deterministic() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    runtime = FateRuntime(repo_root)
+    assert build_examples(runtime) == build_examples(runtime)

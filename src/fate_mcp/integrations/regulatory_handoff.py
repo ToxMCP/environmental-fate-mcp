@@ -257,6 +257,16 @@ CAPACITY_PARAMETERS = {
 from .common import REGULATORY_HANDOFF_ENTRY_FIELDS, REGULATORY_ROUTE_HINTS, TARGET_MODULE_ACKNOWLEDGEMENT_SCHEMA_URLS, _applicability_lines, _build_regulatory_review_checklist, _default_regulatory_handoff_resolution_preview, _ensure_scenario_matches_result, _parameter_quality_lines, _resolve_model_family_applicability, _resolve_regulatory_handoff_profile, _scientific_unsuitability_lines, _uncertainty_lines, _validated_target_modules
 from .core import build_run_parameter_manifest, build_run_uncertainty_summary
 
+
+def _apply_regulatory_handoff_integrity(
+    package: RegulatoryHandoffPackage,
+) -> RegulatoryHandoffPackage:
+    payload = package.model_dump(mode="json", exclude={"integrity_hash"})
+    hash_input = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
+    package.integrity_hash = hashlib.sha256(hash_input.encode("utf-8")).hexdigest()
+    return package
+
+
 def export_exposure_consumption_package(
     request: ExportExposureConsumptionPackageRequest,
     provenance_builder: ProvenanceBuilder,
@@ -471,7 +481,7 @@ def export_regulatory_handoff_package(
         handoff_profile.profile_id
     )
 
-    return RegulatoryHandoffPackage(
+    package = RegulatoryHandoffPackage(
         scenario_id=result.run_summary.scenario_id,
         handoff_profile_id=handoff_profile.profile_id,
         profile_resolution_method=resolution_method,
@@ -508,6 +518,7 @@ def export_regulatory_handoff_package(
             ),
         ],
     )
+    return _apply_regulatory_handoff_integrity(package)
 
 
 
@@ -748,6 +759,24 @@ def build_regulatory_handoff_review_packet(
             message=(
                 "Review packet preserves the concentration-only boundary and keeps dose translation "
                 "explicitly downstream."
+            ),
+        ),
+        RegulatoryHandoffReviewCheck(
+            code="package_integrity_hash_present",
+            passed=bool(package.integrity_hash),
+            message=(
+                "Handoff package carries a tamper-evident SHA-256 integrity hash."
+                if package.integrity_hash
+                else "Handoff package is missing a tamper-evident integrity hash."
+            ),
+        ),
+        RegulatoryHandoffReviewCheck(
+            code="regulatory_use_disclaimer_present",
+            passed=bool(package.regulatory_use_disclaimer),
+            message=(
+                "Handoff package preserves the concentration-only regulatory-use disclaimer."
+                if package.regulatory_use_disclaimer
+                else "Handoff package is missing the concentration-only regulatory-use disclaimer."
             ),
         ),
         RegulatoryHandoffReviewCheck(

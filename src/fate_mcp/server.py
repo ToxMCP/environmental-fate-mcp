@@ -14,7 +14,7 @@ from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
 from fate_mcp.benchmarks import benchmark_manifest
-from fate_mcp.contracts import build_contract_manifest, generate_contract_artifacts
+from fate_mcp.contracts import build_contract_manifest, ensure_contract_artifacts_current
 from fate_mcp.defaults import DefaultsRegistry
 from fate_mcp.guidance import read_doc
 from fate_mcp.integrations import (
@@ -1377,5 +1377,5 @@ def release_resource(report_name: str) -> str:
 
 def create_server() -> FastMCP:
     _configure_logging()
-    generate_contract_artifacts(REPO_ROOT)
+    ensure_contract_artifacts_current(REPO_ROOT)
     return mcp

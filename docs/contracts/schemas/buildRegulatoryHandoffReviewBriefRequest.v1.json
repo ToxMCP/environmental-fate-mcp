@@ -354,6 +354,23 @@
         "provenance": {
           "$ref": "#/$defs/ProvenanceBundle"
         },
+        "integrity_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Integrity Hash"
+        },
+        "regulatory_use_disclaimer": {
+          "default": "This output packages concentration surfaces for downstream review. It is not a human dose, risk quotient, or regulatory decision. Downstream translation to dose requires Direct-Use Exposure MCP or equivalent.",
+          "title": "Regulatory Use Disclaimer",
+          "type": "string"
+        },
         "target_module_acknowledgement_schema_url": {
           "anyOf": [
             {

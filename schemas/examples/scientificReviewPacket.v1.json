@@ -1,15 +1,15 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "scireview-48bcd473bbeb",
-  "scenario_id": "scenario-0b6762303adb",
-  "run_id": "run-83506b56fc97",
+  "review_packet_id": "scireview-5bc425d3226b",
+  "scenario_id": "scenario-306863db9176",
+  "run_id": "run-54d637570c66",
   "model_family": "reference_mass_balance",
   "fit_for_purpose": "screening",
   "review_status": "scientific_review_attention_needed",
   "review_outcome": "qualified_screening_use",
   "outcome_preview": {
-    "scenario_id": "scenario-0b6762303adb",
-    "run_id": "run-83506b56fc97",
+    "scenario_id": "scenario-306863db9176",
+    "run_id": "run-54d637570c66",
     "model_family": "reference_mass_balance",
     "fit_for_purpose": "screening",
     "review_profile_model_family": "reference_mass_balance",
@@ -112,8 +112,8 @@
   },
   "parameter_manifest": {
     "schema_version": "v1",
-    "scenario_id": "scenario-0b6762303adb",
-    "run_id": "run-83506b56fc97",
+    "scenario_id": "scenario-306863db9176",
+    "run_id": "run-54d637570c66",
     "model_family": "reference_mass_balance",
     "fit_for_purpose": "screening",
     "escalation_concerns": [],
@@ -325,7 +325,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.193326Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -368,8 +368,8 @@
   },
   "uncertainty_summary": {
     "schema_version": "v1",
-    "scenario_id": "scenario-0b6762303adb",
-    "run_id": "run-83506b56fc97",
+    "scenario_id": "scenario-306863db9176",
+    "run_id": "run-54d637570c66",
     "model_family": "reference_mass_balance",
     "top_drivers": [
       {
@@ -438,7 +438,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.193386Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -513,7 +513,7 @@
   ],
   "summary_lines": [
     "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
-    "Scientific review packet covers run run-83506b56fc97 for model family reference_mass_balance.",
+    "Scientific review packet covers run run-54d637570c66 for model family reference_mass_balance.",
     "Fit verdict: good_fit (score=0.85).",
     "Parameter manifest exposes 16 resolved parameters and 5 ranked uncertainty drivers."
   ],
@@ -579,7 +579,7 @@
     {
       "code": "scenario_result_match",
       "passed": true,
-      "message": "Scenario scenario-0b6762303adb matches result scenario-0b6762303adb."
+      "message": "Scenario scenario-306863db9176 matches result scenario-306863db9176."
     },
     {
       "code": "applicability_profile_declared",
@@ -641,7 +641,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-17T08:19:40.195773Z",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
     "source_references": [
       {
         "source_id": "example.release.note",

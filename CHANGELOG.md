@@ -10,7 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Structured request/response logging with correlation IDs for all MCP tool calls.
 - `integrity_hash` field on `ConcentrationSurfaceBundle` for tamper-evident output signing.
+- `integrity_hash` field on `RegulatoryHandoffPackage` for end-to-end tamper-evident downstream handoff export.
 - `regulatory_use_disclaimer` on every concentration bundle stating the output is not a dose or risk quotient.
+- `regulatory_use_disclaimer` on every regulatory handoff package preserving the concentration-only boundary.
 - Adapter trace disclaimer on external-result normalized surfaces.
 - `reconciliation_thresholds.json` governed defaults for mass spread, fraction spread, and cosine similarity thresholds.
 - `temperature_c` field on scenarios with a limitation note when non-default temperatures are used.
@@ -21,8 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Non-positive half-life now raises a fatal `FateValidationError` instead of being silently clamped to 0.1 day.
 - Probabilistic iteration cap reduced from unbounded to maximum 10,000 via Pydantic schema validation.
 - Resource path inputs (`schema_name`, `example_name`, `doc_name`) are now validated against a whitelist before filesystem access.
-- Contract artifact generation moved from import-time side effect in `server.py` to explicit `create_server()` initialization.
+- Contract artifact generation is now deterministic across reruns so committed examples remain reproducible.
+- `create_server()` now validates shipped artifacts instead of regenerating schemas/examples/default manifests at startup.
+- CI now gates on the full release validator and a startup smoke check, not only artifact generation plus `pytest`.
 - Hard-coded reconciliation thresholds in `runtime.py` are now loaded from `defaults/v1/reconciliation_thresholds.json`.
+
+### Removed
+- Internal audit bundles, patch helpers, and scratch research exports from the public repository surface.
 
 ### Security
 - Closed path-traversal vectors in MCP resource handlers.

@@ -1,9 +1,9 @@
 {
   "review_packet": {
     "schema_version": "v1",
-    "review_packet_id": "probreview-d8c541202157",
-    "scenario_id": "scenario-0b6762303adb",
-    "run_id": "probrun-20848fb0e861",
+    "review_packet_id": "probreview-98ae553776ec",
+    "scenario_id": "scenario-306863db9176",
+    "run_id": "probrun-40f43919f819",
     "model_family": "reference_mass_balance",
     "run_mode": "steady_state",
     "review_status": "ready_for_assessor_review",
@@ -11,8 +11,8 @@
       "median_surfaces": [
         {
           "schema_version": "v1",
-          "surface_id": "surface-82a322036b0e-median",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-626faecbab2f-median",
+          "scenario_id": "scenario-306863db9176",
           "medium": "air",
           "compartment": "ambient_air",
           "geographic_scope": {
@@ -34,7 +34,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190720Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -67,8 +67,8 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-7bde87d4817b-median",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-0c13e4d4febc-median",
+          "scenario_id": "scenario-306863db9176",
           "medium": "soil",
           "compartment": "agricultural_soil",
           "geographic_scope": {
@@ -90,7 +90,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190793Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -123,8 +123,8 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-48fc365212c3-median",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-2c9602613f86-median",
+          "scenario_id": "scenario-306863db9176",
           "medium": "water",
           "compartment": "surface_water",
           "geographic_scope": {
@@ -146,7 +146,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190758Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -181,8 +181,8 @@
       "p90_surfaces": [
         {
           "schema_version": "v1",
-          "surface_id": "surface-82a322036b0e-p90",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-626faecbab2f-p90",
+          "scenario_id": "scenario-306863db9176",
           "medium": "air",
           "compartment": "ambient_air",
           "geographic_scope": {
@@ -204,7 +204,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190720Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -237,8 +237,8 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-7bde87d4817b-p90",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-0c13e4d4febc-p90",
+          "scenario_id": "scenario-306863db9176",
           "medium": "soil",
           "compartment": "agricultural_soil",
           "geographic_scope": {
@@ -260,7 +260,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190793Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -293,8 +293,8 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-48fc365212c3-p90",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-2c9602613f86-p90",
+          "scenario_id": "scenario-306863db9176",
           "medium": "water",
           "compartment": "surface_water",
           "geographic_scope": {
@@ -316,7 +316,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190758Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -351,8 +351,8 @@
       "p95_surfaces": [
         {
           "schema_version": "v1",
-          "surface_id": "surface-82a322036b0e-p95",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-626faecbab2f-p95",
+          "scenario_id": "scenario-306863db9176",
           "medium": "air",
           "compartment": "ambient_air",
           "geographic_scope": {
@@ -374,7 +374,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190720Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -407,8 +407,8 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-7bde87d4817b-p95",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-0c13e4d4febc-p95",
+          "scenario_id": "scenario-306863db9176",
           "medium": "soil",
           "compartment": "agricultural_soil",
           "geographic_scope": {
@@ -430,7 +430,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190793Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -463,8 +463,8 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-48fc365212c3-p95",
-          "scenario_id": "scenario-0b6762303adb",
+          "surface_id": "surface-2c9602613f86-p95",
+          "scenario_id": "scenario-306863db9176",
           "medium": "water",
           "compartment": "surface_water",
           "geographic_scope": {
@@ -486,7 +486,7 @@
             "schema_version": "v1",
             "defaults_version": "v1",
             "algorithm_version": "reference-mass-balance-0.1.0",
-            "generated_at": "2026-04-17T08:19:40.190758Z",
+            "generated_at": "2026-01-01T00:00:00.123456Z",
             "source_references": [
               {
                 "source_id": "example.release.note",
@@ -520,7 +520,7 @@
       ],
       "surface_summaries": [
         {
-          "surface_id": "surface-82a322036b0e",
+          "surface_id": "surface-626faecbab2f",
           "medium": "air",
           "compartment": "ambient_air",
           "concentration_unit": "mg/m3",
@@ -530,7 +530,7 @@
           "absolute_p95_minus_median": 0.0
         },
         {
-          "surface_id": "surface-7bde87d4817b",
+          "surface_id": "surface-0c13e4d4febc",
           "medium": "soil",
           "compartment": "agricultural_soil",
           "concentration_unit": "mg/kg",
@@ -540,7 +540,7 @@
           "absolute_p95_minus_median": 0.0
         },
         {
-          "surface_id": "surface-48fc365212c3",
+          "surface_id": "surface-2c9602613f86",
           "medium": "water",
           "compartment": "surface_water",
           "concentration_unit": "mg/L",
@@ -565,8 +565,8 @@
       ],
       "run_summary": {
         "schema_version": "v1",
-        "run_id": "probrun-20848fb0e861",
-        "scenario_id": "scenario-0b6762303adb",
+        "run_id": "probrun-40f43919f819",
+        "scenario_id": "scenario-306863db9176",
         "model_family": "reference_mass_balance",
         "run_mode": "steady_state",
         "surfaces_emitted": 3,
@@ -719,15 +719,15 @@
         "failed_iteration_reasons": {},
         "result_metadata": {
           "status": "completed",
-          "executed_at": "2026-04-17T08:19:40.192897Z",
+          "executed_at": "2026-01-01T00:00:00.123456Z",
           "execution_mode": "synchronous",
-          "result_id": "result-scenario-0b6762303adb-prob"
+          "result_id": "result-scenario-306863db9176-prob"
         }
       }
     },
     "summary_lines": [
       "Build a probabilistic review packet that preserves percentile surfaces, sampled drivers, iteration health, and reproducibility context.",
-      "Probabilistic review packet covers run probrun-20848fb0e861 for model family reference_mass_balance.",
+      "Probabilistic review packet covers run probrun-40f43919f819 for model family reference_mass_balance.",
       "Completed 12/12 iterations with 1 sampled parameters.",
       "Sampling seed: 17."
     ],
@@ -776,7 +776,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.193003Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",

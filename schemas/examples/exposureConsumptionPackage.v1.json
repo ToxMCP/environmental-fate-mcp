@@ -1,12 +1,12 @@
 {
   "schema_version": "v1",
-  "package_id": "package-6f4cde303e81",
-  "scenario_id": "scenario-0b6762303adb",
+  "package_id": "package-61dd91689e5c",
+  "scenario_id": "scenario-306863db9176",
   "surfaces": [
     {
       "schema_version": "v1",
-      "surface_id": "surface-bfa78712cafc",
-      "scenario_id": "scenario-0b6762303adb",
+      "surface_id": "surface-c8e7e6e1a10b",
+      "scenario_id": "scenario-306863db9176",
       "medium": "air",
       "compartment": "ambient_air",
       "geographic_scope": {
@@ -28,7 +28,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.189489Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -181,8 +181,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-5e8cf12e736b",
-      "scenario_id": "scenario-0b6762303adb",
+      "surface_id": "surface-43cbee821c8d",
+      "scenario_id": "scenario-306863db9176",
       "medium": "water",
       "compartment": "surface_water",
       "geographic_scope": {
@@ -204,7 +204,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.189538Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -357,8 +357,8 @@
     },
     {
       "schema_version": "v1",
-      "surface_id": "surface-062094f444ff",
-      "scenario_id": "scenario-0b6762303adb",
+      "surface_id": "surface-c4624b9ed238",
+      "scenario_id": "scenario-306863db9176",
       "medium": "soil",
       "compartment": "agricultural_soil",
       "geographic_scope": {
@@ -380,7 +380,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.189577Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -561,7 +561,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-17T08:19:40.234953Z",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
     "source_references": []
   },
   "limitations": [

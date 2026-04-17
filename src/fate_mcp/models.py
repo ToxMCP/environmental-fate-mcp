@@ -1069,6 +1069,14 @@ class RegulatoryHandoffPackage(FateBaseModel):
     parameter_manifest: RunParameterManifest | None = None
     uncertainty_summary: RunUncertaintySummary | None = None
     provenance: ProvenanceBundle
+    integrity_hash: str | None = None
+    regulatory_use_disclaimer: str = Field(
+        default=(
+            "This output packages concentration surfaces for downstream review. It is not a human dose, "
+            "risk quotient, or regulatory decision. Downstream translation to dose requires Direct-Use "
+            "Exposure MCP or equivalent."
+        )
+    )
     target_module_acknowledgement_schema_url: str | None = Field(
         default=None,
         description="URL of the JSON Schema that the target downstream MCP advertises for handoff acknowledgement.",

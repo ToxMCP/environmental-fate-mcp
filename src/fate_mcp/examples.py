@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import json
+from contextlib import ExitStack, contextmanager
+from datetime import UTC, datetime
 from pathlib import Path
+import uuid
+from unittest.mock import patch
 
 from fate_mcp.benchmarks import scientific_validation_claim_coverage_manifest
 from fate_mcp.integrations import (
@@ -95,7 +99,42 @@ from fate_mcp.plugins.external_result_adapter import build_adapter_import_manife
 from fate_mcp.runtime import FateRuntime
 
 
+_FIXED_EXAMPLE_TIMESTAMP = datetime(2026, 1, 1, 0, 0, 0, 123456, tzinfo=UTC)
+
+
+class _FrozenDateTime(datetime):
+    @classmethod
+    def now(cls, tz=None):
+        if tz is None:
+            return _FIXED_EXAMPLE_TIMESTAMP.replace(tzinfo=None)
+        return _FIXED_EXAMPLE_TIMESTAMP.astimezone(tz)
+
+
+class _DeterministicUuidFactory:
+    def __init__(self) -> None:
+        self.counter = 0
+
+    def __call__(self) -> uuid.UUID:
+        self.counter += 1
+        return uuid.uuid5(uuid.NAMESPACE_URL, f"fate-mcp-example-{self.counter}")
+
+
+@contextmanager
+def _deterministic_example_generation():
+    uuid_factory = _DeterministicUuidFactory()
+    with ExitStack() as stack:
+        stack.enter_context(patch("fate_mcp.models.uuid4", new=uuid_factory))
+        stack.enter_context(patch("fate_mcp.provenance.datetime", new=_FrozenDateTime))
+        stack.enter_context(patch("fate_mcp.result_meta.datetime", new=_FrozenDateTime))
+        yield
+
+
 def build_examples(runtime: FateRuntime) -> dict[str, dict]:
+    with _deterministic_example_generation():
+        return _build_examples(runtime)
+
+
+def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
     scenario_request = BuildEnvironmentalReleaseScenarioRequest(
         chemical_identity={"preferredName": "Example substance", "casrn": "100-00-0"},
         total_release_mass_kg=12.5,

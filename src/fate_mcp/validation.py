@@ -45,6 +45,17 @@ def validate_generated_artifacts(repo_root: Path) -> dict:
             continue
         results["schemas"].append({"name": name, "status": "ok"})
 
+    example_manifest_path = example_dir / "manifest.json"
+    if not example_manifest_path.exists():
+        results["examples"].append({"name": "manifest.json", "status": "missing"})
+    else:
+        manifest_payload = json.loads(example_manifest_path.read_text())
+        for item in manifest_payload.get("examples", []):
+            expected_name = item["name"]
+            expected_path = example_dir / f"{expected_name}.json"
+            if not expected_path.exists():
+                results["examples"].append({"name": f"{expected_name}.json", "status": "missing"})
+
     for example_path in sorted(example_dir.glob("*.json")):
         if example_path.name == "manifest.json":
             continue
@@ -138,7 +149,15 @@ def validate_downstream_interoperability(repo_root: Path) -> dict:
     uncertainty_summary_payload = json.loads(uncertainty_summary_path.read_text())
     regulatory_recommendation_payload = json.loads(regulatory_recommendation_path.read_text())
 
-    bundle_required = ["scenario_id", "surfaces", "run_summary", "assumptions", "dependencies"]
+    bundle_required = [
+        "scenario_id",
+        "surfaces",
+        "run_summary",
+        "assumptions",
+        "dependencies",
+        "integrity_hash",
+        "regulatory_use_disclaimer",
+    ]
     package_required = ["scenario_id", "surfaces", "geographic_scope", "time_semantics", "provenance"]
     regulatory_required = [
         "scenario_id",
@@ -147,6 +166,8 @@ def validate_downstream_interoperability(repo_root: Path) -> dict:
         "target_modules",
         "crosswalk_entries",
         "provenance",
+        "integrity_hash",
+        "regulatory_use_disclaimer",
     ]
 
     bundle_missing = [field for field in bundle_required if field not in bundle_payload]
@@ -239,6 +260,12 @@ def validate_downstream_interoperability(repo_root: Path) -> dict:
         and regulatory_package_payload.get("uncertainty_summary", {}).get("run_id")
         == uncertainty_summary_payload.get("run_id")
     )
+    bundle_has_integrity_hash = bool(bundle_payload.get("integrity_hash"))
+    bundle_has_regulatory_use_disclaimer = bool(bundle_payload.get("regulatory_use_disclaimer"))
+    regulatory_package_has_integrity_hash = bool(regulatory_package_payload.get("integrity_hash"))
+    regulatory_package_has_regulatory_use_disclaimer = bool(
+        regulatory_package_payload.get("regulatory_use_disclaimer")
+    )
 
     passed = (
         not bundle_missing
@@ -259,6 +286,10 @@ def validate_downstream_interoperability(repo_root: Path) -> dict:
         and regulatory_review_packet_matches_package
         and regulatory_review_brief_matches_packet
         and regulatory_package_carries_scientific_review_artifacts
+        and bundle_has_integrity_hash
+        and bundle_has_regulatory_use_disclaimer
+        and regulatory_package_has_integrity_hash
+        and regulatory_package_has_regulatory_use_disclaimer
     )
     return {
         "passed": passed,
@@ -280,6 +311,10 @@ def validate_downstream_interoperability(repo_root: Path) -> dict:
         "regulatoryReviewPacketMatchesPackage": regulatory_review_packet_matches_package,
         "regulatoryReviewBriefMatchesPacket": regulatory_review_brief_matches_packet,
         "regulatoryPackageCarriesScientificReviewArtifacts": regulatory_package_carries_scientific_review_artifacts,
+        "bundleHasIntegrityHash": bundle_has_integrity_hash,
+        "bundleHasRegulatoryUseDisclaimer": bundle_has_regulatory_use_disclaimer,
+        "regulatoryPackageHasIntegrityHash": regulatory_package_has_integrity_hash,
+        "regulatoryPackageHasRegulatoryUseDisclaimer": regulatory_package_has_regulatory_use_disclaimer,
     }
 
 

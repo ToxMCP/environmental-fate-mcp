@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "mfchallenge-24b836d0c47a",
-  "scenario_id": "scenario-0b6762303adb",
+  "review_packet_id": "mfchallenge-1dd5e5f84251",
+  "scenario_id": "scenario-306863db9176",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
   "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -13,7 +13,7 @@
   "comparison_outcome": "material_model_family_divergence",
   "comparison_review_status": "model_family_comparison_review_attention_needed",
   "review_preview": {
-    "scenario_id": "scenario-0b6762303adb",
+    "scenario_id": "scenario-306863db9176",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
     "challenge_review_profile_id": "reference_baseline_advective_challenge_review_v1",
     "selection_recommendation_status": "default_with_experimental_challenge",
@@ -62,7 +62,7 @@
   },
   "selection_recommendation": {
     "schema_version": "v1",
-    "scenario_id": "scenario-0b6762303adb",
+    "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -217,7 +217,7 @@
       "Scenario duration 30 day meets or exceeds the governed challenge threshold of 30 day."
     ],
     "summary_lines": [
-      "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-0b6762303adb.",
+      "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-306863db9176.",
       "Primary baseline family: reference_mass_balance.",
       "Challenge family: advective_screening_mass_balance.",
       "Primary fit verdict: good_fit (score=0.85).",
@@ -237,7 +237,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.209921Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -261,8 +261,8 @@
   },
   "selection_review_packet": {
     "schema_version": "v1",
-    "review_packet_id": "selreview-4aca4f8a511a",
-    "scenario_id": "scenario-0b6762303adb",
+    "review_packet_id": "selreview-5bb5a3f7ee62",
+    "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -271,7 +271,7 @@
     "challenge_model_family": "advective_screening_mass_balance",
     "review_status": "model_family_selection_review_attention_needed",
     "review_preview": {
-      "scenario_id": "scenario-0b6762303adb",
+      "scenario_id": "scenario-306863db9176",
       "selection_profile_id": "reference_baseline_advective_challenge_v1",
       "recommendation_status": "default_with_experimental_challenge",
       "primary_model_family": "reference_mass_balance",
@@ -298,7 +298,7 @@
     },
     "selection_recommendation": {
       "schema_version": "v1",
-      "scenario_id": "scenario-0b6762303adb",
+      "scenario_id": "scenario-306863db9176",
       "run_mode": "steady_state",
       "fit_for_purpose": "screening",
       "selection_profile_id": "reference_baseline_advective_challenge_v1",
@@ -453,7 +453,7 @@
         "Scenario duration 30 day meets or exceeds the governed challenge threshold of 30 day."
       ],
       "summary_lines": [
-        "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-0b6762303adb.",
+        "Model-family selection profile Reference Baseline With Advective Challenge (reference_baseline_advective_challenge_v1) was evaluated for scenario scenario-306863db9176.",
         "Primary baseline family: reference_mass_balance.",
         "Challenge family: advective_screening_mass_balance.",
         "Primary fit verdict: good_fit (score=0.85).",
@@ -473,7 +473,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.209921Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -566,7 +566,7 @@
     ],
     "summary_lines": [
       "Build a governed assessor-facing review packet for the model-family selection recommendation, preserving baseline-versus-experimental framing, trigger signals, fit/applicability context, and comparison-path guidance.",
-      "Selection review packet covers scenario scenario-0b6762303adb with baseline reference_mass_balance.",
+      "Selection review packet covers scenario scenario-306863db9176 with baseline reference_mass_balance.",
       "Recommendation status: default_with_experimental_challenge.",
       "Review status: model_family_selection_review_attention_needed.",
       "Use this selection profile when the corrected reference family remains the suite baseline and the advective family is only a governed experimental challenge path."
@@ -604,7 +604,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.209966Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -628,8 +628,8 @@
   },
   "comparison_packet": {
     "schema_version": "v1",
-    "comparison_packet_id": "familycmp-f3b47dc3311d",
-    "scenario_id": "scenario-0b6762303adb",
+    "comparison_packet_id": "familycmp-f2b8d47bb102",
+    "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
     "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -780,9 +780,9 @@
     },
     "comparison": {
       "schema_version": "v1",
-      "comparison_id": "comparison-e252f68aabff",
-      "base_scenario_id": "scenario-0b6762303adb",
-      "candidate_scenario_id": "scenario-0b6762303adb",
+      "comparison_id": "comparison-5f9f9f8016ab",
+      "base_scenario_id": "scenario-306863db9176",
+      "candidate_scenario_id": "scenario-306863db9176",
       "surface_deltas": [
         {
           "medium": "air",
@@ -832,7 +832,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.210407Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": []
       },
       "limitations": [],
@@ -904,7 +904,7 @@
       }
     ],
     "summary_lines": [
-      "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+      "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-306863db9176.",
       "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
       "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
       "Base fit verdict: good_fit (score=0.85).",
@@ -952,7 +952,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.215600Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -1024,17 +1024,17 @@
   },
   "comparison_review_packet": {
     "schema_version": "v1",
-    "review_packet_id": "cmpreview-07ae8abe0f5f",
-    "comparison_packet_id": "familycmp-f3b47dc3311d",
-    "scenario_id": "scenario-0b6762303adb",
+    "review_packet_id": "cmpreview-e976b17fec6c",
+    "comparison_packet_id": "familycmp-f2b8d47bb102",
+    "scenario_id": "scenario-306863db9176",
     "comparison_profile_id": "reference_vs_advective_screening_v1",
     "base_model_family": "reference_mass_balance",
     "candidate_model_family": "advective_screening_mass_balance",
     "comparison_outcome": "material_model_family_divergence",
     "review_status": "model_family_comparison_review_attention_needed",
     "review_preview": {
-      "comparison_packet_id": "familycmp-f3b47dc3311d",
-      "scenario_id": "scenario-0b6762303adb",
+      "comparison_packet_id": "familycmp-f2b8d47bb102",
+      "scenario_id": "scenario-306863db9176",
       "comparison_profile_id": "reference_vs_advective_screening_v1",
       "comparison_outcome": "material_model_family_divergence",
       "review_status": "model_family_comparison_review_attention_needed",
@@ -1060,8 +1060,8 @@
     },
     "comparison_packet": {
       "schema_version": "v1",
-      "comparison_packet_id": "familycmp-f3b47dc3311d",
-      "scenario_id": "scenario-0b6762303adb",
+      "comparison_packet_id": "familycmp-f2b8d47bb102",
+      "scenario_id": "scenario-306863db9176",
       "run_mode": "steady_state",
       "fit_for_purpose": "screening",
       "comparison_profile_id": "reference_vs_advective_screening_v1",
@@ -1212,9 +1212,9 @@
       },
       "comparison": {
         "schema_version": "v1",
-        "comparison_id": "comparison-e252f68aabff",
-        "base_scenario_id": "scenario-0b6762303adb",
-        "candidate_scenario_id": "scenario-0b6762303adb",
+        "comparison_id": "comparison-5f9f9f8016ab",
+        "base_scenario_id": "scenario-306863db9176",
+        "candidate_scenario_id": "scenario-306863db9176",
         "surface_deltas": [
           {
             "medium": "air",
@@ -1264,7 +1264,7 @@
           "schema_version": "v1",
           "defaults_version": "v1",
           "algorithm_version": "reference-mass-balance-0.1.0",
-          "generated_at": "2026-04-17T08:19:40.210407Z",
+          "generated_at": "2026-01-01T00:00:00.123456Z",
           "source_references": []
         },
         "limitations": [],
@@ -1336,7 +1336,7 @@
         }
       ],
       "summary_lines": [
-        "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+        "Compared reference_mass_balance against advective_screening_mass_balance for scenario scenario-306863db9176.",
         "Comparison profile: Reference vs Advective Screening Comparison (reference_vs_advective_screening_v1).",
         "Run mode steady_state with fit-for-purpose screening produced 3 comparable surface deltas.",
         "Base fit verdict: good_fit (score=0.85).",
@@ -1384,7 +1384,7 @@
         "schema_version": "v1",
         "defaults_version": "v1",
         "algorithm_version": "reference-mass-balance-0.1.0",
-        "generated_at": "2026-04-17T08:19:40.215600Z",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
         "source_references": [
           {
             "source_id": "example.release.note",
@@ -1519,7 +1519,7 @@
     ],
     "summary_lines": [
       "Build a governed assessor-facing review packet for the reference-versus-advective screening comparison, preserving baseline-versus-experimental framing, fit/applicability context, dominant deltas, and equation traces.",
-      "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-0b6762303adb.",
+      "Comparison review packet covers reference_mass_balance -> advective_screening_mass_balance for scenario scenario-306863db9176.",
       "Comparison outcome: material_model_family_divergence.",
       "Review status: model_family_comparison_review_attention_needed.",
       "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary."
@@ -1580,7 +1580,7 @@
       "schema_version": "v1",
       "defaults_version": "v1",
       "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-04-17T08:19:40.215724Z",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": [
         {
           "source_id": "example.release.note",
@@ -1711,7 +1711,7 @@
   ],
   "summary_lines": [
     "Build a governed assessor-facing composed challenge review packet that bundles the selection review path and, when triggered, the reference-versus-advective comparison review path without losing baseline-versus-experimental framing.",
-    "Challenge review packet covers scenario scenario-0b6762303adb with baseline reference_mass_balance.",
+    "Challenge review packet covers scenario scenario-306863db9176 with baseline reference_mass_balance.",
     "Selection recommendation status: default_with_experimental_challenge.",
     "Overall challenge review status: model_family_challenge_review_attention_needed.",
     "This challenge review profile is intended for the composed reference-baseline and advective-challenge assessor workflow inside Fate MCP's concentration-only boundary.",
@@ -1766,7 +1766,7 @@
     "schema_version": "v1",
     "defaults_version": "v1",
     "algorithm_version": "reference-mass-balance-0.1.0",
-    "generated_at": "2026-04-17T08:19:40.215815Z",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
     "source_references": [
       {
         "source_id": "example.release.note",

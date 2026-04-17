@@ -5,3 +5,9 @@ __pycache__/
 *.pyc
 dist/
 build/
+.coverage
+.DS_Store
+DEEP_AUDIT_REPORT.md
+Fate_MCP_tasks.json
+patch_*.py
+research/*.txt

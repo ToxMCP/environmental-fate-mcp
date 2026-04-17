@@ -1,4 +1,5 @@
 import asyncio
+from pathlib import Path
 
 import pytest
 
@@ -186,6 +187,15 @@ def test_example_resource_rejects_path_traversal() -> None:
 def test_docs_resource_rejects_unknown_name() -> None:
     with pytest.raises(ValueError, match="Unknown doc name"):
         docs_resource("../../../etc/passwd")
+
+
+def test_create_server_does_not_mutate_generated_examples() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    example_path = repo_root / "schemas" / "examples" / "environmentalReleaseScenario.v1.json"
+    before = example_path.read_text()
+    create_server()
+    after = example_path.read_text()
+    assert after == before
 
 
 def test_skeleton_tools_return_valid_json() -> None:

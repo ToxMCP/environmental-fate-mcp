@@ -254,6 +254,37 @@ def generate_contract_artifacts(repo_root: Path) -> None:
     runtime.defaults.write_manifest()
 
 
+def ensure_contract_artifacts_current(repo_root: Path) -> None:
+    required_paths = (
+        repo_root / "docs" / "contracts" / "schemas" / "manifest.json",
+        repo_root / "schemas" / "examples" / "manifest.json",
+        repo_root / "defaults" / "manifest.json",
+    )
+    missing_paths = [str(path.relative_to(repo_root)) for path in required_paths if not path.exists()]
+    if missing_paths:
+        missing_text = ", ".join(sorted(missing_paths))
+        raise RuntimeError(
+            "Missing generated release artifacts: "
+            f"{missing_text}. Run `environmental-fate-mcp-generate-artifacts` before starting the server."
+        )
+
+    from fate_mcp.validation import validate_generated_artifacts
+
+    results = validate_generated_artifacts(repo_root)
+    invalid = sorted(
+        item["name"]
+        for section in ("schemas", "examples")
+        for item in results[section]
+        if item["status"] != "ok"
+    )
+    if invalid:
+        invalid_text = ", ".join(invalid)
+        raise RuntimeError(
+            "Generated release artifacts are missing or invalid: "
+            f"{invalid_text}. Run `environmental-fate-mcp-generate-artifacts` before starting the server."
+        )
+
+
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[2]
     generate_contract_artifacts(repo_root)
