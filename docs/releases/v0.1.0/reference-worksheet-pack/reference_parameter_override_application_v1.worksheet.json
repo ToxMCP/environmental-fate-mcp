@@ -1,0 +1,217 @@
+{
+  "claimId": "reference_parameter_override_application_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference runtime parameter override application",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "epa.environmental_models_guidance",
+    "echa.euses"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.1.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Water concentration reflects the scenario half-life override through the finite-duration first-order equation rather than the curated default half-life.",
+      "fixtureName": "parameter_override_sensitivity_fixture",
+      "referenceType": "hand_worked_override_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark override"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark override for water half-life.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 5.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration override case where a scenario-specific water half-life replaces the governed curated default.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Override behavior is deterministic and should remain analytically traceable.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "Air concentration increases proportionally when the governed ambient-air volume is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_air_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark air capacity sensitivity"
+        },
+        "duration_days": 10.0,
+        "parameter_records": [
+          {
+            "parameter": "ambient_air_volume_m3",
+            "rationale": "Benchmark ambient-air capacity override.",
+            "source_classification": "user_input",
+            "unit": "m3",
+            "value": 500000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "air"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration air screening case with an explicit ambient-air-volume override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "The baseline kernel applies an explicit capacity override exactly as declared and still matches the hand-worked finite-duration reference equation.",
+      "fixtureName": "reference_parameter_override_reference_fixture",
+      "referenceType": "hand_worked_override_reference_case",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark override reference"
+        },
+        "duration_days": 12.0,
+        "parameter_records": [
+          {
+            "parameter": "ambient_air_volume_m3",
+            "rationale": "Benchmark override reference case.",
+            "source_classification": "user_input",
+            "unit": "m3",
+            "value": 750000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "air"
+          }
+        ],
+        "total_release_mass_kg": 8.0
+      },
+      "scientificBasis": "Hand-worked finite-duration air screening case with an explicit ambient-air-volume override, used as a reference-style corroboration of runtime-supported override execution in the baseline kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The override reference case remains closed-form and deterministic even though it replaces a governed default.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "Sediment concentration increases proportionally when the governed sediment mass is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_sediment_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark sediment capacity sensitivity"
+        },
+        "duration_days": 45.0,
+        "parameter_records": [
+          {
+            "parameter": "freshwater_sediment_mass_kg",
+            "rationale": "Benchmark sediment-mass override.",
+            "source_classification": "user_input",
+            "unit": "kg",
+            "value": 50000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "sediment"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration sediment screening case with an explicit sediment-mass override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "Soil concentration increases proportionally when the governed soil mass is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_soil_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark soil capacity sensitivity"
+        },
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "agricultural_soil_mass_kg",
+            "rationale": "Benchmark soil-mass override.",
+            "source_classification": "user_input",
+            "unit": "kg",
+            "value": 100000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "soil"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration soil screening case with an explicit soil-mass override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "Water concentration increases proportionally when the governed surface-water volume is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_water_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark water capacity sensitivity"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "surface_water_volume_m3",
+            "rationale": "Benchmark surface-water capacity override.",
+            "source_classification": "user_input",
+            "unit": "m3",
+            "value": 250000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case with an explicit surface-water-volume override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

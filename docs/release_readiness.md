@@ -2,6 +2,8 @@
 
 Environmental Fate MCP v0.1 release readiness is gated on reproducible contracts, examples, defaults manifests, benchmark fixtures, and downstream-consumer interoperability.
 Released artifacts must remain deterministic across regeneration, and server startup must validate the shipped artifact set without mutating it.
+`ready_for_screening_release` is an internal bounded-screening release gate. It is not a statement of regulator acceptance, submission approval, or scientific equivalence to external engines.
+`reference_mass_balance` remains the reviewer-grade baseline family. `advective_screening_mass_balance` remains an experimental challenge family and must not drift into promoted baseline language without an explicit later decision.
 
 ## Required checks
 
@@ -9,14 +11,19 @@ Released artifacts must remain deterministic across regeneration, and server sta
 - generated example payloads are deterministic across reruns
 - server startup validates shipped artifacts without regenerating them
 - defaults manifest hashes match shipped files
+- the shipped default path contains zero `tier_3_internal_screening_assumption` values
+- every shipped default has citation-backed source references, derivation metadata, effective date, and manifest traceability
 - benchmark fixtures pass within declared tolerances
 - benchmark fixtures carry explicit scientific basis, reference type, expected behavior, and tolerance rationale
 - every published scientific validation claim is tied to at least one declared benchmark fixture
 - every mandatory scientific validation claim satisfies its required validation tier and reference-type coverage
 - every published scientific validation claim carries source references, methods-basis lines, and reference-case lines
+- every published scientific validation claim carries explicit corroboration status, official source count, jurisdiction breadth, independent evidence families, and a next corroboration action
 - mandatory baseline reference-family scientific claims resolve to governed scientific reference-case ids and do not remain single-reference-case only
+- mandatory baseline reference-family scientific claims carry at least two independent evidence families with at least one official guidance, official modeling-guidance, or official test-guideline family
 - mandatory baseline reference-family scientific claims do not remain single-anchor only or multi-anchor-but-single-tier only
 - high- and medium-priority experimental scientific claims resolve to governed scientific reference-case ids
+- high- and medium-priority experimental scientific claims carry at least two independent evidence families with official guidance anchoring or remain visibly strengthening-only
 - high-priority experimental scientific claims do not remain single-reference-case only
 - medium-priority experimental scientific claims do not remain single-reference-case only
 - high- and medium-priority experimental scientific claims do not remain single-anchor only
@@ -69,6 +76,10 @@ Released artifacts must remain deterministic across regeneration, and server sta
 - scientific review packets and briefs remain internally consistent with fit assessment, parameter manifest, and uncertainty summary artifacts
 - probabilistic review packets and briefs remain internally consistent with percentile surface summaries, failed-iteration taxonomy, sampled-driver lines, and scientific-unsuitability context
 - scientific methods dossiers and briefs remain internally consistent with governed claims, aggregate and claim-specific source grounding, highlighted claim digests, claim-specific external corroboration, challenge statuses/questions, support-strength summaries, benchmark coverage, and applicability policy
+- reviewer-facing trust surfaces remain internally consistent across the scientific trust pack, scientific methods dossier/brief, challenge review brief, and regulatory quick start
+- release bundles publish `defaults-rebaseline-report.json`, `external-corroboration-report.json`, `red-team-review-report.json`, and `scientific-trust-pack.md`
+- red-team review reports contain zero unresolved blocker-severity findings
+- accepted release limitations appear in public reviewer artifacts, not only internal notes
 - model-family comparison packets and briefs remain internally consistent with the shared scenario, fit assessments, surface deltas, and equation traces
 - model-family comparison review previews, packets, and briefs remain internally consistent with the governed comparison profile, comparison packet, and assessor-facing checklist guidance
 - scientific review profiles remain declared for every supported model family, with valid checklist templates and summary templates
@@ -83,6 +94,22 @@ Released artifacts must remain deterministic across regeneration, and server sta
 - regulatory handoff review packets remain internally consistent with preview, package, and summary artifacts
 - regulatory handoff review briefs remain consistent with governed review packets and profile-level checklist guidance
 - assessor-facing regulatory handoff artifacts preserve applicability, parameter-quality, and uncertainty summary lines when a matched scenario is supplied
-- adapter normalization fixtures remain equivalent across supported import paths
+- adapter normalization fixtures resolve to the same canonical contract outputs across governed import paths
 - known limitations are published explicitly
 - failure modes remain machine-readable
+
+## Blocker classes
+
+The release bundle now treats these as named blocker classes:
+
+- `unresolved_default_derivation_gap`
+- `uncovered_corroboration_requirement`
+- `unresolved_shipped_default_rebaseline_gap`
+- `missing_reference_family_official_corroboration`
+- `worksheet_or_equation_mismatch`
+- `trust_surface_inconsistency`
+- `advective_promotion_language_drift`
+- `trust_pack_artifact_mismatch`
+- `trust_brief_artifact_mismatch`
+- `accidental_advective_promotion_language_drift`
+- `unaddressed_red_team_finding`

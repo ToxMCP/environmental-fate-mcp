@@ -254,13 +254,40 @@ CAPACITY_PARAMETERS = {
 }
 
 
-from .common import _collect_source_references, _scientific_unsuitability_lines
+from .common import _collect_source_references, _merge_limitations, _scientific_unsuitability_lines
 
 def _probabilistic_review_checks(
     result: ProbabilisticConcentrationResult,
+    defaults_registry: DefaultsRegistry,
 ) -> list[ProbabilisticReviewCheck]:
+    policy = defaults_registry.probabilistic_review_policy()
     expected_surface_count = len(result.surface_summaries)
     seeded = result.sampling_seed is not None
+    percentiles_should_be_present = (
+        result.completed_iteration_count
+        >= policy.minimum_completed_iterations_for_percentiles
+    )
+    percentile_surface_parity = (
+        len(result.median_surfaces) == expected_surface_count
+        and (
+            (
+                len(result.p90_surfaces) == expected_surface_count
+                and len(result.p95_surfaces) == expected_surface_count
+                and all(summary.p90_value is not None for summary in result.surface_summaries)
+                and all(summary.p95_value is not None for summary in result.surface_summaries)
+            )
+            if percentiles_should_be_present
+            else (
+                len(result.p90_surfaces) == 0
+                and len(result.p95_surfaces) == 0
+                and all(summary.p90_value is None for summary in result.surface_summaries)
+                and all(summary.p95_value is None for summary in result.surface_summaries)
+            )
+        )
+    )
+    failed_iteration_fraction = (
+        result.failed_iteration_count / result.iteration_count if result.iteration_count else 0.0
+    )
     checks = [
         ProbabilisticReviewCheck(
             code="probabilistic_iterations_completed",
@@ -272,14 +299,10 @@ def _probabilistic_review_checks(
         ),
         ProbabilisticReviewCheck(
             code="probabilistic_percentile_surface_parity",
-            passed=(
-                len(result.median_surfaces) == expected_surface_count
-                and len(result.p90_surfaces) == expected_surface_count
-                and len(result.p95_surfaces) == expected_surface_count
-            ),
+            passed=percentile_surface_parity,
             message=(
-                "Median, P90, and P95 surface sets remain aligned with the probabilistic surface "
-                "summary inventory."
+                "Percentile surfaces are either aligned with the probabilistic surface summary inventory "
+                "or explicitly suppressed under the governed minimum-iterations policy."
             ),
         ),
         ProbabilisticReviewCheck(
@@ -290,10 +313,11 @@ def _probabilistic_review_checks(
             ),
         ),
         ProbabilisticReviewCheck(
-            code="probabilistic_failed_iterations_absent",
-            passed=result.failed_iteration_count == 0,
+            code="probabilistic_failed_iteration_fraction_within_ready_threshold",
+            passed=failed_iteration_fraction <= policy.max_failed_iteration_fraction_for_ready_review,
             message=(
-                f"Probabilistic execution recorded {result.failed_iteration_count} failed iterations."
+                f"Probabilistic execution recorded {result.failed_iteration_count} failed iterations "
+                f"({failed_iteration_fraction:.1%} of requested runs)."
             ),
         ),
     ]
@@ -306,20 +330,38 @@ def build_probabilistic_review_packet(
     provenance_builder: ProvenanceBuilder,
 ) -> ProbabilisticReviewPacket:
     result = request.result
-    checks = _probabilistic_review_checks(result)
+    policy = provenance_builder.defaults_registry.probabilistic_review_policy()
+    checks = _probabilistic_review_checks(result, provenance_builder.defaults_registry)
     blockers = []
     if result.completed_iteration_count == 0:
         blockers.append("Probabilistic execution produced no completed iterations.")
+    failed_iteration_fraction = (
+        result.failed_iteration_count / result.iteration_count if result.iteration_count else 0.0
+    )
     review_status = (
         "ready_for_assessor_review"
-        if not blockers and all(check.passed for check in checks)
+        if (
+            not blockers
+            and all(check.passed for check in checks)
+            and failed_iteration_fraction <= policy.max_failed_iteration_fraction_for_ready_review
+        )
         else "probabilistic_review_attention_needed"
     )
     percentile_surface_lines = [
         (
             f"{summary.medium.value}/{summary.compartment.value}: median={summary.median_value:.6g} "
-            f"{summary.concentration_unit}, p90={summary.p90_value:.6g}, p95={summary.p95_value:.6g}, "
-            f"p95-minus-median={summary.absolute_p95_minus_median:.6g}."
+            + (
+                f"{summary.concentration_unit}, p90={summary.p90_value:.6g}, p95={summary.p95_value:.6g}, "
+                f"p95-minus-median={summary.absolute_p95_minus_median:.6g}."
+                if summary.p90_value is not None
+                and summary.p95_value is not None
+                and summary.absolute_p95_minus_median is not None
+                else (
+                    f"{summary.concentration_unit}, p90/p95 suppressed because completed iterations "
+                    f"remained below the governed minimum of "
+                    f"{policy.minimum_completed_iterations_for_percentiles}."
+                )
+            )
         )
         for summary in result.surface_summaries[:6]
     ]
@@ -342,9 +384,20 @@ def build_probabilistic_review_packet(
         recommended_actions.append(
             "Review failed iteration reasons before reusing percentile surfaces in decision-facing workflows."
         )
+        recommended_actions.append(
+            "Carry the failed-iteration truncation note forward so reviewers know percentile summaries were computed from successful runs only."
+        )
     if result.sampling_seed is None:
         recommended_actions.append(
             "Record an explicit sampling seed for strict reproducibility when assessor replay is required."
+        )
+    if result.completed_iteration_count < policy.minimum_completed_iterations_for_percentiles:
+        recommended_actions.append(
+            "Increase successful probabilistic iterations to at least the governed minimum before claiming P90/P95 screening percentiles."
+        )
+    if failed_iteration_fraction > policy.max_failed_iteration_fraction_for_ready_review:
+        recommended_actions.append(
+            "Reduce failed-iteration fraction below the governed ready-review threshold before treating this run as assessor-ready."
         )
     if result.dominant_uncertainty_drivers:
         recommended_actions.append(
@@ -360,20 +413,33 @@ def build_probabilistic_review_packet(
             f"Completed {result.completed_iteration_count}/{result.iteration_count} iterations with "
             f"{result.sampled_parameter_count} sampled parameters."
         ),
+        (
+            f"Failed iteration fraction: {failed_iteration_fraction:.1%}; governed ready-review threshold: "
+            f"{policy.max_failed_iteration_fraction_for_ready_review:.0%}."
+        ),
     ]
     if result.sampling_seed is not None:
         summary_lines.append(f"Sampling seed: {result.sampling_seed}.")
-    limitations = []
-    if result.median_surfaces:
-        limitations.extend(result.median_surfaces[0].limitations[:1])
-    limitations.append(
-        LimitationNote(
-            code="probabilistic_driver_summary_screening_only",
-            message=(
-                "Probabilistic review lines expose sampled drivers and percentile spread, but they do not "
-                "replace a formal global sensitivity analysis."
+    limitations = _merge_limitations(
+        *[surface.limitations for surface in result.median_surfaces],
+        *[surface.limitations for surface in result.p90_surfaces],
+        *[surface.limitations for surface in result.p95_surfaces],
+        [
+            LimitationNote(
+                code="probabilistic_driver_summary_screening_only",
+                message=(
+                    "Probabilistic review lines expose sampled drivers and percentile spread, but they do not "
+                    "replace a formal global sensitivity analysis."
+                ),
             ),
-        )
+            LimitationNote(
+                code="probabilistic_review_screening_only",
+                message=(
+                    "Probabilistic review packet summarizes screening-oriented percentile behavior only and "
+                    "is not a statement of regulator acceptance or submission approval."
+                ),
+            ),
+        ],
     )
     return ProbabilisticReviewPacket(
         scenario_id=request.scenario.scenario_id,
@@ -436,5 +502,4 @@ def build_probabilistic_review_brief(
         uncertainty_limitation_lines=review_packet.uncertainty_limitation_lines,
         limitations=review_packet.limitations,
     )
-
 

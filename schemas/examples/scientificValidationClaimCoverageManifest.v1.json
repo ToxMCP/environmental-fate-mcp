@@ -52,7 +52,7 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 10,
+      "supporting_fixture_count": 12,
       "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "advective_degradation_dominant_loss_share_anchor_fixture",
@@ -64,22 +64,27 @@
         "advective_bounded_transport_reference_fixture",
         "advective_flow_through_transport_reference_fixture",
         "advective_transition_boundary_reference_fixture",
-        "advective_storage_dominant_transport_reference_fixture"
+        "advective_storage_dominant_transport_reference_fixture",
+        "advective_air_transport_reference_fixture",
+        "advective_soil_transport_reference_fixture"
       ],
       "supporting_categories": [
         "advective_loss_dominance_anchor",
         "advective_loss_dominance_sensitivity",
         "advective_loss_transition_anchor",
         "advective_loss_transition_sensitivity",
-        "advective_transport_regime_reference"
+        "advective_transport_regime_reference",
+        "reference_chemical_style"
       ],
       "supporting_reference_types": [
+        "hand_worked_advective_air_reference_fixture",
         "hand_worked_advective_bounded_transport_reference_fixture",
         "hand_worked_advective_flow_through_transport_reference_fixture",
         "hand_worked_advective_loss_dominance_anchor",
         "hand_worked_advective_loss_dominance_sensitivity_fixture",
         "hand_worked_advective_loss_transition_anchor",
         "hand_worked_advective_loss_transition_sensitivity_fixture",
+        "hand_worked_advective_soil_reference_fixture",
         "hand_worked_advective_storage_dominant_transport_reference_fixture",
         "hand_worked_advective_transition_boundary_reference_fixture"
       ],
@@ -584,7 +589,7 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 9,
+      "supporting_fixture_count": 11,
       "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "advective_mixed_loss_transition_anchor_fixture",
@@ -592,6 +597,8 @@
         "advective_flow_through_transport_reference_fixture",
         "advective_transition_boundary_reference_fixture",
         "advective_storage_dominant_transport_reference_fixture",
+        "advective_air_transport_reference_fixture",
+        "advective_soil_transport_reference_fixture",
         "advective_short_residence_time_clearance_anchor_fixture",
         "advective_short_residence_time_clearance_companion_fixture",
         "advective_long_residence_time_accumulation_anchor_fixture",
@@ -601,15 +608,18 @@
         "advective_loss_transition_anchor",
         "advective_transport_regime_reference",
         "edge_condition_anchor",
-        "parameter_override_sensitivity"
+        "parameter_override_sensitivity",
+        "reference_chemical_style"
       ],
       "supporting_reference_types": [
+        "hand_worked_advective_air_reference_fixture",
         "hand_worked_advective_bounded_transport_reference_fixture",
         "hand_worked_advective_clearance_edge_anchor",
         "hand_worked_advective_flow_through_transport_reference_fixture",
         "hand_worked_advective_loss_transition_anchor",
         "hand_worked_advective_override_fixture",
         "hand_worked_advective_residence_edge_anchor",
+        "hand_worked_advective_soil_reference_fixture",
         "hand_worked_advective_storage_dominant_transport_reference_fixture",
         "hand_worked_advective_transition_boundary_reference_fixture"
       ],
@@ -732,7 +742,7 @@
     },
     {
       "claim_id": "external_adapter_canonical_equivalence_v1",
-      "display_name": "External adapter canonical surface equivalence",
+      "display_name": "External adapter canonical normalization parity",
       "model_family": "external_result_adapter",
       "supported_run_modes": [
         "steady_state"
@@ -747,13 +757,13 @@
         "external_adapter_equivalence_fixture"
       ],
       "supporting_categories": [
-        "external_adapter_equivalence"
+        "external_adapter_normalization_parity"
       ],
       "supporting_reference_types": [
-        "governed_fixture_equivalence"
+        "governed_fixture_normalization_parity"
       ],
       "supporting_validation_tiers": [
-        "equivalence"
+        "normalization_parity"
       ],
       "satisfies_required_reference_types": true,
       "satisfies_required_validation_tiers": true,
@@ -1072,21 +1082,27 @@
       "mandatory_for_release": true,
       "covered": true,
       "support_strength": "multi_anchor_multi_tier",
-      "supporting_fixture_count": 2,
-      "supporting_validation_tier_count": 2,
+      "supporting_fixture_count": 4,
+      "supporting_validation_tier_count": 3,
       "supporting_fixture_names": [
         "water_reference_chemical_style_fixture",
+        "reference_water_no_decay_limit_branch_fixture",
+        "reference_water_temperature_correction_reference_fixture",
         "reference_water_capacity_sensitivity_fixture"
       ],
       "supporting_categories": [
+        "edge_condition_anchor",
         "parameter_override_sensitivity",
         "reference_chemical_style"
       ],
       "supporting_reference_types": [
         "hand_worked_capacity_sensitivity_fixture",
-        "hand_worked_screening_equation"
+        "hand_worked_no_decay_limit_fixture",
+        "hand_worked_screening_equation",
+        "hand_worked_temperature_correction_fixture"
       ],
       "supporting_validation_tiers": [
+        "edge_condition",
         "reference_style",
         "sensitivity"
       ],

@@ -39,6 +39,38 @@
           "title": "Source Type",
           "type": "string"
         },
+        "evidence_family": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Family"
+        },
+        "official_source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Official Source Ids",
+          "type": "array"
+        },
+        "last_reviewed_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Reviewed Date"
+        },
         "summary_lines": {
           "items": {
             "type": "string"

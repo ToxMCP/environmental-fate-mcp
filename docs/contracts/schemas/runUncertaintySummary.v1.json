@@ -187,6 +187,18 @@
       "title": "Top Drivers",
       "type": "array"
     },
+    "driver_count": {
+      "minimum": 0,
+      "title": "Driver Count",
+      "type": "integer"
+    },
+    "all_driver_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "All Driver Types",
+      "type": "array"
+    },
     "summary_lines": {
       "items": {
         "type": "string"
@@ -210,6 +222,7 @@
     "run_id",
     "model_family",
     "top_drivers",
+    "driver_count",
     "summary_lines",
     "provenance"
   ],

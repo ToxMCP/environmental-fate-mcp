@@ -85,6 +85,10 @@
       "path": "schemas/examples/buildRunParameterManifestRequest.v1.json"
     },
     {
+      "name": "buildRunScientificTrustBriefRequest.v1",
+      "path": "schemas/examples/buildRunScientificTrustBriefRequest.v1.json"
+    },
+    {
       "name": "buildRunUncertaintySummaryRequest.v1",
       "path": "schemas/examples/buildRunUncertaintySummaryRequest.v1.json"
     },
@@ -171,6 +175,10 @@
     {
       "name": "fateScenarioComparisonRecord.v1",
       "path": "schemas/examples/fateScenarioComparisonRecord.v1.json"
+    },
+    {
+      "name": "importExternalResultPayloadRequest.v1",
+      "path": "schemas/examples/importExternalResultPayloadRequest.v1.json"
     },
     {
       "name": "modelFamilyApplicabilityProfile.v1",
@@ -351,6 +359,10 @@
     {
       "name": "runParameterManifest.v1",
       "path": "schemas/examples/runParameterManifest.v1.json"
+    },
+    {
+      "name": "runScientificTrustBrief.v1",
+      "path": "schemas/examples/runScientificTrustBrief.v1.json"
     },
     {
       "name": "runUncertaintySummary.v1",

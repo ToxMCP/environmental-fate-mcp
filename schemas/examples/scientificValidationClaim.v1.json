@@ -64,6 +64,21 @@
     "Supported by the advective_clearance_dominant_loss_share_anchor_fixture clearance-dominant loss-share anchor.",
     "Supported by the advective_clearance_dominant_loss_share_companion_fixture clearance-dominant corroboration case."
   ],
+  "corroboration_status": "multi_official_multi_jurisdiction",
+  "official_source_count": 2,
+  "jurisdiction_breadth": "multi_jurisdiction",
+  "independent_evidence_families": [
+    "advective_clearance_edge_case_family_v1",
+    "echa_bounded_clearance_edge_case_family_v1"
+  ],
+  "evidence_family": null,
+  "official_source_ids": [],
+  "worksheet_artifact_path": null,
+  "expected_output_artifact_path": null,
+  "worksheet_status": null,
+  "last_reviewed_date": null,
+  "tolerance_basis": null,
+  "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
   "review_notes": [],
   "plugin_code_references": [],
   "source_pack": "defaults/v1/scientific_validation_claims.json",

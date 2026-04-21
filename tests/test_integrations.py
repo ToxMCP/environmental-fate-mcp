@@ -19,6 +19,7 @@ from fate_mcp.integrations import (
     build_probabilistic_review_brief,
     build_probabilistic_review_packet,
     build_run_parameter_manifest,
+    build_run_scientific_trust_brief,
     build_scientific_methods_dossier,
     build_scientific_methods_dossier_brief,
     build_scientific_review_brief,
@@ -52,6 +53,7 @@ from fate_mcp.models import (
     BuildModelFamilySelectionReviewPacketRequest,
     BuildProbabilisticReviewBriefRequest,
     BuildProbabilisticReviewPacketRequest,
+    BuildRunScientificTrustBriefRequest,
     BuildScientificMethodsDossierBriefRequest,
     BuildScientificMethodsDossierRequest,
     BuildScientificReviewBriefRequest,
@@ -92,7 +94,7 @@ def test_compare_fate_scenarios_exposes_delta() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     base = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -100,7 +102,7 @@ def test_compare_fate_scenarios_exposes_delta() -> None:
     )
     candidate = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -126,7 +128,7 @@ def test_apply_physchem_evidence_updates_parameter_records_and_changes_runtime()
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -160,7 +162,7 @@ def test_apply_physchem_evidence_rejects_invalid_unit_for_supported_parameter() 
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -183,7 +185,7 @@ def test_apply_physchem_evidence_weights_higher_quality_inputs_more_heavily() ->
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -220,7 +222,7 @@ def test_apply_physchem_evidence_uses_policy_for_unsupported_parameter() -> None
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -255,7 +257,7 @@ def test_apply_physchem_evidence_blocks_regulatory_empirical_blending_when_polic
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -290,7 +292,7 @@ def test_assess_release_scenario_fit_includes_applicability_context() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Applicability example"},
+            chemical_identity={"preferredName": "Applicability example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -309,7 +311,7 @@ def test_assess_release_scenario_fit_supports_advective_family_context() -> None
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Advective applicability example"},
+            chemical_identity={"preferredName": "Advective applicability example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -329,7 +331,7 @@ def test_build_run_parameter_manifest_distinguishes_runtime_consumed_from_preser
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Manifest example"},
+            chemical_identity={"preferredName": "Manifest example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -365,6 +367,9 @@ def test_build_run_parameter_manifest_distinguishes_runtime_consumed_from_preser
     assert entries["log_kow"].runtime_consumed is False
     assert entries["log_kow"].source_classification.value == "heuristic"
     assert manifest.summary_lines
+    assert manifest.default_evidence_status.value == "governed_overrides_present"
+    assert manifest.default_evidence_lines
+    assert manifest.core_default_assumption_count >= 1
     assert any(note.code == "preserved_only_parameters" for note in manifest.limitations)
 
 
@@ -372,7 +377,7 @@ def test_build_run_uncertainty_summary_reports_deterministic_review_drivers() ->
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Uncertainty example"},
+            chemical_identity={"preferredName": "Uncertainty example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.WATER, fraction=0.6),
@@ -406,7 +411,7 @@ def test_build_run_uncertainty_summary_reports_unexecuted_treatment_assumptions(
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Treatment uncertainty example"},
+            chemical_identity={"preferredName": "Treatment uncertainty example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -432,7 +437,7 @@ def test_build_probabilistic_review_packet_and_brief_preserve_percentile_reporti
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Probabilistic review example"},
+            chemical_identity={"preferredName": "Probabilistic review example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -455,7 +460,7 @@ def test_build_probabilistic_review_packet_and_brief_preserve_percentile_reporti
     probabilistic_result = runtime.estimate_probabilistic(
         scenario,
         FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
-        iterations=8,
+        iterations=12,
         seed=23,
     )
     packet = build_probabilistic_review_packet(
@@ -488,7 +493,7 @@ def test_build_model_family_comparison_packet_and_brief_compare_reference_and_ad
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Model family comparison example"},
+            chemical_identity={"preferredName": "Model family comparison example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -541,7 +546,7 @@ def test_recommend_model_family_selection_prefers_baseline_plus_challenge_when_d
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Selection recommendation example"},
+            chemical_identity={"preferredName": "Selection recommendation example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -572,7 +577,7 @@ def test_recommend_model_family_selection_keeps_baseline_only_without_trigger() 
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Selection baseline only example"},
+            chemical_identity={"preferredName": "Selection baseline only example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=5.0,
@@ -596,7 +601,7 @@ def test_build_model_family_selection_review_packet_and_brief_are_governed() -> 
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Selection review example"},
+            chemical_identity={"preferredName": "Selection review example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -659,7 +664,7 @@ def test_build_model_family_comparison_review_packet_and_brief_are_governed() ->
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Comparison review example"},
+            chemical_identity={"preferredName": "Comparison review example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -718,7 +723,7 @@ def test_build_model_family_challenge_review_packet_and_brief_compose_selection_
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Challenge review example"},
+            chemical_identity={"preferredName": "Challenge review example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -804,7 +809,7 @@ def test_build_model_family_challenge_scientific_dossier_and_brief_compose_revie
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Challenge dossier example"},
+            chemical_identity={"preferredName": "Challenge dossier example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -869,7 +874,7 @@ def test_build_scientific_review_packet_bundles_fit_manifest_and_uncertainty() -
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Scientific packet example"},
+            chemical_identity={"preferredName": "Scientific packet example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -922,6 +927,10 @@ def test_build_scientific_review_packet_bundles_fit_manifest_and_uncertainty() -
     assert packet.review_template_used is not None
     assert packet.outcome_preview.review_outcome == preview.review_outcome
     assert packet.outcome_preview.review_status == preview.review_status
+    assert packet.default_evidence_status == packet.parameter_manifest.default_evidence_status
+    assert packet.default_evidence_lines == packet.parameter_manifest.default_evidence_lines
+    assert packet.core_default_assumption_count == packet.parameter_manifest.core_default_assumption_count
+    assert any(line.startswith("Default evidence posture: ") for line in packet.summary_lines)
     assert packet.review_status == preview.review_status
     assert packet.outcome_preview.status_rule_lines == preview.status_rule_lines
     assert packet.outcome_preview.governing_rule_lines == preview.governing_rule_lines
@@ -940,7 +949,7 @@ def test_preview_scientific_review_outcome_returns_governed_resolution_context()
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Scientific preview example"},
+            chemical_identity={"preferredName": "Scientific preview example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.WATER, fraction=0.6),
@@ -985,7 +994,7 @@ def test_build_scientific_review_brief_reflects_packet_context() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Scientific brief example"},
+            chemical_identity={"preferredName": "Scientific brief example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1011,6 +1020,9 @@ def test_build_scientific_review_brief_reflects_packet_context() -> None:
     assert brief.outcome_lines
     assert brief.recommended_actions
     assert brief.parameter_quality_lines
+    assert brief.default_evidence_status == packet.default_evidence_status
+    assert brief.default_evidence_lines == packet.default_evidence_lines
+    assert brief.core_default_assumption_count == packet.core_default_assumption_count
     assert brief.applicability_lines
     assert brief.uncertainty_lines
     assert brief.benchmark_reference_lines
@@ -1028,6 +1040,7 @@ def test_build_scientific_review_brief_reflects_packet_context() -> None:
     assert any(line.startswith("Equation components: ") for line in brief.summary_lines)
     assert any(line.startswith("Mass balance: ") for line in brief.summary_lines)
     assert any(line.startswith("Transport regime: ") for line in brief.summary_lines)
+    assert any(line.startswith("Default evidence: ") for line in brief.summary_lines)
     assert any(line.startswith("Post-release recovery: ") for line in brief.summary_lines)
     assert any(line.startswith("Post-release regime: ") for line in brief.summary_lines)
     assert (
@@ -1047,6 +1060,54 @@ def test_build_scientific_review_brief_reflects_packet_context() -> None:
     )
     assert any(line.startswith("Loss dominance: ") for line in brief.summary_lines)
     assert any(line.startswith("Loss transition: ") for line in brief.summary_lines)
+
+
+def test_build_run_scientific_trust_brief_compresses_screening_context() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Run trust example", "substance_class": "organic chemical"},
+            total_release_mass_kg=5.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+            parameter_records=[
+                FateParameterRecord(
+                    parameter="log_kow",
+                    value=4.2,
+                    unit="log10",
+                    source_classification=SourceClassification.HEURISTIC,
+                    rationale="Preserved-only heuristic descriptor for run-trust caveat coverage.",
+                    evidence_quality="heuristic",
+                ),
+            ],
+        )
+    )
+    result = runtime.estimate(
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+    )
+
+    trust_brief = build_run_scientific_trust_brief(
+        BuildRunScientificTrustBriefRequest(scenario=scenario, result=result),
+        runtime.provenance,
+    )
+
+    assert trust_brief.scenario_id == scenario.scenario_id
+    assert trust_brief.run_id == result.run_summary.run_id
+    assert trust_brief.model_family == result.run_summary.model_family
+    assert trust_brief.passed_check_count <= trust_brief.total_check_count
+    assert trust_brief.screening_recommendation
+    assert trust_brief.summary_lines
+    assert any(line.startswith("Screening recommendation: ") for line in trust_brief.summary_lines)
+    assert trust_brief.reviewer_signal_lines
+    assert any(line.startswith("Review outcome: ") for line in trust_brief.reviewer_signal_lines)
+    assert trust_brief.default_evidence_lines
+    assert trust_brief.applicability_lines
+    assert trust_brief.uncertainty_lines
+    assert trust_brief.top_uncertainty_driver_types
+    assert trust_brief.top_caveat_lines
+    assert trust_brief.recommended_actions
+    assert trust_brief.limitations
 
 
 def test_build_scientific_methods_dossier_for_advective_family() -> None:
@@ -1278,6 +1339,7 @@ def test_build_scientific_methods_dossier_for_advective_family() -> None:
     assert any(line.startswith("Highlighted transport stability: ") for line in dossier.summary_lines)
     assert any(line.startswith("Post-release regime stability: ") for line in dossier.summary_lines)
     assert any(line.startswith("External corroboration breadth: ") for line in dossier.summary_lines)
+    assert any(line.startswith("When not to use this MCP: ") for line in dossier.summary_lines)
     assert any(line.startswith("Transport authority support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Transport transition support: ") for line in dossier.summary_lines)
     assert any(line.startswith("Post-release recovery support: ") for line in dossier.summary_lines)
@@ -1312,15 +1374,40 @@ def test_build_scientific_methods_dossier_brief_reflects_dossier() -> None:
     assert brief.blocking_action_count == 0
     assert brief.strengthening_action_count == 0
     assert brief.covered_mandatory_claim_count == dossier.covered_mandatory_claim_count
+    assert dossier.reviewer_grade_anchor_status == "ready"
+    assert brief.reviewer_grade_anchor_status == dossier.reviewer_grade_anchor_status
+    assert dossier.mandatory_claim_pass_count == dossier.mandatory_claim_count
+    assert brief.mandatory_claim_pass_count == dossier.mandatory_claim_pass_count
+    assert dossier.worksheet_ready_mandatory_claim_count == dossier.mandatory_claim_count
+    assert brief.worksheet_ready_mandatory_claim_count == dossier.worksheet_ready_mandatory_claim_count
+    assert dossier.default_change_sensitivity_lines
+    assert brief.default_change_sensitivity_lines == dossier.default_change_sensitivity_lines
     assert dossier.reference_case_concept_lines
+    assert all(item.evidence_family for item in dossier.claim_summaries)
+    assert all(item.official_source_ids for item in dossier.claim_summaries)
+    assert all(item.worksheet_artifact_path for item in dossier.claim_summaries)
+    assert all(item.expected_output_artifact_path for item in dossier.claim_summaries)
+    assert all(item.worksheet_status and item.worksheet_status.value == "ready" for item in dossier.claim_summaries)
+    assert all(item.last_reviewed_date for item in dossier.claim_summaries)
+    assert all(item.tolerance_basis for item in dossier.claim_summaries)
+    assert all(item.reviewer_grade_passed for item in dossier.claim_summaries if item.mandatory_for_release)
     assert brief.highlighted_claim_ids
     assert brief.highlighted_claim_summaries == dossier.highlighted_claim_summaries
     assert brief.highlighted_claim_ids == [item.claim_id for item in dossier.highlighted_claim_summaries]
     assert brief.promotion_blocker_claim_ids == dossier.promotion_blocker_claim_ids
     assert brief.promotion_blocker_summaries == dossier.promotion_blocker_summaries
+    assert any(line.startswith("When not to use this MCP: ") for line in brief.summary_lines)
     assert brief.summary_lines
     assert any(line.startswith("Promotion status: ") for line in dossier.summary_lines)
     assert any(line.startswith("Promotion status: ") for line in brief.summary_lines)
+    assert any(line.startswith("Reviewer-grade anchor status: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Mandatory claim pass count: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Worksheet readiness: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Default-change sensitivity: ") for line in dossier.summary_lines)
+    assert any(line.startswith("Reviewer-grade anchor status: ") for line in brief.summary_lines)
+    assert any(line.startswith("Mandatory claim pass count: ") for line in brief.summary_lines)
+    assert any(line.startswith("Worksheet readiness: ") for line in brief.summary_lines)
+    assert any(line.startswith("Default-change sensitivity: ") for line in brief.summary_lines)
     assert not dossier.promotion_blocker_summaries
     assert not any(line.startswith("Promotion blocker: ") for line in dossier.summary_lines)
     assert not any(line.startswith("Promotion blocker: ") for line in brief.summary_lines)
@@ -1374,7 +1461,7 @@ def test_export_regulatory_handoff_package_builds_crosswalk_entries() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1407,7 +1494,7 @@ def test_summarize_regulatory_handoff_package_builds_default_profile_summary() -
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1438,7 +1525,7 @@ def test_build_regulatory_handoff_review_packet_builds_default_review_bundle() -
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1471,7 +1558,7 @@ def test_export_regulatory_handoff_package_supports_alternate_profile() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1499,7 +1586,7 @@ def test_summarize_regulatory_handoff_package_builds_alternate_profile_summary()
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1530,7 +1617,7 @@ def test_build_regulatory_handoff_review_packet_supports_consumer_resolved_profi
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1559,7 +1646,7 @@ def test_build_regulatory_handoff_review_brief_builds_default_profile_brief() ->
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1593,7 +1680,7 @@ def test_build_regulatory_handoff_review_brief_builds_alternate_profile_brief() 
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1663,7 +1750,7 @@ def test_export_regulatory_handoff_package_can_resolve_profile_from_consumer_nam
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1691,7 +1778,7 @@ def test_export_regulatory_handoff_package_rejects_profile_consumer_mismatch() -
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1716,7 +1803,7 @@ def test_export_regulatory_handoff_package_rejects_target_module_mismatch() -> N
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1741,7 +1828,7 @@ def test_export_regulatory_handoff_package_rejects_unknown_profile() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1765,7 +1852,7 @@ def test_export_regulatory_handoff_package_rejects_unknown_consumer() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1789,7 +1876,7 @@ def test_export_regulatory_handoff_package_rejects_invalid_profile_requirements(
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -1825,7 +1912,7 @@ def test_error_quality_flag_escalates_scientific_review_outcome() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Error flag escalation test"},
+            chemical_identity={"preferredName": "Error flag escalation test", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,

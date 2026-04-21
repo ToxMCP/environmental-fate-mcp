@@ -48,7 +48,8 @@
   ],
   "attention_if_any_checks_fail": true,
   "escalation_fit_verdicts": [
-    "review_needed"
+    "review_needed",
+    "not_applicable"
   ],
   "escalation_driver_types": [
     "evidence_conflict"

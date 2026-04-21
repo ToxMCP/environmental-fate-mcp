@@ -1,0 +1,34 @@
+{
+  "claimId": "reference_long_duration_rate_anchor_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference long-duration near-plateau anchor",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.8853460542193062e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_long_duration_plateau_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.874119026770982e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_long_duration_rate_anchor_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.1.0"
+}

@@ -3,9 +3,10 @@ from __future__ import annotations
 import csv
 from datetime import datetime
 from io import StringIO
+import math
 from pathlib import Path
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from fate_mcp.errors import FateRegistryError, FateValidationError
 from fate_mcp.models import (
@@ -45,6 +46,13 @@ class ExternalEngineSurfacePayload(BaseModel):
     interval_start: datetime | None = None
     interval_end: datetime | None = None
     notes: list[str] = Field(default_factory=list)
+
+    @field_validator("concentration")
+    @classmethod
+    def validate_concentration(cls, value: float) -> float:
+        if not math.isfinite(value):
+            raise ValueError("concentration must be finite")
+        return value
 
 
 class ExternalEngineResultPayload(BaseModel):
@@ -105,6 +113,7 @@ ADAPTER_IMPORT_PROFILES = [
         display_name="Normalized External Payload JSON",
         accepted_extensions=[".json"],
         accepted_modes=[RunMode.STEADY_STATE, RunMode.TIME_BUCKET],
+        internal_only=False,
         description="Canonical engine-like JSON payload consumed directly by the adapter harness.",
     ),
     AdapterImportProfile(
@@ -112,6 +121,7 @@ ADAPTER_IMPORT_PROFILES = [
         display_name="Normalized External Payload CSV",
         accepted_extensions=[".csv"],
         accepted_modes=[RunMode.STEADY_STATE, RunMode.TIME_BUCKET],
+        internal_only=False,
         description="Canonical engine-like CSV payload consumed directly by the adapter harness.",
     ),
     AdapterImportProfile(
@@ -143,15 +153,19 @@ ADAPTER_IMPORT_PROFILES = [
         accepted_modes=[RunMode.STEADY_STATE, RunMode.TIME_BUCKET],
         description="EPI Suite screening export normalized into Environmental Fate MCP concentrations.",
         semantic_mapping=AdapterSemanticMapping(
-            semantic_loss=SemanticLossClassification.MATERIAL_BUT_BOUNDED,
-            compartment_semantics="Level III Mackay compartments map directly to Environmental Fate MCP.",
-            time_semantics="Steady state assumed as standard EPI Suite Level III default.",
-            spatial_scale_semantics="Default generic environment area.",
-            basis_semantics="Dry weight mapped.",
-            release_partition_semantics="Maps directly to Level III emission modes."
+            semantic_loss=SemanticLossClassification.NON_EQUIVALENT,
+            compartment_semantics="Level III Mackay compartments are not treated as equivalent to Fate MCP screening compartments without a boundedness study.",
+            time_semantics="Steady state assumed as standard EPI Suite Level III default, which is not treated as directly equivalent to Fate MCP end-of-duration screening.",
+            spatial_scale_semantics="Default generic environment area remains non-equivalent pending a boundedness study.",
+            basis_semantics="Dry weight mapped, but full semantic equivalence is not claimed.",
+            release_partition_semantics="Emission-mode mapping remains non-equivalent until a boundedness study is added."
         ),
     ),
 ]
+
+PUBLIC_ADAPTER_IMPORT_PROFILE_IDS = {
+    profile.profile_id for profile in ADAPTER_IMPORT_PROFILES if not profile.internal_only
+}
 ADAPTER_FIXTURE_CATALOG = [
     {
         "fixture_name": "illustrative_external_engine_payload_json",
@@ -326,6 +340,16 @@ def external_payload_from_csv(text: str) -> ExternalEngineResultPayload:
                 suggestion="Provide numeric concentration values in the canonical Environmental Fate MCP unit for the mapped compartment.",
                 details={"row": row_number, "value": concentration_text},
             ) from exc
+        if not math.isfinite(concentration):
+            raise FateValidationError(
+                code="external_payload_csv_non_finite_concentration",
+                message=(
+                    f"CSV payload row {row_number} has a non-finite concentration value: "
+                    f"{concentration_text}."
+                ),
+                suggestion="Provide finite numeric concentration values in the external payload.",
+                details={"row": row_number, "value": concentration_text},
+            )
 
         engine_names.add(engine_name)
         engine_versions.add(engine_version)
@@ -464,6 +488,16 @@ def external_payload_from_legacy_desktop_export_csv(text: str) -> ExternalEngine
                 suggestion="Provide numeric bulk_concentration values in canonical units.",
                 details={"row": row_number, "value": concentration_text},
             ) from exc
+        if not math.isfinite(concentration):
+            raise FateValidationError(
+                code="legacy_external_payload_non_finite_concentration",
+                message=(
+                    f"Legacy desktop export row {row_number} has a non-finite concentration value: "
+                    f"{concentration_text}."
+                ),
+                suggestion="Provide finite numeric bulk_concentration values in canonical units.",
+                details={"row": row_number, "value": concentration_text},
+            )
         notes = []
         note_text = _csv_value(row, "notes")
         if note_text:
@@ -558,6 +592,21 @@ def build_adapter_import_manifest(repo_root: Path) -> AdapterImportManifest:
     return AdapterImportManifest(
         profiles=ADAPTER_IMPORT_PROFILES,
         fixtures=fixtures,
+    )
+
+
+def build_public_adapter_import_manifest(repo_root: Path) -> AdapterImportManifest:
+    manifest = build_adapter_import_manifest(repo_root)
+    public_profiles = [profile for profile in manifest.profiles if not profile.internal_only]
+    public_profile_ids = {profile.profile_id for profile in public_profiles}
+    public_fixtures = [
+        fixture
+        for fixture in manifest.fixtures
+        if fixture.import_profile in public_profile_ids
+    ]
+    return AdapterImportManifest(
+        profiles=public_profiles,
+        fixtures=public_fixtures,
     )
 
 
@@ -687,6 +736,16 @@ def normalize_external_payload(
                 suggestion=exc.payload.suggestion,
                 details=exc.payload.details | {"compartmentCode": record.compartment_code},
             ) from exc
+        if not math.isfinite(normalization.value):
+            raise FateValidationError(
+                code="adapter_normalized_concentration_non_finite",
+                message=(
+                    f"Normalized concentration for {record.compartment_code} is non-finite and "
+                    "cannot be converted into a Fate MCP surface."
+                ),
+                suggestion="Validate the external payload concentration and governed conversion factors.",
+                details={"compartmentCode": record.compartment_code},
+            )
         time_window = (
             TimeWindow(mode=RunMode.STEADY_STATE)
             if record.mode == "steady_state"

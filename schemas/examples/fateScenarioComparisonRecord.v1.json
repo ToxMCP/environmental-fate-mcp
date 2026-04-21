@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "comparison_id": "comparison-5bbd532ffe1b",
+  "comparison_id": "comparison-61dd91689e5c",
   "base_scenario_id": "scenario-306863db9176",
   "candidate_scenario_id": "scenario-bb46b37c763f",
   "surface_deltas": [
@@ -32,6 +32,8 @@
       "relative_delta": 0.6000000000000001
     }
   ],
+  "base_only_surface_keys": [],
+  "candidate_only_surface_keys": [],
   "changed_assumptions": [
     "air_effective_release_mass_kg:2.5",
     "air_effective_release_mass_kg:4.0",

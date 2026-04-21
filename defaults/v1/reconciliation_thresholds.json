@@ -11,7 +11,7 @@
       "description": "Maximum acceptable absolute spread for fraction-based reconciliation agreement."
     },
     "vector_cosine_similarity": {
-      "value": 0.5,
+      "value": 0.9,
       "description": "Minimum cosine similarity for vector-shape agreement in model-family comparisons."
     }
   }

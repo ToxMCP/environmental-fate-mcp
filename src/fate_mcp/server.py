@@ -14,9 +14,11 @@ from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
 from fate_mcp.benchmarks import benchmark_manifest
+from fate_mcp.compat import ensure_supported_python_version
 from fate_mcp.contracts import build_contract_manifest, ensure_contract_artifacts_current
 from fate_mcp.defaults import DefaultsRegistry
-from fate_mcp.guidance import read_doc
+from fate_mcp.errors import FateValidationError
+from fate_mcp.guidance import build_doc_manifest, read_doc
 from fate_mcp.integrations import (
     apply_physchem_evidence,
     assess_release_scenario_fit,
@@ -32,6 +34,7 @@ from fate_mcp.integrations import (
     build_model_family_selection_review_packet,
     build_probabilistic_review_brief,
     build_probabilistic_review_packet,
+    build_run_scientific_trust_brief as build_run_scientific_trust_brief_artifact,
     build_scientific_methods_dossier,
     build_scientific_methods_dossier_brief,
     build_run_parameter_manifest,
@@ -71,6 +74,7 @@ from fate_mcp.models import (
     BuildScientificMethodsDossierBriefRequest,
     BuildScientificMethodsDossierRequest,
     BuildRunParameterManifestRequest,
+    BuildRunScientificTrustBriefRequest,
     BuildScientificReviewBriefRequest,
     BuildScientificReviewPacketRequest,
     BuildRunUncertaintySummaryRequest,
@@ -81,6 +85,7 @@ from fate_mcp.models import (
     CompareFateScenariosRequest,
     EstimateProbabilisticMultimediaConcentrationsRequest,
     EstimateMultimediaConcentrationsRequest,
+    ImportExternalResultPayloadRequest,
     FateModelRunOptions,
     Media,
     ModelFamily,
@@ -100,11 +105,15 @@ from fate_mcp.models import (
     SummarizeRegulatoryHandoffPackageRequest,
 )
 from fate_mcp.plugins.external_result_adapter import (
+    PUBLIC_ADAPTER_IMPORT_PROFILE_IDS,
     adapter_fixture_descriptor,
     build_adapter_import_manifest,
+    build_public_adapter_import_manifest,
+    load_external_payload,
+    normalize_external_payload,
 )
 from fate_mcp.package_metadata import PACKAGE_NAME, VERSION
-from fate_mcp.release_artifacts import build_release_reports
+from fate_mcp.release_artifacts import REPORT_DESCRIPTIONS, REPORT_FILENAMES, build_release_reports
 from fate_mcp.runtime import FateRuntime
 
 
@@ -318,6 +327,32 @@ def _model_family_challenge_review_profile_or_error(profile_id: str):
     return profile
 
 
+def _public_adapter_import_profile_or_error(profile_id: str):
+    manifest = build_public_adapter_import_manifest(REPO_ROOT)
+    for profile in manifest.profiles:
+        if profile.profile_id == profile_id:
+            return profile
+    raise ValueError(
+        f"Unknown public adapter import profile {profile_id}. Inspect adapters://public-import-manifest."
+    )
+
+
+def _resolve_external_payload_path(payload_path: str) -> Path:
+    raw_path = Path(payload_path).expanduser()
+    candidates = [raw_path]
+    if not raw_path.is_absolute():
+        candidates.append(REPO_ROOT / raw_path)
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve()
+    raise FateValidationError(
+        code="external_payload_path_not_found",
+        message=f"External payload path {payload_path} was not found.",
+        suggestion="Provide an existing .json or .csv payload path, or use a shipped adapter fixture path.",
+        details={"payloadPath": payload_path},
+    )
+
+
 @mcp.tool()
 def fate_build_environmental_release_scenario(
     request: BuildEnvironmentalReleaseScenarioRequest,
@@ -345,6 +380,78 @@ def fate_estimate_probabilistic_multimedia_concentrations(
         iterations=request.iterations,
         seed=request.seed,
     )
+
+
+@mcp.tool()
+def fate_import_external_result_payload(request: ImportExternalResultPayloadRequest):
+    """Import a public normalized external payload into canonical Environmental Fate MCP concentration outputs."""
+    profile = _public_adapter_import_profile_or_error(request.import_profile_id)
+    if request.import_profile_id not in PUBLIC_ADAPTER_IMPORT_PROFILE_IDS:
+        raise FateValidationError(
+            code="external_payload_profile_not_public",
+            message=f"Adapter import profile {request.import_profile_id} is not a public MCP import contract.",
+            suggestion="Use a public normalized external payload profile from adapters://public-import-manifest.",
+            details={"importProfileId": request.import_profile_id},
+        )
+    if request.run_options.model_family != ModelFamily.EXTERNAL_RESULT_ADAPTER:
+        raise FateValidationError(
+            code="external_payload_requires_external_result_adapter_model_family",
+            message=(
+                "Public external payload import requires run_options.model_family to be external_result_adapter."
+            ),
+            suggestion="Set run_options.model_family to external_result_adapter for normalized payload import.",
+            details={"modelFamily": request.run_options.model_family.value},
+        )
+    if request.run_options.run_mode not in profile.accepted_modes:
+        raise FateValidationError(
+            code="external_payload_profile_run_mode_mismatch",
+            message=(
+                f"Import profile {profile.profile_id} does not accept run mode {request.run_options.run_mode.value}."
+            ),
+            suggestion="Choose a compatible public import profile or align the run mode with the payload semantics.",
+            details={
+                "importProfileId": profile.profile_id,
+                "runMode": request.run_options.run_mode.value,
+                "acceptedModes": [mode.value for mode in profile.accepted_modes],
+            },
+        )
+    payload_path = _resolve_external_payload_path(request.payload_path)
+    if payload_path.suffix.lower() not in profile.accepted_extensions:
+        raise FateValidationError(
+            code="external_payload_profile_extension_mismatch",
+            message=(
+                f"Import profile {profile.profile_id} does not accept files with suffix {payload_path.suffix or '<none>'}."
+            ),
+            suggestion="Use the matching public JSON or CSV profile for the payload you are importing.",
+            details={
+                "payloadPath": str(payload_path),
+                "importProfileId": profile.profile_id,
+                "acceptedExtensions": profile.accepted_extensions,
+            },
+        )
+    payload = load_external_payload(payload_path)
+    result = normalize_external_payload(
+        payload,
+        request.scenario,
+        request.run_options,
+        RUNTIME.provenance,
+    )
+    assumptions = result.assumptions + [
+        RUNTIME.provenance.derived(
+            "external_import_profile_id",
+            profile.profile_id,
+            None,
+            "Public adapter import profile used to normalize the external payload.",
+        ),
+        RUNTIME.provenance.derived(
+            "external_payload_source_path",
+            str(payload_path),
+            None,
+            "Resolved path of the external payload imported through the public MCP contract.",
+        ),
+    ]
+    run_summary = result.run_summary.model_copy(update={"assumptions_applied": assumptions})
+    return result.model_copy(update={"assumptions": assumptions, "run_summary": run_summary})
 
 
 @mcp.tool()
@@ -406,6 +513,31 @@ def fate_estimate_probabilistic_multimedia_concentrations_skeleton() -> str:
         ),
         iterations=100,
         seed=42,
+    )
+    return request.model_dump_json(indent=2)
+
+
+@mcp.tool()
+def fate_import_external_result_payload_skeleton() -> str:
+    """Return a validated, example-populated JSON skeleton for ImportExternalResultPayloadRequest."""
+    scenario = BuildEnvironmentalReleaseScenarioRequest(
+        chemical_identity={"preferredName": "Example external payload import"},
+        total_release_mass_kg=10.0,
+        release_fractions=[
+            ReleaseFraction(medium=Media.AIR, fraction=0.5),
+            ReleaseFraction(medium=Media.WATER, fraction=0.5),
+        ],
+        duration_days=30.0,
+    )
+    built_scenario = RUNTIME.build_environmental_release_scenario(scenario)
+    request = ImportExternalResultPayloadRequest(
+        scenario=built_scenario,
+        run_options=FateModelRunOptions(
+            region_profile_id=built_scenario.geographic_scope.region_id,
+            model_family=ModelFamily.EXTERNAL_RESULT_ADAPTER,
+        ),
+        payload_path="config/adapter-fixtures/illustrative_external_engine_payload.json",
+        import_profile_id="normalized_external_payload_json",
     )
     return request.model_dump_json(indent=2)
 
@@ -494,6 +626,33 @@ def fate_build_scientific_review_packet_skeleton() -> str:
         ),
     )
     request = BuildScientificReviewPacketRequest(
+        scenario=scenario,
+        result=result,
+    )
+    return request.model_dump_json(indent=2)
+
+
+@mcp.tool()
+def fate_build_run_scientific_trust_brief_skeleton() -> str:
+    """Return a validated JSON skeleton for BuildRunScientificTrustBriefRequest."""
+    from fate_mcp.runtime import FateRuntime
+    runtime = FateRuntime(REPO_ROOT)
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Example substance"},
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+        )
+    )
+    result = runtime.estimate(
+        scenario,
+        FateModelRunOptions(
+            region_profile_id=scenario.geographic_scope.region_id,
+            model_family=ModelFamily.REFERENCE_MASS_BALANCE,
+        ),
+    )
+    request = BuildRunScientificTrustBriefRequest(
         scenario=scenario,
         result=result,
     )
@@ -688,6 +847,12 @@ def fate_build_scientific_review_packet(request: BuildScientificReviewPacketRequ
 def fate_build_scientific_review_brief(request: BuildScientificReviewBriefRequest):
     """Render a compact scientific review brief from a scientific review packet."""
     return build_scientific_review_brief(request, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_build_run_scientific_trust_brief(request: BuildRunScientificTrustBriefRequest):
+    """Render a compact run-level bounded-screening trust brief from a scenario/result pair."""
+    return build_run_scientific_trust_brief_artifact(request, RUNTIME.provenance)
 
 
 @mcp.tool()
@@ -996,6 +1161,34 @@ def prompt_summarize_scientific_review_for_model_family(
 
 
 @mcp.prompt(
+    name="fate_summarize_run_trust_for_model_family",
+    title="Summarize Run Trust",
+    description="Render reviewer-facing guidance for a compact run-level bounded-screening trust brief.",
+)
+def prompt_summarize_run_trust_for_model_family(
+    model_family: str = "reference_mass_balance",
+    review_goal: str = "run-level bounded-screening trust review",
+) -> str:
+    """Build a compact reviewer-facing prompt for a run-level trust brief."""
+    profile = _scientific_review_profile_or_error(model_family)
+    request_payload = {
+        "scenario": "<EnvironmentalReleaseScenario>",
+        "result": "<ConcentrationEstimationResult>",
+    }
+    return (
+        f"Prepare an Environmental Fate MCP run trust brief for {review_goal}.\n\n"
+        f"Model family: {profile.model_family.value}\n"
+        f"Profile: {profile.display_name}\n\n"
+        "Call `fate_build_run_scientific_trust_brief` with a request shaped like:\n"
+        f"```json\n{json.dumps(request_payload, indent=2)}\n```\n\n"
+        "Use this compact run brief when you need a one-shot answer on bounded-screening suitability, "
+        "default-evidence posture, top uncertainty signals, and residual caveats. "
+        "If you need equation traces or the full checklist path, follow up with "
+        "`fate_build_scientific_review_packet` and `fate_build_scientific_review_brief`."
+    )
+
+
+@mcp.prompt(
     name="fate_review_scientific_methods_for_model_family",
     title="Review Scientific Methods",
     description="Render assessor-facing guidance for a model-family scientific methods dossier.",
@@ -1018,6 +1211,155 @@ def prompt_review_scientific_methods_for_model_family(
         "Use `fate_build_scientific_methods_dossier` to build the model-family methods dossier from governed "
         "scientific validation claims, benchmark coverage, and applicability policy. Then use "
         "`fate_build_scientific_methods_dossier_brief` to render the compact assessor-facing summary."
+    )
+
+
+@mcp.prompt(
+    name="fate_review_release_trust_for_screening",
+    title="Review Release Trust",
+    description="Render reviewer-facing guidance for the release trust surface, defaults evidence posture, corroboration posture, and blocker state.",
+)
+def prompt_review_release_trust_for_screening(
+    review_goal: str = "skeptical scientific trust review",
+) -> str:
+    """Build a reviewer-facing prompt for the release trust surface and its governed trust artifacts."""
+    return (
+        f"Review the Environmental Fate MCP release trust surface for {review_goal}.\n\n"
+        "Start with the governed reviewer-facing artifacts and keep the MCP boundary explicit.\n\n"
+        "Read these resources first:\n"
+        "- `docs://scientific-trust-brief`\n"
+        "- `release://defaults-rebaseline-report`\n"
+        "- `release://reference-corroboration-report`\n"
+        "- `release://reference-worksheet-manifest`\n"
+        "- `release://advective-promotion-bar-report`\n"
+        "- `release://external-corroboration-report`\n"
+        "- `docs://scientific-trust-pack`\n"
+        "- `release://red-team-review-report`\n"
+        "- `release://readiness-report`\n"
+        "- `docs://release-readiness`\n"
+        "- `docs://regulatory-quick-start`\n\n"
+        "Use `release://resource-manifest` and `docs://manifest` if you need discovery context before drilling into the trust artifacts.\n\n"
+        "Focus the review on:\n"
+        "- whether the shipped default path is free of tier-3 internal screening assumptions and carries explicit rebaseline delta records\n"
+        "- whether mandatory reference-family claims satisfy the reviewer-grade corroboration bar with official grounding, worksheet manifest links, and machine-readable expected-output artifacts\n"
+        "- whether the advective family remains explicitly experimental and non-promotable in the release artifacts\n"
+        "- whether mandatory claims show explicit corroboration status, official source counts, jurisdiction breadth, and next actions\n"
+        "- whether the red-team artifact shows unresolved blocker findings or only accepted public limitations\n"
+        "- whether the trust pack, release readiness doc, and quick-start exclusions all tell the same story about when not to use this MCP\n"
+        "- whether the release still looks appropriate for bounded screening rather than regulator acceptance or source-engine equivalence\n\n"
+        "Return a compact reviewer summary with:\n"
+        "- release trust status\n"
+        "- default-evidence posture\n"
+        "- reference-family proof posture and corroboration posture for mandatory claims\n"
+        "- advective-family promotion-bar posture\n"
+        "- red-team blocker state\n"
+        "- top residual caveats or strengthening actions\n"
+        "- an explicit answer on whether the release remains appropriate for bounded screening use"
+    )
+
+
+@mcp.prompt(
+    name="fate_review_reference_family_proof_for_screening",
+    title="Review Reference Proof",
+    description="Render reviewer-facing guidance for the reviewer-grade reference-family proof surface.",
+)
+def prompt_review_reference_family_proof_for_screening(
+    review_goal: str = "reviewer-grade reference proof audit",
+) -> str:
+    """Build a reviewer-facing prompt for the mandatory reference-family proof surface."""
+    return (
+        f"Review the Environmental Fate MCP reference-family proof surface for {review_goal}.\n\n"
+        "Treat `reference_mass_balance` as the reviewer-grade anchor and audit whether the released proof surface justifies that posture.\n\n"
+        "Read these resources first:\n"
+        "- `docs://reference-proof-brief`\n"
+        "- `docs://scientific-trust-brief`\n"
+        "- `release://reference-corroboration-report`\n"
+        "- `release://reference-worksheet-manifest`\n"
+        "- `release://defaults-rebaseline-report`\n"
+        "- `docs://scientific-trust-pack`\n"
+        "- `release://readiness-report`\n\n"
+        "Use `fate_build_scientific_methods_dossier` and `fate_build_scientific_methods_dossier_brief` for `reference_mass_balance` if you need the governed claim-set narrative behind the release artifacts.\n\n"
+        "Focus the review on:\n"
+        "- whether every mandatory `reference_mass_balance` claim has at least two independent evidence families\n"
+        "- whether every mandatory reference claim has official guidance, official modeling guidance, or official test-guideline grounding\n"
+        "- whether every mandatory reference claim has explicit `officialSourceIds`, `worksheetArtifactPath`, `expectedOutputArtifactPath`, `worksheetStatus`, `lastReviewedDate`, and `toleranceBasis` metadata\n"
+        "- whether every mandatory reference claim has machine-readable hand-worked worksheet support and expected-output artifacts linked through the worksheet manifest\n"
+        "- whether the shipped defaults rebaseline is explicit, citation-backed, and free of tier-3 continuity assumptions\n"
+        "- whether the public wording consistently treats `reference_mass_balance` as the reviewer-grade bounded-screening anchor rather than regulator acceptance\n\n"
+        "Return a compact reviewer summary with:\n"
+        "- reference-family proof status\n"
+        "- defaults rebaseline posture\n"
+        "- mandatory claim corroboration posture\n"
+        "- any missing worksheet or guidance gaps\n"
+        "- an explicit answer on whether the reference family remains reviewer-grade for bounded screening"
+    )
+
+
+@mcp.prompt(
+    name="fate_review_advective_promotion_bar",
+    title="Review Advective Promotion Bar",
+    description="Render reviewer-facing guidance for the experimental advective-family promotion bar and non-promotable reasons.",
+)
+def prompt_review_advective_promotion_bar(
+    review_goal: str = "experimental advective promotion-bar audit",
+) -> str:
+    """Build a reviewer-facing prompt for the advective-family promotion bar."""
+    return (
+        f"Review the Environmental Fate MCP advective-family promotion bar for {review_goal}.\n\n"
+        "Treat `advective_screening_mass_balance` as an experimental challenge family and verify that the release artifacts keep it non-promotable unless a later explicit decision changes that policy.\n\n"
+        "Read these resources first:\n"
+        "- `docs://advective-promotion-brief`\n"
+        "- `release://advective-promotion-bar-report`\n"
+        "- `docs://scientific-trust-pack`\n"
+        "- `release://reference-corroboration-report`\n"
+        "- `release://readiness-report`\n"
+        "- `docs://release-readiness`\n\n"
+        "Use `fate_build_scientific_methods_dossier` and `fate_build_scientific_methods_dossier_brief` for `advective_screening_mass_balance` if you need the governed claim-level support and promotion-blocker detail.\n\n"
+        "Focus the review on:\n"
+        "- whether `advective_screening_mass_balance` remains explicitly experimental in every reviewer-facing surface\n"
+        "- whether the non-promotable reasons are explicit and concrete, including missing official corroboration, insufficient independent evidence, sensitivity-only support, or missing reference-style anchors\n"
+        "- whether no prompt, trust pack, or readiness artifact silently treats the advective family as a decision-facing baseline\n"
+        "- whether the release still frames the advective family as baseline-versus-challenge interpretation rather than parity with the reference family\n\n"
+        "Return a compact reviewer summary with:\n"
+        "- advective promotion-bar status\n"
+        "- explicit non-promotable reasons\n"
+        "- any language drift or governance gaps\n"
+        "- an explicit answer on whether the advective family remains correctly constrained to the experimental challenge lane"
+    )
+
+
+@mcp.prompt(
+    name="fate_request_external_result_import",
+    title="Request External Result Import",
+    description="Render orchestration guidance and a request skeleton for the public normalized external payload import contract.",
+)
+def prompt_request_external_result_import(
+    import_profile_id: str = "normalized_external_payload_json",
+    import_goal: str = "external screening result normalization",
+) -> str:
+    """Build an Environmental Fate MCP prompt for importing a public normalized external payload."""
+    profile = _public_adapter_import_profile_or_error(import_profile_id)
+    request_payload = {
+        "scenario": "<EnvironmentalReleaseScenario>",
+        "run_options": {
+            "model_family": "external_result_adapter",
+            "run_mode": profile.accepted_modes[0].value if profile.accepted_modes else "steady_state",
+            "region_profile_id": "eu_screening_default",
+        },
+        "payload_path": "path/to/payload"
+        + profile.accepted_extensions[0],
+        "import_profile_id": profile.profile_id,
+    }
+    return (
+        f"Prepare an Environmental Fate MCP external payload import for {import_goal}.\n\n"
+        f"Profile: {profile.display_name} ({profile.profile_id})\n"
+        f"Accepted extensions: {', '.join(profile.accepted_extensions)}\n"
+        f"Accepted run modes: {', '.join(mode.value for mode in profile.accepted_modes)}\n"
+        f"Guidance: {profile.description}\n\n"
+        "Call `fate_import_external_result_payload` with a request shaped like:\n"
+        f"```json\n{json.dumps(request_payload, indent=2)}\n```\n\n"
+        "Replace the scenario placeholder with a matched Environmental Fate MCP release scenario and "
+        "point `payload_path` at a normalized external JSON or CSV payload file."
     )
 
 
@@ -1155,6 +1497,24 @@ def defaults_adapter_unit_conversions() -> str:
     return json.dumps(DEFAULTS.adapter_unit_conversion_manifest(), indent=2)
 
 
+@mcp.resource("defaults://temperature-correction-policy")
+def defaults_temperature_correction_policy() -> str:
+    policy = DEFAULTS.temperature_correction_policy()
+    return json.dumps(
+        {
+            "referenceTemperatureC": policy.reference_temperature_c,
+            "minimumSupportedTemperatureC": policy.minimum_supported_temperature_c,
+            "maximumSupportedTemperatureC": policy.maximum_supported_temperature_c,
+            "correctionStrategy": policy.correction_strategy,
+            "degradationQ10ByMedium": {
+                medium.value: value for medium, value in policy.degradation_q10_by_medium.items()
+            },
+            "applicabilityNote": policy.applicability_note,
+        },
+        indent=2,
+    )
+
+
 @mcp.resource("defaults://model-family-selection-profiles")
 def defaults_model_family_selection_profiles() -> str:
     return DEFAULTS.model_family_selection_profile_manifest().model_dump_json(indent=2)
@@ -1290,6 +1650,11 @@ def adapters_import_manifest() -> str:
     return build_adapter_import_manifest(REPO_ROOT).model_dump_json(indent=2)
 
 
+@mcp.resource("adapters://public-import-manifest")
+def adapters_public_import_manifest() -> str:
+    return build_public_adapter_import_manifest(REPO_ROOT).model_dump_json(indent=2)
+
+
 @mcp.resource("adapters://fixture/{fixture_name}")
 def adapters_fixture_descriptor(fixture_name: str) -> str:
     fixture = adapter_fixture_descriptor(REPO_ROOT, fixture_name)
@@ -1356,6 +1721,11 @@ def docs_resource(doc_name: str) -> str:
     return read_doc(REPO_ROOT, doc_name)
 
 
+@mcp.resource("docs://manifest")
+def docs_manifest_resource() -> str:
+    return json.dumps(build_doc_manifest(REPO_ROOT), indent=2)
+
+
 @mcp.resource("benchmarks://manifest")
 def benchmarks_resource() -> str:
     return json.dumps(benchmark_manifest(REPO_ROOT), indent=2)
@@ -1375,7 +1745,65 @@ def release_resource(report_name: str) -> str:
     return json.dumps(reports[report_name], indent=2)
 
 
+@mcp.resource("release://resource-manifest")
+def release_resource_manifest() -> str:
+    resources = [
+        {
+            "name": report_name,
+            "format": "json",
+            "description": REPORT_DESCRIPTIONS[filename],
+        }
+        for report_name, filename in REPORT_FILENAMES
+    ]
+    resources.extend(
+        [
+            {
+                "name": "scientific-trust-brief",
+                "format": "json-wrapper",
+                "description": "Compact reviewer-facing scientific trust brief exposed through release://scientific-trust-brief and directly as markdown via docs://scientific-trust-brief.",
+            },
+            {
+                "name": "reference-proof-brief",
+                "format": "json-wrapper",
+                "description": "Compact reviewer-facing brief for the reviewer-grade reference-family proof surface exposed through release://reference-proof-brief and directly as markdown via docs://reference-proof-brief.",
+            },
+            {
+                "name": "advective-promotion-brief",
+                "format": "json-wrapper",
+                "description": "Compact reviewer-facing brief for the experimental advective-family promotion bar exposed through release://advective-promotion-brief and directly as markdown via docs://advective-promotion-brief.",
+            },
+            {
+                "name": "scientific-trust-pack",
+                "format": "json-wrapper",
+                "description": "Reviewer-facing scientific trust pack exposed through release://scientific-trust-pack and directly as markdown via docs://scientific-trust-pack.",
+            },
+            {
+                "name": "docs://scientific-trust-brief",
+                "format": "markdown",
+                "description": REPORT_DESCRIPTIONS["scientific-trust-brief.md"],
+            },
+            {
+                "name": "docs://scientific-trust-pack",
+                "format": "markdown",
+                "description": REPORT_DESCRIPTIONS["scientific-trust-pack.md"],
+            },
+            {
+                "name": "docs://reference-proof-brief",
+                "format": "markdown",
+                "description": REPORT_DESCRIPTIONS["reference-proof-brief.md"],
+            },
+            {
+                "name": "docs://advective-promotion-brief",
+                "format": "markdown",
+                "description": REPORT_DESCRIPTIONS["advective-promotion-brief.md"],
+            },
+        ]
+    )
+    return json.dumps({"resourceCount": len(resources), "resources": resources}, indent=2)
+
+
 def create_server() -> FastMCP:
+    ensure_supported_python_version()
     _configure_logging()
     ensure_contract_artifacts_current(REPO_ROOT)
     return mcp

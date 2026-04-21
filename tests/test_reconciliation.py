@@ -15,7 +15,7 @@ from fate_mcp.runtime import FateRuntime
 def test_reconcile_release_evidence_consistent_inputs() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     request = ReconcileReleaseEvidenceRequest(
-        chemical_identity={"preferredName": "Example"},
+        chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
         duration_days=30.0,
         evidence_inputs=[
             ReleaseEvidenceInput(
@@ -53,7 +53,7 @@ def test_reconcile_release_evidence_consistent_inputs() -> None:
 def test_reconcile_release_evidence_surfaces_structured_conflicts() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     request = ReconcileReleaseEvidenceRequest(
-        chemical_identity={"preferredName": "Example"},
+        chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
         duration_days=30.0,
         evidence_inputs=[
             ReleaseEvidenceInput(
@@ -95,7 +95,7 @@ def test_reconcile_release_evidence_surfaces_structured_conflicts() -> None:
 def test_reconcile_release_evidence_weights_higher_quality_inputs_more_heavily() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     request = ReconcileReleaseEvidenceRequest(
-        chemical_identity={"preferredName": "Example"},
+        chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
         duration_days=30.0,
         evidence_inputs=[
             ReleaseEvidenceInput(
@@ -133,7 +133,7 @@ def test_reconcile_release_evidence_weights_higher_quality_inputs_more_heavily()
 def test_reconcile_release_evidence_blocks_orthogonal_release_vectors() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     request = ReconcileReleaseEvidenceRequest(
-        chemical_identity={"preferredName": "Example"},
+        chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
         duration_days=30.0,
         evidence_inputs=[
             ReleaseEvidenceInput(

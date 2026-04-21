@@ -24,6 +24,7 @@ from fate_mcp.models import (
     BuildScientificMethodsDossierBriefRequest,
     BuildScientificMethodsDossierRequest,
     BuildRunParameterManifestRequest,
+    BuildRunScientificTrustBriefRequest,
     BuildScientificReviewBriefRequest,
     BuildScientificReviewPacketRequest,
     BuildRunUncertaintySummaryRequest,
@@ -39,6 +40,7 @@ from fate_mcp.models import (
     EnvironmentalReleaseScenario,
     EstimateProbabilisticMultimediaConcentrationsRequest,
     EstimateMultimediaConcentrationsRequest,
+    ImportExternalResultPayloadRequest,
     ExportConcentrationSurfaceBundleRequest,
     ExportExposureConsumptionPackageRequest,
     ExportRegulatoryHandoffPackageRequest,
@@ -96,6 +98,7 @@ from fate_mcp.models import (
     ReleaseEvidenceReconciliationResult,
     ReleaseScenarioFitAssessment,
     RunParameterManifest,
+    RunScientificTrustBrief,
     RunUncertaintySummary,
     ScientificValidationClaim,
     ScientificValidationClaimCoverageManifest,
@@ -148,6 +151,7 @@ SCHEMA_MODELS = {
     "fateModelRunOptions.v1": FateModelRunOptions,
     "estimateMultimediaConcentrationsRequest.v1": EstimateMultimediaConcentrationsRequest,
     "estimateProbabilisticMultimediaConcentrationsRequest.v1": EstimateProbabilisticMultimediaConcentrationsRequest,
+    "importExternalResultPayloadRequest.v1": ImportExternalResultPayloadRequest,
     "calculationTrace.v1": CalculationTrace,
     "concentrationSurface.v1": ConcentrationSurface,
     "concentrationEstimationResult.v1": ConcentrationEstimationResult,
@@ -194,6 +198,8 @@ SCHEMA_MODELS = {
     "runParameterManifest.v1": RunParameterManifest,
     "buildRunUncertaintySummaryRequest.v1": BuildRunUncertaintySummaryRequest,
     "runUncertaintySummary.v1": RunUncertaintySummary,
+    "buildRunScientificTrustBriefRequest.v1": BuildRunScientificTrustBriefRequest,
+    "runScientificTrustBrief.v1": RunScientificTrustBrief,
     "buildProbabilisticReviewPacketRequest.v1": BuildProbabilisticReviewPacketRequest,
     "probabilisticReviewPacket.v1": ProbabilisticReviewPacket,
     "buildProbabilisticReviewBriefRequest.v1": BuildProbabilisticReviewBriefRequest,
@@ -249,9 +255,9 @@ def generate_contract_artifacts(repo_root: Path) -> None:
         (schema_dir / f"{name}.json").write_text(json.dumps(model.model_json_schema(), indent=2) + "\n")
     (schema_dir / "manifest.json").write_text(json.dumps(build_contract_manifest(), indent=2) + "\n")
 
-    runtime = FateRuntime(repo_root)
-    write_examples(repo_root, runtime)
+    runtime = FateRuntime(repo_root, verify_defaults_manifest=False)
     runtime.defaults.write_manifest()
+    write_examples(repo_root, runtime)
 
 
 def ensure_contract_artifacts_current(repo_root: Path) -> None:

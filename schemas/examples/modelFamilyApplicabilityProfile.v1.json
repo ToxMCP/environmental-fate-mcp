@@ -49,6 +49,17 @@
     "Treat the family as experimental and compare it against the corrected reference family before using it in decision-facing review materials.",
     "Escalate to richer model families when spatial hydrodynamics, drainage structure, or intermedia exchange dominate the question."
   ],
+  "fit_score_threshold": 0.75,
+  "fit_score_penalties": {
+    "unsupported_fit_for_purpose": 0.25,
+    "excessive_time_bucket_count": 0.2,
+    "provenance_only_treatments": 0.1,
+    "multi_medium_release_complexity": 0.1,
+    "unsupported_runtime_parameters": 0.15,
+    "missing_required_inputs": 0.35,
+    "missing_substance_class": 0.3,
+    "unsupported_substance_class": 1.0
+  },
   "source_pack": "defaults/v1/model_family_applicability_profiles.json",
   "applicability_note": "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
 }

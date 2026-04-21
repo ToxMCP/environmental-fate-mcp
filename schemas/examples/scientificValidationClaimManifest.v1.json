@@ -69,6 +69,21 @@
         "Supported by the advective_clearance_dominant_loss_share_anchor_fixture clearance-dominant loss-share anchor.",
         "Supported by the advective_clearance_dominant_loss_share_companion_fixture clearance-dominant corroboration case."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -149,6 +164,22 @@
         "Supported by the advective_clearance_dominant_loss_share_anchor_fixture and companion case for clearance-heavy closure accounting.",
         "Supported by the advective_mixed_loss_transition_anchor_fixture and companion case for near-parity cumulative closure accounting."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -220,6 +251,21 @@
         "Supported by the advective_degradation_dominant_loss_share_anchor_fixture degradation-dominant loss-share anchor.",
         "Supported by the advective_degradation_dominant_loss_share_companion_fixture degradation-dominant corroboration case."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -304,6 +350,21 @@
         "Supported by the advective_long_residence_time_accumulation_anchor_fixture weak-clearance companion edge case.",
         "Supported by the advective_long_residence_time_accumulation_companion_fixture long-residence corroboration case."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -381,6 +442,21 @@
         "Supported by the advective_long_duration_plateau_companion_fixture corroborating duration edge anchor.",
         "Supported by the advective_long_duration_plateau_sensitivity_fixture duration corroboration under an alternate residence-time regime."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "advective_duration_plateau_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -451,6 +527,21 @@
         "Supported by the advective_long_residence_time_accumulation_anchor_fixture weak-clearance edge case.",
         "Supported by the advective_long_residence_time_accumulation_companion_fixture corroborating weak-clearance edge case."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -539,6 +630,23 @@
         "Supported by the advective_transition_flip_to_clearance_fixture clearance-side transition sensitivity anchor.",
         "Mapped to the EPA turnover-boundary and OECD bounded-transport case families for reviewer-facing directional transport interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -638,6 +746,25 @@
         "Mapped to the ECHA and EPA transition-boundary screening case families for reviewer-facing directional-sensitivity interpretation.",
         "Mapped to the EPA turnover-boundary and OECD bounded-transport case families so the transition claim is grounded against residence-time interpretation as well as loss-share math."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 4,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -746,6 +873,24 @@
         "Supported by the advective_post_release_recovery_reference_fixture as a stable beyond-boundary reference-style recovery window.",
         "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass is also anchored further below the one-turnover anchor as recovery extends."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_directionality_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -843,6 +988,24 @@
         "Supported by the advective_post_release_recovery_reference_fixture so post-release recovery is grounded by a reference-style bounded-transport bucket case.",
         "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate post-release flushing case with a different recovery window."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 4,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -950,6 +1113,23 @@
         "Supported by the advective_post_release_recovery_sensitivity_fixture as an alternate stronger-flushing sensitivity case.",
         "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass decline is also anchored further beyond the one-turnover boundary."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1059,6 +1239,25 @@
         "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions.",
         "Supported by the advective_post_release_extended_flushing_sensitivity_fixture so retained release-stop mass is also anchored materially below the 50% half-recovery anchor as the recovery window extends further."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1",
+        "oecd_post_release_half_recovery_directionality_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1159,6 +1358,24 @@
         "Supported by the advective_post_release_half_recovery_reference_fixture at the governed combined-loss half-recovery boundary.",
         "Supported by the advective_post_release_recovery_reference_fixture as a beyond-half reference-style recovery window under the same chemistry and residence-time assumptions."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1233,6 +1450,21 @@
       "reference_case_lines": [
         "Supported by the advective_post_release_extended_flushing_sensitivity_fixture where the recovery window extends far enough to formally anchor the late-recovery depletion authority layer."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "oecd_post_release_half_recovery_directionality_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1323,6 +1555,23 @@
         "Supported by the advective_long_duration_plateau_sensitivity_fixture long-duration override corroboration case.",
         "Mapped to the ECHA and EPA transition-boundary screening case families for reviewer-facing override sensitivity around the loss-regime boundary."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1449,6 +1698,24 @@
         "Supported by the advective_bounded_transport_reference_fixture for explicit bounded-plateau and turnover-boundary interpretation.",
         "Supported by the advective_flow_through_transport_reference_fixture, advective_transition_boundary_reference_fixture, and advective_storage_dominant_transport_reference_fixture so reference-style bounded transport anchors span stable flow-through, boundary-sensitive intermediate, and stable storage-dominant regimes."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 4,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1519,6 +1786,21 @@
         "Supported by the advective_short_residence_time_clearance_anchor_fixture clearance-dominant edge case.",
         "Supported by the advective_short_residence_time_clearance_companion_fixture short-residence corroboration case."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1592,6 +1874,22 @@
         "Supported by the advective_time_bucket_invariance_fixture hand-worked advective bucket reference case.",
         "Supported by the advective_post_release_decay_anchor_fixture post-release decay bucket anchor."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "echa_elapsed_time_flowing_water_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1683,6 +1981,21 @@
         "Supported by the advective_long_duration_plateau_companion_fixture long-duration corroboration anchor.",
         "Supported by the advective_long_duration_plateau_sensitivity_fixture alternate-clearance duration corroboration anchor."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1690,7 +2003,7 @@
     },
     {
       "claim_id": "external_adapter_canonical_equivalence_v1",
-      "display_name": "External adapter canonical surface equivalence",
+      "display_name": "External adapter canonical normalization parity",
       "model_family": "external_result_adapter",
       "supported_run_modes": [
         "steady_state"
@@ -1699,15 +2012,15 @@
         "downstream_export",
         "benchmark"
       ],
-      "statement": "The external result adapter normalizes governed JSON, CSV, and alternate-unit fixtures into identical canonical concentration-surface signatures.",
-      "claim_class": "adapter_equivalence",
+      "statement": "The external result adapter normalizes governed JSON, CSV, and alternate-unit fixtures into the same canonical Fate MCP concentration-surface contract while preserving import provenance and adapter limitations.",
+      "claim_class": "adapter_contract_normalization",
       "priority": "high",
       "mandatory_for_release": true,
       "required_validation_tiers": [
-        "equivalence"
+        "normalization_parity"
       ],
       "required_reference_types": [
-        "governed_fixture_equivalence"
+        "governed_fixture_normalization_parity"
       ],
       "source_references": [
         {
@@ -1725,14 +2038,26 @@
       ],
       "reference_case_ids": [],
       "methods_basis_lines": [
-        "This claim covers adapter-side normalization into canonical Fate MCP surfaces.",
-        "The claim does not make any statement about the scientific validity of the external engine that produced the source export."
+        "This claim covers adapter-side normalization into canonical Fate MCP surfaces with provenance-preserving import metadata.",
+        "The claim does not make any statement about scientific equivalence to, or scientific validity of, the external engine that produced the source export."
       ],
       "reference_case_lines": [
-        "Supported by the external_adapter_equivalence_fixture governed equivalence case."
+        "Supported by the external_adapter_equivalence_fixture governed normalization-parity case."
       ],
+      "corroboration_status": "none",
+      "official_source_count": 0,
+      "jurisdiction_breadth": "none",
+      "independent_evidence_families": [],
+      "evidence_family": null,
+      "official_source_ids": [],
+      "worksheet_artifact_path": null,
+      "expected_output_artifact_path": null,
+      "worksheet_status": null,
+      "last_reviewed_date": null,
+      "tolerance_basis": null,
+      "next_corroboration_action": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration.",
       "review_notes": [
-        "This is an import-normalization claim, not a claim about the external engine's native transport physics."
+        "This is an import-normalization claim, not a claim about the external engine's native transport physics or scientific equivalence."
       ],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1797,6 +2122,24 @@
         "Supported by the air_reference_chemical_style_fixture hand-worked reference case.",
         "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [
         "This is a single-compartment air screening claim rather than a spatial transport claim."
       ],
@@ -1865,6 +2208,24 @@
         "Supported by the reference_treatment_reduction_anchor_fixture hand-worked treatment-reduction case.",
         "Grounded to ECHA source-term reduction screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_source_term_reduction_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1929,6 +2290,24 @@
         "Supported by the reference_long_duration_rate_anchor_fixture duration edge anchor.",
         "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -1993,6 +2372,24 @@
         "Supported by the multi_medium_mass_balance_fixture hand-worked partition reference case.",
         "Grounded to ECHA partitioned-release screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_partitioned_release_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_multi_medium_partition_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_multi_medium_partition_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -2058,6 +2455,25 @@
         "Supported by the parameter_override_sensitivity_fixture hand-worked override case.",
         "Grounded to EPA parameterization-and-override screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "echa_parameter_transparency_screening_case_family_v1",
+        "epa_parameterization_override_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_parameter_override_application_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_parameter_override_application_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -2122,6 +2538,24 @@
         "Supported by the sediment_reference_chemical_style_fixture hand-worked reference case.",
         "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -2186,6 +2620,24 @@
         "Supported by the reference_short_half_life_attenuation_anchor_fixture decay edge anchor.",
         "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -2250,6 +2702,24 @@
         "Supported by the soil_reference_chemical_style_fixture hand-worked reference case.",
         "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -2315,6 +2785,24 @@
         "Supported by the time_bucket_invariance_fixture hand-worked elapsed-time reference case.",
         "Grounded to EPA elapsed-time bucket screening concepts and OECD first-order screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "epa_elapsed_time_bucket_screening_case_family_v1",
+        "oecd_single_medium_first_order_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [],
       "source_pack": "defaults/v1/scientific_validation_claims.json",
@@ -2379,6 +2867,24 @@
         "Supported by the water_reference_chemical_style_fixture hand-worked reference case.",
         "Grounded to OECD first-order degradation screening concepts and EPA single-compartment environmental screening concepts for reviewer-facing interpretation."
       ],
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "independent_evidence_families": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance"
+      ],
+      "worksheet_artifact_path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.worksheet.json",
+      "expected_output_artifact_path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.expected-outputs.json",
+      "worksheet_status": "ready",
+      "last_reviewed_date": "2026-04-21",
+      "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
       "review_notes": [],
       "plugin_code_references": [
         "fate_mcp.plugins.reference_mass_balance:ReferenceMassBalancePlugin._build_surface"

@@ -11,6 +11,19 @@
           "value": 0.0027952216417223663
         }
       ],
+      "expected_trace_terms": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "terms": {
+            "cumulative_degraded_mass_mg": 7204778.358277633,
+            "decay_constant_per_day": 0.34657359027997264,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 9.313225746154785e-10
+          },
+          "tolerance": 1e-12
+        }
+      ],
       "name": "air_reference_chemical_style_fixture",
       "reference_type": "hand_worked_screening_equation",
       "scenario": {
@@ -43,6 +56,19 @@
           "medium": "water",
           "unit": "mg/L",
           "value": 1.4426950408889635e-05
+        }
+      ],
+      "expected_trace_terms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "cumulative_degraded_mass_mg": 2786524.795555182,
+            "decay_constant_per_day": 0.046209812037329684,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 9.313225746154785e-10
+          },
+          "tolerance": 1e-12
         }
       ],
       "name": "water_reference_chemical_style_fixture",
@@ -79,6 +105,19 @@
           "value": 0.0028853900817779267
         }
       ],
+      "expected_trace_terms": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "terms": {
+            "cumulative_degraded_mass_mg": 2786524.795555182,
+            "decay_constant_per_day": 0.023104906018664842,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 1.862645149230957e-09
+          },
+          "tolerance": 1e-12
+        }
+      ],
       "name": "soil_reference_chemical_style_fixture",
       "reference_type": "hand_worked_screening_equation",
       "scenario": {
@@ -113,6 +152,19 @@
           "value": 0.009016844005556022
         }
       ],
+      "expected_trace_terms": [
+        {
+          "compartment": "freshwater_sediment",
+          "medium": "sediment",
+          "terms": {
+            "cumulative_degraded_mass_mg": 2786524.7955551823,
+            "decay_constant_per_day": 0.015403270679109895,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -4.656612873077393e-10
+          },
+          "tolerance": 1e-12
+        }
+      ],
       "name": "sediment_reference_chemical_style_fixture",
       "reference_type": "hand_worked_screening_equation",
       "scenario": {
@@ -134,6 +186,113 @@
       ],
       "tolerance": 1e-12,
       "tolerance_rationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
+      "validation_tier": "reference_style"
+    },
+    {
+      "category": "edge_condition_anchor",
+      "expected_behavior": "Reference water concentration follows the no-decay linear accumulation limit when the governed half-life is effectively infinite relative to the branch threshold.",
+      "expected_surfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2e-05
+        }
+      ],
+      "expected_trace_terms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "cumulative_degraded_mass_mg": 3.465735902799726e-07,
+            "decay_constant_per_day": 6.931471805599453e-14,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -3.465735902799726e-07
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "name": "reference_water_no_decay_limit_branch_fixture",
+      "reference_type": "hand_worked_no_decay_limit_fixture",
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark water no-decay branch",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 1.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark effective no-decay branch trigger.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10000000000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientific_basis": "Hand-worked reference water screening case with an effectively infinite half-life, anchoring the explicit no-decay-limit branch of the finite-duration kernel.",
+      "scientific_claim_ids": [
+        "reference_water_finite_duration_first_order_v1"
+      ],
+      "tolerance": 1e-12,
+      "tolerance_rationale": "The no-decay branch is deterministic and analytically traceable to the linear accumulation limit of the same finite-duration release equation.",
+      "validation_tier": "edge_condition"
+    },
+    {
+      "category": "reference_chemical_style",
+      "expected_behavior": "Reference water concentration reflects the governed Q10 temperature correction, with a lower scenario temperature lengthening half-life and increasing retained concentration.",
+      "expected_surfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.6902223771686956e-05
+        }
+      ],
+      "expected_trace_terms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "cumulative_degraded_mass_mg": 1548888.114156522,
+            "decay_constant_per_day": 0.023104906018664842,
+            "mass_balance_closure_error_mg": -2.3283064365386963e-10,
+            "temperature_corrected_half_life_days": 30.0,
+            "temperature_correction_factor": 0.5
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "name": "reference_water_temperature_correction_reference_fixture",
+      "reference_type": "hand_worked_temperature_correction_fixture",
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark water temperature correction",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 15.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "temperature_c": 15.0,
+        "total_release_mass_kg": 10.0
+      },
+      "scientific_basis": "Hand-worked reference water screening case at a governed non-reference temperature, anchoring the Q10 temperature-correction branch with explicit corrected half-life tracing.",
+      "scientific_claim_ids": [
+        "reference_water_finite_duration_first_order_v1"
+      ],
+      "tolerance": 1e-12,
+      "tolerance_rationale": "The governed temperature-correction branch remains a deterministic closed-form transformation of the same finite-duration first-order release equation.",
       "validation_tier": "reference_style"
     },
     {
@@ -2045,6 +2204,118 @@
       "validation_tier": "edge_condition"
     },
     {
+      "category": "reference_chemical_style",
+      "expected_behavior": "Advective air concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping as the water anchors.",
+      "expected_surfaces": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "unit": "mg/m3",
+          "value": 0.0014691498983410997
+        }
+      ],
+      "expected_trace_terms": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "terms": {
+            "active_emission_turnover_count": 3.333333333333333,
+            "advective_clearance_share_fraction": 0.4902631842044826,
+            "cumulative_advected_mass_mg": 4182361.734810427,
+            "cumulative_degraded_mass_mg": 4348488.366848473,
+            "degradation_loss_share_fraction": 0.5097368157955173,
+            "elapsed_turnover_count": 3.333333333333333,
+            "mass_balance_closure_error_mg": -9.313225746154785e-10,
+            "retained_mass_fraction_of_finite_plateau": 0.9988851877078984
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "name": "advective_air_transport_reference_fixture",
+      "reference_type": "hand_worked_advective_air_reference_fixture",
+      "run_options": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective air transport",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "air"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientific_basis": "Hand-worked finite-duration advective air screening case, broadening the governed proof surface beyond water while retaining explicit degradation-versus-clearance accounting.",
+      "scientific_claim_ids": [
+        "advective_cumulative_mass_balance_closure_v1",
+        "advective_residence_time_turnover_regime_v1"
+      ],
+      "tolerance": 1e-12,
+      "tolerance_rationale": "The air advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+      "validation_tier": "reference_style"
+    },
+    {
+      "category": "reference_chemical_style",
+      "expected_behavior": "Advective soil concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping while remaining storage-dominant under the governed soil residence time.",
+      "expected_surfaces": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "unit": "mg/kg",
+          "value": 0.0019094067279895887
+        }
+      ],
+      "expected_trace_terms": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "terms": {
+            "active_emission_turnover_count": 0.33333333333333337,
+            "advective_clearance_share_fraction": 0.19384040766994082,
+            "cumulative_advected_mass_mg": 1013103.630296334,
+            "cumulative_degraded_mass_mg": 4213379.549729694,
+            "degradation_loss_share_fraction": 0.8061595923300592,
+            "elapsed_turnover_count": 0.33333333333333337,
+            "mass_balance_closure_error_mg": 1.5133991837501526e-09,
+            "retained_mass_fraction_of_finite_plateau": 0.8208671723565526
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "name": "advective_soil_transport_reference_fixture",
+      "reference_type": "hand_worked_advective_soil_reference_fixture",
+      "run_options": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective soil transport",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 60.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "soil"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientific_basis": "Hand-worked finite-duration advective soil screening case, broadening the governed proof surface into a mass-based medium with long residence time and explicit combined-loss accounting.",
+      "scientific_claim_ids": [
+        "advective_cumulative_mass_balance_closure_v1",
+        "advective_residence_time_turnover_regime_v1"
+      ],
+      "tolerance": 1e-12,
+      "tolerance_rationale": "The soil advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+      "validation_tier": "reference_style"
+    },
+    {
       "category": "parameter_override_sensitivity",
       "expected_behavior": "Advective water concentration reflects the scenario residence-time override through the governed degradation-plus-clearance screening equation.",
       "expected_surfaces": [
@@ -3026,10 +3297,10 @@
         "config/adapter-fixtures/illustrative_external_engine_payload.csv",
         "config/adapter-fixtures/illustrative_external_engine_payload_alt_units.csv"
       ],
-      "category": "external_adapter_equivalence",
-      "expected_behavior": "Normalized import paths produce identical canonical concentration-surface signatures.",
+      "category": "external_adapter_normalization_parity",
+      "expected_behavior": "Normalized import paths produce the same canonical concentration-surface signatures at the Fate MCP contract boundary.",
       "name": "external_adapter_equivalence_fixture",
-      "reference_type": "governed_fixture_equivalence",
+      "reference_type": "governed_fixture_normalization_parity",
       "run_options": {
         "model_family": "external_result_adapter"
       },
@@ -3046,13 +3317,13 @@
         ],
         "total_release_mass_kg": 8.0
       },
-      "scientific_basis": "Governed JSON, CSV, and alternate-unit adapter fixtures encode the same illustrative concentration surfaces after normalization.",
+      "scientific_basis": "Governed JSON, CSV, and alternate-unit adapter fixtures resolve to the same canonical concentration surfaces after normalization.",
       "scientific_claim_ids": [
         "external_adapter_canonical_equivalence_v1"
       ],
       "tolerance": 0.0,
-      "tolerance_rationale": "Equivalence is structural rather than numeric tolerance-based because each fixture should normalize to the same canonical surfaces.",
-      "validation_tier": "equivalence"
+      "tolerance_rationale": "Normalization parity is structural rather than numeric tolerance-based because each fixture should resolve to the same canonical surfaces.",
+      "validation_tier": "normalization_parity"
     },
     {
       "category": "reference_chemical_style",
@@ -3283,9 +3554,10 @@
           "advective_loss_dominance_sensitivity",
           "advective_loss_transition_anchor",
           "advective_loss_transition_sensitivity",
-          "advective_transport_regime_reference"
+          "advective_transport_regime_reference",
+          "reference_chemical_style"
         ],
-        "supporting_fixture_count": 10,
+        "supporting_fixture_count": 12,
         "supporting_fixture_names": [
           "advective_degradation_dominant_loss_share_anchor_fixture",
           "advective_degradation_dominant_loss_share_companion_fixture",
@@ -3296,15 +3568,19 @@
           "advective_bounded_transport_reference_fixture",
           "advective_flow_through_transport_reference_fixture",
           "advective_transition_boundary_reference_fixture",
-          "advective_storage_dominant_transport_reference_fixture"
+          "advective_storage_dominant_transport_reference_fixture",
+          "advective_air_transport_reference_fixture",
+          "advective_soil_transport_reference_fixture"
         ],
         "supporting_reference_types": [
+          "hand_worked_advective_air_reference_fixture",
           "hand_worked_advective_bounded_transport_reference_fixture",
           "hand_worked_advective_flow_through_transport_reference_fixture",
           "hand_worked_advective_loss_dominance_anchor",
           "hand_worked_advective_loss_dominance_sensitivity_fixture",
           "hand_worked_advective_loss_transition_anchor",
           "hand_worked_advective_loss_transition_sensitivity_fixture",
+          "hand_worked_advective_soil_reference_fixture",
           "hand_worked_advective_storage_dominant_transport_reference_fixture",
           "hand_worked_advective_transition_boundary_reference_fixture"
         ],
@@ -3814,27 +4090,32 @@
           "advective_loss_transition_anchor",
           "advective_transport_regime_reference",
           "edge_condition_anchor",
-          "parameter_override_sensitivity"
+          "parameter_override_sensitivity",
+          "reference_chemical_style"
         ],
-        "supporting_fixture_count": 9,
+        "supporting_fixture_count": 11,
         "supporting_fixture_names": [
           "advective_mixed_loss_transition_anchor_fixture",
           "advective_bounded_transport_reference_fixture",
           "advective_flow_through_transport_reference_fixture",
           "advective_transition_boundary_reference_fixture",
           "advective_storage_dominant_transport_reference_fixture",
+          "advective_air_transport_reference_fixture",
+          "advective_soil_transport_reference_fixture",
           "advective_short_residence_time_clearance_anchor_fixture",
           "advective_short_residence_time_clearance_companion_fixture",
           "advective_long_residence_time_accumulation_anchor_fixture",
           "advective_long_residence_time_accumulation_companion_fixture"
         ],
         "supporting_reference_types": [
+          "hand_worked_advective_air_reference_fixture",
           "hand_worked_advective_bounded_transport_reference_fixture",
           "hand_worked_advective_clearance_edge_anchor",
           "hand_worked_advective_flow_through_transport_reference_fixture",
           "hand_worked_advective_loss_transition_anchor",
           "hand_worked_advective_override_fixture",
           "hand_worked_advective_residence_edge_anchor",
+          "hand_worked_advective_soil_reference_fixture",
           "hand_worked_advective_storage_dominant_transport_reference_fixture",
           "hand_worked_advective_transition_boundary_reference_fixture"
         ],
@@ -3956,7 +4237,7 @@
       {
         "claim_id": "external_adapter_canonical_equivalence_v1",
         "covered": true,
-        "display_name": "External adapter canonical surface equivalence",
+        "display_name": "External adapter canonical normalization parity",
         "gap_lines": [],
         "mandatory_for_release": true,
         "model_family": "external_result_adapter",
@@ -3968,18 +4249,18 @@
           "steady_state"
         ],
         "supporting_categories": [
-          "external_adapter_equivalence"
+          "external_adapter_normalization_parity"
         ],
         "supporting_fixture_count": 1,
         "supporting_fixture_names": [
           "external_adapter_equivalence_fixture"
         ],
         "supporting_reference_types": [
-          "governed_fixture_equivalence"
+          "governed_fixture_normalization_parity"
         ],
         "supporting_validation_tier_count": 1,
         "supporting_validation_tiers": [
-          "equivalence"
+          "normalization_parity"
         ]
       },
       {
@@ -4299,20 +4580,26 @@
           "steady_state"
         ],
         "supporting_categories": [
+          "edge_condition_anchor",
           "parameter_override_sensitivity",
           "reference_chemical_style"
         ],
-        "supporting_fixture_count": 2,
+        "supporting_fixture_count": 4,
         "supporting_fixture_names": [
           "water_reference_chemical_style_fixture",
+          "reference_water_no_decay_limit_branch_fixture",
+          "reference_water_temperature_correction_reference_fixture",
           "reference_water_capacity_sensitivity_fixture"
         ],
         "supporting_reference_types": [
           "hand_worked_capacity_sensitivity_fixture",
-          "hand_worked_screening_equation"
+          "hand_worked_no_decay_limit_fixture",
+          "hand_worked_screening_equation",
+          "hand_worked_temperature_correction_fixture"
         ],
-        "supporting_validation_tier_count": 2,
+        "supporting_validation_tier_count": 3,
         "supporting_validation_tiers": [
+          "edge_condition",
           "reference_style",
           "sensitivity"
         ]
@@ -4330,17 +4617,29 @@
         "applicability_note": null,
         "claim_class": "advective_loss_dominance",
         "claim_id": "advective_clearance_dominant_loss_share_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective clearance-dominant loss-share transition",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "advective_clearance_edge_case_family_v1",
+          "echa_bounded_clearance_edge_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
           "The claim is satisfied when advective clearance remains the larger resolved loss-share component under a short-residence and effectively persistent screening regime."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -4395,23 +4694,39 @@
         "statement": "The advective screening kernel reports advective clearance as the dominant contribution to total loss when residence time is short relative to half-life.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_mass_balance_accounting",
         "claim_id": "advective_cumulative_mass_balance_closure_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective cumulative mass-balance closure",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_euses_water_screening_case_family_v1",
+          "epa_flow_through_water_screening_case_family_v1",
+          "advective_clearance_edge_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the governed one-compartment advective screening equation and its cumulative trace accounting at elapsed time.",
           "The claim is satisfied when emitted mass is partitioned into retained compartment mass plus degraded and advected cumulative losses with negligible residual closure error across distinct loss-share regimes."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -4475,23 +4790,38 @@
         "statement": "The advective screening kernel preserves cumulative mass balance between emitted mass, retained compartment mass, degraded mass, and advected mass, with negligible closure error across degradation-dominant, clearance-dominant, and mixed-loss regimes.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_loss_dominance",
         "claim_id": "advective_degradation_dominant_loss_share_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective degradation-dominant loss-share transition",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_euses_water_screening_case_family_v1",
+          "epa_flow_through_water_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
           "The claim is satisfied when degradation remains the larger resolved loss-share component under a short-half-life and long-residence screening regime."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -4546,17 +4876,29 @@
         "statement": "The advective screening kernel reports degradation as the dominant contribution to total loss when half-life is short relative to residence time.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_edge_condition",
         "claim_id": "advective_extreme_persistence_clearance_bound_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective extreme-persistence clearance bound",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "advective_clearance_edge_case_family_v1",
+          "echa_bounded_clearance_edge_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors the advective family when degradation is negligible and residence-time clearance dominates the total loss term.",
@@ -4564,6 +4906,9 @@
           "The purpose of this claim is to show the governed family remains bounded by clearance assumptions rather than drifting toward unbounded accumulation under effective persistence."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -4630,23 +4975,38 @@
         "statement": "The advective screening kernel remains bounded by residence-time clearance when degradation is effectively absent.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_duration_edge_condition",
         "claim_id": "advective_long_duration_combined_loss_plateau_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective long-duration combined-loss plateau anchor",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "advective_duration_plateau_case_family_v1",
+          "epa_flow_through_water_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors the long-duration limit of the governed advective screening equation at a fixed release rate.",
           "The claim remains finite-duration and does not assert infinite-time equilibrium or site-specific hydrodynamic realism."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -4707,23 +5067,38 @@
         "statement": "The advective screening kernel approaches the finite-duration combined-loss plateau when duration is long relative to both degradation half-life and residence time.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_clearance_edge_condition",
         "claim_id": "advective_long_residence_time_accumulation_anchor_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective long-residence-time accumulation anchor",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "advective_clearance_edge_case_family_v1",
+          "echa_bounded_clearance_edge_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors the weak-clearance side of the governed advective family under effectively persistent degradation assumptions.",
           "The claim is an edge-condition screening anchor that demonstrates directional sensitivity to residence time without claiming hydrodynamic calibration."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -4777,23 +5152,40 @@
         "statement": "The advective screening kernel yields materially higher concentration when a long residence-time override weakens advective clearance under effectively persistent conditions.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_loss_transition_sensitivity",
         "claim_id": "advective_loss_regime_flip_directionality_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective loss-regime flip directionality",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_transition_boundary_screening_case_family_v1",
+          "epa_transition_boundary_screening_case_family_v1",
+          "epa_turnover_boundary_screening_case_family_v1",
+          "oecd_bounded_transport_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": false,
         "methods_basis_lines": [
           "This claim is limited to directional sensitivity around the governed near-parity transition band in the advective screening equation.",
           "The claim is satisfied when a small half-life shift or residence-time shift around the near-parity anchor changes the larger resolved loss-share component in the expected direction without breaking bounded screening behavior or residence-time interpretation."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 3,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -4865,17 +5257,33 @@
         "statement": "The advective screening kernel flips the dominant loss interpretation in the expected direction when small half-life or residence-time shifts move a near-parity configuration across the degradation-versus-clearance boundary.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_loss_dominance",
         "claim_id": "advective_mixed_loss_transition_margin_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective mixed-loss transition margin",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_euses_water_screening_case_family_v1",
+          "epa_flow_through_water_screening_case_family_v1",
+          "echa_transition_boundary_screening_case_family_v1",
+          "epa_transition_boundary_screening_case_family_v1",
+          "epa_turnover_boundary_screening_case_family_v1",
+          "oecd_bounded_transport_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
@@ -4883,6 +5291,9 @@
           "Source grounding aligns this claim with regulator-recognizable transition-boundary screening concepts where modest half-life or residence-time shifts can move a one-compartment flowing-water screening run across the dominant-loss boundary while transport turnover remains boundary-sensitive."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 4,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -4964,18 +5375,33 @@
         "statement": "The advective screening kernel reports a mixed-loss transition regime when degradation and advective clearance remain near parity and neither dominates the combined loss term by a wide margin.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_post_release_directionality",
         "claim_id": "advective_post_release_flushing_directionality_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release flushing directionality",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "epa_post_release_decay_bucket_case_family_v1",
+          "epa_post_release_flushing_screening_case_family_v1",
+          "oecd_post_release_recovery_screening_case_family_v1",
+          "echa_post_release_flushing_boundary_case_family_v1",
+          "epa_post_release_directionality_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the one-turnover flushing anchor.",
@@ -4983,6 +5409,9 @@
           "The claim also requires explicit retained-mass-to-boundary ratio terms so reviewers can challenge post-release directionality without reconstructing the closed-form decay calculation."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 3,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5072,24 +5501,42 @@
         "statement": "The advective screening kernel preserves directional retained-mass decline relative to the one-turnover post-release anchor as the recovery window moves from sub-boundary to beyond-boundary under the governed combined-loss solution.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_post_release_recovery",
         "claim_id": "advective_post_release_flushing_recovery_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release flushing and recovery accounting",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "epa_environmental_models_elapsed_time_case_family_v1",
+          "epa_post_release_decay_bucket_case_family_v1",
+          "epa_post_release_flushing_screening_case_family_v1",
+          "oecd_post_release_recovery_screening_case_family_v1",
+          "echa_post_release_flushing_boundary_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs where elapsed time extends beyond the declared release duration and the kernel applies combined degradation-plus-clearance decay to the retained release-stop mass.",
           "The claim is satisfied when post-release buckets expose retained, degraded, and advected fractions of release-stop mass with negligible closure error and without resuming emission after the declared release period."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 4,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5169,18 +5616,32 @@
         "statement": "The advective screening kernel preserves post-release retained-mass decline after active emission stops and exposes release-stop mass fractions for retained, degraded, and advected mass within the bucketed screening trace.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_post_release_transition",
         "claim_id": "advective_post_release_flushing_regime_transition_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release flushing regime transition",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "epa_post_release_decay_bucket_case_family_v1",
+          "epa_post_release_flushing_screening_case_family_v1",
+          "oecd_post_release_recovery_screening_case_family_v1",
+          "echa_post_release_flushing_boundary_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose post-release turnover count relative to the one-turnover flushing boundary.",
@@ -5188,6 +5649,9 @@
           "The claim also requires a stronger beyond-boundary sensitivity anchor so retained release-stop mass decline remains directionally consistent as the post-release recovery window extends further beyond one full flushing turnover."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 3,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5276,18 +5740,34 @@
         "statement": "The advective screening kernel classifies post-release recovery windows relative to the one-turnover flushing boundary so retained release-stop mass can be interpreted as sub-flushing, boundary-sensitive, or flushing-dominant rather than only as a raw retained fraction.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_post_release_pace_directionality",
         "claim_id": "advective_post_release_half_recovery_directionality_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release half-recovery directionality",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "epa_post_release_decay_bucket_case_family_v1",
+          "epa_post_release_flushing_screening_case_family_v1",
+          "oecd_post_release_recovery_screening_case_family_v1",
+          "echa_post_release_flushing_boundary_case_family_v1",
+          "epa_post_release_recovery_pace_case_family_v1",
+          "oecd_post_release_half_recovery_directionality_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor.",
@@ -5295,6 +5775,9 @@
           "The claim also requires explicit retained-mass offset and ratio terms relative to the half-recovery anchor so reviewers can challenge combined-loss post-release directionality without reconstructing the closed-form decay solution."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 3,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5385,18 +5868,33 @@
         "statement": "The advective screening kernel preserves retained-mass directionality relative to the combined-loss 50% recovery anchor, so reviewers can see the post-release window move from above the half-recovery boundary to materially below it under the same governed loss constants.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_post_release_pace",
         "claim_id": "advective_post_release_half_recovery_pace_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release half-recovery pace",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "epa_post_release_decay_bucket_case_family_v1",
+          "epa_post_release_flushing_screening_case_family_v1",
+          "oecd_post_release_recovery_screening_case_family_v1",
+          "echa_post_release_flushing_boundary_case_family_v1",
+          "epa_post_release_recovery_pace_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose the combined-loss half-recovery pace for retained release-stop mass.",
@@ -5404,6 +5902,9 @@
           "The claim also requires explicit window-multiple and retained-mass-to-half-anchor terms so reviewers can challenge recovery pace without reconstructing the combined-loss closed-form solution."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 3,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5485,24 +5986,39 @@
         "statement": "The advective screening kernel preserves the combined-loss half-recovery pace for retained release-stop mass, so reviewers can interpret whether a post-release recovery window is still before, at, or beyond the 50% retained-mass anchor under the governed degradation-plus-clearance solution.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_late_recovery",
         "claim_id": "advective_post_release_late_recovery_regime_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release late-recovery regime",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "oecd_post_release_half_recovery_directionality_case_family_v1",
+          "epa_post_release_recovery_pace_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim evaluates advective time-bucket outputs that extend far beyond the combined-loss half-recovery boundary.",
           "The claim asserts that late-stage depletion is specifically identified by a 4x half-recovery pace multiple and a retained mass ratio below 12.5%."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 3,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5559,17 +6075,31 @@
         "statement": "The advective screening kernel distinguishes simple sub-half-recovery windows from stable late-recovery regimes under the bounded combined-loss depletion authority layer, so reviewers can confidently identify deep recovery rather than just treating it as generically below the 50% anchor.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_parameter_override",
         "claim_id": "advective_residence_time_override_application_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective residence-time override application",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_euses_water_screening_case_family_v1",
+          "advective_clearance_edge_case_family_v1",
+          "echa_transition_boundary_screening_case_family_v1",
+          "epa_transition_boundary_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to runtime-supported residence-time parameters in the advective screening family.",
@@ -5578,6 +6108,9 @@
           "Where a run sits near the governed loss transition, residence-time overrides can also move the resolved dominant-loss interpretation, which is why this claim is mapped to transition-boundary case families as well as clearance-edge families."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5649,23 +6182,41 @@
         "statement": "The advective screening kernel uses a supported water residence-time override in place of the governed curated default when computing first-order advective clearance.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_transport_regime",
         "claim_id": "advective_residence_time_turnover_regime_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective residence-time turnover regime interpretation",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_euses_water_screening_case_family_v1",
+          "advective_clearance_edge_case_family_v1",
+          "echa_transition_boundary_screening_case_family_v1",
+          "epa_turnover_boundary_screening_case_family_v1",
+          "oecd_bounded_transport_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the one-compartment advective screening trace, where residence time is interpreted through elapsed and active-emission turnover counts, turnover-boundary offsets, and retained mass as a fraction of the finite loss-limited plateau.",
           "The claim is satisfied when short residence times produce flow-through turnover counts, long residence times produce storage-dominant turnover counts, near-parity residence times remain in an intermediate turnover regime, and the bounded plateau fraction stays reviewer-interpretable."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 4,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5775,23 +6326,38 @@
         "statement": "The advective screening kernel exposes residence-time turnover counts, turnover-boundary offsets, and bounded plateau-fraction context that distinguish storage-dominant, intermediate-turnover, and flow-through transport regimes in reviewer-facing transport interpretation.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_clearance_edge_condition",
         "claim_id": "advective_short_residence_time_clearance_anchor_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective short-residence-time clearance anchor",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "advective_clearance_edge_case_family_v1",
+          "echa_bounded_clearance_edge_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors clearance-dominant suppression in the experimental advective family under effectively persistent degradation assumptions.",
           "The claim is an edge-condition check, not a broad hydrodynamic calibration statement."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -5845,18 +6411,31 @@
         "statement": "The advective screening kernel suppresses concentration when a short residence time dominates the total loss term, even under effectively persistent conditions.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_time_bucket_semantics",
         "claim_id": "advective_time_bucket_elapsed_time_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective time-bucket elapsed-time semantics",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "epa_environmental_models_elapsed_time_case_family_v1",
+          "epa_post_release_decay_bucket_case_family_v1",
+          "echa_elapsed_time_flowing_water_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers elapsed-time advective bucket semantics with combined degradation and residence-time loss.",
@@ -5864,6 +6443,9 @@
           "Buckets may extend beyond the release duration, in which case the governed method applies post-release combined-loss decay rather than continuing emission."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 2,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -5918,17 +6500,29 @@
         "statement": "The advective screening kernel evaluates time buckets against elapsed physical time with combined first-order degradation and advective clearance.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "advective_single_medium_equation",
         "claim_id": "advective_water_finite_duration_first_order_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective water finite-duration first-order screening equation",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_euses_water_screening_case_family_v1",
+          "epa_flow_through_water_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers a one-compartment finite-duration water screening equation with first-order degradation plus first-order advective clearance.",
@@ -5936,6 +6530,9 @@
           "Source grounding aligns this governed screening family with regulator-recognizable environmental exposure concepts such as compartment residence time and bounded flow-through clearance, without claiming direct implementation of EUSES or any full multimedia model."
         ],
         "model_family": "advective_screening_mass_balance",
+        "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+        "official_source_count": 3,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -6009,37 +6606,49 @@
         "statement": "The advective screening kernel reproduces the hand-worked finite-duration water screening equation with degradation plus first-order advective clearance.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
-        "claim_class": "adapter_equivalence",
+        "claim_class": "adapter_contract_normalization",
         "claim_id": "external_adapter_canonical_equivalence_v1",
-        "display_name": "External adapter canonical surface equivalence",
+        "corroboration_status": "none",
+        "display_name": "External adapter canonical normalization parity",
+        "evidence_family": null,
+        "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "downstream_export",
           "benchmark"
         ],
+        "independent_evidence_families": [],
+        "jurisdiction_breadth": "none",
+        "last_reviewed_date": null,
         "mandatory_for_release": true,
         "methods_basis_lines": [
-          "This claim covers adapter-side normalization into canonical Fate MCP surfaces.",
-          "The claim does not make any statement about the scientific validity of the external engine that produced the source export."
+          "This claim covers adapter-side normalization into canonical Fate MCP surfaces with provenance-preserving import metadata.",
+          "The claim does not make any statement about scientific equivalence to, or scientific validity of, the external engine that produced the source export."
         ],
         "model_family": "external_result_adapter",
+        "next_corroboration_action": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration.",
+        "official_source_count": 0,
+        "official_source_ids": [],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [],
         "reference_case_lines": [
-          "Supported by the external_adapter_equivalence_fixture governed equivalence case."
+          "Supported by the external_adapter_equivalence_fixture governed normalization-parity case."
         ],
         "required_reference_types": [
-          "governed_fixture_equivalence"
+          "governed_fixture_normalization_parity"
         ],
         "required_validation_tiers": [
-          "equivalence"
+          "normalization_parity"
         ],
         "review_notes": [
-          "This is an import-normalization claim, not a claim about the external engine's native transport physics."
+          "This is an import-normalization claim, not a claim about the external engine's native transport physics or scientific equivalence."
         ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
@@ -6056,26 +6665,44 @@
             "url": "benchmarks://manifest"
           }
         ],
-        "statement": "The external result adapter normalizes governed JSON, CSV, and alternate-unit fixtures into identical canonical concentration-surface signatures.",
+        "statement": "The external result adapter normalizes governed JSON, CSV, and alternate-unit fixtures into the same canonical Fate MCP concentration-surface contract while preserving import provenance and adapter limitations.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": null,
+        "worksheet_artifact_path": null,
+        "worksheet_status": null
       },
       {
         "applicability_note": null,
         "claim_class": "single_medium_finite_duration_equation",
         "claim_id": "reference_air_finite_duration_first_order_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference air finite-duration first-order screening equation",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "oecd_single_medium_first_order_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to a one-compartment finite-duration first-order air screening calculation under the declared release-to-concentration boundary.",
           "Benchmark support is anchored to the governed ambient-air volume, air half-life default, and explicit end-of-duration evaluation."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "oecd.test_guidelines.section3",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [
           "fate_mcp.plugins.reference_mass_balance:ReferenceMassBalancePlugin._build_surface"
         ],
@@ -6127,23 +6754,41 @@
         "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium air screening equation under governed defaults.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "treatment_execution",
         "claim_id": "reference_executable_treatment_reduction_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference executable treatment reduction",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_source_term_reduction_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers only treatment assumptions explicitly marked as pre_release_global.",
           "Any treatment semantics outside that executable scope remain provenance-only and are not part of this claim."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -6191,23 +6836,41 @@
         "statement": "The reference kernel applies treatment assumptions marked as pre_release_global before release-to-concentration estimation.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "duration_edge_condition",
         "claim_id": "reference_long_duration_rate_anchor_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference long-duration near-plateau anchor",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "oecd_single_medium_first_order_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors long-duration finite-duration behavior at a fixed release rate.",
           "The claim does not assert infinite-time equilibrium; it remains bounded by the declared release duration."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "oecd.test_guidelines.section3",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -6255,23 +6918,41 @@
         "statement": "The reference kernel approaches the expected finite-duration first-order plateau when duration is long relative to the governed half-life at a fixed release rate.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "multi_medium_partition",
         "claim_id": "reference_multi_medium_partition_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference multi-medium partitioned screening output",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_multi_medium_partition_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_partitioned_release_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers one-surface-per-medium partitioning across declared release fractions within the simplified screening kernel.",
           "The claim does not imply explicit transfer dynamics between compartments."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -6319,23 +7000,42 @@
         "statement": "The reference kernel reproduces a hand-worked multi-medium air-water partitioned screening case with one surface per declared medium.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_multi_medium_partition_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "parameter_override",
         "claim_id": "reference_parameter_override_application_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference runtime parameter override application",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_parameter_override_application_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "echa_parameter_transparency_screening_case_family_v1",
+          "epa_parameterization_override_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to runtime-supported parameters that explicitly override curated defaults in the reference kernel.",
           "Unsupported parameters may still be preserved in provenance but are not part of this claim."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -6384,23 +7084,41 @@
         "statement": "The reference kernel uses a scenario parameter override in place of the governed curated default when the runtime supports that parameter.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_parameter_override_application_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "single_medium_finite_duration_equation",
         "claim_id": "reference_sediment_finite_duration_first_order_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference sediment finite-duration first-order screening equation",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "oecd_single_medium_first_order_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to a one-compartment finite-duration first-order sediment screening calculation with governed sediment mass and degradation assumptions.",
           "The claim does not represent burial, resuspension, or explicit sediment-water exchange."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "oecd.test_guidelines.section3",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -6448,23 +7166,41 @@
         "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium sediment screening equation under governed defaults.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "decay_edge_condition",
         "claim_id": "reference_short_half_life_attenuation_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference short half-life attenuation anchor",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "oecd_single_medium_first_order_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors strong first-order attenuation behavior under a short half-life override.",
           "The claim is a screening edge-condition check rather than a substitute for a richer degradation model."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "oecd.test_guidelines.section3",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [],
         "priority": "medium",
         "reference_case_ids": [
@@ -6512,23 +7248,41 @@
         "statement": "The reference kernel strongly attenuates concentration for a short water half-life override according to the finite-duration first-order equation.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "single_medium_finite_duration_equation",
         "claim_id": "reference_soil_finite_duration_first_order_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference soil finite-duration first-order screening equation",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "oecd_single_medium_first_order_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to a one-compartment finite-duration first-order soil screening calculation with governed soil mass and degradation assumptions.",
           "The claim does not cover vertical transport, erosion, or intermedia transfer."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "oecd.test_guidelines.section3",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -6576,24 +7330,42 @@
         "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium soil screening equation under governed defaults.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "time_bucket_semantics",
         "claim_id": "reference_time_bucket_elapsed_time_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference time-bucket elapsed-time semantics",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
           "downstream_export"
         ],
+        "independent_evidence_families": [
+          "epa_elapsed_time_bucket_screening_case_family_v1",
+          "oecd_single_medium_first_order_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers elapsed-time bucket semantics with finite-duration loading and optional post-release decay.",
           "The claim excludes any bucket-count-dependent scaling or pagination heuristics."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3"
+        ],
         "plugin_code_references": [],
         "priority": "high",
         "reference_case_ids": [
@@ -6641,23 +7413,41 @@
         "statement": "The reference kernel evaluates time buckets against elapsed physical time and supports post-release decay rather than bucket-count scaling.",
         "supported_run_modes": [
           "time_bucket"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
         "claim_class": "single_medium_finite_duration_equation",
         "claim_id": "reference_water_finite_duration_first_order_v1",
+        "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Reference water finite-duration first-order screening equation",
+        "evidence_family": "official_guidance_plus_independent_machine_readable_worksheet",
+        "expected_output_artifact_path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
         ],
+        "independent_evidence_families": [
+          "oecd_single_medium_first_order_screening_case_family_v1",
+          "epa_single_compartment_environmental_screening_case_family_v1"
+        ],
+        "jurisdiction_breadth": "multi_jurisdiction",
+        "last_reviewed_date": "2026-04-21",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to a one-compartment finite-duration first-order water screening calculation under governed default dilution volume and water half-life assumptions.",
           "Water concentrations are benchmarked at the end of the declared release duration and remain within the screening kernel boundary."
         ],
         "model_family": "reference_mass_balance",
+        "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+        "official_source_count": 2,
+        "official_source_ids": [
+          "oecd.test_guidelines.section3",
+          "epa.environmental_models_guidance"
+        ],
         "plugin_code_references": [
           "fate_mcp.plugins.reference_mass_balance:ReferenceMassBalancePlugin._build_surface"
         ],
@@ -6707,7 +7497,10 @@
         "statement": "The reference kernel reproduces the hand-worked finite-duration first-order single-medium water screening equation under governed defaults.",
         "supported_run_modes": [
           "steady_state"
-        ]
+        ],
+        "tolerance_basis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+        "worksheet_artifact_path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.worksheet.json",
+        "worksheet_status": "ready"
       }
     ],
     "mandatory_claim_count": 29,

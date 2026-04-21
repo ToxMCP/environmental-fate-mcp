@@ -4,6 +4,7 @@ from collections import defaultdict
 import hashlib
 import json
 import math
+import re
 
 from fate_mcp.benchmarks import benchmark_manifest, supporting_benchmark_fixtures_for_claim
 from fate_mcp.defaults import DefaultsRegistry
@@ -52,6 +53,7 @@ from fate_mcp.models import (
     FateScenarioComparisonRecord,
     FitForPurpose,
     LimitationNote,
+    ModelFamily,
     ModelFamilyApplicabilityProfile,
     ModelFamilyComparisonBrief,
     ModelFamilyComparisonOutcome,
@@ -117,6 +119,7 @@ from fate_mcp.models import (
     ScientificExternalCorroborationStatus,
     ScientificHighlightedClaimChallengeStatus,
     ScientificMethodsHighlightedClaimSummary,
+    ScientificProofPosture,
     ScientificClaimSupportStrength,
     ScientificValidationClaim,
     ScientificValidationClaimCoverageRecord,
@@ -187,6 +190,7 @@ SCIENTIFIC_REVIEW_EVIDENCE_FIELDS = {
     "fit_verdict",
     "applicability_lines",
     "parameter_quality_lines",
+    "default_evidence_lines",
     "uncertainty_lines",
     "benchmark_reference_lines",
     "equation_lines",
@@ -327,6 +331,96 @@ def _resolve_model_family_applicability(
     return profile
 
 
+def _normalized_scope_tokens(value: str) -> set[str]:
+    normalized_tokens: set[str] = set()
+    for token in re.findall(r"[a-z0-9]+", value.casefold()):
+        if len(token) > 4 and token.endswith("ies"):
+            token = token[:-3] + "y"
+        elif len(token) > 3 and token.endswith("s"):
+            token = token[:-1]
+        normalized_tokens.add(token)
+    return normalized_tokens
+
+
+def _resolve_substance_class(scenario) -> str | None:
+    raw_value = scenario.chemical_identity.get("substance_class")
+    if raw_value is None:
+        return None
+    stripped_value = raw_value.strip()
+    return stripped_value or None
+
+
+def _matching_scope_entries(substance_class: str | None, scope_entries: list[str]) -> list[str]:
+    if not substance_class:
+        return []
+    substance_tokens = _normalized_scope_tokens(substance_class)
+    if not substance_tokens:
+        return []
+    matches: list[str] = []
+    for entry in scope_entries:
+        entry_tokens = _normalized_scope_tokens(entry)
+        if not entry_tokens:
+            continue
+        overlap = len(substance_tokens & entry_tokens)
+        if substance_tokens.issubset(entry_tokens) or (
+            overlap / len(substance_tokens) >= 0.75 and overlap >= 1
+        ):
+            matches.append(entry)
+    return matches
+
+
+def _missing_required_inputs(
+    scenario,
+    run_options,
+    applicability_profile: ModelFamilyApplicabilityProfile,
+    defaults_registry: DefaultsRegistry,
+) -> list[str]:
+    missing: list[str] = []
+    release_media = {item.medium for item in scenario.release_fractions}
+    parameter_records = {record.parameter: record for record in scenario.parameter_records}
+
+    def _resolved_parameter_value(parameter: str) -> float:
+        override = parameter_records.get(parameter)
+        if override is not None:
+            return float(override.value)
+        return defaults_registry.parameter_value(parameter)
+
+    for requirement in applicability_profile.required_inputs:
+        normalized_requirement = requirement.casefold()
+        if "total_release_mass_kg" in normalized_requirement and scenario.total_release_mass_kg <= 0.0:
+            missing.append(requirement)
+        elif "release_fractions" in normalized_requirement and not scenario.release_fractions:
+            missing.append(requirement)
+        elif "duration_days" in normalized_requirement and scenario.duration_days <= 0.0:
+            missing.append(requirement)
+        elif "region_profile_id" in normalized_requirement and not run_options.region_profile_id:
+            missing.append(requirement)
+        elif "capacity defaults" in normalized_requirement:
+            for medium in release_media:
+                parameter = defaults_registry.media_defaults(medium).capacity_parameter
+                value = _resolved_parameter_value(parameter)
+                if not math.isfinite(value) or value <= 0.0:
+                    missing.append(requirement)
+                    break
+        elif "half-life defaults" in normalized_requirement:
+            for medium in release_media:
+                parameter = defaults_registry.media_defaults(medium).degradation_half_life_parameter
+                value = _resolved_parameter_value(parameter)
+                if not math.isfinite(value) or value <= 0.0:
+                    missing.append(requirement)
+                    break
+        elif "residence-time defaults" in normalized_requirement:
+            for medium in release_media:
+                parameter = defaults_registry.media_defaults(medium).advective_residence_time_parameter
+                if parameter is None:
+                    missing.append(requirement)
+                    break
+                value = _resolved_parameter_value(parameter)
+                if not math.isfinite(value) or value <= 0.0:
+                    missing.append(requirement)
+                    break
+    return missing
+
 
 def _scientific_unsuitability_lines(escalation_concerns: list[str]) -> list[str]:
     lines = []
@@ -361,6 +455,10 @@ def _selection_recommendation_unsuitability_lines(
 def _applicability_lines(
     profile: ModelFamilyApplicabilityProfile,
     fit_for_purpose: FitForPurpose,
+    substance_class: str | None = None,
+    supported_scope_matches: list[str] | None = None,
+    unsupported_scope_matches: list[str] | None = None,
+    missing_required_inputs: list[str] | None = None,
 ) -> list[str]:
     supported_fits = ", ".join(item.value for item in profile.fit_for_purpose)
     lines = [
@@ -370,12 +468,40 @@ def _applicability_lines(
         ),
         f"Requested fit-for-purpose: {fit_for_purpose.value}.",
     ]
+    if substance_class:
+        lines.append(f"Resolved substance class: {substance_class}.")
+    else:
+        lines.append("Resolved substance class: missing from scenario chemical_identity.")
     if profile.supported_substance_classes:
-        lines.append("Supported scope: " + profile.supported_substance_classes[0] + ".")
+        lines.append(
+            "Supported scope examples: " + "; ".join(profile.supported_substance_classes[:2]) + "."
+        )
     if profile.unsupported_substance_classes:
-        lines.append("Escalate when scope resembles: " + profile.unsupported_substance_classes[0] + ".")
+        lines.append(
+            "Escalate or reject when scope resembles: "
+            + "; ".join(profile.unsupported_substance_classes[:2])
+            + "."
+        )
+    if supported_scope_matches:
+        lines.append(
+            "Resolved substance class aligns with declared supported scope: "
+            + "; ".join(supported_scope_matches)
+            + "."
+        )
+    if unsupported_scope_matches:
+        lines.append(
+            "Resolved substance class matches declared unsupported scope: "
+            + "; ".join(unsupported_scope_matches)
+            + "."
+        )
+    if missing_required_inputs:
+        lines.append("Required-input gaps: " + "; ".join(missing_required_inputs) + ".")
     if profile.applicability_note:
         lines.append(profile.applicability_note)
+    if profile.deferred_capabilities:
+        lines.append(
+            "When not to use this MCP: " + "; ".join(profile.deferred_capabilities[:4]) + "."
+        )
     return lines
 
 
@@ -419,8 +545,43 @@ def _merge_limitations(*limitation_groups: list[LimitationNote]) -> list[Limitat
 
 
 def _parameter_quality_lines(manifest: RunParameterManifest | None) -> list[str]:
-    return list(manifest.summary_lines) if manifest is not None else []
+    if manifest is None:
+        return []
+    lines = list(manifest.summary_lines)
+    for line in manifest.default_evidence_lines:
+        if line not in lines:
+            lines.append(line)
+    return lines
 
+
+def _default_evidence_lines(manifest: RunParameterManifest | None) -> list[str]:
+    return list(manifest.default_evidence_lines) if manifest is not None else []
+
+
+
+def _model_family_proof_posture(model_family: ModelFamily) -> ScientificProofPosture:
+    if model_family == ModelFamily.REFERENCE_MASS_BALANCE:
+        return ScientificProofPosture.REVIEWER_GRADE_REFERENCE_ANCHOR
+    if model_family == ModelFamily.ADVECTIVE_SCREENING_MASS_BALANCE:
+        return ScientificProofPosture.EXPERIMENTAL_CHALLENGE_PATH
+    return ScientificProofPosture.NORMALIZATION_PARITY_LANE
+
+
+def _model_family_proof_posture_lines(model_family: ModelFamily) -> list[str]:
+    if model_family == ModelFamily.REFERENCE_MASS_BALANCE:
+        return [
+            "reference_mass_balance is the reviewer-grade anchor for decision-facing bounded screening inside Environmental Fate MCP.",
+            "Reference-family trust is grounded in source-backed shipped defaults, mandatory-claim corroboration, and machine-readable hand-worked worksheet anchors.",
+        ]
+    if model_family == ModelFamily.ADVECTIVE_SCREENING_MASS_BALANCE:
+        return [
+            "advective_screening_mass_balance remains an experimental challenge path and is not promoted to the decision-facing baseline in this release.",
+            "Interpret advective outputs only through the governed baseline-versus-challenge workflow and the explicit non-promotable reasons in the methods and release artifacts.",
+        ]
+    return [
+        "The external adapter remains a normalization-parity lane for governed payload import and review support.",
+        "Adapter outputs do not claim source-engine scientific equivalence and should be interpreted only inside the declared normalization contract boundary.",
+    ]
 
 
 def _uncertainty_lines(summary: RunUncertaintySummary | None) -> list[str]:
@@ -584,6 +745,13 @@ def _scientific_methods_claim_summaries(
             supporting_reference_types=coverage.supporting_reference_types if coverage is not None else [],
             supporting_validation_tiers=coverage.supporting_validation_tiers if coverage is not None else [],
             source_references=claim.source_references,
+            evidence_family=claim.evidence_family,
+            official_source_ids=claim.official_source_ids,
+            worksheet_artifact_path=claim.worksheet_artifact_path,
+            expected_output_artifact_path=claim.expected_output_artifact_path,
+            worksheet_status=claim.worksheet_status,
+            last_reviewed_date=claim.last_reviewed_date,
+            tolerance_basis=claim.tolerance_basis,
             methods_basis_lines=claim.methods_basis_lines,
             reference_case_lines=list(dict.fromkeys(reference_case_lines)),
             reference_case_concept_lines=reference_case_concept_lines,
@@ -595,10 +763,26 @@ def _scientific_methods_claim_summaries(
             external_corroboration_source_count,
             external_corroboration_jurisdictions,
             external_reference_titles,
-        ) = _scientific_methods_claim_external_corroboration(defaults_registry, summary)
+        ) = _scientific_methods_claim_external_corroboration(
+            defaults_registry,
+            summary,
+            claim=claim,
+        )
         summary.external_corroboration_status = external_corroboration_status
         summary.external_corroboration_source_count = external_corroboration_source_count
         summary.external_corroboration_jurisdictions = external_corroboration_jurisdictions
+        summary.reviewer_grade_passed = bool(
+            summary.mandatory_for_release
+            and summary.covered
+            and len(claim.independent_evidence_families) >= 2
+            and bool(summary.official_source_ids)
+            and summary.worksheet_status is not None
+            and summary.worksheet_status.value == "ready"
+            and bool(summary.worksheet_artifact_path)
+            and bool(summary.expected_output_artifact_path)
+            and bool(summary.tolerance_basis)
+            and bool(summary.last_reviewed_date)
+        )
         summary.external_corroboration_lines = _scientific_methods_claim_external_corroboration_lines(
             summary,
             external_corroboration_status,
@@ -758,6 +942,7 @@ def _scientific_methods_highlighted_claim_grounding_lines(
 def _scientific_methods_claim_external_corroboration(
     defaults_registry: DefaultsRegistry,
     claim_summary: ScientificMethodsDossierClaimSummary,
+    claim: ScientificValidationClaim | None = None,
 ) -> tuple[
     ScientificExternalCorroborationStatus,
     int,
@@ -770,14 +955,31 @@ def _scientific_methods_claim_external_corroboration(
             continue
         if source_reference.title not in external_references:
             external_references.append(source_reference.title)
+    case_ids = claim.reference_case_ids if claim is not None else claim_summary.reference_case_ids
+    if claim is not None and claim.independent_evidence_families:
+        case_ids = claim.independent_evidence_families
     jurisdictions: list[str] = []
-    for case_id in claim_summary.reference_case_ids:
+    for case_id in case_ids:
         reference_case = defaults_registry.scientific_reference_case(case_id)
         if reference_case is None:
             continue
         for jurisdiction in reference_case.jurisdictions:
             if jurisdiction not in jurisdictions:
                 jurisdictions.append(jurisdiction)
+    if claim is not None:
+        official_source_count = max(claim.official_source_count, len(external_references))
+        status = claim.corroboration_status
+        if (
+            status == ScientificExternalCorroborationStatus.NONE
+            and official_source_count > 0
+        ):
+            if official_source_count == 1:
+                status = ScientificExternalCorroborationStatus.SINGLE_OFFICIAL_SOURCE
+            elif len(jurisdictions) >= 2:
+                status = ScientificExternalCorroborationStatus.MULTI_OFFICIAL_MULTI_JURISDICTION
+            else:
+                status = ScientificExternalCorroborationStatus.MULTI_OFFICIAL_SINGLE_JURISDICTION
+        return status, official_source_count, jurisdictions, external_references
     if not external_references:
         status = ScientificExternalCorroborationStatus.NONE
     elif len(external_references) == 1:
@@ -863,7 +1065,18 @@ def _scientific_methods_highlighted_claim_external_corroboration(
     list[str],
     list[str],
 ]:
-    return _scientific_methods_claim_external_corroboration(defaults_registry, claim_summary)
+    external_reference_titles: list[str] = []
+    for source_reference in claim_summary.source_references:
+        if not (source_reference.url and source_reference.url.startswith(("http://", "https://"))):
+            continue
+        if source_reference.title not in external_reference_titles:
+            external_reference_titles.append(source_reference.title)
+    return (
+        claim_summary.external_corroboration_status,
+        claim_summary.external_corroboration_source_count,
+        claim_summary.external_corroboration_jurisdictions,
+        external_reference_titles,
+    )
 
 
 
@@ -2173,5 +2386,3 @@ def _build_regulatory_review_checklist(
             )
         )
     return checklist_items
-
-

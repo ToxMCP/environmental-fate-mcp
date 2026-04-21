@@ -1,17 +1,17 @@
 {
   "adapterInteroperability": {
-    "checkCount": 5,
+    "checkCount": 7,
     "checks": [
       {
-        "name": "normalized_json_csv_equivalence",
+        "name": "normalized_json_csv_parity",
         "status": "ok"
       },
       {
-        "name": "adapter_unit_conversion_equivalence",
+        "name": "adapter_unit_conversion_parity",
         "status": "ok"
       },
       {
-        "name": "adapter_basis_conversion_equivalence",
+        "name": "adapter_basis_conversion_parity",
         "status": "ok"
       },
       {
@@ -21,8 +21,17 @@
       {
         "name": "legacy_time_bucket_bounds_preserved",
         "status": "ok"
+      },
+      {
+        "name": "public_import_profiles_declared",
+        "status": "ok"
+      },
+      {
+        "name": "public_import_fixtures_available",
+        "status": "ok"
       }
     ],
+    "contractScopeNote": "These adapter checks verify canonical Fate MCP normalization parity across governed import paths. They do not certify source-engine scientific validity or scientific equivalence to native Environmental Fate MCP physics.",
     "legacySteadyImport": {
       "compartments": [
         "ambient_air",
@@ -49,7 +58,7 @@
         "time_bucket"
       ]
     },
-    "normalizedFixtureEquivalence": {
+    "normalizedFixtureParity": {
       "alternateUnitSignature": [
         {
           "compartment": "surface_water",
@@ -99,7 +108,95 @@
         }
       ]
     },
-    "passed": true
+    "passed": true,
+    "publicImportManifest": {
+      "fixtures": [
+        {
+          "expected_engine_name": "illustrative-external-engine",
+          "fixture_name": "illustrative_external_engine_payload_json",
+          "format": "json",
+          "import_profile": "normalized_external_payload_json",
+          "path": "config/adapter-fixtures/illustrative_external_engine_payload.json",
+          "supported_modes": [
+            "steady_state"
+          ]
+        },
+        {
+          "expected_engine_name": "illustrative-external-engine",
+          "fixture_name": "illustrative_external_engine_payload_csv",
+          "format": "csv",
+          "import_profile": "normalized_external_payload_csv",
+          "path": "config/adapter-fixtures/illustrative_external_engine_payload.csv",
+          "supported_modes": [
+            "steady_state"
+          ]
+        },
+        {
+          "expected_engine_name": "illustrative-external-engine",
+          "fixture_name": "illustrative_external_engine_payload_alt_units",
+          "format": "csv",
+          "import_profile": "normalized_external_payload_csv",
+          "path": "config/adapter-fixtures/illustrative_external_engine_payload_alt_units.csv",
+          "supported_modes": [
+            "steady_state"
+          ]
+        }
+      ],
+      "profiles": [
+        {
+          "accepted_extensions": [
+            ".json"
+          ],
+          "accepted_modes": [
+            "steady_state",
+            "time_bucket"
+          ],
+          "description": "Canonical engine-like JSON payload consumed directly by the adapter harness.",
+          "display_name": "Normalized External Payload JSON",
+          "internal_only": false,
+          "profile_id": "normalized_external_payload_json",
+          "semantic_mapping": null
+        },
+        {
+          "accepted_extensions": [
+            ".csv"
+          ],
+          "accepted_modes": [
+            "steady_state",
+            "time_bucket"
+          ],
+          "description": "Canonical engine-like CSV payload consumed directly by the adapter harness.",
+          "display_name": "Normalized External Payload CSV",
+          "internal_only": false,
+          "profile_id": "normalized_external_payload_csv",
+          "semantic_mapping": null
+        }
+      ],
+      "schema_version": "v1"
+    }
+  },
+  "advectivePromotionBarGovernance": {
+    "claimCount": 19,
+    "explicitNonPromotableReasons": [
+      "governed_policy_retains_experimental_status",
+      "reference_style_anchor_gap"
+    ],
+    "missingIndependentEvidenceClaimIds": [],
+    "missingOfficialGuidanceClaimIds": [],
+    "nonReferenceStyleSupportClaimIds": [
+      "advective_clearance_dominant_loss_share_v1",
+      "advective_degradation_dominant_loss_share_v1",
+      "advective_extreme_persistence_clearance_bound_v1",
+      "advective_long_duration_combined_loss_plateau_v1",
+      "advective_long_residence_time_accumulation_anchor_v1",
+      "advective_loss_regime_flip_directionality_v1",
+      "advective_residence_time_override_application_v1",
+      "advective_short_residence_time_clearance_anchor_v1"
+    ],
+    "passed": true,
+    "policyHoldExperimental": true,
+    "remainsExperimental": true,
+    "sensitivityOnlySupportClaimIds": []
   },
   "artifacts": {
     "examples": [
@@ -188,6 +285,10 @@
         "status": "ok"
       },
       {
+        "name": "buildRunScientificTrustBriefRequest.v1.json",
+        "status": "ok"
+      },
+      {
         "name": "buildRunUncertaintySummaryRequest.v1.json",
         "status": "ok"
       },
@@ -273,6 +374,10 @@
       },
       {
         "name": "fateScenarioComparisonRecord.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "importExternalResultPayloadRequest.v1.json",
         "status": "ok"
       },
       {
@@ -453,6 +558,10 @@
       },
       {
         "name": "runParameterManifest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "runScientificTrustBrief.v1.json",
         "status": "ok"
       },
       {
@@ -642,6 +751,10 @@
         "status": "ok"
       },
       {
+        "name": "importExternalResultPayloadRequest.v1",
+        "status": "ok"
+      },
+      {
         "name": "calculationTrace.v1",
         "status": "ok"
       },
@@ -826,6 +939,14 @@
         "status": "ok"
       },
       {
+        "name": "buildRunScientificTrustBriefRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "runScientificTrustBrief.v1",
+        "status": "ok"
+      },
+      {
         "name": "buildProbabilisticReviewPacketRequest.v1",
         "status": "ok"
       },
@@ -948,7 +1069,7 @@
     ]
   },
   "benchmarks": {
-    "benchmarkCount": 54,
+    "benchmarkCount": 58,
     "passed": true,
     "results": [
       {
@@ -976,7 +1097,48 @@
         "surfaceCount": 1,
         "tolerance": 1e-12,
         "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
-        "traceTermComparisons": [],
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.34657359027997264,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 0.34657359027997264,
+            "medium": "air",
+            "passed": true,
+            "termName": "decay_constant_per_day"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 10000000.0,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 10000000.0,
+            "medium": "air",
+            "passed": true,
+            "termName": "emitted_mass_to_elapsed_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 7204778.358277633,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 7204778.358277633,
+            "medium": "air",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 9.313225746154785e-10,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 9.313225746154785e-10,
+            "medium": "air",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
         "validationTier": "reference_style"
       },
       {
@@ -1004,7 +1166,48 @@
         "surfaceCount": 1,
         "tolerance": 1e-12,
         "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
-        "traceTermComparisons": [],
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.046209812037329684,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 0.046209812037329684,
+            "medium": "water",
+            "passed": true,
+            "termName": "decay_constant_per_day"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 10000000.0,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 10000000.0,
+            "medium": "water",
+            "passed": true,
+            "termName": "emitted_mass_to_elapsed_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 2786524.795555182,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 2786524.795555182,
+            "medium": "water",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 9.313225746154785e-10,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 9.313225746154785e-10,
+            "medium": "water",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
         "validationTier": "reference_style"
       },
       {
@@ -1032,7 +1235,48 @@
         "surfaceCount": 1,
         "tolerance": 1e-12,
         "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
-        "traceTermComparisons": [],
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.023104906018664842,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 0.023104906018664842,
+            "medium": "soil",
+            "passed": true,
+            "termName": "decay_constant_per_day"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 10000000.0,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 10000000.0,
+            "medium": "soil",
+            "passed": true,
+            "termName": "emitted_mass_to_elapsed_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 2786524.795555182,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 2786524.795555182,
+            "medium": "soil",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 1.862645149230957e-09,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 1.862645149230957e-09,
+            "medium": "soil",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
         "validationTier": "reference_style"
       },
       {
@@ -1060,7 +1304,196 @@
         "surfaceCount": 1,
         "tolerance": 1e-12,
         "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
-        "traceTermComparisons": [],
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.015403270679109895,
+            "bucketLabel": null,
+            "compartment": "freshwater_sediment",
+            "expected": 0.015403270679109895,
+            "medium": "sediment",
+            "passed": true,
+            "termName": "decay_constant_per_day"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 10000000.0,
+            "bucketLabel": null,
+            "compartment": "freshwater_sediment",
+            "expected": 10000000.0,
+            "medium": "sediment",
+            "passed": true,
+            "termName": "emitted_mass_to_elapsed_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 2786524.7955551823,
+            "bucketLabel": null,
+            "compartment": "freshwater_sediment",
+            "expected": 2786524.7955551823,
+            "medium": "sediment",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": -4.656612873077393e-10,
+            "bucketLabel": null,
+            "compartment": "freshwater_sediment",
+            "expected": -4.656612873077393e-10,
+            "medium": "sediment",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
+        "validationTier": "reference_style"
+      },
+      {
+        "category": "edge_condition_anchor",
+        "comparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 2e-05,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 2e-05,
+            "medium": "water",
+            "passed": true,
+            "unit": "mg/L"
+          }
+        ],
+        "expectedBehavior": "Reference water concentration follows the no-decay linear accumulation limit when the governed half-life is effectively infinite relative to the branch threshold.",
+        "name": "reference_water_no_decay_limit_branch_fixture",
+        "passed": true,
+        "referenceType": "hand_worked_no_decay_limit_fixture",
+        "scientificBasis": "Hand-worked reference water screening case with an effectively infinite half-life, anchoring the explicit no-decay-limit branch of the finite-duration kernel.",
+        "scientificClaimIds": [
+          "reference_water_finite_duration_first_order_v1"
+        ],
+        "surfaceCount": 1,
+        "tolerance": 1e-12,
+        "toleranceRationale": "The no-decay branch is deterministic and analytically traceable to the linear accumulation limit of the same finite-duration release equation.",
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 6.931471805599453e-14,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 6.931471805599453e-14,
+            "medium": "water",
+            "passed": true,
+            "termName": "decay_constant_per_day"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 10000000.0,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 10000000.0,
+            "medium": "water",
+            "passed": true,
+            "termName": "emitted_mass_to_elapsed_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 3.465735902799726e-07,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 3.465735902799726e-07,
+            "medium": "water",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": -3.465735902799726e-07,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": -3.465735902799726e-07,
+            "medium": "water",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
+        "validationTier": "edge_condition"
+      },
+      {
+        "category": "reference_chemical_style",
+        "comparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 1.6902223771686956e-05,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 1.6902223771686956e-05,
+            "medium": "water",
+            "passed": true,
+            "unit": "mg/L"
+          }
+        ],
+        "expectedBehavior": "Reference water concentration reflects the governed Q10 temperature correction, with a lower scenario temperature lengthening half-life and increasing retained concentration.",
+        "name": "reference_water_temperature_correction_reference_fixture",
+        "passed": true,
+        "referenceType": "hand_worked_temperature_correction_fixture",
+        "scientificBasis": "Hand-worked reference water screening case at a governed non-reference temperature, anchoring the Q10 temperature-correction branch with explicit corrected half-life tracing.",
+        "scientificClaimIds": [
+          "reference_water_finite_duration_first_order_v1"
+        ],
+        "surfaceCount": 1,
+        "tolerance": 1e-12,
+        "toleranceRationale": "The governed temperature-correction branch remains a deterministic closed-form transformation of the same finite-duration first-order release equation.",
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.5,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 0.5,
+            "medium": "water",
+            "passed": true,
+            "termName": "temperature_correction_factor"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 30.0,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 30.0,
+            "medium": "water",
+            "passed": true,
+            "termName": "temperature_corrected_half_life_days"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 0.023104906018664842,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 0.023104906018664842,
+            "medium": "water",
+            "passed": true,
+            "termName": "decay_constant_per_day"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 1548888.114156522,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": 1548888.114156522,
+            "medium": "water",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": -2.3283064365386963e-10,
+            "bucketLabel": null,
+            "compartment": "surface_water",
+            "expected": -2.3283064365386963e-10,
+            "medium": "water",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
         "validationTier": "reference_style"
       },
       {
@@ -1313,8 +1746,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 8072836.510843082,
+            "absoluteError": 1.862645149230957e-09,
+            "actual": 8072836.5108430805,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 8072836.510843082,
@@ -1323,8 +1756,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 582332.060005034,
+            "absoluteError": 2.3283064365386963e-10,
+            "actual": 582332.0600050337,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 582332.060005034,
@@ -1333,8 +1766,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 3.4924596548080444e-10,
+            "absoluteError": 2.0954757928848267e-09,
+            "actual": 2.444721758365631e-09,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 3.4924596548080444e-10,
@@ -1423,8 +1856,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 7684392.845366233,
+            "absoluteError": 1.862645149230957e-09,
+            "actual": 7684392.845366235,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 7684392.845366233,
@@ -1433,8 +1866,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 739082.3633501665,
+            "absoluteError": 2.3283064365386963e-10,
+            "actual": 739082.3633501667,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 739082.3633501665,
@@ -1443,8 +1876,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 4.656612873077393e-10,
+            "absoluteError": 2.0954757928848267e-09,
+            "actual": -1.6298145055770874e-09,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 4.656612873077393e-10,
@@ -1533,8 +1966,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 18258.079702892763,
+            "absoluteError": 3.637978807091713e-12,
+            "actual": 18258.079702892766,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 18258.079702892763,
@@ -1543,8 +1976,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 9482702.775666779,
+            "absoluteError": 1.862645149230957e-09,
+            "actual": 9482702.77566678,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 9482702.775666779,
@@ -1553,8 +1986,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 0.0,
+            "absoluteError": 1.862645149230957e-09,
+            "actual": -1.862645149230957e-09,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 0.0,
@@ -1643,8 +2076,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 52672.16833494163,
+            "absoluteError": 1.4551915228366852e-11,
+            "actual": 52672.16833494164,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 52672.16833494163,
@@ -1653,8 +2086,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 9118785.125962678,
+            "absoluteError": 1.862645149230957e-09,
+            "actual": 9118785.12596268,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 9118785.125962678,
@@ -1663,8 +2096,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": -1.862645149230957e-09,
+            "absoluteError": 1.862645149230957e-09,
+            "actual": -3.725290298461914e-09,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": -1.862645149230957e-09,
@@ -1785,8 +2218,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 3392982.823676012,
+            "absoluteError": 9.313225746154785e-10,
+            "actual": 3392982.823676011,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 3392982.823676012,
@@ -1795,8 +2228,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 3426527.645477171,
+            "absoluteError": 9.313225746154785e-10,
+            "actual": 3426527.64547717,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 3426527.645477171,
@@ -1805,8 +2238,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": -4.656612873077393e-10,
+            "absoluteError": 1.862645149230957e-09,
+            "actual": 1.3969838619232178e-09,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": -4.656612873077393e-10,
@@ -1905,8 +2338,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 3595207.147573315,
+            "absoluteError": 9.313225746154785e-10,
+            "actual": 3595207.147573314,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 3595207.147573315,
@@ -1915,8 +2348,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 3457858.3485150514,
+            "absoluteError": 4.656612873077393e-10,
+            "actual": 3457858.348515051,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 3457858.3485150514,
@@ -1925,8 +2358,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 4.656612873077393e-10,
+            "absoluteError": 1.3969838619232178e-09,
+            "actual": 1.862645149230957e-09,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 4.656612873077393e-10,
@@ -2185,8 +2618,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 628009.6596110412,
+            "absoluteError": 1.1641532182693481e-10,
+            "actual": 628009.6596110413,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 628009.6596110412,
@@ -2356,8 +2789,8 @@
             "termName": "compartment_mass_at_elapsed_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 3363740.0180949606,
+            "absoluteError": 9.313225746154785e-10,
+            "actual": 3363740.0180949597,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 3363740.0180949606,
@@ -2366,8 +2799,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 3697410.318434553,
+            "absoluteError": 4.656612873077393e-10,
+            "actual": 3697410.3184345528,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 3697410.318434553,
@@ -2376,8 +2809,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 9.313225746154785e-10,
+            "absoluteError": 1.3969838619232178e-09,
+            "actual": 2.3283064365386963e-09,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 9.313225746154785e-10,
@@ -2506,8 +2939,8 @@
             "termName": "cumulative_degraded_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 712492.7933194657,
+            "absoluteError": 1.1641532182693481e-10,
+            "actual": 712492.7933194658,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 712492.7933194657,
@@ -2516,8 +2949,8 @@
             "termName": "cumulative_advected_mass_mg"
           },
           {
-            "absoluteError": 0.0,
-            "actual": 8.149072527885437e-10,
+            "absoluteError": 1.1641532182693481e-10,
+            "actual": 6.984919309616089e-10,
             "bucketLabel": null,
             "compartment": "surface_water",
             "expected": 8.149072527885437e-10,
@@ -3209,6 +3642,226 @@
         "toleranceRationale": "The advective edge-condition anchor is still a deterministic closed-form reference calculation.",
         "traceTermComparisons": [],
         "validationTier": "edge_condition"
+      },
+      {
+        "category": "reference_chemical_style",
+        "comparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.0014691498983410997,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 0.0014691498983410997,
+            "medium": "air",
+            "passed": true,
+            "unit": "mg/m3"
+          }
+        ],
+        "expectedBehavior": "Advective air concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping as the water anchors.",
+        "name": "advective_air_transport_reference_fixture",
+        "passed": true,
+        "referenceType": "hand_worked_advective_air_reference_fixture",
+        "scientificBasis": "Hand-worked finite-duration advective air screening case, broadening the governed proof surface beyond water while retaining explicit degradation-versus-clearance accounting.",
+        "scientificClaimIds": [
+          "advective_cumulative_mass_balance_closure_v1",
+          "advective_residence_time_turnover_regime_v1"
+        ],
+        "surfaceCount": 1,
+        "tolerance": 1e-12,
+        "toleranceRationale": "The air advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.5097368157955173,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 0.5097368157955173,
+            "medium": "air",
+            "passed": true,
+            "termName": "degradation_loss_share_fraction"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 0.4902631842044826,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 0.4902631842044826,
+            "medium": "air",
+            "passed": true,
+            "termName": "advective_clearance_share_fraction"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 3.333333333333333,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 3.333333333333333,
+            "medium": "air",
+            "passed": true,
+            "termName": "elapsed_turnover_count"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 3.333333333333333,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 3.333333333333333,
+            "medium": "air",
+            "passed": true,
+            "termName": "active_emission_turnover_count"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 0.9988851877078984,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 0.9988851877078984,
+            "medium": "air",
+            "passed": true,
+            "termName": "retained_mass_fraction_of_finite_plateau"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 4348488.366848473,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 4348488.366848473,
+            "medium": "air",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 4182361.734810427,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": 4182361.734810427,
+            "medium": "air",
+            "passed": true,
+            "termName": "cumulative_advected_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": -9.313225746154785e-10,
+            "bucketLabel": null,
+            "compartment": "ambient_air",
+            "expected": -9.313225746154785e-10,
+            "medium": "air",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
+        "validationTier": "reference_style"
+      },
+      {
+        "category": "reference_chemical_style",
+        "comparisons": [
+          {
+            "absoluteError": 4.336808689942018e-19,
+            "actual": 0.0019094067279895883,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 0.0019094067279895887,
+            "medium": "soil",
+            "passed": true,
+            "unit": "mg/kg"
+          }
+        ],
+        "expectedBehavior": "Advective soil concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping while remaining storage-dominant under the governed soil residence time.",
+        "name": "advective_soil_transport_reference_fixture",
+        "passed": true,
+        "referenceType": "hand_worked_advective_soil_reference_fixture",
+        "scientificBasis": "Hand-worked finite-duration advective soil screening case, broadening the governed proof surface into a mass-based medium with long residence time and explicit combined-loss accounting.",
+        "scientificClaimIds": [
+          "advective_cumulative_mass_balance_closure_v1",
+          "advective_residence_time_turnover_regime_v1"
+        ],
+        "surfaceCount": 1,
+        "tolerance": 1e-12,
+        "toleranceRationale": "The soil advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+        "traceTermComparisons": [
+          {
+            "absoluteError": 0.0,
+            "actual": 0.8061595923300592,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 0.8061595923300592,
+            "medium": "soil",
+            "passed": true,
+            "termName": "degradation_loss_share_fraction"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 0.19384040766994082,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 0.19384040766994082,
+            "medium": "soil",
+            "passed": true,
+            "termName": "advective_clearance_share_fraction"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 0.33333333333333337,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 0.33333333333333337,
+            "medium": "soil",
+            "passed": true,
+            "termName": "elapsed_turnover_count"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 0.33333333333333337,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 0.33333333333333337,
+            "medium": "soil",
+            "passed": true,
+            "termName": "active_emission_turnover_count"
+          },
+          {
+            "absoluteError": 1.1102230246251565e-16,
+            "actual": 0.8208671723565525,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 0.8208671723565526,
+            "medium": "soil",
+            "passed": true,
+            "termName": "retained_mass_fraction_of_finite_plateau"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 4213379.549729694,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 4213379.549729694,
+            "medium": "soil",
+            "passed": true,
+            "termName": "cumulative_degraded_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 1013103.630296334,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 1013103.630296334,
+            "medium": "soil",
+            "passed": true,
+            "termName": "cumulative_advected_mass_mg"
+          },
+          {
+            "absoluteError": 0.0,
+            "actual": 1.5133991837501526e-09,
+            "bucketLabel": null,
+            "compartment": "agricultural_soil",
+            "expected": 1.5133991837501526e-09,
+            "medium": "soil",
+            "passed": true,
+            "termName": "mass_balance_closure_error_mg"
+          }
+        ],
+        "validationTier": "reference_style"
       },
       {
         "category": "parameter_override_sensitivity",
@@ -4793,7 +5446,7 @@
         "validationTier": "reference_style"
       },
       {
-        "category": "external_adapter_equivalence",
+        "category": "external_adapter_normalization_parity",
         "comparisons": [
           {
             "matchesCanonical": true,
@@ -4835,18 +5488,18 @@
             ]
           }
         ],
-        "expectedBehavior": "Normalized import paths produce identical canonical concentration-surface signatures.",
+        "expectedBehavior": "Normalized import paths produce the same canonical concentration-surface signatures at the Fate MCP contract boundary.",
         "name": "external_adapter_equivalence_fixture",
         "passed": true,
-        "referenceType": "governed_fixture_equivalence",
-        "scientificBasis": "Governed JSON, CSV, and alternate-unit adapter fixtures encode the same illustrative concentration surfaces after normalization.",
+        "referenceType": "governed_fixture_normalization_parity",
+        "scientificBasis": "Governed JSON, CSV, and alternate-unit adapter fixtures resolve to the same canonical concentration surfaces after normalization.",
         "scientificClaimIds": [
           "external_adapter_canonical_equivalence_v1"
         ],
         "surfaceCount": 1,
         "tolerance": 0.0,
-        "toleranceRationale": "Equivalence is structural rather than numeric tolerance-based because each fixture should normalize to the same canonical surfaces.",
-        "validationTier": "equivalence"
+        "toleranceRationale": "Normalization parity is structural rather than numeric tolerance-based because each fixture should resolve to the same canonical surfaces.",
+        "validationTier": "normalization_parity"
       },
       {
         "category": "reference_chemical_style",
@@ -5325,9 +5978,10 @@
             "advective_loss_dominance_sensitivity",
             "advective_loss_transition_anchor",
             "advective_loss_transition_sensitivity",
-            "advective_transport_regime_reference"
+            "advective_transport_regime_reference",
+            "reference_chemical_style"
           ],
-          "supporting_fixture_count": 10,
+          "supporting_fixture_count": 12,
           "supporting_fixture_names": [
             "advective_degradation_dominant_loss_share_anchor_fixture",
             "advective_degradation_dominant_loss_share_companion_fixture",
@@ -5338,15 +5992,19 @@
             "advective_bounded_transport_reference_fixture",
             "advective_flow_through_transport_reference_fixture",
             "advective_transition_boundary_reference_fixture",
-            "advective_storage_dominant_transport_reference_fixture"
+            "advective_storage_dominant_transport_reference_fixture",
+            "advective_air_transport_reference_fixture",
+            "advective_soil_transport_reference_fixture"
           ],
           "supporting_reference_types": [
+            "hand_worked_advective_air_reference_fixture",
             "hand_worked_advective_bounded_transport_reference_fixture",
             "hand_worked_advective_flow_through_transport_reference_fixture",
             "hand_worked_advective_loss_dominance_anchor",
             "hand_worked_advective_loss_dominance_sensitivity_fixture",
             "hand_worked_advective_loss_transition_anchor",
             "hand_worked_advective_loss_transition_sensitivity_fixture",
+            "hand_worked_advective_soil_reference_fixture",
             "hand_worked_advective_storage_dominant_transport_reference_fixture",
             "hand_worked_advective_transition_boundary_reference_fixture"
           ],
@@ -5856,27 +6514,32 @@
             "advective_loss_transition_anchor",
             "advective_transport_regime_reference",
             "edge_condition_anchor",
-            "parameter_override_sensitivity"
+            "parameter_override_sensitivity",
+            "reference_chemical_style"
           ],
-          "supporting_fixture_count": 9,
+          "supporting_fixture_count": 11,
           "supporting_fixture_names": [
             "advective_mixed_loss_transition_anchor_fixture",
             "advective_bounded_transport_reference_fixture",
             "advective_flow_through_transport_reference_fixture",
             "advective_transition_boundary_reference_fixture",
             "advective_storage_dominant_transport_reference_fixture",
+            "advective_air_transport_reference_fixture",
+            "advective_soil_transport_reference_fixture",
             "advective_short_residence_time_clearance_anchor_fixture",
             "advective_short_residence_time_clearance_companion_fixture",
             "advective_long_residence_time_accumulation_anchor_fixture",
             "advective_long_residence_time_accumulation_companion_fixture"
           ],
           "supporting_reference_types": [
+            "hand_worked_advective_air_reference_fixture",
             "hand_worked_advective_bounded_transport_reference_fixture",
             "hand_worked_advective_clearance_edge_anchor",
             "hand_worked_advective_flow_through_transport_reference_fixture",
             "hand_worked_advective_loss_transition_anchor",
             "hand_worked_advective_override_fixture",
             "hand_worked_advective_residence_edge_anchor",
+            "hand_worked_advective_soil_reference_fixture",
             "hand_worked_advective_storage_dominant_transport_reference_fixture",
             "hand_worked_advective_transition_boundary_reference_fixture"
           ],
@@ -5998,7 +6661,7 @@
         {
           "claim_id": "external_adapter_canonical_equivalence_v1",
           "covered": true,
-          "display_name": "External adapter canonical surface equivalence",
+          "display_name": "External adapter canonical normalization parity",
           "gap_lines": [],
           "mandatory_for_release": true,
           "model_family": "external_result_adapter",
@@ -6010,18 +6673,18 @@
             "steady_state"
           ],
           "supporting_categories": [
-            "external_adapter_equivalence"
+            "external_adapter_normalization_parity"
           ],
           "supporting_fixture_count": 1,
           "supporting_fixture_names": [
             "external_adapter_equivalence_fixture"
           ],
           "supporting_reference_types": [
-            "governed_fixture_equivalence"
+            "governed_fixture_normalization_parity"
           ],
           "supporting_validation_tier_count": 1,
           "supporting_validation_tiers": [
-            "equivalence"
+            "normalization_parity"
           ]
         },
         {
@@ -6341,20 +7004,26 @@
             "steady_state"
           ],
           "supporting_categories": [
+            "edge_condition_anchor",
             "parameter_override_sensitivity",
             "reference_chemical_style"
           ],
-          "supporting_fixture_count": 2,
+          "supporting_fixture_count": 4,
           "supporting_fixture_names": [
             "water_reference_chemical_style_fixture",
+            "reference_water_no_decay_limit_branch_fixture",
+            "reference_water_temperature_correction_reference_fixture",
             "reference_water_capacity_sensitivity_fixture"
           ],
           "supporting_reference_types": [
             "hand_worked_capacity_sensitivity_fixture",
-            "hand_worked_screening_equation"
+            "hand_worked_no_decay_limit_fixture",
+            "hand_worked_screening_equation",
+            "hand_worked_temperature_correction_fixture"
           ],
-          "supporting_validation_tier_count": 2,
+          "supporting_validation_tier_count": 3,
           "supporting_validation_tiers": [
+            "edge_condition",
             "reference_style",
             "sensitivity"
           ]
@@ -6365,6 +7034,25 @@
       "schema_version": "v1",
       "uncovered_mandatory_claim_count": 0
     }
+  },
+  "defaultsEvidenceGovernance": {
+    "legacyContinuityImplicitSelectionBlocked": true,
+    "legacyContinuityParameters": [],
+    "missingCapacityGeometryBasisParameters": [],
+    "missingCapacityMassBasisParameters": [],
+    "missingDerivationBasisParameters": [],
+    "missingDerivationJurisdictionParameters": [],
+    "missingDerivationMethodParameters": [],
+    "missingDerivationValidityParameters": [],
+    "missingEffectiveDateParameters": [],
+    "missingPreviousEffectiveDateParameters": [],
+    "missingPreviousValueParameters": [],
+    "missingRebaselineStatusParameters": [],
+    "missingScientificChangeNoteParameters": [],
+    "missingSourceReferenceParameters": [],
+    "parameterCount": 12,
+    "passed": true,
+    "tier3Parameters": []
   },
   "downstreamInteroperability": {
     "bundleHasIntegrityHash": true,
@@ -6390,6 +7078,18 @@
     "regulatorySummaryMatchesPackage": true,
     "surfacesHaveCalculationTraces": true,
     "surfacesHaveProvenance": true
+  },
+  "externalCorroborationGovernance": {
+    "claimCount": 30,
+    "experimentalPriorityInsufficientIndependentEvidenceClaimIds": [],
+    "experimentalPriorityMissingGuidanceFamilyClaimIds": [],
+    "inconsistentCorroborationStatusClaimIds": [],
+    "missingIndependentEvidenceFamilyClaimIds": [],
+    "missingNextCorroborationActionClaimIds": [],
+    "passed": true,
+    "referenceMandatoryInsufficientIndependentEvidenceClaimIds": [],
+    "referenceMandatoryMissingGuidanceFamilyClaimIds": [],
+    "unresolvedIndependentEvidenceFamilyClaimIds": []
   },
   "failureModes": {
     "checkCount": 3,
@@ -6466,7 +7166,71 @@
     "scalarFields": [
       "total_release_mass_kg"
     ],
-    "vectorConflictCount": 0
+    "vectorConflictCount": 1
+  },
+  "referenceCorroborationGovernance": {
+    "claimCount": 10,
+    "insufficientReferenceAnchorClaimIds": [],
+    "missingEvidenceFamilyClaimIds": [],
+    "missingExpectedOutputArtifactClaimIds": [],
+    "missingIndependentEvidenceClaimIds": [],
+    "missingLastReviewedClaimIds": [],
+    "missingOfficialGuidanceClaimIds": [],
+    "missingOfficialSourceIdClaimIds": [],
+    "missingToleranceBasisClaimIds": [],
+    "missingWorksheetArtifactClaimIds": [],
+    "missingWorksheetClaimIds": [],
+    "missingWorksheetStatusClaimIds": [],
+    "passed": true,
+    "unresolvedReferenceCaseClaimIds": [],
+    "worksheetFixtureMap": {
+      "reference_air_finite_duration_first_order_v1": [
+        "air_reference_chemical_style_fixture",
+        "reference_air_capacity_sensitivity_fixture"
+      ],
+      "reference_executable_treatment_reduction_v1": [
+        "reference_treatment_proportionality_sensitivity_fixture",
+        "reference_treatment_reduction_anchor_fixture"
+      ],
+      "reference_long_duration_rate_anchor_v1": [
+        "reference_long_duration_plateau_sensitivity_fixture",
+        "reference_long_duration_rate_anchor_fixture"
+      ],
+      "reference_multi_medium_partition_v1": [
+        "multi_medium_mass_balance_fixture",
+        "reference_multi_medium_fraction_sensitivity_fixture"
+      ],
+      "reference_parameter_override_application_v1": [
+        "parameter_override_sensitivity_fixture",
+        "reference_air_capacity_sensitivity_fixture",
+        "reference_parameter_override_reference_fixture",
+        "reference_sediment_capacity_sensitivity_fixture",
+        "reference_soil_capacity_sensitivity_fixture",
+        "reference_water_capacity_sensitivity_fixture"
+      ],
+      "reference_sediment_finite_duration_first_order_v1": [
+        "reference_sediment_capacity_sensitivity_fixture",
+        "sediment_reference_chemical_style_fixture"
+      ],
+      "reference_short_half_life_attenuation_v1": [
+        "reference_short_half_life_attenuation_anchor_fixture",
+        "reference_short_half_life_sensitivity_companion_fixture"
+      ],
+      "reference_soil_finite_duration_first_order_v1": [
+        "reference_soil_capacity_sensitivity_fixture",
+        "soil_reference_chemical_style_fixture"
+      ],
+      "reference_time_bucket_elapsed_time_v1": [
+        "reference_time_bucket_post_release_companion_fixture",
+        "time_bucket_invariance_fixture"
+      ],
+      "reference_water_finite_duration_first_order_v1": [
+        "reference_water_capacity_sensitivity_fixture",
+        "reference_water_no_decay_limit_branch_fixture",
+        "reference_water_temperature_correction_reference_fixture",
+        "water_reference_chemical_style_fixture"
+      ]
+    }
   },
   "regulatoryHandoffGovernance": {
     "aliasCount": 23,
@@ -6477,6 +7241,11 @@
     "recommendationResolved": true,
     "resolvedPreviewStatus": "resolved",
     "targetMismatchPreviewStatus": "mismatch"
+  },
+  "runScientificTrustBriefWorkflow": {
+    "passed": true,
+    "runScientificTrustBriefMatchesPacket": true,
+    "runScientificTrustBriefRequestConsistent": true
   },
   "scientificClaimCoverage": {
     "claimCount": 30,
@@ -6522,12 +7291,14 @@
   },
   "scientificReviewArtifacts": {
     "benchmarkMetadataComplete": true,
-    "benchmarkMetadataFixtureCount": 54,
+    "benchmarkMetadataFixtureCount": 58,
     "missingApplicabilityProfiles": [],
     "missingExperimentalApplicabilityProfiles": [],
     "missingExperimentalScientificReviewProfiles": [],
     "modelFamilyApplicabilityProfileCount": 4,
     "parameterManifestConsistent": true,
+    "parameterManifestCoreDefaultAssumptionCount": 3,
+    "parameterManifestDefaultEvidenceStatus": "governed_overrides_present",
     "parameterManifestEntryCount": 11,
     "parameterManifestPreservedOnlyCount": 1,
     "parameterManifestRuntimeConsumedCount": 10,
@@ -6542,5 +7313,11 @@
     "scientificReviewOutcomePreviewMatchesPacket": true,
     "scientificReviewPacketMatchesComponents": true,
     "scientificReviewProfileManifestConsistent": true
+  },
+  "trustSurfaceConsistency": {
+    "docsScopeLanguageConsistent": true,
+    "passed": true,
+    "runTrustReviewConsistent": true,
+    "scientificMethodsProofConsistent": true
   }
 }

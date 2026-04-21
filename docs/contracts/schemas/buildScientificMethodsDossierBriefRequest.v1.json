@@ -168,6 +168,32 @@
           "title": "Uncovered Mandatory Claim Count",
           "type": "integer"
         },
+        "reviewer_grade_anchor_status": {
+          "default": "review_needed",
+          "title": "Reviewer Grade Anchor Status",
+          "type": "string"
+        },
+        "mandatory_claim_pass_count": {
+          "default": 0,
+          "title": "Mandatory Claim Pass Count",
+          "type": "integer"
+        },
+        "worksheet_ready_mandatory_claim_count": {
+          "default": 0,
+          "title": "Worksheet Ready Mandatory Claim Count",
+          "type": "integer"
+        },
+        "proof_posture": {
+          "$ref": "#/$defs/ScientificProofPosture",
+          "default": "reviewer_grade_reference_anchor"
+        },
+        "proof_posture_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Proof Posture Lines",
+          "type": "array"
+        },
         "claim_summaries": {
           "items": {
             "$ref": "#/$defs/ScientificMethodsDossierClaimSummary"
@@ -229,6 +255,13 @@
             "type": "string"
           },
           "title": "Reference Case Concept Lines",
+          "type": "array"
+        },
+        "default_change_sensitivity_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Default Change Sensitivity Lines",
           "type": "array"
         },
         "benchmark_reference_lines": {
@@ -428,6 +461,90 @@
           },
           "title": "External Corroboration Jurisdictions",
           "type": "array"
+        },
+        "evidence_family": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Family"
+        },
+        "official_source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Official Source Ids",
+          "type": "array"
+        },
+        "worksheet_artifact_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Worksheet Artifact Path"
+        },
+        "expected_output_artifact_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Output Artifact Path"
+        },
+        "worksheet_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ScientificWorksheetStatus"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "last_reviewed_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Reviewed Date"
+        },
+        "tolerance_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tolerance Basis"
+        },
+        "reviewer_grade_passed": {
+          "default": false,
+          "title": "Reviewer Grade Passed",
+          "type": "boolean"
         },
         "external_corroboration_lines": {
           "items": {
@@ -736,6 +853,15 @@
       "title": "ScientificMethodsRecommendedActionSummary",
       "type": "object"
     },
+    "ScientificProofPosture": {
+      "enum": [
+        "reviewer_grade_reference_anchor",
+        "experimental_challenge_path",
+        "normalization_parity_lane"
+      ],
+      "title": "ScientificProofPosture",
+      "type": "string"
+    },
     "ScientificValidationClaimPriority": {
       "enum": [
         "high",
@@ -743,6 +869,15 @@
         "low"
       ],
       "title": "ScientificValidationClaimPriority",
+      "type": "string"
+    },
+    "ScientificWorksheetStatus": {
+      "enum": [
+        "ready",
+        "review_needed",
+        "missing"
+      ],
+      "title": "ScientificWorksheetStatus",
       "type": "string"
     },
     "SourceReference": {

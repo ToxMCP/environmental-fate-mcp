@@ -1,7 +1,7 @@
 {
   "comparison_packet": {
     "schema_version": "v1",
-    "comparison_packet_id": "familycmp-bbb85df25293",
+    "comparison_packet_id": "familycmp-5df2b1a2911a",
     "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
@@ -68,15 +68,29 @@
           "Review unsupported runtime parameters before treating outputs as more than screening indicators.",
           "Escalate to richer model families when multiple complex media interactions dominate the decision context."
         ],
+        "fit_score_threshold": 0.75,
+        "fit_score_penalties": {
+          "unsupported_fit_for_purpose": 0.25,
+          "excessive_time_bucket_count": 0.2,
+          "provenance_only_treatments": 0.1,
+          "multi_medium_release_complexity": 0.1,
+          "unsupported_runtime_parameters": 0.15,
+          "missing_required_inputs": 0.35,
+          "missing_substance_class": 0.3,
+          "unsupported_substance_class": 1.0
+        },
         "source_pack": "defaults/v1/model_family_applicability_profiles.json",
         "applicability_note": "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
       },
       "applicability_lines": [
         "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
         "Requested fit-for-purpose: screening.",
-        "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
-        "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
-        "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+        "Resolved substance class: organic chemical.",
+        "Supported scope examples: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions; release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments.",
+        "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
+        "Resolved substance class aligns with declared supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+        "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
+        "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
       ],
       "scientific_unsuitability_lines": []
     },
@@ -139,21 +153,35 @@
           "Treat the family as experimental and compare it against the corrected reference family before using it in decision-facing review materials.",
           "Escalate to richer model families when spatial hydrodynamics, drainage structure, or intermedia exchange dominate the question."
         ],
+        "fit_score_threshold": 0.75,
+        "fit_score_penalties": {
+          "unsupported_fit_for_purpose": 0.25,
+          "excessive_time_bucket_count": 0.2,
+          "provenance_only_treatments": 0.1,
+          "multi_medium_release_complexity": 0.1,
+          "unsupported_runtime_parameters": 0.15,
+          "missing_required_inputs": 0.35,
+          "missing_substance_class": 0.3,
+          "unsupported_substance_class": 1.0
+        },
         "source_pack": "defaults/v1/model_family_applicability_profiles.json",
         "applicability_note": "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
       },
       "applicability_lines": [
         "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
         "Requested fit-for-purpose: screening.",
-        "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
-        "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
-        "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+        "Resolved substance class: organic chemical.",
+        "Supported scope examples: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term; regional air, water, soil, or sediment releases where first-order degradation plus first-order advective clearance are an acceptable deterministic simplification.",
+        "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
+        "Resolved substance class aligns with declared supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
+        "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance.",
+        "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
       ],
       "scientific_unsuitability_lines": []
     },
     "comparison": {
       "schema_version": "v1",
-      "comparison_id": "comparison-1c747e6ffa37",
+      "comparison_id": "comparison-9a95bb3655c8",
       "base_scenario_id": "scenario-306863db9176",
       "candidate_scenario_id": "scenario-306863db9176",
       "surface_deltas": [
@@ -185,6 +213,8 @@
           "relative_delta": -0.07008017759254438
         }
       ],
+      "base_only_surface_keys": [],
+      "candidate_only_surface_keys": [],
       "changed_assumptions": [
         "air_advective_clearance_constant_per_day:0.3333333333333333",
         "air_residence_time_days:3.0",
@@ -334,52 +364,28 @@
           "url": null
         },
         {
-          "source_id": "screening.default.air.volume",
-          "title": "Regional ambient air screening volume",
-          "effective_date": "2026-04-08",
-          "url": null
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
         },
         {
-          "source_id": "screening.default.air.halflife",
-          "title": "Air screening half-life",
-          "effective_date": "2026-04-08",
-          "url": null
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
         },
         {
-          "source_id": "screening.default.air.residence_time",
-          "title": "Air screening residence time",
-          "effective_date": "2026-04-11",
-          "url": null
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
         },
         {
-          "source_id": "screening.default.water.volume",
-          "title": "Regional surface water screening volume",
-          "effective_date": "2026-04-08",
-          "url": null
-        },
-        {
-          "source_id": "screening.default.water.residence_time",
-          "title": "Surface-water screening residence time",
-          "effective_date": "2026-04-11",
-          "url": null
-        },
-        {
-          "source_id": "screening.default.soil.mass",
-          "title": "Agricultural soil screening mass",
-          "effective_date": "2026-04-08",
-          "url": null
-        },
-        {
-          "source_id": "screening.default.soil.halflife",
-          "title": "Soil screening half-life",
-          "effective_date": "2026-04-08",
-          "url": null
-        },
-        {
-          "source_id": "screening.default.soil.residence_time",
-          "title": "Soil screening residence time",
-          "effective_date": "2026-04-11",
-          "url": null
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
         }
       ]
     },

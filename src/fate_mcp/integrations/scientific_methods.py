@@ -254,7 +254,7 @@ CAPACITY_PARAMETERS = {
 }
 
 
-from .common import _advective_post_release_directionality_support_ready, _advective_post_release_late_recovery_support_ready, _advective_post_release_pace_directionality_support_ready, _advective_post_release_pace_support_ready, _advective_post_release_recovery_support_ready, _advective_post_release_regime_support_ready, _advective_transition_reference_support_ready, _advective_transport_authority_support_ready, _merge_source_references, _scientific_methods_applicability_lines, _scientific_methods_benchmark_lines, _scientific_methods_claim_summaries, _scientific_methods_highlighted_claim_grounding_lines, _scientific_methods_highlighted_claim_summaries, _scientific_methods_promotion_blockers, _scientific_methods_promotion_status, _scientific_methods_recommended_action_summaries, _scientific_methods_reference_case_concept_summary_lines, _scientific_methods_reference_case_grounding_lines, _scientific_methods_source_grounding_lines, _scientific_methods_support_strength_lines
+from .common import _advective_post_release_directionality_support_ready, _advective_post_release_late_recovery_support_ready, _advective_post_release_pace_directionality_support_ready, _advective_post_release_pace_support_ready, _advective_post_release_recovery_support_ready, _advective_post_release_regime_support_ready, _advective_transition_reference_support_ready, _advective_transport_authority_support_ready, _merge_source_references, _model_family_proof_posture, _model_family_proof_posture_lines, _scientific_methods_applicability_lines, _scientific_methods_benchmark_lines, _scientific_methods_claim_summaries, _scientific_methods_highlighted_claim_grounding_lines, _scientific_methods_highlighted_claim_summaries, _scientific_methods_promotion_blockers, _scientific_methods_promotion_status, _scientific_methods_recommended_action_summaries, _scientific_methods_reference_case_concept_summary_lines, _scientific_methods_reference_case_grounding_lines, _scientific_methods_source_grounding_lines, _scientific_methods_support_strength_lines
 
 def build_scientific_methods_dossier(
     request: BuildScientificMethodsDossierRequest,
@@ -340,12 +340,65 @@ def build_scientific_methods_dossier(
         1 for item in claim_summaries if item.mandatory_for_release and item.covered
     )
     uncovered_mandatory_claim_count = mandatory_claim_count - covered_mandatory_claim_count
+    mandatory_claim_pass_count = sum(
+        1 for item in claim_summaries if item.mandatory_for_release and item.reviewer_grade_passed
+    )
+    worksheet_ready_mandatory_claim_count = sum(
+        1
+        for item in claim_summaries
+        if (
+            item.mandatory_for_release
+            and item.worksheet_status is not None
+            and item.worksheet_status.value == "ready"
+        )
+    )
+    if request.model_family.value == "reference_mass_balance":
+        reviewer_grade_anchor_status = (
+            "ready"
+            if mandatory_claim_pass_count == mandatory_claim_count
+            else "review_needed"
+        )
+    elif request.model_family.value in EXPERIMENTAL_MODEL_FAMILIES:
+        reviewer_grade_anchor_status = "experimental_non_promotable"
+    else:
+        reviewer_grade_anchor_status = "normalization_parity_only"
+    tier3_default_count = sum(
+        1
+        for payload in defaults_registry.core_defaults["parameters"].values()
+        if payload.get("evidenceTier") == "tier_3_internal_screening_assumption"
+    )
+    materially_changed_parameters = sorted(
+        parameter
+        for parameter, payload in defaults_registry.core_defaults["parameters"].items()
+        if bool(payload.get("materialOutputChange", False))
+    )
+    changed_parameters = sorted(
+        parameter
+        for parameter, payload in defaults_registry.core_defaults["parameters"].items()
+        if payload.get("previousValue", payload.get("value")) != payload.get("value")
+    )
+    if materially_changed_parameters:
+        default_change_sensitivity_lines = [
+            "Material shipped-default rebaseline changes are recorded for: "
+            + ", ".join(materially_changed_parameters[:5])
+            + ". Review the defaults-rebaseline report before treating this proof surface as unchanged."
+        ]
+    elif changed_parameters:
+        default_change_sensitivity_lines = [
+            "Shipped-default numeric changes are recorded, but none are flagged as materially output-affecting for the current governed release."
+        ]
+    else:
+        default_change_sensitivity_lines = [
+            "No shipped-default numeric changes are recorded in the current governed release, so no proof drift is declared from defaults rebaseline."
+        ]
     source_references = _merge_source_references(
         *[claim_summary.source_references for claim_summary in claim_summaries]
     )
     filtered_run_mode = (
         f"/{request.run_mode_filter.value}" if request.run_mode_filter is not None else ""
     )
+    proof_posture = _model_family_proof_posture(request.model_family)
+    proof_posture_lines = _model_family_proof_posture_lines(request.model_family)
     summary_lines = [
         f"Scientific methods dossier for {request.model_family.value}{filtered_run_mode}.",
         (
@@ -356,7 +409,39 @@ def build_scientific_methods_dossier(
             f"Total governed claims in scope: {len(claim_summaries)} with "
             f"{sum(1 for item in claim_summaries if item.covered)} currently benchmark-covered."
         ),
+        (
+            "Default evidence posture: shipped core defaults are source-backed and free of "
+            "tier_3 internal screening assumptions."
+            if tier3_default_count == 0
+            else (
+                "Default evidence posture: shipped core defaults still include "
+                f"{tier3_default_count} tier_3 internal screening assumption(s)."
+            )
+        ),
     ]
+    summary_lines.append(
+        "Reviewer-grade anchor status: " + reviewer_grade_anchor_status + "."
+    )
+    summary_lines.append(
+        f"Mandatory claim pass count: {mandatory_claim_pass_count}/{mandatory_claim_count}."
+    )
+    summary_lines.append(
+        "Worksheet readiness: "
+        + f"{worksheet_ready_mandatory_claim_count}/{mandatory_claim_count} mandatory claims expose ready machine-readable worksheet artifacts."
+    )
+    summary_lines.extend(
+        "Default-change sensitivity: " + line
+        for line in default_change_sensitivity_lines
+    )
+    summary_lines.extend("Proof posture: " + line for line in proof_posture_lines)
+    summary_lines.extend(
+        "Applicability: " + line for line in applicability_lines[:2]
+    )
+    summary_lines.extend(
+        "When not to use this MCP: " + line.removeprefix("When not to use this MCP: ").strip()
+        for line in applicability_lines
+        if line.startswith("When not to use this MCP:")
+    )
     summary_lines.extend(
         "Highlighted claim grounding: " + line for line in highlighted_claim_grounding_lines[:2]
     )
@@ -508,6 +593,11 @@ def build_scientific_methods_dossier(
         mandatory_claim_count=mandatory_claim_count,
         covered_mandatory_claim_count=covered_mandatory_claim_count,
         uncovered_mandatory_claim_count=uncovered_mandatory_claim_count,
+        reviewer_grade_anchor_status=reviewer_grade_anchor_status,
+        mandatory_claim_pass_count=mandatory_claim_pass_count,
+        worksheet_ready_mandatory_claim_count=worksheet_ready_mandatory_claim_count,
+        proof_posture=proof_posture,
+        proof_posture_lines=proof_posture_lines,
         claim_summaries=claim_summaries,
         highlighted_claim_summaries=highlighted_claim_summaries,
         summary_lines=summary_lines,
@@ -516,6 +606,7 @@ def build_scientific_methods_dossier(
         highlighted_claim_grounding_lines=highlighted_claim_grounding_lines,
         reference_case_grounding_lines=reference_case_grounding_lines,
         reference_case_concept_lines=reference_case_concept_lines,
+        default_change_sensitivity_lines=default_change_sensitivity_lines,
         benchmark_reference_lines=benchmark_reference_lines,
         support_strength_lines=support_strength_lines,
         edge_condition_lines=edge_condition_lines,
@@ -535,6 +626,8 @@ def build_scientific_methods_dossier_brief(
     dossier = request.dossier
     highlighted_claim_ids = [item.claim_id for item in dossier.highlighted_claim_summaries]
     summary_lines = list(dossier.summary_lines)
+    summary_lines.extend("Proof posture: " + line for line in dossier.proof_posture_lines)
+    summary_lines.extend("Applicability: " + line for line in dossier.applicability_lines[:2])
     summary_lines.extend("Source grounding: " + line for line in dossier.source_grounding_lines[:2])
     summary_lines.extend(
         "Highlighted claim grounding: " + line
@@ -611,6 +704,11 @@ def build_scientific_methods_dossier_brief(
         mandatory_claim_count=dossier.mandatory_claim_count,
         covered_mandatory_claim_count=dossier.covered_mandatory_claim_count,
         uncovered_mandatory_claim_count=dossier.uncovered_mandatory_claim_count,
+        reviewer_grade_anchor_status=dossier.reviewer_grade_anchor_status,
+        mandatory_claim_pass_count=dossier.mandatory_claim_pass_count,
+        worksheet_ready_mandatory_claim_count=dossier.worksheet_ready_mandatory_claim_count,
+        proof_posture=dossier.proof_posture,
+        proof_posture_lines=dossier.proof_posture_lines,
         highlighted_claim_ids=highlighted_claim_ids,
         highlighted_claim_summaries=dossier.highlighted_claim_summaries,
         summary_lines=summary_lines,
@@ -619,6 +717,7 @@ def build_scientific_methods_dossier_brief(
         highlighted_claim_grounding_lines=dossier.highlighted_claim_grounding_lines,
         reference_case_grounding_lines=dossier.reference_case_grounding_lines,
         reference_case_concept_lines=dossier.reference_case_concept_lines,
+        default_change_sensitivity_lines=dossier.default_change_sensitivity_lines,
         benchmark_reference_lines=dossier.benchmark_reference_lines,
         support_strength_lines=dossier.support_strength_lines,
         promotion_blocker_claim_ids=dossier.promotion_blocker_claim_ids,
@@ -627,5 +726,3 @@ def build_scientific_methods_dossier_brief(
         recommended_actions=dossier.recommended_actions,
         limitations=dossier.limitations,
     )
-
-

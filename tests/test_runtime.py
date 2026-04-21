@@ -22,7 +22,7 @@ def test_reference_runtime_produces_surfaces() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.AIR, fraction=0.5),
@@ -44,7 +44,7 @@ def test_advective_runtime_adds_clearance_and_lowers_concentration() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Advective example"},
+            chemical_identity={"preferredName": "Advective example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=15.0,
@@ -96,7 +96,7 @@ def test_time_bucket_runtime_is_invariant_to_bucket_partitioning_for_same_horizo
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Example"},
+            chemical_identity={"preferredName": "Example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -132,7 +132,7 @@ def test_advective_time_bucket_runtime_is_invariant_to_bucket_partitioning_for_s
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Advective bucket example"},
+            chemical_identity={"preferredName": "Advective bucket example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -168,7 +168,7 @@ def test_advective_post_release_runtime_emits_recovery_trace_terms() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Advective post-release example"},
+            chemical_identity={"preferredName": "Advective post-release example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -234,7 +234,7 @@ def test_executable_pre_release_treatment_reduces_concentration() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     baseline_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Treatment example"},
+            chemical_identity={"preferredName": "Treatment example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -242,7 +242,7 @@ def test_executable_pre_release_treatment_reduces_concentration() -> None:
     )
     treated_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Treatment example"},
+            chemical_identity={"preferredName": "Treatment example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -272,7 +272,7 @@ def test_provenance_only_treatment_is_warned_but_not_applied() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     baseline_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Treatment example"},
+            chemical_identity={"preferredName": "Treatment example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -280,7 +280,7 @@ def test_provenance_only_treatment_is_warned_but_not_applied() -> None:
     )
     provenance_only_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Treatment example"},
+            chemical_identity={"preferredName": "Treatment example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -306,7 +306,7 @@ def test_multiple_pre_release_global_treatments_disclose_additive_semantics() ->
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Treatment semantics example"},
+            chemical_identity={"preferredName": "Treatment semantics example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -338,7 +338,7 @@ def test_adapter_stub_plugin_returns_normalized_outputs() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Adapter example"},
+            chemical_identity={"preferredName": "Adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.AIR, fraction=1.0)],
             duration_days=5.0,
@@ -359,7 +359,7 @@ def test_estimate_probabilistic_runs_iterations_and_aggregates() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Probabilistic example"},
+            chemical_identity={"preferredName": "Probabilistic example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -379,16 +379,16 @@ def test_estimate_probabilistic_runs_iterations_and_aggregates() -> None:
         distribution_type="uniform",
         parameters={"low": p.value * 0.5, "high": p.value * 1.5}
     )
-    
+
     result = runtime.estimate_probabilistic(
         scenario,
         FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
-        iterations=5,
+        iterations=12,
         seed=42
     )
-    
-    assert result.iteration_count == 5
-    assert result.completed_iteration_count == 5
+
+    assert result.iteration_count == 12
+    assert result.completed_iteration_count == 12
     assert result.sampled_parameter_count == 1
     assert len(result.median_surfaces) == 1
     assert result.median_surfaces[0].concentration_value > 0
@@ -405,7 +405,7 @@ def test_estimate_probabilistic_fails_without_distributions() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Deterministic example"},
+            chemical_identity={"preferredName": "Deterministic example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -432,7 +432,7 @@ def test_estimate_probabilistic_fails_when_distribution_bounds_are_unsampleable(
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Probabilistic bounds example"},
+            chemical_identity={"preferredName": "Probabilistic bounds example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -468,7 +468,7 @@ def test_estimate_probabilistic_is_reproducible_for_same_seed() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Probabilistic reproducibility example"},
+            chemical_identity={"preferredName": "Probabilistic reproducibility example", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -513,7 +513,7 @@ def test_non_positive_half_life_raises_validation_error() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Bad half-life"},
+            chemical_identity={"preferredName": "Bad half-life", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -555,11 +555,11 @@ def test_probabilistic_iterations_are_capped() -> None:
         )
 
 
-def test_non_default_temperature_adds_limitation_note() -> None:
+def test_non_default_temperature_adds_governed_correction_note() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Temperature test"},
+            chemical_identity={"preferredName": "Temperature test", "substance_class": "organic chemical"},
             total_release_mass_kg=1.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=1.0,
@@ -568,14 +568,14 @@ def test_non_default_temperature_adds_limitation_note() -> None:
     )
     assert scenario.temperature_c == 15.0
     codes = [lim.code for lim in scenario.limitations]
-    assert "temperature_correction_not_implemented" in codes
+    assert "temperature_correction_governed" in codes
 
 
 def test_default_temperature_has_no_limitation_note() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Default temp test"},
+            chemical_identity={"preferredName": "Default temp test", "substance_class": "organic chemical"},
             total_release_mass_kg=1.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=1.0,
@@ -583,21 +583,74 @@ def test_default_temperature_has_no_limitation_note() -> None:
     )
     assert scenario.temperature_c == 25.0
     codes = [lim.code for lim in scenario.limitations]
-    assert "temperature_correction_not_implemented" not in codes
+    assert "temperature_correction_governed" not in codes
+
+
+def test_lower_temperature_increases_reference_concentration_due_to_governed_half_life_adjustment() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    baseline = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Temperature baseline", "substance_class": "organic chemical"},
+            total_release_mass_kg=1.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+            temperature_c=25.0,
+        )
+    )
+    cooler = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Temperature cooler", "substance_class": "organic chemical"},
+            total_release_mass_kg=1.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+            temperature_c=15.0,
+        )
+    )
+
+    baseline_result = runtime.estimate(
+        baseline,
+        FateModelRunOptions(region_profile_id=baseline.geographic_scope.region_id),
+    )
+    cooler_result = runtime.estimate(
+        cooler,
+        FateModelRunOptions(region_profile_id=cooler.geographic_scope.region_id),
+    )
+
+    assert cooler_result.surfaces[0].concentration_value > baseline_result.surfaces[0].concentration_value
+    term_map = {
+        term.name: term.value for term in cooler_result.surfaces[0].calculation_trace.resolved_terms
+    }
+    assert float(term_map["temperature_correction_factor"]) < 1.0
+    assert float(term_map["temperature_corrected_half_life_days"]) > float(term_map["declared_half_life_days"])
+
+
+def test_temperature_outside_governed_range_adds_clamp_note_in_non_strict_mode() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1], strict_mode=False)
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={"preferredName": "Temperature clamp test", "substance_class": "organic chemical"},
+            total_release_mass_kg=1.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=10.0,
+            temperature_c=-5.0,
+        )
+    )
+    codes = [lim.code for lim in scenario.limitations]
+    assert "temperature_correction_clamped_to_governed_range" in codes
 
 
 def test_reconciliation_thresholds_loaded_from_defaults() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     assert runtime.defaults.reconciliation_threshold("mass_relative_spread") == 0.25
     assert runtime.defaults.reconciliation_threshold("fraction_absolute_spread") == 0.15
-    assert runtime.defaults.reconciliation_threshold("vector_cosine_similarity") == 0.5
+    assert runtime.defaults.reconciliation_threshold("vector_cosine_similarity") == 0.9
 
 
 def test_non_positive_residence_time_raises_validation_error() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Advective residence time test"},
+            chemical_identity={"preferredName": "Advective residence time test", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,

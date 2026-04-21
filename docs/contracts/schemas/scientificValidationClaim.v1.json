@@ -27,6 +27,25 @@
       "title": "RunMode",
       "type": "string"
     },
+    "ScientificCorroborationJurisdictionBreadth": {
+      "enum": [
+        "none",
+        "single_jurisdiction",
+        "multi_jurisdiction"
+      ],
+      "title": "ScientificCorroborationJurisdictionBreadth",
+      "type": "string"
+    },
+    "ScientificExternalCorroborationStatus": {
+      "enum": [
+        "none",
+        "single_official_source",
+        "multi_official_single_jurisdiction",
+        "multi_official_multi_jurisdiction"
+      ],
+      "title": "ScientificExternalCorroborationStatus",
+      "type": "string"
+    },
     "ScientificValidationClaimPriority": {
       "enum": [
         "high",
@@ -34,6 +53,15 @@
         "low"
       ],
       "title": "ScientificValidationClaimPriority",
+      "type": "string"
+    },
+    "ScientificWorksheetStatus": {
+      "enum": [
+        "ready",
+        "review_needed",
+        "missing"
+      ],
+      "title": "ScientificWorksheetStatus",
       "type": "string"
     },
     "SourceReference": {
@@ -166,6 +194,118 @@
       },
       "title": "Reference Case Lines",
       "type": "array"
+    },
+    "corroboration_status": {
+      "$ref": "#/$defs/ScientificExternalCorroborationStatus",
+      "default": "none"
+    },
+    "official_source_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Official Source Count",
+      "type": "integer"
+    },
+    "jurisdiction_breadth": {
+      "$ref": "#/$defs/ScientificCorroborationJurisdictionBreadth",
+      "default": "none"
+    },
+    "independent_evidence_families": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Independent Evidence Families",
+      "type": "array"
+    },
+    "evidence_family": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidence Family"
+    },
+    "official_source_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Official Source Ids",
+      "type": "array"
+    },
+    "worksheet_artifact_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Worksheet Artifact Path"
+    },
+    "expected_output_artifact_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expected Output Artifact Path"
+    },
+    "worksheet_status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScientificWorksheetStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "last_reviewed_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Reviewed Date"
+    },
+    "tolerance_basis": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tolerance Basis"
+    },
+    "next_corroboration_action": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Corroboration Action"
     },
     "review_notes": {
       "items": {

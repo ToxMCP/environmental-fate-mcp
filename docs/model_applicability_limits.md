@@ -12,6 +12,7 @@
 - `adapter_stub`
 - `external_result_adapter`
   both extension paths now publish inspectable applicability declarations through `defaults://model-family-applicability-profiles`
+  and `external_result_adapter` now exposes a stable public normalized JSON/CSV import contract
 
 ## Deferred
 
@@ -23,6 +24,7 @@
 ## Internal-only bridge in v0.1
 
 - concrete legacy screening desktop export import inside `external_result_adapter`
+- branded adapter-specific parsing beyond the normalized JSON/CSV public contract
 
 ## Review expectation
 

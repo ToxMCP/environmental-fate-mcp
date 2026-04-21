@@ -9,11 +9,19 @@ def test_benchmark_fixtures_pass() -> None:
     assert results["benchmarkCount"] >= 35
     assert results["scientificValidationClaimCoverage"]["uncovered_mandatory_claim_count"] == 0
     by_name = {item["name"]: item for item in results["results"]}
+    assert by_name["air_reference_chemical_style_fixture"]["traceTermComparisons"]
+    assert by_name["water_reference_chemical_style_fixture"]["traceTermComparisons"]
+    assert by_name["soil_reference_chemical_style_fixture"]["traceTermComparisons"]
+    assert by_name["sediment_reference_chemical_style_fixture"]["traceTermComparisons"]
+    assert by_name["reference_water_no_decay_limit_branch_fixture"]["traceTermComparisons"]
+    assert by_name["reference_water_temperature_correction_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_degradation_dominant_loss_share_anchor_fixture"]["traceTermComparisons"]
     assert by_name["advective_clearance_dominant_loss_share_anchor_fixture"]["traceTermComparisons"]
     assert by_name["advective_mixed_loss_transition_anchor_fixture"]["traceTermComparisons"]
     assert by_name["advective_transition_flip_to_degradation_fixture"]["traceTermComparisons"]
     assert by_name["advective_transition_flip_to_clearance_fixture"]["traceTermComparisons"]
+    assert by_name["advective_air_transport_reference_fixture"]["traceTermComparisons"]
+    assert by_name["advective_soil_transport_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_bounded_transport_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_flow_through_transport_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_transition_boundary_reference_fixture"]["traceTermComparisons"]
@@ -29,9 +37,17 @@ def test_benchmark_fixtures_pass() -> None:
     assert by_name["advective_post_release_late_recovery_reference_fixture"]["traceTermComparisons"]
     assert by_name["advective_post_release_late_recovery_edge_anchor"]["traceTermComparisons"]
     assert by_name["external_adapter_equivalence_fixture"]["comparisons"]
+    assert by_name["air_reference_chemical_style_fixture"]["passed"] is True
+    assert by_name["water_reference_chemical_style_fixture"]["passed"] is True
+    assert by_name["soil_reference_chemical_style_fixture"]["passed"] is True
+    assert by_name["sediment_reference_chemical_style_fixture"]["passed"] is True
+    assert by_name["reference_water_no_decay_limit_branch_fixture"]["passed"] is True
+    assert by_name["reference_water_temperature_correction_reference_fixture"]["passed"] is True
     assert by_name["advective_degradation_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_clearance_dominant_loss_share_anchor_fixture"]["passed"] is True
     assert by_name["advective_mixed_loss_transition_anchor_fixture"]["passed"] is True
+    assert by_name["advective_air_transport_reference_fixture"]["passed"] is True
+    assert by_name["advective_soil_transport_reference_fixture"]["passed"] is True
     assert by_name["advective_bounded_transport_reference_fixture"]["passed"] is True
     assert by_name["advective_flow_through_transport_reference_fixture"]["passed"] is True
     assert by_name["advective_transition_boundary_reference_fixture"]["passed"] is True

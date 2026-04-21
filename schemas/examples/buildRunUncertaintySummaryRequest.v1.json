@@ -4,7 +4,8 @@
     "scenario_id": "scenario-306863db9176",
     "chemical_identity": {
       "preferredName": "Example substance",
-      "casrn": "100-00-0"
+      "casrn": "100-00-0",
+      "substance_class": "organic chemical"
     },
     "total_release_mass_kg": 12.5,
     "release_fractions": [
@@ -134,6 +135,26 @@
               "name": "capacity_value",
               "value": 1000000000.0,
               "unit": "m3"
+            },
+            {
+              "name": "declared_temperature_c",
+              "value": 25.0,
+              "unit": "degC"
+            },
+            {
+              "name": "effective_temperature_c",
+              "value": 25.0,
+              "unit": "degC"
+            },
+            {
+              "name": "temperature_correction_factor",
+              "value": 1.0,
+              "unit": "scalar"
+            },
+            {
+              "name": "temperature_corrected_half_life_days",
+              "value": 2.0,
+              "unit": "day"
             },
             {
               "name": "declared_half_life_days",
@@ -312,6 +333,26 @@
               "unit": "m3"
             },
             {
+              "name": "declared_temperature_c",
+              "value": 25.0,
+              "unit": "degC"
+            },
+            {
+              "name": "effective_temperature_c",
+              "value": 25.0,
+              "unit": "degC"
+            },
+            {
+              "name": "temperature_correction_factor",
+              "value": 1.0,
+              "unit": "scalar"
+            },
+            {
+              "name": "temperature_corrected_half_life_days",
+              "value": 12.0,
+              "unit": "day"
+            },
+            {
               "name": "declared_half_life_days",
               "value": 12.0,
               "unit": "day"
@@ -488,6 +529,26 @@
               "unit": "kg"
             },
             {
+              "name": "declared_temperature_c",
+              "value": 25.0,
+              "unit": "degC"
+            },
+            {
+              "name": "effective_temperature_c",
+              "value": 25.0,
+              "unit": "degC"
+            },
+            {
+              "name": "temperature_correction_factor",
+              "value": 1.0,
+              "unit": "scalar"
+            },
+            {
+              "name": "temperature_corrected_half_life_days",
+              "value": 30.0,
+              "unit": "day"
+            },
+            {
               "name": "declared_half_life_days",
               "value": 30.0,
               "unit": "day"
@@ -539,7 +600,7 @@
             },
             {
               "name": "cumulative_degraded_mass_mg",
-              "value": 1044946.7983331936,
+              "value": 1044946.7983331932,
               "unit": "mg"
             },
             {
@@ -549,7 +610,7 @@
             },
             {
               "name": "mass_balance_closure_error_mg",
-              "value": 0.0,
+              "value": 4.656612873077393e-10,
               "unit": "mg"
             },
             {
@@ -630,10 +691,10 @@
           "source_classification": "curated_default",
           "rationale": "Capacity used for air concentration calculation.",
           "source_reference": {
-            "source_id": "screening.default.air.volume",
-            "title": "Regional ambient air screening volume",
-            "effective_date": "2026-04-08",
-            "url": null
+            "source_id": "echa.guidance.ircsa",
+            "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+            "effective_date": null,
+            "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
           },
           "quality_flags": []
         },
@@ -644,10 +705,10 @@
           "source_classification": "curated_default",
           "rationale": "Half-life used to attenuate air release over the declared scenario duration.",
           "source_reference": {
-            "source_id": "screening.default.air.halflife",
-            "title": "Air screening half-life",
-            "effective_date": "2026-04-08",
-            "url": null
+            "source_id": "oecd.test_guidelines.section3",
+            "title": "OECD Test Guidelines for Chemicals",
+            "effective_date": null,
+            "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
           },
           "quality_flags": []
         },
@@ -685,10 +746,10 @@
           "source_classification": "curated_default",
           "rationale": "Capacity used for water concentration calculation.",
           "source_reference": {
-            "source_id": "screening.default.water.volume",
-            "title": "Regional surface water screening volume",
-            "effective_date": "2026-04-08",
-            "url": null
+            "source_id": "echa.guidance.ircsa",
+            "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+            "effective_date": null,
+            "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
           },
           "quality_flags": []
         },
@@ -735,10 +796,10 @@
           "source_classification": "curated_default",
           "rationale": "Capacity used for soil concentration calculation.",
           "source_reference": {
-            "source_id": "screening.default.soil.mass",
-            "title": "Agricultural soil screening mass",
-            "effective_date": "2026-04-08",
-            "url": null
+            "source_id": "echa.guidance.ircsa",
+            "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+            "effective_date": null,
+            "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
           },
           "quality_flags": []
         },
@@ -749,10 +810,10 @@
           "source_classification": "curated_default",
           "rationale": "Half-life used to attenuate soil release over the declared scenario duration.",
           "source_reference": {
-            "source_id": "screening.default.soil.halflife",
-            "title": "Soil screening half-life",
-            "effective_date": "2026-04-08",
-            "url": null
+            "source_id": "oecd.test_guidelines.section3",
+            "title": "OECD Test Guidelines for Chemicals",
+            "effective_date": null,
+            "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
           },
           "quality_flags": []
         },
@@ -801,10 +862,10 @@
         "source_classification": "curated_default",
         "rationale": "Capacity used for air concentration calculation.",
         "source_reference": {
-          "source_id": "screening.default.air.volume",
-          "title": "Regional ambient air screening volume",
-          "effective_date": "2026-04-08",
-          "url": null
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
         },
         "quality_flags": []
       },
@@ -815,10 +876,10 @@
         "source_classification": "curated_default",
         "rationale": "Half-life used to attenuate air release over the declared scenario duration.",
         "source_reference": {
-          "source_id": "screening.default.air.halflife",
-          "title": "Air screening half-life",
-          "effective_date": "2026-04-08",
-          "url": null
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
         },
         "quality_flags": []
       },
@@ -856,10 +917,10 @@
         "source_classification": "curated_default",
         "rationale": "Capacity used for water concentration calculation.",
         "source_reference": {
-          "source_id": "screening.default.water.volume",
-          "title": "Regional surface water screening volume",
-          "effective_date": "2026-04-08",
-          "url": null
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
         },
         "quality_flags": []
       },
@@ -906,10 +967,10 @@
         "source_classification": "curated_default",
         "rationale": "Capacity used for soil concentration calculation.",
         "source_reference": {
-          "source_id": "screening.default.soil.mass",
-          "title": "Agricultural soil screening mass",
-          "effective_date": "2026-04-08",
-          "url": null
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
         },
         "quality_flags": []
       },
@@ -920,10 +981,10 @@
         "source_classification": "curated_default",
         "rationale": "Half-life used to attenuate soil release over the declared scenario duration.",
         "source_reference": {
-          "source_id": "screening.default.soil.halflife",
-          "title": "Soil screening half-life",
-          "effective_date": "2026-04-08",
-          "url": null
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
         },
         "quality_flags": []
       },

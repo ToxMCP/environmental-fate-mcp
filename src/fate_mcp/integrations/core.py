@@ -101,7 +101,9 @@ from fate_mcp.models import (
     RegulatoryHandoffProfileRecommendation,
     RecommendRegulatoryHandoffProfileRequest,
     ReconciledPhyschemParameter,
+    DefaultEvidenceStatus,
     ReleaseScenarioFitAssessment,
+    RunDefaultProofPosture,
     RunParameterManifest,
     RunParameterManifestEntry,
     RunMode,
@@ -254,7 +256,7 @@ CAPACITY_PARAMETERS = {
 }
 
 
-from .common import CAPACITY_PARAMETERS, CONSERVATIVE_EVIDENCE_QUALITIES, DEFAULT_PHYSCHEM_RELATIVE_SPREAD_THRESHOLD, DEFAULT_WEIGHTING_STRATEGY, DRIVER_PRIORITY, SEVERITY_RANK, _applicability_lines, _collect_source_references, _conflict_metric_value, _ensure_scenario_matches_result, _fit_for_purpose_from_result, _inverse_reconciliation_value, _normalized_evidence_quality, _resolve_model_family_applicability, _scientific_unsuitability_lines, _transform_reconciliation_value
+from .common import CAPACITY_PARAMETERS, CONSERVATIVE_EVIDENCE_QUALITIES, DEFAULT_PHYSCHEM_RELATIVE_SPREAD_THRESHOLD, DEFAULT_WEIGHTING_STRATEGY, DRIVER_PRIORITY, SEVERITY_RANK, _applicability_lines, _collect_source_references, _conflict_metric_value, _ensure_scenario_matches_result, _fit_for_purpose_from_result, _inverse_reconciliation_value, _matching_scope_entries, _missing_required_inputs, _normalized_evidence_quality, _resolve_model_family_applicability, _resolve_substance_class, _scientific_unsuitability_lines, _transform_reconciliation_value
 
 def build_concentration_surface_bundle(result: ConcentrationEstimationResult) -> ConcentrationSurfaceBundle:
     bundle = ConcentrationSurfaceBundle(
@@ -271,7 +273,7 @@ def build_concentration_surface_bundle(result: ConcentrationEstimationResult) ->
             ),
         ],
     )
-    # Compute tamper-evident integrity hash over the bundle payload (excluding the hash itself)
+    # Compute a content-addressed tamper-evident hash over the bundle payload (excluding the hash itself).
     payload = bundle.model_dump(mode="json", exclude={"integrity_hash"})
     hash_input = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
     bundle.integrity_hash = hashlib.sha256(hash_input.encode("utf-8")).hexdigest()
@@ -291,6 +293,8 @@ def compare_fate_scenarios(
         (surface.medium, surface.compartment, surface.time_window.bucket_label): surface
         for surface in request.candidate_result.surfaces
     }
+    base_only_keys = sorted(set(base_by_key) - set(candidate_by_key))
+    candidate_only_keys = sorted(set(candidate_by_key) - set(base_by_key))
 
     deltas = []
     for key, base_surface in base_by_key.items():
@@ -320,14 +324,56 @@ def compare_fate_scenarios(
         f"{delta.medium.value}/{delta.compartment.value} delta={delta.absolute_delta:.6g} {delta.concentration_unit}"
         for delta in sorted(deltas, key=lambda item: abs(item.absolute_delta), reverse=True)[:3]
     ]
+    limitations = []
+    blockers = []
+    quality_flags = []
+    if base_only_keys or candidate_only_keys:
+        limitations.append(
+            LimitationNote(
+                code="unmatched_comparison_surfaces",
+                message=(
+                    "Comparison contains unmatched surface identities; matched deltas cover only the "
+                    "intersection of base and candidate surface sets."
+                ),
+            )
+        )
+        quality_flags.append(
+            QualityFlag(
+                code="comparison_surface_set_mismatch",
+                severity=Severity.WARNING,
+                message="Base and candidate results do not expose the same compartment/time-bucket surface set.",
+            )
+        )
+        dominant_drivers = [
+            *dominant_drivers,
+            *[
+                f"base_only_surface={medium.value}/{compartment.value}/{bucket_label or 'steady_state'}"
+                for medium, compartment, bucket_label in base_only_keys[:2]
+            ],
+            *[
+                f"candidate_only_surface={medium.value}/{compartment.value}/{bucket_label or 'steady_state'}"
+                for medium, compartment, bucket_label in candidate_only_keys[:2]
+            ],
+        ]
 
     return FateScenarioComparisonRecord(
         base_scenario_id=request.base_result.run_summary.scenario_id,
         candidate_scenario_id=request.candidate_result.run_summary.scenario_id,
         surface_deltas=deltas,
+        base_only_surface_keys=[
+            f"{medium.value}/{compartment.value}/{bucket_label or 'steady_state'}"
+            for medium, compartment, bucket_label in base_only_keys
+        ],
+        candidate_only_surface_keys=[
+            f"{medium.value}/{compartment.value}/{bucket_label or 'steady_state'}"
+            for medium, compartment, bucket_label in candidate_only_keys
+        ],
         changed_assumptions=changed_assumptions,
         dominant_drivers=dominant_drivers,
         provenance=provenance_builder.bundle(),
+        limitations=limitations,
+        blockers=blockers,
+        quality_flags=quality_flags,
     )
 
 
@@ -616,29 +662,53 @@ def assess_release_scenario_fit(
         run_options.model_family,
         provenance_builder.defaults_registry,
     )
-    applicability_lines = _applicability_lines(applicability_profile, run_options.fit_for_purpose)
+    substance_class = _resolve_substance_class(scenario)
+    supported_scope_matches = _matching_scope_entries(
+        substance_class,
+        applicability_profile.supported_substance_classes,
+    )
+    unsupported_scope_matches = _matching_scope_entries(
+        substance_class,
+        applicability_profile.unsupported_substance_classes,
+    )
+    missing_required_inputs = _missing_required_inputs(
+        scenario,
+        run_options,
+        applicability_profile,
+        provenance_builder.defaults_registry,
+    )
+    applicability_lines = _applicability_lines(
+        applicability_profile,
+        run_options.fit_for_purpose,
+        substance_class=substance_class,
+        supported_scope_matches=supported_scope_matches,
+        unsupported_scope_matches=unsupported_scope_matches,
+        missing_required_inputs=missing_required_inputs,
+    )
     reasons = []
+    scientific_unsuitability_lines = _scientific_unsuitability_lines(run_options.escalation_concerns)
     score = 1.0
+    penalties = applicability_profile.fit_score_penalties
     runtime_supported_parameters = provenance_builder.defaults_registry.runtime_supported_parameter_units()
     if run_options.fit_for_purpose not in applicability_profile.fit_for_purpose:
-        score -= 0.25
+        score -= penalties.unsupported_fit_for_purpose
         reasons.append(
             f"Requested fit_for_purpose {run_options.fit_for_purpose.value} is not declared for "
             f"model family {run_options.model_family.value}."
         )
     if run_options.run_mode == RunMode.TIME_BUCKET and run_options.bucket_count > 12:
-        score -= 0.2
+        score -= penalties.excessive_time_bucket_count
         reasons.append("Large time-bucket count increases interpretive burden for a screening workflow.")
     if any(
         item.execution_mode != "pre_release_global"
         for item in scenario.treatment_assumptions
     ):
-        score -= 0.1
+        score -= penalties.provenance_only_treatments
         reasons.append(
             "Some treatment assumptions remain provenance-only because they are not executable pre-release global removal."
         )
     if len(scenario.release_fractions) > 3:
-        score -= 0.1
+        score -= penalties.multi_medium_release_complexity
         reasons.append("Many release media are being approximated with a simple screening kernel.")
     unsupported_parameters = sorted(
         {
@@ -648,12 +718,51 @@ def assess_release_scenario_fit(
         }
     )
     if unsupported_parameters:
-        score -= 0.15
+        score -= penalties.unsupported_runtime_parameters
         reasons.append(
             "Some parameter records are preserved for provenance but are not consumed by the reference runtime: "
             + ", ".join(sorted(unsupported_parameters))
         )
-    verdict = "good_fit" if score >= 0.75 else "review_needed"
+    if missing_required_inputs:
+        score -= penalties.missing_required_inputs
+        reasons.append(
+            "Required applicability inputs could not be confirmed: "
+            + ", ".join(missing_required_inputs)
+        )
+        scientific_unsuitability_lines.append(
+            "Scientific applicability cannot be promoted to ready review until all governed required inputs are confirmed."
+        )
+    if substance_class is None:
+        score -= penalties.missing_substance_class
+        reasons.append(
+            "chemical_identity is missing a canonical substance_class entry, so in-scope applicability cannot be confirmed."
+        )
+        scientific_unsuitability_lines.append(
+            "Scientific applicability cannot be promoted to ready review until chemical_identity.substance_class is declared."
+        )
+    elif unsupported_scope_matches:
+        score -= penalties.unsupported_substance_class
+        reasons.append(
+            "Resolved substance class matches declared unsupported scope for this model family: "
+            + "; ".join(unsupported_scope_matches)
+        )
+        scientific_unsuitability_lines.append(
+            "Scientific unsuitability trigger: resolved substance class is out of scope for the selected model family."
+        )
+    elif applicability_profile.supported_substance_classes and not supported_scope_matches:
+        score -= penalties.missing_substance_class
+        reasons.append(
+            "Resolved substance class could not be confirmed against the declared supported scope examples."
+        )
+        scientific_unsuitability_lines.append(
+            "Scientific applicability remains review-needed because the resolved substance class could not be mapped to declared supported scope."
+        )
+    if unsupported_scope_matches:
+        verdict = "not_applicable"
+    elif score >= applicability_profile.fit_score_threshold:
+        verdict = "good_fit"
+    else:
+        verdict = "review_needed"
     return ReleaseScenarioFitAssessment(
         fit_score=max(score, 0.0),
         model_family=run_options.model_family,
@@ -662,8 +771,171 @@ def assess_release_scenario_fit(
         reasons=reasons,
         applicability_profile=applicability_profile,
         applicability_lines=applicability_lines,
+        scientific_unsuitability_lines=sorted(set(scientific_unsuitability_lines)),
     )
 
+
+def _default_rebaseline_delta(
+    payload: dict[str, object],
+) -> tuple[float | None, float | None, float | None]:
+    current_value = payload.get("value")
+    previous_value = payload.get("previousValue", current_value)
+    if not isinstance(current_value, (int, float)) or not isinstance(previous_value, (int, float)):
+        return None, None, None
+    delta = float(current_value) - float(previous_value)
+    relative_delta = None
+    if abs(float(previous_value)) > 0.0:
+        relative_delta = delta / float(previous_value)
+    elif delta != 0.0:
+        relative_delta = math.inf
+    return float(previous_value), delta, relative_delta
+
+
+def _default_evidence_summary(
+    entries: list[RunParameterManifestEntry],
+    defaults_registry: DefaultsRegistry,
+) -> dict[str, object]:
+    core_default_entries = [
+        entry
+        for entry in entries
+        if (
+            entry.runtime_consumed
+            and entry.parameter in defaults_registry.core_defaults["parameters"]
+            and entry.source_classification == SourceClassification.CURATED_DEFAULT
+        )
+    ]
+    override_entries = [
+        entry
+        for entry in entries
+        if entry.runtime_consumed and entry.source_classification == SourceClassification.USER_INPUT
+    ]
+    source_backed_defaults = sorted(
+        entry.parameter
+        for entry in core_default_entries
+        if defaults_registry.parameter_evidence_tier(entry.parameter)
+        != "tier_3_internal_screening_assumption"
+    )
+    legacy_continuity_defaults = sorted(
+        entry.parameter
+        for entry in core_default_entries
+        if defaults_registry.parameter_evidence_tier(entry.parameter)
+        == "tier_3_internal_screening_assumption"
+    )
+    governed_override_parameters = sorted({entry.parameter for entry in override_entries})
+    if legacy_continuity_defaults:
+        proof_posture = RunDefaultProofPosture.LEGACY_CONTINUITY_EXTENSION
+    elif governed_override_parameters and source_backed_defaults:
+        proof_posture = RunDefaultProofPosture.REBASELINED_DEFAULTS_WITH_GOVERNED_OVERRIDES
+    elif governed_override_parameters:
+        proof_posture = RunDefaultProofPosture.SCENARIO_SPECIFIC_NON_DEFAULT_VALUES
+    else:
+        proof_posture = RunDefaultProofPosture.REBASELINED_SHIPPED_DEFAULTS
+    if legacy_continuity_defaults:
+        status = DefaultEvidenceStatus.LEGACY_CONTINUITY_ASSUMPTIONS_PRESENT
+    elif override_entries:
+        status = DefaultEvidenceStatus.GOVERNED_OVERRIDES_PRESENT
+    else:
+        status = DefaultEvidenceStatus.SOURCE_BACKED_DEFAULTS
+    lines = [
+        f"Runtime consumed {len(core_default_entries)} governed core default parameter(s).",
+    ]
+    if source_backed_defaults:
+        lines.append(
+            "Source-backed defaults consumed: " + ", ".join(source_backed_defaults[:6]) + "."
+        )
+    if override_entries:
+        lines.append(
+            "Governed overrides consumed: "
+            + ", ".join(sorted(entry.parameter for entry in override_entries)[:6])
+            + "."
+        )
+    else:
+        lines.append("No governed user overrides displaced the shipped core defaults in this run.")
+    if legacy_continuity_defaults:
+        lines.append(
+            "Legacy continuity defaults remain active for: "
+            + ", ".join(legacy_continuity_defaults[:6])
+            + "."
+        )
+    else:
+        lines.append("No legacy continuity defaults were consumed by runtime.")
+    proof_lines = [f"Run default proof posture: {proof_posture.value}."]
+    if source_backed_defaults:
+        proof_lines.append(
+            "Rebaselined shipped defaults remain active for: "
+            + ", ".join(source_backed_defaults[:6])
+            + "."
+        )
+    if governed_override_parameters:
+        proof_lines.append(
+            "Scenario-specific governed overrides displace the shipped default path for: "
+            + ", ".join(governed_override_parameters[:6])
+            + "."
+        )
+    if legacy_continuity_defaults:
+        proof_lines.append(
+            "Legacy continuity extensions remain active and block reviewer-grade default proof for: "
+            + ", ".join(legacy_continuity_defaults[:6])
+            + "."
+        )
+
+    scientific_change_lines: list[str] = []
+    default_sensitivity_lines: list[str] = []
+    material_default_sensitivity = False
+    for parameter in source_backed_defaults:
+        payload = defaults_registry.core_defaults["parameters"].get(parameter, {})
+        previous_value, delta, relative_delta = _default_rebaseline_delta(payload)
+        current_value = payload.get("value")
+        unit = payload.get("unit")
+        change_note = payload.get("scientificChangeNote")
+        if change_note:
+            scientific_change_lines.append(f"{parameter}: {change_note}")
+        if delta is None or current_value is None or previous_value is None:
+            continue
+        if abs(delta) > 0.0:
+            relative_text = (
+                "n/a"
+                if relative_delta is None or not math.isfinite(relative_delta)
+                else f"{relative_delta:.3g}"
+            )
+            scientific_change_lines.append(
+                f"{parameter}: shipped default rebaseline moved from {previous_value:g} to "
+                f"{float(current_value):g} {unit or ''}".rstrip()
+                + f" (delta={delta:g}, relative_delta={relative_text})."
+            )
+        if payload.get("materialOutputChange"):
+            material_default_sensitivity = True
+            default_sensitivity_lines.append(
+                f"{parameter}: release metadata marks the shipped default rebaseline as materially output-affecting for reviewer attention."
+            )
+        elif abs(delta) > 0.0:
+            default_sensitivity_lines.append(
+                f"{parameter}: shipped default changed in this release but is not flagged as a material output delta."
+            )
+    if governed_override_parameters:
+        default_sensitivity_lines.append(
+            "Scenario-specific governed overrides limit direct dependence on the shipped default path for the overridden parameters."
+        )
+    if not scientific_change_lines:
+        scientific_change_lines.append(
+            "Runtime-consumed shipped defaults carry forward the source-backed rebaseline without numeric delta in this release."
+        )
+    if not default_sensitivity_lines:
+        default_sensitivity_lines.append(
+            "No material shipped-default delta is recorded for the runtime-consumed rebaselined defaults in this release."
+        )
+    return {
+        "status": status,
+        "proof_posture": proof_posture,
+        "lines": lines,
+        "proof_lines": proof_lines,
+        "scientific_change_lines": scientific_change_lines,
+        "default_sensitivity_lines": default_sensitivity_lines,
+        "rebaselined_default_parameters": source_backed_defaults,
+        "governed_override_parameters": governed_override_parameters,
+        "material_default_sensitivity": material_default_sensitivity,
+        "core_default_assumption_count": len(core_default_entries),
+    }
 
 
 def build_run_parameter_manifest(
@@ -744,6 +1016,10 @@ def build_run_parameter_manifest(
         )
 
     entries = sorted(entries, key=lambda item: (not item.runtime_consumed, item.parameter))
+    default_evidence_summary = _default_evidence_summary(
+        entries,
+        provenance_builder.defaults_registry,
+    )
     runtime_consumed_count = sum(1 for entry in entries if entry.runtime_consumed)
     preserved_only_count = len(entries) - runtime_consumed_count
     evidence_backed = [
@@ -772,6 +1048,11 @@ def build_run_parameter_manifest(
             f"{default_or_derived_count} entries rely on governed curated-default or derived assumptions; "
             f"{heuristic_count} entries remain heuristic."
         ),
+        (
+            f"Default evidence posture: {default_evidence_summary['status'].value} with "
+            f"{default_evidence_summary['core_default_assumption_count']} runtime-consumed core default assumption(s)."
+        ),
+        f"Run default proof posture: {default_evidence_summary['proof_posture'].value}.",
     ]
     if evidence_backed:
         summary_lines.append(
@@ -805,6 +1086,16 @@ def build_run_parameter_manifest(
         fit_for_purpose=fit_for_purpose,
         escalation_concerns=result.run_summary.escalation_concerns,
         entries=entries,
+        default_evidence_status=default_evidence_summary["status"],
+        default_proof_posture=default_evidence_summary["proof_posture"],
+        default_evidence_lines=default_evidence_summary["lines"],
+        proof_posture_lines=default_evidence_summary["proof_lines"],
+        scientific_change_lines=default_evidence_summary["scientific_change_lines"],
+        default_sensitivity_lines=default_evidence_summary["default_sensitivity_lines"],
+        rebaselined_default_parameters=default_evidence_summary["rebaselined_default_parameters"],
+        governed_override_parameters=default_evidence_summary["governed_override_parameters"],
+        material_default_sensitivity=default_evidence_summary["material_default_sensitivity"],
+        core_default_assumption_count=default_evidence_summary["core_default_assumption_count"],
         summary_lines=summary_lines,
         limitations=limitations,
         provenance=provenance_builder.bundle(_collect_source_references(scenario, result)),
@@ -950,9 +1241,10 @@ def build_run_uncertainty_summary(
         ),
     )
     top_drivers = drivers[:5]
+    all_driver_types = sorted({driver.driver_type for driver in drivers})
     summary_lines = [
         (
-            f"{len(top_drivers)} deterministic uncertainty drivers were ranked for "
+            f"{len(drivers)} deterministic uncertainty drivers were ranked for "
             f"{result.run_summary.model_family.value}."
         ),
         "These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
@@ -984,9 +1276,9 @@ def build_run_uncertainty_summary(
         run_id=result.run_summary.run_id,
         model_family=result.run_summary.model_family,
         top_drivers=top_drivers,
+        driver_count=len(drivers),
+        all_driver_types=all_driver_types,
         summary_lines=summary_lines,
         limitations=limitations,
         provenance=provenance_builder.bundle(_collect_source_references(scenario, result)),
     )
-
-

@@ -12,9 +12,21 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     reports = build_release_reports(repo_root)
     assert "adapter-validation-report" in reports
     assert "benchmark-manifest" in reports
+    assert "defaults-rebaseline-report" in reports
+    assert "external-corroboration-report" in reports
+    assert "reference-corroboration-report" in reports
+    assert "reference-worksheet-manifest" in reports
+    assert "advective-promotion-bar-report" in reports
+    assert "red-team-review-report" in reports
+    assert "scientific-trust-brief" in reports
+    assert "scientific-trust-pack" in reports
     assert "scientific-claim-coverage-report" in reports
     assert "validation-dossier" in reports
     assert "known-gap-report" in reports
+    assert reports["validation-dossier"]["defaultsEvidenceGovernance"]["passed"] is True
+    assert reports["validation-dossier"]["externalCorroborationGovernance"]["passed"] is True
+    assert reports["validation-dossier"]["referenceCorroborationGovernance"]["passed"] is True
+    assert reports["validation-dossier"]["advectivePromotionBarGovernance"]["passed"] is True
     assert reports["validation-dossier"]["benchmarks"]["passed"] is True
     assert reports["validation-dossier"]["adapterInteroperability"]["passed"] is True
     assert reports["validation-dossier"]["regulatoryHandoffGovernance"]["passed"] is True
@@ -52,7 +64,9 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
         "mediumPriorityExperimentalSingleTierClaimIds"
     ] == []
     assert reports["validation-dossier"]["scientificReviewWorkflow"]["passed"] is True
+    assert reports["validation-dossier"]["runScientificTrustBriefWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["scientificMethodsDossierWorkflow"]["passed"] is True
+    assert reports["validation-dossier"]["trustSurfaceConsistency"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionReviewWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilyChallengeReviewWorkflow"]["passed"] is True
@@ -80,6 +94,11 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["security-provenance-review-report"]["scope"]
     assert reports["security-provenance-review-report"]["controls"]
     assert reports["security-provenance-review-report"]["limitations"]
+    assert reports["metadata-report"]["testCount"] >= 1
+    assert reports["metadata-report"]["toolCount"] >= 1
+    assert reports["metadata-report"]["promptCount"] >= 1
+    assert reports["metadata-report"]["resourceCount"] >= 1
+    assert reports["metadata-report"]["regionProfileCount"] >= 4
     assert reports["metadata-report"]["regulatoryHandoffProfileCount"] >= 2
     assert reports["metadata-report"]["regulatoryHandoffPromptTemplateCount"] >= 2
     assert reports["metadata-report"]["regulatoryHandoffConsumerHintCount"] >= 4
@@ -138,7 +157,10 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["metadata-report"]["adapterUnitConversionRuleCount"] >= 4
     assert reports["metadata-report"]["adapterImportProfileCount"] >= 3
     assert reports["metadata-report"]["adapterFixtureCount"] >= 5
+    assert reports["metadata-report"]["publicAdapterImportProfileCount"] == 2
+    assert reports["metadata-report"]["publicAdapterFixtureCount"] >= 2
     assert reports["metadata-report"]["benchmarkMetadataFixtureCount"] >= 9
+    assert reports["metadata-report"]["runScientificTrustBriefWorkflowCount"] == 1
     assert reports["metadata-report"]["scientificReviewWorkflowCount"] == 3
     assert reports["metadata-report"]["scientificMethodsDossierWorkflowCount"] == 2
     assert reports["metadata-report"]["modelFamilySelectionWorkflowCount"] == 1
@@ -152,6 +174,13 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["metadata-report"]["parameterManifestEntryCount"] >= 5
     assert reports["metadata-report"]["parameterManifestRuntimeConsumedCount"] >= 3
     assert reports["metadata-report"]["parameterManifestPreservedOnlyCount"] >= 1
+    assert reports["metadata-report"]["parameterManifestDefaultEvidenceStatus"] in {
+        "source_backed_defaults",
+        "governed_overrides_present",
+    }
+    assert reports["metadata-report"]["parameterManifestCoreDefaultAssumptionCount"] >= 1
+    assert reports["metadata-report"]["defaultsEvidenceGovernancePassed"] is True
+    assert reports["metadata-report"]["externalCorroborationGovernancePassed"] is True
     assert reports["metadata-report"]["physchemPolicyFamilyCount"] >= 4
     assert reports["metadata-report"]["physchemPolicyCount"] >= 8
     assert "fate_preview_scientific_review_outcome" in reports["metadata-report"]["supportedWorkflows"]
@@ -161,6 +190,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "fate_build_regulatory_handoff_review_brief" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_run_parameter_manifest" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_run_uncertainty_summary" in reports["metadata-report"]["supportedWorkflows"]
+    assert "fate_build_run_scientific_trust_brief" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_estimate_probabilistic_multimedia_concentrations" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_probabilistic_review_packet" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_probabilistic_review_brief" in reports["metadata-report"]["supportedWorkflows"]
@@ -182,6 +212,69 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "fate_preview_model_family_comparison_review" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_model_family_comparison_review_packet" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_model_family_comparison_review_brief" in reports["metadata-report"]["supportedWorkflows"]
+    assert "fate_import_external_result_payload" in reports["metadata-report"]["supportedWorkflows"]
+    assert reports["defaults-rebaseline-report"]["passed"] is True
+    assert reports["defaults-rebaseline-report"]["tier3ParameterCount"] == 0
+    assert reports["defaults-rebaseline-report"]["changedParameterCount"] == 0
+    assert reports["defaults-rebaseline-report"]["materiallyChangedParameterCount"] == 0
+    assert reports["external-corroboration-report"]["passed"] is True
+    assert reports["reference-corroboration-report"]["passed"] is True
+    assert reports["reference-corroboration-report"]["worksheetManifestPath"] == "reference-worksheet-manifest.json"
+    assert reports["reference-worksheet-manifest"]["passed"] is True
+    assert reports["reference-worksheet-manifest"]["worksheetPackDirectory"] == "reference-worksheet-pack"
+    assert reports["reference-worksheet-manifest"]["worksheetArtifactCount"] >= 10
+    assert reports["reference-worksheet-manifest"]["expectedOutputArtifactCount"] >= 10
+    assert all(
+        claim["worksheetArtifactPath"] and claim["expectedOutputArtifactPath"]
+        for claim in reports["reference-corroboration-report"]["claims"]
+    )
+    assert all(
+        claim["officialSourceIds"] and claim["lastReviewedDate"] and claim["toleranceBasis"]
+        for claim in reports["reference-corroboration-report"]["claims"]
+    )
+    assert reports["advective-promotion-bar-report"]["passed"] is True
+    assert reports["advective-promotion-bar-report"]["promotable"] is False
+    assert reports["red-team-review-report"]["openBlockerCount"] == 0
+    assert reports["red-team-review-report"]["unresolvedFindingCount"] == 0
+    assert "Scientific Trust Brief" in reports["scientific-trust-brief"]["markdown"]
+    assert "## One-Shot Readout" in reports["scientific-trust-brief"]["markdown"]
+    assert "When Not To Use This MCP" in reports["scientific-trust-pack"]["markdown"]
+    assert "## What Changed Scientifically In This Release" in reports["scientific-trust-pack"]["markdown"]
+    assert "## Reference Reviewer-Grade Anchor" in reports["scientific-trust-pack"]["markdown"]
+    assert "## Experimental Advective Challenge Path" in reports["scientific-trust-pack"]["markdown"]
+    assert "## Claim Corroboration" in reports["scientific-trust-pack"]["markdown"]
+    assert "scientific-trust-brief-generated" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
+    assert "run-scientific-trust-brief-workflow-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
+    assert "scientific-trust-pack-generated" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
+    assert "reference-corroboration-governance-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
+    assert "advective-promotion-bar-governance-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
+    assert "trust-surface-consistency-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
+    assert {
+        "unresolved_default_derivation_gap",
+        "uncovered_corroboration_requirement",
+        "unresolved_shipped_default_rebaseline_gap",
+        "missing_reference_family_official_corroboration",
+        "worksheet_or_equation_mismatch",
+        "trust_surface_inconsistency",
+        "advective_promotion_language_drift",
+        "reference_worksheet_pack_artifact_mismatch",
+        "trust_brief_artifact_mismatch",
+        "trust_pack_artifact_mismatch",
+        "accidental_advective_promotion_language_drift",
+        "unaddressed_red_team_finding",
+    }.issubset({item["name"] for item in reports["readiness-report"]["blockerClasses"]})
 
 
 def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
@@ -205,6 +298,19 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     assert "release-bundle-manifest.json" in bundle_readme
     assert "SHA256SUMS" in bundle_readme
     assert "release notes for the exact release reference" in bundle_readme
+    assert (bundle_dir / "scientific-trust-brief.md").exists()
+    assert "Scientific Trust Brief" in (bundle_dir / "scientific-trust-brief.md").read_text()
+    assert (bundle_dir / "scientific-trust-pack.md").exists()
+    assert "When Not To Use This MCP" in (bundle_dir / "scientific-trust-pack.md").read_text()
+    assert (bundle_dir / "reference-corroboration-report.json").exists()
+    assert (bundle_dir / "reference-worksheet-manifest.json").exists()
+    assert (bundle_dir / "reference-worksheet-pack").exists()
+    assert (
+        bundle_dir
+        / "reference-worksheet-pack"
+        / "reference_water_finite_duration_first_order_v1.worksheet.json"
+    ).exists()
+    assert (bundle_dir / "advective-promotion-bar-report.json").exists()
 
     for item in manifest["files"]:
         digest = sha256((bundle_dir / item["path"]).read_bytes()).hexdigest()
@@ -219,7 +325,15 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     ).hexdigest()
     assert checksum_entries["release-notes.md"] == sha256((bundle_dir / "release-notes.md").read_bytes()).hexdigest()
 
-    first_pass = {path.name: path.read_text() for path in bundle_dir.iterdir() if path.is_file()}
+    first_pass = {
+        str(path.relative_to(bundle_dir)): path.read_text()
+        for path in bundle_dir.rglob("*")
+        if path.is_file()
+    }
     write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.1.0-test")
-    second_pass = {path.name: path.read_text() for path in bundle_dir.iterdir() if path.is_file()}
+    second_pass = {
+        str(path.relative_to(bundle_dir)): path.read_text()
+        for path in bundle_dir.rglob("*")
+        if path.is_file()
+    }
     assert first_pass == second_pass
