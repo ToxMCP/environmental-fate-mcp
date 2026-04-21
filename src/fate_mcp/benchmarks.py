@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+import json
 from pathlib import Path
 
 from fate_mcp.defaults import DefaultsRegistry
@@ -41,6 +42,19 @@ BENCHMARK_FIXTURES = [
                 "unit": "mg/m3",
             }
         ],
+        "expected_trace_terms": [
+            {
+                "medium": "air",
+                "compartment": "ambient_air",
+                "terms": {
+                    "decay_constant_per_day": 0.34657359027997264,
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "cumulative_degraded_mass_mg": 7204778.358277633,
+                    "mass_balance_closure_error_mg": 9.313225746154785e-10,
+                },
+                "tolerance": 1e-12,
+            }
+        ],
     },
     {
         "name": "water_reference_chemical_style_fixture",
@@ -64,6 +78,19 @@ BENCHMARK_FIXTURES = [
                 "compartment": "surface_water",
                 "value": 1.4426950408889635e-05,
                 "unit": "mg/L",
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "decay_constant_per_day": 0.046209812037329684,
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "cumulative_degraded_mass_mg": 2786524.795555182,
+                    "mass_balance_closure_error_mg": 9.313225746154785e-10,
+                },
+                "tolerance": 1e-12,
             }
         ],
     },
@@ -91,6 +118,19 @@ BENCHMARK_FIXTURES = [
                 "unit": "mg/kg",
             }
         ],
+        "expected_trace_terms": [
+            {
+                "medium": "soil",
+                "compartment": "agricultural_soil",
+                "terms": {
+                    "decay_constant_per_day": 0.023104906018664842,
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "cumulative_degraded_mass_mg": 2786524.795555182,
+                    "mass_balance_closure_error_mg": 1.862645149230957e-09,
+                },
+                "tolerance": 1e-12,
+            }
+        ],
     },
     {
         "name": "sediment_reference_chemical_style_fixture",
@@ -116,6 +156,112 @@ BENCHMARK_FIXTURES = [
                 "unit": "mg/kg",
             }
         ],
+        "expected_trace_terms": [
+            {
+                "medium": "sediment",
+                "compartment": "freshwater_sediment",
+                "terms": {
+                    "decay_constant_per_day": 0.015403270679109895,
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "cumulative_degraded_mass_mg": 2786524.7955551823,
+                    "mass_balance_closure_error_mg": -4.656612873077393e-10,
+                },
+                "tolerance": 1e-12,
+            }
+        ],
+    },
+    {
+        "name": "reference_water_no_decay_limit_branch_fixture",
+        "category": "edge_condition_anchor",
+        "validation_tier": "edge_condition",
+        "scientific_basis": "Hand-worked reference water screening case with an effectively infinite half-life, anchoring the explicit no-decay-limit branch of the finite-duration kernel.",
+        "reference_type": "hand_worked_no_decay_limit_fixture",
+        "expected_behavior": "Reference water concentration follows the no-decay linear accumulation limit when the governed half-life is effectively infinite relative to the branch threshold.",
+        "tolerance_rationale": "The no-decay branch is deterministic and analytically traceable to the linear accumulation limit of the same finite-duration release equation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": ["reference_water_finite_duration_first_order_v1"],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark water no-decay branch",
+                "substance_class": "organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 1.0,
+            "parameter_records": [
+                {
+                    "parameter": "water_half_life_days",
+                    "value": 10000000000000.0,
+                    "unit": "day",
+                    "source_classification": "user_input",
+                    "rationale": "Benchmark effective no-decay branch trigger."
+                }
+            ]
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "value": 2e-05,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "decay_constant_per_day": 6.931471805599453e-14,
+                    "emitted_mass_to_elapsed_mg": 10000000.0,
+                    "cumulative_degraded_mass_mg": 3.465735902799726e-07,
+                    "mass_balance_closure_error_mg": -3.465735902799726e-07
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "reference_water_temperature_correction_reference_fixture",
+        "category": "reference_chemical_style",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked reference water screening case at a governed non-reference temperature, anchoring the Q10 temperature-correction branch with explicit corrected half-life tracing.",
+        "reference_type": "hand_worked_temperature_correction_fixture",
+        "expected_behavior": "Reference water concentration reflects the governed Q10 temperature correction, with a lower scenario temperature lengthening half-life and increasing retained concentration.",
+        "tolerance_rationale": "The governed temperature-correction branch remains a deterministic closed-form transformation of the same finite-duration first-order release equation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": ["reference_water_finite_duration_first_order_v1"],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark water temperature correction",
+                "substance_class": "organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 15.0,
+            "temperature_c": 15.0
+        },
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "value": 1.6902223771686956e-05,
+                "unit": "mg/L"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "temperature_correction_factor": 0.5,
+                    "temperature_corrected_half_life_days": 30.0,
+                    "decay_constant_per_day": 0.023104906018664842,
+                    "cumulative_degraded_mass_mg": 1548888.114156522,
+                    "mass_balance_closure_error_mg": -2.3283064365386963e-10
+                },
+                "tolerance": 1e-12
+            }
+        ]
     },
     {
         "name": "reference_air_capacity_sensitivity_fixture",
@@ -1756,6 +1902,108 @@ BENCHMARK_FIXTURES = [
         ]
     },
     {
+        "name": "advective_air_transport_reference_fixture",
+        "category": "reference_chemical_style",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked finite-duration advective air screening case, broadening the governed proof surface beyond water while retaining explicit degradation-versus-clearance accounting.",
+        "reference_type": "hand_worked_advective_air_reference_fixture",
+        "expected_behavior": "Advective air concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping as the water anchors.",
+        "tolerance_rationale": "The air advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_cumulative_mass_balance_closure_v1",
+            "advective_residence_time_turnover_regime_v1",
+        ],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark advective air transport",
+                "substance_class": "organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "air", "fraction": 1.0}],
+            "duration_days": 10.0
+        },
+        "run_options": {
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "air",
+                "compartment": "ambient_air",
+                "value": 0.0014691498983410997,
+                "unit": "mg/m3"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "air",
+                "compartment": "ambient_air",
+                "terms": {
+                    "degradation_loss_share_fraction": 0.5097368157955173,
+                    "advective_clearance_share_fraction": 0.4902631842044826,
+                    "elapsed_turnover_count": 3.333333333333333,
+                    "active_emission_turnover_count": 3.333333333333333,
+                    "retained_mass_fraction_of_finite_plateau": 0.9988851877078984,
+                    "cumulative_degraded_mass_mg": 4348488.366848473,
+                    "cumulative_advected_mass_mg": 4182361.734810427,
+                    "mass_balance_closure_error_mg": -9.313225746154785e-10
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "advective_soil_transport_reference_fixture",
+        "category": "reference_chemical_style",
+        "validation_tier": "reference_style",
+        "scientific_basis": "Hand-worked finite-duration advective soil screening case, broadening the governed proof surface into a mass-based medium with long residence time and explicit combined-loss accounting.",
+        "reference_type": "hand_worked_advective_soil_reference_fixture",
+        "expected_behavior": "Advective soil concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping while remaining storage-dominant under the governed soil residence time.",
+        "tolerance_rationale": "The soil advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "advective_cumulative_mass_balance_closure_v1",
+            "advective_residence_time_turnover_regime_v1",
+        ],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark advective soil transport",
+                "substance_class": "organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [{"medium": "soil", "fraction": 1.0}],
+            "duration_days": 60.0
+        },
+        "run_options": {
+            "model_family": "advective_screening_mass_balance"
+        },
+        "expected_surfaces": [
+            {
+                "medium": "soil",
+                "compartment": "agricultural_soil",
+                "value": 0.0019094067279895887,
+                "unit": "mg/kg"
+            }
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "soil",
+                "compartment": "agricultural_soil",
+                "terms": {
+                    "degradation_loss_share_fraction": 0.8061595923300592,
+                    "advective_clearance_share_fraction": 0.19384040766994082,
+                    "elapsed_turnover_count": 0.33333333333333337,
+                    "active_emission_turnover_count": 0.33333333333333337,
+                    "retained_mass_fraction_of_finite_plateau": 0.8208671723565526,
+                    "cumulative_degraded_mass_mg": 4213379.549729694,
+                    "cumulative_advected_mass_mg": 1013103.630296334,
+                    "mass_balance_closure_error_mg": 1.5133991837501526e-09
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
         "name": "advective_residence_time_override_sensitivity_fixture",
         "category": "parameter_override_sensitivity",
         "validation_tier": "sensitivity",
@@ -2640,12 +2888,12 @@ BENCHMARK_FIXTURES = [
     },
     {
         "name": "external_adapter_equivalence_fixture",
-        "category": "external_adapter_equivalence",
-        "validation_tier": "equivalence",
-        "scientific_basis": "Governed JSON, CSV, and alternate-unit adapter fixtures encode the same illustrative concentration surfaces after normalization.",
-        "reference_type": "governed_fixture_equivalence",
-        "expected_behavior": "Normalized import paths produce identical canonical concentration-surface signatures.",
-        "tolerance_rationale": "Equivalence is structural rather than numeric tolerance-based because each fixture should normalize to the same canonical surfaces.",
+        "category": "external_adapter_normalization_parity",
+        "validation_tier": "normalization_parity",
+        "scientific_basis": "Governed JSON, CSV, and alternate-unit adapter fixtures resolve to the same canonical concentration surfaces after normalization.",
+        "reference_type": "governed_fixture_normalization_parity",
+        "expected_behavior": "Normalized import paths produce the same canonical concentration-surface signatures at the Fate MCP contract boundary.",
+        "tolerance_rationale": "Normalization parity is structural rather than numeric tolerance-based because each fixture should resolve to the same canonical surfaces.",
         "tolerance": 0.0,
         "scientific_claim_ids": ["external_adapter_canonical_equivalence_v1"],
         "scenario": {
@@ -2842,11 +3090,54 @@ def _resolve_repo_root(repo_root: Path | None = None) -> Path:
     return repo_root or Path(__file__).resolve().parents[2]
 
 
+def _support_anchor_fingerprint(fixture: dict) -> str:
+    expected_surface_identity = sorted(
+        [
+            {
+                "medium": surface.get("medium"),
+                "compartment": surface.get("compartment"),
+                "bucket_label": surface.get("bucket_label"),
+            }
+            for surface in fixture.get("expected_surfaces", [])
+        ],
+        key=lambda item: (
+            str(item["medium"]),
+            str(item["compartment"]),
+            str(item["bucket_label"]),
+        ),
+    )
+    fingerprint_payload = {
+        "scenario": fixture.get("scenario", {}),
+        "run_options": fixture.get("run_options", {}),
+        "surface_identity": expected_surface_identity,
+        "adapter_fixture_paths": sorted(fixture.get("adapter_fixture_paths", [])),
+    }
+    return json.dumps(fingerprint_payload, sort_keys=True, separators=(",", ":"))
+
+
+def _deduplicated_supporting_fixtures(
+    supporting_fixtures: list[dict],
+) -> tuple[list[dict], list[list[str]]]:
+    grouped: dict[str, list[dict]] = defaultdict(list)
+    for fixture in supporting_fixtures:
+        grouped[_support_anchor_fingerprint(fixture)].append(fixture)
+    unique_fixtures = []
+    duplicate_name_groups: list[list[str]] = []
+    for fixtures in grouped.values():
+        unique_fixtures.append(fixtures[0])
+        if len(fixtures) > 1:
+            duplicate_name_groups.append(sorted(fixture["name"] for fixture in fixtures))
+    return unique_fixtures, sorted(duplicate_name_groups)
+
+
 def _support_strength(supporting_fixtures: list[dict]) -> str:
-    if not supporting_fixtures:
+    unique_supporting_fixtures, _ = _deduplicated_supporting_fixtures(supporting_fixtures)
+    if not unique_supporting_fixtures:
         return "uncovered"
-    validation_tier_count = len({fixture["validation_tier"] for fixture in supporting_fixtures})
-    if len(supporting_fixtures) == 1:
+    validation_tier_count = len(
+        {fixture["validation_tier"] for fixture in unique_supporting_fixtures}
+    )
+    if len(unique_supporting_fixtures) == 1:
         return "single_anchor"
     if validation_tier_count > 1:
         return "multi_anchor_multi_tier"
@@ -2894,15 +3185,20 @@ def scientific_validation_claim_coverage_manifest(
     coverage = []
     for claim in claims:
         supporting_fixtures = fixtures_by_claim.get(claim.claim_id, [])
+        deduplicated_supporting_fixtures, duplicate_fixture_groups = _deduplicated_supporting_fixtures(
+            supporting_fixtures
+        )
         supporting_reference_types = sorted(
-            {fixture["reference_type"] for fixture in supporting_fixtures}
+            {fixture["reference_type"] for fixture in deduplicated_supporting_fixtures}
         )
         supporting_validation_tiers = sorted(
-            {fixture["validation_tier"] for fixture in supporting_fixtures}
+            {fixture["validation_tier"] for fixture in deduplicated_supporting_fixtures}
         )
-        supporting_fixture_count = len(supporting_fixtures)
+        supporting_fixture_count = len(deduplicated_supporting_fixtures)
         supporting_validation_tier_count = len(supporting_validation_tiers)
-        supporting_categories = sorted({fixture["category"] for fixture in supporting_fixtures})
+        supporting_categories = sorted(
+            {fixture["category"] for fixture in deduplicated_supporting_fixtures}
+        )
         satisfies_reference_types = all(
             reference_type in supporting_reference_types
             for reference_type in claim.required_reference_types
@@ -2912,8 +3208,23 @@ def scientific_validation_claim_coverage_manifest(
             for validation_tier in claim.required_validation_tiers
         )
         gap_lines = []
-        if not supporting_fixtures:
+        if not deduplicated_supporting_fixtures:
             gap_lines.append("No benchmark fixtures currently support this published scientific claim.")
+        if duplicate_fixture_groups:
+            gap_lines.append(
+                "Duplicate support anchors were collapsed before claim-strength scoring: "
+                + "; ".join(", ".join(group) for group in duplicate_fixture_groups)
+                + "."
+            )
+        duplicate_anchor_multi_support_failure = (
+            len(duplicate_fixture_groups) > 0
+            and len(deduplicated_supporting_fixtures) < 2
+            and len(supporting_fixtures) >= 2
+        )
+        if duplicate_anchor_multi_support_failure:
+            gap_lines.append(
+                "Duplicate fixtures cannot be counted as independent multi-anchor scientific support."
+            )
         if not satisfies_reference_types:
             missing_reference_types = sorted(
                 set(claim.required_reference_types) - set(supporting_reference_types)
@@ -2928,7 +3239,12 @@ def scientific_validation_claim_coverage_manifest(
             gap_lines.append(
                 "Missing required validation tiers: " + ", ".join(missing_validation_tiers) + "."
             )
-        covered = bool(supporting_fixtures) and satisfies_reference_types and satisfies_validation_tiers
+        covered = (
+            bool(deduplicated_supporting_fixtures)
+            and satisfies_reference_types
+            and satisfies_validation_tiers
+            and not duplicate_anchor_multi_support_failure
+        )
         coverage.append(
             ScientificValidationClaimCoverageRecord(
                 claim_id=claim.claim_id,
@@ -2938,10 +3254,12 @@ def scientific_validation_claim_coverage_manifest(
                 priority=claim.priority,
                 mandatory_for_release=claim.mandatory_for_release,
                 covered=covered,
-                support_strength=_support_strength(supporting_fixtures),
+                support_strength=_support_strength(deduplicated_supporting_fixtures),
                 supporting_fixture_count=supporting_fixture_count,
                 supporting_validation_tier_count=supporting_validation_tier_count,
-                supporting_fixture_names=[fixture["name"] for fixture in supporting_fixtures],
+                supporting_fixture_names=[
+                    fixture["name"] for fixture in deduplicated_supporting_fixtures
+                ],
                 supporting_categories=supporting_categories,
                 supporting_reference_types=supporting_reference_types,
                 supporting_validation_tiers=supporting_validation_tiers,
@@ -3115,7 +3433,7 @@ def run_benchmarks(repo_root: Path) -> dict:
     runtime = FateRuntime(repo_root)
     results = []
     for fixture in BENCHMARK_FIXTURES:
-        if fixture["category"] == "external_adapter_equivalence":
+        if fixture["category"] == "external_adapter_normalization_parity":
             results.append(_run_adapter_equivalence_fixture(fixture, runtime, repo_root))
         else:
             results.append(_run_native_fixture(fixture, runtime))

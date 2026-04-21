@@ -11,7 +11,7 @@
         "steady_state",
         "time_bucket"
       ],
-      "internal_only": true,
+      "internal_only": false,
       "description": "Canonical engine-like JSON payload consumed directly by the adapter harness.",
       "semantic_mapping": null
     },
@@ -25,7 +25,7 @@
         "steady_state",
         "time_bucket"
       ],
-      "internal_only": true,
+      "internal_only": false,
       "description": "Canonical engine-like CSV payload consumed directly by the adapter harness.",
       "semantic_mapping": null
     },
@@ -77,12 +77,12 @@
       "internal_only": true,
       "description": "EPI Suite screening export normalized into Environmental Fate MCP concentrations.",
       "semantic_mapping": {
-        "semantic_loss": "material_but_bounded",
-        "compartment_semantics": "Level III Mackay compartments map directly to Environmental Fate MCP.",
-        "time_semantics": "Steady state assumed as standard EPI Suite Level III default.",
-        "spatial_scale_semantics": "Default generic environment area.",
-        "basis_semantics": "Dry weight mapped.",
-        "release_partition_semantics": "Maps directly to Level III emission modes."
+        "semantic_loss": "non_equivalent",
+        "compartment_semantics": "Level III Mackay compartments are not treated as equivalent to Fate MCP screening compartments without a boundedness study.",
+        "time_semantics": "Steady state assumed as standard EPI Suite Level III default, which is not treated as directly equivalent to Fate MCP end-of-duration screening.",
+        "spatial_scale_semantics": "Default generic environment area remains non-equivalent pending a boundedness study.",
+        "basis_semantics": "Dry weight mapped, but full semantic equivalence is not claimed.",
+        "release_partition_semantics": "Emission-mode mapping remains non-equivalent until a boundedness study is added."
       }
     }
   ],

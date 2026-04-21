@@ -54,7 +54,7 @@ def test_all_concentrations_are_non_negative() -> None:
     runtime = FateRuntime(REPO_ROOT)
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Non-negative invariant"},
+            chemical_identity={"preferredName": "Non-negative invariant", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=30.0,
@@ -82,7 +82,7 @@ def test_advective_mass_balance_closes() -> None:
     runtime = FateRuntime(REPO_ROOT)
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Mass balance invariant"},
+            chemical_identity={"preferredName": "Mass balance invariant", "substance_class": "organic chemical"},
             total_release_mass_kg=15.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.WATER, fraction=0.5),
@@ -111,7 +111,7 @@ def test_advection_does_not_increase_concentration() -> None:
     runtime = FateRuntime(REPO_ROOT)
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Advection invariant"},
+            chemical_identity={"preferredName": "Advection invariant", "substance_class": "organic chemical"},
             total_release_mass_kg=12.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.WATER, fraction=0.6),
@@ -149,7 +149,7 @@ def test_concentration_scales_linearly_with_mass() -> None:
     runtime = FateRuntime(REPO_ROOT)
     base_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Linearity invariant"},
+            chemical_identity={"preferredName": "Linearity invariant", "substance_class": "organic chemical"},
             total_release_mass_kg=5.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=7.0,
@@ -157,7 +157,7 @@ def test_concentration_scales_linearly_with_mass() -> None:
     )
     double_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Linearity invariant"},
+            chemical_identity={"preferredName": "Linearity invariant", "substance_class": "organic chemical"},
             total_release_mass_kg=10.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=7.0,
@@ -193,7 +193,7 @@ def test_shorter_half_life_yields_lower_concentration() -> None:
     runtime = FateRuntime(REPO_ROOT)
     long_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Half-life monotonicity"},
+            chemical_identity={"preferredName": "Half-life monotonicity", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -209,7 +209,7 @@ def test_shorter_half_life_yields_lower_concentration() -> None:
     )
     short_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Half-life monotonicity"},
+            chemical_identity={"preferredName": "Half-life monotonicity", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,

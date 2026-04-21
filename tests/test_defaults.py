@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from fate_mcp.defaults import DefaultsRegistry
+from fate_mcp.models import Media
 
 
 def test_defaults_manifest_contains_versioned_files() -> None:
@@ -25,7 +26,34 @@ def test_region_profile_manifest_includes_extension_pack() -> None:
     manifest = registry.region_profile_manifest()
     ids = {profile["region_id"] for profile in manifest["profiles"]}
     assert "eu_screening_default" in ids
+    assert "us_epa_default" in ids
     assert "nordic_screening_extension" in ids
+
+
+def test_temperature_correction_policy_is_governed() -> None:
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    policy = registry.temperature_correction_policy()
+    assert policy.reference_temperature_c == 25.0
+    assert policy.minimum_supported_temperature_c == 0.0
+    assert policy.maximum_supported_temperature_c == 40.0
+    assert policy.degradation_q10_by_medium[Media.WATER] == 2.0
+
+
+def test_core_defaults_are_source_backed_and_free_of_shipped_tier3_assumptions() -> None:
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    parameters = registry.core_defaults["parameters"]
+    assert parameters
+    assert not any(
+        payload.get("evidenceTier") == "tier_3_internal_screening_assumption"
+        for payload in parameters.values()
+    )
+    for parameter in parameters:
+        assert registry.parameter_source_references(parameter)
+        derivation_metadata = registry.parameter_derivation_metadata(parameter)
+        assert derivation_metadata.get("jurisdiction")
+        assert derivation_metadata.get("basis")
+        assert derivation_metadata.get("calculationMethod")
+        assert derivation_metadata.get("validityNote")
 
 
 def test_model_family_applicability_profiles_cover_supported_model_families() -> None:
@@ -110,6 +138,44 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
         "hand_worked_advective_residence_edge_anchor"
     ]
     assert claims["external_adapter_canonical_equivalence_v1"].model_family.value == "external_result_adapter"
+    assert (
+        claims["reference_water_finite_duration_first_order_v1"].corroboration_status.value
+        == "multi_official_multi_jurisdiction"
+    )
+    assert claims["reference_water_finite_duration_first_order_v1"].official_source_count >= 2
+    assert (
+        claims["reference_water_finite_duration_first_order_v1"].jurisdiction_breadth.value
+        == "multi_jurisdiction"
+    )
+    assert (
+        claims["reference_water_finite_duration_first_order_v1"].evidence_family
+        == "official_guidance_plus_independent_machine_readable_worksheet"
+    )
+    assert claims["reference_water_finite_duration_first_order_v1"].official_source_ids == [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance",
+    ]
+    assert (
+        claims["reference_water_finite_duration_first_order_v1"].worksheet_artifact_path
+        == "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.worksheet.json"
+    )
+    assert (
+        claims["reference_water_finite_duration_first_order_v1"].expected_output_artifact_path
+        == "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.expected-outputs.json"
+    )
+    assert claims["reference_water_finite_duration_first_order_v1"].worksheet_status.value == "ready"
+    assert str(claims["reference_water_finite_duration_first_order_v1"].last_reviewed_date) == "2026-04-21"
+    assert claims["reference_water_finite_duration_first_order_v1"].tolerance_basis
+    assert claims["reference_water_finite_duration_first_order_v1"].independent_evidence_families == [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1",
+    ]
+    assert claims["reference_water_finite_duration_first_order_v1"].next_corroboration_action
+    assert claims["external_adapter_canonical_equivalence_v1"].corroboration_status.value == "none"
+    assert claims["external_adapter_canonical_equivalence_v1"].official_source_count == 0
+    assert claims["external_adapter_canonical_equivalence_v1"].jurisdiction_breadth.value == "none"
+    assert claims["external_adapter_canonical_equivalence_v1"].independent_evidence_families == []
+    assert claims["external_adapter_canonical_equivalence_v1"].next_corroboration_action
     assert claims["reference_executable_treatment_reduction_v1"].required_validation_tiers == ["edge_condition"]
     assert claims["reference_water_finite_duration_first_order_v1"].source_references
     assert claims["reference_water_finite_duration_first_order_v1"].methods_basis_lines
@@ -324,6 +390,12 @@ def test_scientific_reference_cases_are_governed_and_resolvable() -> None:
         "reference_mass_balance"
     ]
     assert cases["epa_flow_through_water_screening_case_family_v1"].jurisdictions == ["US"]
+    assert (
+        cases["oecd_single_medium_first_order_screening_case_family_v1"].evidence_family
+        == "official_test_guideline_case_family"
+    )
+    assert cases["oecd_single_medium_first_order_screening_case_family_v1"].official_source_ids
+    assert str(cases["oecd_single_medium_first_order_screening_case_family_v1"].last_reviewed_date) == "2026-04-21"
     assert cases["epa_post_release_decay_bucket_case_family_v1"].source_references
     assert cases["epa_post_release_flushing_screening_case_family_v1"].source_references
     assert cases["oecd_post_release_recovery_screening_case_family_v1"].review_notes

@@ -22,7 +22,7 @@
   ],
   "covered": true,
   "support_strength": "multi_anchor_multi_tier",
-  "supporting_fixture_count": 10,
+  "supporting_fixture_count": 12,
   "reference_case_ids": [
     "echa_euses_water_screening_case_family_v1",
     "epa_flow_through_water_screening_case_family_v1",
@@ -38,15 +38,19 @@
     "advective_bounded_transport_reference_fixture",
     "advective_flow_through_transport_reference_fixture",
     "advective_transition_boundary_reference_fixture",
-    "advective_storage_dominant_transport_reference_fixture"
+    "advective_storage_dominant_transport_reference_fixture",
+    "advective_air_transport_reference_fixture",
+    "advective_soil_transport_reference_fixture"
   ],
   "supporting_reference_types": [
+    "hand_worked_advective_air_reference_fixture",
     "hand_worked_advective_bounded_transport_reference_fixture",
     "hand_worked_advective_flow_through_transport_reference_fixture",
     "hand_worked_advective_loss_dominance_anchor",
     "hand_worked_advective_loss_dominance_sensitivity_fixture",
     "hand_worked_advective_loss_transition_anchor",
     "hand_worked_advective_loss_transition_sensitivity_fixture",
+    "hand_worked_advective_soil_reference_fixture",
     "hand_worked_advective_storage_dominant_transport_reference_fixture",
     "hand_worked_advective_transition_boundary_reference_fixture"
   ],
@@ -99,6 +103,14 @@
     "EU",
     "US"
   ],
+  "evidence_family": null,
+  "official_source_ids": [],
+  "worksheet_artifact_path": null,
+  "expected_output_artifact_path": null,
+  "worksheet_status": null,
+  "last_reviewed_date": null,
+  "tolerance_basis": null,
+  "reviewer_grade_passed": false,
   "external_corroboration_lines": [
     "Advective cumulative mass-balance closure: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
     "Advective cumulative mass-balance closure: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",

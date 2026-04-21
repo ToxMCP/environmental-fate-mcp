@@ -1,0 +1,138 @@
+{
+  "claimId": "reference_water_finite_duration_first_order_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference water finite-duration first-order screening equation",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "oecd.test_guidelines.section3",
+    "epa.environmental_models_guidance",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.1.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Water concentration increases proportionally when the governed surface-water volume is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_water_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark water capacity sensitivity"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "surface_water_volume_m3",
+            "rationale": "Benchmark surface-water capacity override.",
+            "source_classification": "user_input",
+            "unit": "m3",
+            "value": 250000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case with an explicit surface-water-volume override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "Reference water concentration follows the no-decay linear accumulation limit when the governed half-life is effectively infinite relative to the branch threshold.",
+      "fixtureName": "reference_water_no_decay_limit_branch_fixture",
+      "referenceType": "hand_worked_no_decay_limit_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark water no-decay branch",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 1.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark effective no-decay branch trigger.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10000000000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked reference water screening case with an effectively infinite half-life, anchoring the explicit no-decay-limit branch of the finite-duration kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The no-decay branch is deterministic and analytically traceable to the linear accumulation limit of the same finite-duration release equation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Reference water concentration reflects the governed Q10 temperature correction, with a lower scenario temperature lengthening half-life and increasing retained concentration.",
+      "fixtureName": "reference_water_temperature_correction_reference_fixture",
+      "referenceType": "hand_worked_temperature_correction_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark water temperature correction",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 15.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "temperature_c": 15.0,
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked reference water screening case at a governed non-reference temperature, anchoring the Q10 temperature-correction branch with explicit corrected half-life tracing.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The governed temperature-correction branch remains a deterministic closed-form transformation of the same finite-duration first-order release equation.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "End-of-duration surface-water concentration matches the documented finite-duration first-order screening equation.",
+      "fixtureName": "water_reference_chemical_style_fixture",
+      "referenceType": "hand_worked_screening_equation",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark water"
+        },
+        "duration_days": 15.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration first-order single-medium water screening equation using governed surface-water volume and half-life defaults.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
+      "validationTier": "reference_style"
+    }
+  ]
+}

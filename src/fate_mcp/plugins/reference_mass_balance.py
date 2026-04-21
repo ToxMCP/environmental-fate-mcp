@@ -57,6 +57,136 @@ class ReferenceMassBalancePlugin:
             )
         return math.log(2.0) / half_life_days, notes
 
+    def _temperature_adjusted_half_life(
+        self,
+        medium: Media,
+        half_life_days: float,
+        scenario_temperature_c: float,
+    ) -> tuple[float, float, float, list[str], LimitationNote | None]:
+        policy = self.defaults_registry.temperature_correction_policy()
+        reference_temperature_c = policy.reference_temperature_c
+        effective_temperature_c = policy.clamp_temperature(scenario_temperature_c)
+        if abs(scenario_temperature_c - reference_temperature_c) <= 1e-12:
+            return half_life_days, 1.0, effective_temperature_c, [], None
+
+        correction_factor = policy.degradation_q10_by_medium[medium] ** (
+            (effective_temperature_c - reference_temperature_c) / 10.0
+        )
+        corrected_half_life_days = half_life_days / correction_factor
+
+        if abs(effective_temperature_c - scenario_temperature_c) > 1e-12:
+            message = (
+                f"Scenario temperature {scenario_temperature_c:.1f} °C was clamped to "
+                f"{effective_temperature_c:.1f} °C before applying the governed "
+                f"{medium.value} degradation Q10 correction."
+            )
+            code = "temperature_correction_clamped_to_governed_range"
+        else:
+            message = (
+                f"Scenario temperature {scenario_temperature_c:.1f} °C was applied to the "
+                f"governed {medium.value} degradation Q10 correction from the "
+                f"{reference_temperature_c:.1f} °C reference."
+            )
+            code = "temperature_correction_governed"
+
+        return (
+            corrected_half_life_days,
+            correction_factor,
+            effective_temperature_c,
+            [message],
+            LimitationNote(code=code, message=message),
+        )
+
+    @staticmethod
+    def _validated_capacity_value(
+        capacity_value: float,
+        *,
+        parameter_name: str,
+        medium: Media,
+    ) -> float:
+        if not math.isfinite(capacity_value) or capacity_value <= 0.0:
+            raise FateValidationError(
+                code="non_positive_effective_capacity",
+                message=(
+                    f"Effective capacity for {medium.value} from parameter {parameter_name} must be "
+                    f"finite and positive; received {capacity_value}."
+                ),
+                suggestion=(
+                    "Provide a finite positive capacity override or correct the governed defaults/region "
+                    "scalar before execution."
+                ),
+                details={
+                    "medium": medium.value,
+                    "parameter": parameter_name,
+                    "effectiveCapacity": capacity_value,
+                },
+            )
+        return capacity_value
+
+    @staticmethod
+    def _cumulative_mass_time_integral(
+        release_rate_mg_per_day: float,
+        loss_constant_per_day: float,
+        emission_duration_days: float,
+        elapsed_days: float,
+    ) -> float:
+        if elapsed_days <= 0.0:
+            return 0.0
+        active_emission_duration_days = min(elapsed_days, emission_duration_days)
+        if loss_constant_per_day <= 1e-12:
+            during_emission_integral = (
+                0.5 * release_rate_mg_per_day * active_emission_duration_days**2
+            )
+            if elapsed_days <= emission_duration_days:
+                return during_emission_integral
+            release_stop_mass_mg = release_rate_mg_per_day * emission_duration_days
+            return during_emission_integral + (
+                release_stop_mass_mg * (elapsed_days - emission_duration_days)
+            )
+
+        during_emission_integral = (
+            release_rate_mg_per_day
+            / loss_constant_per_day
+            * (
+                active_emission_duration_days
+                - (
+                    1.0
+                    - math.exp(-loss_constant_per_day * active_emission_duration_days)
+                )
+                / loss_constant_per_day
+            )
+        )
+        if elapsed_days <= emission_duration_days:
+            return during_emission_integral
+
+        release_stop_mass_mg = (
+            release_rate_mg_per_day
+            / loss_constant_per_day
+            * (1.0 - math.exp(-loss_constant_per_day * emission_duration_days))
+        )
+        post_release_integral = (
+            release_stop_mass_mg
+            * (1.0 - math.exp(-loss_constant_per_day * (elapsed_days - emission_duration_days)))
+            / loss_constant_per_day
+        )
+        return during_emission_integral + post_release_integral
+
+    @classmethod
+    def _cumulative_first_order_loss(
+        cls,
+        release_rate_mg_per_day: float,
+        total_loss_constant_per_day: float,
+        component_loss_constant_per_day: float,
+        emission_duration_days: float,
+        elapsed_days: float,
+    ) -> float:
+        return component_loss_constant_per_day * cls._cumulative_mass_time_integral(
+            release_rate_mg_per_day=release_rate_mg_per_day,
+            loss_constant_per_day=total_loss_constant_per_day,
+            emission_duration_days=emission_duration_days,
+            elapsed_days=elapsed_days,
+        )
+
     @staticmethod
     def _concentration_at_time(
         release_rate_mg_per_day: float,
@@ -68,13 +198,12 @@ class ReferenceMassBalancePlugin:
         if elapsed_days <= 0.0:
             return 0.0, 0.0
         active_emission_duration_days = min(elapsed_days, emission_duration_days)
-        safe_capacity_value = max(capacity_value, 1e-12)
         if decay_constant_per_day <= 1e-12:
-            concentration = (release_rate_mg_per_day * active_emission_duration_days) / safe_capacity_value
+            concentration = (release_rate_mg_per_day * active_emission_duration_days) / capacity_value
         else:
             concentration = (
                 release_rate_mg_per_day
-                / (safe_capacity_value * decay_constant_per_day)
+                / (capacity_value * decay_constant_per_day)
                 * (1.0 - math.exp(-decay_constant_per_day * active_emission_duration_days))
             )
             if elapsed_days > emission_duration_days:
@@ -207,14 +336,24 @@ class ReferenceMassBalancePlugin:
             if capacity_override
             else self.defaults_registry.parameter_value(media_defaults.capacity_parameter)
         ) * region_scalar
+        capacity_value = self._validated_capacity_value(
+            capacity_value,
+            parameter_name=media_defaults.capacity_parameter,
+            medium=medium,
+        )
         half_life_days = (
             half_life_override.value
             if half_life_override
             else self.defaults_registry.parameter_value(media_defaults.degradation_half_life_parameter)
         )
+        temperature_corrected_half_life_days, temperature_correction_factor, effective_temperature_c, temperature_notes, temperature_limitation = self._temperature_adjusted_half_life(
+            medium,
+            half_life_days,
+            scenario.temperature_c,
+        )
         release_mass_mg = effective_total_release_mass_kg * 1_000_000.0 * fraction
         release_rate_mg_per_day = release_mass_mg / scenario.duration_days
-        decay_constant_per_day, decay_notes = self._safe_decay_constant(half_life_days)
+        decay_constant_per_day, decay_notes = self._safe_decay_constant(temperature_corrected_half_life_days)
         effective_half_life_days: float | str
         loss_characteristic_time_days: float | str
         if decay_constant_per_day <= 1e-12:
@@ -237,9 +376,12 @@ class ReferenceMassBalancePlugin:
         )
         emitted_mass_to_elapsed_mg = release_rate_mg_per_day * active_emission_duration_days
         compartment_mass_at_elapsed_mg = raw_concentration * capacity_value
-        cumulative_degraded_mass_mg = max(
-            emitted_mass_to_elapsed_mg - compartment_mass_at_elapsed_mg,
-            0.0,
+        cumulative_degraded_mass_mg = self._cumulative_first_order_loss(
+            release_rate_mg_per_day=release_rate_mg_per_day,
+            total_loss_constant_per_day=decay_constant_per_day,
+            component_loss_constant_per_day=decay_constant_per_day,
+            emission_duration_days=scenario.duration_days,
+            elapsed_days=elapsed_days,
         )
         cumulative_advected_mass_mg = 0.0
         mass_balance_closure_error_mg = (
@@ -331,6 +473,37 @@ class ReferenceMassBalancePlugin:
                 "First-order decay constant used in the finite-duration screening calculation.",
             ),
         ]
+        if abs(scenario.temperature_c - effective_temperature_c) > 1e-12 or abs(
+            temperature_correction_factor - 1.0
+        ) > 1e-12:
+            assumptions.extend(
+                [
+                    self.provenance_builder.user_input(
+                        f"{medium.value}_scenario_temperature_c",
+                        scenario.temperature_c,
+                        "degC",
+                        "Scenario temperature supplied for governed degradation correction.",
+                    ),
+                    self.provenance_builder.derived(
+                        f"{medium.value}_effective_temperature_c",
+                        effective_temperature_c,
+                        "degC",
+                        "Effective temperature used after applying the governed correction range.",
+                    ),
+                    self.provenance_builder.derived(
+                        f"{medium.value}_temperature_correction_factor",
+                        temperature_correction_factor,
+                        "scalar",
+                        "Medium-specific governed Q10 factor applied to the declared degradation half-life.",
+                    ),
+                    self.provenance_builder.derived(
+                        f"{medium.value}_temperature_corrected_half_life_days",
+                        temperature_corrected_half_life_days,
+                        "day",
+                        "Declared half-life after governed temperature correction.",
+                    ),
+                ]
+            )
 
         if run_options.run_mode == RunMode.STEADY_STATE:
             time_window = TimeWindow(mode=RunMode.STEADY_STATE)
@@ -364,6 +537,26 @@ class ReferenceMassBalancePlugin:
                     name="capacity_value",
                     value=capacity_value,
                     unit="m3" if media_defaults.capacity_parameter.endswith("_volume_m3") else "kg",
+                ),
+                CalculationTraceTerm(
+                    name="declared_temperature_c",
+                    value=scenario.temperature_c,
+                    unit="degC",
+                ),
+                CalculationTraceTerm(
+                    name="effective_temperature_c",
+                    value=effective_temperature_c,
+                    unit="degC",
+                ),
+                CalculationTraceTerm(
+                    name="temperature_correction_factor",
+                    value=temperature_correction_factor,
+                    unit="scalar",
+                ),
+                CalculationTraceTerm(
+                    name="temperature_corrected_half_life_days",
+                    value=temperature_corrected_half_life_days,
+                    unit="day",
                 ),
                 CalculationTraceTerm(name="declared_half_life_days", value=half_life_days, unit="day"),
                 CalculationTraceTerm(
@@ -441,6 +634,7 @@ class ReferenceMassBalancePlugin:
             ],
             notes=[
                 "steady_state outputs represent end-of-duration screening concentration, not an infinite-time equilibrium.",
+                *temperature_notes,
                 *decay_notes,
                 (
                     "Water concentrations are converted from mg/m3 to mg/L by dividing the resolved screening "
@@ -463,6 +657,7 @@ class ReferenceMassBalancePlugin:
                         ),
                     ),
                 ]
+                + ([temperature_limitation] if temperature_limitation is not None else [])
                 + treatment_limitations
             ),
             scenario_id=scenario.scenario_id,

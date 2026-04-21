@@ -1,94 +1,6 @@
 {
   "schema_version": "v1",
-  "reconciled_scenario": {
-    "schema_version": "v1",
-    "scenario_id": "scenario-fd43b4b1c156",
-    "chemical_identity": {
-      "preferredName": "Example substance",
-      "casrn": "100-00-0"
-    },
-    "total_release_mass_kg": 11.0,
-    "release_fractions": [
-      {
-        "medium": "water",
-        "fraction": 0.6333333333333334
-      },
-      {
-        "medium": "soil",
-        "fraction": 0.36666666666666664
-      }
-    ],
-    "duration_days": 30.0,
-    "timing_pattern": "continuous",
-    "geographic_scope": {
-      "region_id": "eu_screening_default",
-      "context_label": "regional_screening",
-      "notes": null
-    },
-    "treatment_assumptions": [],
-    "parameter_records": [],
-    "evidence_sources": [
-      {
-        "source_id": "example.release.a",
-        "title": "Illustrative monitoring record A",
-        "effective_date": "2026-04-08",
-        "url": null
-      },
-      {
-        "source_id": "example.release.b",
-        "title": "Illustrative monitoring record B",
-        "effective_date": "2026-04-08",
-        "url": null
-      }
-    ],
-    "provenance": {
-      "schema_version": "v1",
-      "defaults_version": "v1",
-      "algorithm_version": "reference-mass-balance-0.1.0",
-      "generated_at": "2026-01-01T00:00:00.123456Z",
-      "source_references": [
-        {
-          "source_id": "example.release.a",
-          "title": "Illustrative monitoring record A",
-          "effective_date": "2026-04-08",
-          "url": null
-        },
-        {
-          "source_id": "example.release.b",
-          "title": "Illustrative monitoring record B",
-          "effective_date": "2026-04-08",
-          "url": null
-        }
-      ]
-    },
-    "temperature_c": 25.0,
-    "quality_flags": [
-      {
-        "code": "release_evidence_conflict",
-        "severity": "warning",
-        "message": "One or more release evidence fields remain in conflict after reconciliation."
-      },
-      {
-        "code": "low_confidence_release_evidence",
-        "severity": "warning",
-        "message": "Low-confidence release evidence contributed to reconciliation: monitoring_record_b"
-      }
-    ],
-    "limitations": [
-      {
-        "code": "region_profile",
-        "message": "Scenario uses region profile European regional screening default."
-      },
-      {
-        "code": "reconciliation_uses_means",
-        "message": "The reconciled screening scenario uses evidence-quality-weighted means across conflicting evidence inputs."
-      },
-      {
-        "code": "weighted_by_evidence_quality",
-        "message": "Reconciliation used evidence-quality weighting to reduce the influence of surrogate or heuristic inputs."
-      }
-    ]
-  },
+  "reconciled_scenario": null,
   "evidence_observations": [
     {
       "label": "monitoring_record_a",
@@ -227,12 +139,28 @@
       ]
     }
   ],
-  "vector_conflicts": [],
-  "unresolved_conflict_count": 3,
+  "vector_conflicts": [
+    {
+      "labels": [
+        "monitoring_record_a",
+        "monitoring_record_b"
+      ],
+      "cosine_similarity": 0.7241379310344828,
+      "threshold": 0.9,
+      "description": "Release-fraction vectors are too dissimilar to reconcile into a single screening scenario without destroying source scenario coherence.",
+      "semantic_mapping": null,
+      "observed_vectors": [
+        "monitoring_record_a: water=0.700, soil=0.300",
+        "monitoring_record_b: water=0.300, soil=0.700"
+      ]
+    }
+  ],
+  "unresolved_conflict_count": 4,
   "recommended_next_actions": [
     "Resolve competing release-mass estimates before higher-confidence or regulatory use.",
     "Resolve conflicting release-media allocations for: soil, water.",
-    "Replace low-confidence release evidence where possible: monitoring_record_b."
+    "Replace low-confidence release evidence where possible: monitoring_record_b.",
+    "Do not synthesize a blended screening scenario until release-vector conflicts are resolved."
   ],
   "provenance": {
     "schema_version": "v1",
@@ -264,6 +192,11 @@
       "code": "low_confidence_release_evidence",
       "severity": "warning",
       "message": "Low-confidence release evidence contributed to reconciliation: monitoring_record_b"
+    },
+    {
+      "code": "release_vector_conflict",
+      "severity": "warning",
+      "message": "Release-media vectors are too dissimilar for automatic blended-scenario reconciliation."
     }
   ],
   "limitations": [
@@ -274,6 +207,10 @@
     {
       "code": "weighted_by_evidence_quality",
       "message": "Reconciliation used evidence-quality weighting to reduce the influence of surrogate or heuristic inputs."
+    },
+    {
+      "code": "vector_reconciliation_blocked",
+      "message": "Automatic reconciled_scenario generation was blocked because release-media vectors were not sufficiently coherent."
     }
   ]
 }

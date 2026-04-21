@@ -27,6 +27,7 @@ If `target_modules` disagrees with the governed target module for the resolved p
 The tool `fate_summarize_regulatory_handoff_package` turns a governed handoff package into a deterministic, consumer-specific summary for downstream assessment and orchestration workflows.
 The tool `fate_build_regulatory_handoff_review_packet` bundles resolution preview, the governed handoff package, the deterministic summary, and any attached parameter-quality/applicability/uncertainty lines into one assessor-facing artifact for regulatory review workflows.
 Review packets now also carry governed profile-specific checklist items, and `fate_build_regulatory_handoff_review_brief` renders those into a stable assessor-facing brief for regulatory review and orchestration records.
+When a suite component already has normalized external JSON/CSV concentration payloads rather than native Environmental Fate MCP results, the public MCP import contract `fate_import_external_result_payload` can bring those payloads onto the canonical `external_result_adapter` path before review or handoff export.
 For review workflows that do not need a downstream handoff at all, Environmental Fate MCP also exposes `fate_build_scientific_review_packet` and `fate_build_scientific_review_brief` to bundle fit assessment, parameter provenance, uncertainty drivers, benchmark coverage lines, and sampled concentration surfaces directly around a scenario/result pair.
 For probabilistic scenario variants, Environmental Fate MCP also exposes `fate_estimate_probabilistic_multimedia_concentrations`, `fate_build_probabilistic_review_packet`, and `fate_build_probabilistic_review_brief` so percentile surfaces, sampled-driver context, failed-iteration reasons, and reproducibility metadata are reviewable without collapsing them back into deterministic artifacts.
 That scientific review path is now governed by model-family-specific review profiles exposed through `defaults://scientific-review-profiles`, and prompt templates are available so assessors or orchestrators can request the right scientific review workflow without hard-coding review language.
@@ -42,12 +43,48 @@ That dossier path reuses the governed challenge-review outcome and pairs it with
 For matched-scenario family challenges, Environmental Fate MCP now also exposes `fate_preview_model_family_comparison_review`, `fate_build_model_family_comparison_review_packet`, and `fate_build_model_family_comparison_review_brief` so assessors can review reference-versus-experimental family comparisons with governed checklist cues instead of only raw delta tables.
 MCP prompts are available for both profile-specific and consumer-specific request generation so orchestrators do not need to hard-code profile ids.
 
+## Checked-in cross-suite fixtures
+
+- `tests/fixtures/cross_suite/woe_ngra/fate_exposure_handoff.v1.1.0.json`
+  freezes the direct `Fate -> WoE` lane as concentration-only environmental
+  context.
+- That fixture preserves route hints, concentration units, typed upstream refs,
+  and explicit `requires_dose_translation` semantics without pretending the
+  handoff is already a human intake or dose estimate.
+- The same checked-in fixture now also serves as the upstream source of truth
+  for the sibling `Fate ambient_air -> Exposure -> WoE` and
+  `Fate ambient_air -> Exposure -> IVIVE -> WoE` fixtures.
+- Those downstream fixtures prove the suite can translate the `ambient_air`
+  concentration surface into a bounded inhalation external dose while keeping
+  the original Fate lineage visible.
+- The same checked-in fixture also now serves as the upstream source of truth
+  for the sibling `Fate surface_water -> Exposure -> WoE` and
+  `Fate surface_water -> Exposure -> IVIVE -> WoE` fixtures.
+- Those downstream fixtures prove the suite can translate the `surface_water`
+  concentration surface into a bounded environmental oral screening dose while
+  keeping the original Fate lineage visible and the `environmental_media`
+  context explicit.
+- The same checked-in fixture now also serves as the upstream source of truth
+  for the sibling `Fate agricultural_soil -> Exposure -> WoE` and
+  `Fate agricultural_soil -> Exposure -> IVIVE -> WoE` fixtures.
+- Those downstream fixtures prove the suite can translate the `agricultural_soil`
+  concentration surface into a bounded environmental oral screening dose while
+  keeping the original Fate lineage visible, the `environmental_media` context
+  explicit, and crop-uptake semantics unresolved.
+
 ## Environmental-media oral seam
 
-Environmental-media oral intake from water or soil is intentionally left as a future seam.
-Environmental Fate MCP should stop at `concentration_surface` and other concentration-only handoff packages.
-Any later human oral intake calculation belongs in a downstream concentration-to-intake consumer,
-and only belongs in Dietary MCP when food-mediated consumption semantics apply.
+Environmental-media oral intake from water or soil is intentionally not treated as a native Fate
+dose workflow.
+Environmental Fate MCP should stop at `concentration_surface` and other concentration-only handoff
+packages.
+The first bounded downstream oral seam now exists for `surface_water`, where Exposure MCP acts as
+an explicit concentration-to-intake consumer with transparent drinking-water screening assumptions.
+The second bounded downstream oral seam now exists for `agricultural_soil`, where Exposure MCP acts
+as an explicit concentration-to-intake consumer with transparent soil-ingestion screening assumptions.
+Crop-uptake translation remains future work, and any later human oral intake calculation still
+belongs in a downstream consumer rather than Environmental Fate MCP itself.
+Dietary MCP only becomes appropriate when food-mediated consumption semantics apply.
 
 ## Herbal and supplement routing
 

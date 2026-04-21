@@ -13,6 +13,26 @@
       "unit": "m3"
     },
     {
+      "name": "declared_temperature_c",
+      "value": 25.0,
+      "unit": "degC"
+    },
+    {
+      "name": "effective_temperature_c",
+      "value": 25.0,
+      "unit": "degC"
+    },
+    {
+      "name": "temperature_correction_factor",
+      "value": 1.0,
+      "unit": "scalar"
+    },
+    {
+      "name": "temperature_corrected_half_life_days",
+      "value": 2.0,
+      "unit": "day"
+    },
+    {
       "name": "declared_half_life_days",
       "value": 2.0,
       "unit": "day"

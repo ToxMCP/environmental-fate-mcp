@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 from collections import defaultdict
 from dataclasses import dataclass
@@ -79,6 +80,28 @@ class MediaDefaults:
 
 
 @dataclass(frozen=True)
+class TemperatureCorrectionPolicy:
+    reference_temperature_c: float
+    minimum_supported_temperature_c: float
+    maximum_supported_temperature_c: float
+    degradation_q10_by_medium: dict[Media, float]
+    correction_strategy: str
+    applicability_note: str | None = None
+
+    def clamp_temperature(self, temperature_c: float) -> float:
+        return min(
+            max(temperature_c, self.minimum_supported_temperature_c),
+            self.maximum_supported_temperature_c,
+        )
+
+
+@dataclass(frozen=True)
+class ProbabilisticReviewPolicy:
+    minimum_completed_iterations_for_percentiles: int
+    max_failed_iteration_fraction_for_ready_review: float
+
+
+@dataclass(frozen=True)
 class AdapterConcentrationNormalization:
     value: float
     unit: str
@@ -96,11 +119,14 @@ class AdapterConcentrationNormalization:
 
 
 class DefaultsRegistry:
-    def __init__(self, repo_root: Path) -> None:
+    def __init__(self, repo_root: Path, verify_defaults_manifest: bool = True) -> None:
         self.repo_root = repo_root
         self.defaults_root = repo_root / "defaults"
         self.version_root = self.defaults_root / DEFAULTS_VERSION
         self.extensions_root = self.defaults_root / "extensions"
+        self.verify_defaults_manifest = verify_defaults_manifest
+        if verify_defaults_manifest:
+            self._verify_manifest()
         self.core_defaults = _load_json(self.version_root / "core_defaults.json")
         self.physchem_parameter_policies = _load_json(
             self.version_root / "physchem_parameter_policies.json"
@@ -136,6 +162,48 @@ class DefaultsRegistry:
         self.reconciliation_thresholds = _load_json(
             self.version_root / "reconciliation_thresholds.json"
         )
+
+    def _verify_manifest(self) -> None:
+        manifest_path = self.defaults_root / "manifest.json"
+        if not manifest_path.exists():
+            raise FateRegistryError(
+                code="missing_defaults_manifest",
+                message="Defaults manifest is missing and cannot be verified at load time.",
+                suggestion=(
+                    "Regenerate defaults artifacts or disable verify_defaults_manifest only while "
+                    "rewriting governed defaults files."
+                ),
+            )
+        manifest_payload = _load_json(manifest_path)
+        failures: list[str] = []
+        for entry in manifest_payload.get("files", []):
+            relative_path = entry.get("path")
+            expected_sha = entry.get("sha256")
+            if not relative_path or not expected_sha:
+                failures.append("defaults manifest contains an entry without path/sha256 metadata")
+                continue
+            target_path = self.repo_root / relative_path
+            if not target_path.exists():
+                failures.append(f"{relative_path}: file listed in defaults manifest is missing")
+                continue
+            actual_sha = _sha256(target_path)
+            if actual_sha != expected_sha:
+                failures.append(
+                    f"{relative_path}: sha256 mismatch (expected {expected_sha}, got {actual_sha})"
+                )
+        if failures:
+            raise FateRegistryError(
+                code="defaults_manifest_verification_failed",
+                message="Defaults manifest verification failed at load time.",
+                suggestion=(
+                    "Regenerate defaults artifacts after updating governed JSON files, or disable "
+                    "verify_defaults_manifest only inside artifact regeneration flows."
+                ),
+                details={
+                    "failureCount": len(failures),
+                    "failures": failures,
+                },
+            )
 
     def _resolve_parameter_policy_payload(self, parameter: str) -> tuple[dict[str, Any], str | None] | None:
         payload = self.physchem_parameter_policies["parameters"].get(parameter)
@@ -181,13 +249,27 @@ class DefaultsRegistry:
         value = self.parameter_record(parameter)["value"]
         return float(value)
 
-    def parameter_source_reference(self, parameter: str) -> SourceReference:
+    def parameter_source_references(self, parameter: str) -> list[SourceReference]:
         record = self.parameter_record(parameter)
-        return SourceReference(
-            source_id=record["sourceId"],
-            title=record["title"],
-            effective_date=record.get("effectiveDate"),
-        )
+        source_references = record.get("sourceReferences", [])
+        if source_references:
+            return [SourceReference(**item) for item in source_references]
+        return [
+            SourceReference(
+                source_id=record["sourceId"],
+                title=record["title"],
+                effective_date=record.get("effectiveDate"),
+            )
+        ]
+
+    def parameter_source_reference(self, parameter: str) -> SourceReference:
+        return self.parameter_source_references(parameter)[0]
+
+    def parameter_evidence_tier(self, parameter: str) -> str | None:
+        return self.parameter_record(parameter).get("evidenceTier")
+
+    def parameter_derivation_metadata(self, parameter: str) -> dict[str, Any]:
+        return dict(self.parameter_record(parameter).get("derivationMetadata", {}))
 
     def media_defaults(self, medium: Media) -> MediaDefaults:
         try:
@@ -206,6 +288,32 @@ class DefaultsRegistry:
             unit=entry["unit"],
         )
 
+    def temperature_correction_policy(self) -> TemperatureCorrectionPolicy:
+        payload = self.core_defaults["temperatureCorrectionPolicy"]
+        degradation_q10_by_medium = {
+            Media(key): float(value)
+            for key, value in payload["degradationQ10ByMedium"].items()
+        }
+        return TemperatureCorrectionPolicy(
+            reference_temperature_c=float(payload["referenceTemperatureC"]),
+            minimum_supported_temperature_c=float(payload["minimumSupportedTemperatureC"]),
+            maximum_supported_temperature_c=float(payload["maximumSupportedTemperatureC"]),
+            degradation_q10_by_medium=degradation_q10_by_medium,
+            correction_strategy=payload["correctionStrategy"],
+            applicability_note=payload.get("applicabilityNote"),
+        )
+
+    def probabilistic_review_policy(self) -> ProbabilisticReviewPolicy:
+        payload = self.core_defaults["probabilisticReviewPolicy"]
+        return ProbabilisticReviewPolicy(
+            minimum_completed_iterations_for_percentiles=int(
+                payload["minimumCompletedIterationsForPercentiles"]
+            ),
+            max_failed_iteration_fraction_for_ready_review=float(
+                payload["maxFailedIterationFractionForReadyReview"]
+            ),
+        )
+
     def get_region_profile(self, region_id: str) -> dict[str, Any]:
         for profile in self.region_profiles["profiles"]:
             if profile["regionId"] == region_id:
@@ -219,13 +327,31 @@ class DefaultsRegistry:
     def region_scalar(self, region_id: str, compartment: Compartment) -> float:
         profile = self.get_region_profile(region_id)
         try:
-            return float(profile["compartmentScalars"][compartment.value])
+            scalar = float(profile["compartmentScalars"][compartment.value])
         except KeyError as exc:
             raise FateRegistryError(
                 code="unsupported_region_compartment",
                 message=f"Region profile {region_id} does not define {compartment.value}",
                 suggestion="Choose a compatible region profile or add an extension pack.",
             ) from exc
+        if not math.isfinite(scalar) or scalar <= 0.0:
+            raise FateRegistryError(
+                code="invalid_region_scalar",
+                message=(
+                    f"Region profile {region_id} defines non-physical scalar {scalar} "
+                    f"for compartment {compartment.value}."
+                ),
+                suggestion=(
+                    "Use a finite positive compartment scalar in defaults/v1/region_profiles.json "
+                    "or the relevant extension pack."
+                ),
+                details={
+                    "regionId": region_id,
+                    "compartment": compartment.value,
+                    "scalar": scalar,
+                },
+            )
+        return scalar
 
     def reconciliation_threshold(self, name: str) -> float:
         try:
@@ -397,6 +523,8 @@ class DefaultsRegistry:
             core_assumptions=payload.get("coreAssumptions", []),
             deferred_capabilities=payload.get("deferredCapabilities", []),
             review_notes=payload.get("reviewNotes", []),
+            fit_score_threshold=float(payload.get("fitScoreThreshold", 0.75)),
+            fit_score_penalties=payload.get("fitScorePenalties", {}),
             source_pack=f"defaults/{DEFAULTS_VERSION}/model_family_applicability_profiles.json",
             applicability_note=payload.get("applicabilityNote"),
         )
@@ -437,6 +565,18 @@ class DefaultsRegistry:
             reference_case_ids=payload.get("referenceCaseIds", []),
             methods_basis_lines=payload.get("methodsBasisLines", []),
             reference_case_lines=payload.get("referenceCaseLines", []),
+            corroboration_status=payload.get("corroborationStatus", "none"),
+            official_source_count=int(payload.get("officialSourceCount", 0)),
+            jurisdiction_breadth=payload.get("jurisdictionBreadth", "none"),
+            independent_evidence_families=payload.get("independentEvidenceFamilies", []),
+            evidence_family=payload.get("evidenceFamily"),
+            official_source_ids=payload.get("officialSourceIds", []),
+            worksheet_artifact_path=payload.get("worksheetArtifactPath"),
+            expected_output_artifact_path=payload.get("expectedOutputArtifactPath"),
+            worksheet_status=payload.get("worksheetStatus"),
+            last_reviewed_date=payload.get("lastReviewedDate"),
+            tolerance_basis=payload.get("toleranceBasis"),
+            next_corroboration_action=payload.get("nextCorroborationAction"),
             review_notes=payload.get("reviewNotes", []),
             plugin_code_references=payload.get("pluginCodeReferences", []),
             source_pack=f"defaults/{DEFAULTS_VERSION}/scientific_validation_claims.json",
@@ -478,6 +618,9 @@ class DefaultsRegistry:
             model_families=payload.get("modelFamilies", []),
             jurisdictions=payload.get("jurisdictions", []),
             source_type=payload["sourceType"],
+            evidence_family=payload.get("evidenceFamily"),
+            official_source_ids=payload.get("officialSourceIds", []),
+            last_reviewed_date=payload.get("lastReviewedDate"),
             summary_lines=payload.get("summaryLines", []),
             applicability_lines=payload.get("applicabilityLines", []),
             source_references=[SourceReference(**item) for item in payload.get("sourceReferences", [])],

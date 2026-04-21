@@ -8,6 +8,12 @@
     "EU"
   ],
   "source_type": "official_guidance_case_family",
+  "evidence_family": "official_guidance_case_family",
+  "official_source_ids": [
+    "echa.guidance.ircsa",
+    "echa.euses"
+  ],
+  "last_reviewed_date": "2026-04-21",
   "summary_lines": [
     "This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
     "It is used as a screening reference family for residence-time and bounded-clearance reasoning, not as a claim that Fate MCP implements EUSES directly."

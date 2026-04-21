@@ -422,16 +422,40 @@
           "type": "number"
         },
         "p90_value": {
-          "title": "P90 Value",
-          "type": "number"
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "P90 Value"
         },
         "p95_value": {
-          "title": "P95 Value",
-          "type": "number"
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "P95 Value"
         },
         "absolute_p95_minus_median": {
-          "title": "Absolute P95 Minus Median",
-          "type": "number"
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Absolute P95 Minus Median"
         }
       },
       "required": [
@@ -439,10 +463,7 @@
         "medium",
         "compartment",
         "concentration_unit",
-        "median_value",
-        "p90_value",
-        "p95_value",
-        "absolute_p95_minus_median"
+        "median_value"
       ],
       "title": "ProbabilisticSurfaceSummary",
       "type": "object"

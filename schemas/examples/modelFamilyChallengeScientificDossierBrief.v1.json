@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "dossier_id": "mfscidossier-1d1dc3e92d11",
+  "dossier_id": "mfscidossier-906200fdf97b",
   "scenario_id": "scenario-306863db9176",
   "run_mode": "steady_state",
   "fit_for_purpose": "screening",
@@ -14,10 +14,10 @@
   "comparison_outcome": "material_model_family_divergence",
   "primary_review_outcome": "qualified_screening_use",
   "challenge_review_outcome": "qualified_screening_use",
-  "primary_passed_check_count": 5,
-  "primary_total_check_count": 5,
-  "challenge_passed_check_count": 5,
-  "challenge_total_check_count": 5,
+  "primary_passed_check_count": 7,
+  "primary_total_check_count": 7,
+  "challenge_passed_check_count": 7,
+  "challenge_total_check_count": 7,
   "summary_lines": [
     "Summarize the governed model-family challenge path together with the baseline and optional challenge-family scientific review outcomes.",
     "Build a composed scientific dossier that couples the governed model-family challenge review path with model-family-specific scientific review packets.",
@@ -53,8 +53,9 @@
     "Keep the comparison in assessor-facing attention status until the governed divergence, experimental-family, or packet-check concerns are resolved.",
     "Keep the composed model-family challenge review in assessor-facing attention status until the governed selection-review or comparison-review concerns are resolved.",
     "Carry the qualification notes and limitation lines forward in assessor-facing summaries.",
-    "Consider a richer model family if intermedia dynamics are central to the decision context.",
+    "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
     "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+    "Consider a richer model family if intermedia dynamics are central to the decision context.",
     "Do not treat preserved-only parameters as if they were actively modeled by the runtime.",
     "Consider a richer model family if spatial hydrodynamics or intermedia exchange dominate the decision context."
   ],
@@ -108,6 +109,14 @@
       "message": "Reference plugin is deterministic and screening-oriented."
     },
     {
+      "code": "screening_model",
+      "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+    },
+    {
+      "code": "finite_duration_screening_kernel",
+      "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+    },
+    {
       "code": "preserved_only_parameters",
       "message": "Some scenario parameters are preserved for provenance and assessor review but are not consumed by the current runtime."
     },
@@ -124,8 +133,20 @@
       "message": "Some runtime outputs depend on curated defaults rather than scenario-specific measurements."
     },
     {
+      "code": "scientific_review_screening_only",
+      "message": "Scientific review packet summarizes screening-oriented methods support only and is not a statement of regulator acceptance or submission approval."
+    },
+    {
       "code": "screening_model",
       "message": "Advective screening plugin is deterministic and screening-oriented."
+    },
+    {
+      "code": "screening_model",
+      "message": "Advective screening plugin adds first-order advective clearance but does not model spatial gradients or explicit intermedia transfer coefficients."
+    },
+    {
+      "code": "advective_screening_kernel",
+      "message": "Advective_screening_mass_balance uses deterministic finite-duration first-order screening math with degradation plus advective clearance within one compartment per medium."
     }
   ]
 }

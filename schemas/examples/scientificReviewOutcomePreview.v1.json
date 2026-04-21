@@ -8,12 +8,13 @@
   "review_status": "scientific_review_attention_needed",
   "triggered_fit_verdicts": [],
   "triggered_driver_types": [
+    "default_heavy_parameter",
     "multi_medium_simplification_burden",
     "unsupported_runtime_parameter"
   ],
   "triggered_check_codes": [],
   "governing_rule_lines": [
-    "Qualification driver types present: multi_medium_simplification_burden, unsupported_runtime_parameter.",
+    "Qualification driver types present: default_heavy_parameter, multi_medium_simplification_burden, unsupported_runtime_parameter.",
     "Warning-severity drivers promote qualification under the governed review profile."
   ],
   "status_rule_lines": [
@@ -25,8 +26,9 @@
   ],
   "recommended_actions": [
     "Carry the qualification notes and limitation lines forward in assessor-facing summaries.",
-    "Consider a richer model family if intermedia dynamics are central to the decision context.",
+    "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
     "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+    "Consider a richer model family if intermedia dynamics are central to the decision context.",
     "Do not treat preserved-only parameters as if they were actively modeled by the runtime."
   ]
 }

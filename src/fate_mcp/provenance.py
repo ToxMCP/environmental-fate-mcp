@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
-
+from fate_mcp.compat import UTC, datetime
 from fate_mcp.defaults import DefaultsRegistry
 from fate_mcp.models import (
     FateAssumptionRecord,

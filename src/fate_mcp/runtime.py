@@ -74,10 +74,18 @@ class PluginRegistry:
 
 
 class FateRuntime:
-    def __init__(self, repo_root: Path, strict_mode: bool = False) -> None:
+    def __init__(
+        self,
+        repo_root: Path,
+        strict_mode: bool = False,
+        verify_defaults_manifest: bool = True,
+    ) -> None:
         self.repo_root = repo_root
         self.strict_mode = strict_mode
-        self.defaults = DefaultsRegistry(repo_root)
+        self.defaults = DefaultsRegistry(
+            repo_root,
+            verify_defaults_manifest=verify_defaults_manifest,
+        )
         self.provenance = ProvenanceBuilder(self.defaults)
         self.plugins = PluginRegistry()
         self.plugins.register(ReferenceMassBalancePlugin(self.defaults, self.provenance))
@@ -92,6 +100,7 @@ class FateRuntime:
         request: BuildEnvironmentalReleaseScenarioRequest,
     ) -> EnvironmentalReleaseScenario:
         region_profile = self.defaults.get_region_profile(request.region_id)
+        temperature_policy = self.defaults.temperature_correction_policy()
         quality_flags = []
         limitations = [
             LimitationNote(
@@ -99,6 +108,16 @@ class FateRuntime:
                 message=f"Scenario uses region profile {region_profile['displayName']}.",
             )
         ]
+        if "substance_class" not in request.chemical_identity:
+            limitations.append(
+                LimitationNote(
+                    code="missing_substance_class",
+                    message=(
+                        "Scenario chemical_identity does not declare substance_class; scientific "
+                        "applicability will remain review-needed until substance scope is explicit."
+                    ),
+                )
+            )
         if sum(item.fraction for item in request.release_fractions) < 1.0:
             quality_flags.append(
                 QualityFlag(
@@ -107,21 +126,37 @@ class FateRuntime:
                     message="Release fractions sum to less than 1.0; unallocated mass is intentionally left outside scoped media.",
                 )
             )
-        if request.temperature_c != 25.0:
-            temp_message = (
-                f"Scenario temperature is {request.temperature_c} °C, but "
-                "temperature-dependent correction of degradation and advection parameters is not yet implemented. "
-                "Results reflect isothermal 25 °C assumptions."
-            )
-            if self.strict_mode:
+        if request.temperature_c != temperature_policy.reference_temperature_c:
+            if (
+                request.temperature_c < temperature_policy.minimum_supported_temperature_c
+                or request.temperature_c > temperature_policy.maximum_supported_temperature_c
+            ):
+                temp_message = (
+                    f"Scenario temperature is {request.temperature_c} °C, which falls outside the governed "
+                    f"{temperature_policy.minimum_supported_temperature_c:.1f} to "
+                    f"{temperature_policy.maximum_supported_temperature_c:.1f} °C correction range. "
+                    "Non-strict execution clamps degradation correction to the nearest supported boundary."
+                )
+                limitation_code = "temperature_correction_clamped_to_governed_range"
+            else:
+                temp_message = (
+                    f"Scenario temperature is {request.temperature_c} °C. Degradation half-lives will be "
+                    f"corrected from the governed {temperature_policy.reference_temperature_c:.1f} °C "
+                    "reference during execution using medium-specific Q10 factors."
+                )
+                limitation_code = "temperature_correction_governed"
+            if self.strict_mode and limitation_code == "temperature_correction_clamped_to_governed_range":
                 raise FateValidationError(
-                    code="temperature_correction_not_implemented",
+                    code=limitation_code,
                     message=temp_message,
-                    suggestion="Use 25 °C or disable strict_mode.",
+                    suggestion=(
+                        "Use a temperature inside the governed correction range or disable strict_mode "
+                        "for boundary-clamped screening."
+                    ),
                 )
             limitations.append(
                 LimitationNote(
-                    code="temperature_correction_not_implemented",
+                    code=limitation_code,
                     message=temp_message,
                 )
             )
@@ -177,7 +212,7 @@ class FateRuntime:
                 message="Probabilistic orchestration requires at least one iteration.",
                 suggestion="Set iterations to a positive integer.",
             )
-        
+        probabilistic_policy = self.defaults.probabilistic_review_policy()
         plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)
         
         rng = random.Random(seed) if seed is not None else random.Random()
@@ -269,6 +304,10 @@ class FateRuntime:
             )
             
         # Aggregate
+        percentiles_available = (
+            completed_iterations
+            >= probabilistic_policy.minimum_completed_iterations_for_percentiles
+        )
         median_surfaces = []
         p90_surfaces = []
         p95_surfaces = []
@@ -280,13 +319,16 @@ class FateRuntime:
             vals.sort()
             
             med_val = statistics.median(vals)
-            if len(vals) >= 2:
+            if percentiles_available and len(vals) >= 2:
                 quantiles = statistics.quantiles(vals, n=100, method='inclusive')
                 p90_val = quantiles[89]
                 p95_val = quantiles[94]
-            else:
+            elif percentiles_available:
                 p90_val = vals[0]
                 p95_val = vals[0]
+            else:
+                p90_val = None
+                p95_val = None
             
             base = surfaces[0]
             median_surfaces.append(
@@ -296,20 +338,22 @@ class FateRuntime:
                     percentile_label="median",
                 )
             )
-            p90_surfaces.append(
-                self._build_aggregated_surface_copy(
-                    base=base,
-                    concentration_value=p90_val,
-                    percentile_label="p90",
+            if p90_val is not None:
+                p90_surfaces.append(
+                    self._build_aggregated_surface_copy(
+                        base=base,
+                        concentration_value=p90_val,
+                        percentile_label="p90",
+                    )
                 )
-            )
-            p95_surfaces.append(
-                self._build_aggregated_surface_copy(
-                    base=base,
-                    concentration_value=p95_val,
-                    percentile_label="p95",
+            if p95_val is not None:
+                p95_surfaces.append(
+                    self._build_aggregated_surface_copy(
+                        base=base,
+                        concentration_value=p95_val,
+                        percentile_label="p95",
+                    )
                 )
-            )
             
             surface_summaries.append(
                 ProbabilisticSurfaceSummary(
@@ -320,7 +364,9 @@ class FateRuntime:
                     median_value=med_val,
                     p90_value=p90_val,
                     p95_value=p95_val,
-                    absolute_p95_minus_median=p95_val - med_val,
+                    absolute_p95_minus_median=(
+                        None if p95_val is None else p95_val - med_val
+                    ),
                 )
             )
 
@@ -329,6 +375,64 @@ class FateRuntime:
             for _, serialized_records in sorted(aggregated_assumptions_by_parameter.items())
             if len(serialized_records) == 1
         ]
+
+        failed_iteration_fraction = failed_iterations / iterations if iterations else 0.0
+        runtime_warnings = [
+            QualityFlag.model_validate_json(w)
+            for w in sorted(aggregated_warnings)
+        ]
+        uncertainty_limitation_lines = [
+            "Probabilistic orchestration completed with governed distribution sampling and percentile aggregation.",
+            "dominant_uncertainty_drivers enumerates sampled parameters only; formal sensitivity ranking is not yet implemented.",
+            "run_summary.assumptions_applied preserves invariant assumptions only; iteration-varying sampled and derived assumptions are not expanded verbatim.",
+        ]
+        if failed_iterations > 0:
+            runtime_warnings.append(
+                QualityFlag(
+                    code="probabilistic_iteration_failures_present",
+                    severity=Severity.WARNING,
+                    message=(
+                        f"{failed_iterations} of {iterations} probabilistic iterations failed; "
+                        "review packets must treat percentile outputs as truncated-to-successful-runs."
+                    ),
+                )
+            )
+            uncertainty_limitation_lines.append(
+                f"{failed_iterations} of {iterations} iterations failed; completed iterations only were used for any percentile aggregation."
+            )
+        if not percentiles_available:
+            runtime_warnings.append(
+                QualityFlag(
+                    code="probabilistic_percentiles_suppressed",
+                    severity=Severity.WARNING,
+                    message=(
+                        f"P90/P95 were suppressed because only {completed_iterations} completed iterations "
+                        f"were available, below the governed minimum of "
+                        f"{probabilistic_policy.minimum_completed_iterations_for_percentiles}."
+                    ),
+                )
+            )
+            uncertainty_limitation_lines.append(
+                f"P90/P95 were suppressed because completed iterations ({completed_iterations}) remained below the governed minimum ({probabilistic_policy.minimum_completed_iterations_for_percentiles})."
+            )
+        if (
+            failed_iteration_fraction
+            > probabilistic_policy.max_failed_iteration_fraction_for_ready_review
+        ):
+            runtime_warnings.append(
+                QualityFlag(
+                    code="probabilistic_failed_iteration_fraction_exceeds_ready_threshold",
+                    severity=Severity.WARNING,
+                    message=(
+                        f"Failed iteration fraction {failed_iteration_fraction:.1%} exceeds the governed "
+                        f"ready-review threshold of "
+                        f"{probabilistic_policy.max_failed_iteration_fraction_for_ready_review:.0%}."
+                    ),
+                )
+            )
+            uncertainty_limitation_lines.append(
+                f"Failed iteration fraction {failed_iteration_fraction:.1%} exceeds the governed ready-review threshold of {probabilistic_policy.max_failed_iteration_fraction_for_ready_review:.0%}."
+            )
 
         return ProbabilisticConcentrationResult(
             median_surfaces=median_surfaces,
@@ -341,11 +445,7 @@ class FateRuntime:
             sampling_seed=seed,
             sampled_parameter_count=len(dist_params),
             dominant_uncertainty_drivers=sorted(p.parameter for p in dist_params),
-            uncertainty_limitation_lines=[
-                "Probabilistic orchestration completed with governed distribution sampling and percentile aggregation.",
-                "dominant_uncertainty_drivers enumerates sampled parameters only; formal sensitivity ranking is not yet implemented.",
-                "run_summary.assumptions_applied preserves invariant assumptions only; iteration-varying sampled and derived assumptions are not expanded verbatim.",
-            ],
+            uncertainty_limitation_lines=uncertainty_limitation_lines,
             run_summary=ProbabilisticRunSummary(
                 scenario_id=scenario.scenario_id,
                 model_family=run_options.model_family,
@@ -353,10 +453,7 @@ class FateRuntime:
                 surfaces_emitted=len(surface_summaries),
                 assumptions_applied=invariant_assumption_records,
                 escalation_concerns=run_options.escalation_concerns,
-                warnings=[
-                    QualityFlag.model_validate_json(w)
-                    for w in sorted(aggregated_warnings)
-                ],
+                warnings=runtime_warnings,
                 failed_iteration_reasons=dict(sorted(failed_iteration_reasons.items())),
                 result_metadata=ResultMetadata.completed(result_id=f"result-{scenario.scenario_id}-prob"),
             )

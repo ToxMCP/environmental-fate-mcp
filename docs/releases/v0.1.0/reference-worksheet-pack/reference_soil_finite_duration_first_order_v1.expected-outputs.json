@@ -1,0 +1,46 @@
+{
+  "claimId": "reference_soil_finite_duration_first_order_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference soil finite-duration first-order screening equation",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "unit": "mg/kg",
+          "value": 0.07213475204444818
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_soil_capacity_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "unit": "mg/kg",
+          "value": 0.0028853900817779267
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "terms": {
+            "cumulative_degraded_mass_mg": 2786524.795555182,
+            "decay_constant_per_day": 0.023104906018664842,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 1.862645149230957e-09
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "soil_reference_chemical_style_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.1.0"
+}

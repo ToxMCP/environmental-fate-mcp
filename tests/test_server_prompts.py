@@ -1,9 +1,17 @@
 import asyncio
+import json
 from pathlib import Path
 
 import pytest
 
-from fate_mcp.server import create_server, schema_resource, example_resource, docs_resource
+from fate_mcp.server import (
+    create_server,
+    docs_manifest_resource,
+    docs_resource,
+    example_resource,
+    release_resource_manifest,
+    schema_resource,
+)
 
 
 def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
@@ -20,7 +28,12 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "fate_review_model_family_comparison_for_profile" in names
         assert "fate_request_scientific_review_for_model_family" in names
         assert "fate_summarize_scientific_review_for_model_family" in names
+        assert "fate_summarize_run_trust_for_model_family" in names
         assert "fate_review_scientific_methods_for_model_family" in names
+        assert "fate_review_release_trust_for_screening" in names
+        assert "fate_review_reference_family_proof_for_screening" in names
+        assert "fate_review_advective_promotion_bar" in names
+        assert "fate_request_external_result_import" in names
         assert "fate_request_regulatory_handoff_for_profile" in names
         assert "fate_request_regulatory_handoff_for_consumer" in names
         assert "fate_summarize_regulatory_handoff_for_profile" in names
@@ -121,6 +134,22 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "external_result_adapter" in scientific_summary_text
         assert "fate_build_scientific_review_brief" in scientific_summary_text
 
+        run_trust_prompt = await server.get_prompt(
+            "fate_summarize_run_trust_for_model_family",
+            {
+                "model_family": "reference_mass_balance",
+                "review_goal": "compact run-level trust check",
+            },
+        )
+        run_trust_text = run_trust_prompt.messages[0].content.text
+        assert "compact run-level trust check" in run_trust_text
+        assert "reference_mass_balance" in run_trust_text
+        assert "fate_build_run_scientific_trust_brief" in run_trust_text
+        assert "\"scenario\": \"<EnvironmentalReleaseScenario>\"" in run_trust_text
+        assert "\"result\": \"<ConcentrationEstimationResult>\"" in run_trust_text
+        assert "fate_build_scientific_review_packet" in run_trust_text
+        assert "fate_build_scientific_review_brief" in run_trust_text
+
         scientific_methods_prompt = await server.get_prompt(
             "fate_review_scientific_methods_for_model_family",
             {"model_family": "advective_screening_mass_balance"},
@@ -129,6 +158,63 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "advective_screening_mass_balance" in scientific_methods_text
         assert "fate_build_scientific_methods_dossier" in scientific_methods_text
         assert "fate_build_scientific_methods_dossier_brief" in scientific_methods_text
+
+        release_trust_prompt = await server.get_prompt(
+            "fate_review_release_trust_for_screening",
+            {"review_goal": "external reviewer trust check"},
+        )
+        release_trust_text = release_trust_prompt.messages[0].content.text
+        assert "external reviewer trust check" in release_trust_text
+        assert "docs://scientific-trust-brief" in release_trust_text
+        assert "docs://scientific-trust-pack" in release_trust_text
+        assert "release://defaults-rebaseline-report" in release_trust_text
+        assert "release://reference-corroboration-report" in release_trust_text
+        assert "release://reference-worksheet-manifest" in release_trust_text
+        assert "release://advective-promotion-bar-report" in release_trust_text
+        assert "release://external-corroboration-report" in release_trust_text
+        assert "release://red-team-review-report" in release_trust_text
+        assert "release://readiness-report" in release_trust_text
+        assert "release://resource-manifest" in release_trust_text
+        assert "docs://manifest" in release_trust_text
+        assert "bounded screening" in release_trust_text
+
+        reference_proof_prompt = await server.get_prompt(
+            "fate_review_reference_family_proof_for_screening",
+            {"review_goal": "reference proof deep dive"},
+        )
+        reference_proof_text = reference_proof_prompt.messages[0].content.text
+        assert "reference proof deep dive" in reference_proof_text
+        assert "reference_mass_balance" in reference_proof_text
+        assert "docs://reference-proof-brief" in reference_proof_text
+        assert "release://reference-corroboration-report" in reference_proof_text
+        assert "release://reference-worksheet-manifest" in reference_proof_text
+        assert "release://defaults-rebaseline-report" in reference_proof_text
+        assert "fate_build_scientific_methods_dossier" in reference_proof_text
+        assert "bounded screening" in reference_proof_text
+
+        advective_bar_prompt = await server.get_prompt(
+            "fate_review_advective_promotion_bar",
+            {"review_goal": "advective challenge governance review"},
+        )
+        advective_bar_text = advective_bar_prompt.messages[0].content.text
+        assert "advective challenge governance review" in advective_bar_text
+        assert "advective_screening_mass_balance" in advective_bar_text
+        assert "docs://advective-promotion-brief" in advective_bar_text
+        assert "release://advective-promotion-bar-report" in advective_bar_text
+        assert "release://reference-corroboration-report" in advective_bar_text
+        assert "fate_build_scientific_methods_dossier" in advective_bar_text
+        assert "experimental" in advective_bar_text
+
+        external_import_prompt = await server.get_prompt(
+            "fate_request_external_result_import",
+            {
+                "import_profile_id": "normalized_external_payload_json",
+                "import_goal": "external fixture normalization",
+            },
+        )
+        external_import_text = external_import_prompt.messages[0].content.text
+        assert "normalized_external_payload_json" in external_import_text
+        assert "fate_import_external_result_payload" in external_import_text
 
         request_prompt = await server.get_prompt(
             "fate_request_regulatory_handoff_for_profile",
@@ -189,6 +275,55 @@ def test_docs_resource_rejects_unknown_name() -> None:
         docs_resource("../../../etc/passwd")
 
 
+def test_new_docs_resources_are_available() -> None:
+    cookbook = docs_resource("workflow-cookbook")
+    assert "Basic Deterministic Screening" in cookbook
+    external_contract = docs_resource("external-payload-contract")
+    assert "normalized external payload import" in external_contract
+    agent_evals = docs_resource("agent-evaluations")
+    assert "read-only evaluation pack" in agent_evals
+    defaults_evidence = docs_resource("defaults-evidence-map")
+    assert "Defaults Evidence Map" in defaults_evidence
+    quick_start = docs_resource("regulatory-quick-start")
+    assert "When Not To Use This MCP" in quick_start
+    trust_brief = docs_resource("scientific-trust-brief")
+    assert "Scientific Trust Brief" in trust_brief
+    trust_pack = docs_resource("scientific-trust-pack")
+    assert "Scientific Trust Pack" in trust_pack
+    reference_proof = docs_resource("reference-proof-brief")
+    assert "Reference Proof Brief" in reference_proof
+    advective_promotion = docs_resource("advective-promotion-brief")
+    assert "Advective Promotion Brief" in advective_promotion
+
+
+def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
+    docs_manifest = json.loads(docs_manifest_resource())
+    doc_names = {item["name"] for item in docs_manifest["docs"]}
+    assert "defaults-evidence-map" in doc_names
+    assert "regulatory-quick-start" in doc_names
+    assert "scientific-trust-brief" in doc_names
+    assert "scientific-trust-pack" in doc_names
+    assert "reference-proof-brief" in doc_names
+    assert "advective-promotion-brief" in doc_names
+
+    release_manifest = json.loads(release_resource_manifest())
+    release_names = {item["name"] for item in release_manifest["resources"]}
+    assert "defaults-rebaseline-report" in release_names
+    assert "external-corroboration-report" in release_names
+    assert "reference-corroboration-report" in release_names
+    assert "reference-worksheet-manifest" in release_names
+    assert "advective-promotion-bar-report" in release_names
+    assert "red-team-review-report" in release_names
+    assert "scientific-trust-brief" in release_names
+    assert "scientific-trust-pack" in release_names
+    assert "reference-proof-brief" in release_names
+    assert "advective-promotion-brief" in release_names
+    assert "docs://scientific-trust-brief" in release_names
+    assert "docs://scientific-trust-pack" in release_names
+    assert "docs://reference-proof-brief" in release_names
+    assert "docs://advective-promotion-brief" in release_names
+
+
 def test_create_server_does_not_mutate_generated_examples() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     example_path = repo_root / "schemas" / "examples" / "environmentalReleaseScenario.v1.json"
@@ -202,6 +337,7 @@ def test_skeleton_tools_return_valid_json() -> None:
     from fate_mcp.server import (
         fate_build_environmental_release_scenario_skeleton,
         fate_estimate_multimedia_concentrations_skeleton,
+        fate_import_external_result_payload_skeleton,
     )
     import json
 
@@ -215,6 +351,12 @@ def test_skeleton_tools_return_valid_json() -> None:
     assert "scenario" in estimate_data
     assert "run_options" in estimate_data
     assert estimate_data["run_options"]["model_family"] == "reference_mass_balance"
+
+    import_json = fate_import_external_result_payload_skeleton()
+    import_data = json.loads(import_json)
+    assert import_data["import_profile_id"] == "normalized_external_payload_json"
+    assert import_data["run_options"]["model_family"] == "external_result_adapter"
+    assert import_data["payload_path"].endswith("illustrative_external_engine_payload.json")
 
 
 def test_probabilistic_skeleton_returns_valid_json() -> None:

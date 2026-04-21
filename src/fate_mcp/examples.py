@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import json
 from contextlib import ExitStack, contextmanager
-from datetime import UTC, datetime
 from pathlib import Path
 import uuid
 from unittest.mock import patch
 
 from fate_mcp.benchmarks import scientific_validation_claim_coverage_manifest
+from fate_mcp.compat import UTC, datetime
 from fate_mcp.integrations import (
     apply_physchem_evidence,
     assess_release_scenario_fit,
@@ -24,6 +24,7 @@ from fate_mcp.integrations import (
     build_probabilistic_review_brief,
     build_probabilistic_review_packet,
     build_run_parameter_manifest,
+    build_run_scientific_trust_brief,
     build_scientific_methods_dossier,
     build_scientific_methods_dossier_brief,
     build_scientific_review_brief,
@@ -61,6 +62,7 @@ from fate_mcp.models import (
     BuildScientificMethodsDossierBriefRequest,
     BuildScientificMethodsDossierRequest,
     BuildRunParameterManifestRequest,
+    BuildRunScientificTrustBriefRequest,
     BuildScientificReviewBriefRequest,
     BuildScientificReviewPacketRequest,
     BuildRunUncertaintySummaryRequest,
@@ -70,6 +72,7 @@ from fate_mcp.models import (
     BuildEnvironmentalReleaseScenarioRequest,
     CompareFateScenariosRequest,
     EstimateProbabilisticMultimediaConcentrationsRequest,
+    ImportExternalResultPayloadRequest,
     ExportConcentrationSurfaceBundleRequest,
     ExportExposureConsumptionPackageRequest,
     ExportRegulatoryHandoffPackageRequest,
@@ -136,7 +139,11 @@ def build_examples(runtime: FateRuntime) -> dict[str, dict]:
 
 def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
     scenario_request = BuildEnvironmentalReleaseScenarioRequest(
-        chemical_identity={"preferredName": "Example substance", "casrn": "100-00-0"},
+        chemical_identity={
+            "preferredName": "Example substance",
+            "casrn": "100-00-0",
+            "substance_class": "organic chemical",
+        },
         total_release_mass_kg=12.5,
         release_fractions=[
             ReleaseFraction(medium=Media.AIR, fraction=0.2),
@@ -289,6 +296,13 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         BuildScientificReviewBriefRequest(review_packet=scientific_review_packet),
         runtime.provenance,
     )
+    run_scientific_trust_brief = build_run_scientific_trust_brief(
+        BuildRunScientificTrustBriefRequest(
+            scenario=scenario,
+            result=steady_result,
+        ),
+        runtime.provenance,
+    )
     scientific_reference_case = runtime.defaults.scientific_reference_case(
         "echa_euses_water_screening_case_family_v1"
     )
@@ -401,7 +415,11 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         runtime.provenance,
     )
     reconcile_request = ReconcileReleaseEvidenceRequest(
-        chemical_identity={"preferredName": "Example substance", "casrn": "100-00-0"},
+        chemical_identity={
+            "preferredName": "Example substance",
+            "casrn": "100-00-0",
+            "substance_class": "organic chemical",
+        },
         region_id=scenario.geographic_scope.region_id,
         context_label=scenario.geographic_scope.context_label,
         duration_days=30,
@@ -516,6 +534,15 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
             iterations=12,
             seed=17,
         ).model_dump(mode="json"),
+        "importExternalResultPayloadRequest.v1": ImportExternalResultPayloadRequest(
+            scenario=scenario,
+            run_options=FateModelRunOptions(
+                region_profile_id=scenario.geographic_scope.region_id,
+                model_family=ModelFamily.EXTERNAL_RESULT_ADAPTER,
+            ),
+            payload_path="config/adapter-fixtures/illustrative_external_engine_payload.json",
+            import_profile_id="normalized_external_payload_json",
+        ).model_dump(mode="json"),
         "buildConcentrationSurfaceBundleRequest.v1": BuildConcentrationSurfaceBundleRequest(
             result=steady_result
         ).model_dump(mode="json"),
@@ -547,6 +574,11 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
             result=steady_result,
         ).model_dump(mode="json"),
         "runUncertaintySummary.v1": uncertainty_summary.model_dump(mode="json"),
+        "buildRunScientificTrustBriefRequest.v1": BuildRunScientificTrustBriefRequest(
+            scenario=scenario,
+            result=steady_result,
+        ).model_dump(mode="json"),
+        "runScientificTrustBrief.v1": run_scientific_trust_brief.model_dump(mode="json"),
         "probabilisticConcentrationResult.v1": probabilistic_result.model_dump(mode="json"),
         "buildProbabilisticReviewPacketRequest.v1": BuildProbabilisticReviewPacketRequest(
             scenario=probabilistic_scenario,

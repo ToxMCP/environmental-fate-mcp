@@ -1,5 +1,14 @@
 {
   "$defs": {
+    "DefaultEvidenceStatus": {
+      "enum": [
+        "source_backed_defaults",
+        "governed_overrides_present",
+        "legacy_continuity_assumptions_present"
+      ],
+      "title": "DefaultEvidenceStatus",
+      "type": "string"
+    },
     "FitForPurpose": {
       "enum": [
         "screening",
@@ -36,6 +45,25 @@
         "external_result_adapter"
       ],
       "title": "ModelFamily",
+      "type": "string"
+    },
+    "RunDefaultProofPosture": {
+      "enum": [
+        "rebaselined_shipped_defaults",
+        "rebaselined_defaults_with_governed_overrides",
+        "scenario_specific_non_default_values",
+        "legacy_continuity_extension"
+      ],
+      "title": "RunDefaultProofPosture",
+      "type": "string"
+    },
+    "ScientificProofPosture": {
+      "enum": [
+        "reviewer_grade_reference_anchor",
+        "experimental_challenge_path",
+        "normalization_parity_lane"
+      ],
+      "title": "ScientificProofPosture",
       "type": "string"
     },
     "ScientificReviewChecklistItem": {
@@ -170,6 +198,71 @@
       },
       "title": "Parameter Quality Lines",
       "type": "array"
+    },
+    "default_evidence_status": {
+      "$ref": "#/$defs/DefaultEvidenceStatus",
+      "default": "source_backed_defaults"
+    },
+    "default_proof_posture": {
+      "$ref": "#/$defs/RunDefaultProofPosture",
+      "default": "rebaselined_shipped_defaults"
+    },
+    "claim_set_proof_posture": {
+      "$ref": "#/$defs/ScientificProofPosture",
+      "default": "reviewer_grade_reference_anchor"
+    },
+    "default_evidence_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Default Evidence Lines",
+      "type": "array"
+    },
+    "proof_posture_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Proof Posture Lines",
+      "type": "array"
+    },
+    "scientific_change_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Change Lines",
+      "type": "array"
+    },
+    "default_sensitivity_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Default Sensitivity Lines",
+      "type": "array"
+    },
+    "rebaselined_default_parameters": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rebaselined Default Parameters",
+      "type": "array"
+    },
+    "governed_override_parameters": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Governed Override Parameters",
+      "type": "array"
+    },
+    "material_default_sensitivity": {
+      "default": false,
+      "title": "Material Default Sensitivity",
+      "type": "boolean"
+    },
+    "core_default_assumption_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Core Default Assumption Count",
+      "type": "integer"
     },
     "applicability_lines": {
       "items": {

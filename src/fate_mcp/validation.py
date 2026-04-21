@@ -6,7 +6,12 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from fate_mcp.benchmarks import benchmark_manifest, run_benchmarks, scientific_validation_claim_coverage_manifest
+from fate_mcp.benchmarks import (
+    benchmark_manifest,
+    run_benchmarks,
+    scientific_validation_claim_coverage_manifest,
+    supporting_benchmark_fixtures_for_claim,
+)
 from fate_mcp.contracts import SCHEMA_MODELS, generate_contract_artifacts
 from fate_mcp.defaults import DefaultsRegistry
 from fate_mcp.errors import FateValidationError
@@ -29,7 +34,11 @@ from fate_mcp.models import (
     SourceClassification,
 )
 from fate_mcp.package_metadata import EXPERIMENTAL_MODEL_FAMILIES, SUPPORTED_MODEL_FAMILIES
-from fate_mcp.plugins.external_result_adapter import load_external_payload, normalize_external_payload
+from fate_mcp.plugins.external_result_adapter import (
+    build_public_adapter_import_manifest,
+    load_external_payload,
+    normalize_external_payload,
+)
 from fate_mcp.runtime import FateRuntime
 
 
@@ -424,6 +433,7 @@ def _surface_signature(result) -> list[dict[str, object]]:
 
 def validate_adapter_interoperability(repo_root: Path) -> dict:
     runtime = FateRuntime(repo_root)
+    public_manifest = build_public_adapter_import_manifest(repo_root)
     steady_scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
             chemical_identity={"preferredName": "Adapter validation steady"},
@@ -544,6 +554,8 @@ def validate_adapter_interoperability(repo_root: Path) -> dict:
     legacy_steady_compartments = sorted(
         {surface.compartment.value for surface in legacy_steady_result.surfaces}
     )
+    public_profile_ids = sorted(profile.profile_id for profile in public_manifest.profiles)
+    public_fixture_names = sorted(fixture.fixture_name for fixture in public_manifest.fixtures)
     time_bucket_bounds_preserved = all(
         surface.time_window.mode == RunMode.TIME_BUCKET
         and surface.time_window.start is not None
@@ -553,15 +565,15 @@ def validate_adapter_interoperability(repo_root: Path) -> dict:
 
     checks = [
         {
-            "name": "normalized_json_csv_equivalence",
+            "name": "normalized_json_csv_parity",
             "status": "ok" if json_csv_equivalent else "failed",
         },
         {
-            "name": "adapter_unit_conversion_equivalence",
+            "name": "adapter_unit_conversion_parity",
             "status": "ok" if alternate_unit_equivalent else "failed",
         },
         {
-            "name": "adapter_basis_conversion_equivalence",
+            "name": "adapter_basis_conversion_parity",
             "status": "ok"
             if weight_basis_values == [10.0, 10.0] and weight_basis_units == {"mg/kg"}
             else "failed",
@@ -574,12 +586,34 @@ def validate_adapter_interoperability(repo_root: Path) -> dict:
             "name": "legacy_time_bucket_bounds_preserved",
             "status": "ok" if time_bucket_bounds_preserved else "failed",
         },
+        {
+            "name": "public_import_profiles_declared",
+            "status": "ok"
+            if public_profile_ids
+            == ["normalized_external_payload_csv", "normalized_external_payload_json"]
+            else "failed",
+        },
+        {
+            "name": "public_import_fixtures_available",
+            "status": "ok"
+            if {
+                "illustrative_external_engine_payload_csv",
+                "illustrative_external_engine_payload_json",
+            }.issubset(set(public_fixture_names))
+            else "failed",
+        },
     ]
     return {
         "passed": all(item["status"] == "ok" for item in checks),
         "checkCount": len(checks),
         "checks": checks,
-        "normalizedFixtureEquivalence": {
+        "contractScopeNote": (
+            "These adapter checks verify canonical Fate MCP normalization parity across governed import "
+            "paths. They do not certify source-engine scientific validity or scientific equivalence to "
+            "native Environmental Fate MCP physics."
+        ),
+        "publicImportManifest": public_manifest.model_dump(mode="json"),
+        "normalizedFixtureParity": {
             "jsonSignature": _surface_signature(json_result),
             "csvSignature": _surface_signature(csv_result),
             "alternateUnitSignature": _surface_signature(alternate_unit_result),
@@ -683,6 +717,8 @@ def validate_scientific_review_artifacts(repo_root: Path) -> dict:
         and "water_half_life_days" in consumed_parameters
         and "log_kow" in preserved_only_parameters
         and bool(manifest.summary_lines)
+        and bool(manifest.default_evidence_lines)
+        and manifest.core_default_assumption_count >= 1
         and fit_assessment.applicability_profile.model_family == result.run_summary.model_family
         and bool(fit_assessment.applicability_lines)
     )
@@ -710,11 +746,428 @@ def validate_scientific_review_artifacts(repo_root: Path) -> dict:
         "parameterManifestEntryCount": len(manifest.entries),
         "parameterManifestRuntimeConsumedCount": len(consumed_parameters),
         "parameterManifestPreservedOnlyCount": len(preserved_only_parameters),
+        "parameterManifestDefaultEvidenceStatus": manifest.default_evidence_status.value,
+        "parameterManifestCoreDefaultAssumptionCount": manifest.core_default_assumption_count,
         "uncertaintySummaryConsistent": uncertainty_summary_consistent,
         "uncertaintyDriverCount": len(uncertainty_summary.top_drivers),
         "benchmarkMetadataComplete": benchmark_metadata_complete,
         "benchmarkMetadataFixtureCount": len(benchmark_fixtures),
         "surfacesHaveEquationTraces": surfaces_have_equation_traces,
+    }
+
+
+def validate_defaults_evidence_governance(repo_root: Path) -> dict:
+    registry = DefaultsRegistry(repo_root)
+    parameters = registry.core_defaults["parameters"]
+    capacity_parameters = {
+        "ambient_air_volume_m3",
+        "surface_water_volume_m3",
+        "agricultural_soil_mass_kg",
+        "freshwater_sediment_mass_kg",
+    }
+    tier3_parameters = sorted(
+        name
+        for name, payload in parameters.items()
+        if payload.get("evidenceTier") == "tier_3_internal_screening_assumption"
+    )
+    missing_effective_date_parameters = sorted(
+        name for name, payload in parameters.items() if not payload.get("effectiveDate")
+    )
+    missing_source_reference_parameters = sorted(
+        name for name in parameters if not registry.parameter_source_references(name)
+    )
+    missing_derivation_jurisdiction_parameters = sorted(
+        name
+        for name in parameters
+        if not registry.parameter_derivation_metadata(name).get("jurisdiction")
+    )
+    missing_derivation_basis_parameters = sorted(
+        name
+        for name in parameters
+        if not registry.parameter_derivation_metadata(name).get("basis")
+    )
+    missing_derivation_method_parameters = sorted(
+        name
+        for name in parameters
+        if not registry.parameter_derivation_metadata(name).get("calculationMethod")
+    )
+    missing_derivation_validity_parameters = sorted(
+        name
+        for name in parameters
+        if not registry.parameter_derivation_metadata(name).get("validityNote")
+    )
+    missing_previous_value_parameters = sorted(
+        name for name, payload in parameters.items() if "previousValue" not in payload
+    )
+    missing_previous_effective_date_parameters = sorted(
+        name for name, payload in parameters.items() if not payload.get("previousEffectiveDate")
+    )
+    missing_rebaseline_status_parameters = sorted(
+        name for name, payload in parameters.items() if not payload.get("rebaselineStatus")
+    )
+    missing_scientific_change_note_parameters = sorted(
+        name for name, payload in parameters.items() if not payload.get("scientificChangeNote")
+    )
+    missing_capacity_geometry_basis_parameters = sorted(
+        name
+        for name in capacity_parameters
+        if not registry.parameter_derivation_metadata(name).get("assumedAreaM2")
+        or not registry.parameter_derivation_metadata(name).get("depthM")
+    )
+    missing_capacity_mass_basis_parameters = sorted(
+        name
+        for name in {"agricultural_soil_mass_kg", "freshwater_sediment_mass_kg"}
+        if not registry.parameter_derivation_metadata(name).get("bulkDensityKgPerM3")
+    )
+    legacy_continuity_parameters = sorted(
+        name
+        for name in parameters
+        if registry.parameter_derivation_metadata(name).get("legacyContinuityOnly")
+    )
+    return {
+        "passed": (
+            not tier3_parameters
+            and not missing_effective_date_parameters
+            and not missing_source_reference_parameters
+            and not missing_derivation_jurisdiction_parameters
+            and not missing_derivation_basis_parameters
+            and not missing_derivation_method_parameters
+            and not missing_derivation_validity_parameters
+            and not missing_previous_value_parameters
+            and not missing_previous_effective_date_parameters
+            and not missing_rebaseline_status_parameters
+            and not missing_scientific_change_note_parameters
+            and not missing_capacity_geometry_basis_parameters
+            and not missing_capacity_mass_basis_parameters
+            and not legacy_continuity_parameters
+        ),
+        "parameterCount": len(parameters),
+        "tier3Parameters": tier3_parameters,
+        "missingEffectiveDateParameters": missing_effective_date_parameters,
+        "missingSourceReferenceParameters": missing_source_reference_parameters,
+        "missingDerivationJurisdictionParameters": missing_derivation_jurisdiction_parameters,
+        "missingDerivationBasisParameters": missing_derivation_basis_parameters,
+        "missingDerivationMethodParameters": missing_derivation_method_parameters,
+        "missingDerivationValidityParameters": missing_derivation_validity_parameters,
+        "missingPreviousValueParameters": missing_previous_value_parameters,
+        "missingPreviousEffectiveDateParameters": missing_previous_effective_date_parameters,
+        "missingRebaselineStatusParameters": missing_rebaseline_status_parameters,
+        "missingScientificChangeNoteParameters": missing_scientific_change_note_parameters,
+        "missingCapacityGeometryBasisParameters": missing_capacity_geometry_basis_parameters,
+        "missingCapacityMassBasisParameters": missing_capacity_mass_basis_parameters,
+        "legacyContinuityParameters": legacy_continuity_parameters,
+        "legacyContinuityImplicitSelectionBlocked": not legacy_continuity_parameters,
+    }
+
+
+def _has_required_guidance_source_type(
+    source_types: set[str],
+    required_prefixes: tuple[str, ...],
+) -> bool:
+    return any(
+        any(source_type.startswith(prefix) for prefix in required_prefixes)
+        for source_type in source_types
+    )
+
+
+def _claim_has_machine_readable_worksheet_support(claim_id: str) -> tuple[bool, list[str]]:
+    worksheet_fixtures = [
+        fixture["name"]
+        for fixture in supporting_benchmark_fixtures_for_claim(claim_id)
+        if fixture.get("reference_type", "").startswith("hand_worked_")
+        and (fixture.get("expected_trace_terms") or fixture.get("expected_surfaces"))
+    ]
+    return bool(worksheet_fixtures), sorted(set(worksheet_fixtures))
+
+
+def validate_external_corroboration_governance(repo_root: Path) -> dict:
+    registry = DefaultsRegistry(repo_root)
+    claim_manifest = registry.scientific_validation_claim_manifest()
+    reference_required_source_type_prefixes = (
+        "official_guidance",
+        "official_modeling_guidance",
+        "official_test_guideline",
+    )
+    advective_required_source_type_prefixes = (
+        "official_guidance",
+        "official_modeling_guidance",
+    )
+    missing_independent_evidence_family_claim_ids: list[str] = []
+    missing_next_action_claim_ids: list[str] = []
+    unresolved_independent_evidence_family_claim_ids: list[str] = []
+    inconsistent_corroboration_status_claim_ids: list[str] = []
+    reference_mandatory_insufficient_independent_evidence_claim_ids: list[str] = []
+    reference_mandatory_missing_guidance_family_claim_ids: list[str] = []
+    experimental_priority_insufficient_independent_evidence_claim_ids: list[str] = []
+    experimental_priority_missing_guidance_family_claim_ids: list[str] = []
+
+    for claim in claim_manifest.claims:
+        requires_independent_evidence = (
+            (claim.model_family.value == "reference_mass_balance" and claim.mandatory_for_release)
+            or (
+                claim.model_family.value in EXPERIMENTAL_MODEL_FAMILIES
+                and claim.priority.value in {"high", "medium"}
+            )
+        )
+        if requires_independent_evidence and not claim.independent_evidence_families:
+            missing_independent_evidence_family_claim_ids.append(claim.claim_id)
+        if not claim.next_corroboration_action:
+            missing_next_action_claim_ids.append(claim.claim_id)
+        resolved_cases = [
+            registry.scientific_reference_case(case_id)
+            for case_id in claim.independent_evidence_families
+        ]
+        if claim.independent_evidence_families and any(case is None for case in resolved_cases):
+            unresolved_independent_evidence_family_claim_ids.append(claim.claim_id)
+            resolved_cases = [case for case in resolved_cases if case is not None]
+        source_type_set = {case.source_type for case in resolved_cases}
+        jurisdiction_count = len(
+            {
+                jurisdiction
+                for case in resolved_cases
+                for jurisdiction in case.jurisdictions
+            }
+        )
+        expected_status = "none"
+        if claim.official_source_count == 1:
+            expected_status = "single_official_source"
+        elif claim.official_source_count >= 2 and jurisdiction_count >= 2:
+            expected_status = "multi_official_multi_jurisdiction"
+        elif claim.official_source_count >= 2:
+            expected_status = "multi_official_single_jurisdiction"
+        if claim.corroboration_status.value != expected_status:
+            inconsistent_corroboration_status_claim_ids.append(claim.claim_id)
+
+        if claim.model_family.value == "reference_mass_balance" and claim.mandatory_for_release:
+            if len(claim.independent_evidence_families) < 2:
+                reference_mandatory_insufficient_independent_evidence_claim_ids.append(claim.claim_id)
+            if not _has_required_guidance_source_type(
+                source_type_set,
+                reference_required_source_type_prefixes,
+            ):
+                reference_mandatory_missing_guidance_family_claim_ids.append(claim.claim_id)
+        if (
+            claim.model_family.value in EXPERIMENTAL_MODEL_FAMILIES
+            and claim.priority.value in {"high", "medium"}
+        ):
+            if len(claim.independent_evidence_families) < 2:
+                experimental_priority_insufficient_independent_evidence_claim_ids.append(
+                    claim.claim_id
+                )
+            if not _has_required_guidance_source_type(
+                source_type_set,
+                advective_required_source_type_prefixes,
+            ):
+                experimental_priority_missing_guidance_family_claim_ids.append(claim.claim_id)
+
+    return {
+        "passed": (
+            not missing_independent_evidence_family_claim_ids
+            and not missing_next_action_claim_ids
+            and not unresolved_independent_evidence_family_claim_ids
+            and not inconsistent_corroboration_status_claim_ids
+            and not reference_mandatory_insufficient_independent_evidence_claim_ids
+            and not reference_mandatory_missing_guidance_family_claim_ids
+            and not experimental_priority_insufficient_independent_evidence_claim_ids
+            and not experimental_priority_missing_guidance_family_claim_ids
+        ),
+        "claimCount": claim_manifest.claim_count,
+        "missingIndependentEvidenceFamilyClaimIds": sorted(
+            missing_independent_evidence_family_claim_ids
+        ),
+        "missingNextCorroborationActionClaimIds": sorted(missing_next_action_claim_ids),
+        "unresolvedIndependentEvidenceFamilyClaimIds": sorted(
+            unresolved_independent_evidence_family_claim_ids
+        ),
+        "inconsistentCorroborationStatusClaimIds": sorted(
+            inconsistent_corroboration_status_claim_ids
+        ),
+        "referenceMandatoryInsufficientIndependentEvidenceClaimIds": sorted(
+            reference_mandatory_insufficient_independent_evidence_claim_ids
+        ),
+        "referenceMandatoryMissingGuidanceFamilyClaimIds": sorted(
+            reference_mandatory_missing_guidance_family_claim_ids
+        ),
+        "experimentalPriorityInsufficientIndependentEvidenceClaimIds": sorted(
+            experimental_priority_insufficient_independent_evidence_claim_ids
+        ),
+        "experimentalPriorityMissingGuidanceFamilyClaimIds": sorted(
+            experimental_priority_missing_guidance_family_claim_ids
+        ),
+    }
+
+
+def validate_reference_corroboration_governance(repo_root: Path) -> dict:
+    registry = DefaultsRegistry(repo_root)
+    claim_manifest = registry.scientific_validation_claim_manifest()
+    coverage_manifest = scientific_validation_claim_coverage_manifest(repo_root)
+    coverage_by_id = {record.claim_id: record for record in coverage_manifest.coverage}
+    required_source_type_prefixes = (
+        "official_guidance",
+        "official_modeling_guidance",
+        "official_test_guideline",
+    )
+    missing_independent_evidence_claim_ids: list[str] = []
+    missing_official_guidance_claim_ids: list[str] = []
+    missing_worksheet_claim_ids: list[str] = []
+    missing_evidence_family_claim_ids: list[str] = []
+    missing_official_source_id_claim_ids: list[str] = []
+    missing_worksheet_artifact_claim_ids: list[str] = []
+    missing_expected_output_artifact_claim_ids: list[str] = []
+    missing_worksheet_status_claim_ids: list[str] = []
+    missing_last_reviewed_claim_ids: list[str] = []
+    missing_tolerance_basis_claim_ids: list[str] = []
+    worksheet_fixture_map: dict[str, list[str]] = {}
+    insufficient_reference_anchor_claim_ids: list[str] = []
+    unresolved_reference_case_claim_ids: list[str] = []
+
+    reference_claims = [
+        claim
+        for claim in claim_manifest.claims
+        if claim.model_family == ModelFamily.REFERENCE_MASS_BALANCE and claim.mandatory_for_release
+    ]
+    for claim in reference_claims:
+        resolved_cases = [
+            registry.scientific_reference_case(case_id)
+            for case_id in claim.independent_evidence_families
+        ]
+        if any(case is None for case in resolved_cases):
+            unresolved_reference_case_claim_ids.append(claim.claim_id)
+            resolved_cases = [case for case in resolved_cases if case is not None]
+        source_type_set = {case.source_type for case in resolved_cases}
+        if len(claim.independent_evidence_families) < 2:
+            missing_independent_evidence_claim_ids.append(claim.claim_id)
+        if not claim.evidence_family:
+            missing_evidence_family_claim_ids.append(claim.claim_id)
+        if not claim.official_source_ids:
+            missing_official_source_id_claim_ids.append(claim.claim_id)
+        if not claim.worksheet_artifact_path:
+            missing_worksheet_artifact_claim_ids.append(claim.claim_id)
+        if not claim.expected_output_artifact_path:
+            missing_expected_output_artifact_claim_ids.append(claim.claim_id)
+        if claim.worksheet_status is None or claim.worksheet_status.value != "ready":
+            missing_worksheet_status_claim_ids.append(claim.claim_id)
+        if claim.last_reviewed_date is None:
+            missing_last_reviewed_claim_ids.append(claim.claim_id)
+        if not claim.tolerance_basis:
+            missing_tolerance_basis_claim_ids.append(claim.claim_id)
+        if not _has_required_guidance_source_type(source_type_set, required_source_type_prefixes):
+            missing_official_guidance_claim_ids.append(claim.claim_id)
+        has_worksheet, worksheet_fixtures = _claim_has_machine_readable_worksheet_support(
+            claim.claim_id
+        )
+        worksheet_fixture_map[claim.claim_id] = worksheet_fixtures
+        if not has_worksheet:
+            missing_worksheet_claim_ids.append(claim.claim_id)
+        coverage_record = coverage_by_id.get(claim.claim_id)
+        if coverage_record is None or not coverage_record.covered:
+            insufficient_reference_anchor_claim_ids.append(claim.claim_id)
+
+    return {
+        "passed": (
+            not missing_independent_evidence_claim_ids
+            and not missing_evidence_family_claim_ids
+            and not missing_official_source_id_claim_ids
+            and not missing_official_guidance_claim_ids
+            and not missing_worksheet_claim_ids
+            and not missing_worksheet_artifact_claim_ids
+            and not missing_expected_output_artifact_claim_ids
+            and not missing_worksheet_status_claim_ids
+            and not missing_last_reviewed_claim_ids
+            and not missing_tolerance_basis_claim_ids
+            and not insufficient_reference_anchor_claim_ids
+            and not unresolved_reference_case_claim_ids
+        ),
+        "claimCount": len(reference_claims),
+        "missingIndependentEvidenceClaimIds": sorted(missing_independent_evidence_claim_ids),
+        "missingEvidenceFamilyClaimIds": sorted(missing_evidence_family_claim_ids),
+        "missingOfficialSourceIdClaimIds": sorted(missing_official_source_id_claim_ids),
+        "missingOfficialGuidanceClaimIds": sorted(missing_official_guidance_claim_ids),
+        "missingWorksheetClaimIds": sorted(missing_worksheet_claim_ids),
+        "missingWorksheetArtifactClaimIds": sorted(missing_worksheet_artifact_claim_ids),
+        "missingExpectedOutputArtifactClaimIds": sorted(
+            missing_expected_output_artifact_claim_ids
+        ),
+        "missingWorksheetStatusClaimIds": sorted(missing_worksheet_status_claim_ids),
+        "missingLastReviewedClaimIds": sorted(missing_last_reviewed_claim_ids),
+        "missingToleranceBasisClaimIds": sorted(missing_tolerance_basis_claim_ids),
+        "insufficientReferenceAnchorClaimIds": sorted(insufficient_reference_anchor_claim_ids),
+        "unresolvedReferenceCaseClaimIds": sorted(unresolved_reference_case_claim_ids),
+        "worksheetFixtureMap": worksheet_fixture_map,
+    }
+
+
+def validate_advective_promotion_bar_governance(repo_root: Path) -> dict:
+    registry = DefaultsRegistry(repo_root)
+    claim_manifest = registry.scientific_validation_claim_manifest()
+    coverage_manifest = scientific_validation_claim_coverage_manifest(repo_root)
+    coverage_by_id = {record.claim_id: record for record in coverage_manifest.coverage}
+    advective_claims = [
+        claim
+        for claim in claim_manifest.claims
+        if claim.model_family == ModelFamily.ADVECTIVE_SCREENING_MASS_BALANCE
+        and claim.priority.value in {"high", "medium"}
+    ]
+    missing_independent_evidence_claim_ids: list[str] = []
+    missing_official_guidance_claim_ids: list[str] = []
+    sensitivity_only_support_claim_ids: list[str] = []
+    non_reference_style_support_claim_ids: list[str] = []
+
+    for claim in advective_claims:
+        resolved_cases = [
+            registry.scientific_reference_case(case_id)
+            for case_id in claim.independent_evidence_families
+        ]
+        resolved_cases = [case for case in resolved_cases if case is not None]
+        source_type_set = {case.source_type for case in resolved_cases}
+        if len(claim.independent_evidence_families) < 2:
+            missing_independent_evidence_claim_ids.append(claim.claim_id)
+        if not _has_required_guidance_source_type(
+            source_type_set,
+            ("official_guidance", "official_modeling_guidance"),
+        ):
+            missing_official_guidance_claim_ids.append(claim.claim_id)
+        coverage_record = coverage_by_id.get(claim.claim_id)
+        supporting_tiers = set(coverage_record.supporting_validation_tiers if coverage_record else [])
+        if supporting_tiers == {"sensitivity"}:
+            sensitivity_only_support_claim_ids.append(claim.claim_id)
+        if "reference_style" not in supporting_tiers:
+            non_reference_style_support_claim_ids.append(claim.claim_id)
+
+    remains_experimental = (
+        ModelFamily.ADVECTIVE_SCREENING_MASS_BALANCE.value in EXPERIMENTAL_MODEL_FAMILIES
+    )
+    explicit_non_promotable_reasons = [
+        reason
+        for reason in [
+            "governed_policy_retains_experimental_status"
+            if remains_experimental
+            else "",
+            "missing_independent_evidence_families"
+            if missing_independent_evidence_claim_ids
+            else "",
+            "missing_official_guidance_grounding"
+            if missing_official_guidance_claim_ids
+            else "",
+            "sensitivity_only_support_present"
+            if sensitivity_only_support_claim_ids
+            else "",
+            "reference_style_anchor_gap"
+            if non_reference_style_support_claim_ids
+            else "",
+        ]
+        if reason
+    ]
+    return {
+        "passed": remains_experimental and bool(explicit_non_promotable_reasons),
+        "claimCount": len(advective_claims),
+        "remainsExperimental": remains_experimental,
+        "policyHoldExperimental": True,
+        "explicitNonPromotableReasons": explicit_non_promotable_reasons,
+        "missingIndependentEvidenceClaimIds": sorted(missing_independent_evidence_claim_ids),
+        "missingOfficialGuidanceClaimIds": sorted(missing_official_guidance_claim_ids),
+        "sensitivityOnlySupportClaimIds": sorted(sensitivity_only_support_claim_ids),
+        "nonReferenceStyleSupportClaimIds": sorted(non_reference_style_support_claim_ids),
     }
 
 
@@ -1024,6 +1477,29 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
     packet_matches_components = (
         packet_payload.get("parameter_manifest", {}).get("run_id") == manifest_payload.get("run_id")
         and packet_payload.get("uncertainty_summary", {}).get("run_id") == uncertainty_payload.get("run_id")
+        and packet_payload.get("default_evidence_status")
+        == manifest_payload.get("default_evidence_status")
+        and packet_payload.get("default_proof_posture")
+        == manifest_payload.get("default_proof_posture")
+        and packet_payload.get("default_evidence_lines")
+        == manifest_payload.get("default_evidence_lines")
+        and all(
+            line in packet_payload.get("proof_posture_lines", [])
+            for line in manifest_payload.get("proof_posture_lines", [])
+        )
+        and bool(packet_payload.get("proof_posture_lines"))
+        and packet_payload.get("scientific_change_lines")
+        == manifest_payload.get("scientific_change_lines")
+        and packet_payload.get("default_sensitivity_lines")
+        == manifest_payload.get("default_sensitivity_lines")
+        and packet_payload.get("rebaselined_default_parameters")
+        == manifest_payload.get("rebaselined_default_parameters")
+        and packet_payload.get("governed_override_parameters")
+        == manifest_payload.get("governed_override_parameters")
+        and packet_payload.get("material_default_sensitivity")
+        == manifest_payload.get("material_default_sensitivity")
+        and packet_payload.get("core_default_assumption_count")
+        == manifest_payload.get("core_default_assumption_count")
         and packet_payload.get("fit_assessment", {}).get("applicability_profile", {}).get("model_family")
         == packet_payload.get("model_family")
         and packet_payload.get("outcome_preview", {}).get("review_profile_model_family")
@@ -1059,6 +1535,24 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
         and bool(brief_payload.get("outcome_lines"))
         and bool(brief_payload.get("recommended_actions"))
         and bool(brief_payload.get("parameter_quality_lines"))
+        and bool(brief_payload.get("default_evidence_lines"))
+        and brief_payload.get("default_evidence_status") == packet_payload.get("default_evidence_status")
+        and brief_payload.get("default_proof_posture") == packet_payload.get("default_proof_posture")
+        and brief_payload.get("claim_set_proof_posture")
+        == packet_payload.get("claim_set_proof_posture")
+        and brief_payload.get("proof_posture_lines") == packet_payload.get("proof_posture_lines")
+        and brief_payload.get("scientific_change_lines")
+        == packet_payload.get("scientific_change_lines")
+        and brief_payload.get("default_sensitivity_lines")
+        == packet_payload.get("default_sensitivity_lines")
+        and brief_payload.get("rebaselined_default_parameters")
+        == packet_payload.get("rebaselined_default_parameters")
+        and brief_payload.get("governed_override_parameters")
+        == packet_payload.get("governed_override_parameters")
+        and brief_payload.get("material_default_sensitivity")
+        == packet_payload.get("material_default_sensitivity")
+        and brief_payload.get("core_default_assumption_count")
+        == packet_payload.get("core_default_assumption_count")
         and bool(brief_payload.get("applicability_lines"))
         and bool(brief_payload.get("uncertainty_lines"))
         and bool(brief_payload.get("benchmark_reference_lines"))
@@ -1107,6 +1601,22 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
                 line.startswith("Post-release pace directionality: ")
                 for line in brief_payload.get("summary_lines", [])
             )
+        )
+        and any(
+            line.startswith("Default evidence: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Proof posture: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Scientific change: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Default sensitivity: ")
+            for line in brief_payload.get("summary_lines", [])
         )
         and any(
             line.startswith("Post-release recovery: ")
@@ -1158,6 +1668,93 @@ def validate_scientific_review_workflow(repo_root: Path) -> dict:
     }
 
 
+def validate_run_scientific_trust_brief_workflow(repo_root: Path) -> dict:
+    request_payload = json.loads(
+        (repo_root / "schemas" / "examples" / "buildRunScientificTrustBriefRequest.v1.json").read_text()
+    )
+    brief_payload = json.loads(
+        (repo_root / "schemas" / "examples" / "runScientificTrustBrief.v1.json").read_text()
+    )
+    packet_payload = json.loads((repo_root / "schemas" / "examples" / "scientificReviewPacket.v1.json").read_text())
+
+    request_consistent = (
+        request_payload.get("scenario", {}).get("scenario_id") == brief_payload.get("scenario_id")
+        and request_payload.get("result", {}).get("run_summary", {}).get("run_id") == brief_payload.get("run_id")
+        and request_payload.get("result", {}).get("run_summary", {}).get("model_family")
+        == brief_payload.get("model_family")
+    )
+    brief_matches_packet = (
+        bool(brief_payload.get("review_packet_id"))
+        and brief_payload.get("scenario_id") == packet_payload.get("scenario_id")
+        and brief_payload.get("run_id") == packet_payload.get("run_id")
+        and brief_payload.get("model_family") == packet_payload.get("model_family")
+        and brief_payload.get("fit_for_purpose") == packet_payload.get("fit_for_purpose")
+        and brief_payload.get("review_status") == packet_payload.get("review_status")
+        and brief_payload.get("review_outcome") == packet_payload.get("review_outcome")
+        and brief_payload.get("default_evidence_status") == packet_payload.get("default_evidence_status")
+        and brief_payload.get("default_proof_posture") == packet_payload.get("default_proof_posture")
+        and brief_payload.get("claim_set_proof_posture")
+        == packet_payload.get("claim_set_proof_posture")
+        and brief_payload.get("default_evidence_lines") == packet_payload.get("default_evidence_lines")
+        and brief_payload.get("proof_posture_lines") == packet_payload.get("proof_posture_lines")
+        and brief_payload.get("scientific_change_lines")
+        == packet_payload.get("scientific_change_lines")
+        and brief_payload.get("default_sensitivity_lines")
+        == packet_payload.get("default_sensitivity_lines")
+        and brief_payload.get("rebaselined_default_parameters")
+        == packet_payload.get("rebaselined_default_parameters")
+        and brief_payload.get("governed_override_parameters")
+        == packet_payload.get("governed_override_parameters")
+        and brief_payload.get("material_default_sensitivity")
+        == packet_payload.get("material_default_sensitivity")
+        and brief_payload.get("core_default_assumption_count")
+        == packet_payload.get("core_default_assumption_count")
+        and brief_payload.get("applicability_lines")
+        == packet_payload.get("fit_assessment", {}).get("applicability_lines")
+        and brief_payload.get("scientific_unsuitability_lines")
+        == packet_payload.get("fit_assessment", {}).get("scientific_unsuitability_lines")
+        and brief_payload.get("uncertainty_lines")
+        == packet_payload.get("uncertainty_summary", {}).get("summary_lines")
+        and brief_payload.get("recommended_actions") == packet_payload.get("recommended_actions")
+        and brief_payload.get("limitations") == packet_payload.get("limitations")
+        and brief_payload.get("passed_check_count", 0) <= brief_payload.get("total_check_count", 0)
+        and brief_payload.get("top_uncertainty_driver_types")
+        == [
+            driver.get("driver_type")
+            for driver in packet_payload.get("uncertainty_summary", {}).get("top_drivers", [])[:4]
+        ]
+        and any(
+            line.startswith("Screening recommendation: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Screening recommendation: ")
+            for line in brief_payload.get("reviewer_signal_lines", [])
+        )
+        and any(
+            line.startswith("Review outcome: ") for line in brief_payload.get("reviewer_signal_lines", [])
+        )
+        and any(
+            line.startswith("Default evidence: ") for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Proof posture: ") for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Scientific change: ") for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Default sensitivity: ") for line in brief_payload.get("summary_lines", [])
+        )
+        and bool(brief_payload.get("top_caveat_lines"))
+    )
+    return {
+        "passed": request_consistent and brief_matches_packet,
+        "runScientificTrustBriefRequestConsistent": request_consistent,
+        "runScientificTrustBriefMatchesPacket": brief_matches_packet,
+    }
+
+
 def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
     request_payload = json.loads(
         (repo_root / "schemas" / "examples" / "buildScientificMethodsDossierRequest.v1.json").read_text()
@@ -1189,6 +1786,13 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         and dossier_payload.get("uncovered_mandatory_claim_count", 0)
         == dossier_payload.get("mandatory_claim_count", 0)
         - dossier_payload.get("covered_mandatory_claim_count", 0)
+        and bool(dossier_payload.get("reviewer_grade_anchor_status"))
+        and dossier_payload.get("mandatory_claim_pass_count", 0)
+        <= dossier_payload.get("mandatory_claim_count", 0)
+        and dossier_payload.get("worksheet_ready_mandatory_claim_count", 0)
+        <= dossier_payload.get("mandatory_claim_count", 0)
+        and bool(dossier_payload.get("proof_posture"))
+        and bool(dossier_payload.get("proof_posture_lines"))
         and bool(dossier_payload.get("highlighted_claim_summaries"))
         and all(
             item.get("challenge_status")
@@ -1222,9 +1826,26 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         and bool(dossier_payload.get("highlighted_claim_grounding_lines"))
         and bool(dossier_payload.get("reference_case_grounding_lines"))
         and bool(dossier_payload.get("reference_case_concept_lines"))
+        and bool(dossier_payload.get("default_change_sensitivity_lines"))
         and bool(dossier_payload.get("benchmark_reference_lines"))
         and bool(dossier_payload.get("support_strength_lines"))
         and bool(dossier_payload.get("claim_summaries"))
+        and any(
+            line.startswith("Reviewer-grade anchor status: ")
+            for line in dossier_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Mandatory claim pass count: ")
+            for line in dossier_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Worksheet readiness: ")
+            for line in dossier_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Default-change sensitivity: ")
+            for line in dossier_payload.get("summary_lines", [])
+        )
         and any(
             line.startswith("Promotion status: ") for line in dossier_payload.get("summary_lines", [])
         )
@@ -1252,6 +1873,18 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         )
         and any(
             line.startswith("External corroboration breadth: ")
+            for line in dossier_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Default evidence posture: ")
+            for line in dossier_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Proof posture: ")
+            for line in dossier_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("When not to use this MCP: ")
             for line in dossier_payload.get("summary_lines", [])
         )
         and (
@@ -1350,6 +1983,14 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         and bool(claim_summary_payload.get("external_corroboration_status"))
         and "external_corroboration_source_count" in claim_summary_payload
         and "external_corroboration_jurisdictions" in claim_summary_payload
+        and "evidence_family" in claim_summary_payload
+        and "official_source_ids" in claim_summary_payload
+        and "worksheet_artifact_path" in claim_summary_payload
+        and "expected_output_artifact_path" in claim_summary_payload
+        and "worksheet_status" in claim_summary_payload
+        and "last_reviewed_date" in claim_summary_payload
+        and "tolerance_basis" in claim_summary_payload
+        and "reviewer_grade_passed" in claim_summary_payload
         and bool(claim_summary_payload.get("external_corroboration_lines"))
         and bool(claim_summary_payload.get("source_grounding_lines"))
         and bool(claim_summary_payload.get("methods_basis_lines"))
@@ -1366,6 +2007,8 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         == dossier_payload.get("blocking_action_count")
         and brief_payload.get("strengthening_action_count")
         == dossier_payload.get("strengthening_action_count")
+        and brief_payload.get("proof_posture") == dossier_payload.get("proof_posture")
+        and brief_payload.get("proof_posture_lines") == dossier_payload.get("proof_posture_lines")
         and brief_payload.get("promotion_blocker_claim_ids")
         == dossier_payload.get("promotion_blocker_claim_ids")
         and brief_payload.get("promotion_blocker_summaries")
@@ -1375,6 +2018,12 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         == dossier_payload.get("covered_mandatory_claim_count")
         and brief_payload.get("uncovered_mandatory_claim_count")
         == dossier_payload.get("uncovered_mandatory_claim_count")
+        and brief_payload.get("reviewer_grade_anchor_status")
+        == dossier_payload.get("reviewer_grade_anchor_status")
+        and brief_payload.get("mandatory_claim_pass_count")
+        == dossier_payload.get("mandatory_claim_pass_count")
+        and brief_payload.get("worksheet_ready_mandatory_claim_count")
+        == dossier_payload.get("worksheet_ready_mandatory_claim_count")
         and bool(brief_payload.get("highlighted_claim_ids"))
         and bool(brief_payload.get("highlighted_claim_summaries"))
         and brief_payload.get("recommended_action_summaries")
@@ -1389,6 +2038,9 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         )
         and any(
             line.startswith("Promotion status: ") for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Proof posture: ") for line in brief_payload.get("summary_lines", [])
         )
         and any(
             line.startswith("Claim regime stability: ")
@@ -1436,6 +2088,10 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
             line.startswith("Claim corroboration action: ")
             for line in brief_payload.get("summary_lines", [])
         )
+        and any(
+            line.startswith("When not to use this MCP: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
         and (
             not brief_payload.get("recommended_actions")
             or any(
@@ -1460,9 +2116,27 @@ def validate_scientific_methods_dossier_workflow(repo_root: Path) -> dict:
         == dossier_payload.get("reference_case_grounding_lines")
         and brief_payload.get("reference_case_concept_lines")
         == dossier_payload.get("reference_case_concept_lines")
+        and brief_payload.get("default_change_sensitivity_lines")
+        == dossier_payload.get("default_change_sensitivity_lines")
         and brief_payload.get("benchmark_reference_lines") == dossier_payload.get("benchmark_reference_lines")
         and brief_payload.get("support_strength_lines") == dossier_payload.get("support_strength_lines")
         and brief_payload.get("recommended_actions") == dossier_payload.get("recommended_actions")
+        and any(
+            line.startswith("Reviewer-grade anchor status: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Mandatory claim pass count: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Worksheet readiness: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Default-change sensitivity: ")
+            for line in brief_payload.get("summary_lines", [])
+        )
     )
     return {
         "passed": dossier_consistent and claim_summary_consistent and brief_consistent,
@@ -1893,6 +2567,11 @@ def validate_model_family_challenge_review_workflow(repo_root: Path) -> dict:
         and brief_payload.get("dominant_delta_lines") == packet_payload.get("dominant_delta_lines")
         and brief_payload.get("comparison_guidance_lines") == packet_payload.get("comparison_guidance_lines")
         and bool(brief_payload.get("brief_lines"))
+        and any(
+            line.startswith("Primary applicability: When not to use this MCP: ")
+            or line.startswith("Challenge applicability: When not to use this MCP: ")
+            for line in brief_payload.get("brief_lines", [])
+        )
     )
     return {
         "passed": (
@@ -2000,6 +2679,74 @@ def validate_model_family_challenge_scientific_dossier_workflow(repo_root: Path)
     }
 
 
+def validate_trust_surface_consistency(repo_root: Path) -> dict:
+    run_trust_payload = json.loads(
+        (repo_root / "schemas" / "examples" / "runScientificTrustBrief.v1.json").read_text()
+    )
+    review_brief_payload = json.loads(
+        (repo_root / "schemas" / "examples" / "scientificReviewBrief.v1.json").read_text()
+    )
+    methods_dossier_payload = json.loads(
+        (repo_root / "schemas" / "examples" / "scientificMethodsDossier.v1.json").read_text()
+    )
+    methods_brief_payload = json.loads(
+        (repo_root / "schemas" / "examples" / "scientificMethodsDossierBrief.v1.json").read_text()
+    )
+    quick_start_text = (repo_root / "docs" / "regulatory_quick_start.md").read_text()
+    release_readiness_text = (repo_root / "docs" / "release_readiness.md").read_text()
+
+    run_review_consistent = (
+        run_trust_payload.get("default_proof_posture")
+        == review_brief_payload.get("default_proof_posture")
+        and run_trust_payload.get("claim_set_proof_posture")
+        == review_brief_payload.get("claim_set_proof_posture")
+        and run_trust_payload.get("proof_posture_lines")
+        == review_brief_payload.get("proof_posture_lines")
+        and run_trust_payload.get("scientific_change_lines")
+        == review_brief_payload.get("scientific_change_lines")
+        and run_trust_payload.get("default_sensitivity_lines")
+        == review_brief_payload.get("default_sensitivity_lines")
+    )
+    methods_consistent = (
+        methods_dossier_payload.get("proof_posture") == methods_brief_payload.get("proof_posture")
+        and methods_dossier_payload.get("proof_posture_lines")
+        == methods_brief_payload.get("proof_posture_lines")
+        and methods_dossier_payload.get("reviewer_grade_anchor_status")
+        == methods_brief_payload.get("reviewer_grade_anchor_status")
+        and methods_dossier_payload.get("mandatory_claim_pass_count")
+        == methods_brief_payload.get("mandatory_claim_pass_count")
+        and methods_dossier_payload.get("worksheet_ready_mandatory_claim_count")
+        == methods_brief_payload.get("worksheet_ready_mandatory_claim_count")
+        and methods_dossier_payload.get("default_change_sensitivity_lines")
+        == methods_brief_payload.get("default_change_sensitivity_lines")
+        and any(
+            line.startswith("Proof posture: ")
+            for line in methods_brief_payload.get("summary_lines", [])
+        )
+        and any(
+            line.startswith("Reviewer-grade anchor status: ")
+            for line in methods_brief_payload.get("summary_lines", [])
+        )
+    )
+    docs_consistent = (
+        "When Not To Use This MCP" in quick_start_text
+        and "bounded screening" in quick_start_text.lower()
+        and (
+            "bounded screening" in release_readiness_text.lower()
+            or "bounded-screening" in release_readiness_text.lower()
+        )
+        and "advective_screening_mass_balance" in quick_start_text
+        and "experimental" in quick_start_text.lower()
+        and "reference_mass_balance" in release_readiness_text
+    )
+    return {
+        "passed": run_review_consistent and methods_consistent and docs_consistent,
+        "runTrustReviewConsistent": run_review_consistent,
+        "scientificMethodsProofConsistent": methods_consistent,
+        "docsScopeLanguageConsistent": docs_consistent,
+    }
+
+
 def validation_dossier(repo_root: Path) -> dict:
     generate_contract_artifacts(repo_root)
     return {
@@ -2007,14 +2754,20 @@ def validation_dossier(repo_root: Path) -> dict:
         "benchmarks": run_benchmarks(repo_root),
         "failureModes": validate_failure_modes(repo_root),
         "downstreamInteroperability": validate_downstream_interoperability(repo_root),
+        "defaultsEvidenceGovernance": validate_defaults_evidence_governance(repo_root),
         "regulatoryHandoffGovernance": validate_regulatory_handoff_governance(repo_root),
         "adapterInteroperability": validate_adapter_interoperability(repo_root),
         "reconciliationTransparency": validate_reconciliation_transparency(repo_root),
         "scientificReviewArtifacts": validate_scientific_review_artifacts(repo_root),
         "scientificClaimCoverage": validate_scientific_claim_coverage(repo_root),
+        "externalCorroborationGovernance": validate_external_corroboration_governance(repo_root),
+        "referenceCorroborationGovernance": validate_reference_corroboration_governance(repo_root),
+        "advectivePromotionBarGovernance": validate_advective_promotion_bar_governance(repo_root),
         "scientificClaimFreshness": validate_scientific_claim_freshness(repo_root),
         "scientificReviewWorkflow": validate_scientific_review_workflow(repo_root),
+        "runScientificTrustBriefWorkflow": validate_run_scientific_trust_brief_workflow(repo_root),
         "scientificMethodsDossierWorkflow": validate_scientific_methods_dossier_workflow(repo_root),
+        "trustSurfaceConsistency": validate_trust_surface_consistency(repo_root),
         "modelFamilySelectionWorkflow": validate_model_family_selection_workflow(repo_root),
         "modelFamilySelectionReviewWorkflow": validate_model_family_selection_review_workflow(repo_root),
         "modelFamilyChallengeReviewWorkflow": validate_model_family_challenge_review_workflow(repo_root),

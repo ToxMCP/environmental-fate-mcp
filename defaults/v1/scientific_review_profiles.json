@@ -50,7 +50,8 @@
       ],
       "attentionIfAnyChecksFail": true,
       "escalationFitVerdicts": [
-        "review_needed"
+        "review_needed",
+        "not_applicable"
       ],
       "escalationDriverTypes": [
         "evidence_conflict"
@@ -128,7 +129,8 @@
       ],
       "attentionIfAnyChecksFail": true,
       "escalationFitVerdicts": [
-        "review_needed"
+        "review_needed",
+        "not_applicable"
       ],
       "escalationDriverTypes": [
         "evidence_conflict"
@@ -187,16 +189,16 @@
         },
         {
           "code": "adapter_equivalence_context_reviewed",
-          "prompt": "Review the benchmark-equivalence context and the top deterministic uncertainty drivers before comparing imported results to native outputs.",
-          "rationale": "Adapter equivalence and imported-output limitations should be explicit in any scientific review.",
+          "prompt": "Review the governed normalization-parity context and the top deterministic uncertainty drivers before comparing imported results to native outputs.",
+          "rationale": "Contract-level normalization parity and imported-output limitations should be explicit in any scientific review.",
           "evidenceHintFields": [
             "uncertainty_lines",
             "benchmark_reference_lines"
           ]
         }
       ],
-      "packetTemplate": "Build a scientific review packet that emphasizes governed normalization, imported-output limitations, and adapter-equivalence benchmark context.",
-      "briefTemplate": "Summarize whether the imported concentration surfaces remain scientifically reviewable after governed Fate MCP normalization.",
+      "packetTemplate": "Build a scientific review packet that emphasizes governed normalization, imported-output limitations, and normalization-parity benchmark context without implying source-engine scientific equivalence.",
+      "briefTemplate": "Summarize whether the imported concentration surfaces remain scientifically reviewable after governed Fate MCP normalization, while keeping source-engine caveats explicit.",
       "readyFitVerdicts": [
         "good_fit"
       ],
@@ -206,7 +208,8 @@
       ],
       "attentionIfAnyChecksFail": true,
       "escalationFitVerdicts": [
-        "review_needed"
+        "review_needed",
+        "not_applicable"
       ],
       "escalationDriverTypes": [
         "evidence_conflict"
@@ -219,8 +222,8 @@
         "unsupported_runtime_parameter"
       ],
       "warningSeverityPromotesQualification": true,
-      "acceptableOutcomeTemplate": "Use the imported run as a governed normalization artifact within the declared adapter scope.",
-      "qualifiedOutcomeTemplate": "Use the imported run only with explicit adapter and source-engine caveats in the review record.",
+      "acceptableOutcomeTemplate": "Use the imported run as a governed normalization-support artifact within the declared adapter scope.",
+      "qualifiedOutcomeTemplate": "Use the imported run only with explicit adapter, source-engine, and contract-scope caveats in the review record.",
       "escalationOutcomeTemplate": "Escalate the imported run when normalization caveats or applicability gaps materially affect interpretation.",
       "driverActionTemplates": {
         "heuristic_parameter": "Clarify whether preserved heuristic descriptors affect downstream interpretation of the imported surfaces.",
@@ -261,7 +264,8 @@
       "attentionIfAnyChecksFail": true,
       "escalationFitVerdicts": [
         "review_needed",
-        "good_fit"
+        "good_fit",
+        "not_applicable"
       ],
       "escalationDriverTypes": [],
       "qualificationDriverTypes": [

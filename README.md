@@ -73,12 +73,13 @@ The released server is broader than a simple concentration calculator, but the b
 ## What's in v0.1.0
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
+- Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
 - Governed experimental `advective_screening_mass_balance` challenge family with residence-time, bounded-transport, loss-dominance, transition, mass-balance, and post-release authority layers
 - Additive probabilistic percentile orchestration with median, P90, and P95 concentration surfaces plus failed-iteration taxonomy and reproducibility metadata
 - Scientific review packets and briefs with equation, mass-balance, transport-regime, loss-transition, and post-release interpretation lines
 - Scientific methods dossiers and briefs with governed claims, benchmark support, source grounding, highlighted claim digests, promotion status, and blocker/action posture
 - Model-family selection, challenge, and comparison review workflows so experimental families remain challenge-path review surfaces rather than silent defaults
-- Governed external-result adapter lane with semantic-loss classification, fail-closed blocking for non-equivalent imports, and provenance-preserving normalization
+- Governed external-result adapter lane with semantic-loss classification, fail-closed blocking for non-equivalent imports, provenance-preserving normalization, and a stable public normalized JSON/CSV import contract
 - Regulatory handoff packages, summaries, packets, and briefs for downstream suite consumers
 - Published JSON schemas, examples, contract manifest, release metadata, validation artifacts, and defaults manifests
 
@@ -86,10 +87,10 @@ The released server is broader than a simple concentration calculator, but the b
 
 Current local release verification and generated `v0.1.0` artifacts report:
 
-- `135` passing tests
-- `107` JSON schemas
-- `103` generated examples
-- `39` supported workflows surfaced through `46` tools and `14` prompts
+- `153` repository tests
+- `110` JSON schemas
+- `106` generated examples
+- `41` supported workflows surfaced through `50` tools, `19` prompts, and `24` resources
 - `54` benchmark fixtures with claim-coverage enforcement
 - `30` governed scientific validation claims with plugin-code traceability
 - `25` governed scientific reference cases
@@ -98,6 +99,7 @@ Current local release verification and generated `v0.1.0` artifacts report:
 - `ready_for_screening_release` release status
 
 The machine-readable source of truth for these counts is generated from the release metadata and validation-report builders in the repository.
+`ready_for_screening_release` is an internal screening-release gate for the bounded MCP surface, not a statement of regulator acceptance, submission approval, or scientific equivalence to external engines.
 
 ## Why this project exists
 
@@ -121,7 +123,7 @@ Environmental Fate MCP gives the suite a dedicated environmental-fate layer that
 | `📊 Probabilistic percentile reporting` | Runs an additive percentile orchestration layer over the deterministic kernels and emits reviewable median, P90, and P95 surfaces plus iteration-health context. |
 | `🧪 Scientific review surface` | Exports assessor-facing review packets and briefs with equation traces, mass-balance partitions, transport-regime lines, loss-transition cues, and post-release recovery interpretation. |
 | `🧾 Scientific methods dossiers` | Publishes governed claim sets, source-grounding lines, benchmark support, highlighted claim digests, challenge posture, and promotion/blocker summaries for each model family. |
-| `🔌 External adapter normalization` | Normalizes governed external-engine exports into canonical concentration contracts with semantic-loss disclosure and fail-closed blocking for non-equivalent mappings. |
+| `🔌 External adapter normalization` | Normalizes governed external-engine exports into canonical concentration contracts with normalization-parity checks, semantic-loss disclosure, and fail-closed blocking for non-equivalent mappings. |
 | `🧭 Model-family challenge governance` | Exposes model-family selection, challenge, and comparison workflows so reference and experimental families remain reviewable under governed assessor logic. |
 | `📦 Regulatory handoff packaging` | Exports concentration bundles, regulatory handoff packages, summaries, packets, and briefs for downstream suite consumers without claiming final risk decisions. |
 | `✅ Validation and release surface` | Ships defaults manifests, schemas, examples, benchmark manifests, scientific-claim coverage and freshness reports, validation dossiers, and release-readiness reports as first-class outputs. |
@@ -132,19 +134,28 @@ Current validation artifacts report:
 
 - `ready_for_screening_release` release status
 - `0` uncovered mandatory scientific validation claims
+- `0` shipped tier-3 internal screening assumptions in the default execution path
 - `0` stale claims without benchmark or code traceability
 - deterministic example generation enforced for committed release artifacts
 - server startup validates shipped artifacts without regenerating them
 - deterministic and probabilistic review workflow parity enforced through validation
+- shipped defaults evidence governance, external corroboration governance, red-team review accounting, and reviewer trust-pack generation included in release gating
 - adapter normalization, scientific review, scientific methods dossier, model-family challenge, and regulatory handoff workflows included in release gating
 - scientific invariant tests proving mass-balance closure, advection bounds, mass linearity, and half-life monotonicity
 - CI fails if generated artifacts or defaults manifest hashes drift from committed state, if the full release validator fails, or if startup validation cannot load the shipped artifacts
 
+This release gate remains a product-level screening-readiness status rather than a claim of formal regulatory acceptance, legal sufficiency, or source-engine scientific equivalence.
+
 See:
 
 - [docs/release_readiness.md](./docs/release_readiness.md)
+- [docs/defaults_evidence_map.md](./docs/defaults_evidence_map.md)
 - [docs/validation_framework.md](./docs/validation_framework.md)
 - [docs/suite_integration.md](./docs/suite_integration.md)
+- [docs/workflow_cookbook.md](./docs/workflow_cookbook.md)
+- [docs/external_payload_contract.md](./docs/external_payload_contract.md)
+- [docs/agent_evaluations.md](./docs/agent_evaluations.md)
+- [docs/releases/v0.1.0/scientific-trust-pack.md](./docs/releases/v0.1.0/scientific-trust-pack.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)

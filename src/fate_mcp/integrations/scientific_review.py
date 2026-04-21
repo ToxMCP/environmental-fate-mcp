@@ -32,6 +32,7 @@ from fate_mcp.models import (
     RecommendModelFamilySelectionRequest,
     BuildScientificReviewBriefRequest,
     BuildScientificReviewPacketRequest,
+    BuildRunScientificTrustBriefRequest,
     PreviewModelFamilyChallengeReviewRequest,
     PreviewModelFamilyComparisonReviewRequest,
     PreviewModelFamilySelectionReviewRequest,
@@ -128,6 +129,7 @@ from fate_mcp.models import (
     ScientificReviewPacket,
     ScientificReviewProfile,
     ScientificReviewSurfaceSummary,
+    RunScientificTrustBrief,
     SummarizeRegulatoryHandoffPackageRequest,
     SurfaceDelta,
     SourceClassification,
@@ -254,7 +256,7 @@ CAPACITY_PARAMETERS = {
 }
 
 
-from .common import SCIENTIFIC_REVIEW_EVIDENCE_FIELDS, _benchmark_reference_lines, _collect_source_references, _ensure_scenario_matches_result, _fit_for_purpose_from_result, _resolve_scientific_review_profile
+from .common import SCIENTIFIC_REVIEW_EVIDENCE_FIELDS, _benchmark_reference_lines, _collect_source_references, _default_evidence_lines, _ensure_scenario_matches_result, _fit_for_purpose_from_result, _merge_limitations, _model_family_proof_posture, _model_family_proof_posture_lines, _parameter_quality_lines, _resolve_scientific_review_profile
 from .core import assess_release_scenario_fit, build_run_parameter_manifest, build_run_uncertainty_summary
 from .surface_analysis import _equation_component_lines_from_surfaces, _equation_lines_from_surfaces, _loss_dominance_lines_from_surfaces, _loss_transition_lines_from_surfaces, _mass_balance_component_lines_from_surfaces, _post_release_directionality_lines_from_surfaces, _post_release_pace_directionality_lines_from_surfaces, _post_release_pace_lines_from_surfaces, _post_release_recovery_lines_from_surfaces, _post_release_regime_lines_from_surfaces, _transport_regime_lines_from_surfaces
 
@@ -269,8 +271,11 @@ def _scientific_review_evidence_line(
         )
     if field_name == "applicability_lines" and review_packet.fit_assessment.applicability_lines:
         return "Applicability: " + " | ".join(review_packet.fit_assessment.applicability_lines)
-    if field_name == "parameter_quality_lines" and review_packet.parameter_manifest.summary_lines:
-        return "Parameter quality: " + " | ".join(review_packet.parameter_manifest.summary_lines)
+    parameter_quality_lines = _parameter_quality_lines(review_packet.parameter_manifest)
+    if field_name == "parameter_quality_lines" and parameter_quality_lines:
+        return "Parameter quality: " + " | ".join(parameter_quality_lines)
+    if field_name == "default_evidence_lines" and review_packet.default_evidence_lines:
+        return "Default evidence: " + " | ".join(review_packet.default_evidence_lines)
     if field_name == "uncertainty_lines" and review_packet.uncertainty_summary.summary_lines:
         return "Uncertainty: " + " | ".join(review_packet.uncertainty_summary.summary_lines)
     if field_name == "benchmark_reference_lines" and review_packet.benchmark_reference_lines:
@@ -377,6 +382,17 @@ def _scientific_review_checks(
     uncertainty_summary: RunUncertaintySummary,
     surface_sample_count: int,
 ) -> list[ScientificReviewCheck]:
+    fit_for_purpose_in_scope = (
+        fit_assessment.fit_for_purpose in fit_assessment.applicability_profile.fit_for_purpose
+    )
+    required_inputs_confirmed = not any(
+        reason.startswith("Required applicability inputs could not be confirmed")
+        for reason in fit_assessment.reasons
+    )
+    substance_class_in_scope = not any(
+        "substance class" in reason.casefold() or "substance_class" in reason.casefold()
+        for reason in fit_assessment.reasons
+    )
     return [
         ScientificReviewCheck(
             code="scenario_result_match",
@@ -387,11 +403,31 @@ def _scientific_review_checks(
             ),
         ),
         ScientificReviewCheck(
-            code="applicability_profile_declared",
-            passed=bool(fit_assessment.applicability_profile.required_inputs),
+            code="applicability_required_inputs_confirmed",
+            passed=required_inputs_confirmed,
             message=(
-                f"Governed applicability profile is declared for model family "
-                f"{fit_assessment.model_family.value}."
+                "Governed applicability required inputs "
+                + ("are confirmed." if required_inputs_confirmed else "need review.")
+            ),
+        ),
+        ScientificReviewCheck(
+            code="applicability_fit_for_purpose_supported",
+            passed=fit_for_purpose_in_scope,
+            message=(
+                f"Fit-for-purpose {fit_assessment.fit_for_purpose.value} "
+                + ("is declared in scope." if fit_for_purpose_in_scope else "is outside declared scope.")
+            ),
+        ),
+        ScientificReviewCheck(
+            code="applicability_substance_class_in_scope",
+            passed=substance_class_in_scope and fit_assessment.verdict != "not_applicable",
+            message=(
+                "Substance class "
+                + (
+                    "is resolved and in scope."
+                    if substance_class_in_scope and fit_assessment.verdict != "not_applicable"
+                    else "is missing, unresolved, or out of scope."
+                )
             ),
         ),
         ScientificReviewCheck(
@@ -405,7 +441,7 @@ def _scientific_review_checks(
             code="uncertainty_summary_populated",
             passed=bool(uncertainty_summary.summary_lines),
             message=(
-                f"Deterministic uncertainty summary records {len(uncertainty_summary.top_drivers)} top drivers."
+                f"Deterministic uncertainty summary records {uncertainty_summary.driver_count} total drivers."
             ),
         ),
         ScientificReviewCheck(
@@ -426,7 +462,7 @@ def _scientific_review_outcome(
     quality_flags = quality_flags or []
     if any(flag.severity == Severity.ERROR for flag in quality_flags):
         return ScientificReviewOutcome.ESCALATE_MODEL_REVIEW
-    driver_types = {driver.driver_type for driver in uncertainty_summary.top_drivers}
+    driver_types = set(uncertainty_summary.all_driver_types)
     if fit_assessment.verdict in review_profile.escalation_fit_verdicts:
         return ScientificReviewOutcome.ESCALATE_MODEL_REVIEW
     if any(driver_type in review_profile.escalation_driver_types for driver_type in driver_types):
@@ -476,18 +512,18 @@ def _scientific_review_outcome_lines(
             f"Escalation triggered because fit verdict {fit_assessment.verdict} is governed for escalation."
         )
     triggered_escalation_drivers = [
-        driver.driver_type
-        for driver in uncertainty_summary.top_drivers
-        if driver.driver_type in review_profile.escalation_driver_types
+        driver_type
+        for driver_type in uncertainty_summary.all_driver_types
+        if driver_type in review_profile.escalation_driver_types
     ]
     if triggered_escalation_drivers:
         governing_rule_lines.append(
             "Escalation driver types present: " + ", ".join(sorted(set(triggered_escalation_drivers))) + "."
         )
     triggered_qualification_drivers = [
-        driver.driver_type
-        for driver in uncertainty_summary.top_drivers
-        if driver.driver_type in review_profile.qualification_driver_types
+        driver_type
+        for driver_type in uncertainty_summary.all_driver_types
+        if driver_type in review_profile.qualification_driver_types
     ]
     if triggered_qualification_drivers:
         governing_rule_lines.append(
@@ -515,8 +551,8 @@ def _scientific_review_outcome_lines(
         )
 
     seen_actions = set(recommended_actions)
-    for driver in uncertainty_summary.top_drivers:
-        template = review_profile.driver_action_templates.get(driver.driver_type)
+    for driver_type in uncertainty_summary.all_driver_types:
+        template = review_profile.driver_action_templates.get(driver_type)
         if template and template not in seen_actions:
             recommended_actions.append(template)
             seen_actions.add(template)
@@ -616,14 +652,10 @@ def preview_scientific_review_outcome(
         review_status=review_status,
         triggered_fit_verdicts=[fit_assessment.verdict] if fit_assessment.verdict in review_profile.escalation_fit_verdicts else [],
         triggered_driver_types=[
-            driver.driver_type
-            for driver in uncertainty_summary.top_drivers
-            if driver.driver_type in review_profile.escalation_driver_types
-            or driver.driver_type in review_profile.qualification_driver_types
-            or (
-                review_profile.warning_severity_promotes_qualification
-                and driver.severity == Severity.WARNING
-            )
+            driver_type
+            for driver_type in uncertainty_summary.all_driver_types
+            if driver_type in review_profile.escalation_driver_types
+            or driver_type in review_profile.qualification_driver_types
         ],
         triggered_check_codes=triggered_check_codes,
         governing_rule_lines=governing_rule_lines,
@@ -692,6 +724,14 @@ def build_scientific_review_packet(
     )
     review_outcome = outcome_preview.review_outcome
     review_status = outcome_preview.review_status
+    claim_set_proof_posture = _model_family_proof_posture(request.result.run_summary.model_family)
+    proof_posture_lines: list[str] = []
+    for line in [
+        *parameter_manifest.proof_posture_lines,
+        *_model_family_proof_posture_lines(request.result.run_summary.model_family),
+    ]:
+        if line not in proof_posture_lines:
+            proof_posture_lines.append(line)
     summary_lines = [
         review_profile.packet_template
         or "Build a scientific review packet that preserves model-family scope, parameter provenance, benchmark context, and deterministic uncertainty drivers.",
@@ -701,8 +741,17 @@ def build_scientific_review_packet(
         ),
         f"Fit verdict: {fit_assessment.verdict} (score={fit_assessment.fit_score:.2f}).",
         (
+            f"Default evidence posture: {parameter_manifest.default_evidence_status.value} with "
+            f"{parameter_manifest.core_default_assumption_count} runtime-consumed core default assumption(s)."
+        ),
+        (
+            f"Proof posture: run defaults are {parameter_manifest.default_proof_posture.value} and "
+            f"claim-set posture is {claim_set_proof_posture.value}."
+        ),
+        (
             f"Parameter manifest exposes {len(parameter_manifest.entries)} resolved parameters and "
-            f"{len(uncertainty_summary.top_drivers)} ranked uncertainty drivers."
+            f"{uncertainty_summary.driver_count} ranked uncertainty drivers "
+            f"({len(uncertainty_summary.top_drivers)} shown in top-drivers view)."
         ),
     ]
     review_packet = ScientificReviewPacket(
@@ -716,6 +765,17 @@ def build_scientific_review_packet(
         fit_assessment=fit_assessment,
         parameter_manifest=parameter_manifest,
         uncertainty_summary=uncertainty_summary,
+        default_evidence_status=parameter_manifest.default_evidence_status,
+        default_proof_posture=parameter_manifest.default_proof_posture,
+        claim_set_proof_posture=claim_set_proof_posture,
+        default_evidence_lines=parameter_manifest.default_evidence_lines,
+        proof_posture_lines=proof_posture_lines,
+        scientific_change_lines=parameter_manifest.scientific_change_lines,
+        default_sensitivity_lines=parameter_manifest.default_sensitivity_lines,
+        rebaselined_default_parameters=parameter_manifest.rebaselined_default_parameters,
+        governed_override_parameters=parameter_manifest.governed_override_parameters,
+        material_default_sensitivity=parameter_manifest.material_default_sensitivity,
+        core_default_assumption_count=parameter_manifest.core_default_assumption_count,
         surface_samples=surface_samples,
         summary_lines=summary_lines,
         outcome_lines=outcome_preview.outcome_lines,
@@ -735,11 +795,20 @@ def build_scientific_review_packet(
         checks=checks,
         review_template_used=review_profile.packet_template,
         provenance=provenance_builder.bundle(_collect_source_references(request.scenario, request.result)),
-        limitations=[
-            *request.result.surfaces[0].limitations[:1],
-            *parameter_manifest.limitations,
-            *uncertainty_summary.limitations,
-        ],
+        limitations=_merge_limitations(
+            *[surface.limitations for surface in request.result.surfaces],
+            parameter_manifest.limitations,
+            uncertainty_summary.limitations,
+            [
+                LimitationNote(
+                    code="scientific_review_screening_only",
+                    message=(
+                        "Scientific review packet summarizes screening-oriented methods support only and "
+                        "is not a statement of regulator acceptance or submission approval."
+                    ),
+                )
+            ],
+        ),
     )
     review_packet.review_checklist = _build_scientific_review_checklist(review_profile, review_packet)
     return review_packet
@@ -761,6 +830,16 @@ def build_scientific_review_brief(
         or "Summarize whether the run is scientifically reviewable within the declared Environmental Fate MCP boundary."
     ]
     summary_lines.extend(review_packet.summary_lines)
+    summary_lines.extend("Proof posture: " + line for line in review_packet.proof_posture_lines)
+    summary_lines.extend(
+        "Scientific change: " + line for line in review_packet.scientific_change_lines
+    )
+    summary_lines.extend(
+        "Default sensitivity: " + line for line in review_packet.default_sensitivity_lines
+    )
+    summary_lines.extend(
+        "Default evidence: " + line for line in review_packet.default_evidence_lines
+    )
     summary_lines.extend(
         "Benchmark reference: " + line for line in review_packet.benchmark_reference_lines
     )
@@ -816,7 +895,18 @@ def build_scientific_review_brief(
         summary_lines=summary_lines,
         outcome_lines=review_packet.outcome_lines,
         recommended_actions=review_packet.recommended_actions,
-        parameter_quality_lines=review_packet.parameter_manifest.summary_lines,
+        parameter_quality_lines=_parameter_quality_lines(review_packet.parameter_manifest),
+        default_evidence_status=review_packet.default_evidence_status,
+        default_proof_posture=review_packet.default_proof_posture,
+        claim_set_proof_posture=review_packet.claim_set_proof_posture,
+        default_evidence_lines=_default_evidence_lines(review_packet.parameter_manifest),
+        proof_posture_lines=review_packet.proof_posture_lines,
+        scientific_change_lines=review_packet.scientific_change_lines,
+        default_sensitivity_lines=review_packet.default_sensitivity_lines,
+        rebaselined_default_parameters=review_packet.rebaselined_default_parameters,
+        governed_override_parameters=review_packet.governed_override_parameters,
+        material_default_sensitivity=review_packet.material_default_sensitivity,
+        core_default_assumption_count=review_packet.core_default_assumption_count,
         applicability_lines=review_packet.fit_assessment.applicability_lines,
         uncertainty_lines=review_packet.uncertainty_summary.summary_lines,
         benchmark_reference_lines=review_packet.benchmark_reference_lines,
@@ -835,3 +925,127 @@ def build_scientific_review_brief(
     )
 
 
+def build_run_scientific_trust_brief(
+    request: BuildRunScientificTrustBriefRequest,
+    provenance_builder: ProvenanceBuilder,
+) -> RunScientificTrustBrief:
+    review_packet = build_scientific_review_packet(
+        BuildScientificReviewPacketRequest(
+            scenario=request.scenario,
+            result=request.result,
+            max_surface_samples=request.max_surface_samples,
+        ),
+        provenance_builder,
+    )
+    passed_check_count = sum(1 for check in review_packet.checks if check.passed)
+    top_uncertainty_driver_types = [
+        driver.driver_type for driver in review_packet.uncertainty_summary.top_drivers[:4]
+    ]
+    if review_packet.review_outcome == ScientificReviewOutcome.ACCEPTABLE_SCREENING_USE:
+        screening_recommendation = (
+            "Appropriate for bounded screening use within the declared Environmental Fate MCP boundary."
+        )
+    elif review_packet.review_outcome == ScientificReviewOutcome.QUALIFIED_SCREENING_USE:
+        screening_recommendation = (
+            "Appropriate only as a qualified bounded-screening output; review the explicit caveats before reuse."
+        )
+    else:
+        screening_recommendation = (
+            "Do not treat this run as screening-ready without escalated model review."
+        )
+
+    reviewer_signal_lines = [
+        f"Screening recommendation: {screening_recommendation}",
+        (
+            f"Review outcome: {review_packet.review_outcome.value} with status "
+            f"{review_packet.review_status}."
+        ),
+        (
+            f"Fit verdict: {review_packet.fit_assessment.verdict} "
+            f"(score={review_packet.fit_assessment.fit_score:.2f})."
+        ),
+        (
+            f"Default evidence posture: {review_packet.default_evidence_status.value} with "
+            f"{review_packet.core_default_assumption_count} runtime-consumed core default assumption(s)."
+        ),
+        (
+            f"Proof posture: defaults are {review_packet.default_proof_posture.value}; "
+            f"claim set is {review_packet.claim_set_proof_posture.value}."
+        ),
+    ]
+    if top_uncertainty_driver_types:
+        reviewer_signal_lines.append(
+            "Top uncertainty drivers: " + ", ".join(top_uncertainty_driver_types) + "."
+        )
+    if review_packet.fit_assessment.scientific_unsuitability_lines:
+        reviewer_signal_lines.extend(
+            "Scientific unsuitability: " + line
+            for line in review_packet.fit_assessment.scientific_unsuitability_lines[:3]
+        )
+
+    top_caveat_lines: list[str] = []
+    seen_caveats: set[tuple[str, str]] = set()
+    for limitation in review_packet.limitations:
+        key = (limitation.code, limitation.message)
+        if key in seen_caveats:
+            continue
+        seen_caveats.add(key)
+        top_caveat_lines.append(limitation.message)
+        if len(top_caveat_lines) >= 5:
+            break
+
+    summary_lines = [
+        "Run scientific trust brief compresses the governed scientific review surface into a one-shot bounded-screening trust summary.",
+        (
+            f"Run {review_packet.run_id} uses model family {review_packet.model_family.value} "
+            f"for fit-for-purpose {review_packet.fit_for_purpose.value}."
+        ),
+        f"Screening recommendation: {screening_recommendation}",
+        (
+            f"Checks passed: {passed_check_count}/{len(review_packet.checks)} with "
+            f"{review_packet.uncertainty_summary.driver_count} ranked uncertainty drivers."
+        ),
+    ]
+    summary_lines.extend(reviewer_signal_lines)
+    summary_lines.extend("Proof posture: " + line for line in review_packet.proof_posture_lines[:2])
+    summary_lines.extend("Default evidence: " + line for line in review_packet.default_evidence_lines[:2])
+    summary_lines.extend(
+        "Scientific change: " + line for line in review_packet.scientific_change_lines[:2]
+    )
+    summary_lines.extend(
+        "Default sensitivity: " + line for line in review_packet.default_sensitivity_lines[:2]
+    )
+    summary_lines.extend("Caveat: " + line for line in top_caveat_lines[:3])
+
+    return RunScientificTrustBrief(
+        review_packet_id=review_packet.review_packet_id,
+        scenario_id=review_packet.scenario_id,
+        run_id=review_packet.run_id,
+        model_family=review_packet.model_family,
+        fit_for_purpose=review_packet.fit_for_purpose,
+        review_status=review_packet.review_status,
+        review_outcome=review_packet.review_outcome,
+        passed_check_count=passed_check_count,
+        total_check_count=len(review_packet.checks),
+        screening_recommendation=screening_recommendation,
+        summary_lines=summary_lines,
+        reviewer_signal_lines=reviewer_signal_lines,
+        default_evidence_status=review_packet.default_evidence_status,
+        default_proof_posture=review_packet.default_proof_posture,
+        claim_set_proof_posture=review_packet.claim_set_proof_posture,
+        default_evidence_lines=review_packet.default_evidence_lines,
+        proof_posture_lines=review_packet.proof_posture_lines,
+        scientific_change_lines=review_packet.scientific_change_lines,
+        default_sensitivity_lines=review_packet.default_sensitivity_lines,
+        rebaselined_default_parameters=review_packet.rebaselined_default_parameters,
+        governed_override_parameters=review_packet.governed_override_parameters,
+        material_default_sensitivity=review_packet.material_default_sensitivity,
+        core_default_assumption_count=review_packet.core_default_assumption_count,
+        applicability_lines=review_packet.fit_assessment.applicability_lines,
+        scientific_unsuitability_lines=review_packet.fit_assessment.scientific_unsuitability_lines,
+        uncertainty_lines=review_packet.uncertainty_summary.summary_lines,
+        top_uncertainty_driver_types=top_uncertainty_driver_types,
+        top_caveat_lines=top_caveat_lines,
+        recommended_actions=review_packet.recommended_actions,
+        limitations=review_packet.limitations,
+    )

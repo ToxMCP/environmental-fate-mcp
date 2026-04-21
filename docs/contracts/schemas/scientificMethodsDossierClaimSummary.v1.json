@@ -46,6 +46,15 @@
       "title": "ScientificValidationClaimPriority",
       "type": "string"
     },
+    "ScientificWorksheetStatus": {
+      "enum": [
+        "ready",
+        "review_needed",
+        "missing"
+      ],
+      "title": "ScientificWorksheetStatus",
+      "type": "string"
+    },
     "SourceReference": {
       "additionalProperties": false,
       "properties": {
@@ -207,6 +216,90 @@
       },
       "title": "External Corroboration Jurisdictions",
       "type": "array"
+    },
+    "evidence_family": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidence Family"
+    },
+    "official_source_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Official Source Ids",
+      "type": "array"
+    },
+    "worksheet_artifact_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Worksheet Artifact Path"
+    },
+    "expected_output_artifact_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expected Output Artifact Path"
+    },
+    "worksheet_status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ScientificWorksheetStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "last_reviewed_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Reviewed Date"
+    },
+    "tolerance_basis": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tolerance Basis"
+    },
+    "reviewer_grade_passed": {
+      "default": false,
+      "title": "Reviewer Grade Passed",
+      "type": "boolean"
     },
     "external_corroboration_lines": {
       "items": {

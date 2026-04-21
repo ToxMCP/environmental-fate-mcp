@@ -228,6 +228,20 @@
       "title": "Surface Deltas",
       "type": "array"
     },
+    "base_only_surface_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Base Only Surface Keys",
+      "type": "array"
+    },
+    "candidate_only_surface_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Candidate Only Surface Keys",
+      "type": "array"
+    },
     "changed_assumptions": {
       "items": {
         "type": "string"

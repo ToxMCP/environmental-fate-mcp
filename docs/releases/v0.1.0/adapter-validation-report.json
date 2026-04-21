@@ -1,16 +1,16 @@
 {
-  "checkCount": 5,
+  "checkCount": 7,
   "checks": [
     {
-      "name": "normalized_json_csv_equivalence",
+      "name": "normalized_json_csv_parity",
       "status": "ok"
     },
     {
-      "name": "adapter_unit_conversion_equivalence",
+      "name": "adapter_unit_conversion_parity",
       "status": "ok"
     },
     {
-      "name": "adapter_basis_conversion_equivalence",
+      "name": "adapter_basis_conversion_parity",
       "status": "ok"
     },
     {
@@ -20,8 +20,17 @@
     {
       "name": "legacy_time_bucket_bounds_preserved",
       "status": "ok"
+    },
+    {
+      "name": "public_import_profiles_declared",
+      "status": "ok"
+    },
+    {
+      "name": "public_import_fixtures_available",
+      "status": "ok"
     }
   ],
+  "contractScopeNote": "These adapter checks verify canonical Fate MCP normalization parity across governed import paths. They do not certify source-engine scientific validity or scientific equivalence to native Environmental Fate MCP physics.",
   "legacySteadyImport": {
     "compartments": [
       "ambient_air",
@@ -48,7 +57,7 @@
       "time_bucket"
     ]
   },
-  "normalizedFixtureEquivalence": {
+  "normalizedFixtureParity": {
     "alternateUnitSignature": [
       {
         "compartment": "surface_water",
@@ -98,5 +107,70 @@
       }
     ]
   },
-  "passed": true
+  "passed": true,
+  "publicImportManifest": {
+    "fixtures": [
+      {
+        "expected_engine_name": "illustrative-external-engine",
+        "fixture_name": "illustrative_external_engine_payload_json",
+        "format": "json",
+        "import_profile": "normalized_external_payload_json",
+        "path": "config/adapter-fixtures/illustrative_external_engine_payload.json",
+        "supported_modes": [
+          "steady_state"
+        ]
+      },
+      {
+        "expected_engine_name": "illustrative-external-engine",
+        "fixture_name": "illustrative_external_engine_payload_csv",
+        "format": "csv",
+        "import_profile": "normalized_external_payload_csv",
+        "path": "config/adapter-fixtures/illustrative_external_engine_payload.csv",
+        "supported_modes": [
+          "steady_state"
+        ]
+      },
+      {
+        "expected_engine_name": "illustrative-external-engine",
+        "fixture_name": "illustrative_external_engine_payload_alt_units",
+        "format": "csv",
+        "import_profile": "normalized_external_payload_csv",
+        "path": "config/adapter-fixtures/illustrative_external_engine_payload_alt_units.csv",
+        "supported_modes": [
+          "steady_state"
+        ]
+      }
+    ],
+    "profiles": [
+      {
+        "accepted_extensions": [
+          ".json"
+        ],
+        "accepted_modes": [
+          "steady_state",
+          "time_bucket"
+        ],
+        "description": "Canonical engine-like JSON payload consumed directly by the adapter harness.",
+        "display_name": "Normalized External Payload JSON",
+        "internal_only": false,
+        "profile_id": "normalized_external_payload_json",
+        "semantic_mapping": null
+      },
+      {
+        "accepted_extensions": [
+          ".csv"
+        ],
+        "accepted_modes": [
+          "steady_state",
+          "time_bucket"
+        ],
+        "description": "Canonical engine-like CSV payload consumed directly by the adapter harness.",
+        "display_name": "Normalized External Payload CSV",
+        "internal_only": false,
+        "profile_id": "normalized_external_payload_csv",
+        "semantic_mapping": null
+      }
+    ],
+    "schema_version": "v1"
+  }
 }

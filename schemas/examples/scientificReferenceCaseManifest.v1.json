@@ -13,6 +13,12 @@
         "US"
       ],
       "source_type": "official_guidance_anchored_edge_case_family",
+      "evidence_family": "official_guidance_anchored_edge_case_family",
+      "official_source_ids": [
+        "echa.euses",
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence.",
         "It is intended to make weak-clearance versus strong-clearance behavior challengeable in a regulatory review context."
@@ -52,6 +58,12 @@
         "US"
       ],
       "source_type": "official_guidance_anchored_duration_case_family",
+      "evidence_family": "official_guidance_anchored_duration_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors long-duration finite screening behavior where the combined degradation-plus-clearance term drives the solution toward a duration-limited plateau.",
         "It supports reviewer-facing discussion of why extending duration at a fixed release rate yields diminishing concentration change."
@@ -90,6 +102,12 @@
         "EU"
       ],
       "source_type": "official_guidance_anchored_edge_case_family",
+      "evidence_family": "official_guidance_anchored_edge_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors screening claims about bounded concentration under effective persistence when a finite residence-time loss term remains present.",
         "It is intended to ground weak-clearance versus strong-clearance reviewer challenges in regulator-recognizable environmental assessment concepts."
@@ -128,6 +146,12 @@
         "EU"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors elapsed-time bucket behavior for one-compartment flowing-water screening to regulator-recognizable EU environmental assessment concepts.",
         "It supports reviewer-facing discussion of why advective time-bucket outputs preserve elapsed physical time and post-release decline rather than arbitrary pagination."
@@ -166,6 +190,12 @@
         "EU"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
         "It is used as a screening reference family for residence-time and bounded-clearance reasoning, not as a claim that Fate MCP implements EUSES directly."
@@ -204,6 +234,12 @@
         "EU"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors reviewer-visible parameter transparency and explicit override handling to regulator-recognizable EU screening concepts.",
         "It is used to ground the distinction between governed defaults, runtime-supported overrides, and provenance-only preserved inputs in the baseline kernel."
@@ -242,6 +278,12 @@
         "EU"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors simple release-fraction partitioning across declared environmental media to regulator-recognizable EU screening concepts.",
         "It is used to explain multi-medium release apportionment inside the baseline reference kernel without implying explicit intermedia transport dynamics."
@@ -280,6 +322,12 @@
         "EU"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors reviewer-facing interpretation of post-release recovery windows that sit near the one-turnover flushing boundary in a flowing-water screening model.",
         "It is intended to explain why retained release-stop mass can remain boundary-sensitive even after active emission ends when residence-time turnover is close to one full flushing window."
@@ -318,6 +366,11 @@
         "EU"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors executable pre-release treatment and source-term reduction logic to regulator-recognizable environmental assessment concepts.",
         "It is used to explain why the baseline reference kernel can reduce emitted mass before concentration estimation only for explicitly scoped treatment assumptions."
@@ -350,6 +403,12 @@
         "EU"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors near-parity flowing-water screening interpretations against regulator-recognizable EU environmental assessment concepts where residence time and degradation compete within the same bounded loss term.",
         "It supports reviewer-facing challenge of boundary-sensitive screening claims without implying full EUSES equivalence."
@@ -388,6 +447,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors elapsed-time bucket behavior in the baseline reference kernel to EPA environmental-model transparency principles.",
         "It is used to explain why bucketed outputs reflect elapsed physical time and post-release decay rather than arbitrary pagination."
@@ -420,6 +484,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors elapsed-time and post-release-decay reasoning against EPA environmental model evaluation principles.",
         "It supports review of time-bucket semantics and bounded post-release decay behavior in deterministic screening outputs."
@@ -452,6 +521,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency.",
         "It is intended to ground release-to-concentration screening claims where advective loss acts as a flow-through clearance term."
@@ -484,6 +558,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors explicit parameterization and reviewer-visible default override behavior to EPA model transparency principles.",
         "It is used to ground claims that runtime-supported parameters replace governed defaults while unsupported inputs remain provenance-only."
@@ -516,6 +595,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors post-release elapsed-time decay behavior in bucketed screening outputs against EPA environmental model evaluation principles.",
         "It is intended for reviewer-facing discussion of why bucketed concentrations continue to decline after the declared release period ends."
@@ -548,6 +632,11 @@
         "US"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress as the post-release recovery window moves from below the one-turnover flushing boundary to beyond it.",
         "It is intended to ground directionality claims about retained-mass decline and bounded post-release flushing progression in a regulator-recognizable US environmental modelling posture."
@@ -580,6 +669,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors post-release flushing and retained-mass decline against EPA environmental model evaluation principles for time-varying screening scenarios.",
         "It is intended for reviewer-facing discussion of how retained mass should drain after emission stops when a residence-time clearance term remains active."
@@ -612,6 +706,11 @@
         "US"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model.",
         "It is intended to explain why post-release recovery pace can cross the 50% retained-mass anchor before the one-turnover flushing boundary when degradation and advection both contribute to loss."
@@ -644,6 +743,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors the baseline reference kernel to EPA-style transparent one-compartment environmental screening logic.",
         "It is intended for reviewer-facing discussion of bounded single-medium concentration estimation, not for calibration or spatial realism claims."
@@ -676,6 +780,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors reviewer-facing interpretation of near-parity loss regimes where modest parameter changes can flip the dominant screening loss term.",
         "It is intended for deterministic boundary-sensitivity discussion, not as a claim of routed transport or calibrated transition behavior."
@@ -708,6 +817,11 @@
         "US"
       ],
       "source_type": "official_modeling_guidance_case_family",
+      "evidence_family": "official_modeling_guidance_case_family",
+      "official_source_ids": [
+        "epa.environmental_models_guidance"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors reviewer-facing interpretation of residence-time turnover windows where a one-compartment flowing-water screen moves between storage-dominant, intermediate, and flow-through transport behavior.",
         "It is intended to support bounded-transport interpretation and turnover-boundary challenge, not to imply routed hydrodynamic transport."
@@ -740,6 +854,12 @@
         "OECD"
       ],
       "source_type": "official_test_guideline_case_family",
+      "evidence_family": "official_test_guideline_case_family",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors finite, bounded one-compartment transport reasoning where retained mass approaches a loss-limited plateau rather than growing without bound.",
         "It supports reviewer-facing interpretation of bounded transport and plateau fraction within a deterministic screening equation."
@@ -778,6 +898,11 @@
         "OECD"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants.",
         "It is intended to ground directionality claims about combined-loss post-release depletion pace in a regulator-recognizable international screening posture rather than leaving that interpretation implicit in raw decay math."
@@ -810,6 +935,12 @@
         "OECD"
       ],
       "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors post-release recovery interpretation against OECD degradation-and-accumulation reporting concepts for deterministic screening models.",
         "It is intended to support reviewer-facing discussion of retained mass decline after active emission stops, including the distinction between mass retained in the compartment and cumulative mass removed."
@@ -848,6 +979,12 @@
         "OECD"
       ],
       "source_type": "official_test_guideline_case_family",
+      "evidence_family": "official_test_guideline_case_family",
+      "official_source_ids": [
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "last_reviewed_date": "2026-04-21",
       "summary_lines": [
         "This governed reference case family anchors the baseline reference kernel to regulator-recognizable first-order degradation and single-medium screening concepts drawn from OECD environmental-fate test-guideline practice.",
         "It is used to ground finite-duration first-order concentration reasoning and half-life-driven attenuation within the declared one-compartment screening boundary."

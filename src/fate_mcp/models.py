@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from enum import Enum
+import math
 from typing import Any
 from uuid import uuid4
 
@@ -13,6 +14,46 @@ from fate_mcp.result_meta import ResultMetadata
 
 class FateBaseModel(BaseModel):
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+
+SUBSTANCE_CLASS_ALIASES = ("substance_class", "substanceClass")
+
+
+def _normalize_chemical_identity_payload(
+    chemical_identity: dict[str, str],
+) -> dict[str, str]:
+    normalized = dict(chemical_identity)
+    substance_class_values: list[str] = []
+    for alias in SUBSTANCE_CLASS_ALIASES:
+        raw_value = normalized.pop(alias, None)
+        if raw_value is None:
+            continue
+        stripped_value = raw_value.strip()
+        if stripped_value:
+            substance_class_values.append(stripped_value)
+    distinct_values = {value.casefold(): value for value in substance_class_values}
+    if len(distinct_values) > 1:
+        raise ValueError(
+            "chemical_identity substance class must not declare conflicting "
+            "`substanceClass`/`substance_class` values"
+        )
+    if substance_class_values:
+        normalized["substance_class"] = substance_class_values[0]
+    return normalized
+
+
+def _ensure_finite_non_negative(value: float, field_name: str) -> float:
+    if not math.isfinite(value):
+        raise ValueError(f"{field_name} must be finite")
+    if value < 0.0:
+        raise ValueError(f"{field_name} must be greater than or equal to 0")
+    return value
+
+
+def _ensure_finite(value: float, field_name: str) -> float:
+    if not math.isfinite(value):
+        raise ValueError(f"{field_name} must be finite")
+    return value
 
 
 class Severity(str, Enum):
@@ -119,6 +160,17 @@ class FateRegionProfile(FateBaseModel):
     applicability_note: str | None = None
 
 
+class FitAssessmentPenaltyWeights(FateBaseModel):
+    unsupported_fit_for_purpose: float = Field(default=0.25, ge=0.0, le=1.0)
+    excessive_time_bucket_count: float = Field(default=0.2, ge=0.0, le=1.0)
+    provenance_only_treatments: float = Field(default=0.1, ge=0.0, le=1.0)
+    multi_medium_release_complexity: float = Field(default=0.1, ge=0.0, le=1.0)
+    unsupported_runtime_parameters: float = Field(default=0.15, ge=0.0, le=1.0)
+    missing_required_inputs: float = Field(default=0.35, ge=0.0, le=1.0)
+    missing_substance_class: float = Field(default=0.3, ge=0.0, le=1.0)
+    unsupported_substance_class: float = Field(default=1.0, ge=0.0, le=1.0)
+
+
 class ModelFamilyApplicabilityProfile(FateBaseModel):
     model_family: ModelFamily
     fit_for_purpose: list[FitForPurpose] = Field(default_factory=list)
@@ -128,6 +180,10 @@ class ModelFamilyApplicabilityProfile(FateBaseModel):
     core_assumptions: list[str] = Field(default_factory=list)
     deferred_capabilities: list[str] = Field(default_factory=list)
     review_notes: list[str] = Field(default_factory=list)
+    fit_score_threshold: float = Field(default=0.75, ge=0.0, le=1.0)
+    fit_score_penalties: FitAssessmentPenaltyWeights = Field(
+        default_factory=FitAssessmentPenaltyWeights
+    )
     source_pack: str
     applicability_note: str | None = None
 
@@ -158,6 +214,39 @@ class ScientificExternalCorroborationStatus(str, Enum):
     MULTI_OFFICIAL_MULTI_JURISDICTION = "multi_official_multi_jurisdiction"
 
 
+class ScientificCorroborationJurisdictionBreadth(str, Enum):
+    NONE = "none"
+    SINGLE_JURISDICTION = "single_jurisdiction"
+    MULTI_JURISDICTION = "multi_jurisdiction"
+
+
+class ScientificWorksheetStatus(str, Enum):
+    READY = "ready"
+    REVIEW_NEEDED = "review_needed"
+    MISSING = "missing"
+
+
+class DefaultEvidenceStatus(str, Enum):
+    SOURCE_BACKED_DEFAULTS = "source_backed_defaults"
+    GOVERNED_OVERRIDES_PRESENT = "governed_overrides_present"
+    LEGACY_CONTINUITY_ASSUMPTIONS_PRESENT = "legacy_continuity_assumptions_present"
+
+
+class RunDefaultProofPosture(str, Enum):
+    REBASELINED_SHIPPED_DEFAULTS = "rebaselined_shipped_defaults"
+    REBASELINED_DEFAULTS_WITH_GOVERNED_OVERRIDES = (
+        "rebaselined_defaults_with_governed_overrides"
+    )
+    SCENARIO_SPECIFIC_NON_DEFAULT_VALUES = "scenario_specific_non_default_values"
+    LEGACY_CONTINUITY_EXTENSION = "legacy_continuity_extension"
+
+
+class ScientificProofPosture(str, Enum):
+    REVIEWER_GRADE_REFERENCE_ANCHOR = "reviewer_grade_reference_anchor"
+    EXPERIMENTAL_CHALLENGE_PATH = "experimental_challenge_path"
+    NORMALIZATION_PARITY_LANE = "normalization_parity_lane"
+
+
 class ScientificValidationClaim(FateBaseModel):
     claim_id: str
     display_name: str
@@ -174,6 +263,22 @@ class ScientificValidationClaim(FateBaseModel):
     reference_case_ids: list[str] = Field(default_factory=list)
     methods_basis_lines: list[str] = Field(default_factory=list)
     reference_case_lines: list[str] = Field(default_factory=list)
+    corroboration_status: ScientificExternalCorroborationStatus = Field(
+        default=ScientificExternalCorroborationStatus.NONE
+    )
+    official_source_count: int = Field(default=0, ge=0)
+    jurisdiction_breadth: ScientificCorroborationJurisdictionBreadth = Field(
+        default=ScientificCorroborationJurisdictionBreadth.NONE
+    )
+    independent_evidence_families: list[str] = Field(default_factory=list)
+    evidence_family: str | None = None
+    official_source_ids: list[str] = Field(default_factory=list)
+    worksheet_artifact_path: str | None = None
+    expected_output_artifact_path: str | None = None
+    worksheet_status: ScientificWorksheetStatus | None = None
+    last_reviewed_date: date | None = None
+    tolerance_basis: str | None = None
+    next_corroboration_action: str | None = None
     review_notes: list[str] = Field(default_factory=list)
     plugin_code_references: list[str] = Field(default_factory=list)
     source_pack: str
@@ -193,6 +298,9 @@ class ScientificReferenceCase(FateBaseModel):
     model_families: list[ModelFamily] = Field(default_factory=list)
     jurisdictions: list[str] = Field(default_factory=list)
     source_type: str
+    evidence_family: str | None = None
+    official_source_ids: list[str] = Field(default_factory=list)
+    last_reviewed_date: date | None = None
     summary_lines: list[str] = Field(default_factory=list)
     applicability_lines: list[str] = Field(default_factory=list)
     scientific_unsuitability_lines: list[str] = Field(default_factory=list)
@@ -264,6 +372,14 @@ class ScientificMethodsDossierClaimSummary(FateBaseModel):
     )
     external_corroboration_source_count: int = 0
     external_corroboration_jurisdictions: list[str] = Field(default_factory=list)
+    evidence_family: str | None = None
+    official_source_ids: list[str] = Field(default_factory=list)
+    worksheet_artifact_path: str | None = None
+    expected_output_artifact_path: str | None = None
+    worksheet_status: ScientificWorksheetStatus | None = None
+    last_reviewed_date: date | None = None
+    tolerance_basis: str | None = None
+    reviewer_grade_passed: bool = False
     external_corroboration_lines: list[str] = Field(default_factory=list)
     source_grounding_lines: list[str] = Field(default_factory=list)
     methods_basis_lines: list[str] = Field(default_factory=list)
@@ -353,6 +469,13 @@ class ScientificMethodsDossier(FateBaseModel):
     mandatory_claim_count: int
     covered_mandatory_claim_count: int
     uncovered_mandatory_claim_count: int
+    reviewer_grade_anchor_status: str = "review_needed"
+    mandatory_claim_pass_count: int = 0
+    worksheet_ready_mandatory_claim_count: int = 0
+    proof_posture: ScientificProofPosture = Field(
+        default=ScientificProofPosture.REVIEWER_GRADE_REFERENCE_ANCHOR
+    )
+    proof_posture_lines: list[str] = Field(default_factory=list)
     claim_summaries: list[ScientificMethodsDossierClaimSummary]
     highlighted_claim_summaries: list[ScientificMethodsHighlightedClaimSummary] = Field(default_factory=list)
     summary_lines: list[str]
@@ -362,6 +485,7 @@ class ScientificMethodsDossier(FateBaseModel):
     highlighted_claim_grounding_lines: list[str] = Field(default_factory=list)
     reference_case_grounding_lines: list[str] = Field(default_factory=list)
     reference_case_concept_lines: list[str] = Field(default_factory=list)
+    default_change_sensitivity_lines: list[str] = Field(default_factory=list)
     benchmark_reference_lines: list[str] = Field(default_factory=list)
     support_strength_lines: list[str] = Field(default_factory=list)
     edge_condition_lines: list[str] = Field(default_factory=list)
@@ -392,6 +516,13 @@ class ScientificMethodsDossierBrief(FateBaseModel):
     mandatory_claim_count: int
     covered_mandatory_claim_count: int
     uncovered_mandatory_claim_count: int
+    reviewer_grade_anchor_status: str = "review_needed"
+    mandatory_claim_pass_count: int = 0
+    worksheet_ready_mandatory_claim_count: int = 0
+    proof_posture: ScientificProofPosture = Field(
+        default=ScientificProofPosture.REVIEWER_GRADE_REFERENCE_ANCHOR
+    )
+    proof_posture_lines: list[str] = Field(default_factory=list)
     highlighted_claim_ids: list[str] = Field(default_factory=list)
     highlighted_claim_summaries: list[ScientificMethodsHighlightedClaimSummary] = Field(default_factory=list)
     summary_lines: list[str]
@@ -401,6 +532,7 @@ class ScientificMethodsDossierBrief(FateBaseModel):
     highlighted_claim_grounding_lines: list[str] = Field(default_factory=list)
     reference_case_grounding_lines: list[str] = Field(default_factory=list)
     reference_case_concept_lines: list[str] = Field(default_factory=list)
+    default_change_sensitivity_lines: list[str] = Field(default_factory=list)
     benchmark_reference_lines: list[str] = Field(default_factory=list)
     support_strength_lines: list[str] = Field(default_factory=list)
     promotion_blocker_claim_ids: list[str] = Field(default_factory=list)
@@ -817,6 +949,11 @@ class EnvironmentalReleaseScenario(FateBaseModel):
             seen.add(record.parameter)
         return value
 
+    @field_validator("chemical_identity")
+    @classmethod
+    def normalize_chemical_identity(cls, value: dict[str, str]) -> dict[str, str]:
+        return _normalize_chemical_identity_payload(value)
+
 
 class FateModelRunOptions(FateBaseModel):
     schema_version: str = Field(default=SCHEMA_VERSION)
@@ -860,6 +997,11 @@ class ConcentrationSurface(FateBaseModel):
     quality_flags: list[QualityFlag] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)
 
+    @field_validator("concentration_value")
+    @classmethod
+    def validate_concentration_value(cls, value: float) -> float:
+        return _ensure_finite_non_negative(value, "concentration_value")
+
 
 class FateRunSummary(FateBaseModel):
     schema_version: str = Field(default=SCHEMA_VERSION)
@@ -880,9 +1022,16 @@ class ProbabilisticSurfaceSummary(FateBaseModel):
     compartment: Compartment
     concentration_unit: str
     median_value: float
-    p90_value: float
-    p95_value: float
-    absolute_p95_minus_median: float
+    p90_value: float | None = None
+    p95_value: float | None = None
+    absolute_p95_minus_median: float | None = None
+
+    @field_validator("median_value", "p90_value", "p95_value", "absolute_p95_minus_median")
+    @classmethod
+    def validate_summary_values(cls, value: float | None, info) -> float | None:
+        if value is None:
+            return value
+        return _ensure_finite_non_negative(value, info.field_name)
 
 
 class ProbabilisticRunSummary(FateBaseModel):
@@ -919,9 +1068,16 @@ class ProbabilisticReviewSurfaceSummary(FateBaseModel):
     compartment: Compartment
     concentration_unit: str
     median_value: float
-    p90_value: float
-    p95_value: float
-    absolute_p95_minus_median: float
+    p90_value: float | None = None
+    p95_value: float | None = None
+    absolute_p95_minus_median: float | None = None
+
+    @field_validator("median_value", "p90_value", "p95_value", "absolute_p95_minus_median")
+    @classmethod
+    def validate_review_summary_values(cls, value: float | None, info) -> float | None:
+        if value is None:
+            return value
+        return _ensure_finite_non_negative(value, info.field_name)
 
 
 class ProbabilisticReviewCheck(FateBaseModel):
@@ -1012,6 +1168,18 @@ class SurfaceDelta(FateBaseModel):
     absolute_delta: float
     relative_delta: float | None = None
 
+    @field_validator("base_value", "candidate_value")
+    @classmethod
+    def validate_surface_delta_concentrations(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
+
+    @field_validator("absolute_delta", "relative_delta")
+    @classmethod
+    def validate_surface_delta_metrics(cls, value: float | None, info) -> float | None:
+        if value is None:
+            return value
+        return _ensure_finite(value, info.field_name)
+
 
 class FateScenarioComparisonRecord(FateBaseModel):
     schema_version: str = Field(default=SCHEMA_VERSION)
@@ -1019,6 +1187,8 @@ class FateScenarioComparisonRecord(FateBaseModel):
     base_scenario_id: str
     candidate_scenario_id: str
     surface_deltas: list[SurfaceDelta]
+    base_only_surface_keys: list[str] = Field(default_factory=list)
+    candidate_only_surface_keys: list[str] = Field(default_factory=list)
     changed_assumptions: list[str]
     dominant_drivers: list[str]
     provenance: ProvenanceBundle
@@ -1052,6 +1222,11 @@ class RegulatoryCrosswalkEntry(FateBaseModel):
     equation_id: str | None = None
     equation_text: str | None = None
     requires_dose_translation: bool = True
+
+    @field_validator("concentration_value")
+    @classmethod
+    def validate_crosswalk_concentration_value(cls, value: float) -> float:
+        return _ensure_finite_non_negative(value, "concentration_value")
 
 
 class RegulatoryHandoffPackage(FateBaseModel):
@@ -1096,6 +1271,11 @@ class RegulatoryHandoffEntrySummary(FateBaseModel):
     time_window_mode: RunMode
     equation_id: str | None = None
     equation_text: str | None = None
+
+    @field_validator("concentration_value")
+    @classmethod
+    def validate_handoff_summary_concentration_value(cls, value: float) -> float:
+        return _ensure_finite_non_negative(value, "concentration_value")
 
 
 class RegulatoryHandoffPackageSummary(FateBaseModel):
@@ -1190,6 +1370,11 @@ class ScientificReviewSurfaceSummary(FateBaseModel):
     equation_id: str | None = None
     equation_text: str | None = None
 
+    @field_validator("concentration_value")
+    @classmethod
+    def validate_review_surface_concentration_value(cls, value: float) -> float:
+        return _ensure_finite_non_negative(value, "concentration_value")
+
 
 class ScientificReviewCheck(FateBaseModel):
     code: str
@@ -1276,6 +1461,23 @@ class ScientificReviewPacket(FateBaseModel):
     fit_assessment: ReleaseScenarioFitAssessment
     parameter_manifest: RunParameterManifest
     uncertainty_summary: RunUncertaintySummary
+    default_evidence_status: DefaultEvidenceStatus = Field(
+        default=DefaultEvidenceStatus.SOURCE_BACKED_DEFAULTS
+    )
+    default_proof_posture: RunDefaultProofPosture = Field(
+        default=RunDefaultProofPosture.REBASELINED_SHIPPED_DEFAULTS
+    )
+    claim_set_proof_posture: ScientificProofPosture = Field(
+        default=ScientificProofPosture.REVIEWER_GRADE_REFERENCE_ANCHOR
+    )
+    default_evidence_lines: list[str] = Field(default_factory=list)
+    proof_posture_lines: list[str] = Field(default_factory=list)
+    scientific_change_lines: list[str] = Field(default_factory=list)
+    default_sensitivity_lines: list[str] = Field(default_factory=list)
+    rebaselined_default_parameters: list[str] = Field(default_factory=list)
+    governed_override_parameters: list[str] = Field(default_factory=list)
+    material_default_sensitivity: bool = False
+    core_default_assumption_count: int = Field(default=0, ge=0)
     surface_samples: list[ScientificReviewSurfaceSummary] = Field(default_factory=list)
     summary_lines: list[str]
     outcome_lines: list[str] = Field(default_factory=list)
@@ -1317,6 +1519,23 @@ class ScientificReviewBrief(FateBaseModel):
     outcome_lines: list[str] = Field(default_factory=list)
     recommended_actions: list[str] = Field(default_factory=list)
     parameter_quality_lines: list[str] = Field(default_factory=list)
+    default_evidence_status: DefaultEvidenceStatus = Field(
+        default=DefaultEvidenceStatus.SOURCE_BACKED_DEFAULTS
+    )
+    default_proof_posture: RunDefaultProofPosture = Field(
+        default=RunDefaultProofPosture.REBASELINED_SHIPPED_DEFAULTS
+    )
+    claim_set_proof_posture: ScientificProofPosture = Field(
+        default=ScientificProofPosture.REVIEWER_GRADE_REFERENCE_ANCHOR
+    )
+    default_evidence_lines: list[str] = Field(default_factory=list)
+    proof_posture_lines: list[str] = Field(default_factory=list)
+    scientific_change_lines: list[str] = Field(default_factory=list)
+    default_sensitivity_lines: list[str] = Field(default_factory=list)
+    rebaselined_default_parameters: list[str] = Field(default_factory=list)
+    governed_override_parameters: list[str] = Field(default_factory=list)
+    material_default_sensitivity: bool = False
+    core_default_assumption_count: int = Field(default=0, ge=0)
     applicability_lines: list[str] = Field(default_factory=list)
     scientific_unsuitability_lines: list[str] = Field(default_factory=list)
     uncertainty_lines: list[str] = Field(default_factory=list)
@@ -1332,6 +1551,47 @@ class ScientificReviewBrief(FateBaseModel):
     post_release_pace_directionality_lines: list[str] = Field(default_factory=list)
     loss_dominance_lines: list[str] = Field(default_factory=list)
     loss_transition_lines: list[str] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
+
+
+class RunScientificTrustBrief(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    trust_brief_id: str = Field(default_factory=lambda: f"runtrust-{uuid4().hex[:12]}")
+    review_packet_id: str
+    scenario_id: str
+    run_id: str
+    model_family: ModelFamily
+    fit_for_purpose: FitForPurpose
+    review_status: str
+    review_outcome: ScientificReviewOutcome
+    passed_check_count: int
+    total_check_count: int
+    screening_recommendation: str
+    summary_lines: list[str]
+    reviewer_signal_lines: list[str] = Field(default_factory=list)
+    default_evidence_status: DefaultEvidenceStatus = Field(
+        default=DefaultEvidenceStatus.SOURCE_BACKED_DEFAULTS
+    )
+    default_proof_posture: RunDefaultProofPosture = Field(
+        default=RunDefaultProofPosture.REBASELINED_SHIPPED_DEFAULTS
+    )
+    claim_set_proof_posture: ScientificProofPosture = Field(
+        default=ScientificProofPosture.REVIEWER_GRADE_REFERENCE_ANCHOR
+    )
+    default_evidence_lines: list[str] = Field(default_factory=list)
+    proof_posture_lines: list[str] = Field(default_factory=list)
+    scientific_change_lines: list[str] = Field(default_factory=list)
+    default_sensitivity_lines: list[str] = Field(default_factory=list)
+    rebaselined_default_parameters: list[str] = Field(default_factory=list)
+    governed_override_parameters: list[str] = Field(default_factory=list)
+    material_default_sensitivity: bool = False
+    core_default_assumption_count: int = Field(default=0, ge=0)
+    applicability_lines: list[str] = Field(default_factory=list)
+    scientific_unsuitability_lines: list[str] = Field(default_factory=list)
+    uncertainty_lines: list[str] = Field(default_factory=list)
+    top_uncertainty_driver_types: list[str] = Field(default_factory=list)
+    top_caveat_lines: list[str] = Field(default_factory=list)
+    recommended_actions: list[str] = Field(default_factory=list)
     limitations: list[LimitationNote] = Field(default_factory=list)
 
 
@@ -1776,10 +2036,33 @@ class BuildEnvironmentalReleaseScenarioRequest(FateBaseModel):
     evidence_sources: list[SourceReference] = Field(default_factory=list)
     temperature_c: float = Field(default=25.0, ge=-273.15, le=1000.0)
 
+    @field_validator("chemical_identity")
+    @classmethod
+    def normalize_chemical_identity(cls, value: dict[str, str]) -> dict[str, str]:
+        return _normalize_chemical_identity_payload(value)
+
 
 class EstimateMultimediaConcentrationsRequest(FateBaseModel):
     scenario: EnvironmentalReleaseScenario
     run_options: FateModelRunOptions
+
+
+class ImportExternalResultPayloadRequest(FateBaseModel):
+    scenario: EnvironmentalReleaseScenario
+    run_options: FateModelRunOptions
+    payload_path: str = Field(
+        description=(
+            "Path to a normalized external payload file. Relative paths are resolved against the "
+            "server working directory first and then the repository root."
+        )
+    )
+    import_profile_id: str = Field(
+        default="normalized_external_payload_json",
+        description=(
+            "Public adapter import profile to validate against. "
+            "Use normalized_external_payload_json or normalized_external_payload_csv."
+        ),
+    )
 
 
 class BuildConcentrationSurfaceBundleRequest(FateBaseModel):
@@ -1884,6 +2167,20 @@ class RunParameterManifest(FateBaseModel):
     fit_for_purpose: FitForPurpose
     escalation_concerns: list[EscalationConcern] = Field(default_factory=list)
     entries: list[RunParameterManifestEntry]
+    default_evidence_status: DefaultEvidenceStatus = Field(
+        default=DefaultEvidenceStatus.SOURCE_BACKED_DEFAULTS
+    )
+    default_proof_posture: RunDefaultProofPosture = Field(
+        default=RunDefaultProofPosture.REBASELINED_SHIPPED_DEFAULTS
+    )
+    default_evidence_lines: list[str] = Field(default_factory=list)
+    proof_posture_lines: list[str] = Field(default_factory=list)
+    scientific_change_lines: list[str] = Field(default_factory=list)
+    default_sensitivity_lines: list[str] = Field(default_factory=list)
+    rebaselined_default_parameters: list[str] = Field(default_factory=list)
+    governed_override_parameters: list[str] = Field(default_factory=list)
+    material_default_sensitivity: bool = False
+    core_default_assumption_count: int = Field(default=0, ge=0)
     summary_lines: list[str]
     limitations: list[LimitationNote] = Field(default_factory=list)
     provenance: ProvenanceBundle
@@ -1904,6 +2201,8 @@ class RunUncertaintySummary(FateBaseModel):
     run_id: str
     model_family: ModelFamily
     top_drivers: list[UncertaintyDriver]
+    driver_count: int = Field(ge=0)
+    all_driver_types: list[str] = Field(default_factory=list)
     summary_lines: list[str]
     limitations: list[LimitationNote] = Field(default_factory=list)
     provenance: ProvenanceBundle
@@ -2091,6 +2390,12 @@ class PreviewScientificReviewOutcomeRequest(FateBaseModel):
 
 class BuildScientificReviewBriefRequest(FateBaseModel):
     review_packet: ScientificReviewPacket
+
+
+class BuildRunScientificTrustBriefRequest(FateBaseModel):
+    scenario: EnvironmentalReleaseScenario
+    result: ConcentrationEstimationResult
+    max_surface_samples: int = Field(default=4, ge=1, le=12)
 
 
 class BuildScientificMethodsDossierRequest(FateBaseModel):

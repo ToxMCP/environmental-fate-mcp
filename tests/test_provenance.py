@@ -12,7 +12,7 @@ def test_provenance_timestamp_has_microsecond_precision() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Timestamp precision test"},
+            chemical_identity={"preferredName": "Timestamp precision test", "substance_class": "organic chemical"},
             total_release_mass_kg=1.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=1.0,

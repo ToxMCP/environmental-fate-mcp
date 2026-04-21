@@ -3,8 +3,12 @@
   "cases": {
     "echa_euses_water_screening_case_family_v1": {
       "displayName": "ECHA EUSES water screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors one-compartment flowing-water screening interpretations against regulator-recognizable EUSES-style environmental exposure concepts.",
@@ -28,12 +32,22 @@
       ],
       "reviewNotes": [
         "Use this case family to ground screening logic in regulator-recognizable water-compartment exposure concepts without overstating model equivalence."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_environmental_models_elapsed_time_case_family_v1": {
       "displayName": "EPA elapsed-time environmental model case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors elapsed-time and post-release-decay reasoning against EPA environmental model evaluation principles.",
@@ -52,12 +66,21 @@
       ],
       "reviewNotes": [
         "Use this case family for reviewer-facing time semantics, not for hydrodynamic or site-specific transport claims."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_flow_through_water_screening_case_family_v1": {
       "displayName": "EPA flow-through water screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency.",
@@ -76,12 +99,21 @@
       ],
       "reviewNotes": [
         "Use this case family to explain bounded flow-through screening logic without overstating site realism."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_post_release_decay_bucket_case_family_v1": {
       "displayName": "EPA post-release decay bucket case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors post-release elapsed-time decay behavior in bucketed screening outputs against EPA environmental model evaluation principles.",
@@ -100,12 +132,21 @@
       ],
       "reviewNotes": [
         "Use this case family when a reviewer needs to distinguish elapsed-time decay semantics from arbitrary bucket pagination."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_post_release_flushing_screening_case_family_v1": {
       "displayName": "EPA post-release flushing screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors post-release flushing and retained-mass decline against EPA environmental model evaluation principles for time-varying screening scenarios.",
@@ -124,12 +165,21 @@
       ],
       "reviewNotes": [
         "Use this case family to ground post-release retained-mass decline and flushing interpretation without overstating transport realism."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "oecd_post_release_recovery_screening_case_family_v1": {
       "displayName": "OECD post-release recovery screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["OECD"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "OECD"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors post-release recovery interpretation against OECD degradation-and-accumulation reporting concepts for deterministic screening models.",
@@ -153,12 +203,22 @@
       ],
       "reviewNotes": [
         "Use this case family to explain post-release retained-versus-removed mass interpretation in a regulator-recognizable way without claiming OECD model equivalence."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "echa_post_release_flushing_boundary_case_family_v1": {
       "displayName": "ECHA post-release flushing boundary case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors reviewer-facing interpretation of post-release recovery windows that sit near the one-turnover flushing boundary in a flowing-water screening model.",
@@ -182,12 +242,22 @@
       ],
       "reviewNotes": [
         "Use this case family when a reviewer needs an EU-recognizable explanation for why post-release retention and flushing can remain boundary-sensitive around a one-turnover recovery window."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_post_release_directionality_case_family_v1": {
       "displayName": "EPA post-release recovery directionality case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress as the post-release recovery window moves from below the one-turnover flushing boundary to beyond it.",
@@ -206,12 +276,21 @@
       ],
       "reviewNotes": [
         "Use this case family when a reviewer needs a regulator-recognizable explanation for why retained release-stop mass should cross below the one-turnover anchor as the recovery window extends."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_post_release_recovery_pace_case_family_v1": {
       "displayName": "EPA post-release combined-loss recovery pace case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model.",
@@ -230,12 +309,21 @@
       ],
       "reviewNotes": [
         "Use this case family when a reviewer needs a regulator-recognizable explanation for why the combined-loss half-recovery pace can be materially earlier than the one-turnover flushing boundary."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "oecd_post_release_half_recovery_directionality_case_family_v1": {
       "displayName": "OECD post-release half-recovery directionality case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["OECD"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "OECD"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants.",
@@ -254,12 +342,21 @@
       ],
       "reviewNotes": [
         "Use this case family when a reviewer needs an internationally recognizable explanation for why retained release-stop mass should not merely cross the 50% anchor, but continue moving materially below it as the post-release window extends."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "echa_bounded_clearance_edge_case_family_v1": {
       "displayName": "ECHA bounded-clearance edge case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_anchored_edge_case_family",
       "summaryLines": [
         "This governed reference case family anchors screening claims about bounded concentration under effective persistence when a finite residence-time loss term remains present.",
@@ -283,12 +380,23 @@
       ],
       "reviewNotes": [
         "Use this case family to explain why bounded clearance still matters under effective persistence in one-compartment flowing-water screening."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_anchored_edge_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "advective_clearance_edge_case_family_v1": {
       "displayName": "Advective clearance edge-condition case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["EU", "US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU",
+        "US"
+      ],
       "sourceType": "official_guidance_anchored_edge_case_family",
       "summaryLines": [
         "This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence.",
@@ -312,12 +420,23 @@
       ],
       "reviewNotes": [
         "This case family is screening-oriented and should be used to stress-test the loss term, not to imply hydrodynamic realism."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_anchored_edge_case_family",
+      "officialSourceIds": [
+        "echa.euses",
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "advective_duration_plateau_case_family_v1": {
       "displayName": "Advective duration plateau case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["EU", "US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU",
+        "US"
+      ],
       "sourceType": "official_guidance_anchored_duration_case_family",
       "summaryLines": [
         "This governed reference case family anchors long-duration finite screening behavior where the combined degradation-plus-clearance term drives the solution toward a duration-limited plateau.",
@@ -341,12 +460,22 @@
       ],
       "reviewNotes": [
         "Use this case family when the reviewer needs to understand why the advective family saturates toward a bounded plateau at fixed release rate."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_anchored_duration_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_transition_boundary_screening_case_family_v1": {
       "displayName": "EPA transition-boundary screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors reviewer-facing interpretation of near-parity loss regimes where modest parameter changes can flip the dominant screening loss term.",
@@ -365,12 +494,21 @@
       ],
       "reviewNotes": [
         "Use this case family to explain why transition-zone screening claims require directional sensitivity anchors rather than a single near-parity point."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "echa_transition_boundary_screening_case_family_v1": {
       "displayName": "ECHA transition-boundary screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors near-parity flowing-water screening interpretations against regulator-recognizable EU environmental assessment concepts where residence time and degradation compete within the same bounded loss term.",
@@ -394,12 +532,22 @@
       ],
       "reviewNotes": [
         "Use this case family when a reviewer needs a regulator-recognizable explanation for why a small residence-time or half-life change can flip the dominant loss interpretation in a screening model."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_turnover_boundary_screening_case_family_v1": {
       "displayName": "EPA turnover-boundary screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors reviewer-facing interpretation of residence-time turnover windows where a one-compartment flowing-water screen moves between storage-dominant, intermediate, and flow-through transport behavior.",
@@ -418,12 +566,21 @@
       ],
       "reviewNotes": [
         "Use this case family to explain why turnover-boundary claims need both stable-regime anchors and near-boundary sensitivity anchors."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "oecd_bounded_transport_screening_case_family_v1": {
       "displayName": "OECD bounded-transport screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["OECD"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "OECD"
+      ],
       "sourceType": "official_test_guideline_case_family",
       "summaryLines": [
         "This governed reference case family anchors finite, bounded one-compartment transport reasoning where retained mass approaches a loss-limited plateau rather than growing without bound.",
@@ -447,12 +604,22 @@
       ],
       "reviewNotes": [
         "Use this case family when the reviewer needs a regulator-recognizable rationale for plateau-fraction and bounded-transport interpretation in the advective screening family."
-      ]
+      ],
+      "evidenceFamily": "official_test_guideline_case_family",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "oecd_single_medium_first_order_screening_case_family_v1": {
       "displayName": "OECD single-medium first-order screening case family",
-      "modelFamilies": ["reference_mass_balance"],
-      "jurisdictions": ["OECD"],
+      "modelFamilies": [
+        "reference_mass_balance"
+      ],
+      "jurisdictions": [
+        "OECD"
+      ],
       "sourceType": "official_test_guideline_case_family",
       "summaryLines": [
         "This governed reference case family anchors the baseline reference kernel to regulator-recognizable first-order degradation and single-medium screening concepts drawn from OECD environmental-fate test-guideline practice.",
@@ -476,12 +643,22 @@
       ],
       "reviewNotes": [
         "Use this case family to explain why the baseline reference kernel is scientifically limited to simple first-order screening behavior rather than richer multimedia transport."
-      ]
+      ],
+      "evidenceFamily": "official_test_guideline_case_family",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_single_compartment_environmental_screening_case_family_v1": {
       "displayName": "EPA single-compartment environmental screening case family",
-      "modelFamilies": ["reference_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "reference_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors the baseline reference kernel to EPA-style transparent one-compartment environmental screening logic.",
@@ -500,12 +677,21 @@
       ],
       "reviewNotes": [
         "Use this case family to keep the baseline reference kernel grounded in transparent screening logic without overstating mechanistic depth."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "echa_partitioned_release_screening_case_family_v1": {
       "displayName": "ECHA partitioned-release screening case family",
-      "modelFamilies": ["reference_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "reference_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors simple release-fraction partitioning across declared environmental media to regulator-recognizable EU screening concepts.",
@@ -529,12 +715,22 @@
       ],
       "reviewNotes": [
         "Use this case family when the reviewer needs to see that multi-medium outputs are grounded to declared release fractions rather than implicit transfer physics."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_elapsed_time_bucket_screening_case_family_v1": {
       "displayName": "EPA elapsed-time bucket screening case family",
-      "modelFamilies": ["reference_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "reference_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors elapsed-time bucket behavior in the baseline reference kernel to EPA environmental-model transparency principles.",
@@ -553,12 +749,21 @@
       ],
       "reviewNotes": [
         "Use this case family to distinguish elapsed-time bucket semantics from arbitrary bucket-count scaling."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "epa_parameterization_override_screening_case_family_v1": {
       "displayName": "EPA parameterization and override screening case family",
-      "modelFamilies": ["reference_mass_balance"],
-      "jurisdictions": ["US"],
+      "modelFamilies": [
+        "reference_mass_balance"
+      ],
+      "jurisdictions": [
+        "US"
+      ],
       "sourceType": "official_modeling_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors explicit parameterization and reviewer-visible default override behavior to EPA model transparency principles.",
@@ -577,12 +782,21 @@
       ],
       "reviewNotes": [
         "Use this case family to keep the runtime-override claim tied to explicit parameter transparency rather than implicit model tuning."
-      ]
+      ],
+      "evidenceFamily": "official_modeling_guidance_case_family",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "echa_parameter_transparency_screening_case_family_v1": {
       "displayName": "ECHA parameter transparency screening case family",
-      "modelFamilies": ["reference_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "reference_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors reviewer-visible parameter transparency and explicit override handling to regulator-recognizable EU screening concepts.",
@@ -606,12 +820,22 @@
       ],
       "reviewNotes": [
         "Use this case family to explain parameter override transparency without overstating model calibration or regulatory endorsement."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "echa_source_term_reduction_screening_case_family_v1": {
       "displayName": "ECHA source-term reduction screening case family",
-      "modelFamilies": ["reference_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "reference_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors executable pre-release treatment and source-term reduction logic to regulator-recognizable environmental assessment concepts.",
@@ -630,12 +854,21 @@
       ],
       "reviewNotes": [
         "Use this case family to explain executable treatment as bounded source-term reduction, not as a full treatment-process model."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa"
+      ],
+      "lastReviewedDate": "2026-04-21"
     },
     "echa_elapsed_time_flowing_water_screening_case_family_v1": {
       "displayName": "ECHA elapsed-time flowing-water screening case family",
-      "modelFamilies": ["advective_screening_mass_balance"],
-      "jurisdictions": ["EU"],
+      "modelFamilies": [
+        "advective_screening_mass_balance"
+      ],
+      "jurisdictions": [
+        "EU"
+      ],
       "sourceType": "official_guidance_case_family",
       "summaryLines": [
         "This governed reference case family anchors elapsed-time bucket behavior for one-compartment flowing-water screening to regulator-recognizable EU environmental assessment concepts.",
@@ -659,7 +892,13 @@
       ],
       "reviewNotes": [
         "Use this case family to widen jurisdictional grounding for elapsed-time bucket semantics without implying full EUSES equivalence."
-      ]
+      ],
+      "evidenceFamily": "official_guidance_case_family",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "lastReviewedDate": "2026-04-21"
     }
   }
 }

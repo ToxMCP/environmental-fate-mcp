@@ -1,4 +1,54 @@
 {
+  "blockerClasses": [
+    {
+      "name": "unresolved_default_derivation_gap",
+      "passed": true
+    },
+    {
+      "name": "uncovered_corroboration_requirement",
+      "passed": true
+    },
+    {
+      "name": "unresolved_shipped_default_rebaseline_gap",
+      "passed": true
+    },
+    {
+      "name": "missing_reference_family_official_corroboration",
+      "passed": true
+    },
+    {
+      "name": "worksheet_or_equation_mismatch",
+      "passed": true
+    },
+    {
+      "name": "trust_surface_inconsistency",
+      "passed": true
+    },
+    {
+      "name": "advective_promotion_language_drift",
+      "passed": true
+    },
+    {
+      "name": "unaddressed_red_team_finding",
+      "passed": true
+    },
+    {
+      "name": "trust_pack_artifact_mismatch",
+      "passed": true
+    },
+    {
+      "name": "trust_brief_artifact_mismatch",
+      "passed": true
+    },
+    {
+      "name": "reference_worksheet_pack_artifact_mismatch",
+      "passed": true
+    },
+    {
+      "name": "accidental_advective_promotion_language_drift",
+      "passed": true
+    }
+  ],
   "checks": [
     {
       "name": "schemas-generated",
@@ -10,6 +60,10 @@
     },
     {
       "name": "defaults-manifest-generated",
+      "passed": true
+    },
+    {
+      "name": "defaults-evidence-governance-passed",
       "passed": true
     },
     {
@@ -45,11 +99,31 @@
       "passed": true
     },
     {
+      "name": "external-corroboration-governance-passed",
+      "passed": true
+    },
+    {
+      "name": "reference-corroboration-governance-passed",
+      "passed": true
+    },
+    {
+      "name": "advective-promotion-bar-governance-passed",
+      "passed": true
+    },
+    {
       "name": "scientific-review-workflow-passed",
       "passed": true
     },
     {
+      "name": "run-scientific-trust-brief-workflow-passed",
+      "passed": true
+    },
+    {
       "name": "scientific-methods-dossier-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "trust-surface-consistency-passed",
       "passed": true
     },
     {
@@ -74,6 +148,34 @@
     },
     {
       "name": "model-family-comparison-review-workflow-passed",
+      "passed": true
+    },
+    {
+      "name": "red-team-review-passed",
+      "passed": true
+    },
+    {
+      "name": "scientific-trust-pack-generated",
+      "passed": true
+    },
+    {
+      "name": "scientific-trust-brief-generated",
+      "passed": true
+    },
+    {
+      "name": "reference-proof-brief-generated",
+      "passed": true
+    },
+    {
+      "name": "reference-worksheet-manifest-generated",
+      "passed": true
+    },
+    {
+      "name": "advective-promotion-brief-generated",
+      "passed": true
+    },
+    {
+      "name": "advective-promotion-language-drift-passed",
       "passed": true
     }
   ],

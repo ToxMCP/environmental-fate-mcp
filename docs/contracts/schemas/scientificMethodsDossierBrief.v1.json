@@ -311,6 +311,15 @@
       "title": "ScientificMethodsRecommendedActionSummary",
       "type": "object"
     },
+    "ScientificProofPosture": {
+      "enum": [
+        "reviewer_grade_reference_anchor",
+        "experimental_challenge_path",
+        "normalization_parity_lane"
+      ],
+      "title": "ScientificProofPosture",
+      "type": "string"
+    },
     "ScientificValidationClaimPriority": {
       "enum": [
         "high",
@@ -376,6 +385,32 @@
       "title": "Uncovered Mandatory Claim Count",
       "type": "integer"
     },
+    "reviewer_grade_anchor_status": {
+      "default": "review_needed",
+      "title": "Reviewer Grade Anchor Status",
+      "type": "string"
+    },
+    "mandatory_claim_pass_count": {
+      "default": 0,
+      "title": "Mandatory Claim Pass Count",
+      "type": "integer"
+    },
+    "worksheet_ready_mandatory_claim_count": {
+      "default": 0,
+      "title": "Worksheet Ready Mandatory Claim Count",
+      "type": "integer"
+    },
+    "proof_posture": {
+      "$ref": "#/$defs/ScientificProofPosture",
+      "default": "reviewer_grade_reference_anchor"
+    },
+    "proof_posture_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Proof Posture Lines",
+      "type": "array"
+    },
     "highlighted_claim_ids": {
       "items": {
         "type": "string"
@@ -437,6 +472,13 @@
         "type": "string"
       },
       "title": "Reference Case Concept Lines",
+      "type": "array"
+    },
+    "default_change_sensitivity_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Default Change Sensitivity Lines",
       "type": "array"
     },
     "benchmark_reference_lines": {

@@ -1,7 +1,7 @@
 {
   "dossier": {
     "schema_version": "v1",
-    "dossier_id": "scimethods-a5eeecf1d268",
+    "dossier_id": "scimethods-df08abd79ef4",
     "model_family": "advective_screening_mass_balance",
     "run_mode_filter": null,
     "promotion_status": "ready",
@@ -11,6 +11,14 @@
     "mandatory_claim_count": 18,
     "covered_mandatory_claim_count": 18,
     "uncovered_mandatory_claim_count": 0,
+    "reviewer_grade_anchor_status": "experimental_non_promotable",
+    "mandatory_claim_pass_count": 0,
+    "worksheet_ready_mandatory_claim_count": 0,
+    "proof_posture": "experimental_challenge_path",
+    "proof_posture_lines": [
+      "advective_screening_mass_balance remains an experimental challenge path and is not promoted to the decision-facing baseline in this release.",
+      "Interpret advective outputs only through the governed baseline-versus-challenge workflow and the explicit non-promotable reasons in the methods and release artifacts."
+    ],
     "claim_summaries": [
       {
         "claim_id": "advective_cumulative_mass_balance_closure_v1",
@@ -36,7 +44,7 @@
         ],
         "covered": true,
         "support_strength": "multi_anchor_multi_tier",
-        "supporting_fixture_count": 10,
+        "supporting_fixture_count": 12,
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
           "epa_flow_through_water_screening_case_family_v1",
@@ -52,15 +60,19 @@
           "advective_bounded_transport_reference_fixture",
           "advective_flow_through_transport_reference_fixture",
           "advective_transition_boundary_reference_fixture",
-          "advective_storage_dominant_transport_reference_fixture"
+          "advective_storage_dominant_transport_reference_fixture",
+          "advective_air_transport_reference_fixture",
+          "advective_soil_transport_reference_fixture"
         ],
         "supporting_reference_types": [
+          "hand_worked_advective_air_reference_fixture",
           "hand_worked_advective_bounded_transport_reference_fixture",
           "hand_worked_advective_flow_through_transport_reference_fixture",
           "hand_worked_advective_loss_dominance_anchor",
           "hand_worked_advective_loss_dominance_sensitivity_fixture",
           "hand_worked_advective_loss_transition_anchor",
           "hand_worked_advective_loss_transition_sensitivity_fixture",
+          "hand_worked_advective_soil_reference_fixture",
           "hand_worked_advective_storage_dominant_transport_reference_fixture",
           "hand_worked_advective_transition_boundary_reference_fixture"
         ],
@@ -113,6 +125,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective cumulative mass-balance closure: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective cumulative mass-balance closure: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -233,6 +253,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective extreme-persistence clearance bound: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective extreme-persistence clearance bound: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -344,6 +372,14 @@
           "US",
           "EU"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective time-bucket elapsed-time semantics: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective time-bucket elapsed-time semantics: independent external corroboration cites ECHA Guidance on Information Requirements and Chemical Safety Assessment, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -472,6 +508,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective water finite-duration first-order screening equation: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
           "Advective water finite-duration first-order screening equation: independent external corroboration cites ECHA Guidance on Information Requirements and Chemical Safety Assessment, ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -582,6 +626,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective clearance-dominant loss-share transition: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective clearance-dominant loss-share transition: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -689,6 +741,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective degradation-dominant loss-share transition: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective degradation-dominant loss-share transition: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -800,6 +860,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective long-duration combined-loss plateau anchor: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective long-duration combined-loss plateau anchor: independent external corroboration cites ECHA Guidance on Information Requirements and Chemical Safety Assessment, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -905,6 +973,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective long-residence-time accumulation anchor: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective long-residence-time accumulation anchor: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -1038,6 +1114,14 @@
           "US",
           "OECD"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective mixed-loss transition margin: external corroboration status is multi_official_multi_jurisdiction from 4 official source(s).",
           "Advective mixed-loss transition margin: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
@@ -1192,6 +1276,14 @@
           "OECD",
           "EU"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective post-release flushing directionality: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
           "Advective post-release flushing directionality: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
@@ -1333,6 +1425,14 @@
           "OECD",
           "EU"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective post-release flushing and recovery accounting: external corroboration status is multi_official_multi_jurisdiction from 4 official source(s).",
           "Advective post-release flushing and recovery accounting: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Test Guidelines for Chemicals, OECD Harmonised Templates: Degradation and Accumulation.",
@@ -1482,6 +1582,14 @@
           "OECD",
           "EU"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective post-release flushing regime transition: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
           "Advective post-release flushing regime transition: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
@@ -1635,6 +1743,14 @@
           "OECD",
           "EU"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective post-release half-recovery directionality: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
           "Advective post-release half-recovery directionality: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
@@ -1780,6 +1896,14 @@
           "OECD",
           "EU"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective post-release half-recovery pace: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
           "Advective post-release half-recovery pace: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
@@ -1898,6 +2022,14 @@
           "OECD",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective post-release late-recovery regime: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
           "Advective post-release late-recovery regime: independent external corroboration cites EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Harmonised Templates: Degradation and Accumulation, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
@@ -2018,6 +2150,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective residence-time override application: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective residence-time override application: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -2083,7 +2223,7 @@
         ],
         "covered": true,
         "support_strength": "multi_anchor_multi_tier",
-        "supporting_fixture_count": 9,
+        "supporting_fixture_count": 11,
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
           "advective_clearance_edge_case_family_v1",
@@ -2097,18 +2237,22 @@
           "advective_flow_through_transport_reference_fixture",
           "advective_transition_boundary_reference_fixture",
           "advective_storage_dominant_transport_reference_fixture",
+          "advective_air_transport_reference_fixture",
+          "advective_soil_transport_reference_fixture",
           "advective_short_residence_time_clearance_anchor_fixture",
           "advective_short_residence_time_clearance_companion_fixture",
           "advective_long_residence_time_accumulation_anchor_fixture",
           "advective_long_residence_time_accumulation_companion_fixture"
         ],
         "supporting_reference_types": [
+          "hand_worked_advective_air_reference_fixture",
           "hand_worked_advective_bounded_transport_reference_fixture",
           "hand_worked_advective_clearance_edge_anchor",
           "hand_worked_advective_flow_through_transport_reference_fixture",
           "hand_worked_advective_loss_transition_anchor",
           "hand_worked_advective_override_fixture",
           "hand_worked_advective_residence_edge_anchor",
+          "hand_worked_advective_soil_reference_fixture",
           "hand_worked_advective_storage_dominant_transport_reference_fixture",
           "hand_worked_advective_transition_boundary_reference_fixture"
         ],
@@ -2198,6 +2342,14 @@
           "US",
           "OECD"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective residence-time turnover regime interpretation: external corroboration status is multi_official_multi_jurisdiction from 4 official source(s).",
           "Advective residence-time turnover regime interpretation: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Test Guidelines for Chemicals.",
@@ -2308,6 +2460,14 @@
           "EU",
           "US"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective short-residence-time clearance anchor: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
           "Advective short-residence-time clearance anchor: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -2430,6 +2590,14 @@
           "US",
           "OECD"
         ],
+        "evidence_family": null,
+        "official_source_ids": [],
+        "worksheet_artifact_path": null,
+        "expected_output_artifact_path": null,
+        "worksheet_status": null,
+        "last_reviewed_date": null,
+        "tolerance_basis": null,
+        "reviewer_grade_passed": false,
         "external_corroboration_lines": [
           "Advective loss-regime flip directionality: external corroboration status is multi_official_multi_jurisdiction from 3 official source(s).",
           "Advective loss-regime flip directionality: independent external corroboration cites ECHA Guidance on Information Requirements and Chemical Safety Assessment, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, OECD Test Guidelines for Chemicals.",
@@ -2912,7 +3080,7 @@
           "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
           "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
           "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
-          "Support strength is multi_anchor_multi_tier with 9 supporting fixtures.",
+          "Support strength is multi_anchor_multi_tier with 11 supporting fixtures.",
           "Governed reference-case mapping count for this claim: 5."
         ],
         "review_questions": [
@@ -2926,6 +3094,16 @@
       "Scientific methods dossier for advective_screening_mass_balance.",
       "Mandatory scientific validation claims covered: 18/18.",
       "Total governed claims in scope: 19 with 19 currently benchmark-covered.",
+      "Default evidence posture: shipped core defaults are source-backed and free of tier_3 internal screening assumptions.",
+      "Reviewer-grade anchor status: experimental_non_promotable.",
+      "Mandatory claim pass count: 0/18.",
+      "Worksheet readiness: 0/18 mandatory claims expose ready machine-readable worksheet artifacts.",
+      "Default-change sensitivity: No shipped-default numeric changes are recorded in the current governed release, so no proof drift is declared from defaults rebaseline.",
+      "Proof posture: advective_screening_mass_balance remains an experimental challenge path and is not promoted to the decision-facing baseline in this release.",
+      "Proof posture: Interpret advective outputs only through the governed baseline-versus-challenge workflow and the explicit non-promotable reasons in the methods and release artifacts.",
+      "Applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+      "Applicability: Requested fit-for-purpose: screening.",
+      "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking.",
       "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
       "Highlighted claim grounding: Advective extreme-persistence clearance bound: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
       "Highlighted regime stability: 2 near-parity transition claim(s), 1 stable-regime claim(s).",
@@ -2947,9 +3125,11 @@
     "applicability_lines": [
       "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
       "Requested fit-for-purpose: screening.",
-      "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
-      "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+      "Resolved substance class: missing from scenario chemical_identity.",
+      "Supported scope examples: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term; regional air, water, soil, or sediment releases where first-order degradation plus first-order advective clearance are an acceptable deterministic simplification.",
+      "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
       "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance.",
+      "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking.",
       "Governed scientific review checklist count for advective_screening_mass_balance: 3.",
       "Scientific review note: Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
     ],
@@ -2991,8 +3171,11 @@
       "EPA post-release combined-loss recovery pace case family: This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model.",
       "OECD post-release half-recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants."
     ],
+    "default_change_sensitivity_lines": [
+      "No shipped-default numeric changes are recorded in the current governed release, so no proof drift is declared from defaults rebaseline."
+    ],
     "benchmark_reference_lines": [
-      "Benchmark-backed claim support cites 33 supporting fixtures across the filtered claim set.",
+      "Benchmark-backed claim support cites 35 supporting fixtures across the filtered claim set.",
       "Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture."
     ],
     "support_strength_lines": [

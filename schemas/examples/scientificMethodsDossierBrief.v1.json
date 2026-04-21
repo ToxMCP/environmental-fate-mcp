@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "dossier_id": "scimethods-a5eeecf1d268",
+  "dossier_id": "scimethods-df08abd79ef4",
   "model_family": "advective_screening_mass_balance",
   "run_mode_filter": null,
   "promotion_status": "ready",
@@ -10,6 +10,14 @@
   "mandatory_claim_count": 18,
   "covered_mandatory_claim_count": 18,
   "uncovered_mandatory_claim_count": 0,
+  "reviewer_grade_anchor_status": "experimental_non_promotable",
+  "mandatory_claim_pass_count": 0,
+  "worksheet_ready_mandatory_claim_count": 0,
+  "proof_posture": "experimental_challenge_path",
+  "proof_posture_lines": [
+    "advective_screening_mass_balance remains an experimental challenge path and is not promoted to the decision-facing baseline in this release.",
+    "Interpret advective outputs only through the governed baseline-versus-challenge workflow and the explicit non-promotable reasons in the methods and release artifacts."
+  ],
   "highlighted_claim_ids": [
     "advective_clearance_dominant_loss_share_v1",
     "advective_post_release_half_recovery_directionality_v1",
@@ -470,7 +478,7 @@
         "Challenge because this claim belongs to an experimental model family and still requires active reviewer scrutiny even when release-gated.",
         "Challenge because this claim is anchored at a near-parity degradation-versus-clearance transition, where modest input shifts can change the dominant loss interpretation.",
         "Challenge because this claim is anchored close to a turnover-regime boundary, where modest residence-time shifts can change the reviewer-facing transport interpretation.",
-        "Support strength is multi_anchor_multi_tier with 9 supporting fixtures.",
+        "Support strength is multi_anchor_multi_tier with 11 supporting fixtures.",
         "Governed reference-case mapping count for this claim: 5."
       ],
       "review_questions": [
@@ -484,6 +492,16 @@
     "Scientific methods dossier for advective_screening_mass_balance.",
     "Mandatory scientific validation claims covered: 18/18.",
     "Total governed claims in scope: 19 with 19 currently benchmark-covered.",
+    "Default evidence posture: shipped core defaults are source-backed and free of tier_3 internal screening assumptions.",
+    "Reviewer-grade anchor status: experimental_non_promotable.",
+    "Mandatory claim pass count: 0/18.",
+    "Worksheet readiness: 0/18 mandatory claims expose ready machine-readable worksheet artifacts.",
+    "Default-change sensitivity: No shipped-default numeric changes are recorded in the current governed release, so no proof drift is declared from defaults rebaseline.",
+    "Proof posture: advective_screening_mass_balance remains an experimental challenge path and is not promoted to the decision-facing baseline in this release.",
+    "Proof posture: Interpret advective outputs only through the governed baseline-versus-challenge workflow and the explicit non-promotable reasons in the methods and release artifacts.",
+    "Applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Applicability: Requested fit-for-purpose: screening.",
+    "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking.",
     "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
     "Highlighted claim grounding: Advective extreme-persistence clearance bound: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
     "Highlighted regime stability: 2 near-parity transition claim(s), 1 stable-regime claim(s).",
@@ -501,6 +519,10 @@
     "Transition sensitivity support: explicit flip-side sensitivity anchors are present around the near-parity degradation-versus-clearance boundary.",
     "This model family remains experimental and should be challenged with extra reviewer scrutiny even when its mandatory claims are covered.",
     "Promotion status: ready (0 blocking actions, 0 strengthening actions).",
+    "Proof posture: advective_screening_mass_balance remains an experimental challenge path and is not promoted to the decision-facing baseline in this release.",
+    "Proof posture: Interpret advective outputs only through the governed baseline-versus-challenge workflow and the explicit non-promotable reasons in the methods and release artifacts.",
+    "Applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+    "Applicability: Requested fit-for-purpose: screening.",
     "Source grounding: Source grounding cites 5 external official references and 45 governed internal references across the filtered claim set.",
     "Source grounding: Representative external references: ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models, ECHA Guidance on Information Requirements and Chemical Safety Assessment.",
     "Highlighted claim grounding: Advective cumulative mass-balance closure: externally grounded by ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -529,16 +551,18 @@
     "Reference-case concept: EPA flow-through water screening case family: This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency.",
     "Support strength: High-priority mandatory claims with multi-anchor support for advective_screening_mass_balance: 4/4.",
     "Support strength: No in-scope claims are limited to a single benchmark anchor.",
-    "Benchmark context: Benchmark-backed claim support cites 33 supporting fixtures across the filtered claim set.",
+    "Benchmark context: Benchmark-backed claim support cites 35 supporting fixtures across the filtered claim set.",
     "Benchmark context: Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture.",
     "Edge anchors: advective_degradation_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports degradation as the dominant loss share when half-life is short relative to residence time. | advective_degradation_dominant_loss_share_companion_fixture [sensitivity]: The advective trace continues to report degradation as the dominant loss share under a different short-half-life and long-residence regime. | advective_clearance_dominant_loss_share_anchor_fixture [edge_condition]: The advective trace reports clearance as the dominant loss share when residence time is short relative to half-life."
   ],
   "applicability_lines": [
     "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
     "Requested fit-for-purpose: screening.",
-    "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
-    "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
+    "Resolved substance class: missing from scenario chemical_identity.",
+    "Supported scope examples: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term; regional air, water, soil, or sediment releases where first-order degradation plus first-order advective clearance are an acceptable deterministic simplification.",
+    "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
     "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance.",
+    "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking.",
     "Governed scientific review checklist count for advective_screening_mass_balance: 3.",
     "Scientific review note: Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
   ],
@@ -580,8 +604,11 @@
     "EPA post-release combined-loss recovery pace case family: This governed reference case family anchors reviewer-facing interpretation of how quickly retained release-stop mass should halve under the combined degradation-plus-clearance loss constant in a flowing-water screening model.",
     "OECD post-release half-recovery directionality case family: This governed reference case family anchors reviewer-facing interpretation of how retained release-stop mass should progress from above the 50% combined-loss recovery anchor to materially below it as the post-release window extends under the same resolved loss constants."
   ],
+  "default_change_sensitivity_lines": [
+    "No shipped-default numeric changes are recorded in the current governed release, so no proof drift is declared from defaults rebaseline."
+  ],
   "benchmark_reference_lines": [
-    "Benchmark-backed claim support cites 33 supporting fixtures across the filtered claim set.",
+    "Benchmark-backed claim support cites 35 supporting fixtures across the filtered claim set.",
     "Representative supporting fixtures: advective_degradation_dominant_loss_share_anchor_fixture, advective_degradation_dominant_loss_share_companion_fixture, advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_mixed_loss_transition_anchor_fixture."
   ],
   "support_strength_lines": [

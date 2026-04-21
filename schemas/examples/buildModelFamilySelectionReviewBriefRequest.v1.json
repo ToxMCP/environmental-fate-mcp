@@ -1,7 +1,7 @@
 {
   "review_packet": {
     "schema_version": "v1",
-    "review_packet_id": "selreview-92a3e8cc5656",
+    "review_packet_id": "selreview-20a627b686e2",
     "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
@@ -105,15 +105,29 @@
             "Review unsupported runtime parameters before treating outputs as more than screening indicators.",
             "Escalate to richer model families when multiple complex media interactions dominate the decision context."
           ],
+          "fit_score_threshold": 0.75,
+          "fit_score_penalties": {
+            "unsupported_fit_for_purpose": 0.25,
+            "excessive_time_bucket_count": 0.2,
+            "provenance_only_treatments": 0.1,
+            "multi_medium_release_complexity": 0.1,
+            "unsupported_runtime_parameters": 0.15,
+            "missing_required_inputs": 0.35,
+            "missing_substance_class": 0.3,
+            "unsupported_substance_class": 1.0
+          },
           "source_pack": "defaults/v1/model_family_applicability_profiles.json",
           "applicability_note": "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
         },
         "applicability_lines": [
           "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
           "Requested fit-for-purpose: screening.",
-          "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
-          "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
-          "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+          "Resolved substance class: organic chemical.",
+          "Supported scope examples: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions; release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments.",
+          "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
+          "Resolved substance class aligns with declared supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+          "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
+          "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
         ],
         "scientific_unsuitability_lines": []
       },
@@ -176,15 +190,29 @@
             "Treat the family as experimental and compare it against the corrected reference family before using it in decision-facing review materials.",
             "Escalate to richer model families when spatial hydrodynamics, drainage structure, or intermedia exchange dominate the question."
           ],
+          "fit_score_threshold": 0.75,
+          "fit_score_penalties": {
+            "unsupported_fit_for_purpose": 0.25,
+            "excessive_time_bucket_count": 0.2,
+            "provenance_only_treatments": 0.1,
+            "multi_medium_release_complexity": 0.1,
+            "unsupported_runtime_parameters": 0.15,
+            "missing_required_inputs": 0.35,
+            "missing_substance_class": 0.3,
+            "unsupported_substance_class": 1.0
+          },
           "source_pack": "defaults/v1/model_family_applicability_profiles.json",
           "applicability_note": "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
         },
         "applicability_lines": [
           "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
           "Requested fit-for-purpose: screening.",
-          "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
-          "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
-          "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+          "Resolved substance class: organic chemical.",
+          "Supported scope examples: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term; regional air, water, soil, or sediment releases where first-order degradation plus first-order advective clearance are an acceptable deterministic simplification.",
+          "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
+          "Resolved substance class aligns with declared supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
+          "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance.",
+          "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
         ],
         "scientific_unsuitability_lines": []
       },
@@ -287,8 +315,8 @@
         "evidence_lines": [
           "Primary fit verdict: good_fit (score=0.85).",
           "Challenge fit verdict: good_fit (score=0.85).",
-          "Primary applicability: Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions. | Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment. | Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
-          "Challenge applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term. | Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment. | Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+          "Primary applicability: Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Resolved substance class: organic chemical. | Supported scope examples: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions; release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments. | Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior. | Resolved substance class aligns with declared supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions. | Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary. | When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking.",
+          "Challenge applicability: Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Resolved substance class: organic chemical. | Supported scope examples: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term; regional air, water, soil, or sediment releases where first-order degradation plus first-order advective clearance are an acceptable deterministic simplification. | Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior. | Resolved substance class aligns with declared supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term. | Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance. | When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
         ]
       },
       {
@@ -324,16 +352,22 @@
     "primary_applicability_lines": [
       "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
       "Requested fit-for-purpose: screening.",
-      "Supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
-      "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
-      "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+      "Resolved substance class: organic chemical.",
+      "Supported scope examples: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions; release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments.",
+      "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
+      "Resolved substance class aligns with declared supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+      "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
+      "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
     ],
     "challenge_applicability_lines": [
       "Model family advective_screening_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
       "Requested fit-for-purpose: screening.",
-      "Supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
-      "Escalate when scope resembles: metals and metal species requiring speciation-aware fate treatment.",
-      "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance."
+      "Resolved substance class: organic chemical.",
+      "Supported scope examples: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term; regional air, water, soil, or sediment releases where first-order degradation plus first-order advective clearance are an acceptable deterministic simplification.",
+      "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
+      "Resolved substance class aligns with declared supported scope: screening-level organic chemical releases where a single-compartment concentration estimate benefits from an explicit residence-time or clearance term.",
+      "Advective screening mass balance is a non-default experimental family for deterministic concentration-only screening with governed residence-time clearance.",
+      "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
     ],
     "scientific_unsuitability_lines": [],
     "comparison_guidance_lines": [

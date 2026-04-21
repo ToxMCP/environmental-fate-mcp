@@ -53,6 +53,6 @@ When multiple evidence sources conflict for the same parameter:
 
 ## Audit-Trail Integrity
 
-- Every run must produce a `run_id` that is cryptographically bound to the scenario, model family, and runtime version via the concentration bundle `integrity_hash`.
+- Every run must produce a `run_id` that is content-addressed with a tamper-evident SHA-256 `integrity_hash` over the scenario, model family, and runtime version payload.
 - Any modification of a run artifact after generation invalidates the integrity hash and must be treated as a new run with a new `run_id`.
 - Adapter-normalized surfaces must include an `adapter_trace_disclaimer` stating that the native engine calculation trace is unavailable.

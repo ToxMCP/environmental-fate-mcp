@@ -31,6 +31,22 @@
       ],
       "sourcePack": "defaults/v1/region_profiles.json",
       "applicabilityNote": "Useful for river-basin style screening cases with reduced water capacity."
+    },
+    {
+      "regionId": "us_epa_default",
+      "displayName": "US EPA regional screening default",
+      "compartmentScalars": {
+        "ambient_air": 1.05,
+        "surface_water": 0.9,
+        "agricultural_soil": 1.0,
+        "freshwater_sediment": 0.9
+      },
+      "knownGaps": [
+        "Representative regional screening profile only",
+        "No estuarine or coastal receiving-water compartment in v0.1"
+      ],
+      "sourcePack": "defaults/v1/region_profiles.json",
+      "applicabilityNote": "Useful for broad US-style regional screening when a jurisdiction-specific extension pack is unavailable."
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "package_id": "package-61dd91689e5c",
+  "package_id": "package-15ab11c13c9c",
   "scenario_id": "scenario-306863db9176",
   "surfaces": [
     {
@@ -51,6 +51,26 @@
             "name": "capacity_value",
             "value": 1000000000.0,
             "unit": "m3"
+          },
+          {
+            "name": "declared_temperature_c",
+            "value": 25.0,
+            "unit": "degC"
+          },
+          {
+            "name": "effective_temperature_c",
+            "value": 25.0,
+            "unit": "degC"
+          },
+          {
+            "name": "temperature_correction_factor",
+            "value": 1.0,
+            "unit": "scalar"
+          },
+          {
+            "name": "temperature_corrected_half_life_days",
+            "value": 2.0,
+            "unit": "day"
           },
           {
             "name": "declared_half_life_days",
@@ -229,6 +249,26 @@
             "unit": "m3"
           },
           {
+            "name": "declared_temperature_c",
+            "value": 25.0,
+            "unit": "degC"
+          },
+          {
+            "name": "effective_temperature_c",
+            "value": 25.0,
+            "unit": "degC"
+          },
+          {
+            "name": "temperature_correction_factor",
+            "value": 1.0,
+            "unit": "scalar"
+          },
+          {
+            "name": "temperature_corrected_half_life_days",
+            "value": 12.0,
+            "unit": "day"
+          },
+          {
             "name": "declared_half_life_days",
             "value": 12.0,
             "unit": "day"
@@ -405,6 +445,26 @@
             "unit": "kg"
           },
           {
+            "name": "declared_temperature_c",
+            "value": 25.0,
+            "unit": "degC"
+          },
+          {
+            "name": "effective_temperature_c",
+            "value": 25.0,
+            "unit": "degC"
+          },
+          {
+            "name": "temperature_correction_factor",
+            "value": 1.0,
+            "unit": "scalar"
+          },
+          {
+            "name": "temperature_corrected_half_life_days",
+            "value": 30.0,
+            "unit": "day"
+          },
+          {
             "name": "declared_half_life_days",
             "value": 30.0,
             "unit": "day"
@@ -456,7 +516,7 @@
           },
           {
             "name": "cumulative_degraded_mass_mg",
-            "value": 1044946.7983331936,
+            "value": 1044946.7983331932,
             "unit": "mg"
           },
           {
@@ -466,7 +526,7 @@
           },
           {
             "name": "mass_balance_closure_error_mg",
-            "value": 0.0,
+            "value": 4.656612873077393e-10,
             "unit": "mg"
           },
           {

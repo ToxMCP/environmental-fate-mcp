@@ -14,6 +14,7 @@ from fate_mcp.plugins.external_result_adapter import (
     ExternalEngineResultPayload,
     ExternalEngineSurfacePayload,
     build_adapter_import_manifest,
+    build_public_adapter_import_manifest,
     load_external_payload,
     normalize_external_payload,
     write_external_payload,
@@ -28,7 +29,7 @@ def test_external_result_adapter_harness_plugin_returns_normalized_outputs() -> 
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter example"},
+            chemical_identity={"preferredName": "External adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -50,7 +51,7 @@ def test_external_result_adapter_rejects_unit_mismatch() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter example"},
+            chemical_identity={"preferredName": "External adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -86,7 +87,7 @@ def test_external_result_adapter_fixture_can_be_loaded_and_round_tripped(tmp_pat
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter example"},
+            chemical_identity={"preferredName": "External adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -112,7 +113,7 @@ def test_external_result_adapter_csv_fixture_can_be_loaded_and_round_tripped(tmp
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter example"},
+            chemical_identity={"preferredName": "External adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -151,7 +152,7 @@ def test_external_result_adapter_legacy_desktop_export_fixture_can_be_loaded() -
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter example"},
+            chemical_identity={"preferredName": "External adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.AIR, fraction=0.5),
@@ -200,7 +201,7 @@ def test_external_result_adapter_legacy_time_bucket_export_fixture_can_be_loaded
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter time bucket example"},
+            chemical_identity={"preferredName": "External adapter time bucket example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=14.0,
@@ -232,7 +233,7 @@ def test_external_result_adapter_rejects_run_mode_mismatch() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter mismatch example"},
+            chemical_identity={"preferredName": "External adapter mismatch example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=14.0,
@@ -266,11 +267,25 @@ def test_adapter_import_manifest_lists_profiles_and_fixtures() -> None:
     assert "illustrative_external_engine_payload_alt_units" in fixtures
 
 
+def test_public_adapter_import_manifest_exposes_only_normalized_contracts() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    manifest = build_public_adapter_import_manifest(repo_root)
+    profile_ids = {profile.profile_id for profile in manifest.profiles}
+    assert profile_ids == {
+        "normalized_external_payload_json",
+        "normalized_external_payload_csv",
+    }
+    assert all(profile.internal_only is False for profile in manifest.profiles)
+    fixture_names = {fixture.fixture_name for fixture in manifest.fixtures}
+    assert "illustrative_external_engine_payload_json" in fixture_names
+    assert "illustrative_external_engine_payload_csv" in fixture_names
+
+
 def test_external_result_adapter_converts_supported_units_to_canonical() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter conversion example"},
+            chemical_identity={"preferredName": "External adapter conversion example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -307,7 +322,7 @@ def test_external_result_adapter_converts_weight_basis_to_canonical_dry_weight()
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter weight basis example"},
+            chemical_identity={"preferredName": "External adapter weight basis example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.SOIL, fraction=0.5),
@@ -346,7 +361,7 @@ def test_external_result_adapter_euses_export_fixture_can_be_loaded() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter EUSES example"},
+            chemical_identity={"preferredName": "External adapter EUSES example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.AIR, fraction=0.5),
@@ -375,11 +390,11 @@ def test_external_result_adapter_euses_export_fixture_can_be_loaded() -> None:
     }
 
 
-def test_external_result_adapter_epi_suite_export_fixture_can_be_loaded() -> None:
+def test_external_result_adapter_epi_suite_export_fixture_is_rejected_as_non_equivalent() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter EPI Suite example"},
+            chemical_identity={"preferredName": "External adapter EPI Suite example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[
                 ReleaseFraction(medium=Media.AIR, fraction=0.5),
@@ -394,25 +409,17 @@ def test_external_result_adapter_epi_suite_export_fixture_can_be_loaded() -> Non
         / "adapter-fixtures"
         / "epi_suite_screening_export.csv"
     )
-    payload = load_external_payload(fixture_path)
-    result = normalize_external_payload(
-        payload,
-        scenario,
-        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
-        runtime.provenance,
-    )
-    assert payload.engine_name == "epi-suite-screening"
-    assert {surface.compartment.value for surface in result.surfaces} == {
-        "ambient_air",
-        "surface_water",
-    }
+    with pytest.raises(FateValidationError) as exc_info:
+        load_external_payload(fixture_path)
+
+    assert exc_info.value.payload.code == "adapter_semantic_loss_non_equivalent"
 
 
 def test_external_result_adapter_adds_limitation_for_unsupported_time_bounds() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter unsupported time example"},
+            chemical_identity={"preferredName": "External adapter unsupported time example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -469,7 +476,7 @@ def test_headless_engine_execution_failed(tmp_path) -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Headless adapter example"},
+            chemical_identity={"preferredName": "Headless adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -494,7 +501,7 @@ def test_headless_engine_bad_output(tmp_path) -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Headless adapter example"},
+            chemical_identity={"preferredName": "Headless adapter example", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,
@@ -537,7 +544,7 @@ def test_external_result_adapter_includes_trace_disclaimer() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
         BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "Trace disclaimer test"},
+            chemical_identity={"preferredName": "Trace disclaimer test", "substance_class": "organic chemical"},
             total_release_mass_kg=8.0,
             release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
             duration_days=10.0,

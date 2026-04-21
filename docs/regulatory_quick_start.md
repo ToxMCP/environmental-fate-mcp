@@ -1,6 +1,18 @@
 # Regulatory Quick-Start Checklist
 
-This one-page checklist is the **minimum viable review path** for using the Environmental Fate MCP in a regulatory screening submission. For the full specification, see [`operator_guide.md`](operator_guide.md).
+This one-page checklist is the **minimum viable review path** for using the Environmental Fate MCP in a bounded screening submission-support workflow. For the full specification, see [`operator_guide.md`](operator_guide.md).
+
+---
+
+## When Not To Use This MCP
+
+- Do not use it for direct-use product exposure, dietary intake, PBPK execution, or final risk characterization.
+- Do not use it as a GIS-resolved plume, hydrodynamic transport, or site-specific dispersion engine.
+- Do not use it as a public claim of source-engine equivalence for EUSES, EPA transport engines, or other branded external tools.
+- Do not use it for unrestricted probabilistic orchestration outside the governed percentile workflow.
+- Do not use it as evidence of regulator acceptance or submission approval.
+
+If any of those are your actual question, this MCP should hand off to the appropriate downstream or higher-fidelity tool instead of being stretched past its boundary.
 
 ---
 
@@ -8,10 +20,10 @@ This one-page checklist is the **minimum viable review path** for using the Envi
 
 - [ ] **Confirm scope:** You need a *concentration surface* only. Dose, dietary intake, PBPK, and final risk characterization must be performed downstream.
 - [ ] **Select model family:**
-  - Simple single-medium screening → `reference_mass_balance`
-  - Screening with advective loss (water/soil flushing) → `advective_screening_mass_balance`
+  - Simple single-medium screening → `reference_mass_balance` (reviewer-grade baseline)
+  - Screening with advective loss (water/soil flushing) → `advective_screening_mass_balance` (experimental challenge path, not the promoted baseline)
   - Time-varying release pattern → use `run_mode = time_bucket` with either `reference_mass_balance` or `advective_screening_mass_balance`
-  - Reusing an external engine result → `external_result_adapter`
+  - Reusing a normalized external payload → `external_result_adapter`
 - [ ] **Pick a region profile** that matches your regulatory jurisdiction (e.g., `eu_screening_default`, `us_epa_default`).
 - [ ] **Gather release evidence:** total mass (kg), release fractions by medium, and duration (days).
 - [ ] **Gather physicochemical data:** at minimum, degradation half-lives for each relevant medium.
@@ -44,6 +56,7 @@ Use `fate_estimate_multimedia_concentrations` with:
 - A `FateRunSummary` with `run_id`, `model_family`, and `fit_for_purpose`.
 - An `integrity_hash` on the bundle for tamper detection.
 - A `regulatory_use_disclaimer` reminding you that these are concentrations, not doses.
+- A default-evidence posture in reviewer-facing artifacts showing whether the run relied on shipped source-backed defaults, governed overrides, or any legacy continuity assumptions.
 
 ## 4. Check Quality Flags
 
@@ -53,7 +66,8 @@ Common warnings to expect (and explain in your submission):
 - `unallocated_release_fraction` — fractions sum to < 1.0; some mass is unassigned.
 - `region_profile` — you are using a generic regional default.
 - `heuristic_default_applied` — a parameter fell back to a curated default with limited evidence.
-- `temperature_correction_not_implemented` — you used a non-25 °C temperature, but degradation rates were not temperature-corrected.
+- `temperature_correction_governed` — a non-25 °C scenario triggered governed half-life correction from the 25 °C reference.
+- `temperature_correction_clamped_to_governed_range` — your declared temperature fell outside the governed correction range and was boundary-clamped in non-strict mode.
 
 ## 5. Check Mass Balance (Advective Runs Only)
 
@@ -65,6 +79,7 @@ Use `fate_preview_scientific_review_outcome` to get:
 - A fit assessment (does the scenario fit the model family's scope?)
 - An uncertainty summary (what drives the result?)
 - A review outcome: `acceptable_screening_use`, `qualified_screening_use`, or `escalate_model_review`
+- Reviewer-facing default-evidence and applicability lines, including explicit “when not to use this MCP” exclusions in the governed review surfaces
 
 **Do not submit an `escalate_model_review` outcome without expert review.**
 
@@ -76,19 +91,19 @@ Use `fate_export_regulatory_handoff_package` with:
 
 **What the package contains:**
 - Concentration surfaces ready for downstream exposure/dietary MCPs
-- Crosswalk mappings with `semantic_equivalence` annotations
+- Crosswalk mappings with `semantic_equivalence` annotations for downstream field matching, not source-engine scientific equivalence
 - A `regulatory_use_disclaimer` and `integrity_hash`
 
 ## 8. Preserve the Audit Trail
 
-For regulatory submission, you must retain:
+For regulated review or submission-support workflows, retain at minimum:
 - The scenario JSON (with all parameter records and evidence sources)
 - The concentration bundle (with `integrity_hash`)
 - The scientific review packet or outcome preview
 - The regulatory handoff package
 - The run parameter manifest
 
-**Retention period:** minimum 10 years or until substance registration withdrawal.
+**Retention period:** follow the applicable program, sponsor, and jurisdictional record-retention requirement. Environmental Fate MCP does not determine the legally required retention period.
 
 ## 9. Common Pitfalls
 
@@ -108,7 +123,7 @@ If you are unsure whether your inputs are valid, run:
 uv run environmental-fate-mcp-validate
 ```
 
-This performs 15+ validation checks across artifacts, benchmarks, contracts, and defaults.
+This performs the full release validation dossier across artifacts, benchmarks, contracts, defaults, and interoperability checks.
 
 ---
 

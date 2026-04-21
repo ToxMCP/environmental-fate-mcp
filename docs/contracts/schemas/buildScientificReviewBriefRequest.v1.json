@@ -10,6 +10,15 @@
       "title": "Compartment",
       "type": "string"
     },
+    "DefaultEvidenceStatus": {
+      "enum": [
+        "source_backed_defaults",
+        "governed_overrides_present",
+        "legacy_continuity_assumptions_present"
+      ],
+      "title": "DefaultEvidenceStatus",
+      "type": "string"
+    },
     "EscalationConcern": {
       "enum": [
         "extreme_persistence",
@@ -20,6 +29,69 @@
       ],
       "title": "EscalationConcern",
       "type": "string"
+    },
+    "FitAssessmentPenaltyWeights": {
+      "additionalProperties": false,
+      "properties": {
+        "unsupported_fit_for_purpose": {
+          "default": 0.25,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Unsupported Fit For Purpose",
+          "type": "number"
+        },
+        "excessive_time_bucket_count": {
+          "default": 0.2,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Excessive Time Bucket Count",
+          "type": "number"
+        },
+        "provenance_only_treatments": {
+          "default": 0.1,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Provenance Only Treatments",
+          "type": "number"
+        },
+        "multi_medium_release_complexity": {
+          "default": 0.1,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Multi Medium Release Complexity",
+          "type": "number"
+        },
+        "unsupported_runtime_parameters": {
+          "default": 0.15,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Unsupported Runtime Parameters",
+          "type": "number"
+        },
+        "missing_required_inputs": {
+          "default": 0.35,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Missing Required Inputs",
+          "type": "number"
+        },
+        "missing_substance_class": {
+          "default": 0.3,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Missing Substance Class",
+          "type": "number"
+        },
+        "unsupported_substance_class": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Unsupported Substance Class",
+          "type": "number"
+        }
+      },
+      "title": "FitAssessmentPenaltyWeights",
+      "type": "object"
     },
     "FitForPurpose": {
       "enum": [
@@ -123,6 +195,16 @@
           },
           "title": "Review Notes",
           "type": "array"
+        },
+        "fit_score_threshold": {
+          "default": 0.75,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fit Score Threshold",
+          "type": "number"
+        },
+        "fit_score_penalties": {
+          "$ref": "#/$defs/FitAssessmentPenaltyWeights"
         },
         "source_pack": {
           "title": "Source Pack",
@@ -240,6 +322,16 @@
       "title": "ReleaseScenarioFitAssessment",
       "type": "object"
     },
+    "RunDefaultProofPosture": {
+      "enum": [
+        "rebaselined_shipped_defaults",
+        "rebaselined_defaults_with_governed_overrides",
+        "scenario_specific_non_default_values",
+        "legacy_continuity_extension"
+      ],
+      "title": "RunDefaultProofPosture",
+      "type": "string"
+    },
     "RunMode": {
       "enum": [
         "steady_state",
@@ -283,6 +375,67 @@
           },
           "title": "Entries",
           "type": "array"
+        },
+        "default_evidence_status": {
+          "$ref": "#/$defs/DefaultEvidenceStatus",
+          "default": "source_backed_defaults"
+        },
+        "default_proof_posture": {
+          "$ref": "#/$defs/RunDefaultProofPosture",
+          "default": "rebaselined_shipped_defaults"
+        },
+        "default_evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Default Evidence Lines",
+          "type": "array"
+        },
+        "proof_posture_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Proof Posture Lines",
+          "type": "array"
+        },
+        "scientific_change_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Change Lines",
+          "type": "array"
+        },
+        "default_sensitivity_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Default Sensitivity Lines",
+          "type": "array"
+        },
+        "rebaselined_default_parameters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rebaselined Default Parameters",
+          "type": "array"
+        },
+        "governed_override_parameters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Governed Override Parameters",
+          "type": "array"
+        },
+        "material_default_sensitivity": {
+          "default": false,
+          "title": "Material Default Sensitivity",
+          "type": "boolean"
+        },
+        "core_default_assumption_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Core Default Assumption Count",
+          "type": "integer"
         },
         "summary_lines": {
           "items": {
@@ -418,6 +571,18 @@
           "title": "Top Drivers",
           "type": "array"
         },
+        "driver_count": {
+          "minimum": 0,
+          "title": "Driver Count",
+          "type": "integer"
+        },
+        "all_driver_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "All Driver Types",
+          "type": "array"
+        },
         "summary_lines": {
           "items": {
             "type": "string"
@@ -441,11 +606,21 @@
         "run_id",
         "model_family",
         "top_drivers",
+        "driver_count",
         "summary_lines",
         "provenance"
       ],
       "title": "RunUncertaintySummary",
       "type": "object"
+    },
+    "ScientificProofPosture": {
+      "enum": [
+        "reviewer_grade_reference_anchor",
+        "experimental_challenge_path",
+        "normalization_parity_lane"
+      ],
+      "title": "ScientificProofPosture",
+      "type": "string"
     },
     "ScientificReviewCheck": {
       "additionalProperties": false,
@@ -649,6 +824,71 @@
         },
         "uncertainty_summary": {
           "$ref": "#/$defs/RunUncertaintySummary"
+        },
+        "default_evidence_status": {
+          "$ref": "#/$defs/DefaultEvidenceStatus",
+          "default": "source_backed_defaults"
+        },
+        "default_proof_posture": {
+          "$ref": "#/$defs/RunDefaultProofPosture",
+          "default": "rebaselined_shipped_defaults"
+        },
+        "claim_set_proof_posture": {
+          "$ref": "#/$defs/ScientificProofPosture",
+          "default": "reviewer_grade_reference_anchor"
+        },
+        "default_evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Default Evidence Lines",
+          "type": "array"
+        },
+        "proof_posture_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Proof Posture Lines",
+          "type": "array"
+        },
+        "scientific_change_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scientific Change Lines",
+          "type": "array"
+        },
+        "default_sensitivity_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Default Sensitivity Lines",
+          "type": "array"
+        },
+        "rebaselined_default_parameters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Rebaselined Default Parameters",
+          "type": "array"
+        },
+        "governed_override_parameters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Governed Override Parameters",
+          "type": "array"
+        },
+        "material_default_sensitivity": {
+          "default": false,
+          "title": "Material Default Sensitivity",
+          "type": "boolean"
+        },
+        "core_default_assumption_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Core Default Assumption Count",
+          "type": "integer"
         },
         "surface_samples": {
           "items": {

@@ -84,6 +84,11 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
             if capacity_override
             else self.defaults_registry.parameter_value(media_defaults.capacity_parameter)
         ) * region_scalar
+        capacity_value = self._validated_capacity_value(
+            capacity_value,
+            parameter_name=media_defaults.capacity_parameter,
+            medium=medium,
+        )
         half_life_days = (
             half_life_override.value
             if half_life_override
@@ -94,9 +99,23 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
             if residence_time_override
             else self.defaults_registry.parameter_value(media_defaults.advective_residence_time_parameter)
         )
+        temperature_corrected_half_life_days, temperature_correction_factor, effective_temperature_c, temperature_notes, temperature_limitation = self._temperature_adjusted_half_life(
+            medium,
+            half_life_days,
+            scenario.temperature_c,
+        )
+        residence_time_temperature_limitation = None
+        if abs(scenario.temperature_c - self.defaults_registry.temperature_correction_policy().reference_temperature_c) > 1e-12:
+            residence_time_temperature_limitation = LimitationNote(
+                code="advective_residence_time_temperature_assumed_constant",
+                message=(
+                    f"Scenario temperature {scenario.temperature_c:.1f} °C did not change the governed "
+                    f"{medium.value} residence time. Advective clearance remains temperature-invariant in v0.1."
+                ),
+            )
         release_mass_mg = effective_total_release_mass_kg * 1_000_000.0 * fraction
         release_rate_mg_per_day = release_mass_mg / scenario.duration_days
-        decay_constant_per_day, decay_notes = self._safe_decay_constant(half_life_days)
+        decay_constant_per_day, decay_notes = self._safe_decay_constant(temperature_corrected_half_life_days)
         advective_constant_per_day = self._safe_advective_constant(residence_time_days)
         total_loss_constant_per_day = decay_constant_per_day + advective_constant_per_day
         effective_half_life_days: float | str
@@ -139,16 +158,21 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
         )
         emitted_mass_to_elapsed_mg = release_rate_mg_per_day * active_emission_duration_days
         compartment_mass_at_elapsed_mg = raw_concentration * capacity_value
-        cumulative_removed_mass_mg = max(
-            emitted_mass_to_elapsed_mg - compartment_mass_at_elapsed_mg,
-            0.0,
+        cumulative_degraded_mass_mg = self._cumulative_first_order_loss(
+            release_rate_mg_per_day=release_rate_mg_per_day,
+            total_loss_constant_per_day=total_loss_constant_per_day,
+            component_loss_constant_per_day=decay_constant_per_day,
+            emission_duration_days=scenario.duration_days,
+            elapsed_days=elapsed_days,
         )
-        cumulative_degraded_mass_mg = (
-            cumulative_removed_mass_mg * degradation_loss_share_fraction
+        cumulative_advected_mass_mg = self._cumulative_first_order_loss(
+            release_rate_mg_per_day=release_rate_mg_per_day,
+            total_loss_constant_per_day=total_loss_constant_per_day,
+            component_loss_constant_per_day=advective_constant_per_day,
+            emission_duration_days=scenario.duration_days,
+            elapsed_days=elapsed_days,
         )
-        cumulative_advected_mass_mg = (
-            cumulative_removed_mass_mg * advective_clearance_share_fraction
-        )
+        cumulative_removed_mass_mg = cumulative_degraded_mass_mg + cumulative_advected_mass_mg
         mass_balance_closure_error_mg = (
             emitted_mass_to_elapsed_mg
             - compartment_mass_at_elapsed_mg
@@ -159,11 +183,13 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
             compartment_retention_fraction_of_emitted = 0.0
             cumulative_loss_fraction_of_emitted = 0.0
         else:
-            compartment_retention_fraction_of_emitted = (
-                compartment_mass_at_elapsed_mg / emitted_mass_to_elapsed_mg
+            compartment_retention_fraction_of_emitted = min(
+                max(compartment_mass_at_elapsed_mg / emitted_mass_to_elapsed_mg, 0.0),
+                1.0,
             )
-            cumulative_loss_fraction_of_emitted = (
-                cumulative_removed_mass_mg / emitted_mass_to_elapsed_mg
+            cumulative_loss_fraction_of_emitted = min(
+                max(cumulative_removed_mass_mg / emitted_mass_to_elapsed_mg, 0.0),
+                1.0,
             )
         elapsed_turnover_count = elapsed_days * advective_constant_per_day
         active_emission_turnover_count = active_emission_duration_days * advective_constant_per_day
@@ -367,6 +393,43 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                 "Combined first-order loss constant used in the advective screening calculation.",
             ),
         ]
+        if abs(scenario.temperature_c - effective_temperature_c) > 1e-12 or abs(
+            temperature_correction_factor - 1.0
+        ) > 1e-12:
+            assumptions.extend(
+                [
+                    self.provenance_builder.user_input(
+                        f"{medium.value}_scenario_temperature_c",
+                        scenario.temperature_c,
+                        "degC",
+                        "Scenario temperature supplied for governed degradation correction.",
+                    ),
+                    self.provenance_builder.derived(
+                        f"{medium.value}_effective_temperature_c",
+                        effective_temperature_c,
+                        "degC",
+                        "Effective temperature used after applying the governed correction range.",
+                    ),
+                    self.provenance_builder.derived(
+                        f"{medium.value}_temperature_correction_factor",
+                        temperature_correction_factor,
+                        "scalar",
+                        "Medium-specific governed Q10 factor applied to the declared degradation half-life.",
+                    ),
+                    self.provenance_builder.derived(
+                        f"{medium.value}_temperature_corrected_half_life_days",
+                        temperature_corrected_half_life_days,
+                        "day",
+                        "Declared half-life after governed temperature correction.",
+                    ),
+                    self.provenance_builder.derived(
+                        f"{medium.value}_temperature_adjusts_advective_residence_time",
+                        "no",
+                        None,
+                        "Advective residence times remain temperature-invariant in the v0.1 screening kernel.",
+                    ),
+                ]
+            )
 
         if run_options.run_mode == RunMode.STEADY_STATE:
             time_window = TimeWindow(mode=RunMode.STEADY_STATE)
@@ -403,6 +466,26 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                     name="capacity_value",
                     value=capacity_value,
                     unit="m3" if media_defaults.capacity_parameter.endswith("_volume_m3") else "kg",
+                ),
+                CalculationTraceTerm(
+                    name="declared_temperature_c",
+                    value=scenario.temperature_c,
+                    unit="degC",
+                ),
+                CalculationTraceTerm(
+                    name="effective_temperature_c",
+                    value=effective_temperature_c,
+                    unit="degC",
+                ),
+                CalculationTraceTerm(
+                    name="temperature_correction_factor",
+                    value=temperature_correction_factor,
+                    unit="scalar",
+                ),
+                CalculationTraceTerm(
+                    name="temperature_corrected_half_life_days",
+                    value=temperature_corrected_half_life_days,
+                    unit="day",
                 ),
                 CalculationTraceTerm(name="declared_half_life_days", value=half_life_days, unit="day"),
                 CalculationTraceTerm(
@@ -630,6 +713,7 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
             notes=[
                 "steady_state outputs represent end-of-duration screening concentration, not an infinite-time equilibrium.",
                 "Advective screening combines first-order degradation and first-order residence-time clearance within one compartment per medium.",
+                *temperature_notes,
                 *decay_notes,
                 (
                     "Water concentrations are converted from mg/m3 to mg/L by dividing the resolved screening "
@@ -651,6 +735,12 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                         ),
                     ),
                 ]
+                + ([temperature_limitation] if temperature_limitation is not None else [])
+                + (
+                    [residence_time_temperature_limitation]
+                    if residence_time_temperature_limitation is not None
+                    else []
+                )
                 + treatment_limitations
             ),
             scenario_id=scenario.scenario_id,

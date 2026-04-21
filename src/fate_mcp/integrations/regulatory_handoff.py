@@ -255,7 +255,7 @@ CAPACITY_PARAMETERS = {
 
 
 from .common import REGULATORY_HANDOFF_ENTRY_FIELDS, REGULATORY_ROUTE_HINTS, TARGET_MODULE_ACKNOWLEDGEMENT_SCHEMA_URLS, _applicability_lines, _build_regulatory_review_checklist, _default_regulatory_handoff_resolution_preview, _ensure_scenario_matches_result, _parameter_quality_lines, _resolve_model_family_applicability, _resolve_regulatory_handoff_profile, _scientific_unsuitability_lines, _uncertainty_lines, _validated_target_modules
-from .core import build_run_parameter_manifest, build_run_uncertainty_summary
+from .core import assess_release_scenario_fit, build_run_parameter_manifest, build_run_uncertainty_summary
 
 
 def _apply_regulatory_handoff_integrity(
@@ -399,8 +399,19 @@ def export_regulatory_handoff_package(
     result = request.result
     parameter_manifest = None
     uncertainty_summary = None
+    fit_assessment = None
     if request.scenario is not None:
         _ensure_scenario_matches_result(request.scenario, result)
+        fit_assessment = assess_release_scenario_fit(
+            request.scenario,
+            FateModelRunOptions(
+                run_mode=result.run_summary.run_mode,
+                model_family=result.run_summary.model_family,
+                fit_for_purpose=FitForPurpose.DOWNSTREAM_EXPORT,
+                region_profile_id=request.scenario.geographic_scope.region_id,
+            ),
+            provenance_builder,
+        )
         parameter_manifest = build_run_parameter_manifest(
             request.scenario,
             result,
@@ -460,6 +471,11 @@ def export_regulatory_handoff_package(
                 missing_required_fields.add(field)
     missing_required_fields = sorted(missing_required_fields)
     blockers = _scientific_unsuitability_lines(result.run_summary.escalation_concerns)
+    if fit_assessment is not None and fit_assessment.verdict != "good_fit":
+        blockers.append(
+            f"Regulatory handoff is blocked because fit verdict {fit_assessment.verdict} is outside the governed ready-for-export scope."
+        )
+        blockers.extend(fit_assessment.scientific_unsuitability_lines)
     if missing_required_fields:
         blockers.append(
             f"Regulatory handoff profile {handoff_profile.profile_id} requires fields that were not populated: {missing_required_fields}."
