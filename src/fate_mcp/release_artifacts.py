@@ -133,7 +133,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         "",
         "## Highlights",
         f"- `{metadata['schemaCount']}` JSON schemas and `{metadata['exampleCount']}` generated examples are published for the release surface.",
-        f"- `{metadata['testCount']}` repository tests and `{metadata['toolCount']}` tools / `{metadata['promptCount']}` prompts / `{metadata['resourceCount']}` resources back the released MCP surface.",
+        f"- `{metadata['testCount']}` repository test functions and `{metadata['toolCount']}` tools / `{metadata['promptCount']}` prompts / `{metadata['resourceCount']}` resources back the released MCP surface.",
         f"- `{len(metadata['supportedWorkflows'])}` governed workflows are available across `{len(metadata['supportedModelFamilies'])}` supported model families and `{metadata['experimentalModelFamilyCount']}` experimental model family.",
         f"- `{metadata['scientificValidationClaimCount']}` governed scientific validation claims and `{metadata['scientificReferenceCaseCount']}` governed scientific reference cases are included.",
         f"- `{metadata['regulatoryHandoffProfileCount']}` governed regulatory handoff profiles are published for downstream suite consumers.",

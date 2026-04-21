@@ -87,7 +87,7 @@ The released server is broader than a simple concentration calculator, but the b
 
 Current local release verification and generated `v0.1.0` artifacts report:
 
-- `153` repository tests
+- `153` repository test functions
 - `110` JSON schemas
 - `106` generated examples
 - `41` supported workflows surfaced through `50` tools, `19` prompts, and `24` resources
@@ -99,6 +99,7 @@ Current local release verification and generated `v0.1.0` artifacts report:
 - `ready_for_screening_release` release status
 
 The machine-readable source of truth for these counts is generated from the release metadata and validation-report builders in the repository.
+Live `pytest` totals can be higher than the raw repository test-function count because parametrized tests expand into multiple collected cases at runtime.
 `ready_for_screening_release` is an internal screening-release gate for the bounded MCP surface, not a statement of regulator acceptance, submission approval, or scientific equivalence to external engines.
 
 ## Why this project exists

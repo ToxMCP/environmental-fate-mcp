@@ -6,7 +6,7 @@ This is an internal bounded-screening release gate, not a statement of regulator
 
 ## Highlights
 - `110` JSON schemas and `106` generated examples are published for the release surface.
-- `153` repository tests and `50` tools / `19` prompts / `24` resources back the released MCP surface.
+- `153` repository test functions and `50` tools / `19` prompts / `24` resources back the released MCP surface.
 - `41` governed workflows are available across `3` supported model families and `1` experimental model family.
 - `30` governed scientific validation claims and `25` governed scientific reference cases are included.
 - `4` governed regulatory handoff profiles are published for downstream suite consumers.
