@@ -1,0 +1,18 @@
+{
+  "engine_name": "illustrative-external-engine",
+  "engine_version": "2026.04",
+  "surfaces": [
+    {
+      "compartment_code": "WATER_SURFACE",
+      "concentration": 0.0125,
+      "unit": "mg/L",
+      "context_scope": "eu_screening_default",
+      "mode": "steady_state",
+      "interval_start": null,
+      "interval_end": null,
+      "notes": [
+        "Illustrative external engine payload fixture."
+      ]
+    }
+  ]
+}

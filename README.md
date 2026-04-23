@@ -82,12 +82,13 @@ The released server is broader than a simple concentration calculator, but the b
 - Governed external-result adapter lane with semantic-loss classification, fail-closed blocking for non-equivalent imports, provenance-preserving normalization, and a stable public normalized JSON/CSV import contract
 - Regulatory handoff packages, summaries, packets, and briefs for downstream suite consumers
 - Published JSON schemas, examples, contract manifest, release metadata, validation artifacts, and defaults manifests
+- Self-contained wheel/sdist packaging with mirrored runtime artifacts for installed deployments
 
 ## Release snapshot
 
 Current local release verification and generated `v0.1.0` artifacts report:
 
-- `153` repository test functions
+- `163` repository test functions
 - `110` JSON schemas
 - `106` generated examples
 - `41` supported workflows surfaced through `50` tools, `19` prompts, and `24` resources
@@ -144,6 +145,8 @@ Current validation artifacts report:
 - adapter normalization, scientific review, scientific methods dossier, model-family challenge, and regulatory handoff workflows included in release gating
 - scientific invariant tests proving mass-balance closure, advection bounds, mass linearity, and half-life monotonicity
 - CI fails if generated artifacts or defaults manifest hashes drift from committed state, if the full release validator fails, or if startup validation cannot load the shipped artifacts
+- CI builds the wheel and installs it into a clean Python 3.12 environment before checking server startup, packaged release resources, public tool annotations/output schemas, and shipped adapter-fixture access
+- external payload imports are confined to shipped adapter fixtures unless operators opt in additional roots through `FATE_MCP_IMPORT_ROOTS`; symlink escapes are rejected after path resolution
 
 This release gate remains a product-level screening-readiness status rather than a claim of formal regulatory acceptance, legal sufficiency, or source-engine scientific equivalence.
 
@@ -175,10 +178,12 @@ See:
 uv sync --extra dev
 uv run environmental-fate-mcp-generate-artifacts
 uv run environmental-fate-mcp-build-release-bundle
-uv run pytest
+uv run --extra dev pytest
 uv run environmental-fate-mcp-validate
 uv run environmental-fate-mcp
 ```
+
+The package is also designed to run from an installed wheel without a git checkout. `FATE_MCP_RESOURCE_ROOT` can override the runtime artifact root for controlled deployments; otherwise the server prefers the checkout resources during development and packaged resources after installation.
 
 For regulatory deployments, enable durable JSONL audit logging:
 
@@ -196,6 +201,7 @@ Legacy CLI aliases remain available:
 ## Repository layout
 
 - `src/fate_mcp/`: package code and MCP server surface
+- `src/fate_mcp/package_data/`: generated runtime artifact mirror included in wheels and sdists
 - `src/fate_mcp/integrations/`: review artifact builders (scientific review, model-family comparison/challenge, regulatory handoff)
 - `defaults/v1/`: curated defaults, applicability profiles, scientific validation claims, and reference cases
 - `docs/contracts/schemas/`: generated JSON Schema files

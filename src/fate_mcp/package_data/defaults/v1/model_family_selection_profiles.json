@@ -1,0 +1,81 @@
+{
+  "defaultsVersion": "v1",
+  "profiles": {
+    "reference_baseline_advective_challenge_v1": {
+      "displayName": "Reference Baseline With Advective Challenge",
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supportedRunModes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "defaultModelFamily": "reference_mass_balance",
+      "challengeModelFamily": "advective_screening_mass_balance",
+      "comparisonProfileId": "reference_vs_advective_screening_v1",
+      "minimumDurationDaysForChallenge": 30.0,
+      "triggerParameterNames": [
+        "air_residence_time_days",
+        "water_residence_time_days",
+        "soil_residence_time_days",
+        "sediment_residence_time_days"
+      ],
+      "defaultRecommendationTemplate": "Keep the corrected reference mass-balance family as the default screening baseline for this scenario.",
+      "challengeRecommendationTemplate": "Keep the corrected reference family as the primary baseline and run the experimental advective family as a governed challenge path because the scenario exposes residence-time-sensitive or duration-sensitive screening cues.",
+      "reviewNeededTemplate": "Do not recommend a model-family path for assessor-facing reuse until baseline fit and applicability issues are resolved.",
+      "reviewChecklist": [
+        {
+          "code": "selection_scope_confirmed",
+          "prompt": "Confirm the selection recommendation preserves the governed baseline-versus-experimental framing and does not promote the advective family to default status.",
+          "rationale": "Selection review should preserve the released reference family as the suite baseline and keep the advective family explicitly non-default.",
+          "evidenceHintFields": [
+            "recommendation_status",
+            "comparison_profile_id",
+            "limitations"
+          ]
+        },
+        {
+          "code": "fit_and_applicability_reviewed",
+          "prompt": "Review whether the primary baseline family remains a good fit and whether any challenge family fit/applicability lines justify extra assessor attention.",
+          "rationale": "Selection review is only meaningful when the baseline family is still appropriate and any challenge family is being introduced for governed reasons.",
+          "evidenceHintFields": [
+            "primary_fit_verdict",
+            "challenge_fit_verdict",
+            "primary_applicability_lines",
+            "challenge_applicability_lines"
+          ]
+        },
+        {
+          "code": "trigger_signals_and_comparison_path_recorded",
+          "prompt": "Confirm the recommendation records the duration or residence-time trigger signals and, when applicable, the governed comparison profile that should be used next.",
+          "rationale": "Assessors need to see why a challenge path was recommended and what governed comparison path should follow.",
+          "evidenceHintFields": [
+            "triggered_signal_lines",
+            "comparison_profile_id",
+            "run_mode",
+            "fit_for_purpose"
+          ]
+        }
+      ],
+      "reviewPacketTemplate": "Build a governed assessor-facing review packet for the model-family selection recommendation, preserving baseline-versus-experimental framing, trigger signals, fit/applicability context, and comparison-path guidance.",
+      "reviewBriefTemplate": "Summarize whether the governed model-family selection recommendation is ready for assessor-facing reuse, highlighting trigger signals, applicability, and experimental-family caution where relevant.",
+      "readyRecommendationStatuses": [
+        "default_baseline_only"
+      ],
+      "attentionStatuses": [
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "attentionIfAnyChecksFail": true,
+      "attentionIfChallengeExperimental": true,
+      "reviewNotes": [
+        "Treat the advective family as experimental and non-default even when it is recommended as a challenge path.",
+        "Use the governed comparison profile to compare reference and advective outputs before carrying the candidate family into assessor-facing review.",
+        "Do not skip the reference baseline when a challenge family is recommended."
+      ],
+      "applicabilityNote": "Use this selection profile when the corrected reference family remains the suite baseline and the advective family is only a governed experimental challenge path."
+    }
+  }
+}

@@ -9,7 +9,6 @@ from fate_mcp.models import (
     BuildEnvironmentalReleaseScenarioRequest,
     FateModelRunOptions,
     FitForPurpose,
-    ModelFamily,
     ScientificValidationClaimCoverageManifest,
     ScientificValidationClaimCoverageRecord,
 )

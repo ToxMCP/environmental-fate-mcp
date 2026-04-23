@@ -1,0 +1,284 @@
+{
+  "defaultsVersion": "v1",
+  "profiles": {
+    "reference_mass_balance": {
+      "displayName": "Reference Mass-Balance Scientific Review",
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "reviewChecklist": [
+        {
+          "code": "applicability_scope_confirmed",
+          "prompt": "Confirm the scenario and substance class remain inside the governed screening scope of the reference mass-balance kernel.",
+          "rationale": "Scientific review should first confirm that a deterministic screening kernel is being used inside its declared applicability boundary.",
+          "evidenceHintFields": [
+            "fit_verdict",
+            "applicability_lines",
+            "limitations"
+          ]
+        },
+        {
+          "code": "parameter_provenance_reviewed",
+          "prompt": "Review whether key runtime-consumed parameters are scenario-specific, governed defaults, or preserved-only descriptors.",
+          "rationale": "Parameter provenance affects how much confidence can be placed in the resulting concentration surfaces.",
+          "evidenceHintFields": [
+            "parameter_quality_lines",
+            "surface_samples",
+            "model_family"
+          ]
+        },
+        {
+          "code": "uncertainty_drivers_acknowledged",
+          "prompt": "Acknowledge the main deterministic uncertainty drivers before reusing the output in assessor-facing decisions.",
+          "rationale": "The scientific review packet should make uncertainty communication explicit even without probabilistic modeling.",
+          "evidenceHintFields": [
+            "uncertainty_lines",
+            "benchmark_reference_lines"
+          ]
+        }
+      ],
+      "packetTemplate": "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
+      "briefTemplate": "Summarize whether the reference mass-balance run is scientifically reviewable within the declared screening boundary, highlighting applicability, parameter provenance, and top uncertainty drivers.",
+      "readyFitVerdicts": [
+        "good_fit"
+      ],
+      "attentionOutcomes": [
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "attentionIfAnyChecksFail": true,
+      "escalationFitVerdicts": [
+        "review_needed",
+        "not_applicable"
+      ],
+      "escalationDriverTypes": [
+        "evidence_conflict"
+      ],
+      "qualificationDriverTypes": [
+        "heuristic_parameter",
+        "time_bucket_interpretive_burden",
+        "multi_medium_simplification_burden",
+        "default_heavy_parameter",
+        "unsupported_runtime_parameter",
+        "unexecuted_treatment_assumption"
+      ],
+      "warningSeverityPromotesQualification": true,
+      "acceptableOutcomeTemplate": "Use the run as a screening-support artifact within the declared reference mass-balance scope.",
+      "qualifiedOutcomeTemplate": "Use the run only with explicit qualification notes because screening-use caveats remain material.",
+      "escalationOutcomeTemplate": "Escalate the run for deeper model review or additional evidence before decision-facing reuse.",
+      "driverActionTemplates": {
+        "heuristic_parameter": "Prioritize replacing heuristic parameter inputs with measured or higher-confidence evidence where feasible.",
+        "unsupported_runtime_parameter": "Do not treat preserved-only parameters as if they were actively modeled by the runtime.",
+        "unexecuted_treatment_assumption": "Clarify which treatment assumptions remained provenance-only and were not executed numerically.",
+        "default_screening_capacity": "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+        "default_heavy_parameter": "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
+        "time_bucket_interpretive_burden": "Confirm bucket semantics and comparison window alignment before assessor-facing interpretation.",
+        "multi_medium_simplification_burden": "Consider a richer model family if intermedia dynamics are central to the decision context.",
+        "evidence_conflict": "Resolve conflicting evidence or qualify the affected output before reuse."
+      },
+      "applicabilityNote": "Use this review profile for native deterministic concentration runs that rely on the governed reference mass-balance kernel."
+    },
+    "advective_screening_mass_balance": {
+      "displayName": "Advective Screening Mass-Balance Scientific Review",
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "reviewChecklist": [
+        {
+          "code": "advective_scope_confirmed",
+          "prompt": "Confirm the scenario remains inside the governed screening scope of the advective screening kernel and that a residence-time term is scientifically reasonable.",
+          "rationale": "Scientific review should verify that adding first-order clearance is justified rather than implying richer spatial transport behavior.",
+          "evidenceHintFields": [
+            "fit_verdict",
+            "applicability_lines",
+            "limitations"
+          ]
+        },
+        {
+          "code": "residence_time_provenance_reviewed",
+          "prompt": "Review whether runtime-consumed residence-time and degradation parameters are scenario-specific overrides or governed defaults.",
+          "rationale": "Residence-time defaults can strongly influence concentrations when advective clearance dominates loss.",
+          "evidenceHintFields": [
+            "parameter_quality_lines",
+            "equation_lines",
+            "surface_samples"
+          ]
+        },
+        {
+          "code": "advective_uncertainty_acknowledged",
+          "prompt": "Acknowledge deterministic uncertainty drivers before reusing the output in assessor-facing decisions.",
+          "rationale": "The review packet should make screening-capacity, treatment, and multi-medium simplification caveats explicit.",
+          "evidenceHintFields": [
+            "uncertainty_lines",
+            "benchmark_reference_lines"
+          ]
+        }
+      ],
+      "packetTemplate": "Build a scientific review packet that preserves advective screening scope, residence-time provenance, benchmark context, and deterministic uncertainty drivers.",
+      "briefTemplate": "Summarize whether the advective screening run is scientifically reviewable within the declared concentration-only screening boundary.",
+      "readyFitVerdicts": [
+        "good_fit"
+      ],
+      "attentionOutcomes": [
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "attentionIfAnyChecksFail": true,
+      "escalationFitVerdicts": [
+        "review_needed",
+        "not_applicable"
+      ],
+      "escalationDriverTypes": [
+        "evidence_conflict"
+      ],
+      "qualificationDriverTypes": [
+        "heuristic_parameter",
+        "time_bucket_interpretive_burden",
+        "multi_medium_simplification_burden",
+        "default_heavy_parameter",
+        "unsupported_runtime_parameter",
+        "unexecuted_treatment_assumption"
+      ],
+      "warningSeverityPromotesQualification": true,
+      "acceptableOutcomeTemplate": "Use the run as an experimental screening-support artifact when the governed advective assumptions fit the scenario.",
+      "qualifiedOutcomeTemplate": "Use the run only with explicit qualification notes because residence-time, default, or treatment caveats remain material.",
+      "escalationOutcomeTemplate": "Escalate the run for deeper model review or additional evidence before decision-facing reuse.",
+      "driverActionTemplates": {
+        "heuristic_parameter": "Prioritize replacing heuristic parameter inputs with measured or higher-confidence evidence where feasible.",
+        "unsupported_runtime_parameter": "Do not treat preserved-only parameters as if they were actively modeled by the runtime.",
+        "unexecuted_treatment_assumption": "Clarify which treatment assumptions remained provenance-only and were not executed numerically.",
+        "default_screening_capacity": "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+        "default_heavy_parameter": "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
+        "time_bucket_interpretive_burden": "Confirm bucket semantics and comparison window alignment before assessor-facing interpretation.",
+        "multi_medium_simplification_burden": "Consider a richer model family if spatial hydrodynamics or intermedia exchange dominate the decision context.",
+        "evidence_conflict": "Resolve conflicting evidence or qualify the affected output before reuse."
+      },
+      "applicabilityNote": "Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
+    },
+    "external_result_adapter": {
+      "displayName": "External Result Adapter Scientific Review",
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "reviewChecklist": [
+        {
+          "code": "adapter_scope_confirmed",
+          "prompt": "Confirm the imported result shape remains within governed adapter normalization behavior.",
+          "rationale": "Imported concentration surfaces are only scientifically reviewable when unit, basis, and compartment mappings are governed and explicit.",
+          "evidenceHintFields": [
+            "fit_verdict",
+            "applicability_lines",
+            "limitations"
+          ]
+        },
+        {
+          "code": "normalization_provenance_reviewed",
+          "prompt": "Review whether imported surfaces preserve enough provenance and parameter context for downstream assessor interpretation.",
+          "rationale": "Adapter outputs inherit both source-engine semantics and Fate MCP normalization constraints.",
+          "evidenceHintFields": [
+            "parameter_quality_lines",
+            "surface_samples",
+            "model_family"
+          ]
+        },
+        {
+          "code": "adapter_equivalence_context_reviewed",
+          "prompt": "Review the governed normalization-parity context and the top deterministic uncertainty drivers before comparing imported results to native outputs.",
+          "rationale": "Contract-level normalization parity and imported-output limitations should be explicit in any scientific review.",
+          "evidenceHintFields": [
+            "uncertainty_lines",
+            "benchmark_reference_lines"
+          ]
+        }
+      ],
+      "packetTemplate": "Build a scientific review packet that emphasizes governed normalization, imported-output limitations, and normalization-parity benchmark context without implying source-engine scientific equivalence.",
+      "briefTemplate": "Summarize whether the imported concentration surfaces remain scientifically reviewable after governed Fate MCP normalization, while keeping source-engine caveats explicit.",
+      "readyFitVerdicts": [
+        "good_fit"
+      ],
+      "attentionOutcomes": [
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "attentionIfAnyChecksFail": true,
+      "escalationFitVerdicts": [
+        "review_needed",
+        "not_applicable"
+      ],
+      "escalationDriverTypes": [
+        "evidence_conflict"
+      ],
+      "qualificationDriverTypes": [
+        "heuristic_parameter",
+        "time_bucket_interpretive_burden",
+        "multi_medium_simplification_burden",
+        "default_heavy_parameter",
+        "unsupported_runtime_parameter"
+      ],
+      "warningSeverityPromotesQualification": true,
+      "acceptableOutcomeTemplate": "Use the imported run as a governed normalization-support artifact within the declared adapter scope.",
+      "qualifiedOutcomeTemplate": "Use the imported run only with explicit adapter, source-engine, and contract-scope caveats in the review record.",
+      "escalationOutcomeTemplate": "Escalate the imported run when normalization caveats or applicability gaps materially affect interpretation.",
+      "driverActionTemplates": {
+        "heuristic_parameter": "Clarify whether preserved heuristic descriptors affect downstream interpretation of the imported surfaces.",
+        "unsupported_runtime_parameter": "Keep preserved-only imported descriptors separate from modeled behavior in assessor communications.",
+        "default_heavy_parameter": "Document which Fate MCP defaults were used to contextualize the imported result.",
+        "time_bucket_interpretive_burden": "Review imported time-bucket boundaries and source-engine timing semantics before comparison.",
+        "multi_medium_simplification_burden": "Avoid overinterpreting multi-medium imported surfaces without source-engine context.",
+        "evidence_conflict": "Resolve conflicting imported evidence or qualify the normalized output."
+      },
+      "applicabilityNote": "Use this review profile when Fate MCP is normalizing an external engine's concentration outputs rather than producing native concentrations."
+    },
+    "adapter_stub": {
+      "displayName": "Adapter Stub Scientific Review",
+      "fitForPurpose": [
+        "benchmark",
+        "downstream_export"
+      ],
+      "reviewChecklist": [
+        {
+          "code": "stub_usage_acknowledged",
+          "prompt": "Confirm the adapter stub is being treated as an illustrative interface path rather than scientific evidence.",
+          "rationale": "The adapter stub exists to exercise contracts and interoperability, not to support production scientific conclusions.",
+          "evidenceHintFields": [
+            "fit_verdict",
+            "applicability_lines",
+            "limitations"
+          ]
+        }
+      ],
+      "packetTemplate": "Build a scientific review packet that keeps the adapter stub clearly inside illustrative, non-production review scope.",
+      "briefTemplate": "Summarize the adapter stub run as an interoperability exercise, not a scientific decision artifact.",
+      "readyFitVerdicts": [],
+      "attentionOutcomes": [
+        "acceptable_screening_use",
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "attentionIfAnyChecksFail": true,
+      "escalationFitVerdicts": [
+        "review_needed",
+        "good_fit",
+        "not_applicable"
+      ],
+      "escalationDriverTypes": [],
+      "qualificationDriverTypes": [
+        "unsupported_runtime_parameter"
+      ],
+      "warningSeverityPromotesQualification": false,
+      "acceptableOutcomeTemplate": "Treat the stub run as an illustrative interoperability artifact only.",
+      "qualifiedOutcomeTemplate": "Retain explicit non-production caveats if the stub artifact is reused in demonstrations.",
+      "escalationOutcomeTemplate": "Stop and replace the stub path with a real model family before any scientific decision use.",
+      "driverActionTemplates": {
+        "unsupported_runtime_parameter": "Keep stub-only preserved fields clearly separated from scientific interpretation."
+      },
+      "applicabilityNote": "Use this review profile only for illustrative adapter validation and regression workflows."
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "releaseGates": [
+    "all_public_schemas_validate",
+    "examples_are_current_and_validate",
+    "defaults_manifest_hashes_match",
+    "benchmark_fixtures_pass_within_tolerance",
+    "downstream_bundle_consumers_can_parse_exports",
+    "model_family_limitations_are_published",
+    "artifact_integrity_checks_are_stable",
+    "failure_modes_are_machine_readable_and_transparent"
+  ]
+}

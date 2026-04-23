@@ -1,0 +1,8 @@
+export_type,legacy_screening_desktop_export_v1
+engine_name,legacy-screening-desktop
+engine_version,2026.04
+region_id,eu_screening_default
+
+compartment_label,bulk_concentration,bulk_unit,notes
+Agricultural soil,8.0,mg/kg ww,Imported as wet-weight soil concentration
+Freshwater sediment,2500,ug/kg wet weight,Imported as wet-weight sediment concentration

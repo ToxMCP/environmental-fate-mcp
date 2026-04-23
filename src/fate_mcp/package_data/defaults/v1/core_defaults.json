@@ -1,0 +1,466 @@
+{
+  "defaultsVersion": "v1",
+  "parameters": {
+    "ambient_air_volume_m3": {
+      "value": 1000000000.0,
+      "unit": "m3",
+      "sourceId": "screening.default.air.volume",
+      "title": "Regional ambient air screening volume",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 1000000000.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_1_curated",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Source-backed rebaseline review retained the published ambient-air screening geometry without numeric change in this release.",
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/US)",
+        "assumedAreaM2": 100000000.0,
+        "depthM": 10.0,
+        "basis": "bounded regional screening air box",
+        "calculationMethod": "Derived as assumedAreaM2 x depthM for the shipped ambient-air screening compartment used by the concentration-only release-to-concentration boundary.",
+        "validityNote": "Use only for bounded screening interpretation; this is not a site-specific atmospheric mixing volume or a substitute for dispersion modelling.",
+        "derivationNote": "Cross-jurisdiction screening geometry is published explicitly so the shipped concentration boundary stays reviewable and reproducible."
+      },
+      "sourceReferences": [
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ]
+    },
+    "surface_water_volume_m3": {
+      "value": 500000000.0,
+      "unit": "m3",
+      "sourceId": "screening.default.water.volume",
+      "title": "Regional surface water screening volume",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 500000000.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_1_curated",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Source-backed rebaseline review retained the published surface-water screening geometry without numeric change in this release.",
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/US)",
+        "assumedAreaM2": 50000000.0,
+        "depthM": 10.0,
+        "basis": "bounded regional screening surface-water body",
+        "calculationMethod": "Derived as assumedAreaM2 x depthM for the shipped surface-water screening compartment used by the concentration-only release-to-concentration boundary.",
+        "validityNote": "Use only for bounded screening interpretation; this is not a routed hydrologic volume, a receiving-water model, or a site-specific dilution study.",
+        "derivationNote": "Cross-jurisdiction screening geometry is published explicitly so the shipped concentration boundary stays reviewable and reproducible."
+      },
+      "sourceReferences": [
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ]
+    },
+    "agricultural_soil_mass_kg": {
+      "value": 2500000000.0,
+      "unit": "kg",
+      "sourceId": "screening.default.soil.mass",
+      "title": "Agricultural soil screening mass",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 2500000000.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_1_curated",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Source-backed rebaseline review retained the shipped soil screening mass basis without numeric change in this release.",
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/OECD)",
+        "assumedAreaM2": 100000000.0,
+        "depthM": 0.1,
+        "bulkDensityKgPerM3": 250.0,
+        "basis": "bounded top-soil screening mass basis",
+        "calculationMethod": "Derived as assumedAreaM2 x depthM x bulkDensityKgPerM3 for the shipped top-soil screening compartment used by the concentration-only release-to-concentration boundary.",
+        "validityNote": "Use only for bounded screening interpretation; this governed soil mass basis is not a site-specific field bulk-density measurement and does not represent vadose transport or erosion.",
+        "derivationNote": "The shipped soil mass basis remains explicit and reproducible for screening continuity while the concentration-only model boundary is preserved."
+      },
+      "sourceReferences": [
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates for degradation and accumulation data",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        }
+      ]
+    },
+    "freshwater_sediment_mass_kg": {
+      "value": 800000000.0,
+      "unit": "kg",
+      "sourceId": "screening.default.sediment.mass",
+      "title": "Freshwater sediment screening mass",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 800000000.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_1_curated",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Source-backed rebaseline review retained the shipped sediment screening mass basis without numeric change in this release.",
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/OECD)",
+        "assumedAreaM2": 40000000.0,
+        "depthM": 0.1,
+        "bulkDensityKgPerM3": 200.0,
+        "basis": "bounded surficial-sediment screening mass basis",
+        "calculationMethod": "Derived as assumedAreaM2 x depthM x bulkDensityKgPerM3 for the shipped surficial-sediment screening compartment used by the concentration-only release-to-concentration boundary.",
+        "validityNote": "Use only for bounded screening interpretation; this governed sediment mass basis is not a burial, resuspension, or site-specific sediment characterization model.",
+        "derivationNote": "The shipped sediment mass basis remains explicit and reproducible for screening continuity while the concentration-only model boundary is preserved."
+      },
+      "sourceReferences": [
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates for degradation and accumulation data",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        }
+      ]
+    },
+    "air_half_life_days": {
+      "value": 2.0,
+      "unit": "day",
+      "sourceId": "screening.default.air.halflife",
+      "title": "Air screening half-life",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 2.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed air half-life default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (OECD/US)",
+        "basis": "governed screening degradation half-life for air",
+        "calculationMethod": "Adopted as a bounded screening default aligned to official degradation-screening and environmental-model review guidance for the air compartment.",
+        "validityNote": "Use only for bounded screening interpretation unless replaced with substance-specific evidence through governed parameter records.",
+        "derivationNote": "This default anchors the shipped 25 C reference-temperature half-life used by the screening kernels."
+      }
+    },
+    "air_residence_time_days": {
+      "value": 3.0,
+      "unit": "day",
+      "sourceId": "screening.default.air.residence_time",
+      "title": "Air screening residence time",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 3.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed air residence-time default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/US)",
+        "basis": "governed screening residence time for air",
+        "calculationMethod": "Adopted as a bounded screening clearance-timescale default aligned to official environmental-model transparency guidance for compartment residence assumptions.",
+        "validityNote": "Use only for bounded screening interpretation; this is not a site-specific atmospheric turnover measurement or transport simulation.",
+        "derivationNote": "This default anchors the bounded advective-loss timescale used when the experimental advective family is selected."
+      }
+    },
+    "water_half_life_days": {
+      "value": 15.0,
+      "unit": "day",
+      "sourceId": "screening.default.water.halflife",
+      "title": "Water screening half-life",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 15.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed water half-life default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (OECD/US)",
+        "basis": "governed screening degradation half-life for surface water",
+        "calculationMethod": "Adopted as a bounded screening default aligned to official degradation-screening and environmental-model review guidance for the surface-water compartment.",
+        "validityNote": "Use only for bounded screening interpretation unless replaced with substance-specific evidence through governed parameter records.",
+        "derivationNote": "This default anchors the shipped 25 C reference-temperature half-life used by the screening kernels."
+      }
+    },
+    "water_residence_time_days": {
+      "value": 20.0,
+      "unit": "day",
+      "sourceId": "screening.default.water.residence_time",
+      "title": "Surface-water screening residence time",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 20.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed surface-water residence-time default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/US)",
+        "basis": "governed screening residence time for surface water",
+        "calculationMethod": "Adopted as a bounded screening clearance-timescale default aligned to official surface-water exposure and model-transparency guidance for one-compartment screening.",
+        "validityNote": "Use only for bounded screening interpretation; this is not a routed flow model, travel-time study, or site-specific flushing estimate.",
+        "derivationNote": "This default anchors the bounded advective-loss timescale used when the experimental advective family is selected."
+      }
+    },
+    "soil_half_life_days": {
+      "value": 30.0,
+      "unit": "day",
+      "sourceId": "screening.default.soil.halflife",
+      "title": "Soil screening half-life",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 30.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed soil half-life default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates for degradation and accumulation data",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/OECD)",
+        "basis": "governed screening degradation half-life for soil",
+        "calculationMethod": "Adopted as a bounded screening default aligned to official degradation-screening guidance for soil persistence interpretation within the concentration-only model boundary.",
+        "validityNote": "Use only for bounded screening interpretation unless replaced with substance-specific evidence through governed parameter records.",
+        "derivationNote": "This default anchors the shipped 25 C reference-temperature half-life used by the screening kernels."
+      }
+    },
+    "soil_residence_time_days": {
+      "value": 180.0,
+      "unit": "day",
+      "sourceId": "screening.default.soil.residence_time",
+      "title": "Soil screening residence time",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 180.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed soil residence-time default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/US)",
+        "basis": "governed screening residence time for soil",
+        "calculationMethod": "Adopted as a bounded screening clearance-timescale default aligned to official model-transparency guidance for compartment turnover assumptions.",
+        "validityNote": "Use only for bounded screening interpretation; this is not a vadose-zone transport model, erosion model, or site-specific soil recovery estimate.",
+        "derivationNote": "This default anchors the bounded advective-loss timescale used when the experimental advective family is selected."
+      }
+    },
+    "sediment_half_life_days": {
+      "value": 45.0,
+      "unit": "day",
+      "sourceId": "screening.default.sediment.halflife",
+      "title": "Sediment screening half-life",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 45.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed sediment half-life default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "oecd.harmonised_templates.degradation_accumulation",
+          "title": "OECD Harmonised Templates for degradation and accumulation data",
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/OECD)",
+        "basis": "governed screening degradation half-life for sediment",
+        "calculationMethod": "Adopted as a bounded screening default aligned to official degradation and accumulation reporting guidance for sediment persistence interpretation within the concentration-only model boundary.",
+        "validityNote": "Use only for bounded screening interpretation unless replaced with substance-specific evidence through governed parameter records.",
+        "derivationNote": "This default anchors the shipped 25 C reference-temperature half-life used by the screening kernels."
+      }
+    },
+    "sediment_residence_time_days": {
+      "value": 365.0,
+      "unit": "day",
+      "sourceId": "screening.default.sediment.residence_time",
+      "title": "Sediment screening residence time",
+      "effectiveDate": "2026-04-21",
+      "previousValue": 365.0,
+      "previousEffectiveDate": "2026-04-21",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "rebaselined_carried_forward",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Reviewer-grade rebaseline review retained the governed sediment residence-time default without numeric change in this release.",
+      "sourceReferences": [
+        {
+          "source_id": "echa.euses",
+          "title": "ECHA EUSES support page",
+          "url": "https://echa.europa.eu/support/dossier-submission-tools/euses"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (EU/US)",
+        "basis": "governed screening residence time for sediment",
+        "calculationMethod": "Adopted as a bounded screening clearance-timescale default aligned to official screening-guidance expectations for persistent receiving-media interpretation.",
+        "validityNote": "Use only for bounded screening interpretation; this is not a burial, resuspension, or site-specific sediment recovery model.",
+        "derivationNote": "This default anchors the bounded advective-loss timescale used when the experimental advective family is selected."
+      }
+    }
+  },
+  "mediaDefaults": {
+    "air": {
+      "compartment": "ambient_air",
+      "capacityParameter": "ambient_air_volume_m3",
+      "degradationHalfLifeParameter": "air_half_life_days",
+      "advectiveResidenceTimeParameter": "air_residence_time_days",
+      "unit": "mg/m3"
+    },
+    "water": {
+      "compartment": "surface_water",
+      "capacityParameter": "surface_water_volume_m3",
+      "degradationHalfLifeParameter": "water_half_life_days",
+      "advectiveResidenceTimeParameter": "water_residence_time_days",
+      "unit": "mg/L"
+    },
+    "soil": {
+      "compartment": "agricultural_soil",
+      "capacityParameter": "agricultural_soil_mass_kg",
+      "degradationHalfLifeParameter": "soil_half_life_days",
+      "advectiveResidenceTimeParameter": "soil_residence_time_days",
+      "unit": "mg/kg"
+    },
+    "sediment": {
+      "compartment": "freshwater_sediment",
+      "capacityParameter": "freshwater_sediment_mass_kg",
+      "degradationHalfLifeParameter": "sediment_half_life_days",
+      "advectiveResidenceTimeParameter": "sediment_residence_time_days",
+      "unit": "mg/kg"
+    }
+  },
+  "temperatureCorrectionPolicy": {
+    "referenceTemperatureC": 25.0,
+    "minimumSupportedTemperatureC": 0.0,
+    "maximumSupportedTemperatureC": 40.0,
+    "correctionStrategy": "medium_specific_q10",
+    "degradationQ10ByMedium": {
+      "air": 1.8,
+      "water": 2.0,
+      "soil": 2.2,
+      "sediment": 2.4
+    },
+    "applicabilityNote": "Degradation half-lives are corrected from the governed 25 C reference temperature using medium-specific Q10 factors. Temperatures outside the governed range are clamped in non-strict mode and rejected in strict mode."
+  },
+  "probabilisticReviewPolicy": {
+    "minimumCompletedIterationsForPercentiles": 10,
+    "maxFailedIterationFractionForReadyReview": 0.1
+  }
+}

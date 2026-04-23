@@ -1,0 +1,97 @@
+{
+  "defaultsVersion": "v1",
+  "compartments": {
+    "AIR_REGIONAL": {
+      "canonicalUnit": "mg/m3",
+      "conversionFactorsToCanonical": {
+        "mg/m3": 1.0,
+        "mg/M3": 1.0,
+        "ug/m3": 0.001,
+        "ug/M3": 0.001,
+        "ng/m3": 0.000001
+      },
+      "applicabilityNote": "Canonical ambient air concentrations remain in mg/m3 for Fate MCP outputs."
+    },
+    "WATER_SURFACE": {
+      "canonicalUnit": "mg/L",
+      "conversionFactorsToCanonical": {
+        "mg/L": 1.0,
+        "mg/l": 1.0,
+        "ug/L": 0.001,
+        "ug/l": 0.001,
+        "ng/L": 0.000001
+      },
+      "applicabilityNote": "Canonical surface-water concentrations remain in mg/L for downstream handoff."
+    },
+    "SOIL_TOP": {
+      "canonicalUnit": "mg/kg",
+      "canonicalBasis": "dry_weight",
+      "conversionFactorsToCanonical": {
+        "mg/kg": 1.0,
+        "mg/KG": 1.0,
+        "mg/kg dw": 1.0,
+        "mg/kg dry weight": 1.0,
+        "mg/kg ww": 1.25,
+        "mg/kg wet weight": 1.25,
+        "ug/kg": 0.001,
+        "ug/KG": 0.001,
+        "ug/kg dw": 0.001,
+        "ug/kg dry weight": 0.001,
+        "ug/kg ww": 0.00125,
+        "ug/kg wet weight": 0.00125,
+        "ng/kg": 0.000001
+      },
+      "unitBasisLabels": {
+        "mg/kg": "dry_weight",
+        "mg/KG": "dry_weight",
+        "mg/kg dw": "dry_weight",
+        "mg/kg dry weight": "dry_weight",
+        "mg/kg ww": "wet_weight",
+        "mg/kg wet weight": "wet_weight",
+        "ug/kg": "dry_weight",
+        "ug/KG": "dry_weight",
+        "ug/kg dw": "dry_weight",
+        "ug/kg dry weight": "dry_weight",
+        "ug/kg ww": "wet_weight",
+        "ug/kg wet weight": "wet_weight",
+        "ng/kg": "dry_weight"
+      },
+      "applicabilityNote": "Canonical soil concentrations remain in mg/kg on a dry-weight basis. Wet-weight soil inputs are normalized with a governed 1.25 screening conversion factor."
+    },
+    "SEDIMENT_FRESH": {
+      "canonicalUnit": "mg/kg",
+      "canonicalBasis": "dry_weight",
+      "conversionFactorsToCanonical": {
+        "mg/kg": 1.0,
+        "mg/KG": 1.0,
+        "mg/kg dw": 1.0,
+        "mg/kg dry weight": 1.0,
+        "mg/kg ww": 4.0,
+        "mg/kg wet weight": 4.0,
+        "ug/kg": 0.001,
+        "ug/KG": 0.001,
+        "ug/kg dw": 0.001,
+        "ug/kg dry weight": 0.001,
+        "ug/kg ww": 0.004,
+        "ug/kg wet weight": 0.004,
+        "ng/kg": 0.000001
+      },
+      "unitBasisLabels": {
+        "mg/kg": "dry_weight",
+        "mg/KG": "dry_weight",
+        "mg/kg dw": "dry_weight",
+        "mg/kg dry weight": "dry_weight",
+        "mg/kg ww": "wet_weight",
+        "mg/kg wet weight": "wet_weight",
+        "ug/kg": "dry_weight",
+        "ug/KG": "dry_weight",
+        "ug/kg dw": "dry_weight",
+        "ug/kg dry weight": "dry_weight",
+        "ug/kg ww": "wet_weight",
+        "ug/kg wet weight": "wet_weight",
+        "ng/kg": "dry_weight"
+      },
+      "applicabilityNote": "Canonical sediment concentrations remain in mg/kg on a dry-weight basis. Wet-weight sediment inputs are normalized with a governed 4.0 screening conversion factor."
+    }
+  }
+}

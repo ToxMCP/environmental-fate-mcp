@@ -109,6 +109,80 @@ def test_external_result_adapter_fixture_can_be_loaded_and_round_tripped(tmp_pat
     assert loaded_again.engine_name == payload.engine_name
 
 
+def test_server_payload_path_allows_shipped_fixture() -> None:
+    from fate_mcp.server import _resolve_external_payload_path
+
+    resolved = _resolve_external_payload_path(
+        "config/adapter-fixtures/illustrative_external_engine_payload.json"
+    )
+    assert resolved.name == "illustrative_external_engine_payload.json"
+
+
+def test_server_payload_path_allows_configured_import_root(tmp_path, monkeypatch) -> None:
+    from fate_mcp.server import _resolve_external_payload_path
+
+    payload = tmp_path / "payload.json"
+    payload.write_text('{"engine_name":"x","engine_version":"1","surfaces":[]}\n')
+    monkeypatch.setenv("FATE_MCP_IMPORT_ROOTS", str(tmp_path))
+
+    assert _resolve_external_payload_path(str(payload)) == payload.resolve()
+
+
+def test_server_payload_path_prefers_resource_root_over_cwd_collision(tmp_path, monkeypatch) -> None:
+    import fate_mcp.server as server
+
+    resource_root = tmp_path / "package_data"
+    packaged_payload = resource_root / "config" / "adapter-fixtures" / "payload.json"
+    packaged_payload.parent.mkdir(parents=True)
+    packaged_payload.write_text("{}\n")
+
+    cwd_root = tmp_path / "cwd"
+    cwd_payload = cwd_root / "config" / "adapter-fixtures" / "payload.json"
+    cwd_payload.parent.mkdir(parents=True)
+    cwd_payload.write_text("{}\n")
+
+    monkeypatch.delenv("FATE_MCP_IMPORT_ROOTS", raising=False)
+    monkeypatch.setattr(server, "REPO_ROOT", resource_root)
+    monkeypatch.chdir(cwd_root)
+
+    assert (
+        server._resolve_external_payload_path("config/adapter-fixtures/payload.json")
+        == packaged_payload.resolve()
+    )
+
+
+def test_server_payload_path_rejects_absolute_path_outside_roots(tmp_path) -> None:
+    from fate_mcp.server import _resolve_external_payload_path
+
+    payload = tmp_path / "payload.json"
+    payload.write_text("{}\n")
+
+    with pytest.raises(FateValidationError) as exc_info:
+        _resolve_external_payload_path(str(payload))
+
+    assert exc_info.value.payload.code == "external_payload_path_not_allowed"
+
+
+def test_server_payload_path_rejects_symlink_escape(tmp_path, monkeypatch) -> None:
+    from fate_mcp.server import _resolve_external_payload_path
+
+    allowed_root = tmp_path / "allowed"
+    allowed_root.mkdir()
+    outside_payload = tmp_path / "outside.json"
+    outside_payload.write_text("{}\n")
+    link_path = allowed_root / "linked.json"
+    try:
+        link_path.symlink_to(outside_payload)
+    except OSError:
+        pytest.skip("symlinks are not available on this filesystem")
+    monkeypatch.setenv("FATE_MCP_IMPORT_ROOTS", str(allowed_root))
+
+    with pytest.raises(FateValidationError) as exc_info:
+        _resolve_external_payload_path(str(link_path))
+
+    assert exc_info.value.payload.code == "external_payload_path_not_allowed"
+
+
 def test_external_result_adapter_csv_fixture_can_be_loaded_and_round_tripped(tmp_path) -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])
     scenario = runtime.build_environmental_release_scenario(
@@ -391,18 +465,6 @@ def test_external_result_adapter_euses_export_fixture_can_be_loaded() -> None:
 
 
 def test_external_result_adapter_epi_suite_export_fixture_is_rejected_as_non_equivalent() -> None:
-    runtime = FateRuntime(Path(__file__).resolve().parents[1])
-    scenario = runtime.build_environmental_release_scenario(
-        BuildEnvironmentalReleaseScenarioRequest(
-            chemical_identity={"preferredName": "External adapter EPI Suite example", "substance_class": "organic chemical"},
-            total_release_mass_kg=8.0,
-            release_fractions=[
-                ReleaseFraction(medium=Media.AIR, fraction=0.5),
-                ReleaseFraction(medium=Media.WATER, fraction=0.5),
-            ],
-            duration_days=10.0,
-        )
-    )
     fixture_path = (
         Path(__file__).resolve().parents[1]
         / "config"
@@ -519,7 +581,7 @@ def test_headless_engine_bad_output(tmp_path) -> None:
     assert "metadata line is malformed" in exc.value.payload.message
 
 def test_external_result_adapter_blocks_non_equivalent_semantic_loss(tmp_path, monkeypatch) -> None:
-    from fate_mcp.models import SemanticLossClassification, AdapterSemanticMapping
+    from fate_mcp.models import SemanticLossClassification
     from fate_mcp.plugins.external_result_adapter import ADAPTER_IMPORT_PROFILES
     
     profile = next(p for p in ADAPTER_IMPORT_PROFILES if p.profile_id == "euses_screening_export_v1")

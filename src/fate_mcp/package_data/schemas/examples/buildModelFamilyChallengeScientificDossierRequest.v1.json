@@ -1,0 +1,96 @@
+{
+  "scenario": {
+    "schema_version": "v1",
+    "scenario_id": "scenario-306863db9176",
+    "chemical_identity": {
+      "preferredName": "Example substance",
+      "casrn": "100-00-0",
+      "substance_class": "organic chemical"
+    },
+    "total_release_mass_kg": 12.5,
+    "release_fractions": [
+      {
+        "medium": "air",
+        "fraction": 0.2
+      },
+      {
+        "medium": "water",
+        "fraction": 0.5
+      },
+      {
+        "medium": "soil",
+        "fraction": 0.3
+      }
+    ],
+    "duration_days": 30.0,
+    "timing_pattern": "continuous",
+    "geographic_scope": {
+      "region_id": "eu_screening_default",
+      "context_label": "regional_screening",
+      "notes": null
+    },
+    "treatment_assumptions": [],
+    "parameter_records": [
+      {
+        "parameter": "water_half_life_days",
+        "value": 12.0,
+        "unit": "day",
+        "source_classification": "user_input",
+        "source_reference": null,
+        "evidence_quality": "reference",
+        "rationale": "Illustrative initial parameter override.",
+        "quality_flags": [],
+        "distribution": null
+      },
+      {
+        "parameter": "log_kow",
+        "value": 4.2,
+        "unit": "log10",
+        "source_classification": "heuristic",
+        "source_reference": null,
+        "evidence_quality": "heuristic",
+        "rationale": "Illustrative preserved-only screening descriptor.",
+        "quality_flags": [],
+        "distribution": null
+      }
+    ],
+    "evidence_sources": [
+      {
+        "source_id": "example.release.note",
+        "title": "Illustrative release scenario",
+        "effective_date": "2026-04-08",
+        "url": null
+      }
+    ],
+    "provenance": {
+      "schema_version": "v1",
+      "defaults_version": "v1",
+      "algorithm_version": "reference-mass-balance-0.1.0",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
+      "source_references": [
+        {
+          "source_id": "example.release.note",
+          "title": "Illustrative release scenario",
+          "effective_date": "2026-04-08",
+          "url": null
+        }
+      ]
+    },
+    "temperature_c": 25.0,
+    "quality_flags": [],
+    "limitations": [
+      {
+        "code": "region_profile",
+        "message": "Scenario uses region profile European regional screening default."
+      }
+    ]
+  },
+  "selection_profile_id": "reference_baseline_advective_challenge_v1",
+  "run_mode": "steady_state",
+  "fit_for_purpose": "screening",
+  "bucket_count": 4,
+  "bucket_duration_days": 7.0,
+  "requested_media": [],
+  "escalation_concerns": [],
+  "max_surface_samples": 3
+}

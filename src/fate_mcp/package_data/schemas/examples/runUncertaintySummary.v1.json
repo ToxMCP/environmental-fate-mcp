@@ -1,0 +1,102 @@
+{
+  "schema_version": "v1",
+  "scenario_id": "scenario-306863db9176",
+  "run_id": "run-54d637570c66",
+  "model_family": "reference_mass_balance",
+  "top_drivers": [
+    {
+      "parameter": "release_fractions",
+      "driver_type": "multi_medium_simplification_burden",
+      "reason": "Multiple release media are represented within a simplified screening kernel rather than explicit transfer dynamics.",
+      "severity": "warning",
+      "source_reference_ids": [],
+      "quality_flag_codes": []
+    },
+    {
+      "parameter": "agricultural_soil_mass_kg",
+      "driver_type": "default_screening_capacity",
+      "reason": "Runtime relied on a governed screening capacity default that strongly influences compartment concentration scaling.",
+      "severity": "info",
+      "source_reference_ids": [
+        "echa.guidance.ircsa"
+      ],
+      "quality_flag_codes": []
+    },
+    {
+      "parameter": "ambient_air_volume_m3",
+      "driver_type": "default_screening_capacity",
+      "reason": "Runtime relied on a governed screening capacity default that strongly influences compartment concentration scaling.",
+      "severity": "info",
+      "source_reference_ids": [
+        "echa.guidance.ircsa"
+      ],
+      "quality_flag_codes": []
+    },
+    {
+      "parameter": "surface_water_volume_m3",
+      "driver_type": "default_screening_capacity",
+      "reason": "Runtime relied on a governed screening capacity default that strongly influences compartment concentration scaling.",
+      "severity": "info",
+      "source_reference_ids": [
+        "echa.guidance.ircsa"
+      ],
+      "quality_flag_codes": []
+    },
+    {
+      "parameter": "log_kow",
+      "driver_type": "unsupported_runtime_parameter",
+      "reason": "Parameter is preserved on scenario state for traceability but is not consumed by the current runtime.",
+      "severity": "info",
+      "source_reference_ids": [],
+      "quality_flag_codes": []
+    }
+  ],
+  "driver_count": 7,
+  "all_driver_types": [
+    "default_heavy_parameter",
+    "default_screening_capacity",
+    "multi_medium_simplification_burden",
+    "unsupported_runtime_parameter"
+  ],
+  "summary_lines": [
+    "7 deterministic uncertainty drivers were ranked for reference_mass_balance.",
+    "These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
+    "Top drivers: release_fractions (multi_medium_simplification_burden), agricultural_soil_mass_kg (default_screening_capacity), ambient_air_volume_m3 (default_screening_capacity), surface_water_volume_m3 (default_screening_capacity), log_kow (unsupported_runtime_parameter)."
+  ],
+  "limitations": [
+    {
+      "code": "deterministic_uncertainty_only",
+      "message": "Uncertainty summary ranks deterministic reviewer-facing drivers only and does not provide Monte Carlo outputs, confidence intervals, or probabilistic bounds."
+    },
+    {
+      "code": "default_dependent_runtime",
+      "message": "Some runtime outputs depend on curated defaults rather than scenario-specific measurements."
+    }
+  ],
+  "provenance": {
+    "schema_version": "v1",
+    "defaults_version": "v1",
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
+    "source_references": [
+      {
+        "source_id": "example.release.note",
+        "title": "Illustrative release scenario",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      {
+        "source_id": "echa.guidance.ircsa",
+        "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+        "effective_date": null,
+        "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+      },
+      {
+        "source_id": "oecd.test_guidelines.section3",
+        "title": "OECD Test Guidelines for Chemicals",
+        "effective_date": null,
+        "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+      }
+    ]
+  }
+}

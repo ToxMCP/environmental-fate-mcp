@@ -18,6 +18,7 @@ from fate_mcp.package_metadata import (
     VERSION,
 )
 from fate_mcp.plugins.external_result_adapter import build_adapter_import_manifest
+from fate_mcp.resources import refresh_packaged_resource_mirror
 from fate_mcp.validation import validation_dossier
 
 
@@ -1917,6 +1918,7 @@ def write_release_bundle(repo_root: Path, output_dir: Path | None = None, releas
         f"{_sha256_path(bundle_dir / filename)}  {filename}" for filename in checksum_targets
     ]
     (bundle_dir / "SHA256SUMS").write_text("\n".join(checksum_lines) + "\n")
+    refresh_packaged_resource_mirror(repo_root)
     return bundle_dir
 
 

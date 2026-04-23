@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "parameter": {
+      "title": "Parameter",
+      "type": "string"
+    },
+    "value": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Value"
+    },
+    "unit": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit"
+    },
+    "source_classification": {
+      "$ref": "#/$defs/SourceClassification"
+    },
+    "rationale": {
+      "title": "Rationale",
+      "type": "string"
+    },
+    "source_reference": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SourceReference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "quality_flags": {
+      "items": {
+        "$ref": "#/$defs/QualityFlag"
+      },
+      "title": "Quality Flags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "parameter",
+    "value",
+    "source_classification",
+    "rationale"
+  ],
+  "title": "FateAssumptionRecord",
+  "type": "object"
+}

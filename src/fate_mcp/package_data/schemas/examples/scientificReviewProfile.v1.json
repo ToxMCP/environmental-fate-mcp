@@ -1,0 +1,81 @@
+{
+  "model_family": "advective_screening_mass_balance",
+  "display_name": "Advective Screening Mass-Balance Scientific Review",
+  "fit_for_purpose": [
+    "screening",
+    "benchmark",
+    "downstream_export"
+  ],
+  "review_checklist": [
+    {
+      "code": "advective_scope_confirmed",
+      "prompt": "Confirm the scenario remains inside the governed screening scope of the advective screening kernel and that a residence-time term is scientifically reasonable.",
+      "rationale": "Scientific review should verify that adding first-order clearance is justified rather than implying richer spatial transport behavior.",
+      "evidence_hint_fields": [
+        "fit_verdict",
+        "applicability_lines",
+        "limitations"
+      ]
+    },
+    {
+      "code": "residence_time_provenance_reviewed",
+      "prompt": "Review whether runtime-consumed residence-time and degradation parameters are scenario-specific overrides or governed defaults.",
+      "rationale": "Residence-time defaults can strongly influence concentrations when advective clearance dominates loss.",
+      "evidence_hint_fields": [
+        "parameter_quality_lines",
+        "equation_lines",
+        "surface_samples"
+      ]
+    },
+    {
+      "code": "advective_uncertainty_acknowledged",
+      "prompt": "Acknowledge deterministic uncertainty drivers before reusing the output in assessor-facing decisions.",
+      "rationale": "The review packet should make screening-capacity, treatment, and multi-medium simplification caveats explicit.",
+      "evidence_hint_fields": [
+        "uncertainty_lines",
+        "benchmark_reference_lines"
+      ]
+    }
+  ],
+  "packet_template": "Build a scientific review packet that preserves advective screening scope, residence-time provenance, benchmark context, and deterministic uncertainty drivers.",
+  "brief_template": "Summarize whether the advective screening run is scientifically reviewable within the declared concentration-only screening boundary.",
+  "ready_fit_verdicts": [
+    "good_fit"
+  ],
+  "attention_outcomes": [
+    "qualified_screening_use",
+    "escalate_model_review"
+  ],
+  "attention_if_any_checks_fail": true,
+  "escalation_fit_verdicts": [
+    "review_needed",
+    "not_applicable"
+  ],
+  "escalation_driver_types": [
+    "evidence_conflict"
+  ],
+  "qualification_driver_types": [
+    "heuristic_parameter",
+    "time_bucket_interpretive_burden",
+    "multi_medium_simplification_burden",
+    "default_heavy_parameter",
+    "unsupported_runtime_parameter",
+    "unexecuted_treatment_assumption"
+  ],
+  "warning_severity_promotes_qualification": true,
+  "acceptable_outcome_template": "Use the run as an experimental screening-support artifact when the governed advective assumptions fit the scenario.",
+  "qualified_outcome_template": "Use the run only with explicit qualification notes because residence-time, default, or treatment caveats remain material.",
+  "escalation_outcome_template": "Escalate the run for deeper model review or additional evidence before decision-facing reuse.",
+  "driver_action_templates": {
+    "heuristic_parameter": "Prioritize replacing heuristic parameter inputs with measured or higher-confidence evidence where feasible.",
+    "unsupported_runtime_parameter": "Do not treat preserved-only parameters as if they were actively modeled by the runtime.",
+    "unexecuted_treatment_assumption": "Clarify which treatment assumptions remained provenance-only and were not executed numerically.",
+    "default_screening_capacity": "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+    "default_heavy_parameter": "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
+    "time_bucket_interpretive_burden": "Confirm bucket semantics and comparison window alignment before assessor-facing interpretation.",
+    "multi_medium_simplification_burden": "Consider a richer model family if spatial hydrodynamics or intermedia exchange dominate the decision context.",
+    "evidence_conflict": "Resolve conflicting evidence or qualify the affected output before reuse."
+  },
+  "source_pack": "defaults/v1/scientific_review_profiles.json",
+  "applicability_note": "Use this review profile for the non-default advective screening family when a governed residence-time term is scientifically justified."
+}

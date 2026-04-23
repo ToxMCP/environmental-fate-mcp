@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "ScientificClaimSupportStrength": {
+      "enum": [
+        "uncovered",
+        "single_anchor",
+        "multi_anchor_single_tier",
+        "multi_anchor_multi_tier"
+      ],
+      "title": "ScientificClaimSupportStrength",
+      "type": "string"
+    },
+    "ScientificValidationClaimPriority": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "title": "ScientificValidationClaimPriority",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "claim_id": {
+      "title": "Claim Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "supported_run_modes": {
+      "items": {
+        "$ref": "#/$defs/RunMode"
+      },
+      "title": "Supported Run Modes",
+      "type": "array"
+    },
+    "priority": {
+      "$ref": "#/$defs/ScientificValidationClaimPriority"
+    },
+    "mandatory_for_release": {
+      "title": "Mandatory For Release",
+      "type": "boolean"
+    },
+    "covered": {
+      "title": "Covered",
+      "type": "boolean"
+    },
+    "support_strength": {
+      "$ref": "#/$defs/ScientificClaimSupportStrength",
+      "default": "uncovered"
+    },
+    "supporting_fixture_count": {
+      "default": 0,
+      "title": "Supporting Fixture Count",
+      "type": "integer"
+    },
+    "supporting_validation_tier_count": {
+      "default": 0,
+      "title": "Supporting Validation Tier Count",
+      "type": "integer"
+    },
+    "supporting_fixture_names": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Supporting Fixture Names",
+      "type": "array"
+    },
+    "supporting_categories": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Supporting Categories",
+      "type": "array"
+    },
+    "supporting_reference_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Supporting Reference Types",
+      "type": "array"
+    },
+    "supporting_validation_tiers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Supporting Validation Tiers",
+      "type": "array"
+    },
+    "satisfies_required_reference_types": {
+      "default": true,
+      "title": "Satisfies Required Reference Types",
+      "type": "boolean"
+    },
+    "satisfies_required_validation_tiers": {
+      "default": true,
+      "title": "Satisfies Required Validation Tiers",
+      "type": "boolean"
+    },
+    "gap_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Gap Lines",
+      "type": "array"
+    }
+  },
+  "required": [
+    "claim_id",
+    "display_name",
+    "model_family",
+    "priority",
+    "mandatory_for_release",
+    "covered"
+  ],
+  "title": "ScientificValidationClaimCoverageRecord",
+  "type": "object"
+}

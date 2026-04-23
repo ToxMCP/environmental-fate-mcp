@@ -1,0 +1,175 @@
+{
+  "$defs": {
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "RegulatoryHandoffReviewChecklistItem": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale",
+        "status"
+      ],
+      "title": "RegulatoryHandoffReviewChecklistItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "review_packet_id": {
+      "title": "Review Packet Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "handoff_profile_id": {
+      "title": "Handoff Profile Id",
+      "type": "string"
+    },
+    "target_module": {
+      "title": "Target Module",
+      "type": "string"
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "passed_check_count": {
+      "title": "Passed Check Count",
+      "type": "integer"
+    },
+    "total_check_count": {
+      "title": "Total Check Count",
+      "type": "integer"
+    },
+    "review_template_used": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Template Used"
+    },
+    "checklist_items": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryHandoffReviewChecklistItem"
+      },
+      "title": "Checklist Items",
+      "type": "array"
+    },
+    "brief_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Brief Lines",
+      "type": "array"
+    },
+    "parameter_quality_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Parameter Quality Lines",
+      "type": "array"
+    },
+    "applicability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicability Lines",
+      "type": "array"
+    },
+    "scientific_unsuitability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Unsuitability Lines",
+      "type": "array"
+    },
+    "uncertainty_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Uncertainty Lines",
+      "type": "array"
+    },
+    "equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Equation Lines",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "review_packet_id",
+    "scenario_id",
+    "handoff_profile_id",
+    "target_module",
+    "review_status",
+    "passed_check_count",
+    "total_check_count",
+    "brief_lines"
+  ],
+  "title": "RegulatoryHandoffReviewBrief",
+  "type": "object"
+}

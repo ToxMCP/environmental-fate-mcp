@@ -1,0 +1,13 @@
+{
+  "family": "future_adapter_parameter",
+  "expected_unit": null,
+  "runtime_supported": false,
+  "conflict_relative_spread_threshold": 0.2,
+  "weighting_strategy": "evidence_quality_weighted_mean",
+  "reconciliation_domain": "linear",
+  "conflict_metric": "relative_spread",
+  "disallow_conservative_empirical_blend": false,
+  "source_pack": "defaults/v1/physchem_parameter_policies.json",
+  "parameter_names": [],
+  "applicability_note": null
+}

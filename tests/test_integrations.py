@@ -40,7 +40,6 @@ from fate_mcp.integrations import (
     summarize_regulatory_handoff_package,
 )
 from fate_mcp.models import (
-    ApplyPhyschemEvidenceRequest,
     BuildModelFamilyComparisonBriefRequest,
     BuildModelFamilyComparisonPacketRequest,
     BuildModelFamilyComparisonReviewBriefRequest,

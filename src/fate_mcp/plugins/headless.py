@@ -1,5 +1,4 @@
 import shutil
-import subprocess
 from pathlib import Path
 
 from pydantic import BaseModel
@@ -37,7 +36,7 @@ class HeadlessEngineWrapper:
         run_options: FateModelRunOptions,
         output_dir: Path,
     ) -> ExternalEngineResultPayload:
-        executable_path = self.check_dependencies()
+        self.check_dependencies()
 
         # In a real implementation, we would write scenario inputs to a native engine format
         # and invoke the executable:

@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "RegulatoryHandoffReviewChecklistTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "evidence_hint_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Hint Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale"
+      ],
+      "title": "RegulatoryHandoffReviewChecklistTemplate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "target_module": {
+      "title": "Target Module",
+      "type": "string"
+    },
+    "downstream_field": {
+      "title": "Downstream Field",
+      "type": "string"
+    },
+    "required_entry_fields": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Entry Fields",
+      "type": "array"
+    },
+    "consumer_hints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Consumer Hints",
+      "type": "array"
+    },
+    "review_checklist": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryHandoffReviewChecklistTemplate"
+      },
+      "title": "Review Checklist",
+      "type": "array"
+    },
+    "tool_request_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Request Template"
+    },
+    "response_summary_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Response Summary Template"
+    },
+    "review_brief_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Brief Template"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "profile_id",
+    "display_name",
+    "target_module",
+    "downstream_field",
+    "source_pack"
+  ],
+  "title": "RegulatoryHandoffProfile",
+  "type": "object"
+}

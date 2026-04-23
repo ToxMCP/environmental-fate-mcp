@@ -1,0 +1,60 @@
+{
+  "$defs": {
+    "RegulatoryHandoffTargetMapping": {
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "target_module": {
+          "title": "Target Module",
+          "type": "string"
+        },
+        "consumer_hints": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Consumer Hints",
+          "type": "array"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        }
+      },
+      "required": [
+        "profile_id",
+        "target_module",
+        "source_pack"
+      ],
+      "title": "RegulatoryHandoffTargetMapping",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "mapping_count": {
+      "title": "Mapping Count",
+      "type": "integer"
+    },
+    "mappings": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryHandoffTargetMapping"
+      },
+      "title": "Mappings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "mapping_count",
+    "mappings"
+  ],
+  "title": "RegulatoryHandoffTargetMatrixManifest",
+  "type": "object"
+}

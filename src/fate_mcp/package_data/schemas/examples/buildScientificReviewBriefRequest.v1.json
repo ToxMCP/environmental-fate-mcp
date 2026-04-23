@@ -1,0 +1,778 @@
+{
+  "review_packet": {
+    "schema_version": "v1",
+    "review_packet_id": "scireview-5bc425d3226b",
+    "scenario_id": "scenario-306863db9176",
+    "run_id": "run-54d637570c66",
+    "model_family": "reference_mass_balance",
+    "fit_for_purpose": "screening",
+    "review_status": "scientific_review_attention_needed",
+    "review_outcome": "qualified_screening_use",
+    "outcome_preview": {
+      "scenario_id": "scenario-306863db9176",
+      "run_id": "run-54d637570c66",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "review_profile_model_family": "reference_mass_balance",
+      "review_outcome": "qualified_screening_use",
+      "review_status": "scientific_review_attention_needed",
+      "triggered_fit_verdicts": [],
+      "triggered_driver_types": [
+        "default_heavy_parameter",
+        "multi_medium_simplification_burden",
+        "unsupported_runtime_parameter"
+      ],
+      "triggered_check_codes": [],
+      "governing_rule_lines": [
+        "Qualification driver types present: default_heavy_parameter, multi_medium_simplification_burden, unsupported_runtime_parameter.",
+        "Warning-severity drivers promote qualification under the governed review profile."
+      ],
+      "status_rule_lines": [
+        "Attention required because outcome qualified_screening_use is governed as attention-worthy."
+      ],
+      "outcome_lines": [
+        "Use the run only with explicit qualification notes because screening-use caveats remain material.",
+        "Fit verdict good_fit with score 0.85 informed the outcome."
+      ],
+      "recommended_actions": [
+        "Carry the qualification notes and limitation lines forward in assessor-facing summaries.",
+        "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
+        "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+        "Consider a richer model family if intermedia dynamics are central to the decision context.",
+        "Do not treat preserved-only parameters as if they were actively modeled by the runtime."
+      ]
+    },
+    "fit_assessment": {
+      "fit_score": 0.85,
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "verdict": "good_fit",
+      "reasons": [
+        "Some parameter records are preserved for provenance but are not consumed by the reference runtime: log_kow"
+      ],
+      "applicability_profile": {
+        "model_family": "reference_mass_balance",
+        "fit_for_purpose": [
+          "screening",
+          "benchmark",
+          "downstream_export"
+        ],
+        "supported_substance_classes": [
+          "neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions",
+          "release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments",
+          "deterministic assessor-review and benchmark workflows that require transparent concentration-only outputs"
+        ],
+        "unsupported_substance_classes": [
+          "metals and metal species requiring speciation-aware fate treatment",
+          "nanomaterials or particulate systems requiring size-resolved transport behavior",
+          "strongly ionizing chemistries where screening partition and persistence assumptions are likely unstable",
+          "assessments dominated by transformation products, food-chain transfer, or explicit intermedia transfer kinetics",
+          "extreme persistence requiring higher-tier modeling",
+          "strong spatial heterogeneity requiring GIS/routed spatial dispersion",
+          "point-source plume dependence requiring explicit near-field dispersion models",
+          "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+          "jurisdictional probabilistic output cannot be satisfied by deterministic screening"
+        ],
+        "required_inputs": [
+          "total_release_mass_kg",
+          "release_fractions",
+          "duration_days",
+          "region_profile_id",
+          "media-specific capacity defaults or governed overrides",
+          "media-specific half-life defaults or governed overrides"
+        ],
+        "core_assumptions": [
+          "The runtime emits regional concentration surfaces rather than dose, exposure, or risk values.",
+          "Each release medium is represented as a single screening compartment with governed capacity defaults.",
+          "Finite-duration first-order decay is applied over the declared release duration and any post-release elapsed time.",
+          "Steady-state mode reports the end-of-duration screening concentration rather than an infinite-time equilibrium.",
+          "Only treatment assumptions explicitly marked as pre_release_global are numerically applied before release; all other treatment assumptions remain provenance-only.",
+          "Reference mass balance does not add explicit advective clearance or intermedia transfer terms."
+        ],
+        "deferred_capabilities": [
+          "explicit spatial dispersion and gradients",
+          "intermedia transfer coefficient modeling",
+          "probabilistic uncertainty propagation",
+          "transformation-product tracking",
+          "food-chain or dose translation workflows"
+        ],
+        "review_notes": [
+          "Use for concentration-only screening support, benchmark demonstrations, and downstream suite handoff preparation.",
+          "Review unsupported runtime parameters before treating outputs as more than screening indicators.",
+          "Escalate to richer model families when multiple complex media interactions dominate the decision context."
+        ],
+        "fit_score_threshold": 0.75,
+        "fit_score_penalties": {
+          "unsupported_fit_for_purpose": 0.25,
+          "excessive_time_bucket_count": 0.2,
+          "provenance_only_treatments": 0.1,
+          "multi_medium_release_complexity": 0.1,
+          "unsupported_runtime_parameters": 0.15,
+          "missing_required_inputs": 0.35,
+          "missing_substance_class": 0.3,
+          "unsupported_substance_class": 1.0
+        },
+        "source_pack": "defaults/v1/model_family_applicability_profiles.json",
+        "applicability_note": "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary."
+      },
+      "applicability_lines": [
+        "Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export.",
+        "Requested fit-for-purpose: screening.",
+        "Resolved substance class: organic chemical.",
+        "Supported scope examples: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions; release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments.",
+        "Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior.",
+        "Resolved substance class aligns with declared supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions.",
+        "Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary.",
+        "When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking."
+      ],
+      "scientific_unsuitability_lines": []
+    },
+    "parameter_manifest": {
+      "schema_version": "v1",
+      "scenario_id": "scenario-306863db9176",
+      "run_id": "run-54d637570c66",
+      "model_family": "reference_mass_balance",
+      "fit_for_purpose": "screening",
+      "escalation_concerns": [],
+      "entries": [
+        {
+          "parameter": "agricultural_soil_mass_kg",
+          "resolved_value": 2500000000.0,
+          "unit": "kg",
+          "source_classification": "curated_default",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [
+            "echa.guidance.ircsa"
+          ],
+          "quality_flag_codes": [],
+          "rationale": "Capacity used for soil concentration calculation."
+        },
+        {
+          "parameter": "air_decay_constant_per_day",
+          "resolved_value": 0.34657359027997264,
+          "unit": "1/day",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "First-order decay constant used in the finite-duration screening calculation."
+        },
+        {
+          "parameter": "air_effective_release_mass_kg",
+          "resolved_value": 2.5,
+          "unit": "kg",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Medium-specific effective release mass after executable pre-release treatment removal."
+        },
+        {
+          "parameter": "air_half_life_days",
+          "resolved_value": 2.0,
+          "unit": "day",
+          "source_classification": "curated_default",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [
+            "oecd.test_guidelines.section3"
+          ],
+          "quality_flag_codes": [],
+          "rationale": "Half-life used to attenuate air release over the declared scenario duration."
+        },
+        {
+          "parameter": "air_region_scalar",
+          "resolved_value": 1.0,
+          "unit": "scalar",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Region profile scalar applied to the default compartment capacity."
+        },
+        {
+          "parameter": "ambient_air_volume_m3",
+          "resolved_value": 1000000000.0,
+          "unit": "m3",
+          "source_classification": "curated_default",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [
+            "echa.guidance.ircsa"
+          ],
+          "quality_flag_codes": [],
+          "rationale": "Capacity used for air concentration calculation."
+        },
+        {
+          "parameter": "soil_decay_constant_per_day",
+          "resolved_value": 0.023104906018664842,
+          "unit": "1/day",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "First-order decay constant used in the finite-duration screening calculation."
+        },
+        {
+          "parameter": "soil_effective_release_mass_kg",
+          "resolved_value": 3.75,
+          "unit": "kg",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Medium-specific effective release mass after executable pre-release treatment removal."
+        },
+        {
+          "parameter": "soil_half_life_days",
+          "resolved_value": 30.0,
+          "unit": "day",
+          "source_classification": "curated_default",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [
+            "oecd.test_guidelines.section3"
+          ],
+          "quality_flag_codes": [],
+          "rationale": "Half-life used to attenuate soil release over the declared scenario duration."
+        },
+        {
+          "parameter": "soil_region_scalar",
+          "resolved_value": 1.0,
+          "unit": "scalar",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Region profile scalar applied to the default compartment capacity."
+        },
+        {
+          "parameter": "surface_water_volume_m3",
+          "resolved_value": 500000000.0,
+          "unit": "m3",
+          "source_classification": "curated_default",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [
+            "echa.guidance.ircsa"
+          ],
+          "quality_flag_codes": [],
+          "rationale": "Capacity used for water concentration calculation."
+        },
+        {
+          "parameter": "water_decay_constant_per_day",
+          "resolved_value": 0.057762265046662105,
+          "unit": "1/day",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "First-order decay constant used in the finite-duration screening calculation."
+        },
+        {
+          "parameter": "water_effective_release_mass_kg",
+          "resolved_value": 6.25,
+          "unit": "kg",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Medium-specific effective release mass after executable pre-release treatment removal."
+        },
+        {
+          "parameter": "water_half_life_days",
+          "resolved_value": 12.0,
+          "unit": "day",
+          "source_classification": "user_input",
+          "evidence_quality": "reference",
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Illustrative initial parameter override. User- or evidence-supplied half-life override used to attenuate water release over the declared scenario duration."
+        },
+        {
+          "parameter": "water_region_scalar",
+          "resolved_value": 1.0,
+          "unit": "scalar",
+          "source_classification": "derived",
+          "evidence_quality": null,
+          "runtime_consumed": true,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Region profile scalar applied to the default compartment capacity."
+        },
+        {
+          "parameter": "log_kow",
+          "resolved_value": 4.2,
+          "unit": "log10",
+          "source_classification": "heuristic",
+          "evidence_quality": "heuristic",
+          "runtime_consumed": false,
+          "source_reference_ids": [],
+          "quality_flag_codes": [],
+          "rationale": "Illustrative preserved-only screening descriptor."
+        }
+      ],
+      "default_evidence_status": "governed_overrides_present",
+      "default_proof_posture": "rebaselined_defaults_with_governed_overrides",
+      "default_evidence_lines": [
+        "Runtime consumed 5 governed core default parameter(s).",
+        "Source-backed defaults consumed: agricultural_soil_mass_kg, air_half_life_days, ambient_air_volume_m3, soil_half_life_days, surface_water_volume_m3.",
+        "Governed overrides consumed: water_half_life_days.",
+        "No legacy continuity defaults were consumed by runtime."
+      ],
+      "proof_posture_lines": [
+        "Run default proof posture: rebaselined_defaults_with_governed_overrides.",
+        "Rebaselined shipped defaults remain active for: agricultural_soil_mass_kg, air_half_life_days, ambient_air_volume_m3, soil_half_life_days, surface_water_volume_m3.",
+        "Scenario-specific governed overrides displace the shipped default path for: water_half_life_days."
+      ],
+      "scientific_change_lines": [
+        "agricultural_soil_mass_kg: Source-backed rebaseline review retained the shipped soil screening mass basis without numeric change in this release.",
+        "air_half_life_days: Reviewer-grade rebaseline review retained the governed air half-life default without numeric change in this release.",
+        "ambient_air_volume_m3: Source-backed rebaseline review retained the published ambient-air screening geometry without numeric change in this release.",
+        "soil_half_life_days: Reviewer-grade rebaseline review retained the governed soil half-life default without numeric change in this release.",
+        "surface_water_volume_m3: Source-backed rebaseline review retained the published surface-water screening geometry without numeric change in this release."
+      ],
+      "default_sensitivity_lines": [
+        "Scenario-specific governed overrides limit direct dependence on the shipped default path for the overridden parameters."
+      ],
+      "rebaselined_default_parameters": [
+        "agricultural_soil_mass_kg",
+        "air_half_life_days",
+        "ambient_air_volume_m3",
+        "soil_half_life_days",
+        "surface_water_volume_m3"
+      ],
+      "governed_override_parameters": [
+        "water_half_life_days"
+      ],
+      "material_default_sensitivity": false,
+      "core_default_assumption_count": 5,
+      "summary_lines": [
+        "15 parameters were consumed by runtime reference_mass_balance; 1 remain provenance-only for review.",
+        "Applicability context follows reference_mass_balance for fit-for-purpose screening.",
+        "14 entries rely on governed curated-default or derived assumptions; 1 entries remain heuristic.",
+        "Default evidence posture: governed_overrides_present with 5 runtime-consumed core default assumption(s).",
+        "Run default proof posture: rebaselined_defaults_with_governed_overrides.",
+        "User or evidence-backed parameters: log_kow, water_half_life_days."
+      ],
+      "limitations": [
+        {
+          "code": "preserved_only_parameters",
+          "message": "Some scenario parameters are preserved for provenance and assessor review but are not consumed by the current runtime."
+        },
+        {
+          "code": "heuristic_parameter_inputs",
+          "message": "One or more manifest entries rely on heuristic source classification."
+        }
+      ],
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          },
+          {
+            "source_id": "echa.guidance.ircsa",
+            "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+            "effective_date": null,
+            "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+          },
+          {
+            "source_id": "oecd.test_guidelines.section3",
+            "title": "OECD Test Guidelines for Chemicals",
+            "effective_date": null,
+            "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+          }
+        ]
+      }
+    },
+    "uncertainty_summary": {
+      "schema_version": "v1",
+      "scenario_id": "scenario-306863db9176",
+      "run_id": "run-54d637570c66",
+      "model_family": "reference_mass_balance",
+      "top_drivers": [
+        {
+          "parameter": "release_fractions",
+          "driver_type": "multi_medium_simplification_burden",
+          "reason": "Multiple release media are represented within a simplified screening kernel rather than explicit transfer dynamics.",
+          "severity": "warning",
+          "source_reference_ids": [],
+          "quality_flag_codes": []
+        },
+        {
+          "parameter": "agricultural_soil_mass_kg",
+          "driver_type": "default_screening_capacity",
+          "reason": "Runtime relied on a governed screening capacity default that strongly influences compartment concentration scaling.",
+          "severity": "info",
+          "source_reference_ids": [
+            "echa.guidance.ircsa"
+          ],
+          "quality_flag_codes": []
+        },
+        {
+          "parameter": "ambient_air_volume_m3",
+          "driver_type": "default_screening_capacity",
+          "reason": "Runtime relied on a governed screening capacity default that strongly influences compartment concentration scaling.",
+          "severity": "info",
+          "source_reference_ids": [
+            "echa.guidance.ircsa"
+          ],
+          "quality_flag_codes": []
+        },
+        {
+          "parameter": "surface_water_volume_m3",
+          "driver_type": "default_screening_capacity",
+          "reason": "Runtime relied on a governed screening capacity default that strongly influences compartment concentration scaling.",
+          "severity": "info",
+          "source_reference_ids": [
+            "echa.guidance.ircsa"
+          ],
+          "quality_flag_codes": []
+        },
+        {
+          "parameter": "log_kow",
+          "driver_type": "unsupported_runtime_parameter",
+          "reason": "Parameter is preserved on scenario state for traceability but is not consumed by the current runtime.",
+          "severity": "info",
+          "source_reference_ids": [],
+          "quality_flag_codes": []
+        }
+      ],
+      "driver_count": 7,
+      "all_driver_types": [
+        "default_heavy_parameter",
+        "default_screening_capacity",
+        "multi_medium_simplification_burden",
+        "unsupported_runtime_parameter"
+      ],
+      "summary_lines": [
+        "7 deterministic uncertainty drivers were ranked for reference_mass_balance.",
+        "These drivers explain reviewer attention points only; they are not probabilistic confidence intervals.",
+        "Top drivers: release_fractions (multi_medium_simplification_burden), agricultural_soil_mass_kg (default_screening_capacity), ambient_air_volume_m3 (default_screening_capacity), surface_water_volume_m3 (default_screening_capacity), log_kow (unsupported_runtime_parameter)."
+      ],
+      "limitations": [
+        {
+          "code": "deterministic_uncertainty_only",
+          "message": "Uncertainty summary ranks deterministic reviewer-facing drivers only and does not provide Monte Carlo outputs, confidence intervals, or probabilistic bounds."
+        },
+        {
+          "code": "default_dependent_runtime",
+          "message": "Some runtime outputs depend on curated defaults rather than scenario-specific measurements."
+        }
+      ],
+      "provenance": {
+        "schema_version": "v1",
+        "defaults_version": "v1",
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "generated_at": "2026-01-01T00:00:00.123456Z",
+        "source_references": [
+          {
+            "source_id": "example.release.note",
+            "title": "Illustrative release scenario",
+            "effective_date": "2026-04-08",
+            "url": null
+          },
+          {
+            "source_id": "echa.guidance.ircsa",
+            "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+            "effective_date": null,
+            "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+          },
+          {
+            "source_id": "oecd.test_guidelines.section3",
+            "title": "OECD Test Guidelines for Chemicals",
+            "effective_date": null,
+            "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+          }
+        ]
+      }
+    },
+    "default_evidence_status": "governed_overrides_present",
+    "default_proof_posture": "rebaselined_defaults_with_governed_overrides",
+    "claim_set_proof_posture": "reviewer_grade_reference_anchor",
+    "default_evidence_lines": [
+      "Runtime consumed 5 governed core default parameter(s).",
+      "Source-backed defaults consumed: agricultural_soil_mass_kg, air_half_life_days, ambient_air_volume_m3, soil_half_life_days, surface_water_volume_m3.",
+      "Governed overrides consumed: water_half_life_days.",
+      "No legacy continuity defaults were consumed by runtime."
+    ],
+    "proof_posture_lines": [
+      "Run default proof posture: rebaselined_defaults_with_governed_overrides.",
+      "Rebaselined shipped defaults remain active for: agricultural_soil_mass_kg, air_half_life_days, ambient_air_volume_m3, soil_half_life_days, surface_water_volume_m3.",
+      "Scenario-specific governed overrides displace the shipped default path for: water_half_life_days.",
+      "reference_mass_balance is the reviewer-grade anchor for decision-facing bounded screening inside Environmental Fate MCP.",
+      "Reference-family trust is grounded in source-backed shipped defaults, mandatory-claim corroboration, and machine-readable hand-worked worksheet anchors."
+    ],
+    "scientific_change_lines": [
+      "agricultural_soil_mass_kg: Source-backed rebaseline review retained the shipped soil screening mass basis without numeric change in this release.",
+      "air_half_life_days: Reviewer-grade rebaseline review retained the governed air half-life default without numeric change in this release.",
+      "ambient_air_volume_m3: Source-backed rebaseline review retained the published ambient-air screening geometry without numeric change in this release.",
+      "soil_half_life_days: Reviewer-grade rebaseline review retained the governed soil half-life default without numeric change in this release.",
+      "surface_water_volume_m3: Source-backed rebaseline review retained the published surface-water screening geometry without numeric change in this release."
+    ],
+    "default_sensitivity_lines": [
+      "Scenario-specific governed overrides limit direct dependence on the shipped default path for the overridden parameters."
+    ],
+    "rebaselined_default_parameters": [
+      "agricultural_soil_mass_kg",
+      "air_half_life_days",
+      "ambient_air_volume_m3",
+      "soil_half_life_days",
+      "surface_water_volume_m3"
+    ],
+    "governed_override_parameters": [
+      "water_half_life_days"
+    ],
+    "material_default_sensitivity": false,
+    "core_default_assumption_count": 5,
+    "surface_samples": [
+      {
+        "medium": "air",
+        "compartment": "ambient_air",
+        "concentration_value": 0.00024044183555505707,
+        "concentration_unit": "mg/m3",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "finite_duration_continuous_release_first_order",
+        "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+      },
+      {
+        "medium": "water",
+        "compartment": "surface_water",
+        "concentration_value": 5.93830089619883e-06,
+        "concentration_unit": "mg/L",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "finite_duration_continuous_release_first_order",
+        "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+      },
+      {
+        "medium": "soil",
+        "compartment": "agricultural_soil",
+        "concentration_value": 0.0010820212806667226,
+        "concentration_unit": "mg/kg",
+        "time_window_mode": "steady_state",
+        "bucket_label": null,
+        "equation_id": "finite_duration_continuous_release_first_order",
+        "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+      }
+    ],
+    "summary_lines": [
+      "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
+      "Scientific review packet covers run run-54d637570c66 for model family reference_mass_balance.",
+      "Fit verdict: good_fit (score=0.85).",
+      "Default evidence posture: governed_overrides_present with 5 runtime-consumed core default assumption(s).",
+      "Proof posture: run defaults are rebaselined_defaults_with_governed_overrides and claim-set posture is reviewer_grade_reference_anchor.",
+      "Parameter manifest exposes 16 resolved parameters and 7 ranked uncertainty drivers (5 shown in top-drivers view)."
+    ],
+    "outcome_lines": [
+      "Use the run only with explicit qualification notes because screening-use caveats remain material.",
+      "Fit verdict good_fit with score 0.85 informed the outcome."
+    ],
+    "recommended_actions": [
+      "Carry the qualification notes and limitation lines forward in assessor-facing summaries.",
+      "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
+      "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+      "Consider a richer model family if intermedia dynamics are central to the decision context.",
+      "Do not treat preserved-only parameters as if they were actively modeled by the runtime."
+    ],
+    "benchmark_reference_lines": [
+      "Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
+      "Representative covered claims: Reference air finite-duration first-order screening equation, Reference executable treatment reduction, Reference long-duration near-plateau anchor.",
+      "Representative supporting fixtures: air_reference_chemical_style_fixture, reference_air_capacity_sensitivity_fixture, reference_treatment_reduction_anchor_fixture."
+    ],
+    "equation_lines": [
+      "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+      "surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+      "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+    ],
+    "equation_component_lines": [
+      "ambient_air: loss decomposition -> k_deg=0.3466/day, t1/2_eff=2 day, tau_loss=2.885 day",
+      "surface_water: loss decomposition -> k_deg=0.05776/day, t1/2_eff=12 day, tau_loss=17.31 day",
+      "agricultural_soil: loss decomposition -> k_deg=0.0231/day, t1/2_eff=30 day, tau_loss=43.28 day"
+    ],
+    "mass_balance_component_lines": [
+      "ambient_air: emitted=2.5e+06 mg, retained=2.404e+05 mg, degraded=2.26e+06 mg, advected=0 mg, closure_error=0 mg",
+      "surface_water: emitted=6.25e+06 mg, retained=2.969e+06 mg, degraded=3.281e+06 mg, advected=0 mg, closure_error=0 mg",
+      "agricultural_soil: emitted=3.75e+06 mg, retained=2.705e+06 mg, degraded=1.045e+06 mg, advected=0 mg, closure_error=4.66e-10 mg"
+    ],
+    "transport_regime_lines": [
+      "ambient_air: nonadvective_reference_regime (no residence-time turnover term)",
+      "surface_water: nonadvective_reference_regime (no residence-time turnover term)",
+      "agricultural_soil: nonadvective_reference_regime (no residence-time turnover term)"
+    ],
+    "post_release_recovery_lines": [
+      "ambient_air: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "surface_water: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration).",
+      "agricultural_soil: no_post_release_recovery_window (elapsed time does not extend beyond the active emission duration)."
+    ],
+    "post_release_regime_lines": [
+      "ambient_air: no_post_release_regime_window (elapsed time does not extend beyond the active emission duration).",
+      "surface_water: no_post_release_regime_window (elapsed time does not extend beyond the active emission duration).",
+      "agricultural_soil: no_post_release_regime_window (elapsed time does not extend beyond the active emission duration)."
+    ],
+    "post_release_directionality_lines": [],
+    "post_release_pace_lines": [],
+    "post_release_pace_directionality_lines": [],
+    "loss_dominance_lines": [
+      "ambient_air: degradation_only_loss (k_deg=0.3466/day)",
+      "surface_water: degradation_only_loss (k_deg=0.05776/day)",
+      "agricultural_soil: degradation_only_loss (k_deg=0.0231/day)"
+    ],
+    "loss_transition_lines": [
+      "ambient_air: single_loss_mechanism_reference_family (k_deg=0.3466/day)",
+      "surface_water: single_loss_mechanism_reference_family (k_deg=0.05776/day)",
+      "agricultural_soil: single_loss_mechanism_reference_family (k_deg=0.0231/day)"
+    ],
+    "checks": [
+      {
+        "code": "scenario_result_match",
+        "passed": true,
+        "message": "Scenario scenario-306863db9176 matches result scenario-306863db9176."
+      },
+      {
+        "code": "applicability_required_inputs_confirmed",
+        "passed": true,
+        "message": "Governed applicability required inputs are confirmed."
+      },
+      {
+        "code": "applicability_fit_for_purpose_supported",
+        "passed": true,
+        "message": "Fit-for-purpose screening is declared in scope."
+      },
+      {
+        "code": "applicability_substance_class_in_scope",
+        "passed": true,
+        "message": "Substance class is resolved and in scope."
+      },
+      {
+        "code": "parameter_manifest_populated",
+        "passed": true,
+        "message": "Run parameter manifest records 16 resolved parameters."
+      },
+      {
+        "code": "uncertainty_summary_populated",
+        "passed": true,
+        "message": "Deterministic uncertainty summary records 7 total drivers."
+      },
+      {
+        "code": "surface_samples_available",
+        "passed": true,
+        "message": "Scientific review packet includes 3 sampled concentration surfaces."
+      }
+    ],
+    "review_checklist": [
+      {
+        "code": "applicability_scope_confirmed",
+        "prompt": "Confirm the scenario and substance class remain inside the governed screening scope of the reference mass-balance kernel.",
+        "rationale": "Scientific review should first confirm that a deterministic screening kernel is being used inside its declared applicability boundary.",
+        "status": "ready_for_assessor_confirmation",
+        "evidence_lines": [
+          "Fit verdict: good_fit (score=0.85).",
+          "Applicability: Model family reference_mass_balance is declared for fit-for-purpose values: screening, benchmark, downstream_export. | Requested fit-for-purpose: screening. | Resolved substance class: organic chemical. | Supported scope examples: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions; release scenarios that can be approximated as regional mass loading into air, water, soil, or sediment compartments. | Escalate or reject when scope resembles: metals and metal species requiring speciation-aware fate treatment; nanomaterials or particulate systems requiring size-resolved transport behavior. | Resolved substance class aligns with declared supported scope: neutral or weakly sorbing organic chemicals under screening-level multimedia assumptions. | Reference mass balance is appropriate for transparent deterministic screening workflows inside the declared Fate MCP boundary. | When not to use this MCP: explicit spatial dispersion and gradients; intermedia transfer coefficient modeling; probabilistic uncertainty propagation; transformation-product tracking.",
+          "Limitations: Reference plugin is deterministic and screening-oriented.; Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients.; Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium.; Some scenario parameters are preserved for provenance and assessor review but are not consumed by the current runtime.; One or more manifest entries rely on heuristic source classification.; Uncertainty summary ranks deterministic reviewer-facing drivers only and does not provide Monte Carlo outputs, confidence intervals, or probabilistic bounds.; Some runtime outputs depend on curated defaults rather than scenario-specific measurements.; Scientific review packet summarizes screening-oriented methods support only and is not a statement of regulator acceptance or submission approval."
+        ]
+      },
+      {
+        "code": "parameter_provenance_reviewed",
+        "prompt": "Review whether key runtime-consumed parameters are scenario-specific, governed defaults, or preserved-only descriptors.",
+        "rationale": "Parameter provenance affects how much confidence can be placed in the resulting concentration surfaces.",
+        "status": "ready_for_assessor_confirmation",
+        "evidence_lines": [
+          "Parameter quality: 15 parameters were consumed by runtime reference_mass_balance; 1 remain provenance-only for review. | Applicability context follows reference_mass_balance for fit-for-purpose screening. | 14 entries rely on governed curated-default or derived assumptions; 1 entries remain heuristic. | Default evidence posture: governed_overrides_present with 5 runtime-consumed core default assumption(s). | Run default proof posture: rebaselined_defaults_with_governed_overrides. | User or evidence-backed parameters: log_kow, water_half_life_days. | Runtime consumed 5 governed core default parameter(s). | Source-backed defaults consumed: agricultural_soil_mass_kg, air_half_life_days, ambient_air_volume_m3, soil_half_life_days, surface_water_volume_m3. | Governed overrides consumed: water_half_life_days. | No legacy continuity defaults were consumed by runtime.",
+          "Surface sample: air/ambient_air 0.000240442 mg/m3.",
+          "Model family: reference_mass_balance."
+        ]
+      },
+      {
+        "code": "uncertainty_drivers_acknowledged",
+        "prompt": "Acknowledge the main deterministic uncertainty drivers before reusing the output in assessor-facing decisions.",
+        "rationale": "The scientific review packet should make uncertainty communication explicit even without probabilistic modeling.",
+        "status": "ready_for_assessor_confirmation",
+        "evidence_lines": [
+          "Uncertainty: 7 deterministic uncertainty drivers were ranked for reference_mass_balance. | These drivers explain reviewer attention points only; they are not probabilistic confidence intervals. | Top drivers: release_fractions (multi_medium_simplification_burden), agricultural_soil_mass_kg (default_screening_capacity), ambient_air_volume_m3 (default_screening_capacity), surface_water_volume_m3 (default_screening_capacity), log_kow (unsupported_runtime_parameter).",
+          "Benchmark context: Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered. | Representative covered claims: Reference air finite-duration first-order screening equation, Reference executable treatment reduction, Reference long-duration near-plateau anchor. | Representative supporting fixtures: air_reference_chemical_style_fixture, reference_air_capacity_sensitivity_fixture, reference_treatment_reduction_anchor_fixture."
+        ]
+      }
+    ],
+    "review_template_used": "Build a scientific review packet that preserves screening scope, parameter provenance, benchmark context, and deterministic uncertainty drivers for the native reference mass-balance kernel.",
+    "provenance": {
+      "schema_version": "v1",
+      "defaults_version": "v1",
+      "algorithm_version": "reference-mass-balance-0.1.0",
+      "generated_at": "2026-01-01T00:00:00.123456Z",
+      "source_references": [
+        {
+          "source_id": "example.release.note",
+          "title": "Illustrative release scenario",
+          "effective_date": "2026-04-08",
+          "url": null
+        },
+        {
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "effective_date": null,
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        {
+          "source_id": "oecd.test_guidelines.section3",
+          "title": "OECD Test Guidelines for Chemicals",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+        }
+      ]
+    },
+    "limitations": [
+      {
+        "code": "screening_model",
+        "message": "Reference plugin is deterministic and screening-oriented."
+      },
+      {
+        "code": "screening_model",
+        "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+      },
+      {
+        "code": "finite_duration_screening_kernel",
+        "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+      },
+      {
+        "code": "preserved_only_parameters",
+        "message": "Some scenario parameters are preserved for provenance and assessor review but are not consumed by the current runtime."
+      },
+      {
+        "code": "heuristic_parameter_inputs",
+        "message": "One or more manifest entries rely on heuristic source classification."
+      },
+      {
+        "code": "deterministic_uncertainty_only",
+        "message": "Uncertainty summary ranks deterministic reviewer-facing drivers only and does not provide Monte Carlo outputs, confidence intervals, or probabilistic bounds."
+      },
+      {
+        "code": "default_dependent_runtime",
+        "message": "Some runtime outputs depend on curated defaults rather than scenario-specific measurements."
+      },
+      {
+        "code": "scientific_review_screening_only",
+        "message": "Scientific review packet summarizes screening-oriented methods support only and is not a statement of regulator acceptance or submission approval."
+      }
+    ],
+    "blockers": []
+  }
+}

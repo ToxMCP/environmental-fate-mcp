@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "CalculationTraceTerm": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "CalculationTraceTerm",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "equation_id": {
+      "title": "Equation Id",
+      "type": "string"
+    },
+    "equation_text": {
+      "title": "Equation Text",
+      "type": "string"
+    },
+    "resolved_terms": {
+      "items": {
+        "$ref": "#/$defs/CalculationTraceTerm"
+      },
+      "title": "Resolved Terms",
+      "type": "array"
+    },
+    "notes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "equation_id",
+    "equation_text"
+  ],
+  "title": "CalculationTrace",
+  "type": "object"
+}

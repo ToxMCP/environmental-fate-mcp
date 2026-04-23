@@ -1,0 +1,271 @@
+{
+  "$defs": {
+    "DefaultEvidenceStatus": {
+      "enum": [
+        "source_backed_defaults",
+        "governed_overrides_present",
+        "legacy_continuity_assumptions_present"
+      ],
+      "title": "DefaultEvidenceStatus",
+      "type": "string"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "RunDefaultProofPosture": {
+      "enum": [
+        "rebaselined_shipped_defaults",
+        "rebaselined_defaults_with_governed_overrides",
+        "scenario_specific_non_default_values",
+        "legacy_continuity_extension"
+      ],
+      "title": "RunDefaultProofPosture",
+      "type": "string"
+    },
+    "ScientificProofPosture": {
+      "enum": [
+        "reviewer_grade_reference_anchor",
+        "experimental_challenge_path",
+        "normalization_parity_lane"
+      ],
+      "title": "ScientificProofPosture",
+      "type": "string"
+    },
+    "ScientificReviewOutcome": {
+      "enum": [
+        "acceptable_screening_use",
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "title": "ScientificReviewOutcome",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "trust_brief_id": {
+      "title": "Trust Brief Id",
+      "type": "string"
+    },
+    "review_packet_id": {
+      "title": "Review Packet Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "fit_for_purpose": {
+      "$ref": "#/$defs/FitForPurpose"
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "review_outcome": {
+      "$ref": "#/$defs/ScientificReviewOutcome"
+    },
+    "passed_check_count": {
+      "title": "Passed Check Count",
+      "type": "integer"
+    },
+    "total_check_count": {
+      "title": "Total Check Count",
+      "type": "integer"
+    },
+    "screening_recommendation": {
+      "title": "Screening Recommendation",
+      "type": "string"
+    },
+    "summary_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Summary Lines",
+      "type": "array"
+    },
+    "reviewer_signal_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reviewer Signal Lines",
+      "type": "array"
+    },
+    "default_evidence_status": {
+      "$ref": "#/$defs/DefaultEvidenceStatus",
+      "default": "source_backed_defaults"
+    },
+    "default_proof_posture": {
+      "$ref": "#/$defs/RunDefaultProofPosture",
+      "default": "rebaselined_shipped_defaults"
+    },
+    "claim_set_proof_posture": {
+      "$ref": "#/$defs/ScientificProofPosture",
+      "default": "reviewer_grade_reference_anchor"
+    },
+    "default_evidence_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Default Evidence Lines",
+      "type": "array"
+    },
+    "proof_posture_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Proof Posture Lines",
+      "type": "array"
+    },
+    "scientific_change_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Change Lines",
+      "type": "array"
+    },
+    "default_sensitivity_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Default Sensitivity Lines",
+      "type": "array"
+    },
+    "rebaselined_default_parameters": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rebaselined Default Parameters",
+      "type": "array"
+    },
+    "governed_override_parameters": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Governed Override Parameters",
+      "type": "array"
+    },
+    "material_default_sensitivity": {
+      "default": false,
+      "title": "Material Default Sensitivity",
+      "type": "boolean"
+    },
+    "core_default_assumption_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Core Default Assumption Count",
+      "type": "integer"
+    },
+    "applicability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicability Lines",
+      "type": "array"
+    },
+    "scientific_unsuitability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Unsuitability Lines",
+      "type": "array"
+    },
+    "uncertainty_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Uncertainty Lines",
+      "type": "array"
+    },
+    "top_uncertainty_driver_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Top Uncertainty Driver Types",
+      "type": "array"
+    },
+    "top_caveat_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Top Caveat Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "review_packet_id",
+    "scenario_id",
+    "run_id",
+    "model_family",
+    "fit_for_purpose",
+    "review_status",
+    "review_outcome",
+    "passed_check_count",
+    "total_check_count",
+    "screening_recommendation",
+    "summary_lines"
+  ],
+  "title": "RunScientificTrustBrief",
+  "type": "object"
+}

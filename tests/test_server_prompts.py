@@ -259,6 +259,42 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
     asyncio.run(_run())
 
 
+def test_server_tools_expose_annotations_and_output_schemas() -> None:
+    async def _run() -> None:
+        server = create_server()
+        tools = await server.list_tools()
+        assert len(tools) == 50
+        for tool in tools:
+            assert tool.annotations is not None, tool.name
+            assert tool.annotations.readOnlyHint is True, tool.name
+            assert tool.annotations.destructiveHint is False, tool.name
+            assert tool.outputSchema is not None, tool.name
+
+        by_name = {tool.name: tool for tool in tools}
+        assert by_name["fate_import_external_result_payload"].annotations.openWorldHint is True
+        assert (
+            by_name["fate_estimate_probabilistic_multimedia_concentrations"]
+            .annotations
+            .idempotentHint
+            is False
+        )
+        assert by_name["fate_estimate_multimedia_concentrations"].annotations.idempotentHint is True
+
+    asyncio.run(_run())
+
+
+def test_release_resource_can_be_read_inside_async_server_context() -> None:
+    async def _run() -> None:
+        server = create_server()
+        contents = await server.read_resource("release://metadata-report")
+        metadata = json.loads(contents[0].content)
+        assert metadata["toolCount"] == 50
+        assert metadata["promptCount"] == 19
+        assert metadata["resourceCount"] == 24
+
+    asyncio.run(_run())
+
+
 
 def test_schema_resource_rejects_path_traversal() -> None:
     with pytest.raises(ValueError, match="Invalid resource name"):
@@ -384,7 +420,6 @@ def test_handoff_package_skeleton_returns_valid_json() -> None:
 
 def test_audit_log_file_is_written_when_env_var_set(tmp_path, monkeypatch) -> None:
     import json
-    import os
 
     log_file = tmp_path / "audit.jsonl"
     monkeypatch.setenv("FATE_MCP_AUDIT_LOG_PATH", str(log_file))
