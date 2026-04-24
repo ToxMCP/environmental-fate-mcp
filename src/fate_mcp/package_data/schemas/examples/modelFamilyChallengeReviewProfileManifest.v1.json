@@ -1,0 +1,74 @@
+{
+  "schema_version": "v1",
+  "profile_count": 1,
+  "profiles": [
+    {
+      "profile_id": "reference_baseline_advective_challenge_review_v1",
+      "display_name": "Reference Baseline With Advective Challenge Review",
+      "selection_profile_id": "reference_baseline_advective_challenge_v1",
+      "comparison_profile_id": "reference_vs_advective_screening_v1",
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supported_run_modes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "review_checklist": [
+        {
+          "code": "selection_review_status_confirmed",
+          "prompt": "Confirm the governed selection review status is recorded and still supports the baseline-versus-challenge path being presented to assessors.",
+          "rationale": "The composed challenge review is only meaningful if the underlying governed selection review remains traceable and reviewable.",
+          "evidence_hint_fields": [
+            "selection_recommendation_status",
+            "selection_review_status",
+            "triggered_signal_lines"
+          ]
+        },
+        {
+          "code": "comparison_review_status_confirmed",
+          "prompt": "Confirm the governed comparison review status and dominant deltas are recorded when the selection path recommends an experimental challenge family.",
+          "rationale": "Assessors need to see whether the optional comparison path is present, ready, and materially informative before treating the challenge family as decision-relevant.",
+          "evidence_hint_fields": [
+            "comparison_profile_id",
+            "comparison_outcome",
+            "comparison_review_status",
+            "dominant_delta_lines",
+            "comparison_guidance_lines"
+          ]
+        },
+        {
+          "code": "applicability_context_preserved",
+          "prompt": "Review whether the primary and challenge applicability lines are preserved on the composed challenge review artifact.",
+          "rationale": "The challenge review should remain explicit about the baseline family scope and the experimental-family scope rather than collapsing them into one status.",
+          "evidence_hint_fields": [
+            "primary_applicability_lines",
+            "challenge_applicability_lines",
+            "limitations"
+          ]
+        }
+      ],
+      "review_packet_template": "Build a governed assessor-facing composed challenge review packet that bundles the selection review path and, when triggered, the reference-versus-advective comparison review path without losing baseline-versus-experimental framing.",
+      "review_brief_template": "Summarize whether the governed model-family challenge review is ready for assessor-facing reuse, preserving selection status, comparison status, dominant deltas, and applicability context.",
+      "ready_selection_review_statuses": [
+        "ready_for_model_family_selection_review"
+      ],
+      "ready_comparison_review_statuses": [
+        "ready_for_model_family_comparison_review"
+      ],
+      "attention_if_any_checks_fail": true,
+      "attention_if_comparison_missing_when_challenge_recommended": true,
+      "ready_action_template": "Composed model-family challenge review is ready for assessor-facing use because the governed selection review is ready and any required comparison review is also ready.",
+      "attention_action_template": "Keep the composed model-family challenge review in assessor-facing attention status until the governed selection-review or comparison-review concerns are resolved.",
+      "review_notes": [
+        "Use this profile when the reference family remains the baseline and the advective family is carried as a governed challenge path.",
+        "Preserve baseline-versus-experimental framing even when the comparison review is ready.",
+        "Do not present the challenge family without either a ready comparison review or an explicit baseline-only selection path."
+      ],
+      "source_pack": "defaults/v1/model_family_challenge_review_profiles.json",
+      "applicability_note": "This challenge review profile is intended for the composed reference-baseline and advective-challenge assessor workflow inside Fate MCP's concentration-only boundary."
+    }
+  ]
+}

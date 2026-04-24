@@ -1,0 +1,9 @@
+export_type,epi_suite_screening_export_v1
+engine_name,epi-suite-screening
+engine_version,4.11
+region_id,us_screening_default
+mode,steady_state
+
+compartment_label,bulk_concentration,bulk_unit,notes
+Regional air,0.0015,mg/m3,EPI Suite screening export fixture.
+Surface water,0.0125,mg/L,EPI Suite screening export fixture.

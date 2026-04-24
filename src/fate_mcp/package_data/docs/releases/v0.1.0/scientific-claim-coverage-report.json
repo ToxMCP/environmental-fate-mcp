@@ -1,0 +1,1114 @@
+{
+  "claim_count": 30,
+  "coverage": [
+    {
+      "claim_id": "advective_clearance_dominant_loss_share_v1",
+      "covered": true,
+      "display_name": "Advective clearance-dominant loss-share transition",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "advective_loss_dominance_anchor",
+        "advective_loss_dominance_sensitivity",
+        "advective_loss_transition_sensitivity"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_clearance_dominant_loss_share_anchor_fixture",
+        "advective_clearance_dominant_loss_share_companion_fixture",
+        "advective_transition_flip_to_clearance_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_dominance_anchor",
+        "hand_worked_advective_loss_dominance_sensitivity_fixture",
+        "hand_worked_advective_transition_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_cumulative_mass_balance_closure_v1",
+      "covered": true,
+      "display_name": "Advective cumulative mass-balance closure",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "advective_loss_dominance_anchor",
+        "advective_loss_dominance_sensitivity",
+        "advective_loss_transition_anchor",
+        "advective_loss_transition_sensitivity",
+        "advective_transport_regime_reference",
+        "reference_chemical_style"
+      ],
+      "supporting_fixture_count": 12,
+      "supporting_fixture_names": [
+        "advective_degradation_dominant_loss_share_anchor_fixture",
+        "advective_degradation_dominant_loss_share_companion_fixture",
+        "advective_clearance_dominant_loss_share_anchor_fixture",
+        "advective_clearance_dominant_loss_share_companion_fixture",
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_mixed_loss_transition_companion_fixture",
+        "advective_bounded_transport_reference_fixture",
+        "advective_flow_through_transport_reference_fixture",
+        "advective_transition_boundary_reference_fixture",
+        "advective_storage_dominant_transport_reference_fixture",
+        "advective_air_transport_reference_fixture",
+        "advective_soil_transport_reference_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_air_reference_fixture",
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_loss_dominance_anchor",
+        "hand_worked_advective_loss_dominance_sensitivity_fixture",
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_loss_transition_sensitivity_fixture",
+        "hand_worked_advective_soil_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_degradation_dominant_loss_share_v1",
+      "covered": true,
+      "display_name": "Advective degradation-dominant loss-share transition",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "advective_loss_dominance_anchor",
+        "advective_loss_dominance_sensitivity",
+        "advective_loss_transition_sensitivity"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_degradation_dominant_loss_share_anchor_fixture",
+        "advective_degradation_dominant_loss_share_companion_fixture",
+        "advective_transition_flip_to_degradation_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_dominance_anchor",
+        "hand_worked_advective_loss_dominance_sensitivity_fixture",
+        "hand_worked_advective_transition_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_extreme_persistence_clearance_bound_v1",
+      "covered": true,
+      "display_name": "Advective extreme-persistence clearance bound",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_extreme_persistence_clearance_anchor_fixture",
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_edge_anchor",
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_long_duration_combined_loss_plateau_v1",
+      "covered": true,
+      "display_name": "Advective long-duration combined-loss plateau anchor",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_long_duration_plateau_anchor_fixture",
+        "advective_long_duration_plateau_companion_fixture",
+        "advective_long_duration_plateau_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_duration_edge_anchor",
+        "hand_worked_advective_override_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_long_residence_time_accumulation_anchor_v1",
+      "covered": true,
+      "display_name": "Advective long-residence-time accumulation anchor",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_loss_regime_flip_directionality_v1",
+      "covered": true,
+      "display_name": "Advective loss-regime flip directionality",
+      "gap_lines": [],
+      "mandatory_for_release": false,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "advective_loss_transition_anchor",
+        "advective_loss_transition_sensitivity"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_transition_flip_to_degradation_fixture",
+        "advective_transition_flip_to_clearance_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_transition_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_mixed_loss_transition_margin_v1",
+      "covered": true,
+      "display_name": "Advective mixed-loss transition margin",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "advective_loss_transition_anchor",
+        "advective_loss_transition_sensitivity",
+        "advective_transport_regime_reference"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_mixed_loss_transition_companion_fixture",
+        "advective_transition_boundary_reference_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_loss_transition_sensitivity_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_post_release_flushing_directionality_v1",
+      "covered": true,
+      "display_name": "Advective post-release flushing directionality",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_fixture_count": 5,
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture",
+        "advective_post_release_subboundary_directionality_sensitivity_fixture",
+        "advective_post_release_boundary_transition_reference_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_subboundary_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_post_release_flushing_recovery_v1",
+      "covered": true,
+      "display_name": "Advective post-release flushing and recovery accounting",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_post_release_flushing_regime_transition_v1",
+      "covered": true,
+      "display_name": "Advective post-release flushing regime transition",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_fixture_count": 5,
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_recovery_sensitivity_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture",
+        "advective_post_release_boundary_transition_reference_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_post_release_half_recovery_directionality_v1",
+      "covered": true,
+      "display_name": "Advective post-release half-recovery directionality",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_fixture_count": 5,
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "advective_post_release_half_recovery_reference_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_post_release_half_recovery_pace_v1",
+      "covered": true,
+      "display_name": "Advective post-release half-recovery pace",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_fixture_count": 4,
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "advective_post_release_half_recovery_reference_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_post_release_late_recovery_regime_v1",
+      "covered": true,
+      "display_name": "Advective post-release late-recovery regime",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_post_release_extended_flushing_sensitivity_fixture",
+        "advective_post_release_late_recovery_reference_fixture",
+        "advective_post_release_late_recovery_edge_anchor"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_late_recovery_edge_anchor",
+        "hand_worked_advective_post_release_late_recovery_reference_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_residence_time_override_application_v1",
+      "covered": true,
+      "display_name": "Advective residence-time override application",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 5,
+      "supporting_fixture_names": [
+        "advective_long_duration_plateau_sensitivity_fixture",
+        "advective_residence_time_override_sensitivity_fixture",
+        "advective_short_residence_time_clearance_companion_fixture",
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_residence_time_turnover_regime_v1",
+      "covered": true,
+      "display_name": "Advective residence-time turnover regime interpretation",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "advective_loss_transition_anchor",
+        "advective_transport_regime_reference",
+        "edge_condition_anchor",
+        "parameter_override_sensitivity",
+        "reference_chemical_style"
+      ],
+      "supporting_fixture_count": 11,
+      "supporting_fixture_names": [
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_bounded_transport_reference_fixture",
+        "advective_flow_through_transport_reference_fixture",
+        "advective_transition_boundary_reference_fixture",
+        "advective_storage_dominant_transport_reference_fixture",
+        "advective_air_transport_reference_fixture",
+        "advective_soil_transport_reference_fixture",
+        "advective_short_residence_time_clearance_anchor_fixture",
+        "advective_short_residence_time_clearance_companion_fixture",
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_air_reference_fixture",
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_clearance_edge_anchor",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor",
+        "hand_worked_advective_soil_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_short_residence_time_clearance_anchor_v1",
+      "covered": true,
+      "display_name": "Advective short-residence-time clearance anchor",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "advective_short_residence_time_clearance_anchor_fixture",
+        "advective_short_residence_time_clearance_companion_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_clearance_edge_anchor",
+        "hand_worked_advective_override_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "advective_time_bucket_elapsed_time_v1",
+      "covered": true,
+      "display_name": "Advective time-bucket elapsed-time semantics",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "reference_chemical_style",
+        "time_bucket_invariance",
+        "time_bucket_regression_anchor"
+      ],
+      "supporting_fixture_count": 3,
+      "supporting_fixture_names": [
+        "advective_time_bucket_invariance_fixture",
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_time_bucket_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "invariance",
+        "reference_style"
+      ]
+    },
+    {
+      "claim_id": "advective_water_finite_duration_first_order_v1",
+      "covered": true,
+      "display_name": "Advective water finite-duration first-order screening equation",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "advective_reference_chemical_style",
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 4,
+      "supporting_fixture_names": [
+        "advective_water_reference_chemical_style_fixture",
+        "advective_long_duration_plateau_anchor_fixture",
+        "advective_long_duration_plateau_companion_fixture",
+        "advective_long_duration_plateau_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_duration_edge_anchor",
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_screening_equation"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "external_adapter_canonical_equivalence_v1",
+      "covered": true,
+      "display_name": "External adapter canonical normalization parity",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "external_result_adapter",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "single_anchor",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "external_adapter_normalization_parity"
+      ],
+      "supporting_fixture_count": 1,
+      "supporting_fixture_names": [
+        "external_adapter_equivalence_fixture"
+      ],
+      "supporting_reference_types": [
+        "governed_fixture_normalization_parity"
+      ],
+      "supporting_validation_tier_count": 1,
+      "supporting_validation_tiers": [
+        "normalization_parity"
+      ]
+    },
+    {
+      "claim_id": "reference_air_finite_duration_first_order_v1",
+      "covered": true,
+      "display_name": "Reference air finite-duration first-order screening equation",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "air_reference_chemical_style_fixture",
+        "reference_air_capacity_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_screening_equation"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_executable_treatment_reduction_v1",
+      "covered": true,
+      "display_name": "Reference executable treatment reduction",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "treatment_reduction_anchor"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "reference_treatment_reduction_anchor_fixture",
+        "reference_treatment_proportionality_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_treatment_anchor",
+        "hand_worked_treatment_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_long_duration_rate_anchor_v1",
+      "covered": true,
+      "display_name": "Reference long-duration near-plateau anchor",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "reference_long_duration_rate_anchor_fixture",
+        "reference_long_duration_plateau_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_duration_edge_anchor",
+        "hand_worked_duration_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_multi_medium_partition_v1",
+      "covered": true,
+      "display_name": "Reference multi-medium partitioned screening output",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "multi_medium_mass_balance",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "multi_medium_mass_balance_fixture",
+        "reference_multi_medium_fraction_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_partition_fixture",
+        "hand_worked_partition_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_parameter_override_application_v1",
+      "covered": true,
+      "display_name": "Reference runtime parameter override application",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "parameter_override_reference_case",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 6,
+      "supporting_fixture_names": [
+        "reference_air_capacity_sensitivity_fixture",
+        "reference_water_capacity_sensitivity_fixture",
+        "reference_soil_capacity_sensitivity_fixture",
+        "reference_sediment_capacity_sensitivity_fixture",
+        "reference_parameter_override_reference_fixture",
+        "parameter_override_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_override_fixture",
+        "hand_worked_override_reference_case"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_sediment_finite_duration_first_order_v1",
+      "covered": true,
+      "display_name": "Reference sediment finite-duration first-order screening equation",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "sediment_reference_chemical_style_fixture",
+        "reference_sediment_capacity_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_screening_equation"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_short_half_life_attenuation_v1",
+      "covered": true,
+      "display_name": "Reference short half-life attenuation anchor",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "medium",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "reference_short_half_life_attenuation_anchor_fixture",
+        "reference_short_half_life_sensitivity_companion_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_decay_edge_anchor",
+        "hand_worked_decay_sensitivity_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_soil_finite_duration_first_order_v1",
+      "covered": true,
+      "display_name": "Reference soil finite-duration first-order screening equation",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "parameter_override_sensitivity",
+        "reference_chemical_style"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "soil_reference_chemical_style_fixture",
+        "reference_soil_capacity_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_screening_equation"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_time_bucket_elapsed_time_v1",
+      "covered": true,
+      "display_name": "Reference time-bucket elapsed-time semantics",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "time_bucket"
+      ],
+      "supporting_categories": [
+        "time_bucket_decay_anchor",
+        "time_bucket_invariance"
+      ],
+      "supporting_fixture_count": 2,
+      "supporting_fixture_names": [
+        "time_bucket_invariance_fixture",
+        "reference_time_bucket_post_release_companion_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_time_bucket_decay_fixture",
+        "hand_worked_time_bucket_fixture"
+      ],
+      "supporting_validation_tier_count": 2,
+      "supporting_validation_tiers": [
+        "invariance",
+        "sensitivity"
+      ]
+    },
+    {
+      "claim_id": "reference_water_finite_duration_first_order_v1",
+      "covered": true,
+      "display_name": "Reference water finite-duration first-order screening equation",
+      "gap_lines": [],
+      "mandatory_for_release": true,
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "supporting_categories": [
+        "edge_condition_anchor",
+        "parameter_override_sensitivity",
+        "reference_chemical_style"
+      ],
+      "supporting_fixture_count": 4,
+      "supporting_fixture_names": [
+        "water_reference_chemical_style_fixture",
+        "reference_water_no_decay_limit_branch_fixture",
+        "reference_water_temperature_correction_reference_fixture",
+        "reference_water_capacity_sensitivity_fixture"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_no_decay_limit_fixture",
+        "hand_worked_screening_equation",
+        "hand_worked_temperature_correction_fixture"
+      ],
+      "supporting_validation_tier_count": 3,
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    }
+  ],
+  "covered_claim_count": 30,
+  "mandatory_claim_count": 29,
+  "schema_version": "v1",
+  "uncovered_mandatory_claim_count": 0
+}

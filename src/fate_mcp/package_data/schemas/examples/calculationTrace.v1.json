@@ -1,0 +1,145 @@
+{
+  "equation_id": "finite_duration_continuous_release_first_order",
+  "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+  "resolved_terms": [
+    {
+      "name": "release_rate_mg_per_day",
+      "value": 83333.33333333333,
+      "unit": "mg/day"
+    },
+    {
+      "name": "capacity_value",
+      "value": 1000000000.0,
+      "unit": "m3"
+    },
+    {
+      "name": "declared_temperature_c",
+      "value": 25.0,
+      "unit": "degC"
+    },
+    {
+      "name": "effective_temperature_c",
+      "value": 25.0,
+      "unit": "degC"
+    },
+    {
+      "name": "temperature_correction_factor",
+      "value": 1.0,
+      "unit": "scalar"
+    },
+    {
+      "name": "temperature_corrected_half_life_days",
+      "value": 2.0,
+      "unit": "day"
+    },
+    {
+      "name": "declared_half_life_days",
+      "value": 2.0,
+      "unit": "day"
+    },
+    {
+      "name": "effective_half_life_days",
+      "value": 2.0,
+      "unit": "day"
+    },
+    {
+      "name": "decay_constant_per_day",
+      "value": 0.34657359027997264,
+      "unit": "1/day"
+    },
+    {
+      "name": "loss_characteristic_time_days",
+      "value": 2.8853900817779268,
+      "unit": "day"
+    },
+    {
+      "name": "elapsed_days",
+      "value": 30.0,
+      "unit": "day"
+    },
+    {
+      "name": "emission_duration_days",
+      "value": 30.0,
+      "unit": "day"
+    },
+    {
+      "name": "active_emission_duration_days",
+      "value": 30.0,
+      "unit": "day"
+    },
+    {
+      "name": "post_release_elapsed_days",
+      "value": 0.0,
+      "unit": "day"
+    },
+    {
+      "name": "emitted_mass_to_elapsed_mg",
+      "value": 2500000.0,
+      "unit": "mg"
+    },
+    {
+      "name": "compartment_mass_at_elapsed_mg",
+      "value": 240441.83555505707,
+      "unit": "mg"
+    },
+    {
+      "name": "cumulative_degraded_mass_mg",
+      "value": 2259558.164444943,
+      "unit": "mg"
+    },
+    {
+      "name": "cumulative_advected_mass_mg",
+      "value": 0.0,
+      "unit": "mg"
+    },
+    {
+      "name": "mass_balance_closure_error_mg",
+      "value": 0.0,
+      "unit": "mg"
+    },
+    {
+      "name": "release_stop_compartment_mass_mg",
+      "value": "not_applicable",
+      "unit": "mg"
+    },
+    {
+      "name": "post_release_retained_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
+    },
+    {
+      "name": "post_release_removed_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
+    },
+    {
+      "name": "post_release_degraded_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
+    },
+    {
+      "name": "post_release_advected_fraction_of_release_stop_mass",
+      "value": "not_applicable",
+      "unit": "fraction"
+    },
+    {
+      "name": "medium_release_fraction",
+      "value": 0.2,
+      "unit": "fraction"
+    },
+    {
+      "name": "effective_total_release_mass_kg",
+      "value": 12.5,
+      "unit": "kg"
+    },
+    {
+      "name": "region_scalar",
+      "value": 1.0,
+      "unit": "scalar"
+    }
+  ],
+  "notes": [
+    "steady_state outputs represent end-of-duration screening concentration, not an infinite-time equilibrium.",
+    "Air, soil, and sediment concentrations remain in the compartment-native screening unit."
+  ]
+}

@@ -1,7 +1,6 @@
 from __future__ import annotations
 import random
 import statistics
-import copy
 
 import math
 from pathlib import Path

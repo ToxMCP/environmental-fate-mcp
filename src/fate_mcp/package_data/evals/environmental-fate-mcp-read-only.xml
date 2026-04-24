@@ -1,0 +1,42 @@
+<evaluation>
+  <qa_pair>
+    <question>Which model family remains published as the experimental non-default challenge path in Environmental Fate MCP?</question>
+    <answer>advective_screening_mass_balance</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What is the stable public adapter import profile id for normalized JSON payloads?</question>
+    <answer>normalized_external_payload_json</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What is the stable public adapter import profile id for normalized CSV payloads?</question>
+    <answer>normalized_external_payload_csv</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What reference temperature in degrees Celsius anchors the governed degradation half-life correction policy?</question>
+    <answer>25.0</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>How many public normalized adapter import profiles are published in v0.1?</question>
+    <answer>2</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Which downstream module is named as the target for the governed handoff profile exposure_scenario_mcp_v1?</question>
+    <answer>Direct-Use Exposure MCP</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What region profile id names the US EPA regional screening default?</question>
+    <answer>us_epa_default</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Which tool should an agent call to import a public normalized external payload into canonical Environmental Fate MCP outputs?</question>
+    <answer>fate_import_external_result_payload</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What resource should an agent inspect to discover only the stable public external-payload adapter profiles and fixtures?</question>
+    <answer>adapters://public-import-manifest</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What resource should an agent inspect to read the governed temperature correction policy?</question>
+    <answer>defaults://temperature-correction-policy</answer>
+  </qa_pair>
+</evaluation>

@@ -1,0 +1,95 @@
+{
+  "claimId": "reference_water_finite_duration_first_order_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference water finite-duration first-order screening equation",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.885390081777927e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_water_capacity_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "cumulative_degraded_mass_mg": 3.465735902799726e-07,
+            "decay_constant_per_day": 6.931471805599453e-14,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -3.465735902799726e-07
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "reference_water_no_decay_limit_branch_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.6902223771686956e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "cumulative_degraded_mass_mg": 1548888.114156522,
+            "decay_constant_per_day": 0.023104906018664842,
+            "mass_balance_closure_error_mg": -2.3283064365386963e-10,
+            "temperature_corrected_half_life_days": 30.0,
+            "temperature_correction_factor": 0.5
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "reference_water_temperature_correction_reference_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.4426950408889635e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "cumulative_degraded_mass_mg": 2786524.795555182,
+            "decay_constant_per_day": 0.046209812037329684,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 9.313225746154785e-10
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "water_reference_chemical_style_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.1.0"
+}

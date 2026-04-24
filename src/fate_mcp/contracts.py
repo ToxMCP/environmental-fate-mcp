@@ -116,6 +116,7 @@ from fate_mcp.models import (
     ScientificReviewPacket,
     SummarizeRegulatoryHandoffPackageRequest,
 )
+from fate_mcp.resources import refresh_packaged_resource_mirror
 from fate_mcp.runtime import FateRuntime
 
 
@@ -258,6 +259,7 @@ def generate_contract_artifacts(repo_root: Path) -> None:
     runtime = FateRuntime(repo_root, verify_defaults_manifest=False)
     runtime.defaults.write_manifest()
     write_examples(repo_root, runtime)
+    refresh_packaged_resource_mirror(repo_root)
 
 
 def ensure_contract_artifacts_current(repo_root: Path) -> None:

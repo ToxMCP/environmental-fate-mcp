@@ -1,0 +1,11 @@
+{
+  "schema_version": "v1",
+  "run_mode": "steady_state",
+  "model_family": "reference_mass_balance",
+  "region_profile_id": "eu_screening_default",
+  "fit_for_purpose": "screening",
+  "bucket_count": 1,
+  "bucket_duration_days": 7.0,
+  "requested_media": [],
+  "escalation_concerns": []
+}

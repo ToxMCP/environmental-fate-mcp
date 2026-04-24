@@ -1,0 +1,71 @@
+{
+  "claimId": "reference_long_duration_rate_anchor_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference long-duration near-plateau anchor",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "oecd.test_guidelines.section3",
+    "epa.environmental_models_guidance",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.1.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Water concentration remains close to the duration-limited plateau when duration is extended further at the same fixed release rate.",
+      "fixtureName": "reference_long_duration_plateau_sensitivity_fixture",
+      "referenceType": "hand_worked_duration_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark long duration companion"
+        },
+        "duration_days": 240.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 160.0
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case with a longer duration at the same fixed release rate, corroborating duration-limited plateau behavior under the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-duration sensitivity case remains analytically traceable to the same deterministic first-order reference equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "The end-of-duration water concentration approaches the governed first-order plateau when duration is long relative to the default water half-life at a fixed release rate.",
+      "fixtureName": "reference_long_duration_rate_anchor_fixture",
+      "referenceType": "hand_worked_duration_edge_anchor",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark long duration"
+        },
+        "duration_days": 120.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 80.0
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case with a long duration and fixed release rate, demonstrating convergence toward the first-order duration-limited plateau.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-duration anchor remains analytically traceable to the same deterministic reference equation.",
+      "validationTier": "edge_condition"
+    }
+  ]
+}

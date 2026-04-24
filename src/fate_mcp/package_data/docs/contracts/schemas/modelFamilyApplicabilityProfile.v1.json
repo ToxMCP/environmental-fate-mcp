@@ -1,0 +1,173 @@
+{
+  "$defs": {
+    "FitAssessmentPenaltyWeights": {
+      "additionalProperties": false,
+      "properties": {
+        "unsupported_fit_for_purpose": {
+          "default": 0.25,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Unsupported Fit For Purpose",
+          "type": "number"
+        },
+        "excessive_time_bucket_count": {
+          "default": 0.2,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Excessive Time Bucket Count",
+          "type": "number"
+        },
+        "provenance_only_treatments": {
+          "default": 0.1,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Provenance Only Treatments",
+          "type": "number"
+        },
+        "multi_medium_release_complexity": {
+          "default": 0.1,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Multi Medium Release Complexity",
+          "type": "number"
+        },
+        "unsupported_runtime_parameters": {
+          "default": 0.15,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Unsupported Runtime Parameters",
+          "type": "number"
+        },
+        "missing_required_inputs": {
+          "default": 0.35,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Missing Required Inputs",
+          "type": "number"
+        },
+        "missing_substance_class": {
+          "default": 0.3,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Missing Substance Class",
+          "type": "number"
+        },
+        "unsupported_substance_class": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Unsupported Substance Class",
+          "type": "number"
+        }
+      },
+      "title": "FitAssessmentPenaltyWeights",
+      "type": "object"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "fit_for_purpose": {
+      "items": {
+        "$ref": "#/$defs/FitForPurpose"
+      },
+      "title": "Fit For Purpose",
+      "type": "array"
+    },
+    "supported_substance_classes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Supported Substance Classes",
+      "type": "array"
+    },
+    "unsupported_substance_classes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unsupported Substance Classes",
+      "type": "array"
+    },
+    "required_inputs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Inputs",
+      "type": "array"
+    },
+    "core_assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Core Assumptions",
+      "type": "array"
+    },
+    "deferred_capabilities": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Deferred Capabilities",
+      "type": "array"
+    },
+    "review_notes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Review Notes",
+      "type": "array"
+    },
+    "fit_score_threshold": {
+      "default": 0.75,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Fit Score Threshold",
+      "type": "number"
+    },
+    "fit_score_penalties": {
+      "$ref": "#/$defs/FitAssessmentPenaltyWeights"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "model_family",
+    "source_pack"
+  ],
+  "title": "ModelFamilyApplicabilityProfile",
+  "type": "object"
+}

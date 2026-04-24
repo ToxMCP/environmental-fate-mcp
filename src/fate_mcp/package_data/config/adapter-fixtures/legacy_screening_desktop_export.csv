@@ -1,0 +1,9 @@
+export_type,legacy_screening_desktop_export_v1
+engine_name,legacy-screening-desktop
+engine_version,2026.04
+region_id,eu_screening_default
+mode,steady_state
+
+compartment_label,bulk_concentration,bulk_unit,notes
+Regional air,0.0015,mg/m3,Legacy desktop screening export fixture.
+Surface water,0.0125,mg/L,Legacy desktop screening export fixture.

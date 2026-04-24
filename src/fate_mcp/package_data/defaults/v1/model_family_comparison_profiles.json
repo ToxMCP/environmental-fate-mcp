@@ -1,0 +1,76 @@
+{
+  "defaultsVersion": "v1",
+  "profiles": {
+    "reference_vs_advective_screening_v1": {
+      "displayName": "Reference vs Advective Screening Comparison",
+      "baseModelFamily": "reference_mass_balance",
+      "candidateModelFamily": "advective_screening_mass_balance",
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supportedRunModes": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "materialRelativeDeltaThreshold": 0.2,
+      "materialAbsoluteDeltaFloor": 1e-12,
+      "packetTemplate": "Build a deterministic model-family comparison packet that treats the corrected reference mass-balance family as the release baseline and the advective family as a governed experimental challenge path.",
+      "briefTemplate": "Summarize whether the experimental advective family materially changes the screening interpretation relative to the corrected reference family for the same scenario.",
+      "comparableOutcomeTemplate": "Treat the comparison as a sensitivity check showing that the governed advective challenge path does not materially change the screening interpretation for this scenario.",
+      "divergenceOutcomeTemplate": "Treat the comparison as a material model-family divergence and review residence-time assumptions, equation traces, and applicability before preferring the experimental family.",
+      "reviewNeededOutcomeTemplate": "Do not reuse the comparison in decision-facing review until model-family applicability limitations are resolved for both the baseline and candidate families.",
+      "reviewChecklist": [
+        {
+          "code": "comparison_scope_confirmed",
+          "prompt": "Confirm the comparison remains inside the governed reference-versus-advective screening scope and that the candidate family is being treated as a challenge path rather than a default replacement.",
+          "rationale": "Assessor-facing comparison review should preserve the declared baseline-versus-experimental relationship rather than implying family interchangeability.",
+          "evidenceHintFields": [
+            "comparison_outcome",
+            "comparison_profile_id",
+            "limitations"
+          ]
+        },
+        {
+          "code": "fit_and_applicability_reviewed",
+          "prompt": "Review whether both model families remain inside their governed applicability profiles for the matched scenario.",
+          "rationale": "Comparison results are only meaningful when both families are being run inside their declared screening scope.",
+          "evidenceHintFields": [
+            "base_fit_verdict",
+            "candidate_fit_verdict",
+            "base_applicability_lines",
+            "candidate_applicability_lines"
+          ]
+        },
+        {
+          "code": "equation_and_delta_context_reviewed",
+          "prompt": "Review the dominant surface deltas together with the executed equation traces before preferring or qualifying the candidate family.",
+          "rationale": "Assessor-facing comparison review should make the executed screening equations and the main divergence points explicit.",
+          "evidenceHintFields": [
+            "dominant_delta_lines",
+            "base_equation_lines",
+            "candidate_equation_lines"
+          ]
+        }
+      ],
+      "reviewPacketTemplate": "Build a governed assessor-facing review packet for the reference-versus-advective screening comparison, preserving baseline-versus-experimental framing, fit/applicability context, dominant deltas, and equation traces.",
+      "reviewBriefTemplate": "Summarize whether the governed reference-versus-advective comparison is ready for assessor-facing review, highlighting applicability, dominant deltas, and experimental-family caution.",
+      "readyComparisonOutcomes": [
+        "comparable_screening_outputs"
+      ],
+      "attentionOutcomes": [
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "attentionIfAnyChecksFail": true,
+      "attentionIfCandidateExperimental": true,
+      "reviewNotes": [
+        "Use this comparison profile when the reference family is the screening baseline and the advective family is being challenged on the same scenario.",
+        "Interpret the candidate family as experimental and non-default even when the comparison shows material differences.",
+        "Escalate to richer transport methods when the decision context is dominated by spatial hydrodynamics or intermedia transfer."
+      ],
+      "applicabilityNote": "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary."
+    }
+  }
+}

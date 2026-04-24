@@ -1,0 +1,294 @@
+{
+  "$defs": {
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "SurfaceDelta": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "base_value": {
+          "title": "Base Value",
+          "type": "number"
+        },
+        "candidate_value": {
+          "title": "Candidate Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "absolute_delta": {
+          "title": "Absolute Delta",
+          "type": "number"
+        },
+        "relative_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relative Delta"
+        }
+      },
+      "required": [
+        "medium",
+        "compartment",
+        "base_value",
+        "candidate_value",
+        "concentration_unit",
+        "absolute_delta"
+      ],
+      "title": "SurfaceDelta",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "comparison_id": {
+      "title": "Comparison Id",
+      "type": "string"
+    },
+    "base_scenario_id": {
+      "title": "Base Scenario Id",
+      "type": "string"
+    },
+    "candidate_scenario_id": {
+      "title": "Candidate Scenario Id",
+      "type": "string"
+    },
+    "surface_deltas": {
+      "items": {
+        "$ref": "#/$defs/SurfaceDelta"
+      },
+      "title": "Surface Deltas",
+      "type": "array"
+    },
+    "base_only_surface_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Base Only Surface Keys",
+      "type": "array"
+    },
+    "candidate_only_surface_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Candidate Only Surface Keys",
+      "type": "array"
+    },
+    "changed_assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Changed Assumptions",
+      "type": "array"
+    },
+    "dominant_drivers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Dominant Drivers",
+      "type": "array"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceBundle"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blockers",
+      "type": "array"
+    },
+    "quality_flags": {
+      "items": {
+        "$ref": "#/$defs/QualityFlag"
+      },
+      "title": "Quality Flags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "base_scenario_id",
+    "candidate_scenario_id",
+    "surface_deltas",
+    "changed_assumptions",
+    "dominant_drivers",
+    "provenance"
+  ],
+  "title": "FateScenarioComparisonRecord",
+  "type": "object"
+}

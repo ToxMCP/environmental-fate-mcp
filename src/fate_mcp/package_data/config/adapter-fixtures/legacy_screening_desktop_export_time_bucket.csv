@@ -1,0 +1,9 @@
+export_type,legacy_screening_desktop_export_v1
+engine_name,legacy-screening-desktop
+engine_version,2026.04
+region_id,eu_screening_default
+mode,time_bucket
+
+compartment_label,bulk_concentration,bulk_unit,interval_start,interval_end,notes
+Surface water,0.0125,mg/L,2026-04-01T00:00:00Z,2026-04-08T00:00:00Z,Legacy desktop time-bucket export fixture week 1.
+Surface water,0.0105,mg/L,2026-04-08T00:00:00Z,2026-04-15T00:00:00Z,Legacy desktop time-bucket export fixture week 2.

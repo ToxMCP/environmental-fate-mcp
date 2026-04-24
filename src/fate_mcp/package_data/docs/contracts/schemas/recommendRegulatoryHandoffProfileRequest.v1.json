@@ -1,0 +1,14 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "consumer_name": {
+      "title": "Consumer Name",
+      "type": "string"
+    }
+  },
+  "required": [
+    "consumer_name"
+  ],
+  "title": "RecommendRegulatoryHandoffProfileRequest",
+  "type": "object"
+}

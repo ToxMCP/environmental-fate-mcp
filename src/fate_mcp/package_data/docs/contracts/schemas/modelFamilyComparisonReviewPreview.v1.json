@@ -1,0 +1,79 @@
+{
+  "$defs": {
+    "ModelFamilyComparisonOutcome": {
+      "enum": [
+        "comparable_screening_outputs",
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "title": "ModelFamilyComparisonOutcome",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "comparison_packet_id": {
+      "title": "Comparison Packet Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "comparison_profile_id": {
+      "title": "Comparison Profile Id",
+      "type": "string"
+    },
+    "comparison_outcome": {
+      "$ref": "#/$defs/ModelFamilyComparisonOutcome"
+    },
+    "review_status": {
+      "title": "Review Status",
+      "type": "string"
+    },
+    "triggered_check_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Triggered Check Codes",
+      "type": "array"
+    },
+    "governing_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Governing Rule Lines",
+      "type": "array"
+    },
+    "status_rule_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Status Rule Lines",
+      "type": "array"
+    },
+    "outcome_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Outcome Lines",
+      "type": "array"
+    },
+    "recommended_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Recommended Actions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "comparison_packet_id",
+    "scenario_id",
+    "comparison_profile_id",
+    "comparison_outcome",
+    "review_status"
+  ],
+  "title": "ModelFamilyComparisonReviewPreview",
+  "type": "object"
+}

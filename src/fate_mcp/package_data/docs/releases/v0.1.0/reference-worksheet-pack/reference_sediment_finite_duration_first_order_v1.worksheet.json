@@ -1,0 +1,80 @@
+{
+  "claimId": "reference_sediment_finite_duration_first_order_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference sediment finite-duration first-order screening equation",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "oecd.test_guidelines.section3",
+    "epa.environmental_models_guidance",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.1.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Sediment concentration increases proportionally when the governed sediment mass is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_sediment_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark sediment capacity sensitivity"
+        },
+        "duration_days": 45.0,
+        "parameter_records": [
+          {
+            "parameter": "freshwater_sediment_mass_kg",
+            "rationale": "Benchmark sediment-mass override.",
+            "source_classification": "user_input",
+            "unit": "kg",
+            "value": 50000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "sediment"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration sediment screening case with an explicit sediment-mass override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "End-of-duration sediment concentration matches the documented finite-duration first-order screening equation.",
+      "fixtureName": "sediment_reference_chemical_style_fixture",
+      "referenceType": "hand_worked_screening_equation",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark sediment"
+        },
+        "duration_days": 45.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "sediment"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration first-order single-medium sediment screening equation using governed sediment-mass and half-life defaults.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
+      "validationTier": "reference_style"
+    }
+  ]
+}

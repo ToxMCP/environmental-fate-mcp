@@ -1,0 +1,13 @@
+{
+  "parameter": "agricultural_soil_mass_kg",
+  "family": "screening_capacity_mass",
+  "expected_unit": "kg",
+  "runtime_supported": true,
+  "conflict_relative_spread_threshold": 0.3,
+  "weighting_strategy": "evidence_quality_weighted_mean",
+  "reconciliation_domain": "linear",
+  "conflict_metric": "relative_spread",
+  "disallow_conservative_empirical_blend": false,
+  "source_pack": "defaults/v1/physchem_parameter_policies.json",
+  "applicability_note": "Screening soil mass override used directly by the reference runtime."
+}

@@ -1,0 +1,222 @@
+{
+  "$defs": {
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ScientificReviewChecklistTemplate": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "prompt": {
+          "title": "Prompt",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "evidence_hint_fields": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Hint Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "prompt",
+        "rationale"
+      ],
+      "title": "ScientificReviewChecklistTemplate",
+      "type": "object"
+    },
+    "ScientificReviewOutcome": {
+      "enum": [
+        "acceptable_screening_use",
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "title": "ScientificReviewOutcome",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "fit_for_purpose": {
+      "items": {
+        "$ref": "#/$defs/FitForPurpose"
+      },
+      "title": "Fit For Purpose",
+      "type": "array"
+    },
+    "review_checklist": {
+      "items": {
+        "$ref": "#/$defs/ScientificReviewChecklistTemplate"
+      },
+      "title": "Review Checklist",
+      "type": "array"
+    },
+    "packet_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Packet Template"
+    },
+    "brief_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Brief Template"
+    },
+    "ready_fit_verdicts": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Ready Fit Verdicts",
+      "type": "array"
+    },
+    "attention_outcomes": {
+      "items": {
+        "$ref": "#/$defs/ScientificReviewOutcome"
+      },
+      "title": "Attention Outcomes",
+      "type": "array"
+    },
+    "attention_if_any_checks_fail": {
+      "default": true,
+      "title": "Attention If Any Checks Fail",
+      "type": "boolean"
+    },
+    "escalation_fit_verdicts": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Escalation Fit Verdicts",
+      "type": "array"
+    },
+    "escalation_driver_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Escalation Driver Types",
+      "type": "array"
+    },
+    "qualification_driver_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Qualification Driver Types",
+      "type": "array"
+    },
+    "warning_severity_promotes_qualification": {
+      "default": true,
+      "title": "Warning Severity Promotes Qualification",
+      "type": "boolean"
+    },
+    "acceptable_outcome_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Acceptable Outcome Template"
+    },
+    "qualified_outcome_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Qualified Outcome Template"
+    },
+    "escalation_outcome_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Escalation Outcome Template"
+    },
+    "driver_action_templates": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Driver Action Templates",
+      "type": "object"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "model_family",
+    "display_name",
+    "source_pack"
+  ],
+  "title": "ScientificReviewProfile",
+  "type": "object"
+}

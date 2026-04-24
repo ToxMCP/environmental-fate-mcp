@@ -12,6 +12,7 @@ from contextvars import ContextVar
 from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
+from mcp.types import ToolAnnotations
 
 from fate_mcp.benchmarks import benchmark_manifest
 from fate_mcp.compat import ensure_supported_python_version
@@ -83,12 +84,31 @@ from fate_mcp.models import (
     BuildConcentrationSurfaceBundleRequest,
     BuildEnvironmentalReleaseScenarioRequest,
     CompareFateScenariosRequest,
+    ConcentrationEstimationResult,
+    ConcentrationSurfaceBundle,
+    EnvironmentalReleaseScenario,
     EstimateProbabilisticMultimediaConcentrationsRequest,
     EstimateMultimediaConcentrationsRequest,
+    ExposureConsumptionPackage,
     ImportExternalResultPayloadRequest,
     FateModelRunOptions,
+    FateScenarioComparisonRecord,
     Media,
     ModelFamily,
+    ModelFamilyChallengeReviewBrief,
+    ModelFamilyChallengeReviewPacket,
+    ModelFamilyChallengeReviewPreview,
+    ModelFamilyChallengeScientificDossier,
+    ModelFamilyChallengeScientificDossierBrief,
+    ModelFamilyComparisonBrief,
+    ModelFamilyComparisonPacket,
+    ModelFamilyComparisonReviewBrief,
+    ModelFamilyComparisonReviewPacket,
+    ModelFamilyComparisonReviewPreview,
+    ModelFamilySelectionRecommendation,
+    ModelFamilySelectionReviewBrief,
+    ModelFamilySelectionReviewPacket,
+    ModelFamilySelectionReviewPreview,
     ReleaseFraction,
     ExportConcentrationSurfaceBundleRequest,
     ExportExposureConsumptionPackageRequest,
@@ -102,7 +122,26 @@ from fate_mcp.models import (
     RecommendModelFamilySelectionRequest,
     ReconcileReleaseEvidenceRequest,
     RecommendRegulatoryHandoffProfileRequest,
+    ProbabilisticConcentrationResult,
+    ProbabilisticReviewBrief,
+    ProbabilisticReviewPacket,
+    RegulatoryHandoffPackage,
+    RegulatoryHandoffPackageSummary,
+    RegulatoryHandoffProfileRecommendation,
+    RegulatoryHandoffResolutionPreview,
+    RegulatoryHandoffReviewBrief,
+    RegulatoryHandoffReviewPacket,
+    ReleaseEvidenceReconciliationResult,
+    ReleaseScenarioFitAssessment,
+    RunParameterManifest,
+    RunScientificTrustBrief,
+    RunUncertaintySummary,
     SummarizeRegulatoryHandoffPackageRequest,
+    ScientificMethodsDossier,
+    ScientificMethodsDossierBrief,
+    ScientificReviewBrief,
+    ScientificReviewOutcomePreview,
+    ScientificReviewPacket,
 )
 from fate_mcp.plugins.external_result_adapter import (
     PUBLIC_ADAPTER_IMPORT_PROFILE_IDS,
@@ -114,10 +153,16 @@ from fate_mcp.plugins.external_result_adapter import (
 )
 from fate_mcp.package_metadata import PACKAGE_NAME, VERSION
 from fate_mcp.release_artifacts import REPORT_DESCRIPTIONS, REPORT_FILENAMES, build_release_reports
+from fate_mcp.resources import (
+    IMPORT_ROOTS_ENV,
+    configured_import_roots,
+    path_is_relative_to,
+    resolve_resource_root,
+)
 from fate_mcp.runtime import FateRuntime
 
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = resolve_resource_root()
 RUNTIME = FateRuntime(REPO_ROOT)
 DEFAULTS = DefaultsRegistry(REPO_ROOT)
 mcp = FastMCP(PACKAGE_NAME, json_response=True)
@@ -267,14 +312,29 @@ def _log_tool_call(fn):
 _original_tool = mcp.tool
 
 
+def _default_tool_annotations(tool_name: str) -> ToolAnnotations:
+    return ToolAnnotations(
+        readOnlyHint=True,
+        destructiveHint=False,
+        idempotentHint=tool_name != "fate_estimate_probabilistic_multimedia_concentrations",
+        openWorldHint=tool_name == "fate_import_external_result_payload",
+    )
+
+
+def _tool_kwargs_for(fn, kwargs: dict) -> dict:
+    tool_kwargs = dict(kwargs)
+    if tool_kwargs.get("annotations") is None:
+        tool_kwargs["annotations"] = _default_tool_annotations(getattr(fn, "__name__", "unknown"))
+    return tool_kwargs
+
+
 def _logged_tool(*args, **kwargs):
     if len(args) == 1 and callable(args[0]) and not kwargs:
         fn = args[0]
-        return _original_tool(_log_tool_call(fn))
-    inner_decorator = _original_tool(*args, **kwargs)
+        return _original_tool(**_tool_kwargs_for(fn, {}))(_log_tool_call(fn))
 
     def decorator(fn):
-        return inner_decorator(_log_tool_call(fn))
+        return _original_tool(*args, **_tool_kwargs_for(fn, kwargs))(_log_tool_call(fn))
 
     return decorator
 
@@ -339,24 +399,53 @@ def _public_adapter_import_profile_or_error(profile_id: str):
 
 def _resolve_external_payload_path(payload_path: str) -> Path:
     raw_path = Path(payload_path).expanduser()
-    candidates = [raw_path]
-    if not raw_path.is_absolute():
-        candidates.append(REPO_ROOT / raw_path)
+    allowed_roots = configured_import_roots(REPO_ROOT)
+    candidates: list[Path] = []
+
+    def add_candidate(path: Path) -> None:
+        if path not in candidates:
+            candidates.append(path)
+
+    if raw_path.is_absolute():
+        add_candidate(raw_path)
+    else:
+        add_candidate(REPO_ROOT / raw_path)
+        for root in allowed_roots:
+            add_candidate(root / raw_path)
+        add_candidate(Path.cwd() / raw_path)
     for candidate in candidates:
         if candidate.exists():
-            return candidate.resolve()
+            resolved = candidate.resolve()
+            if any(path_is_relative_to(resolved, root) for root in allowed_roots):
+                return resolved
+            raise FateValidationError(
+                code="external_payload_path_not_allowed",
+                message=f"External payload path {payload_path} is outside the configured import roots.",
+                suggestion=(
+                    "Place the payload under config/adapter-fixtures or add an operator import "
+                    f"directory through {IMPORT_ROOTS_ENV}."
+                ),
+                details={
+                    "payloadPath": str(resolved),
+                    "allowedRoots": [str(root) for root in allowed_roots],
+                },
+            )
+    allowed_text = ", ".join(str(root) for root in allowed_roots) or "<none>"
     raise FateValidationError(
         code="external_payload_path_not_found",
         message=f"External payload path {payload_path} was not found.",
-        suggestion="Provide an existing .json or .csv payload path, or use a shipped adapter fixture path.",
-        details={"payloadPath": payload_path},
+        suggestion=(
+            "Provide an existing .json or .csv payload path under an allowed import root. "
+            f"Current import roots: {allowed_text}."
+        ),
+        details={"payloadPath": payload_path, "allowedRoots": [str(root) for root in allowed_roots]},
     )
 
 
 @mcp.tool()
 def fate_build_environmental_release_scenario(
     request: BuildEnvironmentalReleaseScenarioRequest,
-):
+) -> EnvironmentalReleaseScenario:
     """Validate and normalize an environmental release scenario."""
     return RUNTIME.build_environmental_release_scenario(request)
 
@@ -364,7 +453,7 @@ def fate_build_environmental_release_scenario(
 @mcp.tool()
 def fate_estimate_multimedia_concentrations(
     request: EstimateMultimediaConcentrationsRequest,
-):
+) -> ConcentrationEstimationResult:
     """Estimate deterministic or bounded concentration surfaces from a release scenario."""
     return RUNTIME.estimate(request.scenario, request.run_options)
 
@@ -372,7 +461,7 @@ def fate_estimate_multimedia_concentrations(
 @mcp.tool()
 def fate_estimate_probabilistic_multimedia_concentrations(
     request: EstimateProbabilisticMultimediaConcentrationsRequest,
-):
+) -> ProbabilisticConcentrationResult:
     """Estimate probabilistic percentile concentration surfaces by orchestrating governed distribution sampling over the deterministic kernels."""
     return RUNTIME.estimate_probabilistic(
         request.scenario,
@@ -383,7 +472,9 @@ def fate_estimate_probabilistic_multimedia_concentrations(
 
 
 @mcp.tool()
-def fate_import_external_result_payload(request: ImportExternalResultPayloadRequest):
+def fate_import_external_result_payload(
+    request: ImportExternalResultPayloadRequest,
+) -> ConcentrationEstimationResult:
     """Import a public normalized external payload into canonical Environmental Fate MCP concentration outputs."""
     profile = _public_adapter_import_profile_or_error(request.import_profile_id)
     if request.import_profile_id not in PUBLIC_ADAPTER_IMPORT_PROFILE_IDS:
@@ -583,20 +674,6 @@ def fate_build_model_family_comparison_packet_skeleton() -> str:
             duration_days=30.0,
         )
     )
-    base_result = runtime.estimate(
-        base_scenario,
-        FateModelRunOptions(
-            region_profile_id=base_scenario.geographic_scope.region_id,
-            model_family=ModelFamily.REFERENCE_MASS_BALANCE,
-        ),
-    )
-    candidate_result = runtime.estimate(
-        base_scenario,
-        FateModelRunOptions(
-            region_profile_id=base_scenario.geographic_scope.region_id,
-            model_family=ModelFamily.ADVECTIVE_SCREENING_MASS_BALANCE,
-        ),
-    )
     request = BuildModelFamilyComparisonPacketRequest(
         scenario=base_scenario,
         base_model_family=ModelFamily.REFERENCE_MASS_BALANCE,
@@ -675,20 +752,6 @@ def fate_build_model_family_challenge_scientific_dossier_skeleton() -> str:
             duration_days=30.0,
         )
     )
-    reference_result = runtime.estimate(
-        scenario,
-        FateModelRunOptions(
-            region_profile_id=scenario.geographic_scope.region_id,
-            model_family=ModelFamily.REFERENCE_MASS_BALANCE,
-        ),
-    )
-    challenge_result = runtime.estimate(
-        scenario,
-        FateModelRunOptions(
-            region_profile_id=scenario.geographic_scope.region_id,
-            model_family=ModelFamily.ADVECTIVE_SCREENING_MASS_BALANCE,
-        ),
-    )
     request = BuildModelFamilyChallengeScientificDossierRequest(
         scenario=scenario,
     )
@@ -696,13 +759,15 @@ def fate_build_model_family_challenge_scientific_dossier_skeleton() -> str:
 
 
 @mcp.tool()
-def fate_build_concentration_surface_bundle(request: BuildConcentrationSurfaceBundleRequest):
+def fate_build_concentration_surface_bundle(
+    request: BuildConcentrationSurfaceBundleRequest,
+) -> ConcentrationSurfaceBundle:
     """Package concentration surfaces and run metadata for downstream consumers."""
     return build_concentration_surface_bundle(request.result)
 
 
 @mcp.tool()
-def fate_compare_fate_scenarios(request: CompareFateScenariosRequest):
+def fate_compare_fate_scenarios(request: CompareFateScenariosRequest) -> FateScenarioComparisonRecord:
     """Compare two concentration-estimation results and surface the main drivers."""
     return compare_fate_scenarios(request, RUNTIME.provenance)
 
@@ -714,73 +779,97 @@ def fate_apply_physchem_evidence(request: ApplyPhyschemEvidenceRequest) -> Physc
 
 
 @mcp.tool()
-def fate_assess_release_scenario_fit(request: AssessReleaseScenarioFitRequest):
+def fate_assess_release_scenario_fit(
+    request: AssessReleaseScenarioFitRequest,
+) -> ReleaseScenarioFitAssessment:
     """Assess whether the declared workflow is a good fit for the current scenario."""
     return assess_release_scenario_fit(request.scenario, request.run_options, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_run_parameter_manifest(request: BuildRunParameterManifestRequest):
+def fate_build_run_parameter_manifest(
+    request: BuildRunParameterManifestRequest,
+) -> RunParameterManifest:
     """Build a machine-readable run parameter manifest that preserves resolved provenance and runtime consumption state."""
     return build_run_parameter_manifest(request.scenario, request.result, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_run_uncertainty_summary(request: BuildRunUncertaintySummaryRequest):
+def fate_build_run_uncertainty_summary(
+    request: BuildRunUncertaintySummaryRequest,
+) -> RunUncertaintySummary:
     """Build a deterministic reviewer-facing uncertainty-driver summary without probabilistic inference."""
     return build_run_uncertainty_summary(request.scenario, request.result, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_probabilistic_review_packet(request: BuildProbabilisticReviewPacketRequest):
+def fate_build_probabilistic_review_packet(
+    request: BuildProbabilisticReviewPacketRequest,
+) -> ProbabilisticReviewPacket:
     """Build an assessor-facing probabilistic review packet that preserves percentile surfaces, sampled drivers, and iteration health."""
     return build_probabilistic_review_packet(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_probabilistic_review_brief(request: BuildProbabilisticReviewBriefRequest):
+def fate_build_probabilistic_review_brief(
+    request: BuildProbabilisticReviewBriefRequest,
+) -> ProbabilisticReviewBrief:
     """Render a compact assessor-facing brief from a probabilistic review packet."""
     return build_probabilistic_review_brief(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_recommend_model_family_selection(request: RecommendModelFamilySelectionRequest):
+def fate_recommend_model_family_selection(
+    request: RecommendModelFamilySelectionRequest,
+) -> ModelFamilySelectionRecommendation:
     """Recommend whether to keep the default model-family baseline only or add a governed experimental challenge path."""
     return recommend_model_family_selection(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_preview_model_family_selection_review(request: PreviewModelFamilySelectionReviewRequest):
+def fate_preview_model_family_selection_review(
+    request: PreviewModelFamilySelectionReviewRequest,
+) -> ModelFamilySelectionReviewPreview:
     """Preview the governed assessor-facing review status for a model-family selection recommendation."""
     return preview_model_family_selection_review(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_selection_review_packet(request: BuildModelFamilySelectionReviewPacketRequest):
+def fate_build_model_family_selection_review_packet(
+    request: BuildModelFamilySelectionReviewPacketRequest,
+) -> ModelFamilySelectionReviewPacket:
     """Build a governed assessor-facing review packet from a model-family selection recommendation."""
     return build_model_family_selection_review_packet(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_selection_review_brief(request: BuildModelFamilySelectionReviewBriefRequest):
+def fate_build_model_family_selection_review_brief(
+    request: BuildModelFamilySelectionReviewBriefRequest,
+) -> ModelFamilySelectionReviewBrief:
     """Render a compact assessor-facing review brief from a model-family selection review packet."""
     return build_model_family_selection_review_brief(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_preview_model_family_challenge_review(request: PreviewModelFamilyChallengeReviewRequest):
+def fate_preview_model_family_challenge_review(
+    request: PreviewModelFamilyChallengeReviewRequest,
+) -> ModelFamilyChallengeReviewPreview:
     """Preview the governed assessor-facing review status for the composed baseline-versus-challenge model-family path."""
     return preview_model_family_challenge_review(request, RUNTIME, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_challenge_review_packet(request: BuildModelFamilyChallengeReviewPacketRequest):
+def fate_build_model_family_challenge_review_packet(
+    request: BuildModelFamilyChallengeReviewPacketRequest,
+) -> ModelFamilyChallengeReviewPacket:
     """Build a composed assessor-facing packet that bundles governed model-family selection review and optional comparison review."""
     return build_model_family_challenge_review_packet(request, RUNTIME, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_challenge_review_brief(request: BuildModelFamilyChallengeReviewBriefRequest):
+def fate_build_model_family_challenge_review_brief(
+    request: BuildModelFamilyChallengeReviewBriefRequest,
+) -> ModelFamilyChallengeReviewBrief:
     """Render a compact assessor-facing brief from a composed model-family challenge review packet."""
     return build_model_family_challenge_review_brief(request, RUNTIME.provenance)
 
@@ -788,7 +877,7 @@ def fate_build_model_family_challenge_review_brief(request: BuildModelFamilyChal
 @mcp.tool()
 def fate_build_model_family_challenge_scientific_dossier(
     request: BuildModelFamilyChallengeScientificDossierRequest,
-):
+) -> ModelFamilyChallengeScientificDossier:
     """Build a composed scientific dossier for the governed baseline-versus-challenge model-family path."""
     return build_model_family_challenge_scientific_dossier(request, RUNTIME, RUNTIME.provenance)
 
@@ -796,127 +885,167 @@ def fate_build_model_family_challenge_scientific_dossier(
 @mcp.tool()
 def fate_build_model_family_challenge_scientific_dossier_brief(
     request: BuildModelFamilyChallengeScientificDossierBriefRequest,
-):
+) -> ModelFamilyChallengeScientificDossierBrief:
     """Render a compact assessor-facing summary from a model-family challenge scientific dossier."""
     return build_model_family_challenge_scientific_dossier_brief(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_comparison_packet(request: BuildModelFamilyComparisonPacketRequest):
+def fate_build_model_family_comparison_packet(
+    request: BuildModelFamilyComparisonPacketRequest,
+) -> ModelFamilyComparisonPacket:
     """Build a deterministic comparison packet for two model families run against the same scenario."""
     return build_model_family_comparison_packet(request, RUNTIME, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_comparison_brief(request: BuildModelFamilyComparisonBriefRequest):
+def fate_build_model_family_comparison_brief(
+    request: BuildModelFamilyComparisonBriefRequest,
+) -> ModelFamilyComparisonBrief:
     """Render a compact comparison brief from a model-family comparison packet."""
     return build_model_family_comparison_brief(request)
 
 
 @mcp.tool()
-def fate_preview_model_family_comparison_review(request: PreviewModelFamilyComparisonReviewRequest):
+def fate_preview_model_family_comparison_review(
+    request: PreviewModelFamilyComparisonReviewRequest,
+) -> ModelFamilyComparisonReviewPreview:
     """Preview the governed assessor-facing review status for a model-family comparison packet."""
     return preview_model_family_comparison_review(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_comparison_review_packet(request: BuildModelFamilyComparisonReviewPacketRequest):
+def fate_build_model_family_comparison_review_packet(
+    request: BuildModelFamilyComparisonReviewPacketRequest,
+) -> ModelFamilyComparisonReviewPacket:
     """Build a governed assessor-facing review packet from a model-family comparison packet."""
     return build_model_family_comparison_review_packet(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_model_family_comparison_review_brief(request: BuildModelFamilyComparisonReviewBriefRequest):
+def fate_build_model_family_comparison_review_brief(
+    request: BuildModelFamilyComparisonReviewBriefRequest,
+) -> ModelFamilyComparisonReviewBrief:
     """Render a compact assessor-facing review brief from a model-family comparison review packet."""
     return build_model_family_comparison_review_brief(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_preview_scientific_review_outcome(request: PreviewScientificReviewOutcomeRequest):
+def fate_preview_scientific_review_outcome(
+    request: PreviewScientificReviewOutcomeRequest,
+) -> ScientificReviewOutcomePreview:
     """Preview the governed scientific review outcome and review status before building a full scientific review packet."""
     return preview_scientific_review_outcome(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_scientific_review_packet(request: BuildScientificReviewPacketRequest):
+def fate_build_scientific_review_packet(
+    request: BuildScientificReviewPacketRequest,
+) -> ScientificReviewPacket:
     """Bundle fit assessment, parameter manifest, uncertainty summary, and sampled surfaces into one scientific review artifact."""
     return build_scientific_review_packet(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_scientific_review_brief(request: BuildScientificReviewBriefRequest):
+def fate_build_scientific_review_brief(
+    request: BuildScientificReviewBriefRequest,
+) -> ScientificReviewBrief:
     """Render a compact scientific review brief from a scientific review packet."""
     return build_scientific_review_brief(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_run_scientific_trust_brief(request: BuildRunScientificTrustBriefRequest):
+def fate_build_run_scientific_trust_brief(
+    request: BuildRunScientificTrustBriefRequest,
+) -> RunScientificTrustBrief:
     """Render a compact run-level bounded-screening trust brief from a scenario/result pair."""
     return build_run_scientific_trust_brief_artifact(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_scientific_methods_dossier(request: BuildScientificMethodsDossierRequest):
+def fate_build_scientific_methods_dossier(
+    request: BuildScientificMethodsDossierRequest,
+) -> ScientificMethodsDossier:
     """Build a model-family scientific methods dossier from governed claims, benchmark coverage, and applicability policy."""
     return build_scientific_methods_dossier(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_scientific_methods_dossier_brief(request: BuildScientificMethodsDossierBriefRequest):
+def fate_build_scientific_methods_dossier_brief(
+    request: BuildScientificMethodsDossierBriefRequest,
+) -> ScientificMethodsDossierBrief:
     """Render a compact assessor-facing brief from a scientific methods dossier."""
     return build_scientific_methods_dossier_brief(request)
 
 
 @mcp.tool()
-def fate_reconcile_release_evidence(request: ReconcileReleaseEvidenceRequest):
+def fate_reconcile_release_evidence(
+    request: ReconcileReleaseEvidenceRequest,
+) -> ReleaseEvidenceReconciliationResult:
     """Reconcile multiple release evidence records into a reviewable screening scenario."""
     return RUNTIME.reconcile_release_evidence(request)
 
 
 @mcp.tool()
-def fate_export_concentration_surface_bundle(request: ExportConcentrationSurfaceBundleRequest):
+def fate_export_concentration_surface_bundle(
+    request: ExportConcentrationSurfaceBundleRequest,
+) -> ConcentrationSurfaceBundle:
     """Export a normalized concentration-surface bundle."""
     return request.bundle
 
 
 @mcp.tool()
-def fate_export_exposure_consumption_package(request: ExportExposureConsumptionPackageRequest):
+def fate_export_exposure_consumption_package(
+    request: ExportExposureConsumptionPackageRequest,
+) -> ExposureConsumptionPackage:
     """Build a concentration-only handoff package for downstream consumers."""
     return export_exposure_consumption_package(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_export_regulatory_handoff_package(request: ExportRegulatoryHandoffPackageRequest):
+def fate_export_regulatory_handoff_package(
+    request: ExportRegulatoryHandoffPackageRequest,
+) -> RegulatoryHandoffPackage:
     """Build a ToxMCP regulatory handoff crosswalk from concentration surfaces."""
     return export_regulatory_handoff_package(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_summarize_regulatory_handoff_package(request: SummarizeRegulatoryHandoffPackageRequest):
+def fate_summarize_regulatory_handoff_package(
+    request: SummarizeRegulatoryHandoffPackageRequest,
+) -> RegulatoryHandoffPackageSummary:
     """Build a deterministic, consumer-specific summary for a governed regulatory handoff package."""
     return summarize_regulatory_handoff_package(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_regulatory_handoff_review_packet(request: BuildRegulatoryHandoffReviewPacketRequest):
+def fate_build_regulatory_handoff_review_packet(
+    request: BuildRegulatoryHandoffReviewPacketRequest,
+) -> RegulatoryHandoffReviewPacket:
     """Build a governed assessor-facing packet that bundles resolution preview, handoff package, and summary."""
     return build_regulatory_handoff_review_packet(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_build_regulatory_handoff_review_brief(request: BuildRegulatoryHandoffReviewBriefRequest):
+def fate_build_regulatory_handoff_review_brief(
+    request: BuildRegulatoryHandoffReviewBriefRequest,
+) -> RegulatoryHandoffReviewBrief:
     """Build a deterministic assessor-facing review brief from a governed regulatory handoff review packet."""
     return build_regulatory_handoff_review_brief(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_recommend_regulatory_handoff_profile(request: RecommendRegulatoryHandoffProfileRequest):
+def fate_recommend_regulatory_handoff_profile(
+    request: RecommendRegulatoryHandoffProfileRequest,
+) -> RegulatoryHandoffProfileRecommendation:
     """Recommend a governed regulatory handoff profile for a downstream suite consumer."""
     return recommend_regulatory_handoff_profile(request, RUNTIME.provenance)
 
 
 @mcp.tool()
-def fate_preview_regulatory_handoff_resolution(request: PreviewRegulatoryHandoffResolutionRequest):
+def fate_preview_regulatory_handoff_resolution(
+    request: PreviewRegulatoryHandoffResolutionRequest,
+) -> RegulatoryHandoffResolutionPreview:
     """Preview how Environmental Fate MCP will resolve a regulatory handoff selector before export."""
     return preview_regulatory_handoff_resolution(request, RUNTIME.provenance)
 
@@ -1739,8 +1868,32 @@ def benchmarks_scientific_validation_claim_coverage() -> str:
     )
 
 
+_RELEASE_MARKDOWN_FILENAMES = {
+    "scientific-trust-pack": "scientific-trust-pack.md",
+    "scientific-trust-brief": "scientific-trust-brief.md",
+    "reference-proof-brief": "reference-proof-brief.md",
+    "advective-promotion-brief": "advective-promotion-brief.md",
+}
+
+
+def _prebuilt_release_report(report_name: str) -> dict | None:
+    release_root = REPO_ROOT / "docs" / "releases" / f"v{VERSION}"
+    for candidate_name, filename in REPORT_FILENAMES:
+        if candidate_name == report_name:
+            path = release_root / filename
+            return json.loads(path.read_text()) if path.exists() else None
+    markdown_filename = _RELEASE_MARKDOWN_FILENAMES.get(report_name)
+    if markdown_filename is not None:
+        path = release_root / markdown_filename
+        return {"markdown": path.read_text()} if path.exists() else None
+    return None
+
+
 @mcp.resource("release://{report_name}")
 def release_resource(report_name: str) -> str:
+    prebuilt = _prebuilt_release_report(report_name)
+    if prebuilt is not None:
+        return json.dumps(prebuilt, indent=2)
     reports = build_release_reports(REPO_ROOT)
     return json.dumps(reports[report_name], indent=2)
 

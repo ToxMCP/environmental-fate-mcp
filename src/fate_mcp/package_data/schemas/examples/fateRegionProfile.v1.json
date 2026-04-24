@@ -1,0 +1,16 @@
+{
+  "region_id": "eu_screening_default",
+  "display_name": "European regional screening default",
+  "compartment_scalars": {
+    "ambient_air": 1.0,
+    "surface_water": 1.0,
+    "agricultural_soil": 1.0,
+    "freshwater_sediment": 1.0
+  },
+  "known_gaps": [
+    "No coastal marine compartment in v0.1",
+    "No explicit sludge or dust pack in v0.1"
+  ],
+  "source_pack": "defaults/v1/region_profiles.json",
+  "applicability_note": "Baseline regional screening profile for general v0.1 use."
+}

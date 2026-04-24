@@ -1,0 +1,152 @@
+{
+  "schema_version": "v1",
+  "dossier_id": "mfscidossier-906200fdf97b",
+  "scenario_id": "scenario-306863db9176",
+  "run_mode": "steady_state",
+  "fit_for_purpose": "screening",
+  "selection_profile_id": "reference_baseline_advective_challenge_v1",
+  "challenge_review_profile_id": "reference_baseline_advective_challenge_review_v1",
+  "primary_model_family": "reference_mass_balance",
+  "challenge_model_family": "advective_screening_mass_balance",
+  "challenge_review_status": "model_family_challenge_review_attention_needed",
+  "selection_recommendation_status": "default_with_experimental_challenge",
+  "comparison_profile_id": "reference_vs_advective_screening_v1",
+  "comparison_outcome": "material_model_family_divergence",
+  "primary_review_outcome": "qualified_screening_use",
+  "challenge_review_outcome": "qualified_screening_use",
+  "primary_passed_check_count": 7,
+  "primary_total_check_count": 7,
+  "challenge_passed_check_count": 7,
+  "challenge_total_check_count": 7,
+  "summary_lines": [
+    "Summarize the governed model-family challenge path together with the baseline and optional challenge-family scientific review outcomes.",
+    "Build a composed scientific dossier that couples the governed model-family challenge review path with model-family-specific scientific review packets.",
+    "Challenge review status model_family_challenge_review_attention_needed governs scenario scenario-306863db9176.",
+    "Primary family reference_mass_balance scientific review outcome: qualified_screening_use.",
+    "Challenge family advective_screening_mass_balance scientific review outcome: qualified_screening_use.",
+    "Trigger signal: Scenario duration 30 day meets or exceeds the governed challenge threshold of 30 day.",
+    "Dominant delta: air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%)",
+    "Dominant delta: soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%)",
+    "Dominant delta: water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)",
+    "Primary scientific outcome: Use the run only with explicit qualification notes because screening-use caveats remain material.",
+    "Primary scientific outcome: Fit verdict good_fit with score 0.85 informed the outcome.",
+    "Primary equation trace: ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Primary equation trace: surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Primary equation trace: agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "Challenge scientific outcome: Use the run only with explicit qualification notes because residence-time, default, or treatment caveats remain material.",
+    "Challenge scientific outcome: Fit verdict good_fit with score 0.85 informed the outcome.",
+    "Challenge equation trace: ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "Challenge equation trace: surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "Challenge equation trace: agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+  ],
+  "recommended_actions": [
+    "Use reference_mass_balance as the baseline run and compare it against advective_screening_mass_balance using comparison profile reference_vs_advective_screening_v1.",
+    "Treat the advective family as experimental and non-default even when it is recommended as a challenge path.",
+    "Use the governed comparison profile to compare reference and advective outputs before carrying the candidate family into assessor-facing review.",
+    "Do not skip the reference baseline when a challenge family is recommended.",
+    "Keep the selection recommendation in assessor-facing attention status until the governed challenge-path, applicability, or packet-check concerns are resolved.",
+    "Treat the candidate family as experimental and keep the default reference family as the screening baseline unless the transport question clearly requires the candidate assumptions.",
+    "Review the dominant surface deltas, residence-time assumptions, and equation traces before choosing which family better matches the decision context.",
+    "Use this comparison profile when the reference family is the screening baseline and the advective family is being challenged on the same scenario.",
+    "Interpret the candidate family as experimental and non-default even when the comparison shows material differences.",
+    "Escalate to richer transport methods when the decision context is dominated by spatial hydrodynamics or intermedia transfer.",
+    "Keep the comparison in assessor-facing attention status until the governed divergence, experimental-family, or packet-check concerns are resolved.",
+    "Keep the composed model-family challenge review in assessor-facing attention status until the governed selection-review or comparison-review concerns are resolved.",
+    "Carry the qualification notes and limitation lines forward in assessor-facing summaries.",
+    "Document where governed defaults drove the result and consider scenario-specific overrides for sensitive decisions.",
+    "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+    "Consider a richer model family if intermedia dynamics are central to the decision context.",
+    "Do not treat preserved-only parameters as if they were actively modeled by the runtime.",
+    "Consider a richer model family if spatial hydrodynamics or intermedia exchange dominate the decision context."
+  ],
+  "triggered_signal_lines": [
+    "Scenario duration 30 day meets or exceeds the governed challenge threshold of 30 day."
+  ],
+  "dominant_delta_lines": [
+    "air/ambient_air: 0.000240442 -> 0.000122566 mg/m3 (-49.0%)",
+    "soil/agricultural_soil: 0.00108202 -> 0.00100619 mg/kg (-7.0%)",
+    "water/surface_water: 5.9383e-06 -> 3.71402e-06 mg/L (-37.5%)"
+  ],
+  "primary_equation_lines": [
+    "ambient_air: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "surface_water: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+    "agricultural_soil: finite_duration_continuous_release_first_order -> C(t) = (R / (k * V)) * (1 - exp(-k * t))"
+  ],
+  "challenge_equation_lines": [
+    "ambient_air: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "surface_water: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))",
+    "agricultural_soil: advective_screening_continuous_release_first_order -> C(t) = (R / ((k_deg + k_adv) * V)) * (1 - exp(-(k_deg + k_adv) * t))"
+  ],
+  "primary_benchmark_reference_lines": [
+    "Scientific validation claim coverage for reference_mass_balance/steady_state: 9/9 governed claims covered.",
+    "Representative covered claims: Reference air finite-duration first-order screening equation, Reference executable treatment reduction, Reference long-duration near-plateau anchor.",
+    "Representative supporting fixtures: air_reference_chemical_style_fixture, reference_air_capacity_sensitivity_fixture, reference_treatment_reduction_anchor_fixture."
+  ],
+  "challenge_benchmark_reference_lines": [
+    "Scientific validation claim coverage for advective_screening_mass_balance/steady_state: 12/12 governed claims covered.",
+    "Representative covered claims: Advective clearance-dominant loss-share transition, Advective cumulative mass-balance closure, Advective degradation-dominant loss-share transition.",
+    "Representative supporting fixtures: advective_clearance_dominant_loss_share_anchor_fixture, advective_clearance_dominant_loss_share_companion_fixture, advective_transition_flip_to_clearance_fixture."
+  ],
+  "limitations": [
+    {
+      "code": "model_family_selection_guidance",
+      "message": "Model-family selection recommendations are workflow-selection guidance inside the Environmental Fate MCP boundary and do not by themselves prove scientific superiority of one family."
+    },
+    {
+      "code": "experimental_challenge_model_family",
+      "message": "Challenge model family advective_screening_mass_balance is published as experimental and should be treated as a governed challenge path rather than a default release baseline."
+    },
+    {
+      "code": "model_family_comparison",
+      "message": "Model-family comparison reflects deterministic Environmental Fate MCP outputs for one matched scenario and does not by itself endorse either family as the scientifically correct choice."
+    },
+    {
+      "code": "experimental_candidate_model_family",
+      "message": "Candidate model family advective_screening_mass_balance is published as experimental and should be treated as a challenge path rather than a default release baseline."
+    },
+    {
+      "code": "screening_model",
+      "message": "Reference plugin is deterministic and screening-oriented."
+    },
+    {
+      "code": "screening_model",
+      "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+    },
+    {
+      "code": "finite_duration_screening_kernel",
+      "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+    },
+    {
+      "code": "preserved_only_parameters",
+      "message": "Some scenario parameters are preserved for provenance and assessor review but are not consumed by the current runtime."
+    },
+    {
+      "code": "heuristic_parameter_inputs",
+      "message": "One or more manifest entries rely on heuristic source classification."
+    },
+    {
+      "code": "deterministic_uncertainty_only",
+      "message": "Uncertainty summary ranks deterministic reviewer-facing drivers only and does not provide Monte Carlo outputs, confidence intervals, or probabilistic bounds."
+    },
+    {
+      "code": "default_dependent_runtime",
+      "message": "Some runtime outputs depend on curated defaults rather than scenario-specific measurements."
+    },
+    {
+      "code": "scientific_review_screening_only",
+      "message": "Scientific review packet summarizes screening-oriented methods support only and is not a statement of regulator acceptance or submission approval."
+    },
+    {
+      "code": "screening_model",
+      "message": "Advective screening plugin is deterministic and screening-oriented."
+    },
+    {
+      "code": "screening_model",
+      "message": "Advective screening plugin adds first-order advective clearance but does not model spatial gradients or explicit intermedia transfer coefficients."
+    },
+    {
+      "code": "advective_screening_kernel",
+      "message": "Advective_screening_mass_balance uses deterministic finite-duration first-order screening math with degradation plus advective clearance within one compartment per medium."
+    }
+  ]
+}

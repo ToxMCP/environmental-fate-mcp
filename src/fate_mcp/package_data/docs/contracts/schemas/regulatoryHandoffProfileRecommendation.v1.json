@@ -1,0 +1,65 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "consumer_name": {
+      "title": "Consumer Name",
+      "type": "string"
+    },
+    "resolved_profile_id": {
+      "title": "Resolved Profile Id",
+      "type": "string"
+    },
+    "target_module": {
+      "title": "Target Module",
+      "type": "string"
+    },
+    "matched_hint": {
+      "title": "Matched Hint",
+      "type": "string"
+    },
+    "confidence": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "reasoning": {
+      "title": "Reasoning",
+      "type": "string"
+    },
+    "tool_request_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Request Template"
+    },
+    "response_summary_template": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Response Summary Template"
+    }
+  },
+  "required": [
+    "consumer_name",
+    "resolved_profile_id",
+    "target_module",
+    "matched_hint",
+    "confidence",
+    "reasoning"
+  ],
+  "title": "RegulatoryHandoffProfileRecommendation",
+  "type": "object"
+}

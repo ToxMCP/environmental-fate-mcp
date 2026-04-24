@@ -1,0 +1,123 @@
+{
+  "acceptedLimitationCount": 16,
+  "blockingSignals": {
+    "defaultsEvidenceGovernancePassed": true,
+    "externalCorroborationGovernancePassed": true
+  },
+  "findings": [
+    {
+      "findingId": "accepted-limitation-1",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "validated external-engine mapping"
+    },
+    {
+      "findingId": "accepted-limitation-2",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "regulatory-facing scientific interpretation"
+    },
+    {
+      "findingId": "accepted-limitation-3",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "unrestricted branded desktop model ingestion"
+    },
+    {
+      "findingId": "accepted-limitation-4",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "explicit spatial dispersion and gradients"
+    },
+    {
+      "findingId": "accepted-limitation-5",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "intermedia transfer coefficient modeling"
+    },
+    {
+      "findingId": "accepted-limitation-6",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "probabilistic uncertainty propagation"
+    },
+    {
+      "findingId": "accepted-limitation-7",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "transformation-product tracking"
+    },
+    {
+      "findingId": "accepted-limitation-8",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "food-chain or dose translation workflows"
+    },
+    {
+      "findingId": "accepted-limitation-9",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "free-form ingestion of arbitrary proprietary exports"
+    },
+    {
+      "findingId": "accepted-limitation-10",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "scientific endorsement of source-engine methods beyond documented normalization behavior"
+    },
+    {
+      "findingId": "accepted-limitation-11",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "dose, exposure, or risk interpretation"
+    },
+    {
+      "findingId": "accepted-limitation-12",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "No GIS-scale dispersion in v0.1."
+    },
+    {
+      "findingId": "accepted-limitation-13",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "No direct human dose calculation in Environmental Fate MCP."
+    },
+    {
+      "findingId": "accepted-limitation-14",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "No dietary intake workflows in Environmental Fate MCP."
+    },
+    {
+      "findingId": "accepted-limitation-15",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "No PBPK execution in Environmental Fate MCP."
+    },
+    {
+      "findingId": "accepted-limitation-16",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in v0.1."
+    }
+  ],
+  "openBlockerCount": 0,
+  "requiredPasses": [
+    {
+      "passType": "non_author_internal_scientific_review",
+      "status": "documented_complete"
+    },
+    {
+      "passType": "external_scientific_review",
+      "status": "not_available_optional"
+    }
+  ],
+  "resolutionPolicy": [
+    "Every blocker-severity red-team finding must resolve to a fix, an accepted public limitation, or removal from the shipped default surface before release.",
+    "Accepted limitations must remain visible in public reviewer-facing artifacts."
+  ],
+  "status": "documented_no_open_blockers",
+  "unresolvedFindingCount": 0,
+  "version": "0.1.0"
+}

@@ -10,7 +10,7 @@ def test_readme_release_snapshot_counts_are_current() -> None:
     readme = (repo_root / "README.md").read_text()
 
     expected_lines = [
-        f"- `{metadata['testCount']}` repository tests",
+        f"- `{metadata['testCount']}` repository test functions",
         f"- `{metadata['schemaCount']}` JSON schemas",
         f"- `{metadata['exampleCount']}` generated examples",
         (

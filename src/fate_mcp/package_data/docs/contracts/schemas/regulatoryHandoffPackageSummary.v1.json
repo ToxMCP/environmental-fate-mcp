@@ -1,0 +1,270 @@
+{
+  "$defs": {
+    "Compartment": {
+      "enum": [
+        "ambient_air",
+        "surface_water",
+        "agricultural_soil",
+        "freshwater_sediment"
+      ],
+      "title": "Compartment",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "RegulatoryHandoffEntrySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "source_surface_id": {
+          "title": "Source Surface Id",
+          "type": "string"
+        },
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "compartment": {
+          "$ref": "#/$defs/Compartment"
+        },
+        "concentration_value": {
+          "minimum": 0.0,
+          "title": "Concentration Value",
+          "type": "number"
+        },
+        "concentration_unit": {
+          "title": "Concentration Unit",
+          "type": "string"
+        },
+        "downstream_field": {
+          "title": "Downstream Field",
+          "type": "string"
+        },
+        "route_hint": {
+          "title": "Route Hint",
+          "type": "string"
+        },
+        "time_window_mode": {
+          "$ref": "#/$defs/RunMode"
+        },
+        "equation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Id"
+        },
+        "equation_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Equation Text"
+        }
+      },
+      "required": [
+        "source_surface_id",
+        "medium",
+        "compartment",
+        "concentration_value",
+        "concentration_unit",
+        "downstream_field",
+        "route_hint",
+        "time_window_mode"
+      ],
+      "title": "RegulatoryHandoffEntrySummary",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "package_id": {
+      "title": "Package Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "handoff_profile_id": {
+      "title": "Handoff Profile Id",
+      "type": "string"
+    },
+    "target_module": {
+      "title": "Target Module",
+      "type": "string"
+    },
+    "entry_count": {
+      "title": "Entry Count",
+      "type": "integer"
+    },
+    "downstream_field": {
+      "title": "Downstream Field",
+      "type": "string"
+    },
+    "time_window_modes": {
+      "items": {
+        "$ref": "#/$defs/RunMode"
+      },
+      "title": "Time Window Modes",
+      "type": "array"
+    },
+    "route_hints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Route Hints",
+      "type": "array"
+    },
+    "mediums": {
+      "items": {
+        "$ref": "#/$defs/Media"
+      },
+      "title": "Mediums",
+      "type": "array"
+    },
+    "compartments": {
+      "items": {
+        "$ref": "#/$defs/Compartment"
+      },
+      "title": "Compartments",
+      "type": "array"
+    },
+    "requires_dose_translation": {
+      "title": "Requires Dose Translation",
+      "type": "boolean"
+    },
+    "summary_template_used": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Summary Template Used"
+    },
+    "summary_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Summary Lines",
+      "type": "array"
+    },
+    "entry_samples": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryHandoffEntrySummary"
+      },
+      "title": "Entry Samples",
+      "type": "array"
+    },
+    "parameter_quality_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Parameter Quality Lines",
+      "type": "array"
+    },
+    "applicability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Applicability Lines",
+      "type": "array"
+    },
+    "scientific_unsuitability_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Scientific Unsuitability Lines",
+      "type": "array"
+    },
+    "equation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Equation Lines",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Blockers",
+      "type": "array"
+    }
+  },
+  "required": [
+    "package_id",
+    "scenario_id",
+    "handoff_profile_id",
+    "target_module",
+    "entry_count",
+    "downstream_field",
+    "time_window_modes",
+    "route_hints",
+    "mediums",
+    "compartments",
+    "requires_dose_translation",
+    "summary_lines"
+  ],
+  "title": "RegulatoryHandoffPackageSummary",
+  "type": "object"
+}

@@ -1,0 +1,284 @@
+{
+  "$defs": {
+    "EscalationConcern": {
+      "enum": [
+        "extreme_persistence",
+        "strong_spatial_heterogeneity",
+        "point_source_plume_dependence",
+        "pfas_like_transport",
+        "jurisdictional_probabilistic_requirement"
+      ],
+      "title": "EscalationConcern",
+      "type": "string"
+    },
+    "ExecutionStatus": {
+      "enum": [
+        "completed",
+        "failed"
+      ],
+      "title": "ExecutionStatus",
+      "type": "string"
+    },
+    "FateAssumptionRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "source_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "parameter",
+        "value",
+        "source_classification",
+        "rationale"
+      ],
+      "title": "FateAssumptionRecord",
+      "type": "object"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "ResultMetadata": {
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/ExecutionStatus",
+          "description": "Execution state for this request."
+        },
+        "executed_at": {
+          "description": "UTC timestamp when execution finished.",
+          "format": "date-time",
+          "title": "Executed At",
+          "type": "string"
+        },
+        "execution_mode": {
+          "default": "synchronous",
+          "description": "Reserved for future async use.",
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "result_id": {
+          "description": "Stable identifier for this result envelope.",
+          "title": "Result Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "executed_at",
+        "result_id"
+      ],
+      "title": "ResultMetadata",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "run_mode": {
+      "$ref": "#/$defs/RunMode"
+    },
+    "surfaces_emitted": {
+      "title": "Surfaces Emitted",
+      "type": "integer"
+    },
+    "assumptions_applied": {
+      "items": {
+        "$ref": "#/$defs/FateAssumptionRecord"
+      },
+      "title": "Assumptions Applied",
+      "type": "array"
+    },
+    "escalation_concerns": {
+      "items": {
+        "$ref": "#/$defs/EscalationConcern"
+      },
+      "title": "Escalation Concerns",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "$ref": "#/$defs/QualityFlag"
+      },
+      "title": "Warnings",
+      "type": "array"
+    },
+    "result_metadata": {
+      "$ref": "#/$defs/ResultMetadata"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "model_family",
+    "run_mode",
+    "surfaces_emitted",
+    "assumptions_applied",
+    "result_metadata"
+  ],
+  "title": "FateRunSummary",
+  "type": "object"
+}

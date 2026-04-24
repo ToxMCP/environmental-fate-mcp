@@ -1,0 +1,650 @@
+{
+  "$defs": {
+    "AdapterSemanticMapping": {
+      "additionalProperties": false,
+      "properties": {
+        "semantic_loss": {
+          "$ref": "#/$defs/SemanticLossClassification",
+          "default": "minor"
+        },
+        "compartment_semantics": {
+          "default": "",
+          "title": "Compartment Semantics",
+          "type": "string"
+        },
+        "time_semantics": {
+          "default": "",
+          "title": "Time Semantics",
+          "type": "string"
+        },
+        "spatial_scale_semantics": {
+          "default": "",
+          "title": "Spatial Scale Semantics",
+          "type": "string"
+        },
+        "basis_semantics": {
+          "default": "",
+          "title": "Basis Semantics",
+          "type": "string"
+        },
+        "release_partition_semantics": {
+          "default": "",
+          "title": "Release Partition Semantics",
+          "type": "string"
+        }
+      },
+      "title": "AdapterSemanticMapping",
+      "type": "object"
+    },
+    "EnvironmentalReleaseScenario": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "chemical_identity": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Chemical Identity",
+          "type": "object"
+        },
+        "total_release_mass_kg": {
+          "exclusiveMinimum": 0.0,
+          "title": "Total Release Mass Kg",
+          "type": "number"
+        },
+        "release_fractions": {
+          "items": {
+            "$ref": "#/$defs/ReleaseFraction"
+          },
+          "title": "Release Fractions",
+          "type": "array"
+        },
+        "duration_days": {
+          "exclusiveMinimum": 0.0,
+          "title": "Duration Days",
+          "type": "number"
+        },
+        "timing_pattern": {
+          "default": "continuous",
+          "title": "Timing Pattern",
+          "type": "string"
+        },
+        "geographic_scope": {
+          "$ref": "#/$defs/GeographicScope"
+        },
+        "treatment_assumptions": {
+          "items": {
+            "$ref": "#/$defs/TreatmentAssumption"
+          },
+          "title": "Treatment Assumptions",
+          "type": "array"
+        },
+        "parameter_records": {
+          "items": {
+            "$ref": "#/$defs/FateParameterRecord"
+          },
+          "title": "Parameter Records",
+          "type": "array"
+        },
+        "evidence_sources": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Evidence Sources",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "temperature_c": {
+          "default": 25.0,
+          "maximum": 1000.0,
+          "minimum": -273.15,
+          "title": "Temperature C",
+          "type": "number"
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "chemical_identity",
+        "total_release_mass_kg",
+        "release_fractions",
+        "duration_days",
+        "geographic_scope",
+        "provenance"
+      ],
+      "title": "EnvironmentalReleaseScenario",
+      "type": "object"
+    },
+    "EscalationConcern": {
+      "enum": [
+        "extreme_persistence",
+        "strong_spatial_heterogeneity",
+        "point_source_plume_dependence",
+        "pfas_like_transport",
+        "jurisdictional_probabilistic_requirement"
+      ],
+      "title": "EscalationConcern",
+      "type": "string"
+    },
+    "FateParameterRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "parameter": {
+          "title": "Parameter",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "source_classification": {
+          "$ref": "#/$defs/SourceClassification"
+        },
+        "source_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evidence_quality": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Quality"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "distribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParameterDistribution"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "parameter",
+        "value",
+        "unit",
+        "source_classification"
+      ],
+      "title": "FateParameterRecord",
+      "type": "object"
+    },
+    "FitForPurpose": {
+      "enum": [
+        "screening",
+        "downstream_export",
+        "benchmark"
+      ],
+      "title": "FitForPurpose",
+      "type": "string"
+    },
+    "GeographicScope": {
+      "additionalProperties": false,
+      "properties": {
+        "region_id": {
+          "title": "Region Id",
+          "type": "string"
+        },
+        "context_label": {
+          "title": "Context Label",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "region_id",
+        "context_label"
+      ],
+      "title": "GeographicScope",
+      "type": "object"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ParameterDistribution": {
+      "additionalProperties": false,
+      "properties": {
+        "distribution_type": {
+          "title": "Distribution Type",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        },
+        "bounds": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bounds"
+        },
+        "sampling_basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sampling Basis"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        },
+        "methods_basis_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Methods Basis Lines",
+          "type": "array"
+        },
+        "limitation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitation Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "distribution_type",
+        "parameters"
+      ],
+      "title": "ParameterDistribution",
+      "type": "object"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "ReleaseFraction": {
+      "additionalProperties": false,
+      "properties": {
+        "medium": {
+          "$ref": "#/$defs/Media"
+        },
+        "fraction": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Fraction",
+          "type": "number"
+        }
+      },
+      "required": [
+        "medium",
+        "fraction"
+      ],
+      "title": "ReleaseFraction",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "SemanticLossClassification": {
+      "enum": [
+        "none",
+        "minor",
+        "material_but_bounded",
+        "non_equivalent"
+      ],
+      "title": "SemanticLossClassification",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceClassification": {
+      "enum": [
+        "user_input",
+        "curated_default",
+        "derived",
+        "heuristic"
+      ],
+      "title": "SourceClassification",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    },
+    "TreatmentAssumption": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "semantic_mapping": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AdapterSemanticMapping"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "removal_fraction": {
+          "default": 0.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Removal Fraction",
+          "type": "number"
+        },
+        "execution_mode": {
+          "$ref": "#/$defs/TreatmentExecutionMode",
+          "default": "provenance_only"
+        },
+        "media_scope": {
+          "items": {
+            "$ref": "#/$defs/Media"
+          },
+          "title": "Media Scope",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description"
+      ],
+      "title": "TreatmentAssumption",
+      "type": "object"
+    },
+    "TreatmentExecutionMode": {
+      "enum": [
+        "provenance_only",
+        "pre_release_global"
+      ],
+      "title": "TreatmentExecutionMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "scenario": {
+      "$ref": "#/$defs/EnvironmentalReleaseScenario"
+    },
+    "selection_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selection Profile Id"
+    },
+    "run_mode": {
+      "$ref": "#/$defs/RunMode",
+      "default": "steady_state"
+    },
+    "fit_for_purpose": {
+      "$ref": "#/$defs/FitForPurpose",
+      "default": "screening"
+    },
+    "bucket_count": {
+      "default": 4,
+      "maximum": 24,
+      "minimum": 1,
+      "title": "Bucket Count",
+      "type": "integer"
+    },
+    "bucket_duration_days": {
+      "default": 7.0,
+      "exclusiveMinimum": 0.0,
+      "maximum": 365.0,
+      "title": "Bucket Duration Days",
+      "type": "number"
+    },
+    "requested_media": {
+      "items": {
+        "$ref": "#/$defs/Media"
+      },
+      "title": "Requested Media",
+      "type": "array"
+    },
+    "escalation_concerns": {
+      "items": {
+        "$ref": "#/$defs/EscalationConcern"
+      },
+      "title": "Escalation Concerns",
+      "type": "array"
+    },
+    "max_surface_samples": {
+      "default": 3,
+      "maximum": 10,
+      "minimum": 1,
+      "title": "Max Surface Samples",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "scenario"
+  ],
+  "title": "BuildModelFamilyChallengeScientificDossierRequest",
+  "type": "object"
+}

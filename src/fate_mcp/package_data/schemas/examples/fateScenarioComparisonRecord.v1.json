@@ -1,0 +1,60 @@
+{
+  "schema_version": "v1",
+  "comparison_id": "comparison-61dd91689e5c",
+  "base_scenario_id": "scenario-306863db9176",
+  "candidate_scenario_id": "scenario-bb46b37c763f",
+  "surface_deltas": [
+    {
+      "medium": "air",
+      "compartment": "ambient_air",
+      "base_value": 0.00024044183555505707,
+      "candidate_value": 0.0003847069368880913,
+      "concentration_unit": "mg/m3",
+      "absolute_delta": 0.00014426510133303425,
+      "relative_delta": 0.6000000000000001
+    },
+    {
+      "medium": "water",
+      "compartment": "surface_water",
+      "base_value": 5.93830089619883e-06,
+      "candidate_value": 9.501281433918128e-06,
+      "concentration_unit": "mg/L",
+      "absolute_delta": 3.5629805377192975e-06,
+      "relative_delta": 0.5999999999999999
+    },
+    {
+      "medium": "soil",
+      "compartment": "agricultural_soil",
+      "base_value": 0.0010820212806667226,
+      "candidate_value": 0.0017312340490667562,
+      "concentration_unit": "mg/kg",
+      "absolute_delta": 0.0006492127684000336,
+      "relative_delta": 0.6000000000000001
+    }
+  ],
+  "base_only_surface_keys": [],
+  "candidate_only_surface_keys": [],
+  "changed_assumptions": [
+    "air_effective_release_mass_kg:2.5",
+    "air_effective_release_mass_kg:4.0",
+    "soil_effective_release_mass_kg:3.75",
+    "soil_effective_release_mass_kg:6.0",
+    "water_effective_release_mass_kg:10.0",
+    "water_effective_release_mass_kg:6.25"
+  ],
+  "dominant_drivers": [
+    "soil/agricultural_soil delta=0.000649213 mg/kg",
+    "air/ambient_air delta=0.000144265 mg/m3",
+    "water/surface_water delta=3.56298e-06 mg/L"
+  ],
+  "provenance": {
+    "schema_version": "v1",
+    "defaults_version": "v1",
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
+    "source_references": []
+  },
+  "limitations": [],
+  "blockers": [],
+  "quality_flags": []
+}

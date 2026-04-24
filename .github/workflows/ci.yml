@@ -22,9 +22,41 @@ jobs:
             echo "::error::Generated artifacts or release bundle files are out of date. Run 'uv run fate-mcp-generate-artifacts' and 'uv run environmental-fate-mcp-build-release-bundle' and commit the changes." &&
             exit 1
           )
+      - name: Lint
+        run: uv run --extra dev ruff check .
       - name: Run tests
-        run: uv run pytest
+        run: uv run --extra dev pytest
       - name: Run release validator
         run: uv run environmental-fate-mcp-validate
       - name: Smoke startup validation
         run: uv run python -c "from fate_mcp.server import create_server; create_server()"
+      - name: Build package
+        run: uv build
+      - name: Smoke installed wheel
+        run: |
+          tmpdir="$(mktemp -d)"
+          uv venv --python 3.12 "$tmpdir/venv"
+          uv pip install --python "$tmpdir/venv/bin/python" dist/*.whl
+          "$tmpdir/venv/bin/python" - <<'PY'
+          import asyncio
+          import json
+          from fate_mcp.server import create_server, _resolve_external_payload_path
+
+          async def main() -> None:
+              server = create_server()
+              tools = await server.list_tools()
+              assert len(tools) == 50
+              assert len(await server.list_prompts()) == 19
+              assert len(await server.list_resources()) == 24
+              assert all(tool.annotations is not None for tool in tools)
+              assert all(tool.outputSchema is not None for tool in tools)
+              metadata_contents = await server.read_resource("release://metadata-report")
+              metadata = json.loads(metadata_contents[0].content)
+              assert metadata["toolCount"] == 50
+              fixture_path = _resolve_external_payload_path(
+                  "config/adapter-fixtures/illustrative_external_engine_payload.json"
+              )
+              assert fixture_path.name == "illustrative_external_engine_payload.json"
+
+          asyncio.run(main())
+          PY

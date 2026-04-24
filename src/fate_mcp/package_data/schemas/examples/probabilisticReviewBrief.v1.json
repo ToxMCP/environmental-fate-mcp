@@ -1,0 +1,80 @@
+{
+  "schema_version": "v1",
+  "review_packet_id": "probreview-98ae553776ec",
+  "scenario_id": "scenario-306863db9176",
+  "run_id": "probrun-40f43919f819",
+  "model_family": "reference_mass_balance",
+  "run_mode": "steady_state",
+  "review_status": "ready_for_assessor_review",
+  "passed_check_count": 4,
+  "total_check_count": 4,
+  "review_template_used": "Summarize whether the probabilistic percentile surfaces are reviewable within the declared Environmental Fate MCP boundary.",
+  "brief_lines": [
+    "Summarize whether the probabilistic percentile surfaces are reviewable within the declared Environmental Fate MCP boundary.",
+    "Build a probabilistic review packet that preserves percentile surfaces, sampled drivers, iteration health, and reproducibility context.",
+    "Probabilistic review packet covers run probrun-40f43919f819 for model family reference_mass_balance.",
+    "Completed 12/12 iterations with 1 sampled parameters.",
+    "Failed iteration fraction: 0.0%; governed ready-review threshold: 10%.",
+    "Sampling seed: 17.",
+    "Percentile surface: air/ambient_air: median=0.000240442 mg/m3, p90=0.000240442, p95=0.000240442, p95-minus-median=0.",
+    "Percentile surface: soil/agricultural_soil: median=0.00108202 mg/kg, p90=0.00108202, p95=0.00108202, p95-minus-median=0.",
+    "Percentile surface: water/surface_water: median=6.15541e-06 mg/L, p90=6.61884e-06, p95=6.76079e-06, p95-minus-median=6.05387e-07.",
+    "Sensitivity: Sampled uncertainty drivers: water_half_life_days.",
+    "[pass] Completed 12 probabilistic iterations out of 12 requested.",
+    "[pass] Percentile surfaces are either aligned with the probabilistic surface summary inventory or explicitly suppressed under the governed minimum-iterations policy.",
+    "[pass] Sampling seed recorded for probabilistic execution.",
+    "[pass] Probabilistic execution recorded 0 failed iterations (0.0% of requested runs)."
+  ],
+  "recommended_actions": [
+    "Treat sampled drivers as screening sensitivity indicators only until a formal sensitivity summary is implemented."
+  ],
+  "sensitivity_lines": [
+    "Sampled uncertainty drivers: water_half_life_days."
+  ],
+  "percentile_surface_lines": [
+    "air/ambient_air: median=0.000240442 mg/m3, p90=0.000240442, p95=0.000240442, p95-minus-median=0.",
+    "soil/agricultural_soil: median=0.00108202 mg/kg, p90=0.00108202, p95=0.00108202, p95-minus-median=0.",
+    "water/surface_water: median=6.15541e-06 mg/L, p90=6.61884e-06, p95=6.76079e-06, p95-minus-median=6.05387e-07."
+  ],
+  "failed_iteration_lines": [],
+  "scientific_unsuitability_lines": [],
+  "uncertainty_limitation_lines": [
+    "Probabilistic orchestration completed with governed distribution sampling and percentile aggregation.",
+    "dominant_uncertainty_drivers enumerates sampled parameters only; formal sensitivity ranking is not yet implemented.",
+    "run_summary.assumptions_applied preserves invariant assumptions only; iteration-varying sampled and derived assumptions are not expanded verbatim."
+  ],
+  "limitations": [
+    {
+      "code": "screening_model",
+      "message": "Reference plugin is deterministic and screening-oriented."
+    },
+    {
+      "code": "screening_model",
+      "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+    },
+    {
+      "code": "finite_duration_screening_kernel",
+      "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+    },
+    {
+      "code": "probabilistic_surface_aggregation",
+      "message": "median probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+    },
+    {
+      "code": "probabilistic_surface_aggregation",
+      "message": "p90 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+    },
+    {
+      "code": "probabilistic_surface_aggregation",
+      "message": "p95 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+    },
+    {
+      "code": "probabilistic_driver_summary_screening_only",
+      "message": "Probabilistic review lines expose sampled drivers and percentile spread, but they do not replace a formal global sensitivity analysis."
+    },
+    {
+      "code": "probabilistic_review_screening_only",
+      "message": "Probabilistic review packet summarizes screening-oriented percentile behavior only and is not a statement of regulator acceptance or submission approval."
+    }
+  ]
+}

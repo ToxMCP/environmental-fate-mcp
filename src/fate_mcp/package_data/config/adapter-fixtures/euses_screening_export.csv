@@ -1,0 +1,9 @@
+export_type,euses_screening_export_v1
+engine_name,euses-screening-desktop
+engine_version,2.1.2
+region_id,eu_screening_default
+mode,steady_state
+
+compartment_label,bulk_concentration,bulk_unit,notes
+Regional air,0.0015,mg/m3,EUSES desktop screening export fixture.
+Surface water,0.0125,mg/L,EUSES desktop screening export fixture.
