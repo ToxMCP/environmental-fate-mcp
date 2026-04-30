@@ -134,6 +134,22 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - External payload imports are limited to shipped adapter fixtures plus directories declared in `FATE_MCP_IMPORT_ROOTS`.
 - Build and smoke the installable package with `uv build` followed by a clean virtualenv install before publishing. The CI smoke checks startup counts, tool annotations, tool output schemas, packaged release resources, and packaged adapter fixtures.
 
+## Generated Artifact Discipline
+
+Treat repo-root `defaults`, `docs`, `schemas`, `config`, and `evals` as the authoring and review source.
+Treat `src/fate_mcp/package_data` as a generated install-time mirror. Do not hand-edit the package
+mirror to fix release drift; update the source artifact or generator, then rerun:
+
+```bash
+uv run fate-mcp-generate-artifacts
+uv run environmental-fate-mcp-build-release-bundle
+uv run environmental-fate-mcp-validate
+```
+
+Review generated diffs by category before committing: public contracts, examples, release reports,
+checksums, and package mirror changes. The CI artifact-drift gate intentionally fails if a source
+change requires regenerated files but they were not committed.
+
 ## Runtime Resource Roots
 
 The server resolves runtime artifacts in this order: `FATE_MCP_RESOURCE_ROOT`, a repository checkout root, then packaged resources under `src/fate_mcp/package_data` after wheel installation. Keep repo-root `defaults`, `docs`, `schemas`, `config`, and `evals` as the authoring source; artifact generation refreshes the packaged mirror.

@@ -5,6 +5,17 @@ Released artifacts must remain deterministic across regeneration, and server sta
 `ready_for_screening_release` is an internal bounded-screening release gate. It is not a statement of regulator acceptance, submission approval, or scientific equivalence to external engines.
 `reference_mass_balance` remains the reviewer-grade baseline family. `advective_screening_mass_balance` remains an experimental challenge family and must not drift into promoted baseline language without an explicit later decision.
 
+## Generated artifact maintenance
+
+The generated surface is intentionally large because installed wheels carry the runtime artifact mirror
+needed for checkout-free deployments. To keep that surface reviewable:
+
+- the repo-root artifacts remain the authoring source; `src/fate_mcp/package_data` is a generated mirror
+- generator changes, source-artifact changes, schemas/examples, release reports, checksums, and package mirrors must be reviewed as one coherent release-surface change
+- generated files should not be patched by hand to satisfy CI; update the source data or generator and regenerate
+- every release-surface PR should run artifact generation, release bundle generation, the release validator, tests, wheel build, and installed-wheel smoke before merge
+- drift checks must remain fail-closed so uncommitted regeneration output blocks the merge instead of becoming an implicit local artifact
+
 ## Required checks
 
 - generated schemas and examples are current

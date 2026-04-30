@@ -18,6 +18,7 @@ Explain why the work fits the Environmental Fate MCP boundary instead of a neigh
 - [ ] Generated artifacts are committed if they changed
 - [ ] Regeneration is deterministic
 - [ ] Startup does not mutate shipped artifacts
+- [ ] Package-data mirror changes are generated from repo-root sources, not hand-edited
 - [ ] Docs were updated for user-visible, scientific, or governance changes
 - [ ] Scientific limitations remain explicit
 - [ ] Downstream handoff semantics remain auditable if affected
