@@ -6,6 +6,7 @@ import pytest
 
 from fate_mcp.server import (
     create_server,
+    defaults_erosion_sediment_method_profiles,
     docs_manifest_resource,
     docs_resource,
     example_resource,
@@ -34,6 +35,7 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "fate_review_reference_family_proof_for_screening" in names
         assert "fate_review_advective_promotion_bar" in names
         assert "fate_request_external_result_import" in names
+        assert "fate_request_erosion_sediment_transport_screening" in names
         assert "fate_request_regulatory_handoff_for_profile" in names
         assert "fate_request_regulatory_handoff_for_consumer" in names
         assert "fate_summarize_regulatory_handoff_for_profile" in names
@@ -216,6 +218,18 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "normalized_external_payload_json" in external_import_text
         assert "fate_import_external_result_payload" in external_import_text
 
+        erosion_prompt = await server.get_prompt(
+            "fate_request_erosion_sediment_transport_screening",
+            {"screening_goal": "runoff event sediment handoff"},
+        )
+        erosion_text = erosion_prompt.messages[0].content.text
+        assert "runoff event sediment handoff" in erosion_text
+        assert "defaults://erosion-sediment-method-profiles" in erosion_text
+        assert "fate_screen_erosion_transport_relevance" in erosion_text
+        assert "fate_estimate_soil_loss_rusle" in erosion_text
+        assert "fate_estimate_event_sediment_yield_musle" in erosion_text
+        assert "fate_estimate_sediment_associated_chemical_load" in erosion_text
+
         request_prompt = await server.get_prompt(
             "fate_request_regulatory_handoff_for_profile",
             {
@@ -263,7 +277,7 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
     async def _run() -> None:
         server = create_server()
         tools = await server.list_tools()
-        assert len(tools) == 50
+        assert len(tools) == 54
         for tool in tools:
             assert tool.annotations is not None, tool.name
             assert tool.annotations.readOnlyHint is True, tool.name
@@ -272,6 +286,14 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
 
         by_name = {tool.name: tool for tool in tools}
         assert by_name["fate_import_external_result_payload"].annotations.openWorldHint is True
+        for tool_name in {
+            "fate_screen_erosion_transport_relevance",
+            "fate_estimate_soil_loss_rusle",
+            "fate_estimate_event_sediment_yield_musle",
+            "fate_estimate_sediment_associated_chemical_load",
+        }:
+            assert by_name[tool_name].annotations.openWorldHint is False
+            assert by_name[tool_name].annotations.idempotentHint is True
         assert (
             by_name["fate_estimate_probabilistic_multimedia_concentrations"]
             .annotations
@@ -288,9 +310,9 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         server = create_server()
         contents = await server.read_resource("release://metadata-report")
         metadata = json.loads(contents[0].content)
-        assert metadata["toolCount"] == 50
-        assert metadata["promptCount"] == 19
-        assert metadata["resourceCount"] == 24
+        assert metadata["toolCount"] == 54
+        assert metadata["promptCount"] == 20
+        assert metadata["resourceCount"] == 25
 
     asyncio.run(_run())
 
@@ -330,11 +352,14 @@ def test_new_docs_resources_are_available() -> None:
     assert "Reference Proof Brief" in reference_proof
     advective_promotion = docs_resource("advective-promotion-brief")
     assert "Advective Promotion Brief" in advective_promotion
+    erosion_transport = docs_resource("erosion-sediment-transport")
+    assert "Erosion/Sediment Transport Screening" in erosion_transport
 
 
 def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     docs_manifest = json.loads(docs_manifest_resource())
     doc_names = {item["name"] for item in docs_manifest["docs"]}
+    assert "erosion-sediment-transport" in doc_names
     assert "defaults-evidence-map" in doc_names
     assert "regulatory-quick-start" in doc_names
     assert "scientific-trust-brief" in doc_names
@@ -358,6 +383,19 @@ def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     assert "docs://scientific-trust-pack" in release_names
     assert "docs://reference-proof-brief" in release_names
     assert "docs://advective-promotion-brief" in release_names
+
+
+def test_erosion_sediment_method_profiles_resource() -> None:
+    manifest = json.loads(defaults_erosion_sediment_method_profiles())
+    profile_ids = {profile["method_id"] for profile in manifest["profiles"]}
+    assert manifest["profile_count"] == 5
+    assert {
+        "erosion_transport_relevance",
+        "rusle",
+        "musle",
+        "sediment_associated_chemical_load",
+        "wepp_deferred_adapter",
+    } <= profile_ids
 
 
 def test_create_server_does_not_mutate_generated_examples() -> None:

@@ -1,0 +1,35 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "soil_concentration_mg_kg": {
+      "minimum": 0.0,
+      "title": "Soil Concentration Mg Kg",
+      "type": "number"
+    },
+    "sediment_yield_t": {
+      "minimum": 0.0,
+      "title": "Sediment Yield T",
+      "type": "number"
+    },
+    "sediment_delivery_ratio": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Sediment Delivery Ratio",
+      "type": "number"
+    },
+    "particle_bound_availability_fraction": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Particle Bound Availability Fraction",
+      "type": "number"
+    }
+  },
+  "required": [
+    "soil_concentration_mg_kg",
+    "sediment_yield_t",
+    "sediment_delivery_ratio",
+    "particle_bound_availability_fraction"
+  ],
+  "title": "EstimateSedimentAssociatedChemicalLoadRequest",
+  "type": "object"
+}

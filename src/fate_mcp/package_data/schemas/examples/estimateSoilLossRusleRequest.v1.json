@@ -1,0 +1,8 @@
+{
+  "rainfall_erosivity_r": 150.0,
+  "soil_erodibility_k": 0.28,
+  "slope_length_steepness_ls": 1.6,
+  "cover_management_c": 0.12,
+  "support_practice_p": 0.8,
+  "area_ha": 2.5
+}

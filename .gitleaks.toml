@@ -1,0 +1,16 @@
+title = "ToxMCP secret scanning allowlist"
+
+[extend]
+useDefault = true
+
+[allowlist]
+paths = [
+  '''(^|/)\.venv/''',
+  '''(^|/)dist/''',
+  '''(^|/)coverage/''',
+  '''(^|/)\.cache/''',
+  '''(^|/)\.uv-cache/''',
+  '''(^|/)\.pytest_cache/''',
+  '''(^|/)\.ruff_cache/''',
+  '''(^|/)uv\.lock$'''
+]

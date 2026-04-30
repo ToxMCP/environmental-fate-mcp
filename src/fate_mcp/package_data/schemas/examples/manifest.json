@@ -129,12 +129,40 @@
       "path": "schemas/examples/environmentalReleaseScenario.v1.json"
     },
     {
+      "name": "erosionSedimentMethodProfile.v1",
+      "path": "schemas/examples/erosionSedimentMethodProfile.v1.json"
+    },
+    {
+      "name": "erosionSedimentMethodProfileManifest.v1",
+      "path": "schemas/examples/erosionSedimentMethodProfileManifest.v1.json"
+    },
+    {
+      "name": "erosionTransportRelevanceResult.v1",
+      "path": "schemas/examples/erosionTransportRelevanceResult.v1.json"
+    },
+    {
+      "name": "estimateEventSedimentYieldMusleRequest.v1",
+      "path": "schemas/examples/estimateEventSedimentYieldMusleRequest.v1.json"
+    },
+    {
       "name": "estimateMultimediaConcentrationsRequest.v1",
       "path": "schemas/examples/estimateMultimediaConcentrationsRequest.v1.json"
     },
     {
       "name": "estimateProbabilisticMultimediaConcentrationsRequest.v1",
       "path": "schemas/examples/estimateProbabilisticMultimediaConcentrationsRequest.v1.json"
+    },
+    {
+      "name": "estimateSedimentAssociatedChemicalLoadRequest.v1",
+      "path": "schemas/examples/estimateSedimentAssociatedChemicalLoadRequest.v1.json"
+    },
+    {
+      "name": "estimateSoilLossRusleRequest.v1",
+      "path": "schemas/examples/estimateSoilLossRusleRequest.v1.json"
+    },
+    {
+      "name": "eventSedimentYieldMusleResult.v1",
+      "path": "schemas/examples/eventSedimentYieldMusleResult.v1.json"
     },
     {
       "name": "exportConcentrationSurfaceBundleRequest.v1",
@@ -419,6 +447,18 @@
     {
       "name": "scientificValidationClaimManifest.v1",
       "path": "schemas/examples/scientificValidationClaimManifest.v1.json"
+    },
+    {
+      "name": "screenErosionTransportRelevanceRequest.v1",
+      "path": "schemas/examples/screenErosionTransportRelevanceRequest.v1.json"
+    },
+    {
+      "name": "sedimentAssociatedChemicalLoadResult.v1",
+      "path": "schemas/examples/sedimentAssociatedChemicalLoadResult.v1.json"
+    },
+    {
+      "name": "soilLossRusleResult.v1",
+      "path": "schemas/examples/soilLossRusleResult.v1.json"
     },
     {
       "name": "summarizeRegulatoryHandoffPackageRequest.v1",

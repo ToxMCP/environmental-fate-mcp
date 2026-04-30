@@ -24,6 +24,7 @@ from fate_mcp.validation import validation_dossier
 
 KNOWN_GAPS = [
     "No GIS-scale dispersion in v0.1.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.1.",
     "No direct human dose calculation in Environmental Fate MCP.",
     "No dietary intake workflows in Environmental Fate MCP.",
     "No PBPK execution in Environmental Fate MCP.",

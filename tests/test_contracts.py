@@ -14,6 +14,8 @@ def test_contract_generation_and_validation() -> None:
     assert all(item["status"] == "ok" for item in results["examples"])
     assert (repo_root / "docs" / "contracts" / "schemas" / "adapterImportManifest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "adapterUnitConversionRule.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentMethodProfile.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentMethodProfileManifest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "fateRegionProfile.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "importExternalResultPayloadRequest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "modelFamilyApplicabilityProfile.v1.json").exists()
@@ -93,6 +95,14 @@ def test_contract_generation_and_validation() -> None:
     assert (repo_root / "docs" / "contracts" / "schemas" / "recommendRegulatoryHandoffProfileRequest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "regulatoryHandoffProfileRecommendation.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "regulatoryHandoffPackage.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "screenErosionTransportRelevanceRequest.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "erosionTransportRelevanceResult.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "estimateSoilLossRusleRequest.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "soilLossRusleResult.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "estimateEventSedimentYieldMusleRequest.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "eventSedimentYieldMusleResult.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "estimateSedimentAssociatedChemicalLoadRequest.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "sedimentAssociatedChemicalLoadResult.v1.json").exists()
 
 
 def test_build_examples_is_deterministic() -> None:

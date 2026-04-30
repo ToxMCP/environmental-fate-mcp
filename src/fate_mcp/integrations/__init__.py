@@ -8,6 +8,12 @@ from .core import (
     build_run_uncertainty_summary,
     compare_fate_scenarios,
 )
+from .erosion_sediment import (
+    estimate_event_sediment_yield_musle,
+    estimate_sediment_associated_chemical_load,
+    estimate_soil_loss_rusle,
+    screen_erosion_transport_relevance,
+)
 from .model_family import (
     build_model_family_challenge_review_brief,
     build_model_family_challenge_review_packet,
@@ -74,6 +80,9 @@ __all__ = [
     "build_scientific_review_brief",
     "build_scientific_review_packet",
     "compare_fate_scenarios",
+    "estimate_event_sediment_yield_musle",
+    "estimate_sediment_associated_chemical_load",
+    "estimate_soil_loss_rusle",
     "export_exposure_consumption_package",
     "export_regulatory_handoff_package",
     "preview_model_family_challenge_review",
@@ -83,5 +92,6 @@ __all__ = [
     "preview_scientific_review_outcome",
     "recommend_model_family_selection",
     "recommend_regulatory_handoff_profile",
+    "screen_erosion_transport_relevance",
     "summarize_regulatory_handoff_package",
 ]

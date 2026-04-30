@@ -13,6 +13,8 @@ from fate_mcp.errors import FateRegistryError
 from fate_mcp.models import (
     AdapterUnitConversionRule,
     Compartment,
+    ErosionSedimentMethodProfile,
+    ErosionSedimentMethodProfileManifest,
     FateParameterPolicy,
     FateParameterPolicyFamily,
     FateRegionProfile,
@@ -130,6 +132,9 @@ class DefaultsRegistry:
         )
         self.adapter_unit_conversions = _load_json(
             self.version_root / "adapter_unit_conversions.json"
+        )
+        self.erosion_sediment_method_profiles = _load_json(
+            self.version_root / "erosion_sediment_method_profiles.json"
         )
         self.model_family_applicability_profiles = _load_json(
             self.version_root / "model_family_applicability_profiles.json"
@@ -500,6 +505,44 @@ class DefaultsRegistry:
             "ruleCount": len(rules),
             "rules": [rule.model_dump(mode="json") for rule in rules],
         }
+
+    def erosion_sediment_method_profile(
+        self,
+        method_id: str,
+    ) -> ErosionSedimentMethodProfile | None:
+        payload = self.erosion_sediment_method_profiles["profiles"].get(method_id)
+        if not payload:
+            return None
+        return ErosionSedimentMethodProfile(
+            method_id=method_id,
+            display_name=payload["displayName"],
+            method_class=payload["methodClass"],
+            equation_id=payload.get("equationId"),
+            equation_text=payload.get("equationText"),
+            output_unit=payload.get("outputUnit"),
+            required_inputs=payload.get("requiredInputs", []),
+            supported_units=payload.get("supportedUnits", {}),
+            source_references=[SourceReference(**item) for item in payload.get("sourceReferences", [])],
+            limitations=payload.get("limitations", []),
+            deferred_capabilities=payload.get("deferredCapabilities", []),
+            source_pack=f"defaults/{DEFAULTS_VERSION}/erosion_sediment_method_profiles.json",
+            applicability_note=payload.get("applicabilityNote"),
+        )
+
+    def list_erosion_sediment_method_profiles(self) -> list[ErosionSedimentMethodProfile]:
+        profiles = []
+        for method_id in sorted(self.erosion_sediment_method_profiles["profiles"].keys()):
+            profile = self.erosion_sediment_method_profile(method_id)
+            if profile is not None:
+                profiles.append(profile)
+        return profiles
+
+    def erosion_sediment_method_profile_manifest(self) -> ErosionSedimentMethodProfileManifest:
+        profiles = self.list_erosion_sediment_method_profiles()
+        return ErosionSedimentMethodProfileManifest(
+            profile_count=len(profiles),
+            profiles=profiles,
+        )
 
     def model_family_applicability_profile(
         self,

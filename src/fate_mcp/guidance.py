@@ -17,6 +17,7 @@ DOC_RESOURCE_MAP = {
     "regulatory-quick-start": "docs/regulatory_quick_start.md",
     "workflow-cookbook": "docs/workflow_cookbook.md",
     "external-payload-contract": "docs/external_payload_contract.md",
+    "erosion-sediment-transport": "docs/erosion_sediment_transport.md",
     "agent-evaluations": "docs/agent_evaluations.md",
     "scientific-trust-pack": "docs/releases/v0.1.0/scientific-trust-pack.md",
     "scientific-trust-brief": "docs/releases/v0.1.0/scientific-trust-brief.md",
