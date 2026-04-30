@@ -214,7 +214,7 @@ class FateRuntime:
         probabilistic_policy = self.defaults.probabilistic_review_policy()
         plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)
         
-        rng = random.Random(seed) if seed is not None else random.Random()
+        rng = random.Random(seed) if seed is not None else random.Random()  # nosec B311
         
         # Identify parameters with distributions
         dist_params = [p for p in scenario.parameter_records if p.distribution is not None]

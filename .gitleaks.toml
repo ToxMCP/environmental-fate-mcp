@@ -9,6 +9,7 @@ paths = [
   '''(^|/)dist/''',
   '''(^|/)coverage/''',
   '''(^|/)\.cache/''',
+  '''(^|/)\.uv-cache/''',
   '''(^|/)\.pytest_cache/''',
   '''(^|/)\.ruff_cache/''',
   '''(^|/)uv\.lock$'''
