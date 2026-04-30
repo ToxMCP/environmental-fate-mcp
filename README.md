@@ -124,11 +124,13 @@ Environmental Fate MCP gives the suite a dedicated environmental-fate layer that
 | --- | --- |
 | `🌍 Environmental release screening` | Builds typed environmental release scenarios and deterministic concentration surfaces for multimedia screening use cases. |
 | `🌊 Advective challenge family` | Publishes a governed experimental residence-time and bounded-transport challenge path with explicit comparison and challenge review workflows. |
+| `🌱 Erosion/sediment transport bridge` | Screens particle-bound transport relevance, computes scalar RUSLE soil loss and MUSLE event sediment yield, and emits sediment-associated chemical-load handoff objects without claiming hydrologic routing or final exposure. |
 | `📊 Probabilistic percentile reporting` | Runs an additive percentile orchestration layer over the deterministic kernels and emits reviewable median, P90, and P95 surfaces plus iteration-health context. |
 | `🧪 Scientific review surface` | Exports assessor-facing review packets and briefs with equation traces, mass-balance partitions, transport-regime lines, loss-transition cues, and post-release recovery interpretation. |
 | `🧾 Scientific methods dossiers` | Publishes governed claim sets, source-grounding lines, benchmark support, highlighted claim digests, challenge posture, and promotion/blocker summaries for each model family. |
 | `🔌 External adapter normalization` | Normalizes governed external-engine exports into canonical concentration contracts with normalization-parity checks, semantic-loss disclosure, and fail-closed blocking for non-equivalent mappings. |
 | `🧭 Model-family challenge governance` | Exposes model-family selection, challenge, and comparison workflows so reference and experimental families remain reviewable under governed assessor logic. |
+| `🔒 Installation and security hardening` | Ships wheel/sdist runtime artifacts, locked import-root validation, HTTP transport safety defaults, installed-wheel smoke coverage, dependency audit, Bandit, SBOM generation, and Gitleaks secret scanning. |
 | `📦 Regulatory handoff packaging` | Exports concentration bundles, regulatory handoff packages, summaries, packets, and briefs for downstream suite consumers without claiming final risk decisions. |
 | `✅ Validation and release surface` | Ships defaults manifests, schemas, examples, benchmark manifests, scientific-claim coverage and freshness reports, validation dossiers, and release-readiness reports as first-class outputs. |
 
@@ -149,6 +151,7 @@ Current validation artifacts report:
 - CI fails if generated artifacts or defaults manifest hashes drift from committed state, if the full release validator fails, or if startup validation cannot load the shipped artifacts
 - CI builds the wheel and installs it into a clean Python 3.12 environment before checking server startup, packaged release resources, public tool annotations/output schemas, and shipped adapter-fixture access
 - external payload imports are confined to shipped adapter fixtures unless operators opt in additional roots through `FATE_MCP_IMPORT_ROOTS`; symlink escapes are rejected after path resolution
+- supply-chain checks run Ruff, tests, Bandit, `pip-audit`, SBOM generation, and checksum-verified Gitleaks CLI secret scanning
 
 This release gate remains a product-level screening-readiness status rather than a claim of formal regulatory acceptance, legal sufficiency, or source-engine scientific equivalence.
 
@@ -160,6 +163,7 @@ See:
 - [docs/suite_integration.md](./docs/suite_integration.md)
 - [docs/workflow_cookbook.md](./docs/workflow_cookbook.md)
 - [docs/external_payload_contract.md](./docs/external_payload_contract.md)
+- [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/releases/v0.1.0/scientific-trust-pack.md](./docs/releases/v0.1.0/scientific-trust-pack.md)
 - [CHANGELOG.md](./CHANGELOG.md)
