@@ -15,11 +15,11 @@ jobs:
   python-security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v8.1.0
       - name: Install project and security tools
         run: |
           uv sync --all-extras --dev || uv sync --dev
@@ -36,7 +36,7 @@ jobs:
         run: |
           mkdir -p artifacts
           uv run cyclonedx-py environment --output-format JSON --output-file artifacts/python-sbom.cdx.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: python-sbom
           path: artifacts/python-sbom.cdx.json
@@ -45,7 +45,7 @@ jobs:
   secret-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Install Gitleaks CLI
