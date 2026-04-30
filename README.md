@@ -65,16 +65,18 @@ flowchart LR
 The released server is broader than a simple concentration calculator, but the boundary is still strict:
 
 - `Environmental Fate MCP` owns environmental release scenarios, multimedia concentration estimation, scientific review, scientific methods dossiers, and downstream concentration handoff packaging.
+- It also owns bounded scalar erosion/sediment transport screening for RUSLE, MUSLE, and sediment-associated chemical-load handoffs when particle-bound soil transport is relevant.
 - `Direct-Use Exposure MCP` owns direct-use product scenarios, near-field external exposure construction, and PBPK-ready direct-use handoffs.
 - `Dietary Exposure MCP` owns food-mediated oral intake, commodity-consumption mappings, and dietary PBPK-ready oral handoffs.
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
-- The server is deterministic-first, with an additive probabilistic percentile lane and governed external-result normalization; it is not a general-purpose GIS dispersion engine, final-risk engine, or public wrapper around branded external model payloads.
+- The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, and scalar erosion/sediment transport screening; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, or public wrapper around branded external model payloads.
 
 ## What's in v0.1.0
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
 - Governed experimental `advective_screening_mass_balance` challenge family with residence-time, bounded-transport, loss-dominance, transition, mass-balance, and post-release authority layers
+- Bounded scalar erosion/sediment transport tools for RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, and sediment-associated chemical-load handoff
 - Additive probabilistic percentile orchestration with median, P90, and P95 concentration surfaces plus failed-iteration taxonomy and reproducibility metadata
 - Scientific review packets and briefs with equation, mass-balance, transport-regime, loss-transition, and post-release interpretation lines
 - Scientific methods dossiers and briefs with governed claims, benchmark support, source grounding, highlighted claim digests, promotion status, and blocker/action posture
@@ -88,10 +90,10 @@ The released server is broader than a simple concentration calculator, but the b
 
 Current local release verification and generated `v0.1.0` artifacts report:
 
-- `163` repository test functions
-- `110` JSON schemas
-- `106` generated examples
-- `41` supported workflows surfaced through `50` tools, `19` prompts, and `24` resources
+- `174` repository test functions
+- `120` JSON schemas
+- `116` generated examples
+- `45` supported workflows surfaced through `54` tools, `20` prompts, and `25` resources
 - `54` benchmark fixtures with claim-coverage enforcement
 - `30` governed scientific validation claims with plugin-code traceability
 - `25` governed scientific reference cases
@@ -216,6 +218,7 @@ Legacy CLI aliases remain available:
 - Not a dietary intake engine
 - Not a PBPK execution engine
 - Not a GIS-resolved plume or hydrodynamic dispersion engine
+- Not a watershed hydrology, rainfall-runoff generation, channel-routing, deposition-field, or WEPP execution engine
 - Not a general-purpose unrestricted probabilistic fate platform outside the governed percentile workflow
 - Not a final regulatory decision engine or a claim of formal equivalence to submission portals
 

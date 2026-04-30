@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "runoff_volume_m3": {
+      "minimum": 0.0,
+      "title": "Runoff Volume M3",
+      "type": "number"
+    },
+    "peak_runoff_rate_m3_s": {
+      "minimum": 0.0,
+      "title": "Peak Runoff Rate M3 S",
+      "type": "number"
+    },
+    "soil_erodibility_k": {
+      "minimum": 0.0,
+      "title": "Soil Erodibility K",
+      "type": "number"
+    },
+    "slope_length_steepness_ls": {
+      "minimum": 0.0,
+      "title": "Slope Length Steepness Ls",
+      "type": "number"
+    },
+    "cover_management_c": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Cover Management C",
+      "type": "number"
+    },
+    "support_practice_p": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Support Practice P",
+      "type": "number"
+    }
+  },
+  "required": [
+    "runoff_volume_m3",
+    "peak_runoff_rate_m3_s",
+    "soil_erodibility_k",
+    "slope_length_steepness_ls",
+    "cover_management_c",
+    "support_practice_p"
+  ],
+  "title": "EstimateEventSedimentYieldMusleRequest",
+  "type": "object"
+}

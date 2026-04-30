@@ -10,6 +10,7 @@ def test_defaults_manifest_contains_versioned_files() -> None:
     assert manifest["defaultsVersion"] == "v1"
     assert any(item["path"].endswith("adapter_unit_conversions.json") for item in manifest["files"])
     assert any(item["path"].endswith("core_defaults.json") for item in manifest["files"])
+    assert any(item["path"].endswith("erosion_sediment_method_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_applicability_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_comparison_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_selection_profiles.json") for item in manifest["files"])
@@ -37,6 +38,20 @@ def test_temperature_correction_policy_is_governed() -> None:
     assert policy.minimum_supported_temperature_c == 0.0
     assert policy.maximum_supported_temperature_c == 40.0
     assert policy.degradation_q10_by_medium[Media.WATER] == 2.0
+
+
+def test_erosion_sediment_method_profiles_are_governed() -> None:
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    manifest = registry.erosion_sediment_method_profile_manifest()
+    profiles = {profile.method_id: profile for profile in manifest.profiles}
+    assert manifest.profile_count == 5
+    assert "rusle" in profiles
+    assert "musle" in profiles
+    assert "wepp_deferred_adapter" in profiles
+    assert profiles["rusle"].equation_text == "A = R * K * LS * C * P"
+    assert profiles["musle"].equation_id == "musle_metric_v1"
+    assert profiles["wepp_deferred_adapter"].method_class == "deferred_external_adapter"
+    assert registry.erosion_sediment_method_profile("missing_method") is None
 
 
 def test_core_defaults_are_source_backed_and_free_of_shipped_tier3_assumptions() -> None:

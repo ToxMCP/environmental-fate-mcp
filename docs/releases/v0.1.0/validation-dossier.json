@@ -329,11 +329,39 @@
         "status": "ok"
       },
       {
+        "name": "erosionSedimentMethodProfile.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentMethodProfileManifest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "erosionTransportRelevanceResult.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "estimateEventSedimentYieldMusleRequest.v1.json",
+        "status": "ok"
+      },
+      {
         "name": "estimateMultimediaConcentrationsRequest.v1.json",
         "status": "ok"
       },
       {
         "name": "estimateProbabilisticMultimediaConcentrationsRequest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "estimateSedimentAssociatedChemicalLoadRequest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "estimateSoilLossRusleRequest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "eventSedimentYieldMusleResult.v1.json",
         "status": "ok"
       },
       {
@@ -621,6 +649,18 @@
         "status": "ok"
       },
       {
+        "name": "screenErosionTransportRelevanceRequest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "sedimentAssociatedChemicalLoadResult.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "soilLossRusleResult.v1.json",
+        "status": "ok"
+      },
+      {
         "name": "summarizeRegulatoryHandoffPackageRequest.v1.json",
         "status": "ok"
       }
@@ -632,6 +672,14 @@
       },
       {
         "name": "adapterUnitConversionRule.v1",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentMethodProfile.v1",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentMethodProfileManifest.v1",
         "status": "ok"
       },
       {
@@ -748,6 +796,38 @@
       },
       {
         "name": "estimateProbabilisticMultimediaConcentrationsRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "screenErosionTransportRelevanceRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "erosionTransportRelevanceResult.v1",
+        "status": "ok"
+      },
+      {
+        "name": "estimateSoilLossRusleRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "soilLossRusleResult.v1",
+        "status": "ok"
+      },
+      {
+        "name": "estimateEventSedimentYieldMusleRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "eventSedimentYieldMusleResult.v1",
+        "status": "ok"
+      },
+      {
+        "name": "estimateSedimentAssociatedChemicalLoadRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "sedimentAssociatedChemicalLoadResult.v1",
         "status": "ok"
       },
       {

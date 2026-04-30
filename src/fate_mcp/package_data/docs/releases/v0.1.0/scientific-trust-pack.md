@@ -29,6 +29,7 @@ This pack summarizes bounded-screening trust posture only. It is not regulator a
 - scientific endorsement of source-engine methods beyond documented normalization behavior
 - dose, exposure, or risk interpretation
 - No GIS-scale dispersion in v0.1.
+- No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.1.
 - No direct human dose calculation in Environmental Fate MCP.
 - No dietary intake workflows in Environmental Fate MCP.
 - No PBPK execution in Environmental Fate MCP.
@@ -119,6 +120,7 @@ This pack summarizes bounded-screening trust posture only. It is not regulator a
 
 ## Known Gaps
 - No GIS-scale dispersion in v0.1.
+- No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.1.
 - No direct human dose calculation in Environmental Fate MCP.
 - No dietary intake workflows in Environmental Fate MCP.
 - No PBPK execution in Environmental Fate MCP.

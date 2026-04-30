@@ -133,12 +133,40 @@
       "path": "docs/contracts/schemas/environmentalReleaseScenario.v1.json"
     },
     {
+      "name": "erosionSedimentMethodProfile.v1",
+      "path": "docs/contracts/schemas/erosionSedimentMethodProfile.v1.json"
+    },
+    {
+      "name": "erosionSedimentMethodProfileManifest.v1",
+      "path": "docs/contracts/schemas/erosionSedimentMethodProfileManifest.v1.json"
+    },
+    {
+      "name": "erosionTransportRelevanceResult.v1",
+      "path": "docs/contracts/schemas/erosionTransportRelevanceResult.v1.json"
+    },
+    {
+      "name": "estimateEventSedimentYieldMusleRequest.v1",
+      "path": "docs/contracts/schemas/estimateEventSedimentYieldMusleRequest.v1.json"
+    },
+    {
       "name": "estimateMultimediaConcentrationsRequest.v1",
       "path": "docs/contracts/schemas/estimateMultimediaConcentrationsRequest.v1.json"
     },
     {
       "name": "estimateProbabilisticMultimediaConcentrationsRequest.v1",
       "path": "docs/contracts/schemas/estimateProbabilisticMultimediaConcentrationsRequest.v1.json"
+    },
+    {
+      "name": "estimateSedimentAssociatedChemicalLoadRequest.v1",
+      "path": "docs/contracts/schemas/estimateSedimentAssociatedChemicalLoadRequest.v1.json"
+    },
+    {
+      "name": "estimateSoilLossRusleRequest.v1",
+      "path": "docs/contracts/schemas/estimateSoilLossRusleRequest.v1.json"
+    },
+    {
+      "name": "eventSedimentYieldMusleResult.v1",
+      "path": "docs/contracts/schemas/eventSedimentYieldMusleResult.v1.json"
     },
     {
       "name": "exportConcentrationSurfaceBundleRequest.v1",
@@ -435,6 +463,18 @@
     {
       "name": "scientificValidationClaimManifest.v1",
       "path": "docs/contracts/schemas/scientificValidationClaimManifest.v1.json"
+    },
+    {
+      "name": "screenErosionTransportRelevanceRequest.v1",
+      "path": "docs/contracts/schemas/screenErosionTransportRelevanceRequest.v1.json"
+    },
+    {
+      "name": "sedimentAssociatedChemicalLoadResult.v1",
+      "path": "docs/contracts/schemas/sedimentAssociatedChemicalLoadResult.v1.json"
+    },
+    {
+      "name": "soilLossRusleResult.v1",
+      "path": "docs/contracts/schemas/soilLossRusleResult.v1.json"
     },
     {
       "name": "summarizeRegulatoryHandoffPackageRequest.v1",

@@ -3,14 +3,14 @@
   "adapterImportProfileCount": 5,
   "adapterUnitConversionRuleCount": 4,
   "artifactHashes": {
-    "contractsManifest": "bb2951a61df68f0164d20cacec5e0f17e1846da9ab15536e1026d6eaeac0a36b",
-    "defaultsManifest": "59ab1235887f8db542c2d0d7d5c7d4a096c5a6362456f040bb4b9dcce171a900",
-    "examplesManifest": "b5ae7ba4a33b666d61b67b31333e20acc55aafe6a3e8eb17bdd8d3a2511c726e"
+    "contractsManifest": "7162b270b6e44ac7baef0fb440a006dc59097076df225236683f3f1f27ceffd5",
+    "defaultsManifest": "9ed457dc3e73ad88b3b55f287892503cdbb3b8d9bc39d1ee224865ba023d8354",
+    "examplesManifest": "4879a4e24baa03e73848ff77d6d784b24e40fb3c1524ed4da2d6ec72b45fd03e"
   },
   "benchmarkMetadataFixtureCount": 58,
   "defaultsEvidenceGovernancePassed": true,
   "defaultsVersion": "v1",
-  "exampleCount": 106,
+  "exampleCount": 116,
   "experimentalModelFamilies": [
     "advective_screening_mass_balance"
   ],
@@ -39,7 +39,7 @@
   "parameterManifestRuntimeConsumedCount": 15,
   "physchemPolicyCount": 13,
   "physchemPolicyFamilyCount": 6,
-  "promptCount": 19,
+  "promptCount": 20,
   "publicAdapterFixtureCount": 3,
   "publicAdapterImportProfileCount": 2,
   "regionProfileCount": 4,
@@ -51,9 +51,9 @@
   "regulatoryHandoffReviewBriefTemplateCount": 4,
   "regulatoryHandoffReviewChecklistCount": 8,
   "regulatoryHandoffTargetMappingCount": 4,
-  "resourceCount": 24,
+  "resourceCount": 25,
   "runScientificTrustBriefWorkflowCount": 1,
-  "schemaCount": 110,
+  "schemaCount": 120,
   "scientificMethodsDossierWorkflowCount": 2,
   "scientificReferenceCaseCount": 25,
   "scientificReviewChecklistCount": 10,
@@ -102,6 +102,10 @@
     "fate_build_environmental_release_scenario",
     "fate_estimate_multimedia_concentrations",
     "fate_estimate_probabilistic_multimedia_concentrations",
+    "fate_screen_erosion_transport_relevance",
+    "fate_estimate_soil_loss_rusle",
+    "fate_estimate_event_sediment_yield_musle",
+    "fate_estimate_sediment_associated_chemical_load",
     "fate_import_external_result_payload",
     "fate_build_concentration_surface_bundle",
     "fate_compare_fate_scenarios",
@@ -141,7 +145,7 @@
     "fate_build_regulatory_handoff_review_packet",
     "fate_build_regulatory_handoff_review_brief"
   ],
-  "testCount": 163,
-  "toolCount": 50,
+  "testCount": 174,
+  "toolCount": 54,
   "version": "0.1.0"
 }

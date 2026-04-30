@@ -1,0 +1,135 @@
+{
+  "schema_version": "v1",
+  "method_id": "musle",
+  "sediment_yield_t_event": 43.92290413655426,
+  "calculation_trace": {
+    "equation_id": "musle_metric_v1",
+    "equation_text": "Sed = 11.8 * (Qsurf * qpeak)^0.56 * K * LS * C * P",
+    "resolved_terms": [
+      {
+        "name": "runoff_volume_m3",
+        "value": 1200.0,
+        "unit": "m3"
+      },
+      {
+        "name": "peak_runoff_rate_m3_s",
+        "value": 2.4,
+        "unit": "m3/s"
+      },
+      {
+        "name": "soil_erodibility_k",
+        "value": 0.28,
+        "unit": null
+      },
+      {
+        "name": "slope_length_steepness_ls",
+        "value": 1.6,
+        "unit": null
+      },
+      {
+        "name": "cover_management_c",
+        "value": 0.12,
+        "unit": null
+      },
+      {
+        "name": "support_practice_p",
+        "value": 0.8,
+        "unit": null
+      },
+      {
+        "name": "sediment_yield",
+        "value": 43.92290413655426,
+        "unit": "t/event"
+      }
+    ],
+    "notes": [
+      "MUSLE uses caller-provided runoff volume and peak runoff rate.",
+      "Environmental Fate MCP does not compute rainfall-runoff generation or routing in this v1 tool."
+    ]
+  },
+  "assumptions": [
+    {
+      "parameter": "runoff_volume_m3",
+      "value": 1200.0,
+      "unit": "m3",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided event surface runoff volume.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "peak_runoff_rate_m3_s",
+      "value": 2.4,
+      "unit": "m3/s",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided event peak runoff rate.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "soil_erodibility_k",
+      "value": 0.28,
+      "unit": "K factor",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided MUSLE soil erodibility factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "slope_length_steepness_ls",
+      "value": 1.6,
+      "unit": "dimensionless",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided MUSLE topographic factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "cover_management_c",
+      "value": 0.12,
+      "unit": "dimensionless",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided MUSLE cover-management factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "support_practice_p",
+      "value": 0.8,
+      "unit": "dimensionless",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided MUSLE support-practice factor.",
+      "source_reference": null,
+      "quality_flags": []
+    }
+  ],
+  "provenance": {
+    "schema_version": "v1",
+    "defaults_version": "v1",
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
+    "source_references": [
+      {
+        "source_id": "usace.hec_hms.musle",
+        "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+        "effective_date": null,
+        "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+      }
+    ]
+  },
+  "quality_flags": [],
+  "limitations": [
+    {
+      "code": "erosion_sediment_screening_only",
+      "message": "This result is a scalar screening estimate for erosion-mediated transport; it is not a calibrated watershed, GIS, hydrodynamic, exposure, risk, or regulatory decision model."
+    },
+    {
+      "code": "no_explicit_spatial_routing",
+      "message": "The v1 erosion/sediment tools do not simulate hillslope routing, channel transport, deposition fields, rainfall-runoff generation, or receiving-water dilution."
+    }
+  ],
+  "handoff_notes": [
+    "Use this event sediment-yield estimate as the sediment input to the chemical-load bridge when topsoil concentration and delivery assumptions are available.",
+    "Calibrate runoff and peak-flow inputs externally for decision-facing watershed work."
+  ]
+}

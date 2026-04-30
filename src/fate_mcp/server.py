@@ -46,6 +46,9 @@ from fate_mcp.integrations import (
     build_regulatory_handoff_review_packet,
     build_concentration_surface_bundle,
     compare_fate_scenarios,
+    estimate_event_sediment_yield_musle,
+    estimate_sediment_associated_chemical_load,
+    estimate_soil_loss_rusle,
     export_exposure_consumption_package,
     export_regulatory_handoff_package,
     preview_model_family_comparison_review,
@@ -55,6 +58,7 @@ from fate_mcp.integrations import (
     preview_regulatory_handoff_resolution,
     recommend_model_family_selection,
     recommend_regulatory_handoff_profile,
+    screen_erosion_transport_relevance,
     summarize_regulatory_handoff_package,
 )
 from fate_mcp.models import (
@@ -89,8 +93,13 @@ from fate_mcp.models import (
     EnvironmentalReleaseScenario,
     EstimateProbabilisticMultimediaConcentrationsRequest,
     EstimateMultimediaConcentrationsRequest,
+    EstimateEventSedimentYieldMusleRequest,
+    EstimateSedimentAssociatedChemicalLoadRequest,
+    EstimateSoilLossRusleRequest,
+    EventSedimentYieldMusleResult,
     ExposureConsumptionPackage,
     ImportExternalResultPayloadRequest,
+    ErosionTransportRelevanceResult,
     FateModelRunOptions,
     FateScenarioComparisonRecord,
     Media,
@@ -110,6 +119,9 @@ from fate_mcp.models import (
     ModelFamilySelectionReviewPacket,
     ModelFamilySelectionReviewPreview,
     ReleaseFraction,
+    ScreenErosionTransportRelevanceRequest,
+    SedimentAssociatedChemicalLoadResult,
+    SoilLossRusleResult,
     ExportConcentrationSurfaceBundleRequest,
     ExportExposureConsumptionPackageRequest,
     ExportRegulatoryHandoffPackageRequest,
@@ -469,6 +481,38 @@ def fate_estimate_probabilistic_multimedia_concentrations(
         iterations=request.iterations,
         seed=request.seed,
     )
+
+
+@mcp.tool()
+def fate_screen_erosion_transport_relevance(
+    request: ScreenErosionTransportRelevanceRequest,
+) -> ErosionTransportRelevanceResult:
+    """Screen whether erosion-mediated particle transport is relevant for a release scenario."""
+    return screen_erosion_transport_relevance(request, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_estimate_soil_loss_rusle(
+    request: EstimateSoilLossRusleRequest,
+) -> SoilLossRusleResult:
+    """Estimate scalar RUSLE annual soil loss for bounded erosion screening."""
+    return estimate_soil_loss_rusle(request, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_estimate_event_sediment_yield_musle(
+    request: EstimateEventSedimentYieldMusleRequest,
+) -> EventSedimentYieldMusleResult:
+    """Estimate scalar MUSLE event sediment yield from caller-provided runoff and peak flow."""
+    return estimate_event_sediment_yield_musle(request, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_estimate_sediment_associated_chemical_load(
+    request: EstimateSedimentAssociatedChemicalLoadRequest,
+) -> SedimentAssociatedChemicalLoadResult:
+    """Estimate sediment-associated chemical load from sediment yield and explicit delivery assumptions."""
+    return estimate_sediment_associated_chemical_load(request, RUNTIME.provenance)
 
 
 @mcp.tool()
@@ -1493,6 +1537,55 @@ def prompt_request_external_result_import(
 
 
 @mcp.prompt(
+    name="fate_request_erosion_sediment_transport_screening",
+    title="Request Erosion Sediment Transport Screening",
+    description="Render a bounded workflow for RUSLE/MUSLE erosion-mediated transport screening.",
+)
+def prompt_request_erosion_sediment_transport_screening(
+    screening_goal: str = "erosion-mediated sediment transport screening",
+) -> str:
+    """Build an Environmental Fate MCP prompt for scalar erosion/sediment transport screening."""
+    relevance_payload = {"scenario": "<EnvironmentalReleaseScenario>"}
+    rusle_payload = {
+        "rainfall_erosivity_r": 150.0,
+        "soil_erodibility_k": 0.28,
+        "slope_length_steepness_ls": 1.6,
+        "cover_management_c": 0.12,
+        "support_practice_p": 0.8,
+        "area_ha": 2.5,
+    }
+    musle_payload = {
+        "runoff_volume_m3": 1200.0,
+        "peak_runoff_rate_m3_s": 2.4,
+        "soil_erodibility_k": 0.28,
+        "slope_length_steepness_ls": 1.6,
+        "cover_management_c": 0.12,
+        "support_practice_p": 0.8,
+    }
+    load_payload = {
+        "soil_concentration_mg_kg": 2.5,
+        "sediment_yield_t": "<sediment_yield_t_event>",
+        "sediment_delivery_ratio": 0.35,
+        "particle_bound_availability_fraction": 0.75,
+    }
+    return (
+        f"Prepare Environmental Fate MCP erosion/sediment transport screening for {screening_goal}.\n\n"
+        "Read `defaults://erosion-sediment-method-profiles` first to preserve the governed method boundary.\n\n"
+        "Recommended workflow:\n"
+        "1. Call `fate_screen_erosion_transport_relevance` with:\n"
+        f"```json\n{json.dumps(relevance_payload, indent=2)}\n```\n"
+        "2. Use `fate_estimate_soil_loss_rusle` for annual erosion potential when RUSLE factors are available:\n"
+        f"```json\n{json.dumps(rusle_payload, indent=2)}\n```\n"
+        "3. Use `fate_estimate_event_sediment_yield_musle` for event sediment yield when runoff volume and peak flow are available:\n"
+        f"```json\n{json.dumps(musle_payload, indent=2)}\n```\n"
+        "4. If a sediment-associated chemical handoff is needed, call `fate_estimate_sediment_associated_chemical_load` with:\n"
+        f"```json\n{json.dumps(load_payload, indent=2)}\n```\n\n"
+        "Keep the result framed as bounded scalar screening. Do not present it as a GIS routing, "
+        "WEPP execution, receiving-water concentration, exposure, risk, or regulatory decision."
+    )
+
+
+@mcp.prompt(
     name="fate_request_regulatory_handoff_for_profile",
     title="Request Regulatory Handoff",
     description="Render orchestration guidance and a request skeleton for a governed Environmental Fate MCP handoff profile.",
@@ -1624,6 +1717,11 @@ def defaults_manifest() -> str:
 @mcp.resource("defaults://adapter-unit-conversions")
 def defaults_adapter_unit_conversions() -> str:
     return json.dumps(DEFAULTS.adapter_unit_conversion_manifest(), indent=2)
+
+
+@mcp.resource("defaults://erosion-sediment-method-profiles")
+def defaults_erosion_sediment_method_profiles() -> str:
+    return DEFAULTS.erosion_sediment_method_profile_manifest().model_dump_json(indent=2)
 
 
 @mcp.resource("defaults://temperature-correction-policy")

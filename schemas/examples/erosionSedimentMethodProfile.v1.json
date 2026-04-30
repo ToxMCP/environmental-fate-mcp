@@ -1,0 +1,39 @@
+{
+  "method_id": "rusle",
+  "display_name": "Revised Universal Soil Loss Equation screening estimate",
+  "method_class": "empirical_scalar_screening",
+  "equation_id": "rusle_v1",
+  "equation_text": "A = R * K * LS * C * P",
+  "output_unit": "t/ha/yr",
+  "required_inputs": [
+    "rainfall_erosivity_r",
+    "soil_erodibility_k",
+    "slope_length_steepness_ls",
+    "cover_management_c",
+    "support_practice_p"
+  ],
+  "supported_units": {
+    "annual_soil_loss": "t/ha/yr",
+    "area": "ha",
+    "total_soil_loss": "t/yr"
+  },
+  "source_references": [
+    {
+      "source_id": "usda.nrcs.rusle.efotg",
+      "title": "USDA NRCS Revised Universal Soil Loss Equation guidance",
+      "effective_date": null,
+      "url": "https://efotg.sc.egov.usda.gov/references/public/WA/Revised_Universal_Soil_Loss_Equation_%28RUSLE%29.htm"
+    }
+  ],
+  "limitations": [
+    "Returns long-term average annual soil loss for scalar screening.",
+    "Does not estimate event sediment yield, channel routing, deposition, receiving-water concentration, exposure, or risk."
+  ],
+  "deferred_capabilities": [
+    "batch catchment tables",
+    "GIS/raster RUSLE grids",
+    "sediment delivery routing"
+  ],
+  "source_pack": "defaults/v1/erosion_sediment_method_profiles.json",
+  "applicability_note": "Use RUSLE for erosion susceptibility or gross soil-loss screening when explicit R, K, LS, C, and P factors are available."
+}

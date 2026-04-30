@@ -34,6 +34,9 @@ from fate_mcp.integrations import (
     build_regulatory_handoff_review_packet,
     build_concentration_surface_bundle,
     compare_fate_scenarios,
+    estimate_event_sediment_yield_musle,
+    estimate_sediment_associated_chemical_load,
+    estimate_soil_loss_rusle,
     export_exposure_consumption_package,
     preview_model_family_comparison_review,
     preview_model_family_challenge_review,
@@ -42,6 +45,7 @@ from fate_mcp.integrations import (
     preview_regulatory_handoff_resolution,
     recommend_model_family_selection,
     recommend_regulatory_handoff_profile,
+    screen_erosion_transport_relevance,
 )
 from fate_mcp.models import (
     ApplyPhyschemEvidenceRequest,
@@ -70,7 +74,10 @@ from fate_mcp.models import (
     BuildConcentrationSurfaceBundleRequest,
     BuildEnvironmentalReleaseScenarioRequest,
     CompareFateScenariosRequest,
+    EstimateEventSedimentYieldMusleRequest,
     EstimateProbabilisticMultimediaConcentrationsRequest,
+    EstimateSedimentAssociatedChemicalLoadRequest,
+    EstimateSoilLossRusleRequest,
     ImportExternalResultPayloadRequest,
     ExportConcentrationSurfaceBundleRequest,
     ExportExposureConsumptionPackageRequest,
@@ -85,6 +92,7 @@ from fate_mcp.models import (
     ReleaseFraction,
     ReconcileReleaseEvidenceRequest,
     ReleaseEvidenceInput,
+    ScreenErosionTransportRelevanceRequest,
     SourceReference,
     SourceClassification,
     ModelFamily,
@@ -465,10 +473,47 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         runtime.provenance,
     )
     regulatory_handoff_package = regulatory_handoff_review_packet.package
+    erosion_relevance_request = ScreenErosionTransportRelevanceRequest(scenario=scenario)
+    erosion_relevance_result = screen_erosion_transport_relevance(
+        erosion_relevance_request,
+        runtime.provenance,
+    )
+    rusle_request = EstimateSoilLossRusleRequest(
+        rainfall_erosivity_r=150.0,
+        soil_erodibility_k=0.28,
+        slope_length_steepness_ls=1.6,
+        cover_management_c=0.12,
+        support_practice_p=0.8,
+        area_ha=2.5,
+    )
+    rusle_result = estimate_soil_loss_rusle(rusle_request, runtime.provenance)
+    musle_request = EstimateEventSedimentYieldMusleRequest(
+        runoff_volume_m3=1200.0,
+        peak_runoff_rate_m3_s=2.4,
+        soil_erodibility_k=0.28,
+        slope_length_steepness_ls=1.6,
+        cover_management_c=0.12,
+        support_practice_p=0.8,
+    )
+    musle_result = estimate_event_sediment_yield_musle(musle_request, runtime.provenance)
+    sediment_load_request = EstimateSedimentAssociatedChemicalLoadRequest(
+        soil_concentration_mg_kg=2.5,
+        sediment_yield_t=musle_result.sediment_yield_t_event,
+        sediment_delivery_ratio=0.35,
+        particle_bound_availability_fraction=0.75,
+    )
+    sediment_load_result = estimate_sediment_associated_chemical_load(
+        sediment_load_request,
+        runtime.provenance,
+    )
 
     return {
         "adapterImportManifest.v1": build_adapter_import_manifest(runtime.repo_root).model_dump(mode="json"),
         "adapterUnitConversionRule.v1": runtime.defaults.list_adapter_unit_conversion_rules()[0].model_dump(mode="json"),
+        "erosionSedimentMethodProfile.v1": runtime.defaults.erosion_sediment_method_profile(
+            "rusle"
+        ).model_dump(mode="json"),
+        "erosionSedimentMethodProfileManifest.v1": runtime.defaults.erosion_sediment_method_profile_manifest().model_dump(mode="json"),
         "buildEnvironmentalReleaseScenarioRequest.v1": scenario_request.model_dump(mode="json"),
         "environmentalReleaseScenario.v1": scenario.model_dump(mode="json"),
         "modelFamilyApplicabilityProfile.v1": runtime.defaults.model_family_applicability_profile(
@@ -532,6 +577,14 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
             iterations=12,
             seed=17,
         ).model_dump(mode="json"),
+        "screenErosionTransportRelevanceRequest.v1": erosion_relevance_request.model_dump(mode="json"),
+        "erosionTransportRelevanceResult.v1": erosion_relevance_result.model_dump(mode="json"),
+        "estimateSoilLossRusleRequest.v1": rusle_request.model_dump(mode="json"),
+        "soilLossRusleResult.v1": rusle_result.model_dump(mode="json"),
+        "estimateEventSedimentYieldMusleRequest.v1": musle_request.model_dump(mode="json"),
+        "eventSedimentYieldMusleResult.v1": musle_result.model_dump(mode="json"),
+        "estimateSedimentAssociatedChemicalLoadRequest.v1": sediment_load_request.model_dump(mode="json"),
+        "sedimentAssociatedChemicalLoadResult.v1": sediment_load_result.model_dump(mode="json"),
         "importExternalResultPayloadRequest.v1": ImportExternalResultPayloadRequest(
             scenario=scenario,
             run_options=FateModelRunOptions(

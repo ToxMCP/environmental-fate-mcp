@@ -1,0 +1,54 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "rainfall_erosivity_r": {
+      "minimum": 0.0,
+      "title": "Rainfall Erosivity R",
+      "type": "number"
+    },
+    "soil_erodibility_k": {
+      "minimum": 0.0,
+      "title": "Soil Erodibility K",
+      "type": "number"
+    },
+    "slope_length_steepness_ls": {
+      "minimum": 0.0,
+      "title": "Slope Length Steepness Ls",
+      "type": "number"
+    },
+    "cover_management_c": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Cover Management C",
+      "type": "number"
+    },
+    "support_practice_p": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Support Practice P",
+      "type": "number"
+    },
+    "area_ha": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Area Ha"
+    }
+  },
+  "required": [
+    "rainfall_erosivity_r",
+    "soil_erodibility_k",
+    "slope_length_steepness_ls",
+    "cover_management_c",
+    "support_practice_p"
+  ],
+  "title": "EstimateSoilLossRusleRequest",
+  "type": "object"
+}

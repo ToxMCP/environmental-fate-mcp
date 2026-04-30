@@ -1,0 +1,193 @@
+{
+  "schema_version": "v1",
+  "defaults_version": "v1",
+  "profile_count": 5,
+  "profiles": [
+    {
+      "method_id": "erosion_transport_relevance",
+      "display_name": "Erosion-mediated transport relevance screen",
+      "method_class": "screening_classification",
+      "equation_id": null,
+      "equation_text": null,
+      "output_unit": "categorical",
+      "required_inputs": [
+        "EnvironmentalReleaseScenario.chemical_identity.substance_class",
+        "EnvironmentalReleaseScenario.parameter_records[koc/log_kow]"
+      ],
+      "supported_units": {
+        "koc": "L/kg",
+        "log_kow": "log10"
+      },
+      "source_references": [
+        {
+          "source_id": "usda.nrcs.rusle.efotg",
+          "title": "USDA NRCS Revised Universal Soil Loss Equation guidance",
+          "effective_date": null,
+          "url": "https://efotg.sc.egov.usda.gov/references/public/WA/Revised_Universal_Soil_Loss_Equation_%28RUSLE%29.htm"
+        },
+        {
+          "source_id": "usace.hec_hms.musle",
+          "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+          "effective_date": null,
+          "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+        }
+      ],
+      "limitations": [
+        "Screens whether erosion-mediated particle transport is plausible; it does not estimate concentration, dose, risk, or regulatory acceptability.",
+        "Classification depends on user-supplied physicochemical evidence and coarse substance-class cues."
+      ],
+      "deferred_capabilities": [
+        "site-calibrated suspended-particle partitioning",
+        "spatially explicit erosion routing"
+      ],
+      "source_pack": "defaults/v1/erosion_sediment_method_profiles.json",
+      "applicability_note": "Use before RUSLE/MUSLE when deciding whether sediment-associated transport is relevant for a soil release scenario."
+    },
+    {
+      "method_id": "musle",
+      "display_name": "Modified Universal Soil Loss Equation event sediment-yield estimate",
+      "method_class": "empirical_event_screening",
+      "equation_id": "musle_metric_v1",
+      "equation_text": "Sed = 11.8 * (Qsurf * qpeak)^0.56 * K * LS * C * P",
+      "output_unit": "t/event",
+      "required_inputs": [
+        "runoff_volume_m3",
+        "peak_runoff_rate_m3_s",
+        "soil_erodibility_k",
+        "slope_length_steepness_ls",
+        "cover_management_c",
+        "support_practice_p"
+      ],
+      "supported_units": {
+        "runoff_volume": "m3",
+        "peak_runoff_rate": "m3/s",
+        "sediment_yield": "t/event"
+      },
+      "source_references": [
+        {
+          "source_id": "usace.hec_hms.musle",
+          "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+          "effective_date": null,
+          "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+        }
+      ],
+      "limitations": [
+        "Requires caller-provided runoff volume and peak runoff rate.",
+        "Does not compute rainfall-runoff generation, hydrologic routing, calibration, receiving-water dilution, exposure, or risk."
+      ],
+      "deferred_capabilities": [
+        "Curve Number helper",
+        "hydrology-model adapter",
+        "batch event screening"
+      ],
+      "source_pack": "defaults/v1/erosion_sediment_method_profiles.json",
+      "applicability_note": "Use MUSLE when event runoff and peak-flow information are already available and a scalar sediment-yield screen is needed."
+    },
+    {
+      "method_id": "rusle",
+      "display_name": "Revised Universal Soil Loss Equation screening estimate",
+      "method_class": "empirical_scalar_screening",
+      "equation_id": "rusle_v1",
+      "equation_text": "A = R * K * LS * C * P",
+      "output_unit": "t/ha/yr",
+      "required_inputs": [
+        "rainfall_erosivity_r",
+        "soil_erodibility_k",
+        "slope_length_steepness_ls",
+        "cover_management_c",
+        "support_practice_p"
+      ],
+      "supported_units": {
+        "annual_soil_loss": "t/ha/yr",
+        "area": "ha",
+        "total_soil_loss": "t/yr"
+      },
+      "source_references": [
+        {
+          "source_id": "usda.nrcs.rusle.efotg",
+          "title": "USDA NRCS Revised Universal Soil Loss Equation guidance",
+          "effective_date": null,
+          "url": "https://efotg.sc.egov.usda.gov/references/public/WA/Revised_Universal_Soil_Loss_Equation_%28RUSLE%29.htm"
+        }
+      ],
+      "limitations": [
+        "Returns long-term average annual soil loss for scalar screening.",
+        "Does not estimate event sediment yield, channel routing, deposition, receiving-water concentration, exposure, or risk."
+      ],
+      "deferred_capabilities": [
+        "batch catchment tables",
+        "GIS/raster RUSLE grids",
+        "sediment delivery routing"
+      ],
+      "source_pack": "defaults/v1/erosion_sediment_method_profiles.json",
+      "applicability_note": "Use RUSLE for erosion susceptibility or gross soil-loss screening when explicit R, K, LS, C, and P factors are available."
+    },
+    {
+      "method_id": "sediment_associated_chemical_load",
+      "display_name": "Sediment-associated chemical load screening bridge",
+      "method_class": "screening_handoff_calculation",
+      "equation_id": "sediment_associated_chemical_load_screening_v1",
+      "equation_text": "load_kg = soil_concentration_mg_kg * sediment_yield_t * 0.001 * sediment_delivery_ratio * particle_bound_availability_fraction",
+      "output_unit": "kg",
+      "required_inputs": [
+        "soil_concentration_mg_kg",
+        "sediment_yield_t",
+        "sediment_delivery_ratio",
+        "particle_bound_availability_fraction"
+      ],
+      "supported_units": {
+        "soil_concentration": "mg/kg",
+        "sediment_yield": "t",
+        "sediment_associated_load": "kg"
+      },
+      "source_references": [
+        {
+          "source_id": "usace.hec_hms.musle",
+          "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+          "effective_date": null,
+          "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+        }
+      ],
+      "limitations": [
+        "Uses explicit caller-provided delivery and availability fractions.",
+        "Returns load only; it does not estimate receiving-water concentration, dose, exposure, risk, or regulatory acceptability."
+      ],
+      "deferred_capabilities": [
+        "receiving-water concentration translation",
+        "bioavailability model coupling",
+        "time-distributed sediment loading"
+      ],
+      "source_pack": "defaults/v1/erosion_sediment_method_profiles.json",
+      "applicability_note": "Use after MUSLE or another sediment-yield estimate when a bounded sediment-associated chemical-load handoff is needed."
+    },
+    {
+      "method_id": "wepp_deferred_adapter",
+      "display_name": "WEPP deferred external adapter scope",
+      "method_class": "deferred_external_adapter",
+      "equation_id": null,
+      "equation_text": null,
+      "output_unit": null,
+      "required_inputs": [],
+      "supported_units": {},
+      "source_references": [
+        {
+          "source_id": "usda.nrcs.wepp",
+          "title": "USDA NRCS Water Erosion Prediction Project",
+          "effective_date": null,
+          "url": "https://www.nrcs.usda.gov/resources/tech-tools/water-erosion-prediction-project"
+        }
+      ],
+      "limitations": [
+        "WEPP is not executed, reimplemented, or claimed equivalent inside this update.",
+        "Future support should validate, run or ingest externally generated WEPP scenarios/results, then normalize outputs into bounded MCP contracts with provenance."
+      ],
+      "deferred_capabilities": [
+        "prepare WEPP scenario",
+        "run WEPP when an operator-managed executable or service is configured",
+        "import WEPP output with version, parameter, and limitation provenance"
+      ],
+      "source_pack": "defaults/v1/erosion_sediment_method_profiles.json",
+      "applicability_note": "Treat WEPP as a future external-model adapter path for process-based hillslope or small-watershed erosion simulation."
+    }
+  ]
+}

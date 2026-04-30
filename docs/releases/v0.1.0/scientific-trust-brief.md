@@ -12,7 +12,7 @@ Overall trust posture: bounded screening only, not regulator acceptance, submiss
 - Mandatory claim corroboration: `29` mandatory claims; `28` are `multi_official_multi_jurisdiction`.
 - Reviewer-grade reference anchor bar: `10/10` mandatory reference claims pass.
 - Worksheet pack readiness: `10/10` claim-linked worksheet artifacts are ready.
-- Red-team blocker state: `0` open blockers, `0` unresolved findings, and `16` accepted public limitations.
+- Red-team blocker state: `0` open blockers, `0` unresolved findings, and `17` accepted public limitations.
 
 ## Reviewer Signals
 - `reference_mass_balance` remains the decision-facing baseline family.
@@ -25,10 +25,10 @@ Overall trust posture: bounded screening only, not regulator acceptance, submiss
 
 ## Residual Caveats
 - No GIS-scale dispersion in v0.1.
+- No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.1.
 - No direct human dose calculation in Environmental Fate MCP.
 - No dietary intake workflows in Environmental Fate MCP.
 - No PBPK execution in Environmental Fate MCP.
-- Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in v0.1.
 
 ## Next Review Step
 - Start with this brief, then open `release://reference-corroboration-report`, `release://reference-worksheet-manifest`, and `docs://scientific-trust-pack` if you need the complete reviewer-grade trust surface.

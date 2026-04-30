@@ -1,5 +1,5 @@
 {
-  "acceptedLimitationCount": 16,
+  "acceptedLimitationCount": 17,
   "blockingSignals": {
     "defaultsEvidenceGovernancePassed": true,
     "externalCorroborationGovernancePassed": true
@@ -81,22 +81,28 @@
       "findingId": "accepted-limitation-13",
       "resolution": "accepted limitation with public wording",
       "severity": "accepted_limitation",
-      "summary": "No direct human dose calculation in Environmental Fate MCP."
+      "summary": "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.1."
     },
     {
       "findingId": "accepted-limitation-14",
       "resolution": "accepted limitation with public wording",
       "severity": "accepted_limitation",
-      "summary": "No dietary intake workflows in Environmental Fate MCP."
+      "summary": "No direct human dose calculation in Environmental Fate MCP."
     },
     {
       "findingId": "accepted-limitation-15",
       "resolution": "accepted limitation with public wording",
       "severity": "accepted_limitation",
-      "summary": "No PBPK execution in Environmental Fate MCP."
+      "summary": "No dietary intake workflows in Environmental Fate MCP."
     },
     {
       "findingId": "accepted-limitation-16",
+      "resolution": "accepted limitation with public wording",
+      "severity": "accepted_limitation",
+      "summary": "No PBPK execution in Environmental Fate MCP."
+    },
+    {
+      "findingId": "accepted-limitation-17",
       "resolution": "accepted limitation with public wording",
       "severity": "accepted_limitation",
       "summary": "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in v0.1."

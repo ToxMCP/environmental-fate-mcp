@@ -12,6 +12,11 @@
       "defaultsVersion": "v1"
     },
     {
+      "path": "defaults/v1/erosion_sediment_method_profiles.json",
+      "sha256": "1389b38c73a1507cfc05030f4104fdace43e69b51ca7b05d16063703880d9615",
+      "defaultsVersion": "v1"
+    },
+    {
       "path": "defaults/v1/model_family_applicability_profiles.json",
       "sha256": "fbcd03bc5e8850b00edfbbee4b297a835a97a3f985326612abb0d1daf201003a",
       "defaultsVersion": "v1"

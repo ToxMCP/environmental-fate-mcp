@@ -1,0 +1,141 @@
+{
+  "schema_version": "v1",
+  "method_id": "rusle",
+  "annual_soil_loss_t_ha_yr": 6.451200000000002,
+  "total_soil_loss_t_yr": 16.128000000000004,
+  "calculation_trace": {
+    "equation_id": "rusle_v1",
+    "equation_text": "A = R * K * LS * C * P",
+    "resolved_terms": [
+      {
+        "name": "rainfall_erosivity_r",
+        "value": 150.0,
+        "unit": null
+      },
+      {
+        "name": "soil_erodibility_k",
+        "value": 0.28,
+        "unit": null
+      },
+      {
+        "name": "slope_length_steepness_ls",
+        "value": 1.6,
+        "unit": null
+      },
+      {
+        "name": "cover_management_c",
+        "value": 0.12,
+        "unit": null
+      },
+      {
+        "name": "support_practice_p",
+        "value": 0.8,
+        "unit": null
+      },
+      {
+        "name": "annual_soil_loss",
+        "value": 6.451200000000002,
+        "unit": "t/ha/yr"
+      },
+      {
+        "name": "area_ha",
+        "value": 2.5,
+        "unit": "ha"
+      },
+      {
+        "name": "total_soil_loss",
+        "value": 16.128000000000004,
+        "unit": "t/yr"
+      }
+    ],
+    "notes": [
+      "A is a long-term average annual soil-loss screening estimate.",
+      "Optional total soil loss multiplies A by area_ha when area_ha is supplied."
+    ]
+  },
+  "assumptions": [
+    {
+      "parameter": "rainfall_erosivity_r",
+      "value": 150.0,
+      "unit": "R factor",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided RUSLE rainfall erosivity factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "soil_erodibility_k",
+      "value": 0.28,
+      "unit": "K factor",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided RUSLE soil erodibility factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "slope_length_steepness_ls",
+      "value": 1.6,
+      "unit": "dimensionless",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided RUSLE topographic factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "cover_management_c",
+      "value": 0.12,
+      "unit": "dimensionless",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided RUSLE cover-management factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "support_practice_p",
+      "value": 0.8,
+      "unit": "dimensionless",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided RUSLE support-practice factor.",
+      "source_reference": null,
+      "quality_flags": []
+    },
+    {
+      "parameter": "area_ha",
+      "value": 2.5,
+      "unit": "ha",
+      "source_classification": "user_input",
+      "rationale": "Caller-provided area used to convert RUSLE rate to annual total soil loss.",
+      "source_reference": null,
+      "quality_flags": []
+    }
+  ],
+  "provenance": {
+    "schema_version": "v1",
+    "defaults_version": "v1",
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
+    "source_references": [
+      {
+        "source_id": "usda.nrcs.rusle.efotg",
+        "title": "USDA NRCS Revised Universal Soil Loss Equation guidance",
+        "effective_date": null,
+        "url": "https://efotg.sc.egov.usda.gov/references/public/WA/Revised_Universal_Soil_Loss_Equation_%28RUSLE%29.htm"
+      }
+    ]
+  },
+  "quality_flags": [],
+  "limitations": [
+    {
+      "code": "erosion_sediment_screening_only",
+      "message": "This result is a scalar screening estimate for erosion-mediated transport; it is not a calibrated watershed, GIS, hydrodynamic, exposure, risk, or regulatory decision model."
+    },
+    {
+      "code": "no_explicit_spatial_routing",
+      "message": "The v1 erosion/sediment tools do not simulate hillslope routing, channel transport, deposition fields, rainfall-runoff generation, or receiving-water dilution."
+    }
+  ],
+  "handoff_notes": [
+    "Use this as an erosion potential or gross soil-loss screen, not as delivered sediment to surface water.",
+    "Use MUSLE or an external hydrology/sediment model when event sediment yield is needed."
+  ]
+}

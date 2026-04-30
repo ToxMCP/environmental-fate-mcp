@@ -30,11 +30,11 @@
     },
     {
       "path": "known-gap-report.json",
-      "sha256": "b05ba91cf7068d524c7aa8ad1af7e9ceff126dc6522cc3141f020d0721cd4e6c"
+      "sha256": "822c8b9bf8a661aa3bbb0319757d1484bd9f0a9edb37b2c18890ba22efc0ae35"
     },
     {
       "path": "metadata-report.json",
-      "sha256": "aa2e581b6f6d1050a1b56e0ee8997f1132029507a65f9ebd6100818c70ddcd94"
+      "sha256": "37b4d6fc478c6008c4217f91357a777dd1003625a1e514fe77c86c0c9dd2afd1"
     },
     {
       "path": "readiness-report.json",
@@ -42,7 +42,7 @@
     },
     {
       "path": "red-team-review-report.json",
-      "sha256": "970e928c01ec5164ebfaa042b5c448aec633e4a8f7803e12a654f1e7437ed530"
+      "sha256": "48a827ba6325c398001ce96e8afd1a296ffdbb94de87f63d5937b01fa5d352d6"
     },
     {
       "path": "reference-corroboration-report.json",
@@ -138,7 +138,7 @@
     },
     {
       "path": "release-notes.md",
-      "sha256": "b6c9081b743f76ac42200fcf83637eb3f535c1d14f608e2f97670f9dcc583eee"
+      "sha256": "433109058128a7a9f0646d6d95b369f7f33f58ce85c8e14c4faf7178e45fdd45"
     },
     {
       "path": "scientific-claim-coverage-report.json",
@@ -146,11 +146,11 @@
     },
     {
       "path": "scientific-trust-brief.md",
-      "sha256": "5cfbf1423f47dd45f3915b8b12c305ab5487ba78143a53c6c2ca27d78111a7a9"
+      "sha256": "6c430821fb608ed741c5c05d71bbe570db0a4ed9e83c357d4c8264a9f7344efb"
     },
     {
       "path": "scientific-trust-pack.md",
-      "sha256": "4c459ab61a7a207646b0bf681904a3e135680bff5166c10d2adb004cbbf03fa0"
+      "sha256": "12af0762fe849db3650b649a7071bbb5e43345a859e7734783cb1925112ec471"
     },
     {
       "path": "security-provenance-review-report.json",
@@ -158,7 +158,7 @@
     },
     {
       "path": "validation-dossier.json",
-      "sha256": "c683bf8b4977f7063a65644e5a49dbd5fe52900ba597c720132c62203a2655ea"
+      "sha256": "5426766b9ffb7e1781d9b736ac33847fdb288b750df0d3b4f2d4192d8a5b9547"
     }
   ],
   "releaseRef": "v0.1.0",

@@ -107,6 +107,13 @@ class FitForPurpose(str, Enum):
     BENCHMARK = "benchmark"
 
 
+class ErosionTransportRelevanceLevel(str, Enum):
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+    UNKNOWN = "unknown"
+
+
 class SourceClassification(str, Enum):
     USER_INPUT = "user_input"
     CURATED_DEFAULT = "curated_default"
@@ -186,6 +193,29 @@ class ModelFamilyApplicabilityProfile(FateBaseModel):
     )
     source_pack: str
     applicability_note: str | None = None
+
+
+class ErosionSedimentMethodProfile(FateBaseModel):
+    method_id: str
+    display_name: str
+    method_class: str
+    equation_id: str | None = None
+    equation_text: str | None = None
+    output_unit: str | None = None
+    required_inputs: list[str] = Field(default_factory=list)
+    supported_units: dict[str, str] = Field(default_factory=dict)
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    deferred_capabilities: list[str] = Field(default_factory=list)
+    source_pack: str
+    applicability_note: str | None = None
+
+
+class ErosionSedimentMethodProfileManifest(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    profile_count: int
+    profiles: list[ErosionSedimentMethodProfile]
 
 
 class ScientificValidationClaimPriority(str, Enum):
@@ -2072,6 +2102,137 @@ class BuildConcentrationSurfaceBundleRequest(FateBaseModel):
 class CompareFateScenariosRequest(FateBaseModel):
     base_result: ConcentrationEstimationResult
     candidate_result: ConcentrationEstimationResult
+
+
+class ScreenErosionTransportRelevanceRequest(FateBaseModel):
+    scenario: EnvironmentalReleaseScenario
+
+
+class ErosionTransportRelevanceResult(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    scenario_id: str
+    relevance_level: ErosionTransportRelevanceLevel
+    particle_bound_transport_plausible: bool | None = None
+    driver_lines: list[str] = Field(default_factory=list)
+    recommended_next_steps: list[str] = Field(default_factory=list)
+    provenance: ProvenanceBundle
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
+
+
+class EstimateSoilLossRusleRequest(FateBaseModel):
+    rainfall_erosivity_r: float = Field(ge=0.0)
+    soil_erodibility_k: float = Field(ge=0.0)
+    slope_length_steepness_ls: float = Field(ge=0.0)
+    cover_management_c: float = Field(ge=0.0, le=1.0)
+    support_practice_p: float = Field(ge=0.0, le=1.0)
+    area_ha: float | None = Field(default=None, ge=0.0)
+
+    @field_validator(
+        "rainfall_erosivity_r",
+        "soil_erodibility_k",
+        "slope_length_steepness_ls",
+        "cover_management_c",
+        "support_practice_p",
+        "area_ha",
+    )
+    @classmethod
+    def validate_finite_non_negative(cls, value: float | None, info) -> float | None:
+        if value is None:
+            return value
+        return _ensure_finite_non_negative(value, info.field_name)
+
+
+class SoilLossRusleResult(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    method_id: str = Field(default="rusle")
+    annual_soil_loss_t_ha_yr: float = Field(ge=0.0)
+    total_soil_loss_t_yr: float | None = Field(default=None, ge=0.0)
+    calculation_trace: CalculationTrace
+    assumptions: list[FateAssumptionRecord]
+    provenance: ProvenanceBundle
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
+    handoff_notes: list[str] = Field(default_factory=list)
+
+    @field_validator("annual_soil_loss_t_ha_yr", "total_soil_loss_t_yr")
+    @classmethod
+    def validate_output_finite_non_negative(cls, value: float | None, info) -> float | None:
+        if value is None:
+            return value
+        return _ensure_finite_non_negative(value, info.field_name)
+
+
+class EstimateEventSedimentYieldMusleRequest(FateBaseModel):
+    runoff_volume_m3: float = Field(ge=0.0)
+    peak_runoff_rate_m3_s: float = Field(ge=0.0)
+    soil_erodibility_k: float = Field(ge=0.0)
+    slope_length_steepness_ls: float = Field(ge=0.0)
+    cover_management_c: float = Field(ge=0.0, le=1.0)
+    support_practice_p: float = Field(ge=0.0, le=1.0)
+
+    @field_validator(
+        "runoff_volume_m3",
+        "peak_runoff_rate_m3_s",
+        "soil_erodibility_k",
+        "slope_length_steepness_ls",
+        "cover_management_c",
+        "support_practice_p",
+    )
+    @classmethod
+    def validate_finite_non_negative(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
+
+
+class EventSedimentYieldMusleResult(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    method_id: str = Field(default="musle")
+    sediment_yield_t_event: float = Field(ge=0.0)
+    calculation_trace: CalculationTrace
+    assumptions: list[FateAssumptionRecord]
+    provenance: ProvenanceBundle
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
+    handoff_notes: list[str] = Field(default_factory=list)
+
+    @field_validator("sediment_yield_t_event")
+    @classmethod
+    def validate_output_finite_non_negative(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
+
+
+class EstimateSedimentAssociatedChemicalLoadRequest(FateBaseModel):
+    soil_concentration_mg_kg: float = Field(ge=0.0)
+    sediment_yield_t: float = Field(ge=0.0)
+    sediment_delivery_ratio: float = Field(ge=0.0, le=1.0)
+    particle_bound_availability_fraction: float = Field(ge=0.0, le=1.0)
+
+    @field_validator(
+        "soil_concentration_mg_kg",
+        "sediment_yield_t",
+        "sediment_delivery_ratio",
+        "particle_bound_availability_fraction",
+    )
+    @classmethod
+    def validate_finite_non_negative(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
+
+
+class SedimentAssociatedChemicalLoadResult(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    method_id: str = Field(default="sediment_associated_chemical_load_screening")
+    sediment_associated_load_kg: float = Field(ge=0.0)
+    calculation_trace: CalculationTrace
+    assumptions: list[FateAssumptionRecord]
+    provenance: ProvenanceBundle
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
+    handoff_notes: list[str] = Field(default_factory=list)
+
+    @field_validator("sediment_associated_load_kg")
+    @classmethod
+    def validate_output_finite_non_negative(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
 
 
 class PhyschemEvidenceRecord(FateBaseModel):
