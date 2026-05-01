@@ -17,6 +17,11 @@
       "defaultsVersion": "v1"
     },
     {
+      "path": "defaults/v1/erosion_sediment_validation_demo_pack.json",
+      "sha256": "497eb6b9b56624df559bb4786bd14d129aaaca9be825bce9fda243f240e9805a",
+      "defaultsVersion": "v1"
+    },
+    {
       "path": "defaults/v1/erosion_sediment_validation_profiles.json",
       "sha256": "ff2bd66215760e78c15025812f08a92e912189b4362ada3774428cff3f9829b2",
       "defaultsVersion": "v1"

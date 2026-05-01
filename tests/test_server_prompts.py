@@ -7,6 +7,7 @@ import pytest
 from fate_mcp.server import (
     create_server,
     defaults_erosion_sediment_method_profiles,
+    defaults_erosion_sediment_validation_demo_pack,
     defaults_erosion_sediment_validation_profiles,
     docs_manifest_resource,
     docs_resource,
@@ -176,6 +177,7 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "release://reference-worksheet-manifest" in release_trust_text
         assert "release://advective-promotion-bar-report" in release_trust_text
         assert "release://external-corroboration-report" in release_trust_text
+        assert "release://erosion-sediment-validation-demo-report" in release_trust_text
         assert "release://red-team-review-report" in release_trust_text
         assert "release://readiness-report" in release_trust_text
         assert "release://resource-manifest" in release_trust_text
@@ -325,7 +327,13 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         metadata = json.loads(contents[0].content)
         assert metadata["toolCount"] == 56
         assert metadata["promptCount"] == 21
-        assert metadata["resourceCount"] == 26
+        assert metadata["resourceCount"] == 27
+        demo_contents = await server.read_resource(
+            "release://erosion-sediment-validation-demo-report"
+        )
+        demo_report = json.loads(demo_contents[0].content)
+        assert demo_report["passed"] is True
+        assert demo_report["demoCaseCount"] == 4
 
     asyncio.run(_run())
 
@@ -353,6 +361,8 @@ def test_new_docs_resources_are_available() -> None:
     assert "normalized external payload import" in external_contract
     agent_evals = docs_resource("agent-evaluations")
     assert "read-only evaluation pack" in agent_evals
+    public_release = docs_resource("public-release-guide")
+    assert "Public Release Guide" in public_release
     defaults_evidence = docs_resource("defaults-evidence-map")
     assert "Defaults Evidence Map" in defaults_evidence
     quick_start = docs_resource("regulatory-quick-start")
@@ -379,6 +389,7 @@ def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     assert "scientific-trust-pack" in doc_names
     assert "reference-proof-brief" in doc_names
     assert "advective-promotion-brief" in doc_names
+    assert "public-release-guide" in doc_names
 
     release_manifest = json.loads(release_resource_manifest())
     release_names = {item["name"] for item in release_manifest["resources"]}
@@ -387,6 +398,7 @@ def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     assert "reference-corroboration-report" in release_names
     assert "reference-worksheet-manifest" in release_names
     assert "advective-promotion-bar-report" in release_names
+    assert "erosion-sediment-validation-demo-report" in release_names
     assert "red-team-review-report" in release_names
     assert "scientific-trust-brief" in release_names
     assert "scientific-trust-pack" in release_names
@@ -417,6 +429,19 @@ def test_erosion_sediment_validation_profiles_resource() -> None:
     profile = manifest["profiles"][0]
     assert profile["profile_id"] == "erosion_sediment_screening_validation_v1"
     assert "event_sediment_yield_t" in profile["supported_quantities"]
+
+
+def test_erosion_sediment_validation_demo_pack_resource() -> None:
+    manifest = json.loads(defaults_erosion_sediment_validation_demo_pack())
+    assert manifest["demo_case_count"] == 4
+    assert {case["demo_case_id"] for case in manifest["demo_cases"]} == {
+        "perfect_fit",
+        "screening_plausible",
+        "weak_fit",
+        "insufficient_evidence",
+    }
+    assert "synthetic" in " ".join(manifest["limitations"]).lower()
+    assert "not field validation" in " ".join(manifest["limitations"]).lower()
 
 
 def test_create_server_does_not_mutate_generated_examples() -> None:

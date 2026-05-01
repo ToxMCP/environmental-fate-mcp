@@ -559,6 +559,8 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
             "erosion_sediment_screening_validation_v1"
         ).model_dump(mode="json"),
         "erosionSedimentValidationProfileManifest.v1": runtime.defaults.erosion_sediment_validation_profile_manifest().model_dump(mode="json"),
+        "erosionSedimentValidationDemoCase.v1": runtime.defaults.erosion_sediment_validation_demo_pack_manifest().demo_cases[0].model_dump(mode="json"),
+        "erosionSedimentValidationDemoPackManifest.v1": runtime.defaults.erosion_sediment_validation_demo_pack_manifest().model_dump(mode="json"),
         "buildEnvironmentalReleaseScenarioRequest.v1": scenario_request.model_dump(mode="json"),
         "environmentalReleaseScenario.v1": scenario.model_dump(mode="json"),
         "modelFamilyApplicabilityProfile.v1": runtime.defaults.model_family_applicability_profile(

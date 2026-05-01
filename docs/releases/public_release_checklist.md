@@ -11,6 +11,7 @@ This checklist is the public-facing companion to the deeper release-readiness ru
 - [ ] `CODEOWNERS` reflects the actual current maintainer or team ownership
 - [ ] issue templates and PR template still match the actual release process
 - [ ] public docs do not overclaim beyond the declared screening boundary
+- [ ] validation demo-pack wording remains synthetic screening QA only, not field validation or calibration evidence
 
 ## Build and Validation
 
@@ -18,10 +19,15 @@ This checklist is the public-facing companion to the deeper release-readiness ru
 - [ ] `uv run fate-mcp-generate-artifacts`
 - [ ] `uv run fate-mcp-build-release-bundle`
 - [ ] generated artifacts are deterministic across reruns
-- [ ] `uv run pytest`
+- [ ] `uv run --extra dev ruff check .`
+- [ ] `uv run --extra dev pytest`
 - [ ] `uv run environmental-fate-mcp-validate`
 - [ ] `uv run python -c "from fate_mcp.server import create_server; create_server()"`
+- [ ] `uv build`
+- [ ] install the built wheel into a fresh Python 3.12 environment and verify server startup, counts, annotations, output schemas, packaged resources, and validation demo-pack loading
 - [ ] generated schemas, examples, and defaults manifests are committed and up to date
+- [ ] release bundle reports are committed and expose the current version directory
+- [ ] package-data mirror changes match repo-root artifacts and were not hand-edited
 
 ## Scientific and Regulatory Trust
 
@@ -30,6 +36,7 @@ This checklist is the public-facing companion to the deeper release-readiness ru
 - [ ] benchmark and claim coverage remain current
 - [ ] downstream handoff packages remain integrity-protected and disclaimer-bearing
 - [ ] release notes do not imply final regulatory decision-engine status
+- [ ] `release://erosion-sediment-validation-demo-report` passes and remains clearly synthetic
 
 ## Public Release Packaging
 

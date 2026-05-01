@@ -1,0 +1,108 @@
+{
+  "demo_case_id": "perfect_fit",
+  "display_name": "Synthetic perfect-fit screening QA demo",
+  "expected_classification": "good_screening_fit",
+  "observed_records": [
+    {
+      "record_id": "perfect-001",
+      "quantity": "event_sediment_yield_t",
+      "observed_value": 10.0,
+      "unit": "t/event",
+      "context_label": "synthetic perfect fit",
+      "source_reference": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-002",
+      "quantity": "event_sediment_yield_t",
+      "observed_value": 20.0,
+      "unit": "t/event",
+      "context_label": "synthetic perfect fit",
+      "source_reference": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-003",
+      "quantity": "event_sediment_yield_t",
+      "observed_value": 30.0,
+      "unit": "t/event",
+      "context_label": "synthetic perfect fit",
+      "source_reference": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-004",
+      "quantity": "event_sediment_yield_t",
+      "observed_value": 40.0,
+      "unit": "t/event",
+      "context_label": "synthetic perfect fit",
+      "source_reference": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-005",
+      "quantity": "event_sediment_yield_t",
+      "observed_value": 50.0,
+      "unit": "t/event",
+      "context_label": "synthetic perfect fit",
+      "source_reference": null,
+      "notes": []
+    }
+  ],
+  "predicted_records": [
+    {
+      "record_id": "perfect-001",
+      "quantity": "event_sediment_yield_t",
+      "predicted_value": 10.0,
+      "unit": "t/event",
+      "method_id": "synthetic_demo",
+      "source_result_id": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-002",
+      "quantity": "event_sediment_yield_t",
+      "predicted_value": 20.0,
+      "unit": "t/event",
+      "method_id": "synthetic_demo",
+      "source_result_id": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-003",
+      "quantity": "event_sediment_yield_t",
+      "predicted_value": 30.0,
+      "unit": "t/event",
+      "method_id": "synthetic_demo",
+      "source_result_id": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-004",
+      "quantity": "event_sediment_yield_t",
+      "predicted_value": 40.0,
+      "unit": "t/event",
+      "method_id": "synthetic_demo",
+      "source_result_id": null,
+      "notes": []
+    },
+    {
+      "record_id": "perfect-005",
+      "quantity": "event_sediment_yield_t",
+      "predicted_value": 50.0,
+      "unit": "t/event",
+      "method_id": "synthetic_demo",
+      "source_result_id": null,
+      "notes": []
+    }
+  ],
+  "validation_profile_id": "erosion_sediment_screening_validation_v1",
+  "synthetic_demo": true,
+  "interpretation_lines": [
+    "Demonstrates a five-record scalar event sediment-yield case that satisfies the governed good-screening-fit threshold.",
+    "Use as a deterministic wiring and interpretation example, not as empirical proof of MUSLE or RUSLE adequacy."
+  ],
+  "limitations": [
+    "Synthetic demonstration only; no field data or calibration are represented."
+  ]
+}

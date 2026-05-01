@@ -1,0 +1,171 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "71579003e270199e6e58028c63c5d45c3b0bf6fe3751f9af7c2ece991983954d"
+    },
+    {
+      "path": "adapter-validation-report.json",
+      "sha256": "8272610945048bfb07baecb08f574d20eb59a7114a1a5e4a0c23ffcf0506665d"
+    },
+    {
+      "path": "advective-promotion-bar-report.json",
+      "sha256": "2233c6ecb3c23d14ba79ebae86d2b3bf8d53ade61ba98ce995803ffc9a07d1a6"
+    },
+    {
+      "path": "advective-promotion-brief.md",
+      "sha256": "f15d1c440b78af81628f866ef19412a369f8f87452b6aa724a8f85517a53383a"
+    },
+    {
+      "path": "benchmark-manifest.json",
+      "sha256": "89fe0baaf21c77be37acbd091f3514d55ebe57cca200f056c51eb873b619d083"
+    },
+    {
+      "path": "defaults-rebaseline-report.json",
+      "sha256": "edf50b7ac121816a808da6d13cd7c2afe815671c782b018549e67b2a58463968"
+    },
+    {
+      "path": "erosion-sediment-validation-demo-report.json",
+      "sha256": "d44b0b65fef8b7487059311e7fc4b8b7ccf56e896ea8a93604d04e8725fb32d5"
+    },
+    {
+      "path": "external-corroboration-report.json",
+      "sha256": "2331f6cf6936f1e9bf0bab557def3247654f2dcb340ba16669d77dd5488ae12f"
+    },
+    {
+      "path": "known-gap-report.json",
+      "sha256": "1a2ecbc38ec1cd646021d015b3de0a9a0c626311ff60389cb6157b8db970760c"
+    },
+    {
+      "path": "metadata-report.json",
+      "sha256": "931cf3a3f890e217a1b359474255f6710955c23368638e83c1f974486fc3c1ff"
+    },
+    {
+      "path": "readiness-report.json",
+      "sha256": "e889896ece9ca1614491eca06a60cf1de1af27660203496f3dc12380bc978a7d"
+    },
+    {
+      "path": "red-team-review-report.json",
+      "sha256": "11dc1fe99b900a39f9aed7531d13821e65af4dbb68e790ada23f429d6866af5c"
+    },
+    {
+      "path": "reference-corroboration-report.json",
+      "sha256": "7d74e34466bc0254b5ccd77d036f2625025fff5156f852922d5b37a9274c6d22"
+    },
+    {
+      "path": "reference-proof-brief.md",
+      "sha256": "e6bd293f3e115646ce7adea120ea62fb7fa95b13657ed202fbfe075311104b0d"
+    },
+    {
+      "path": "reference-worksheet-manifest.json",
+      "sha256": "95570578e88d3d40220ebced00cd1f7958a148e4699ea79c3423fea25aa3b091"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "49b81fbc216f80d14972e8a1fe26a620baf95d62ca464b9776235c3f84dd6934"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "dce6e8c1480fe06d2b9e5123b8468e8fb49fd9b7535bce94e2d348cbbc2b1ec3"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.expected-outputs.json",
+      "sha256": "b522a4572a0d947894d3af3ec363b18569c8d973c2967c4549656bd7e9fb0d36"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.worksheet.json",
+      "sha256": "05ee5b2bc1124905da8a84b552d33dc750f9db113e1ec45b013a7ba9c0876958"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.expected-outputs.json",
+      "sha256": "16bb0c052e1d9374a53f7d5864f5da8e94ff05ec235eefc5c97328611a535669"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.worksheet.json",
+      "sha256": "f74ef3c171417608ffb87834f2506dfffb42b6a8f6d2eb1b1f54a0fdf37ae48d"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_multi_medium_partition_v1.expected-outputs.json",
+      "sha256": "c80f30f23e1da05b1d28867953caee057452f0fd30cabdcaf8573ca6ca1c0e12"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_multi_medium_partition_v1.worksheet.json",
+      "sha256": "df2f806249cc1c1b4442a412252e7c87513fc92f829a594a1244b7f6bb7f0328"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_parameter_override_application_v1.expected-outputs.json",
+      "sha256": "310204dc1db66dd681cdd9ed1a03c13e278167c25fd2e0ae5fd945a970718f4e"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_parameter_override_application_v1.worksheet.json",
+      "sha256": "55722cd3ac6d5b817b0d668523ebaa46c0de57481efb56cc5ded00ccb3406eb4"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "d6fde39421dc96026bf087914a545af0972186f8d73a9931baaff574e874dce7"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "26bd07bf396a2adccd4892a4a86d0ed2e98f9f26046b0b3fe81945844fe096e1"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.expected-outputs.json",
+      "sha256": "d8c7d3cf8f566bd3d593ef2ad0ed90ddc1904c08535893847c51e57a80e9218f"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.worksheet.json",
+      "sha256": "1d5cfbebed0ed394f353edbe547b0629f8a52a39cd4d4f827576d2bcc8efe9f7"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "80c211f0b81092bbef1683e1a1457f8050ea19206d0d97200a2dcdd06486be3e"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "c4cc3e2911bbd4e3401b13a2f04ff715ff77493e36e9eb5efda87026bfdd1d4a"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.expected-outputs.json",
+      "sha256": "1036edf33d79c9b620f63b2276921d7698016e936da2c6d4304d6e1d142038c3"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.worksheet.json",
+      "sha256": "a0ffb0ca7cdf3bfa1e152121047b6ed223a1b693ada53b34b27188406720fca0"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "3c3b33b25291c44a5e922c7fe5191eecd9e81da41f407cbb1729301dcbb6b86d"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "5b2f94b1dac4a6173b223ec5d5b1c41eb975d9ece9c060d752dc63fbdddeef74"
+    },
+    {
+      "path": "release-notes.md",
+      "sha256": "c27d4ecbab76f53a72c342113125f95bb8e650bd0e94cc09e3cc07230dab21c1"
+    },
+    {
+      "path": "scientific-claim-coverage-report.json",
+      "sha256": "324679bc7916add968ce49366f5c1b1ae53c4c74ec8e3dfcdf9136f28fdb03e5"
+    },
+    {
+      "path": "scientific-trust-brief.md",
+      "sha256": "52875c6527431dd422a750f6b893783db7c6260776e2a8be73a953c6ac4b8d93"
+    },
+    {
+      "path": "scientific-trust-pack.md",
+      "sha256": "e32d32bd2410fa3a750a6bec097bae459c9eb398a3a51231e01ca1d1636b43c2"
+    },
+    {
+      "path": "security-provenance-review-report.json",
+      "sha256": "dcf922ebb384d46aadb6c559aa4ac16050375370a676d68dc41a22d2ec7b011f"
+    },
+    {
+      "path": "validation-dossier.json",
+      "sha256": "7e309f7802d6099ff54a907cdab008eb14951155bd1221c7b9ba637fa0bdc5bc"
+    }
+  ],
+  "releaseRef": "v0.2.0",
+  "status": "ready_for_screening_release",
+  "version": "0.2.0"
+}

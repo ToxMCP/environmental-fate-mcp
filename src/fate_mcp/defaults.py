@@ -16,6 +16,8 @@ from fate_mcp.models import (
     ErosionSedimentMethodProfile,
     ErosionSedimentMethodProfileManifest,
     ErosionSedimentValidationProfile,
+    ErosionSedimentValidationDemoCase,
+    ErosionSedimentValidationDemoPackManifest,
     ErosionSedimentValidationProfileManifest,
     ErosionSedimentValidationQuantity,
     ErosionSedimentValidationThresholdSet,
@@ -142,6 +144,9 @@ class DefaultsRegistry:
         )
         self.erosion_sediment_validation_profiles = _load_json(
             self.version_root / "erosion_sediment_validation_profiles.json"
+        )
+        self.erosion_sediment_validation_demo_pack = _load_json(
+            self.version_root / "erosion_sediment_validation_demo_pack.json"
         )
         self.model_family_applicability_profiles = _load_json(
             self.version_root / "model_family_applicability_profiles.json"
@@ -596,6 +601,27 @@ class DefaultsRegistry:
         return ErosionSedimentValidationProfileManifest(
             profile_count=len(profiles),
             profiles=profiles,
+        )
+
+    def erosion_sediment_validation_demo_pack_manifest(
+        self,
+    ) -> ErosionSedimentValidationDemoPackManifest:
+        demo_cases = [
+            ErosionSedimentValidationDemoCase(**payload)
+            for payload in self.erosion_sediment_validation_demo_pack.get("demo_cases", [])
+        ]
+        return ErosionSedimentValidationDemoPackManifest(
+            defaults_version=self.erosion_sediment_validation_demo_pack.get(
+                "defaults_version",
+                DEFAULTS_VERSION,
+            ),
+            demo_case_count=len(demo_cases),
+            demo_cases=demo_cases,
+            source_references=[
+                SourceReference(**item)
+                for item in self.erosion_sediment_validation_demo_pack.get("source_references", [])
+            ],
+            limitations=self.erosion_sediment_validation_demo_pack.get("limitations", []),
         )
 
     def model_family_applicability_profile(

@@ -15,6 +15,10 @@ erosion and runoff-driven sediment pathways.
 
 The governed method metadata is available at `defaults://erosion-sediment-method-profiles`.
 The governed validation-threshold metadata is available at `defaults://erosion-sediment-validation-profiles`.
+Synthetic validation workflow demonstrations are available at `defaults://erosion-sediment-validation-demo-pack`,
+with release-gated classification checks in `release://erosion-sediment-validation-demo-report`.
+Those demos are for screening QA orientation only; they are not field validation, calibration evidence,
+catchment validation, regulator acceptance, or WEPP validation.
 
 ## Boundary
 
@@ -26,6 +30,7 @@ runoff rate are supplied by the caller or another model. The chemical-load bridg
 environmental concentration. Validation QA compares caller-provided inline observed/predicted records by
 `record_id` only; it does not fit parameters, correct hydrology, tune delivery ratios, or certify model
 performance for decision-facing watershed use.
+The synthetic demo pack demonstrates these classifications and does not relax this boundary.
 
 ## WEPP
 

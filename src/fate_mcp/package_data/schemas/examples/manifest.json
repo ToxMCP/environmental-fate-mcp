@@ -149,6 +149,14 @@
       "path": "schemas/examples/erosionSedimentValidationCaseResult.v1.json"
     },
     {
+      "name": "erosionSedimentValidationDemoCase.v1",
+      "path": "schemas/examples/erosionSedimentValidationDemoCase.v1.json"
+    },
+    {
+      "name": "erosionSedimentValidationDemoPackManifest.v1",
+      "path": "schemas/examples/erosionSedimentValidationDemoPackManifest.v1.json"
+    },
+    {
       "name": "erosionSedimentValidationFitResult.v1",
       "path": "schemas/examples/erosionSedimentValidationFitResult.v1.json"
     },

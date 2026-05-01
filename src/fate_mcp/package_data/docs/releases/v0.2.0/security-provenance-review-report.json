@@ -1,0 +1,21 @@
+{
+  "controls": [
+    "Defaults and assumption provenance are explicit and machine-readable.",
+    "Concentration bundles and regulatory handoff packages carry SHA-256 integrity hashes.",
+    "Quality flags and limitation notes are emitted in normalized outputs and review artifacts."
+  ],
+  "limitations": [
+    "No secret handling is implemented because the public screening workflows do not require credential-bearing inputs.",
+    "This report summarizes product-level provenance controls; it is not a substitute for deployment-specific security hardening or independent security assessment."
+  ],
+  "notes": [
+    "Environmental Fate MCP is a bounded screening service inside the broader ToxMCP suite.",
+    "Provenance, quality, and declared limitation fields are intended to support assessor review rather than replace it."
+  ],
+  "scope": [
+    "Release-bundle provenance posture for the public screening MCP surface.",
+    "Control summary for generated artifacts, defaults provenance, and downstream handoff integrity."
+  ],
+  "status": "documented_provenance_controls_with_declared_scope_limits",
+  "version": "0.2.0"
+}

@@ -47,12 +47,15 @@ jobs:
               tools = await server.list_tools()
               assert len(tools) == 56
               assert len(await server.list_prompts()) == 21
-              assert len(await server.list_resources()) == 26
+              assert len(await server.list_resources()) == 27
               assert all(tool.annotations is not None for tool in tools)
               assert all(tool.outputSchema is not None for tool in tools)
               metadata_contents = await server.read_resource("release://metadata-report")
               metadata = json.loads(metadata_contents[0].content)
               assert metadata["toolCount"] == 56
+              assert metadata["resourceCount"] == 27
+              demo_pack = await server.read_resource("defaults://erosion-sediment-validation-demo-pack")
+              assert "synthetic" in demo_pack[0].content.lower()
               fixture_path = _resolve_external_payload_path(
                   "config/adapter-fixtures/illustrative_external_engine_payload.json"
               )

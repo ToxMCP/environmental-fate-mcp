@@ -1,0 +1,34 @@
+{
+  "claimId": "reference_executable_treatment_reduction_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference executable treatment reduction",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 9.609374080646793e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_treatment_proportionality_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.6015623467744658e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_treatment_reduction_anchor_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.2.0"
+}

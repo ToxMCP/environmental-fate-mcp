@@ -50,6 +50,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - inspect governed model-family applicability profiles
 - inspect governed erosion/sediment method profiles through `defaults://erosion-sediment-method-profiles`
 - inspect governed erosion/sediment validation profiles through `defaults://erosion-sediment-validation-profiles`
+- inspect governed synthetic erosion/sediment validation demos through `defaults://erosion-sediment-validation-demo-pack`
 - inspect governed model-family selection profiles
 - inspect governed model-family challenge review profiles
 - inspect governed model-family comparison profiles
@@ -134,9 +135,10 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 ## Local Verification
 
 - Run the test suite with `uv run --extra dev pytest` so pytest is resolved from the project environment instead of a global interpreter.
+- Run `uv run --extra dev ruff check .` before release-surface review.
 - Run `uv run environmental-fate-mcp-validate` after regenerating schemas, examples, defaults, or release artifacts.
 - External payload imports are limited to shipped adapter fixtures plus directories declared in `FATE_MCP_IMPORT_ROOTS`.
-- Build and smoke the installable package with `uv build` followed by a clean virtualenv install before publishing. The CI smoke checks startup counts, tool annotations, tool output schemas, packaged release resources, and packaged adapter fixtures.
+- Build and smoke the installable package with `uv build` followed by a clean virtualenv install before publishing. The CI smoke checks startup counts, tool annotations, tool output schemas, packaged release resources, validation demo-pack loading, and packaged adapter fixtures.
 
 ## Generated Artifact Discipline
 

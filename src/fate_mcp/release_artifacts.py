@@ -23,8 +23,9 @@ from fate_mcp.validation import validation_dossier
 
 
 KNOWN_GAPS = [
-    "No GIS-scale dispersion in v0.1.",
-    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.1.",
+    "No GIS-scale dispersion in v0.2.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.2.",
+    "Erosion/sediment validation demos are synthetic screening-QA demonstrations, not curated field benchmark validation.",
     "No direct human dose calculation in Environmental Fate MCP.",
     "No dietary intake workflows in Environmental Fate MCP.",
     "No PBPK execution in Environmental Fate MCP.",
@@ -47,6 +48,7 @@ REPORT_FILENAMES = (
     ("red-team-review-report", "red-team-review-report.json"),
     ("validation-dossier", "validation-dossier.json"),
     ("adapter-validation-report", "adapter-validation-report.json"),
+    ("erosion-sediment-validation-demo-report", "erosion-sediment-validation-demo-report.json"),
     ("known-gap-report", "known-gap-report.json"),
 )
 
@@ -64,6 +66,7 @@ REPORT_DESCRIPTIONS = {
     "red-team-review-report.json": "Release red-team review cycle summary with blocker accounting and accepted limitations.",
     "validation-dossier.json": "Full validation dossier across scientific, interoperability, and release checks.",
     "adapter-validation-report.json": "Focused validation report for governed adapter interoperability.",
+    "erosion-sediment-validation-demo-report.json": "Governed synthetic erosion/sediment validation demo-pack report and classification checks.",
     "known-gap-report.json": "Declared known gaps that remain intentionally out of scope for this release.",
     "reference-proof-brief.md": "Compact reviewer-facing brief for the reviewer-grade reference-family proof surface.",
     "advective-promotion-brief.md": "Compact reviewer-facing brief for the experimental advective-family promotion bar.",
@@ -123,6 +126,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
     reference_report = reports["reference-corroboration-report"]
     worksheet_manifest = reports["reference-worksheet-manifest"]
     advective_report = reports["advective-promotion-bar-report"]
+    erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
     known_gaps = reports["known-gap-report"]["knownGaps"]
     passed_checks = sum(1 for item in readiness["checks"] if item["passed"])
     total_checks = len(readiness["checks"])
@@ -139,6 +143,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         f"- `{len(metadata['supportedWorkflows'])}` governed workflows are available across `{len(metadata['supportedModelFamilies'])}` supported model families and `{metadata['experimentalModelFamilyCount']}` experimental model family.",
         f"- `{metadata['scientificValidationClaimCount']}` governed scientific validation claims and `{metadata['scientificReferenceCaseCount']}` governed scientific reference cases are included.",
         f"- `{metadata['regulatoryHandoffProfileCount']}` governed regulatory handoff profiles are published for downstream suite consumers.",
+        f"- `{erosion_demo_report['demoCaseCount']}` synthetic erosion/sediment validation demo cases are published for reviewer-facing screening QA orientation.",
         "",
         "## Verification Summary",
         f"- Release checks passed: `{passed_checks}/{total_checks}`.",
@@ -149,6 +154,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         f"- Downstream interoperability passed: `{validation['downstreamInteroperability']['passed']}`.",
         f"- Regulatory handoff governance passed: `{validation['regulatoryHandoffGovernance']['passed']}`.",
         f"- Scientific review artifacts passed: `{validation['scientificReviewArtifacts']['passed']}`.",
+        f"- Erosion/sediment validation demo pack passed: `{erosion_demo_report['passed']}`.",
         "",
         "## Scientific Change Log",
         f"- Shipped-default numeric deltas recorded this release: `{defaults_report['changedParameterCount']}` parameter(s), with `{defaults_report['materiallyChangedParameterCount']}` marked as materially output-affecting.",
@@ -183,6 +189,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
             "- `reference-worksheet-manifest.json` links each mandatory reference claim to its worksheet and expected-output artifacts.",
             "- `reference-worksheet-pack/` contains the claim-linked worksheet and expected-output artifacts used for skeptical reviewer handoff.",
             "- `advective-promotion-bar-report.json` explains why the advective family remains experimental in this release.",
+            "- `erosion-sediment-validation-demo-report.json` checks the synthetic erosion/sediment validation demo pack and expected fit classifications.",
             "- `release-bundle-manifest.json` records SHA-256 checksums for the bundled release files.",
             "- `SHA256SUMS` provides a reviewer-friendly checksum list for manual verification.",
             "",
@@ -758,6 +765,7 @@ def _render_scientific_trust_pack(
     reference_report = reports["reference-corroboration-report"]
     worksheet_manifest = reports["reference-worksheet-manifest"]
     advective_report = reports["advective-promotion-bar-report"]
+    erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
     exclusions = _hard_exclusions(defaults_registry)
     mandatory_claims = [
         claim for claim in corroboration_report["claims"] if claim["mandatoryForRelease"]
@@ -789,6 +797,7 @@ def _render_scientific_trust_pack(
         ),
         "- The reference-family proof surface is treated as reviewer-grade; the advective family remains explicitly non-promotable in this release.",
         "- Public wording remains bounded-screening only and does not imply regulator acceptance or source-engine equivalence.",
+        f"- The erosion/sediment validation demo pack publishes `{erosion_demo_report['demoCaseCount']}` synthetic screening-QA cases and passed its classification checks.",
         "",
         "## When Not To Use This MCP",
     ]
@@ -843,6 +852,13 @@ def _render_scientific_trust_pack(
             f"- Advective promotion-bar governance passed: `{advective_report['passed']}`.",
             f"- Advective promotable this release: `{advective_report['promotable']}`.",
             "- Non-promotable reasons: " + ", ".join(advective_report["explicitNonPromotableReasons"]) + ".",
+            "",
+            "## Erosion/Sediment Validation Demo Pack",
+            f"- Demo-pack validation passed: `{erosion_demo_report['passed']}`.",
+            f"- Synthetic demo cases: `{erosion_demo_report['demoCaseCount']}`.",
+            "- Resource: `defaults://erosion-sediment-validation-demo-pack`.",
+            "- Report: `release://erosion-sediment-validation-demo-report`.",
+            "- These cases demonstrate screening QA interpretation only; they are not field validation, calibration evidence, regulator acceptance, catchment validation, spatial routing evidence, or WEPP validation.",
             "",
             "## Claim Corroboration",
             f"- Governed scientific validation claims: `{metadata['scientificValidationClaimCount']}`.",
@@ -905,6 +921,7 @@ def _render_scientific_trust_brief(
     worksheet_manifest = reports["reference-worksheet-manifest"]
     advective_report = reports["advective-promotion-bar-report"]
     red_team_report = reports["red-team-review-report"]
+    erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
     known_gaps = reports["known-gap-report"]["knownGaps"]
     mandatory_claims = [
         claim for claim in corroboration_report["claims"] if claim["mandatoryForRelease"]
@@ -952,6 +969,7 @@ def _render_scientific_trust_brief(
             f"`{red_team_report['unresolvedFindingCount']}` unresolved findings, and "
             f"`{red_team_report['acceptedLimitationCount']}` accepted public limitations."
         ),
+        f"- Erosion/sediment validation demo pack: `{erosion_demo_report['demoCaseCount']}` synthetic cases, passed `{erosion_demo_report['passed']}`.",
         "",
         "## Reviewer Signals",
         "- `reference_mass_balance` remains the decision-facing baseline family.",
@@ -960,6 +978,7 @@ def _render_scientific_trust_brief(
         + ", ".join(advective_report["explicitNonPromotableReasons"])
         + ".",
         "- Use the full trust pack if you need the mandatory-claim table, reviewer challenge matrix, or the full exclusion list.",
+        "- Use `release://erosion-sediment-validation-demo-report` only as a synthetic screening-QA orientation surface, not as field validation or calibration evidence.",
     ]
     if weaker_mandatory_claims:
         lines.extend(
@@ -1441,6 +1460,12 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "publicAdapterFixtureCount": sum(
             1 for fixture in adapter_manifest.fixtures if fixture.import_profile in public_adapter_profile_ids
         ),
+        "erosionSedimentValidationDemoCaseCount": dossier[
+            "erosionSedimentValidationDemoPack"
+        ]["demoCaseCount"],
+        "erosionSedimentValidationDemoPackPassed": dossier[
+            "erosionSedimentValidationDemoPack"
+        ]["passed"],
         "parameterManifestEntryCount": len(parameter_manifest_example["entries"]),
         "parameterManifestRuntimeConsumedCount": sum(
             1 for entry in parameter_manifest_example["entries"] if entry["runtime_consumed"]
@@ -1584,6 +1609,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         and dossier["runScientificTrustBriefWorkflow"]["passed"]
         and dossier["scientificMethodsDossierWorkflow"]["passed"]
         and dossier["trustSurfaceConsistency"]["passed"]
+        and dossier["erosionSedimentValidationDemoPack"]["passed"]
         and dossier["modelFamilySelectionWorkflow"]["passed"]
         and dossier["modelFamilySelectionReviewWorkflow"]["passed"]
         and dossier["modelFamilyChallengeReviewWorkflow"]["passed"]
@@ -1625,6 +1651,10 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
             {
                 "name": "trust-surface-consistency-passed",
                 "passed": dossier["trustSurfaceConsistency"]["passed"],
+            },
+            {
+                "name": "erosion-sediment-validation-demo-pack-passed",
+                "passed": dossier["erosionSedimentValidationDemoPack"]["passed"],
             },
             {"name": "model-family-selection-workflow-passed", "passed": dossier["modelFamilySelectionWorkflow"]["passed"]},
             {
@@ -1675,6 +1705,10 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
                 "name": "advective_promotion_language_drift",
                 "passed": dossier["advectivePromotionBarGovernance"]["passed"],
             },
+            {
+                "name": "erosion_sediment_validation_demo_pack_mismatch",
+                "passed": dossier["erosionSedimentValidationDemoPack"]["passed"],
+            },
         ],
     }
     security_provenance_review = {
@@ -1690,7 +1724,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
             "Quality flags and limitation notes are emitted in normalized outputs and review artifacts.",
         ],
         "limitations": [
-            "No secret handling is implemented in v0.1 because the public screening workflows do not require credential-bearing inputs.",
+            "No secret handling is implemented because the public screening workflows do not require credential-bearing inputs.",
             "This report summarizes product-level provenance controls; it is not a substitute for deployment-specific security hardening or independent security assessment.",
         ],
         "notes": [
@@ -1715,6 +1749,9 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "advective-promotion-bar-report": advective_promotion_bar_report,
         "validation-dossier": dossier,
         "adapter-validation-report": dossier["adapterInteroperability"],
+        "erosion-sediment-validation-demo-report": dossier[
+            "erosionSedimentValidationDemoPack"
+        ],
         "known-gap-report": known_gap_report,
     }
     red_team_review_report = _build_red_team_review_report(defaults_registry, reports)
@@ -1934,7 +1971,7 @@ def main() -> None:
     parser.add_argument(
         "--release-ref",
         default=f"v{VERSION}",
-        help="Release reference label to embed in the generated bundle, for example a tag such as v0.1.0.",
+        help="Release reference label to embed in the generated bundle, for example a tag such as v0.2.0.",
     )
     args = parser.parse_args()
     bundle_dir = write_release_bundle(Path.cwd(), output_dir=args.output_dir, release_ref=args.release_ref)

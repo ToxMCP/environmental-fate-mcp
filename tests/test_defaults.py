@@ -12,6 +12,7 @@ def test_defaults_manifest_contains_versioned_files() -> None:
     assert any(item["path"].endswith("core_defaults.json") for item in manifest["files"])
     assert any(item["path"].endswith("erosion_sediment_method_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("erosion_sediment_validation_profiles.json") for item in manifest["files"])
+    assert any(item["path"].endswith("erosion_sediment_validation_demo_pack.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_applicability_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_comparison_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_selection_profiles.json") for item in manifest["files"])
@@ -65,6 +66,20 @@ def test_erosion_sediment_validation_profiles_are_governed() -> None:
     assert profile.screening_plausible.minimum_matched_records == 3
     assert "event_sediment_yield_t" in {quantity.value for quantity in profile.supported_quantities}
     assert registry.erosion_sediment_validation_profile("missing_profile") is None
+
+
+def test_erosion_sediment_validation_demo_pack_is_governed() -> None:
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    manifest = registry.erosion_sediment_validation_demo_pack_manifest()
+    assert manifest.demo_case_count == 4
+    assert {case.demo_case_id for case in manifest.demo_cases} == {
+        "perfect_fit",
+        "screening_plausible",
+        "weak_fit",
+        "insufficient_evidence",
+    }
+    assert all(case.synthetic_demo for case in manifest.demo_cases)
+    assert "not field validation" in " ".join(manifest.limitations).lower()
 
 
 def test_core_defaults_are_source_backed_and_free_of_shipped_tier3_assumptions() -> None:

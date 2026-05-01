@@ -71,13 +71,14 @@ The released server is broader than a simple concentration calculator, but the b
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, or public wrapper around branded external model payloads.
 
-## What's in v0.1.0
+## What's in v0.2.0
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
 - Governed experimental `advective_screening_mass_balance` challenge family with residence-time, bounded-transport, loss-dominance, transition, mass-balance, and post-release authority layers
 - Bounded scalar erosion/sediment transport tools for RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, and sediment-associated chemical-load handoff
 - Inline erosion/sediment validation QA for observed-versus-predicted scalar screening records, with governed non-calibrating fit classifications
+- Governed synthetic erosion/sediment validation demo pack for public screening-QA orientation without field-validation, calibration, routing, or WEPP claims
 - Additive probabilistic percentile orchestration with median, P90, and P95 concentration surfaces plus failed-iteration taxonomy and reproducibility metadata
 - Scientific review packets and briefs with equation, mass-balance, transport-regime, loss-transition, and post-release interpretation lines
 - Scientific methods dossiers and briefs with governed claims, benchmark support, source grounding, highlighted claim digests, promotion status, and blocker/action posture
@@ -89,12 +90,12 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current local release verification and generated `v0.1.0` artifacts report:
+Current local release verification and generated `v0.2.0` artifacts report:
 
-- `182` repository test functions
-- `128` JSON schemas
-- `124` generated examples
-- `47` supported workflows surfaced through `56` tools, `21` prompts, and `26` resources
+- `185` repository test functions
+- `130` JSON schemas
+- `126` generated examples
+- `47` supported workflows surfaced through `56` tools, `21` prompts, and `27` resources
 - `54` benchmark fixtures with claim-coverage enforcement
 - `30` governed scientific validation claims with plugin-code traceability
 - `25` governed scientific reference cases
@@ -146,11 +147,12 @@ Current validation artifacts report:
 - deterministic example generation enforced for committed release artifacts
 - server startup validates shipped artifacts without regenerating them
 - deterministic and probabilistic review workflow parity enforced through validation
+- governed synthetic erosion/sediment validation demos execute through the validation tools and match declared fit classifications
 - shipped defaults evidence governance, external corroboration governance, red-team review accounting, and reviewer trust-pack generation included in release gating
 - adapter normalization, scientific review, scientific methods dossier, model-family challenge, and regulatory handoff workflows included in release gating
 - scientific invariant tests proving mass-balance closure, advection bounds, mass linearity, and half-life monotonicity
 - CI fails if generated artifacts or defaults manifest hashes drift from committed state, if the full release validator fails, or if startup validation cannot load the shipped artifacts
-- CI builds the wheel and installs it into a clean Python 3.12 environment before checking server startup, packaged release resources, public tool annotations/output schemas, and shipped adapter-fixture access
+- CI builds the wheel and installs it into a clean Python 3.12 environment before checking server startup, packaged release resources, public tool annotations/output schemas, validation demo-pack loading, and shipped adapter-fixture access
 - external payload imports are confined to shipped adapter fixtures unless operators opt in additional roots through `FATE_MCP_IMPORT_ROOTS`; symlink escapes are rejected after path resolution
 - supply-chain checks run Ruff, tests, Bandit, `pip-audit`, SBOM generation, and checksum-verified Gitleaks CLI secret scanning
 
@@ -166,11 +168,12 @@ See:
 - [docs/external_payload_contract.md](./docs/external_payload_contract.md)
 - [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
-- [docs/releases/v0.1.0/scientific-trust-pack.md](./docs/releases/v0.1.0/scientific-trust-pack.md)
+- [docs/public_release_guide.md](./docs/public_release_guide.md)
+- [docs/releases/v0.2.0/scientific-trust-pack.md](./docs/releases/v0.2.0/scientific-trust-pack.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.1.0/release-notes.md](./docs/releases/v0.1.0/release-notes.md)
+- [docs/releases/v0.2.0/release-notes.md](./docs/releases/v0.2.0/release-notes.md)
 
 ## Governance
 
@@ -185,8 +188,10 @@ See:
 uv sync --extra dev
 uv run environmental-fate-mcp-generate-artifacts
 uv run environmental-fate-mcp-build-release-bundle
+uv run --extra dev ruff check .
 uv run --extra dev pytest
 uv run environmental-fate-mcp-validate
+uv build
 uv run environmental-fate-mcp
 ```
 

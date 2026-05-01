@@ -15,11 +15,13 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - generated files should not be patched by hand to satisfy CI; update the source data or generator and regenerate
 - every release-surface PR should run artifact generation, release bundle generation, the release validator, tests, wheel build, and installed-wheel smoke before merge
 - drift checks must remain fail-closed so uncommitted regeneration output blocks the merge instead of becoming an implicit local artifact
+- the governed erosion/sediment validation demo pack must remain synthetic, classification-stable, and visible through both `defaults://erosion-sediment-validation-demo-pack` and `release://erosion-sediment-validation-demo-report`
 
 ## Required checks
 
 - generated schemas and examples are current
 - generated example payloads are deterministic across reruns
+- governed erosion/sediment validation demo cases parse, execute through the validation tools, and match their declared expected classifications
 - server startup validates shipped artifacts without regenerating them
 - defaults manifest hashes match shipped files
 - the shipped default path contains zero `tier_3_internal_screening_assumption` values
@@ -91,6 +93,7 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - release bundles publish `defaults-rebaseline-report.json`, `external-corroboration-report.json`, `red-team-review-report.json`, and `scientific-trust-pack.md`
 - red-team review reports contain zero unresolved blocker-severity findings
 - accepted release limitations appear in public reviewer artifacts, not only internal notes
+- synthetic validation demos remain explicitly excluded from field validation, calibration evidence, catchment validation, spatial routing evidence, WEPP validation, and regulator acceptance claims
 - model-family comparison packets and briefs remain internally consistent with the shared scenario, fit assessments, surface deltas, and equation traces
 - model-family comparison review previews, packets, and briefs remain internally consistent with the governed comparison profile, comparison packet, and assessor-facing checklist guidance
 - scientific review profiles remain declared for every supported model family, with valid checklist templates and summary templates
@@ -123,4 +126,5 @@ The release bundle now treats these as named blocker classes:
 - `trust_pack_artifact_mismatch`
 - `trust_brief_artifact_mismatch`
 - `accidental_advective_promotion_language_drift`
+- `erosion_sediment_validation_demo_pack_mismatch`
 - `unaddressed_red_team_finding`

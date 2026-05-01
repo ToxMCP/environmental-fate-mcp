@@ -16,13 +16,17 @@ from fate_mcp.contracts import SCHEMA_MODELS, generate_contract_artifacts
 from fate_mcp.defaults import DefaultsRegistry
 from fate_mcp.errors import FateValidationError
 from fate_mcp.integrations import (
+    assess_erosion_sediment_validation_fit,
     assess_release_scenario_fit,
+    build_erosion_sediment_validation_case,
     build_run_parameter_manifest,
     build_run_uncertainty_summary,
     preview_regulatory_handoff_resolution,
 )
 from fate_mcp.models import (
     BuildEnvironmentalReleaseScenarioRequest,
+    AssessErosionSedimentValidationFitRequest,
+    BuildErosionSedimentValidationCaseRequest,
     FateModelRunOptions,
     FateParameterRecord,
     ModelFamily,
@@ -2747,6 +2751,67 @@ def validate_trust_surface_consistency(repo_root: Path) -> dict:
     }
 
 
+def validate_erosion_sediment_validation_demo_pack(repo_root: Path) -> dict:
+    runtime = FateRuntime(repo_root)
+    manifest = runtime.defaults.erosion_sediment_validation_demo_pack_manifest()
+    case_results = []
+    required_case_ids = {
+        "perfect_fit",
+        "screening_plausible",
+        "weak_fit",
+        "insufficient_evidence",
+    }
+    found_case_ids = {demo_case.demo_case_id for demo_case in manifest.demo_cases}
+    for demo_case in manifest.demo_cases:
+        validation_case = build_erosion_sediment_validation_case(
+            BuildErosionSedimentValidationCaseRequest(
+                observed_records=demo_case.observed_records,
+                predicted_records=demo_case.predicted_records,
+                validation_profile_id=demo_case.validation_profile_id,
+            ),
+            runtime.provenance,
+        )
+        fit = assess_erosion_sediment_validation_fit(
+            AssessErosionSedimentValidationFitRequest(validation_case=validation_case),
+            runtime.provenance,
+        )
+        case_results.append(
+            {
+                "demoCaseId": demo_case.demo_case_id,
+                "expectedClassification": demo_case.expected_classification.value,
+                "actualClassification": fit.classification.value,
+                "matchedCount": fit.metrics.matched_count,
+                "passed": fit.classification == demo_case.expected_classification,
+            }
+        )
+    limitations_text = " ".join(manifest.limitations).lower()
+    synthetic_boundary_clear = all(
+        phrase in limitations_text
+        for phrase in (
+            "synthetic",
+            "not field validation",
+            "not field validation, calibration evidence",
+            "not field validation, calibration evidence, regulator acceptance",
+            "wepp validation",
+        )
+    )
+    all_cases_present = required_case_ids.issubset(found_case_ids)
+    return {
+        "passed": (
+            manifest.demo_case_count == len(manifest.demo_cases)
+            and all_cases_present
+            and all(item["passed"] for item in case_results)
+            and synthetic_boundary_clear
+        ),
+        "demoCaseCount": manifest.demo_case_count,
+        "requiredDemoCaseIds": sorted(required_case_ids),
+        "missingDemoCaseIds": sorted(required_case_ids - found_case_ids),
+        "syntheticBoundaryClear": synthetic_boundary_clear,
+        "caseResults": case_results,
+        "limitations": manifest.limitations,
+    }
+
+
 def validation_dossier(repo_root: Path) -> dict:
     generate_contract_artifacts(repo_root)
     return {
@@ -2768,6 +2833,7 @@ def validation_dossier(repo_root: Path) -> dict:
         "runScientificTrustBriefWorkflow": validate_run_scientific_trust_brief_workflow(repo_root),
         "scientificMethodsDossierWorkflow": validate_scientific_methods_dossier_workflow(repo_root),
         "trustSurfaceConsistency": validate_trust_surface_consistency(repo_root),
+        "erosionSedimentValidationDemoPack": validate_erosion_sediment_validation_demo_pack(repo_root),
         "modelFamilySelectionWorkflow": validate_model_family_selection_workflow(repo_root),
         "modelFamilySelectionReviewWorkflow": validate_model_family_selection_review_workflow(repo_root),
         "modelFamilyChallengeReviewWorkflow": validate_model_family_challenge_review_workflow(repo_root),
@@ -2780,7 +2846,9 @@ def validation_dossier(repo_root: Path) -> dict:
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[2]
     generate_contract_artifacts(repo_root)
-    validation_dossier(repo_root)
+    dossier = validation_dossier(repo_root)
+    if not dossier["erosionSedimentValidationDemoPack"]["passed"]:
+        raise SystemExit("Erosion/sediment validation demo pack failed release validation.")
 
 
 if __name__ == "__main__":

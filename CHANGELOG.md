@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-01
+
 ### Added
 - Structured request/response logging with correlation IDs for all MCP tool calls.
 - `integrity_hash` field on `ConcentrationSurfaceBundle` for tamper-evident output signing.
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Public governance docs (`SECURITY.md`, `SUPPORT.md`, `CONTRIBUTING.md`) and GitHub collaboration templates.
 - A public release checklist for tagged release preparation and repository-setting review.
 - A deterministic public release bundle generator with release notes, checksums, and machine-readable release reports.
+- Governed synthetic erosion/sediment validation demo pack with release-gated classification checks for public screening-QA orientation.
 
 ### Changed
 - Project license changed from MIT to Apache License 2.0.

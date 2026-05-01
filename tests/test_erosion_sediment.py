@@ -359,6 +359,38 @@ def test_validation_records_reject_nonfinite_and_out_of_range_values() -> None:
             observed_value=float("nan"),
             unit="t/event",
         )
+
+
+def test_validation_demo_pack_cases_match_expected_classifications() -> None:
+    runtime = _runtime()
+    manifest = runtime.defaults.erosion_sediment_validation_demo_pack_manifest()
+
+    assert manifest.demo_case_count == 4
+    assert "synthetic" in " ".join(manifest.limitations).lower()
+    assert "not field validation" in " ".join(manifest.limitations).lower()
+
+    results = {}
+    for demo_case in manifest.demo_cases:
+        validation_case = build_erosion_sediment_validation_case(
+            BuildErosionSedimentValidationCaseRequest(
+                observed_records=demo_case.observed_records,
+                predicted_records=demo_case.predicted_records,
+                validation_profile_id=demo_case.validation_profile_id,
+            ),
+            runtime.provenance,
+        )
+        fit = assess_erosion_sediment_validation_fit(
+            AssessErosionSedimentValidationFitRequest(validation_case=validation_case),
+            runtime.provenance,
+        )
+        results[demo_case.demo_case_id] = fit.classification
+
+    assert results == {
+        "perfect_fit": ErosionSedimentValidationFitClassification.GOOD_SCREENING_FIT,
+        "screening_plausible": ErosionSedimentValidationFitClassification.SCREENING_PLAUSIBLE,
+        "weak_fit": ErosionSedimentValidationFitClassification.WEAK_FIT,
+        "insufficient_evidence": ErosionSedimentValidationFitClassification.INSUFFICIENT_EVIDENCE,
+    }
     with pytest.raises(ValueError):
         PredictedErosionSedimentValidationRecord(
             record_id="event-1",

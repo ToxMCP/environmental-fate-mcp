@@ -27,7 +27,7 @@ body:
     attributes:
       label: Commit / version
       description: Include commit SHA, branch, release tag, or package version.
-      placeholder: "0809555 or v0.1.0"
+      placeholder: "0809555 or v0.2.0"
     validations:
       required: true
   - type: textarea

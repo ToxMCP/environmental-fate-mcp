@@ -1,0 +1,326 @@
+{
+  "schema_version": "v1",
+  "defaults_version": "v1",
+  "demo_case_count": 4,
+  "demo_cases": [
+    {
+      "demo_case_id": "perfect_fit",
+      "display_name": "Synthetic perfect-fit screening QA demo",
+      "expected_classification": "good_screening_fit",
+      "observed_records": [
+        {
+          "record_id": "perfect-001",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 10.0,
+          "unit": "t/event",
+          "context_label": "synthetic perfect fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-002",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 20.0,
+          "unit": "t/event",
+          "context_label": "synthetic perfect fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-003",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 30.0,
+          "unit": "t/event",
+          "context_label": "synthetic perfect fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-004",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 40.0,
+          "unit": "t/event",
+          "context_label": "synthetic perfect fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-005",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 50.0,
+          "unit": "t/event",
+          "context_label": "synthetic perfect fit",
+          "source_reference": null,
+          "notes": []
+        }
+      ],
+      "predicted_records": [
+        {
+          "record_id": "perfect-001",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 10.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-002",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 20.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-003",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 30.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-004",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 40.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "perfect-005",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 50.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        }
+      ],
+      "validation_profile_id": "erosion_sediment_screening_validation_v1",
+      "synthetic_demo": true,
+      "interpretation_lines": [
+        "Demonstrates a five-record scalar event sediment-yield case that satisfies the governed good-screening-fit threshold.",
+        "Use as a deterministic wiring and interpretation example, not as empirical proof of MUSLE or RUSLE adequacy."
+      ],
+      "limitations": [
+        "Synthetic demonstration only; no field data or calibration are represented."
+      ]
+    },
+    {
+      "demo_case_id": "screening_plausible",
+      "display_name": "Synthetic screening-plausible QA demo",
+      "expected_classification": "screening_plausible",
+      "observed_records": [
+        {
+          "record_id": "plausible-001",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 10.0,
+          "unit": "t/event",
+          "context_label": "synthetic plausible fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "plausible-002",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 20.0,
+          "unit": "t/event",
+          "context_label": "synthetic plausible fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "plausible-003",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 30.0,
+          "unit": "t/event",
+          "context_label": "synthetic plausible fit",
+          "source_reference": null,
+          "notes": []
+        }
+      ],
+      "predicted_records": [
+        {
+          "record_id": "plausible-001",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 14.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "plausible-002",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 28.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "plausible-003",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 42.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        }
+      ],
+      "validation_profile_id": "erosion_sediment_screening_validation_v1",
+      "synthetic_demo": true,
+      "interpretation_lines": [
+        "Demonstrates a three-record scalar event sediment-yield case that is not good-screening-fit but remains within the governed screening-plausible threshold.",
+        "Use as an interpretation example for bounded disagreement, not as empirical watershed validation."
+      ],
+      "limitations": [
+        "Synthetic demonstration only; no field data or calibration are represented."
+      ]
+    },
+    {
+      "demo_case_id": "weak_fit",
+      "display_name": "Synthetic weak-fit QA demo",
+      "expected_classification": "weak_fit",
+      "observed_records": [
+        {
+          "record_id": "weak-001",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 10.0,
+          "unit": "t/event",
+          "context_label": "synthetic weak fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "weak-002",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 20.0,
+          "unit": "t/event",
+          "context_label": "synthetic weak fit",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "weak-003",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 30.0,
+          "unit": "t/event",
+          "context_label": "synthetic weak fit",
+          "source_reference": null,
+          "notes": []
+        }
+      ],
+      "predicted_records": [
+        {
+          "record_id": "weak-001",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 30.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "weak-002",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 60.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "weak-003",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 90.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        }
+      ],
+      "validation_profile_id": "erosion_sediment_screening_validation_v1",
+      "synthetic_demo": true,
+      "interpretation_lines": [
+        "Demonstrates a three-record scalar event sediment-yield case that fails the governed screening-plausible threshold.",
+        "Use as an interpretation example for review escalation, not as model rejection or calibration evidence."
+      ],
+      "limitations": [
+        "Synthetic demonstration only; no field data or calibration are represented."
+      ]
+    },
+    {
+      "demo_case_id": "insufficient_evidence",
+      "display_name": "Synthetic insufficient-evidence QA demo",
+      "expected_classification": "insufficient_evidence",
+      "observed_records": [
+        {
+          "record_id": "insufficient-001",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 10.0,
+          "unit": "t/event",
+          "context_label": "synthetic insufficient evidence",
+          "source_reference": null,
+          "notes": []
+        },
+        {
+          "record_id": "insufficient-002",
+          "quantity": "event_sediment_yield_t",
+          "observed_value": 20.0,
+          "unit": "t/event",
+          "context_label": "synthetic insufficient evidence",
+          "source_reference": null,
+          "notes": []
+        }
+      ],
+      "predicted_records": [
+        {
+          "record_id": "insufficient-001",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 10.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        },
+        {
+          "record_id": "insufficient-002",
+          "quantity": "event_sediment_yield_t",
+          "predicted_value": 20.0,
+          "unit": "t/event",
+          "method_id": "synthetic_demo",
+          "source_result_id": null,
+          "notes": []
+        }
+      ],
+      "validation_profile_id": "erosion_sediment_screening_validation_v1",
+      "synthetic_demo": true,
+      "interpretation_lines": [
+        "Demonstrates a two-record scalar event sediment-yield case that has perfect agreement but too few matched records for screening-plausible evidence.",
+        "Use as an interpretation example for minimum evidence thresholds, not as field validation."
+      ],
+      "limitations": [
+        "Synthetic demonstration only; no field data or calibration are represented."
+      ]
+    }
+  ],
+  "source_references": [
+    {
+      "source_id": "fate_mcp.erosion_sediment_validation_demo_pack.v1",
+      "title": "Environmental Fate MCP synthetic erosion/sediment validation demo pack",
+      "effective_date": "2026-05-01",
+      "url": null
+    }
+  ],
+  "limitations": [
+    "The demo pack uses synthetic observed and predicted records to demonstrate screening QA behavior only.",
+    "The demo pack is not field validation, calibration evidence, regulator acceptance, catchment validation, spatial routing evidence, or WEPP validation.",
+    "The demo pack must remain paired with the governed erosion_sediment_screening_validation_v1 thresholds."
+  ]
+}

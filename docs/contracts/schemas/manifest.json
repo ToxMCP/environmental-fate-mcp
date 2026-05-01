@@ -153,6 +153,14 @@
       "path": "docs/contracts/schemas/erosionSedimentValidationCaseResult.v1.json"
     },
     {
+      "name": "erosionSedimentValidationDemoCase.v1",
+      "path": "docs/contracts/schemas/erosionSedimentValidationDemoCase.v1.json"
+    },
+    {
+      "name": "erosionSedimentValidationDemoPackManifest.v1",
+      "path": "docs/contracts/schemas/erosionSedimentValidationDemoPackManifest.v1.json"
+    },
+    {
       "name": "erosionSedimentValidationFitResult.v1",
       "path": "docs/contracts/schemas/erosionSedimentValidationFitResult.v1.json"
     },

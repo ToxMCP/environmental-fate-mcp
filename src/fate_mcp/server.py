@@ -1428,6 +1428,7 @@ def prompt_review_release_trust_for_screening(
         "- `release://reference-worksheet-manifest`\n"
         "- `release://advective-promotion-bar-report`\n"
         "- `release://external-corroboration-report`\n"
+        "- `release://erosion-sediment-validation-demo-report`\n"
         "- `docs://scientific-trust-pack`\n"
         "- `release://red-team-review-report`\n"
         "- `release://readiness-report`\n"
@@ -1799,6 +1800,11 @@ def defaults_erosion_sediment_method_profiles() -> str:
 @mcp.resource("defaults://erosion-sediment-validation-profiles")
 def defaults_erosion_sediment_validation_profiles() -> str:
     return DEFAULTS.erosion_sediment_validation_profile_manifest().model_dump_json(indent=2)
+
+
+@mcp.resource("defaults://erosion-sediment-validation-demo-pack")
+def defaults_erosion_sediment_validation_demo_pack() -> str:
+    return DEFAULTS.erosion_sediment_validation_demo_pack_manifest().model_dump_json(indent=2)
 
 
 @mcp.resource("defaults://temperature-correction-policy")

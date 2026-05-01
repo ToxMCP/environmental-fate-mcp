@@ -2396,6 +2396,46 @@ class ErosionSedimentValidationFitResult(FateBaseModel):
     interpretation_lines: list[str] = Field(default_factory=list)
 
 
+class ErosionSedimentValidationDemoCase(FateBaseModel):
+    demo_case_id: str
+    display_name: str
+    expected_classification: ErosionSedimentValidationFitClassification
+    observed_records: list[ObservedErosionSedimentValidationRecord] = Field(min_length=1)
+    predicted_records: list[PredictedErosionSedimentValidationRecord] = Field(min_length=1)
+    validation_profile_id: str = Field(default="erosion_sediment_screening_validation_v1")
+    synthetic_demo: bool = True
+    interpretation_lines: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+    @field_validator("demo_case_id", "display_name", "validation_profile_id")
+    @classmethod
+    def validate_non_blank_text(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} must not be blank")
+        return value.strip()
+
+    @model_validator(mode="after")
+    def validate_synthetic_boundary(self) -> "ErosionSedimentValidationDemoCase":
+        if not self.synthetic_demo:
+            raise ValueError("erosion/sediment validation demo cases must be synthetic_demo=true")
+        return self
+
+
+class ErosionSedimentValidationDemoPackManifest(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    demo_case_count: int = Field(ge=0)
+    demo_cases: list[ErosionSedimentValidationDemoCase]
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_demo_count(self) -> "ErosionSedimentValidationDemoPackManifest":
+        if self.demo_case_count != len(self.demo_cases):
+            raise ValueError("demo_case_count must match demo_cases length")
+        return self
+
+
 class PhyschemEvidenceRecord(FateBaseModel):
     parameter: str
     value: float

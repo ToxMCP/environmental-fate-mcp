@@ -9,6 +9,8 @@ screening estimates and sediment-associated chemical-load handoffs. The validati
 observed and predicted scalar records without fitting or correcting model inputs. They do not turn
 Environmental Fate MCP into a GIS erosion model, hydrologic routing engine, calibration workflow, WEPP
 executor, receiving-water concentration model, or final exposure/risk engine.
+The governed validation demo pack is synthetic and demonstrates QA classification behavior only; it is not
+field validation, calibration evidence, catchment validation, regulator acceptance, or WEPP validation.
 
 This boundary does not change for TCM, herbal medicine, or supplement questions. Environmental Fate MCP still
 publishes concentration outputs only. Medicinal direct-use regimens remain downstream
