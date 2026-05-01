@@ -347,7 +347,7 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         assert sensitivity_report["profileCount"] == 7
         notes_contents = await server.read_resource("release://release-notes")
         notes = json.loads(notes_contents[0].content)
-        assert "Environmental Fate MCP v0.3.0" in notes["markdown"]
+        assert "Environmental Fate MCP v0.3.1" in notes["markdown"]
         assert "public MCP import contract in this release" in notes["markdown"]
         manifest_contents = await server.read_resource("release://resource-manifest")
         manifest = json.loads(manifest_contents[0].content)
@@ -381,6 +381,9 @@ def test_new_docs_resources_are_available() -> None:
     assert "read-only evaluation pack" in agent_evals
     public_release = docs_resource("public-release-guide")
     assert "Public Release Guide" in public_release
+    release_provenance = docs_resource("release-provenance")
+    assert "Release Provenance" in release_provenance
+    assert "gh attestation verify" in release_provenance
     defaults_evidence = docs_resource("defaults-evidence-map")
     assert "Defaults Evidence Map" in defaults_evidence
     quick_start = docs_resource("regulatory-quick-start")

@@ -1,0 +1,89 @@
+{
+  "claimId": "reference_short_half_life_attenuation_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference short half-life attenuation anchor",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "oecd.test_guidelines.section3",
+    "epa.environmental_models_guidance",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.1",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Water concentration drops sharply when a short scenario half-life override is applied to the finite-duration first-order screening equation.",
+      "fixtureName": "reference_short_half_life_attenuation_anchor_fixture",
+      "referenceType": "hand_worked_decay_edge_anchor",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark short half-life"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark short half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 1.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case with a one-day half-life override to anchor strong first-order attenuation behavior.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The edge-condition anchor is still a closed-form deterministic reference calculation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Water concentration remains strongly attenuated when a short half-life override is applied, while scaling consistently with the alternate first-order rate.",
+      "fixtureName": "reference_short_half_life_sensitivity_companion_fixture",
+      "referenceType": "hand_worked_decay_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark short half-life companion"
+        },
+        "duration_days": 20.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark alternate short half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 2.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case with a two-day half-life override, corroborating strong attenuation behavior under an alternate short degradation regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The alternate short-half-life case remains analytically traceable because only the first-order degradation rate changes.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

@@ -71,7 +71,7 @@ The released server is broader than a simple concentration calculator, but the b
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, or public wrapper around branded external model payloads.
 
-## What's in v0.3.0
+## What's in v0.3.1
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
@@ -90,12 +90,13 @@ The released server is broader than a simple concentration calculator, but the b
 - Regulatory handoff packages, summaries, packets, and briefs for downstream suite consumers
 - Published JSON schemas, examples, contract manifest, release metadata, validation artifacts, and defaults manifests
 - Self-contained wheel/sdist packaging with mirrored runtime artifacts for installed deployments
+- GitHub release asset provenance workflow for Sigstore-backed artifact attestations on wheel, sdist, checksums, release-bundle manifest, and trust-pack assets
 
 ## Release snapshot
 
-Current local release verification and generated `v0.3.0` artifacts report:
+Current local release verification and generated `v0.3.1` artifacts report:
 
-- `195` repository test functions
+- `198` repository test functions
 - `139` JSON schemas
 - `135` generated examples
 - `48` supported workflows surfaced through `57` tools, `21` prompts, and `29` resources
@@ -138,7 +139,7 @@ Environmental Fate MCP gives the suite a dedicated environmental-fate layer that
 | `🧾 Scientific methods dossiers` | Publishes governed claim sets, source-grounding lines, benchmark support, highlighted claim digests, challenge posture, and promotion/blocker summaries for each model family. |
 | `🔌 External adapter normalization` | Normalizes governed external-engine exports into canonical concentration contracts with normalization-parity checks, semantic-loss disclosure, and fail-closed blocking for non-equivalent mappings. |
 | `🧭 Model-family challenge governance` | Exposes model-family selection, challenge, and comparison workflows so reference and experimental families remain reviewable under governed assessor logic. |
-| `🔒 Installation and security hardening` | Ships wheel/sdist runtime artifacts, locked import-root validation, HTTP transport safety defaults, installed-wheel smoke coverage, dependency audit, Bandit, SBOM generation, and Gitleaks secret scanning. |
+| `🔒 Installation and security hardening` | Ships wheel/sdist runtime artifacts, locked import-root validation, HTTP transport safety defaults, installed-wheel smoke coverage, dependency audit, Bandit, SBOM generation, Gitleaks secret scanning, and release-asset attestation support. |
 | `📦 Regulatory handoff packaging` | Exports concentration bundles, regulatory handoff packages, summaries, packets, and briefs for downstream suite consumers without claiming final risk decisions. |
 | `✅ Validation and release surface` | Ships defaults manifests, schemas, examples, benchmark manifests, scientific-claim coverage and freshness reports, validation dossiers, and release-readiness reports as first-class outputs. |
 
@@ -167,6 +168,7 @@ Current validation artifacts report:
 - concentration surfaces report `reported_time_semantics`; `steady_state` is end-of-duration screening, not an infinite-time equilibrium claim
 - release fractions are invariant-checked at `0 < sum(release_fractions) <= 1.0`; unallocated mass remains outside scoped media and is surfaced as a warning
 - supply-chain checks run Ruff, tests, Bandit, `pip-audit`, SBOM generation, and checksum-verified Gitleaks CLI secret scanning
+- GitHub releases can publish wheel/sdist/checksum assets with Sigstore-backed GitHub Artifact Attestations; verify them with `gh attestation verify`
 
 This release gate remains a product-level screening-readiness status rather than a claim of formal regulatory acceptance, legal sufficiency, or source-engine scientific equivalence.
 
@@ -181,11 +183,12 @@ See:
 - [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
-- [docs/releases/v0.3.0/scientific-trust-pack.md](./docs/releases/v0.3.0/scientific-trust-pack.md)
+- [docs/releases/v0.3.1/scientific-trust-pack.md](./docs/releases/v0.3.1/scientific-trust-pack.md)
+- [docs/release_provenance.md](./docs/release_provenance.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.3.0/release-notes.md](./docs/releases/v0.3.0/release-notes.md)
+- [docs/releases/v0.3.1/release-notes.md](./docs/releases/v0.3.1/release-notes.md)
 
 ## Governance
 
