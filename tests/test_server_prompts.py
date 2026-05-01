@@ -334,6 +334,13 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         demo_report = json.loads(demo_contents[0].content)
         assert demo_report["passed"] is True
         assert demo_report["demoCaseCount"] == 4
+        notes_contents = await server.read_resource("release://release-notes")
+        notes = json.loads(notes_contents[0].content)
+        assert "Environmental Fate MCP v0.2.0" in notes["markdown"]
+        assert "public MCP import contract in this release" in notes["markdown"]
+        manifest_contents = await server.read_resource("release://resource-manifest")
+        manifest = json.loads(manifest_contents[0].content)
+        assert "release-notes" in {item["name"] for item in manifest["resources"]}
 
     asyncio.run(_run())
 

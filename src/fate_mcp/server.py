@@ -2050,6 +2050,7 @@ def benchmarks_scientific_validation_claim_coverage() -> str:
 
 
 _RELEASE_MARKDOWN_FILENAMES = {
+    "release-notes": "release-notes.md",
     "scientific-trust-pack": "scientific-trust-pack.md",
     "scientific-trust-brief": "scientific-trust-brief.md",
     "reference-proof-brief": "reference-proof-brief.md",
@@ -2091,6 +2092,11 @@ def release_resource_manifest() -> str:
     ]
     resources.extend(
         [
+            {
+                "name": "release-notes",
+                "format": "json-wrapper",
+                "description": REPORT_DESCRIPTIONS["release-notes.md"],
+            },
             {
                 "name": "scientific-trust-brief",
                 "format": "json-wrapper",
