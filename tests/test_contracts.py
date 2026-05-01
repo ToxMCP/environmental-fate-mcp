@@ -16,6 +16,8 @@ def test_contract_generation_and_validation() -> None:
     assert (repo_root / "docs" / "contracts" / "schemas" / "adapterUnitConversionRule.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentMethodProfile.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentMethodProfileManifest.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentValidationProfile.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentValidationProfileManifest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "fateRegionProfile.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "importExternalResultPayloadRequest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "modelFamilyApplicabilityProfile.v1.json").exists()
@@ -103,6 +105,12 @@ def test_contract_generation_and_validation() -> None:
     assert (repo_root / "docs" / "contracts" / "schemas" / "eventSedimentYieldMusleResult.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "estimateSedimentAssociatedChemicalLoadRequest.v1.json").exists()
     assert (repo_root / "docs" / "contracts" / "schemas" / "sedimentAssociatedChemicalLoadResult.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "observedErosionSedimentValidationRecord.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "predictedErosionSedimentValidationRecord.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "buildErosionSedimentValidationCaseRequest.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentValidationCaseResult.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "assessErosionSedimentValidationFitRequest.v1.json").exists()
+    assert (repo_root / "docs" / "contracts" / "schemas" / "erosionSedimentValidationFitResult.v1.json").exists()
 
 
 def test_build_examples_is_deterministic() -> None:

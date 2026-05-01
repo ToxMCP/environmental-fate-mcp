@@ -1,0 +1,378 @@
+{
+  "$defs": {
+    "ErosionSedimentValidationCaseResult": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "validation_profile_id": {
+          "title": "Validation Profile Id",
+          "type": "string"
+        },
+        "observed_records": {
+          "items": {
+            "$ref": "#/$defs/ObservedErosionSedimentValidationRecord"
+          },
+          "title": "Observed Records",
+          "type": "array"
+        },
+        "predicted_records": {
+          "items": {
+            "$ref": "#/$defs/PredictedErosionSedimentValidationRecord"
+          },
+          "title": "Predicted Records",
+          "type": "array"
+        },
+        "matched_record_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Matched Record Ids",
+          "type": "array"
+        },
+        "unmatched_observed_record_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unmatched Observed Record Ids",
+          "type": "array"
+        },
+        "unmatched_predicted_record_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unmatched Predicted Record Ids",
+          "type": "array"
+        },
+        "quantity_mismatch_record_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Quantity Mismatch Record Ids",
+          "type": "array"
+        },
+        "provenance": {
+          "$ref": "#/$defs/ProvenanceBundle"
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "$ref": "#/$defs/LimitationNote"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "interpretation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Interpretation Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "validation_profile_id",
+        "observed_records",
+        "predicted_records",
+        "provenance"
+      ],
+      "title": "ErosionSedimentValidationCaseResult",
+      "type": "object"
+    },
+    "ErosionSedimentValidationQuantity": {
+      "enum": [
+        "annual_soil_loss_t_ha_yr",
+        "total_soil_loss_t_yr",
+        "event_sediment_yield_t",
+        "sediment_associated_load_kg"
+      ],
+      "title": "ErosionSedimentValidationQuantity",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ObservedErosionSedimentValidationRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "title": "Record Id",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/ErosionSedimentValidationQuantity"
+        },
+        "observed_value": {
+          "title": "Observed Value",
+          "type": "number"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "context_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Context Label"
+        },
+        "source_reference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceReference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "record_id",
+        "quantity",
+        "observed_value",
+        "unit"
+      ],
+      "title": "ObservedErosionSedimentValidationRecord",
+      "type": "object"
+    },
+    "PredictedErosionSedimentValidationRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "title": "Record Id",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/ErosionSedimentValidationQuantity"
+        },
+        "predicted_value": {
+          "title": "Predicted Value",
+          "type": "number"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "method_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Method Id"
+        },
+        "source_result_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Result Id"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "record_id",
+        "quantity",
+        "predicted_value",
+        "unit"
+      ],
+      "title": "PredictedErosionSedimentValidationRecord",
+      "type": "object"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "validation_case": {
+      "$ref": "#/$defs/ErosionSedimentValidationCaseResult"
+    },
+    "validation_profile_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Validation Profile Id"
+    }
+  },
+  "required": [
+    "validation_case"
+  ],
+  "title": "AssessErosionSedimentValidationFitRequest",
+  "type": "object"
+}

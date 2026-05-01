@@ -11,6 +11,8 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - estimate scalar RUSLE annual soil loss from explicit R, K, LS, C, and P factors
 - estimate scalar MUSLE event sediment yield from caller-provided runoff volume and peak runoff rate
 - estimate sediment-associated chemical load from sediment yield, soil concentration, delivery ratio, and particle-bound availability fraction
+- build inline erosion/sediment validation cases from observed and predicted scalar records
+- assess erosion/sediment validation fit with governed, non-calibrating screening classifications
 - import normalized external JSON/CSV payloads through the public adapter contract
 - assess model-family applicability for a scenario/run pair
 - recommend whether to keep the default model-family baseline only or add a governed experimental challenge path
@@ -47,6 +49,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - inspect the public normalized external-payload adapter contract through `adapters://public-import-manifest`
 - inspect governed model-family applicability profiles
 - inspect governed erosion/sediment method profiles through `defaults://erosion-sediment-method-profiles`
+- inspect governed erosion/sediment validation profiles through `defaults://erosion-sediment-validation-profiles`
 - inspect governed model-family selection profiles
 - inspect governed model-family challenge review profiles
 - inspect governed model-family comparison profiles
@@ -116,6 +119,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - final risk characterization
 - full GIS dispersion
 - watershed hydrology, rainfall-runoff generation, channel routing, deposition fields, and WEPP execution
+- automated RUSLE/MUSLE parameter fitting or erosion/sediment calibration workflows
 - unrestricted probabilistic simulation
 
 

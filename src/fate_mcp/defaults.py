@@ -15,6 +15,10 @@ from fate_mcp.models import (
     Compartment,
     ErosionSedimentMethodProfile,
     ErosionSedimentMethodProfileManifest,
+    ErosionSedimentValidationProfile,
+    ErosionSedimentValidationProfileManifest,
+    ErosionSedimentValidationQuantity,
+    ErosionSedimentValidationThresholdSet,
     FateParameterPolicy,
     FateParameterPolicyFamily,
     FateRegionProfile,
@@ -135,6 +139,9 @@ class DefaultsRegistry:
         )
         self.erosion_sediment_method_profiles = _load_json(
             self.version_root / "erosion_sediment_method_profiles.json"
+        )
+        self.erosion_sediment_validation_profiles = _load_json(
+            self.version_root / "erosion_sediment_validation_profiles.json"
         )
         self.model_family_applicability_profiles = _load_json(
             self.version_root / "model_family_applicability_profiles.json"
@@ -540,6 +547,53 @@ class DefaultsRegistry:
     def erosion_sediment_method_profile_manifest(self) -> ErosionSedimentMethodProfileManifest:
         profiles = self.list_erosion_sediment_method_profiles()
         return ErosionSedimentMethodProfileManifest(
+            profile_count=len(profiles),
+            profiles=profiles,
+        )
+
+    def erosion_sediment_validation_profile(
+        self,
+        profile_id: str,
+    ) -> ErosionSedimentValidationProfile | None:
+        payload = self.erosion_sediment_validation_profiles["profiles"].get(profile_id)
+        if not payload:
+            return None
+        return ErosionSedimentValidationProfile(
+            profile_id=profile_id,
+            display_name=payload["displayName"],
+            supported_quantities=[
+                ErosionSedimentValidationQuantity(quantity)
+                for quantity in payload.get("supportedQuantities", [])
+            ],
+            good_screening_fit=ErosionSedimentValidationThresholdSet(
+                **payload["goodScreeningFit"]
+            ),
+            screening_plausible=ErosionSedimentValidationThresholdSet(
+                **payload["screeningPlausible"]
+            ),
+            source_references=[
+                SourceReference(**item) for item in payload.get("sourceReferences", [])
+            ],
+            limitations=payload.get("limitations", []),
+            source_pack=f"defaults/{DEFAULTS_VERSION}/erosion_sediment_validation_profiles.json",
+            applicability_note=payload.get("applicabilityNote"),
+        )
+
+    def list_erosion_sediment_validation_profiles(
+        self,
+    ) -> list[ErosionSedimentValidationProfile]:
+        profiles = []
+        for profile_id in sorted(self.erosion_sediment_validation_profiles["profiles"].keys()):
+            profile = self.erosion_sediment_validation_profile(profile_id)
+            if profile is not None:
+                profiles.append(profile)
+        return profiles
+
+    def erosion_sediment_validation_profile_manifest(
+        self,
+    ) -> ErosionSedimentValidationProfileManifest:
+        profiles = self.list_erosion_sediment_validation_profiles()
+        return ErosionSedimentValidationProfileManifest(
             profile_count=len(profiles),
             profiles=profiles,
         )

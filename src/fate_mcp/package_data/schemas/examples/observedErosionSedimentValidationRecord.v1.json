@@ -1,0 +1,14 @@
+{
+  "record_id": "event-001",
+  "quantity": "event_sediment_yield_t",
+  "observed_value": 43.92290413655426,
+  "unit": "t/event",
+  "context_label": "Illustrative monitored storm event",
+  "source_reference": {
+    "source_id": "example.erosion.validation.event",
+    "title": "Illustrative erosion/sediment validation event",
+    "effective_date": "2026-04-08",
+    "url": null
+  },
+  "notes": []
+}

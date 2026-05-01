@@ -213,6 +213,10 @@
         "status": "ok"
       },
       {
+        "name": "assessErosionSedimentValidationFitRequest.v1.json",
+        "status": "ok"
+      },
+      {
         "name": "assessReleaseScenarioFitRequest.v1.json",
         "status": "ok"
       },
@@ -222,6 +226,10 @@
       },
       {
         "name": "buildEnvironmentalReleaseScenarioRequest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "buildErosionSedimentValidationCaseRequest.v1.json",
         "status": "ok"
       },
       {
@@ -334,6 +342,22 @@
       },
       {
         "name": "erosionSedimentMethodProfileManifest.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentValidationCaseResult.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentValidationFitResult.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentValidationProfile.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentValidationProfileManifest.v1.json",
         "status": "ok"
       },
       {
@@ -493,7 +517,15 @@
         "status": "ok"
       },
       {
+        "name": "observedErosionSedimentValidationRecord.v1.json",
+        "status": "ok"
+      },
+      {
         "name": "physchemEvidenceApplicationResult.v1.json",
+        "status": "ok"
+      },
+      {
+        "name": "predictedErosionSedimentValidationRecord.v1.json",
         "status": "ok"
       },
       {
@@ -683,6 +715,14 @@
         "status": "ok"
       },
       {
+        "name": "erosionSedimentValidationProfile.v1",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentValidationProfileManifest.v1",
+        "status": "ok"
+      },
+      {
         "name": "buildEnvironmentalReleaseScenarioRequest.v1",
         "status": "ok"
       },
@@ -828,6 +868,30 @@
       },
       {
         "name": "sedimentAssociatedChemicalLoadResult.v1",
+        "status": "ok"
+      },
+      {
+        "name": "observedErosionSedimentValidationRecord.v1",
+        "status": "ok"
+      },
+      {
+        "name": "predictedErosionSedimentValidationRecord.v1",
+        "status": "ok"
+      },
+      {
+        "name": "buildErosionSedimentValidationCaseRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentValidationCaseResult.v1",
+        "status": "ok"
+      },
+      {
+        "name": "assessErosionSedimentValidationFitRequest.v1",
+        "status": "ok"
+      },
+      {
+        "name": "erosionSedimentValidationFitResult.v1",
         "status": "ok"
       },
       {

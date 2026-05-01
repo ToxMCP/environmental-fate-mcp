@@ -1,0 +1,155 @@
+{
+  "$defs": {
+    "ErosionSedimentValidationQuantity": {
+      "enum": [
+        "annual_soil_loss_t_ha_yr",
+        "total_soil_loss_t_yr",
+        "event_sediment_yield_t",
+        "sediment_associated_load_kg"
+      ],
+      "title": "ErosionSedimentValidationQuantity",
+      "type": "string"
+    },
+    "ErosionSedimentValidationThresholdSet": {
+      "additionalProperties": false,
+      "properties": {
+        "minimum_matched_records": {
+          "minimum": 1,
+          "title": "Minimum Matched Records",
+          "type": "integer"
+        },
+        "maximum_absolute_normalized_bias": {
+          "minimum": 0.0,
+          "title": "Maximum Absolute Normalized Bias",
+          "type": "number"
+        },
+        "maximum_normalized_rmse": {
+          "minimum": 0.0,
+          "title": "Maximum Normalized Rmse",
+          "type": "number"
+        },
+        "minimum_factor_of_two_fraction": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Minimum Factor Of Two Fraction",
+          "type": "number"
+        }
+      },
+      "required": [
+        "minimum_matched_records",
+        "maximum_absolute_normalized_bias",
+        "maximum_normalized_rmse",
+        "minimum_factor_of_two_fraction"
+      ],
+      "title": "ErosionSedimentValidationThresholdSet",
+      "type": "object"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "supported_quantities": {
+      "items": {
+        "$ref": "#/$defs/ErosionSedimentValidationQuantity"
+      },
+      "title": "Supported Quantities",
+      "type": "array"
+    },
+    "good_screening_fit": {
+      "$ref": "#/$defs/ErosionSedimentValidationThresholdSet"
+    },
+    "screening_plausible": {
+      "$ref": "#/$defs/ErosionSedimentValidationThresholdSet"
+    },
+    "source_references": {
+      "items": {
+        "$ref": "#/$defs/SourceReference"
+      },
+      "title": "Source References",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "source_pack": {
+      "title": "Source Pack",
+      "type": "string"
+    },
+    "applicability_note": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Applicability Note"
+    }
+  },
+  "required": [
+    "profile_id",
+    "display_name",
+    "good_screening_fit",
+    "screening_plausible",
+    "source_pack"
+  ],
+  "title": "ErosionSedimentValidationProfile",
+  "type": "object"
+}

@@ -11,6 +11,8 @@ SUPPORTED_WORKFLOWS = [
     "fate_estimate_soil_loss_rusle",
     "fate_estimate_event_sediment_yield_musle",
     "fate_estimate_sediment_associated_chemical_load",
+    "fate_build_erosion_sediment_validation_case",
+    "fate_assess_erosion_sediment_validation_fit",
     "fate_import_external_result_payload",
     "fate_build_concentration_surface_bundle",
     "fate_compare_fate_scenarios",

@@ -1,0 +1,374 @@
+{
+  "$defs": {
+    "ErosionSedimentValidationFitClassification": {
+      "enum": [
+        "good_screening_fit",
+        "screening_plausible",
+        "weak_fit",
+        "insufficient_evidence"
+      ],
+      "title": "ErosionSedimentValidationFitClassification",
+      "type": "string"
+    },
+    "ErosionSedimentValidationFitMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "matched_count": {
+          "minimum": 0,
+          "title": "Matched Count",
+          "type": "integer"
+        },
+        "mean_bias": {
+          "title": "Mean Bias",
+          "type": "number"
+        },
+        "mean_absolute_error": {
+          "minimum": 0.0,
+          "title": "Mean Absolute Error",
+          "type": "number"
+        },
+        "root_mean_square_error": {
+          "minimum": 0.0,
+          "title": "Root Mean Square Error",
+          "type": "number"
+        },
+        "normalized_bias": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Normalized Bias"
+        },
+        "normalized_root_mean_square_error": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Normalized Root Mean Square Error"
+        },
+        "mean_absolute_percentage_error_fraction": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mean Absolute Percentage Error Fraction"
+        },
+        "factor_of_two_fraction": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Factor Of Two Fraction",
+          "type": "number"
+        }
+      },
+      "required": [
+        "matched_count",
+        "mean_bias",
+        "mean_absolute_error",
+        "root_mean_square_error",
+        "factor_of_two_fraction"
+      ],
+      "title": "ErosionSedimentValidationFitMetrics",
+      "type": "object"
+    },
+    "ErosionSedimentValidationMatchedRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "title": "Record Id",
+          "type": "string"
+        },
+        "quantity": {
+          "$ref": "#/$defs/ErosionSedimentValidationQuantity"
+        },
+        "observed_value": {
+          "title": "Observed Value",
+          "type": "number"
+        },
+        "predicted_value": {
+          "title": "Predicted Value",
+          "type": "number"
+        },
+        "residual": {
+          "title": "Residual",
+          "type": "number"
+        },
+        "absolute_error": {
+          "minimum": 0.0,
+          "title": "Absolute Error",
+          "type": "number"
+        },
+        "relative_error_fraction": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relative Error Fraction"
+        },
+        "within_factor_of_two": {
+          "title": "Within Factor Of Two",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "record_id",
+        "quantity",
+        "observed_value",
+        "predicted_value",
+        "residual",
+        "absolute_error",
+        "within_factor_of_two"
+      ],
+      "title": "ErosionSedimentValidationMatchedRecord",
+      "type": "object"
+    },
+    "ErosionSedimentValidationQuantity": {
+      "enum": [
+        "annual_soil_loss_t_ha_yr",
+        "total_soil_loss_t_yr",
+        "event_sediment_yield_t",
+        "sediment_associated_load_kg"
+      ],
+      "title": "ErosionSedimentValidationQuantity",
+      "type": "string"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "validation_profile_id": {
+      "title": "Validation Profile Id",
+      "type": "string"
+    },
+    "classification": {
+      "$ref": "#/$defs/ErosionSedimentValidationFitClassification"
+    },
+    "metrics": {
+      "$ref": "#/$defs/ErosionSedimentValidationFitMetrics"
+    },
+    "matched_records": {
+      "items": {
+        "$ref": "#/$defs/ErosionSedimentValidationMatchedRecord"
+      },
+      "title": "Matched Records",
+      "type": "array"
+    },
+    "unmatched_observed_record_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unmatched Observed Record Ids",
+      "type": "array"
+    },
+    "unmatched_predicted_record_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unmatched Predicted Record Ids",
+      "type": "array"
+    },
+    "quantity_mismatch_record_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Quantity Mismatch Record Ids",
+      "type": "array"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceBundle"
+    },
+    "quality_flags": {
+      "items": {
+        "$ref": "#/$defs/QualityFlag"
+      },
+      "title": "Quality Flags",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "interpretation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Interpretation Lines",
+      "type": "array"
+    }
+  },
+  "required": [
+    "case_id",
+    "validation_profile_id",
+    "classification",
+    "metrics",
+    "matched_records",
+    "provenance"
+  ],
+  "title": "ErosionSedimentValidationFitResult",
+  "type": "object"
+}

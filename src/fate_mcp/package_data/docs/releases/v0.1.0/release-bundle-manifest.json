@@ -34,7 +34,7 @@
     },
     {
       "path": "metadata-report.json",
-      "sha256": "37b4d6fc478c6008c4217f91357a777dd1003625a1e514fe77c86c0c9dd2afd1"
+      "sha256": "35e7d635d4d18fe8105c9d05257ef64c1112936efaf42b66e69b392ee946c66f"
     },
     {
       "path": "readiness-report.json",
@@ -138,7 +138,7 @@
     },
     {
       "path": "release-notes.md",
-      "sha256": "433109058128a7a9f0646d6d95b369f7f33f58ce85c8e14c4faf7178e45fdd45"
+      "sha256": "1d409397ef22c86fa7e2629cfcd2ef663e96b070cdb3a4c053f3a345b0bb79dd"
     },
     {
       "path": "scientific-claim-coverage-report.json",
@@ -158,7 +158,7 @@
     },
     {
       "path": "validation-dossier.json",
-      "sha256": "5426766b9ffb7e1781d9b736ac33847fdb288b750df0d3b4f2d4192d8a5b9547"
+      "sha256": "bf16d7f79f2d088c55f5be5649c0c2324fb7fe019e221721603e13ff61ec586b"
     }
   ],
   "releaseRef": "v0.1.0",

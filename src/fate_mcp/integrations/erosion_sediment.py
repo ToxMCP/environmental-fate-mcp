@@ -1,8 +1,20 @@
 from __future__ import annotations
 
+import hashlib
+import math
+
+from fate_mcp.errors import FateValidationError
 from fate_mcp.models import (
+    AssessErosionSedimentValidationFitRequest,
+    BuildErosionSedimentValidationCaseRequest,
     CalculationTrace,
     CalculationTraceTerm,
+    ErosionSedimentValidationCaseResult,
+    ErosionSedimentValidationFitClassification,
+    ErosionSedimentValidationFitMetrics,
+    ErosionSedimentValidationFitResult,
+    ErosionSedimentValidationMatchedRecord,
+    ErosionSedimentValidationProfile,
     ErosionTransportRelevanceLevel,
     ErosionTransportRelevanceResult,
     EstimateEventSedimentYieldMusleRequest,
@@ -97,6 +109,363 @@ def _screening_limitations(*, includes_chemical_load: bool = False) -> list[Limi
             )
         )
     return limitations
+
+
+def _validation_profile(
+    provenance_builder: ProvenanceBuilder,
+    profile_id: str,
+) -> ErosionSedimentValidationProfile:
+    profile = provenance_builder.defaults_registry.erosion_sediment_validation_profile(profile_id)
+    if profile is None:
+        raise FateValidationError(
+            code="unknown_erosion_sediment_validation_profile",
+            message=f"Erosion/sediment validation profile {profile_id} is not governed.",
+            suggestion=(
+                "Use a profile listed in defaults://erosion-sediment-validation-profiles."
+            ),
+            details={"validationProfileId": profile_id},
+        )
+    return profile
+
+
+def _validation_limitations(profile: ErosionSedimentValidationProfile) -> list[LimitationNote]:
+    return [
+        LimitationNote(
+            code="erosion_sediment_validation_screening_only",
+            message=(
+                "Validation fit classifications are screening QA diagnostics only; they are not "
+                "calibration, parameter fitting, regulatory acceptance, or proof of scientific adequacy."
+            ),
+        ),
+        LimitationNote(
+            code="no_validation_parameter_adjustment",
+            message=(
+                "This workflow compares caller-supplied observed and predicted records without "
+                "optimizing RUSLE/MUSLE factors, hydrology, delivery ratios, or availability fractions."
+            ),
+        ),
+        *[
+            LimitationNote(code="governed_validation_profile_limit", message=limitation)
+            for limitation in profile.limitations
+        ],
+    ]
+
+
+def _unsupported_validation_quantities(
+    request: BuildErosionSedimentValidationCaseRequest,
+    profile: ErosionSedimentValidationProfile,
+) -> list[str]:
+    supported = set(profile.supported_quantities)
+    quantities = {
+        *[record.quantity for record in request.observed_records],
+        *[record.quantity for record in request.predicted_records],
+    }
+    return sorted(quantity.value for quantity in quantities if quantity not in supported)
+
+
+def build_erosion_sediment_validation_case(
+    request: BuildErosionSedimentValidationCaseRequest,
+    provenance_builder: ProvenanceBuilder,
+) -> ErosionSedimentValidationCaseResult:
+    profile = _validation_profile(provenance_builder, request.validation_profile_id)
+    unsupported_quantities = _unsupported_validation_quantities(request, profile)
+    if unsupported_quantities:
+        raise FateValidationError(
+            code="unsupported_erosion_sediment_validation_quantity",
+            message="One or more erosion/sediment validation quantities are not supported.",
+            suggestion=(
+                "Use only quantities declared by the governed validation profile: "
+                f"{', '.join(quantity.value for quantity in profile.supported_quantities)}."
+            ),
+            details={
+                "validationProfileId": profile.profile_id,
+                "unsupportedQuantities": unsupported_quantities,
+            },
+        )
+
+    observed_by_id = {record.record_id: record for record in request.observed_records}
+    predicted_by_id = {record.record_id: record for record in request.predicted_records}
+    shared_ids = sorted(set(observed_by_id) & set(predicted_by_id))
+    quantity_mismatch_record_ids = [
+        record_id
+        for record_id in shared_ids
+        if observed_by_id[record_id].quantity != predicted_by_id[record_id].quantity
+    ]
+    matched_record_ids = [
+        record_id for record_id in shared_ids if record_id not in quantity_mismatch_record_ids
+    ]
+    unmatched_observed_record_ids = sorted(set(observed_by_id) - set(predicted_by_id))
+    unmatched_predicted_record_ids = sorted(set(predicted_by_id) - set(observed_by_id))
+
+    quality_flags: list[QualityFlag] = []
+    if unmatched_observed_record_ids or unmatched_predicted_record_ids:
+        quality_flags.append(
+            QualityFlag(
+                code="unmatched_erosion_sediment_validation_records",
+                severity=Severity.WARNING,
+                message=(
+                    "Some observed or predicted validation records do not have a matching "
+                    "record_id in the paired collection."
+                ),
+            )
+        )
+    if quantity_mismatch_record_ids:
+        quality_flags.append(
+            QualityFlag(
+                code="erosion_sediment_validation_quantity_mismatch",
+                severity=Severity.WARNING,
+                message=(
+                    "Some records share a record_id but declare different validation quantities; "
+                    "they are preserved but excluded from fit metrics."
+                ),
+            )
+        )
+    if len(matched_record_ids) < profile.screening_plausible.minimum_matched_records:
+        quality_flags.append(
+            QualityFlag(
+                code="limited_erosion_sediment_validation_matches",
+                severity=Severity.INFO,
+                message=(
+                    "Matched record count is below the governed screening-plausible evidence "
+                    "threshold for this validation profile."
+                ),
+            )
+        )
+
+    case_fingerprint = "|".join(
+        [
+            profile.profile_id,
+            *[
+                f"observed:{record.record_id}:{record.quantity.value}:{record.observed_value:g}"
+                for record in request.observed_records
+            ],
+            *[
+                f"predicted:{record.record_id}:{record.quantity.value}:{record.predicted_value:g}"
+                for record in request.predicted_records
+            ],
+        ]
+    )
+    case_id = f"erosion-validation-{hashlib.sha256(case_fingerprint.encode()).hexdigest()[:12]}"
+
+    return ErosionSedimentValidationCaseResult(
+        case_id=case_id,
+        validation_profile_id=profile.profile_id,
+        observed_records=request.observed_records,
+        predicted_records=request.predicted_records,
+        matched_record_ids=matched_record_ids,
+        unmatched_observed_record_ids=unmatched_observed_record_ids,
+        unmatched_predicted_record_ids=unmatched_predicted_record_ids,
+        quantity_mismatch_record_ids=quantity_mismatch_record_ids,
+        provenance=provenance_builder.bundle(profile.source_references),
+        quality_flags=quality_flags,
+        limitations=_validation_limitations(profile),
+        interpretation_lines=[
+            "Observed and predicted erosion/sediment records were paired by record_id only.",
+            "Use the fit assessment as a screening QA check, not as calibration or acceptance.",
+        ],
+    )
+
+
+def _mean(values: list[float]) -> float:
+    return sum(values) / len(values)
+
+
+def _classify_validation_fit(
+    metrics: ErosionSedimentValidationFitMetrics,
+    profile: ErosionSedimentValidationProfile,
+) -> ErosionSedimentValidationFitClassification:
+    if metrics.matched_count < profile.screening_plausible.minimum_matched_records:
+        return ErosionSedimentValidationFitClassification.INSUFFICIENT_EVIDENCE
+    if (
+        metrics.normalized_bias is None
+        or metrics.normalized_root_mean_square_error is None
+    ):
+        return ErosionSedimentValidationFitClassification.INSUFFICIENT_EVIDENCE
+    absolute_normalized_bias = abs(metrics.normalized_bias)
+    if (
+        metrics.matched_count >= profile.good_screening_fit.minimum_matched_records
+        and absolute_normalized_bias
+        <= profile.good_screening_fit.maximum_absolute_normalized_bias
+        and metrics.normalized_root_mean_square_error
+        <= profile.good_screening_fit.maximum_normalized_rmse
+        and metrics.factor_of_two_fraction
+        >= profile.good_screening_fit.minimum_factor_of_two_fraction
+    ):
+        return ErosionSedimentValidationFitClassification.GOOD_SCREENING_FIT
+    if (
+        absolute_normalized_bias
+        <= profile.screening_plausible.maximum_absolute_normalized_bias
+        and metrics.normalized_root_mean_square_error
+        <= profile.screening_plausible.maximum_normalized_rmse
+        and metrics.factor_of_two_fraction
+        >= profile.screening_plausible.minimum_factor_of_two_fraction
+    ):
+        return ErosionSedimentValidationFitClassification.SCREENING_PLAUSIBLE
+    return ErosionSedimentValidationFitClassification.WEAK_FIT
+
+
+def assess_erosion_sediment_validation_fit(
+    request: AssessErosionSedimentValidationFitRequest,
+    provenance_builder: ProvenanceBuilder,
+) -> ErosionSedimentValidationFitResult:
+    validation_case = request.validation_case
+    profile_id = request.validation_profile_id or validation_case.validation_profile_id
+    profile = _validation_profile(provenance_builder, profile_id)
+
+    observed_by_id = {record.record_id: record for record in validation_case.observed_records}
+    predicted_by_id = {record.record_id: record for record in validation_case.predicted_records}
+    matched_ids = [
+        record_id
+        for record_id in sorted(set(observed_by_id) & set(predicted_by_id))
+        if observed_by_id[record_id].quantity == predicted_by_id[record_id].quantity
+    ]
+    if not matched_ids:
+        raise FateValidationError(
+            code="erosion_sediment_validation_no_matched_records",
+            message="No erosion/sediment validation records could be paired for fit assessment.",
+            suggestion=(
+                "Provide observed and predicted records with matching record_id values and the "
+                "same supported validation quantity."
+            ),
+            details={
+                "caseId": validation_case.case_id,
+                "unmatchedObservedRecordIds": validation_case.unmatched_observed_record_ids,
+                "unmatchedPredictedRecordIds": validation_case.unmatched_predicted_record_ids,
+                "quantityMismatchRecordIds": validation_case.quantity_mismatch_record_ids,
+            },
+        )
+
+    matched_records: list[ErosionSedimentValidationMatchedRecord] = []
+    residuals: list[float] = []
+    absolute_errors: list[float] = []
+    absolute_percentage_errors: list[float] = []
+    within_factor_count = 0
+    observed_values: list[float] = []
+    for record_id in matched_ids:
+        observed = observed_by_id[record_id]
+        predicted = predicted_by_id[record_id]
+        residual = predicted.predicted_value - observed.observed_value
+        absolute_error = abs(residual)
+        relative_error = (
+            absolute_error / observed.observed_value
+            if observed.observed_value > 0.0
+            else None
+        )
+        if observed.observed_value == 0.0:
+            within_factor = predicted.predicted_value == 0.0
+        else:
+            ratio = predicted.predicted_value / observed.observed_value
+            within_factor = 0.5 <= ratio <= 2.0
+        if within_factor:
+            within_factor_count += 1
+        if relative_error is not None:
+            absolute_percentage_errors.append(relative_error)
+        residuals.append(residual)
+        absolute_errors.append(absolute_error)
+        observed_values.append(observed.observed_value)
+        matched_records.append(
+            ErosionSedimentValidationMatchedRecord(
+                record_id=record_id,
+                quantity=observed.quantity,
+                observed_value=observed.observed_value,
+                predicted_value=predicted.predicted_value,
+                residual=residual,
+                absolute_error=absolute_error,
+                relative_error_fraction=relative_error,
+                within_factor_of_two=within_factor,
+            )
+        )
+
+    matched_count = len(matched_records)
+    mean_bias = _mean(residuals)
+    mean_absolute_error = _mean(absolute_errors)
+    root_mean_square_error = math.sqrt(_mean([residual * residual for residual in residuals]))
+    mean_observed_value = _mean(observed_values)
+    normalized_bias = mean_bias / mean_observed_value if mean_observed_value > 0.0 else None
+    normalized_rmse = (
+        root_mean_square_error / mean_observed_value
+        if mean_observed_value > 0.0
+        else None
+    )
+    mape = _mean(absolute_percentage_errors) if absolute_percentage_errors else None
+    metrics = ErosionSedimentValidationFitMetrics(
+        matched_count=matched_count,
+        mean_bias=mean_bias,
+        mean_absolute_error=mean_absolute_error,
+        root_mean_square_error=root_mean_square_error,
+        normalized_bias=normalized_bias,
+        normalized_root_mean_square_error=normalized_rmse,
+        mean_absolute_percentage_error_fraction=mape,
+        factor_of_two_fraction=within_factor_count / matched_count,
+    )
+    classification = _classify_validation_fit(metrics, profile)
+
+    quality_flags = [
+        *validation_case.quality_flags,
+    ]
+    if mape is None:
+        quality_flags.append(
+            QualityFlag(
+                code="mape_unavailable_for_zero_observed_records",
+                severity=Severity.INFO,
+                message=(
+                    "Mean absolute percentage error is unavailable because no matched observed "
+                    "record has a positive value."
+                ),
+            )
+        )
+    if normalized_bias is None or normalized_rmse is None:
+        quality_flags.append(
+            QualityFlag(
+                code="normalized_fit_metrics_unavailable",
+                severity=Severity.WARNING,
+                message=(
+                    "Normalized bias and normalized RMSE are unavailable because the mean "
+                    "matched observed value is zero."
+                ),
+            )
+        )
+    if classification == ErosionSedimentValidationFitClassification.INSUFFICIENT_EVIDENCE:
+        quality_flags.append(
+            QualityFlag(
+                code="insufficient_erosion_sediment_validation_evidence",
+                severity=Severity.WARNING,
+                message=(
+                    "Matched record count or normalized metric availability is insufficient "
+                    "for a screening-plausible validation fit verdict."
+                ),
+            )
+        )
+    elif classification == ErosionSedimentValidationFitClassification.WEAK_FIT:
+        quality_flags.append(
+            QualityFlag(
+                code="weak_erosion_sediment_validation_fit",
+                severity=Severity.WARNING,
+                message=(
+                    "Observed-versus-predicted agreement does not meet the governed "
+                    "screening-plausible threshold."
+                ),
+            )
+        )
+
+    return ErosionSedimentValidationFitResult(
+        case_id=validation_case.case_id,
+        validation_profile_id=profile.profile_id,
+        classification=classification,
+        metrics=metrics,
+        matched_records=matched_records,
+        unmatched_observed_record_ids=validation_case.unmatched_observed_record_ids,
+        unmatched_predicted_record_ids=validation_case.unmatched_predicted_record_ids,
+        quantity_mismatch_record_ids=validation_case.quantity_mismatch_record_ids,
+        provenance=provenance_builder.bundle(profile.source_references),
+        quality_flags=quality_flags,
+        limitations=_validation_limitations(profile),
+        interpretation_lines=[
+            f"Fit classification: {classification.value}.",
+            "Do not use this result to adjust model parameters automatically.",
+            "Treat weak or insufficient fits as a prompt for external review, not as a final risk result.",
+        ],
+    )
 
 
 def estimate_soil_loss_rusle(

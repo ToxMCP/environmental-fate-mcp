@@ -114,6 +114,20 @@ class ErosionTransportRelevanceLevel(str, Enum):
     UNKNOWN = "unknown"
 
 
+class ErosionSedimentValidationQuantity(str, Enum):
+    ANNUAL_SOIL_LOSS_T_HA_YR = "annual_soil_loss_t_ha_yr"
+    TOTAL_SOIL_LOSS_T_YR = "total_soil_loss_t_yr"
+    EVENT_SEDIMENT_YIELD_T = "event_sediment_yield_t"
+    SEDIMENT_ASSOCIATED_LOAD_KG = "sediment_associated_load_kg"
+
+
+class ErosionSedimentValidationFitClassification(str, Enum):
+    GOOD_SCREENING_FIT = "good_screening_fit"
+    SCREENING_PLAUSIBLE = "screening_plausible"
+    WEAK_FIT = "weak_fit"
+    INSUFFICIENT_EVIDENCE = "insufficient_evidence"
+
+
 class SourceClassification(str, Enum):
     USER_INPUT = "user_input"
     CURATED_DEFAULT = "curated_default"
@@ -216,6 +230,32 @@ class ErosionSedimentMethodProfileManifest(FateBaseModel):
     defaults_version: str = Field(default=DEFAULTS_VERSION)
     profile_count: int
     profiles: list[ErosionSedimentMethodProfile]
+
+
+class ErosionSedimentValidationThresholdSet(FateBaseModel):
+    minimum_matched_records: int = Field(ge=1)
+    maximum_absolute_normalized_bias: float = Field(ge=0.0)
+    maximum_normalized_rmse: float = Field(ge=0.0)
+    minimum_factor_of_two_fraction: float = Field(ge=0.0, le=1.0)
+
+
+class ErosionSedimentValidationProfile(FateBaseModel):
+    profile_id: str
+    display_name: str
+    supported_quantities: list[ErosionSedimentValidationQuantity] = Field(default_factory=list)
+    good_screening_fit: ErosionSedimentValidationThresholdSet
+    screening_plausible: ErosionSedimentValidationThresholdSet
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    source_pack: str
+    applicability_note: str | None = None
+
+
+class ErosionSedimentValidationProfileManifest(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    profile_count: int
+    profiles: list[ErosionSedimentValidationProfile]
 
 
 class ScientificValidationClaimPriority(str, Enum):
@@ -2233,6 +2273,127 @@ class SedimentAssociatedChemicalLoadResult(FateBaseModel):
     @classmethod
     def validate_output_finite_non_negative(cls, value: float, info) -> float:
         return _ensure_finite_non_negative(value, info.field_name)
+
+
+class ObservedErosionSedimentValidationRecord(FateBaseModel):
+    record_id: str
+    quantity: ErosionSedimentValidationQuantity
+    observed_value: float
+    unit: str
+    context_label: str | None = None
+    source_reference: SourceReference | None = None
+    notes: list[str] = Field(default_factory=list)
+
+    @field_validator("record_id", "unit")
+    @classmethod
+    def validate_non_blank_text(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} must not be blank")
+        return value.strip()
+
+    @field_validator("observed_value")
+    @classmethod
+    def validate_observed_value(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
+
+
+class PredictedErosionSedimentValidationRecord(FateBaseModel):
+    record_id: str
+    quantity: ErosionSedimentValidationQuantity
+    predicted_value: float
+    unit: str
+    method_id: str | None = None
+    source_result_id: str | None = None
+    notes: list[str] = Field(default_factory=list)
+
+    @field_validator("record_id", "unit")
+    @classmethod
+    def validate_non_blank_text(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} must not be blank")
+        return value.strip()
+
+    @field_validator("predicted_value")
+    @classmethod
+    def validate_predicted_value(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
+
+
+class BuildErosionSedimentValidationCaseRequest(FateBaseModel):
+    observed_records: list[ObservedErosionSedimentValidationRecord] = Field(min_length=1)
+    predicted_records: list[PredictedErosionSedimentValidationRecord] = Field(min_length=1)
+    validation_profile_id: str = Field(default="erosion_sediment_screening_validation_v1")
+
+    @model_validator(mode="after")
+    def validate_unique_record_ids(self) -> "BuildErosionSedimentValidationCaseRequest":
+        observed_ids = [record.record_id for record in self.observed_records]
+        predicted_ids = [record.record_id for record in self.predicted_records]
+        duplicate_observed = sorted({record_id for record_id in observed_ids if observed_ids.count(record_id) > 1})
+        duplicate_predicted = sorted({record_id for record_id in predicted_ids if predicted_ids.count(record_id) > 1})
+        if duplicate_observed or duplicate_predicted:
+            raise ValueError(
+                "validation record_id values must be unique within observed_records and predicted_records"
+            )
+        return self
+
+
+class ErosionSedimentValidationCaseResult(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    case_id: str = Field(default_factory=lambda: f"erosion-validation-{uuid4().hex[:12]}")
+    validation_profile_id: str
+    observed_records: list[ObservedErosionSedimentValidationRecord]
+    predicted_records: list[PredictedErosionSedimentValidationRecord]
+    matched_record_ids: list[str] = Field(default_factory=list)
+    unmatched_observed_record_ids: list[str] = Field(default_factory=list)
+    unmatched_predicted_record_ids: list[str] = Field(default_factory=list)
+    quantity_mismatch_record_ids: list[str] = Field(default_factory=list)
+    provenance: ProvenanceBundle
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
+    interpretation_lines: list[str] = Field(default_factory=list)
+
+
+class AssessErosionSedimentValidationFitRequest(FateBaseModel):
+    validation_case: ErosionSedimentValidationCaseResult
+    validation_profile_id: str | None = None
+
+
+class ErosionSedimentValidationMatchedRecord(FateBaseModel):
+    record_id: str
+    quantity: ErosionSedimentValidationQuantity
+    observed_value: float
+    predicted_value: float
+    residual: float
+    absolute_error: float = Field(ge=0.0)
+    relative_error_fraction: float | None = Field(default=None, ge=0.0)
+    within_factor_of_two: bool
+
+
+class ErosionSedimentValidationFitMetrics(FateBaseModel):
+    matched_count: int = Field(ge=0)
+    mean_bias: float
+    mean_absolute_error: float = Field(ge=0.0)
+    root_mean_square_error: float = Field(ge=0.0)
+    normalized_bias: float | None = None
+    normalized_root_mean_square_error: float | None = Field(default=None, ge=0.0)
+    mean_absolute_percentage_error_fraction: float | None = Field(default=None, ge=0.0)
+    factor_of_two_fraction: float = Field(ge=0.0, le=1.0)
+
+
+class ErosionSedimentValidationFitResult(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    case_id: str
+    validation_profile_id: str
+    classification: ErosionSedimentValidationFitClassification
+    metrics: ErosionSedimentValidationFitMetrics
+    matched_records: list[ErosionSedimentValidationMatchedRecord]
+    unmatched_observed_record_ids: list[str] = Field(default_factory=list)
+    unmatched_predicted_record_ids: list[str] = Field(default_factory=list)
+    quantity_mismatch_record_ids: list[str] = Field(default_factory=list)
+    provenance: ProvenanceBundle
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+    limitations: list[LimitationNote] = Field(default_factory=list)
+    interpretation_lines: list[str] = Field(default_factory=list)
 
 
 class PhyschemEvidenceRecord(FateBaseModel):

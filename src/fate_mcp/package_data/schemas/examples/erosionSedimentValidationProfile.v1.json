@@ -1,0 +1,37 @@
+{
+  "profile_id": "erosion_sediment_screening_validation_v1",
+  "display_name": "Erosion/sediment scalar screening validation profile",
+  "supported_quantities": [
+    "annual_soil_loss_t_ha_yr",
+    "total_soil_loss_t_yr",
+    "event_sediment_yield_t",
+    "sediment_associated_load_kg"
+  ],
+  "good_screening_fit": {
+    "minimum_matched_records": 5,
+    "maximum_absolute_normalized_bias": 0.25,
+    "maximum_normalized_rmse": 0.5,
+    "minimum_factor_of_two_fraction": 0.8
+  },
+  "screening_plausible": {
+    "minimum_matched_records": 3,
+    "maximum_absolute_normalized_bias": 0.5,
+    "maximum_normalized_rmse": 1.0,
+    "minimum_factor_of_two_fraction": 0.6
+  },
+  "source_references": [
+    {
+      "source_id": "fate_mcp.erosion_sediment_validation_profile.v1",
+      "title": "Environmental Fate MCP governed scalar erosion/sediment validation profile",
+      "effective_date": null,
+      "url": null
+    }
+  ],
+  "limitations": [
+    "Fit classifications are reviewer-facing screening diagnostics, not calibration, optimization, regulatory acceptance, or proof of scientific adequacy.",
+    "Observed and predicted records are paired only by record_id and supported scalar quantity; spatial routing, rainfall-runoff generation, and WEPP execution remain out of scope.",
+    "Default thresholds are governance thresholds for scalar screening QA and must not be treated as universal watershed model performance criteria."
+  ],
+  "source_pack": "defaults/v1/erosion_sediment_validation_profiles.json",
+  "applicability_note": "Use after RUSLE, MUSLE, or sediment-associated load screening when inline observed field/event records are available for reviewer-facing fit diagnostics."
+}

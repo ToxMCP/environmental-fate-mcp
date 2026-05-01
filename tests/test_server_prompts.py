@@ -7,6 +7,7 @@ import pytest
 from fate_mcp.server import (
     create_server,
     defaults_erosion_sediment_method_profiles,
+    defaults_erosion_sediment_validation_profiles,
     docs_manifest_resource,
     docs_resource,
     example_resource,
@@ -36,6 +37,7 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "fate_review_advective_promotion_bar" in names
         assert "fate_request_external_result_import" in names
         assert "fate_request_erosion_sediment_transport_screening" in names
+        assert "fate_request_erosion_sediment_validation_case" in names
         assert "fate_request_regulatory_handoff_for_profile" in names
         assert "fate_request_regulatory_handoff_for_consumer" in names
         assert "fate_summarize_regulatory_handoff_for_profile" in names
@@ -230,6 +232,15 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "fate_estimate_event_sediment_yield_musle" in erosion_text
         assert "fate_estimate_sediment_associated_chemical_load" in erosion_text
 
+        erosion_validation_prompt = await server.get_prompt(
+            "fate_request_erosion_sediment_validation_case",
+            {"validation_goal": "storm-event validation QA"},
+        )
+        erosion_validation_text = erosion_validation_prompt.messages[0].content.text
+        assert "defaults://erosion-sediment-validation-profiles" in erosion_validation_text
+        assert "fate_build_erosion_sediment_validation_case" in erosion_validation_text
+        assert "fate_assess_erosion_sediment_validation_fit" in erosion_validation_text
+
         request_prompt = await server.get_prompt(
             "fate_request_regulatory_handoff_for_profile",
             {
@@ -277,7 +288,7 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
     async def _run() -> None:
         server = create_server()
         tools = await server.list_tools()
-        assert len(tools) == 54
+        assert len(tools) == 56
         for tool in tools:
             assert tool.annotations is not None, tool.name
             assert tool.annotations.readOnlyHint is True, tool.name
@@ -291,6 +302,8 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
             "fate_estimate_soil_loss_rusle",
             "fate_estimate_event_sediment_yield_musle",
             "fate_estimate_sediment_associated_chemical_load",
+            "fate_build_erosion_sediment_validation_case",
+            "fate_assess_erosion_sediment_validation_fit",
         }:
             assert by_name[tool_name].annotations.openWorldHint is False
             assert by_name[tool_name].annotations.idempotentHint is True
@@ -310,9 +323,9 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         server = create_server()
         contents = await server.read_resource("release://metadata-report")
         metadata = json.loads(contents[0].content)
-        assert metadata["toolCount"] == 54
-        assert metadata["promptCount"] == 20
-        assert metadata["resourceCount"] == 25
+        assert metadata["toolCount"] == 56
+        assert metadata["promptCount"] == 21
+        assert metadata["resourceCount"] == 26
 
     asyncio.run(_run())
 
@@ -396,6 +409,14 @@ def test_erosion_sediment_method_profiles_resource() -> None:
         "sediment_associated_chemical_load",
         "wepp_deferred_adapter",
     } <= profile_ids
+
+
+def test_erosion_sediment_validation_profiles_resource() -> None:
+    manifest = json.loads(defaults_erosion_sediment_validation_profiles())
+    assert manifest["profile_count"] == 1
+    profile = manifest["profiles"][0]
+    assert profile["profile_id"] == "erosion_sediment_screening_validation_v1"
+    assert "event_sediment_yield_t" in profile["supported_quantities"]
 
 
 def test_create_server_does_not_mutate_generated_examples() -> None:

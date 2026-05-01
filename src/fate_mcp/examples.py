@@ -10,7 +10,9 @@ from fate_mcp.benchmarks import scientific_validation_claim_coverage_manifest
 from fate_mcp.compat import UTC, datetime
 from fate_mcp.integrations import (
     apply_physchem_evidence,
+    assess_erosion_sediment_validation_fit,
     assess_release_scenario_fit,
+    build_erosion_sediment_validation_case,
     build_model_family_comparison_brief,
     build_model_family_comparison_packet,
     build_model_family_comparison_review_brief,
@@ -49,7 +51,9 @@ from fate_mcp.integrations import (
 )
 from fate_mcp.models import (
     ApplyPhyschemEvidenceRequest,
+    AssessErosionSedimentValidationFitRequest,
     AssessReleaseScenarioFitRequest,
+    BuildErosionSedimentValidationCaseRequest,
     BuildModelFamilyComparisonBriefRequest,
     BuildModelFamilyComparisonPacketRequest,
     BuildModelFamilyComparisonReviewBriefRequest,
@@ -86,7 +90,9 @@ from fate_mcp.models import (
     FateParameterRecord,
     FitForPurpose,
     Media,
+    ObservedErosionSedimentValidationRecord,
     ParameterDistribution,
+    PredictedErosionSedimentValidationRecord,
     RecommendRegulatoryHandoffProfileRequest,
     RecommendModelFamilySelectionRequest,
     ReleaseFraction,
@@ -506,6 +512,41 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         sediment_load_request,
         runtime.provenance,
     )
+    erosion_validation_observed_record = ObservedErosionSedimentValidationRecord(
+        record_id="event-001",
+        quantity="event_sediment_yield_t",
+        observed_value=musle_result.sediment_yield_t_event,
+        unit="t/event",
+        context_label="Illustrative monitored storm event",
+        source_reference=SourceReference(
+            source_id="example.erosion.validation.event",
+            title="Illustrative erosion/sediment validation event",
+            effective_date="2026-04-08",
+        ),
+    )
+    erosion_validation_predicted_record = PredictedErosionSedimentValidationRecord(
+        record_id="event-001",
+        quantity="event_sediment_yield_t",
+        predicted_value=musle_result.sediment_yield_t_event,
+        unit="t/event",
+        method_id="musle",
+        source_result_id="eventSedimentYieldMusleResult.v1",
+    )
+    erosion_validation_case_request = BuildErosionSedimentValidationCaseRequest(
+        observed_records=[erosion_validation_observed_record],
+        predicted_records=[erosion_validation_predicted_record],
+    )
+    erosion_validation_case = build_erosion_sediment_validation_case(
+        erosion_validation_case_request,
+        runtime.provenance,
+    )
+    erosion_validation_fit_request = AssessErosionSedimentValidationFitRequest(
+        validation_case=erosion_validation_case
+    )
+    erosion_validation_fit = assess_erosion_sediment_validation_fit(
+        erosion_validation_fit_request,
+        runtime.provenance,
+    )
 
     return {
         "adapterImportManifest.v1": build_adapter_import_manifest(runtime.repo_root).model_dump(mode="json"),
@@ -514,6 +555,10 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
             "rusle"
         ).model_dump(mode="json"),
         "erosionSedimentMethodProfileManifest.v1": runtime.defaults.erosion_sediment_method_profile_manifest().model_dump(mode="json"),
+        "erosionSedimentValidationProfile.v1": runtime.defaults.erosion_sediment_validation_profile(
+            "erosion_sediment_screening_validation_v1"
+        ).model_dump(mode="json"),
+        "erosionSedimentValidationProfileManifest.v1": runtime.defaults.erosion_sediment_validation_profile_manifest().model_dump(mode="json"),
         "buildEnvironmentalReleaseScenarioRequest.v1": scenario_request.model_dump(mode="json"),
         "environmentalReleaseScenario.v1": scenario.model_dump(mode="json"),
         "modelFamilyApplicabilityProfile.v1": runtime.defaults.model_family_applicability_profile(
@@ -585,6 +630,12 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         "eventSedimentYieldMusleResult.v1": musle_result.model_dump(mode="json"),
         "estimateSedimentAssociatedChemicalLoadRequest.v1": sediment_load_request.model_dump(mode="json"),
         "sedimentAssociatedChemicalLoadResult.v1": sediment_load_result.model_dump(mode="json"),
+        "observedErosionSedimentValidationRecord.v1": erosion_validation_observed_record.model_dump(mode="json"),
+        "predictedErosionSedimentValidationRecord.v1": erosion_validation_predicted_record.model_dump(mode="json"),
+        "buildErosionSedimentValidationCaseRequest.v1": erosion_validation_case_request.model_dump(mode="json"),
+        "erosionSedimentValidationCaseResult.v1": erosion_validation_case.model_dump(mode="json"),
+        "assessErosionSedimentValidationFitRequest.v1": erosion_validation_fit_request.model_dump(mode="json"),
+        "erosionSedimentValidationFitResult.v1": erosion_validation_fit.model_dump(mode="json"),
         "importExternalResultPayloadRequest.v1": ImportExternalResultPayloadRequest(
             scenario=scenario,
             run_options=FateModelRunOptions(

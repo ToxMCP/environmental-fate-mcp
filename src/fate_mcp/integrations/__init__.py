@@ -9,6 +9,8 @@ from .core import (
     compare_fate_scenarios,
 )
 from .erosion_sediment import (
+    assess_erosion_sediment_validation_fit,
+    build_erosion_sediment_validation_case,
     estimate_event_sediment_yield_musle,
     estimate_sediment_associated_chemical_load,
     estimate_soil_loss_rusle,
@@ -57,7 +59,9 @@ from .scientific_review import (
 __all__ = [
     "apply_physchem_evidence",
     "assess_release_scenario_fit",
+    "assess_erosion_sediment_validation_fit",
     "build_concentration_surface_bundle",
+    "build_erosion_sediment_validation_case",
     "build_model_family_challenge_review_brief",
     "build_model_family_challenge_review_packet",
     "build_model_family_challenge_scientific_dossier",

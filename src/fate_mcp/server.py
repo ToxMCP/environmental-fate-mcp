@@ -22,7 +22,9 @@ from fate_mcp.errors import FateValidationError
 from fate_mcp.guidance import build_doc_manifest, read_doc
 from fate_mcp.integrations import (
     apply_physchem_evidence,
+    assess_erosion_sediment_validation_fit,
     assess_release_scenario_fit,
+    build_erosion_sediment_validation_case,
     build_model_family_comparison_brief,
     build_model_family_comparison_packet,
     build_model_family_comparison_review_brief,
@@ -62,8 +64,10 @@ from fate_mcp.integrations import (
     summarize_regulatory_handoff_package,
 )
 from fate_mcp.models import (
+    AssessErosionSedimentValidationFitRequest,
     ApplyPhyschemEvidenceRequest,
     AssessReleaseScenarioFitRequest,
+    BuildErosionSedimentValidationCaseRequest,
     BuildModelFamilyComparisonBriefRequest,
     BuildModelFamilyComparisonPacketRequest,
     BuildModelFamilyComparisonReviewBriefRequest,
@@ -96,6 +100,8 @@ from fate_mcp.models import (
     EstimateEventSedimentYieldMusleRequest,
     EstimateSedimentAssociatedChemicalLoadRequest,
     EstimateSoilLossRusleRequest,
+    ErosionSedimentValidationCaseResult,
+    ErosionSedimentValidationFitResult,
     EventSedimentYieldMusleResult,
     ExposureConsumptionPackage,
     ImportExternalResultPayloadRequest,
@@ -513,6 +519,22 @@ def fate_estimate_sediment_associated_chemical_load(
 ) -> SedimentAssociatedChemicalLoadResult:
     """Estimate sediment-associated chemical load from sediment yield and explicit delivery assumptions."""
     return estimate_sediment_associated_chemical_load(request, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_build_erosion_sediment_validation_case(
+    request: BuildErosionSedimentValidationCaseRequest,
+) -> ErosionSedimentValidationCaseResult:
+    """Build a bounded inline validation case for scalar erosion/sediment screening outputs."""
+    return build_erosion_sediment_validation_case(request, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_assess_erosion_sediment_validation_fit(
+    request: AssessErosionSedimentValidationFitRequest,
+) -> ErosionSedimentValidationFitResult:
+    """Assess observed-versus-predicted fit for a scalar erosion/sediment validation case."""
+    return assess_erosion_sediment_validation_fit(request, RUNTIME.provenance)
 
 
 @mcp.tool()
@@ -1586,6 +1608,56 @@ def prompt_request_erosion_sediment_transport_screening(
 
 
 @mcp.prompt(
+    name="fate_request_erosion_sediment_validation_case",
+    title="Request Erosion Sediment Validation Case",
+    description="Render a bounded workflow for inline erosion/sediment screening validation QA.",
+)
+def prompt_request_erosion_sediment_validation_case(
+    validation_goal: str = "erosion/sediment screening validation QA",
+) -> str:
+    """Build an Environmental Fate MCP prompt for scalar erosion/sediment validation QA."""
+    observed_records = [
+        {
+            "record_id": "event-001",
+            "quantity": "event_sediment_yield_t",
+            "observed_value": 12.0,
+            "unit": "t/event",
+            "context_label": "illustrative monitored storm event",
+        }
+    ]
+    predicted_records = [
+        {
+            "record_id": "event-001",
+            "quantity": "event_sediment_yield_t",
+            "predicted_value": 11.4,
+            "unit": "t/event",
+            "method_id": "musle",
+        }
+    ]
+    case_payload = {
+        "observed_records": observed_records,
+        "predicted_records": predicted_records,
+        "validation_profile_id": "erosion_sediment_screening_validation_v1",
+    }
+    fit_payload = {"validation_case": "<ErosionSedimentValidationCaseResult>"}
+    return (
+        f"Prepare Environmental Fate MCP erosion/sediment validation QA for {validation_goal}.\n\n"
+        "Read `defaults://erosion-sediment-validation-profiles` before interpreting fit thresholds.\n\n"
+        "Recommended workflow:\n"
+        "1. Run the relevant scalar screening tool first: `fate_estimate_soil_loss_rusle`, "
+        "`fate_estimate_event_sediment_yield_musle`, or "
+        "`fate_estimate_sediment_associated_chemical_load`.\n"
+        "2. Call `fate_build_erosion_sediment_validation_case` with observed and predicted "
+        "records paired by `record_id`:\n"
+        f"```json\n{json.dumps(case_payload, indent=2)}\n```\n"
+        "3. Call `fate_assess_erosion_sediment_validation_fit` with:\n"
+        f"```json\n{json.dumps(fit_payload, indent=2)}\n```\n\n"
+        "Interpret classifications as screening QA only. Do not use them as calibration, "
+        "parameter optimization, GIS routing, WEPP execution, regulatory acceptance, or final risk."
+    )
+
+
+@mcp.prompt(
     name="fate_request_regulatory_handoff_for_profile",
     title="Request Regulatory Handoff",
     description="Render orchestration guidance and a request skeleton for a governed Environmental Fate MCP handoff profile.",
@@ -1722,6 +1794,11 @@ def defaults_adapter_unit_conversions() -> str:
 @mcp.resource("defaults://erosion-sediment-method-profiles")
 def defaults_erosion_sediment_method_profiles() -> str:
     return DEFAULTS.erosion_sediment_method_profile_manifest().model_dump_json(indent=2)
+
+
+@mcp.resource("defaults://erosion-sediment-validation-profiles")
+def defaults_erosion_sediment_validation_profiles() -> str:
+    return DEFAULTS.erosion_sediment_validation_profile_manifest().model_dump_json(indent=2)
 
 
 @mcp.resource("defaults://temperature-correction-policy")

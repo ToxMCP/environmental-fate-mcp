@@ -5,9 +5,9 @@ Release status: `ready_for_screening_release`
 This is an internal bounded-screening release gate, not a statement of regulator acceptance, submission approval, or source-engine scientific equivalence.
 
 ## Highlights
-- `120` JSON schemas and `116` generated examples are published for the release surface.
-- `174` repository test functions and `54` tools / `20` prompts / `25` resources back the released MCP surface.
-- `45` governed workflows are available across `3` supported model families and `1` experimental model family.
+- `128` JSON schemas and `124` generated examples are published for the release surface.
+- `182` repository test functions and `56` tools / `21` prompts / `26` resources back the released MCP surface.
+- `47` governed workflows are available across `3` supported model families and `1` experimental model family.
 - `30` governed scientific validation claims and `25` governed scientific reference cases are included.
 - `4` governed regulatory handoff profiles are published for downstream suite consumers.
 

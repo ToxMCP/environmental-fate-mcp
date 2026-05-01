@@ -1,0 +1,9 @@
+{
+  "record_id": "event-001",
+  "quantity": "event_sediment_yield_t",
+  "predicted_value": 43.92290413655426,
+  "unit": "t/event",
+  "method_id": "musle",
+  "source_result_id": "eventSedimentYieldMusleResult.v1",
+  "notes": []
+}

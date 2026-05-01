@@ -1,0 +1,85 @@
+{
+  "schema_version": "v1",
+  "case_id": "erosion-validation-6d0e61891b78",
+  "validation_profile_id": "erosion_sediment_screening_validation_v1",
+  "observed_records": [
+    {
+      "record_id": "event-001",
+      "quantity": "event_sediment_yield_t",
+      "observed_value": 43.92290413655426,
+      "unit": "t/event",
+      "context_label": "Illustrative monitored storm event",
+      "source_reference": {
+        "source_id": "example.erosion.validation.event",
+        "title": "Illustrative erosion/sediment validation event",
+        "effective_date": "2026-04-08",
+        "url": null
+      },
+      "notes": []
+    }
+  ],
+  "predicted_records": [
+    {
+      "record_id": "event-001",
+      "quantity": "event_sediment_yield_t",
+      "predicted_value": 43.92290413655426,
+      "unit": "t/event",
+      "method_id": "musle",
+      "source_result_id": "eventSedimentYieldMusleResult.v1",
+      "notes": []
+    }
+  ],
+  "matched_record_ids": [
+    "event-001"
+  ],
+  "unmatched_observed_record_ids": [],
+  "unmatched_predicted_record_ids": [],
+  "quantity_mismatch_record_ids": [],
+  "provenance": {
+    "schema_version": "v1",
+    "defaults_version": "v1",
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
+    "source_references": [
+      {
+        "source_id": "fate_mcp.erosion_sediment_validation_profile.v1",
+        "title": "Environmental Fate MCP governed scalar erosion/sediment validation profile",
+        "effective_date": null,
+        "url": null
+      }
+    ]
+  },
+  "quality_flags": [
+    {
+      "code": "limited_erosion_sediment_validation_matches",
+      "severity": "info",
+      "message": "Matched record count is below the governed screening-plausible evidence threshold for this validation profile."
+    }
+  ],
+  "limitations": [
+    {
+      "code": "erosion_sediment_validation_screening_only",
+      "message": "Validation fit classifications are screening QA diagnostics only; they are not calibration, parameter fitting, regulatory acceptance, or proof of scientific adequacy."
+    },
+    {
+      "code": "no_validation_parameter_adjustment",
+      "message": "This workflow compares caller-supplied observed and predicted records without optimizing RUSLE/MUSLE factors, hydrology, delivery ratios, or availability fractions."
+    },
+    {
+      "code": "governed_validation_profile_limit",
+      "message": "Fit classifications are reviewer-facing screening diagnostics, not calibration, optimization, regulatory acceptance, or proof of scientific adequacy."
+    },
+    {
+      "code": "governed_validation_profile_limit",
+      "message": "Observed and predicted records are paired only by record_id and supported scalar quantity; spatial routing, rainfall-runoff generation, and WEPP execution remain out of scope."
+    },
+    {
+      "code": "governed_validation_profile_limit",
+      "message": "Default thresholds are governance thresholds for scalar screening QA and must not be treated as universal watershed model performance criteria."
+    }
+  ],
+  "interpretation_lines": [
+    "Observed and predicted erosion/sediment records were paired by record_id only.",
+    "Use the fit assessment as a screening QA check, not as calibration or acceptance."
+  ]
+}

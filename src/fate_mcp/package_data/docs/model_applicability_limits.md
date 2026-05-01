@@ -7,7 +7,7 @@
 - `advective_screening_mass_balance`
   experimental non-default screening kernel with first-order degradation plus governed residence-time clearance at `defaults://model-family-applicability-profile/advective_screening_mass_balance`
 - `erosion_sediment_transport`
-  standalone scalar screening extension, not a concentration `ModelFamily`; supports RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, and sediment-associated chemical-load handoff through governed method profiles at `defaults://erosion-sediment-method-profiles`
+  standalone scalar screening extension, not a concentration `ModelFamily`; supports RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, sediment-associated chemical-load handoff, and inline observed-versus-predicted validation QA through governed method profiles at `defaults://erosion-sediment-method-profiles` and validation profiles at `defaults://erosion-sediment-validation-profiles`
 
 ## Extension hook in v0.1
 
@@ -20,7 +20,7 @@
 
 - branded desktop-model ingestion as a public contract
 - GIS-scale dispersion
-- watershed hydrology, rainfall-runoff generation, channel routing, deposition-field modelling, and native WEPP execution
+- watershed hydrology, rainfall-runoff generation, channel routing, deposition-field modelling, native WEPP execution, and automated erosion/sediment calibration
 - unrestricted probabilistic orchestration
 - full mechanistic food-chain transfer
 
@@ -41,4 +41,4 @@
 - scientific review guidance for each supported model family is exposed separately through `defaults://scientific-review-profiles`
 - governed scientific review outcomes can be previewed before packet generation through `fate_preview_scientific_review_outcome`
 - the advective family is intentionally experimental and should be compared against the default reference family before decision-facing reuse
-- RUSLE/MUSLE outputs should be reviewed as erosion-mediated transport screens only; they do not estimate final receiving-water concentration, exposure, risk, or regulator acceptance
+- RUSLE/MUSLE outputs and validation fit classifications should be reviewed as erosion-mediated transport screening QA only; they do not estimate final receiving-water concentration, exposure, risk, calibrated watershed performance, or regulator acceptance

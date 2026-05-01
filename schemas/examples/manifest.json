@@ -13,6 +13,10 @@
       "path": "schemas/examples/applyPhyschemEvidenceRequest.v1.json"
     },
     {
+      "name": "assessErosionSedimentValidationFitRequest.v1",
+      "path": "schemas/examples/assessErosionSedimentValidationFitRequest.v1.json"
+    },
+    {
       "name": "assessReleaseScenarioFitRequest.v1",
       "path": "schemas/examples/assessReleaseScenarioFitRequest.v1.json"
     },
@@ -23,6 +27,10 @@
     {
       "name": "buildEnvironmentalReleaseScenarioRequest.v1",
       "path": "schemas/examples/buildEnvironmentalReleaseScenarioRequest.v1.json"
+    },
+    {
+      "name": "buildErosionSedimentValidationCaseRequest.v1",
+      "path": "schemas/examples/buildErosionSedimentValidationCaseRequest.v1.json"
     },
     {
       "name": "buildModelFamilyChallengeReviewBriefRequest.v1",
@@ -135,6 +143,22 @@
     {
       "name": "erosionSedimentMethodProfileManifest.v1",
       "path": "schemas/examples/erosionSedimentMethodProfileManifest.v1.json"
+    },
+    {
+      "name": "erosionSedimentValidationCaseResult.v1",
+      "path": "schemas/examples/erosionSedimentValidationCaseResult.v1.json"
+    },
+    {
+      "name": "erosionSedimentValidationFitResult.v1",
+      "path": "schemas/examples/erosionSedimentValidationFitResult.v1.json"
+    },
+    {
+      "name": "erosionSedimentValidationProfile.v1",
+      "path": "schemas/examples/erosionSedimentValidationProfile.v1.json"
+    },
+    {
+      "name": "erosionSedimentValidationProfileManifest.v1",
+      "path": "schemas/examples/erosionSedimentValidationProfileManifest.v1.json"
     },
     {
       "name": "erosionTransportRelevanceResult.v1",
@@ -293,8 +317,16 @@
       "path": "schemas/examples/modelFamilySelectionReviewPreview.v1.json"
     },
     {
+      "name": "observedErosionSedimentValidationRecord.v1",
+      "path": "schemas/examples/observedErosionSedimentValidationRecord.v1.json"
+    },
+    {
       "name": "physchemEvidenceApplicationResult.v1",
       "path": "schemas/examples/physchemEvidenceApplicationResult.v1.json"
+    },
+    {
+      "name": "predictedErosionSedimentValidationRecord.v1",
+      "path": "schemas/examples/predictedErosionSedimentValidationRecord.v1.json"
     },
     {
       "name": "previewModelFamilyChallengeReviewRequest.v1",

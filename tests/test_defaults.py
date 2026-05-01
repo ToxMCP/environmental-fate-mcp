@@ -11,6 +11,7 @@ def test_defaults_manifest_contains_versioned_files() -> None:
     assert any(item["path"].endswith("adapter_unit_conversions.json") for item in manifest["files"])
     assert any(item["path"].endswith("core_defaults.json") for item in manifest["files"])
     assert any(item["path"].endswith("erosion_sediment_method_profiles.json") for item in manifest["files"])
+    assert any(item["path"].endswith("erosion_sediment_validation_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_applicability_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_comparison_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_selection_profiles.json") for item in manifest["files"])
@@ -52,6 +53,18 @@ def test_erosion_sediment_method_profiles_are_governed() -> None:
     assert profiles["musle"].equation_id == "musle_metric_v1"
     assert profiles["wepp_deferred_adapter"].method_class == "deferred_external_adapter"
     assert registry.erosion_sediment_method_profile("missing_method") is None
+
+
+def test_erosion_sediment_validation_profiles_are_governed() -> None:
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    manifest = registry.erosion_sediment_validation_profile_manifest()
+    profiles = {profile.profile_id: profile for profile in manifest.profiles}
+    profile = profiles["erosion_sediment_screening_validation_v1"]
+    assert manifest.profile_count == 1
+    assert profile.good_screening_fit.minimum_matched_records == 5
+    assert profile.screening_plausible.minimum_matched_records == 3
+    assert "event_sediment_yield_t" in {quantity.value for quantity in profile.supported_quantities}
+    assert registry.erosion_sediment_validation_profile("missing_profile") is None
 
 
 def test_core_defaults_are_source_backed_and_free_of_shipped_tier3_assumptions() -> None:

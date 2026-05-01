@@ -5,6 +5,7 @@ Minimum validation scope for v0.1:
 - hand-worked mass-balance fixtures
 - hand-worked advective-screening fixtures for experimental native families
 - documented multi-medium, time-bucket, parameter-override, and adapter normalization-parity fixtures
+- governed scalar erosion/sediment validation QA for inline observed-versus-predicted records, without calibration or hydrologic routing claims
 - governed scientific validation claims mapped to benchmark fixtures, validation tiers, and reference types
 - governed scientific validation claim provenance checks for source references, methods-basis lines, and reference-case lines
 - governed scientific reference-case mapping checks for experimental medium/high-priority claims

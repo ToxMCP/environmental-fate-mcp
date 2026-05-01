@@ -65,11 +65,11 @@ flowchart LR
 The released server is broader than a simple concentration calculator, but the boundary is still strict:
 
 - `Environmental Fate MCP` owns environmental release scenarios, multimedia concentration estimation, scientific review, scientific methods dossiers, and downstream concentration handoff packaging.
-- It also owns bounded scalar erosion/sediment transport screening for RUSLE, MUSLE, and sediment-associated chemical-load handoffs when particle-bound soil transport is relevant.
+- It also owns bounded scalar erosion/sediment transport screening for RUSLE, MUSLE, sediment-associated chemical-load handoffs, and inline validation QA when particle-bound soil transport is relevant.
 - `Direct-Use Exposure MCP` owns direct-use product scenarios, near-field external exposure construction, and PBPK-ready direct-use handoffs.
 - `Dietary Exposure MCP` owns food-mediated oral intake, commodity-consumption mappings, and dietary PBPK-ready oral handoffs.
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
-- The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, and scalar erosion/sediment transport screening; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, or public wrapper around branded external model payloads.
+- The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, or public wrapper around branded external model payloads.
 
 ## What's in v0.1.0
 
@@ -77,6 +77,7 @@ The released server is broader than a simple concentration calculator, but the b
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
 - Governed experimental `advective_screening_mass_balance` challenge family with residence-time, bounded-transport, loss-dominance, transition, mass-balance, and post-release authority layers
 - Bounded scalar erosion/sediment transport tools for RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, and sediment-associated chemical-load handoff
+- Inline erosion/sediment validation QA for observed-versus-predicted scalar screening records, with governed non-calibrating fit classifications
 - Additive probabilistic percentile orchestration with median, P90, and P95 concentration surfaces plus failed-iteration taxonomy and reproducibility metadata
 - Scientific review packets and briefs with equation, mass-balance, transport-regime, loss-transition, and post-release interpretation lines
 - Scientific methods dossiers and briefs with governed claims, benchmark support, source grounding, highlighted claim digests, promotion status, and blocker/action posture
@@ -90,10 +91,10 @@ The released server is broader than a simple concentration calculator, but the b
 
 Current local release verification and generated `v0.1.0` artifacts report:
 
-- `174` repository test functions
-- `120` JSON schemas
-- `116` generated examples
-- `45` supported workflows surfaced through `54` tools, `20` prompts, and `25` resources
+- `182` repository test functions
+- `128` JSON schemas
+- `124` generated examples
+- `47` supported workflows surfaced through `56` tools, `21` prompts, and `26` resources
 - `54` benchmark fixtures with claim-coverage enforcement
 - `30` governed scientific validation claims with plugin-code traceability
 - `25` governed scientific reference cases
@@ -124,7 +125,7 @@ Environmental Fate MCP gives the suite a dedicated environmental-fate layer that
 | --- | --- |
 | `🌍 Environmental release screening` | Builds typed environmental release scenarios and deterministic concentration surfaces for multimedia screening use cases. |
 | `🌊 Advective challenge family` | Publishes a governed experimental residence-time and bounded-transport challenge path with explicit comparison and challenge review workflows. |
-| `🌱 Erosion/sediment transport bridge` | Screens particle-bound transport relevance, computes scalar RUSLE soil loss and MUSLE event sediment yield, and emits sediment-associated chemical-load handoff objects without claiming hydrologic routing or final exposure. |
+| `🌱 Erosion/sediment transport bridge` | Screens particle-bound transport relevance, computes scalar RUSLE soil loss and MUSLE event sediment yield, emits sediment-associated chemical-load handoff objects, and compares inline observed/predicted scalar records without claiming calibration, hydrologic routing, or final exposure. |
 | `📊 Probabilistic percentile reporting` | Runs an additive percentile orchestration layer over the deterministic kernels and emits reviewable median, P90, and P95 surfaces plus iteration-health context. |
 | `🧪 Scientific review surface` | Exports assessor-facing review packets and briefs with equation traces, mass-balance partitions, transport-regime lines, loss-transition cues, and post-release recovery interpretation. |
 | `🧾 Scientific methods dossiers` | Publishes governed claim sets, source-grounding lines, benchmark support, highlighted claim digests, challenge posture, and promotion/blocker summaries for each model family. |
