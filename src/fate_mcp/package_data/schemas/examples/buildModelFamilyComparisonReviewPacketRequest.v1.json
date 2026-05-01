@@ -1,7 +1,7 @@
 {
   "comparison_packet": {
     "schema_version": "v1",
-    "comparison_packet_id": "familycmp-5df2b1a2911a",
+    "comparison_packet_id": "familycmp-3c066a677348",
     "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
@@ -181,7 +181,7 @@
     },
     "comparison": {
       "schema_version": "v1",
-      "comparison_id": "comparison-9a95bb3655c8",
+      "comparison_id": "comparison-f7ab7ac100bf",
       "base_scenario_id": "scenario-306863db9176",
       "candidate_scenario_id": "scenario-306863db9176",
       "surface_deltas": [

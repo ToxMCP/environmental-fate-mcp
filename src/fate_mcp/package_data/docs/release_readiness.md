@@ -16,12 +16,17 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - every release-surface PR should run artifact generation, release bundle generation, the release validator, tests, wheel build, and installed-wheel smoke before merge
 - drift checks must remain fail-closed so uncommitted regeneration output blocks the merge instead of becoming an implicit local artifact
 - the governed erosion/sediment validation demo pack must remain synthetic, classification-stable, and visible through both `defaults://erosion-sediment-validation-demo-pack` and `release://erosion-sediment-validation-demo-report`
+- the governed external benchmark pack must remain deterministic, tolerance-stable, and visible through both `defaults://scientific-external-benchmark-pack` and `release://external-validation-benchmark-report`
+- governed default sensitivity profiles must remain deterministic, boundary-limited, and visible through both `defaults://default-sensitivity-profiles` and `release://default-sensitivity-report`
 
 ## Required checks
 
 - generated schemas and examples are current
 - generated example payloads are deterministic across reruns
 - governed erosion/sediment validation demo cases parse, execute through the validation tools, and match their declared expected classifications
+- governed external benchmark replay cases parse, execute through public tools, and match declared expected values within tolerance
+- governed default sensitivity profiles parse, execute through `fate_build_default_sensitivity_report`, and keep sensitivity interpretation separate from calibration or field validation
+- optional probabilistic sample manifest schemas preserve seed, sampled-parameter summaries, iteration health, stable hashes, and capped records when requested
 - server startup validates shipped artifacts without regenerating them
 - defaults manifest hashes match shipped files
 - the shipped default path contains zero `tier_3_internal_screening_assumption` values

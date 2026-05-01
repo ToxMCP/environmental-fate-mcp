@@ -21,6 +21,8 @@ from fate_mcp.models import (
     ErosionSedimentValidationProfileManifest,
     ErosionSedimentValidationQuantity,
     ErosionSedimentValidationThresholdSet,
+    DefaultSensitivityProfile,
+    DefaultSensitivityProfileManifest,
     FateParameterPolicy,
     FateParameterPolicyFamily,
     FateRegionProfile,
@@ -40,6 +42,8 @@ from fate_mcp.models import (
     ModelFamilySelectionStatus,
     ScientificReferenceCase,
     ScientificReferenceCaseManifest,
+    ScientificExternalBenchmarkCase,
+    ScientificExternalBenchmarkPackManifest,
     ScientificReviewChecklistTemplate,
     ScientificValidationClaim,
     ScientificValidationClaimManifest,
@@ -147,6 +151,12 @@ class DefaultsRegistry:
         )
         self.erosion_sediment_validation_demo_pack = _load_json(
             self.version_root / "erosion_sediment_validation_demo_pack.json"
+        )
+        self.scientific_external_benchmark_pack = _load_json(
+            self.version_root / "scientific_external_benchmark_pack.json"
+        )
+        self.default_sensitivity_profiles = _load_json(
+            self.version_root / "default_sensitivity_profiles.json"
         )
         self.model_family_applicability_profiles = _load_json(
             self.version_root / "model_family_applicability_profiles.json"
@@ -622,6 +632,75 @@ class DefaultsRegistry:
                 for item in self.erosion_sediment_validation_demo_pack.get("source_references", [])
             ],
             limitations=self.erosion_sediment_validation_demo_pack.get("limitations", []),
+        )
+
+    def scientific_external_benchmark_pack_manifest(
+        self,
+    ) -> ScientificExternalBenchmarkPackManifest:
+        cases = [
+            ScientificExternalBenchmarkCase(
+                **{
+                    **payload,
+                    "source_pack": f"defaults/{DEFAULTS_VERSION}/scientific_external_benchmark_pack.json",
+                }
+            )
+            for payload in self.scientific_external_benchmark_pack.get("cases", [])
+        ]
+        return ScientificExternalBenchmarkPackManifest(
+            defaults_version=self.scientific_external_benchmark_pack.get(
+                "defaults_version",
+                DEFAULTS_VERSION,
+            ),
+            case_count=len(cases),
+            cases=cases,
+            source_references=[
+                SourceReference(**item)
+                for item in self.scientific_external_benchmark_pack.get("source_references", [])
+            ],
+            limitations=self.scientific_external_benchmark_pack.get("limitations", []),
+        )
+
+    def default_sensitivity_profile(self, profile_id: str) -> DefaultSensitivityProfile | None:
+        payload = self.default_sensitivity_profiles.get("profiles", {}).get(profile_id)
+        if not payload:
+            return None
+        return DefaultSensitivityProfile(
+            profile_id=profile_id,
+            display_name=payload["displayName"],
+            target_type=payload["targetType"],
+            parameter=payload.get("parameter"),
+            medium=payload.get("medium"),
+            factor_values=payload.get("factorValues", []),
+            source_references=[
+                SourceReference(**item) for item in payload.get("sourceReferences", [])
+            ],
+            limitations=payload.get("limitations", []),
+            source_pack=f"defaults/{DEFAULTS_VERSION}/default_sensitivity_profiles.json",
+            applicability_note=payload.get("applicabilityNote"),
+        )
+
+    def list_default_sensitivity_profiles(self) -> list[DefaultSensitivityProfile]:
+        profiles = []
+        for profile_id in sorted(self.default_sensitivity_profiles.get("profiles", {}).keys()):
+            profile = self.default_sensitivity_profile(profile_id)
+            if profile is not None:
+                profiles.append(profile)
+        return profiles
+
+    def default_sensitivity_profile_manifest(self) -> DefaultSensitivityProfileManifest:
+        profiles = self.list_default_sensitivity_profiles()
+        return DefaultSensitivityProfileManifest(
+            defaults_version=self.default_sensitivity_profiles.get(
+                "defaults_version",
+                DEFAULTS_VERSION,
+            ),
+            profile_count=len(profiles),
+            profiles=profiles,
+            source_references=[
+                SourceReference(**item)
+                for item in self.default_sensitivity_profiles.get("source_references", [])
+            ],
+            limitations=self.default_sensitivity_profiles.get("limitations", []),
         )
 
     def model_family_applicability_profile(

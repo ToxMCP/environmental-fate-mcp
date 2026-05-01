@@ -1,4 +1,6 @@
 from __future__ import annotations
+import hashlib
+import json
 import random
 import statistics
 
@@ -10,6 +12,9 @@ from fate_mcp.evidence import evidence_weight, is_low_confidence_evidence
 from fate_mcp.errors import FateValidationError, FateRegistryError
 from fate_mcp.models import (
     ProbabilisticConcentrationResult,
+    ProbabilisticSampleManifest,
+    ProbabilisticSampleManifestMode,
+    ProbabilisticSampleRecord,
     ProbabilisticSurfaceSummary,
     ProbabilisticRunSummary,
     BuildEnvironmentalReleaseScenarioRequest,
@@ -199,6 +204,8 @@ class FateRuntime:
         run_options: FateModelRunOptions,
         iterations: int = 100,
         seed: int | None = None,
+        sample_manifest_mode: ProbabilisticSampleManifestMode = ProbabilisticSampleManifestMode.NONE,
+        sample_manifest_max_records: int = 1000,
     ) -> ProbabilisticConcentrationResult:
         if scenario.geographic_scope.region_id != run_options.region_profile_id:
             raise FateValidationError(
@@ -225,6 +232,13 @@ class FateRuntime:
                 ),
                 details={"iterations": iterations, "maxIterations": MAX_PROBABILISTIC_ITERATIONS},
             )
+        if sample_manifest_max_records < 1 or sample_manifest_max_records > 1000:
+            raise FateValidationError(
+                code="probabilistic_sample_manifest_record_cap_invalid",
+                message="Probabilistic sample manifests support between 1 and 1,000 row records.",
+                suggestion="Set sample_manifest_max_records to a value from 1 through 1,000.",
+                details={"sampleManifestMaxRecords": sample_manifest_max_records},
+            )
         probabilistic_policy = self.defaults.probabilistic_review_policy()
         plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)
         
@@ -248,10 +262,14 @@ class FateRuntime:
         aggregated_assumptions_by_parameter: dict[str, set[str]] = {}
         aggregated_warnings = set()
         failed_iteration_reasons = {}
+        sample_manifest_hash_records = []
+        sample_manifest_records: list[ProbabilisticSampleRecord] = []
+        include_sample_manifest = sample_manifest_mode != ProbabilisticSampleManifestMode.NONE
         
-        for _ in range(iterations):
+        for iteration_index in range(iterations):
             # Sample parameters
             sampled_records = []
+            sampled_values: dict[str, float] = {}
             for p in scenario.parameter_records:
                 if p.distribution:
                     val = self._sample_distribution_value(
@@ -259,6 +277,7 @@ class FateRuntime:
                         distribution=p.distribution,
                         rng=rng,
                     )
+                    sampled_values[p.parameter] = val
                     new_p = p.model_copy(update={"value": val})
                     sampled_records.append(new_p)
                 else:
@@ -269,6 +288,30 @@ class FateRuntime:
             try:
                 res = plugin.run(scenario_copy, run_options)
                 completed_iterations += 1
+                sample_surface_values = {
+                    f"{s.medium.value}/{s.compartment.value}/{s.time_window.bucket_label or s.time_window.mode.value}": s.concentration_value
+                    for s in res.surfaces
+                }
+                if include_sample_manifest:
+                    hash_record = {
+                        "iteration_index": iteration_index,
+                        "status": "completed",
+                        "sampled_parameters": sampled_values,
+                        "surface_values": sample_surface_values,
+                    }
+                    sample_manifest_hash_records.append(hash_record)
+                    if (
+                        sample_manifest_mode == ProbabilisticSampleManifestMode.CAPPED_RECORDS
+                        and len(sample_manifest_records) < sample_manifest_max_records
+                    ):
+                        sample_manifest_records.append(
+                            ProbabilisticSampleRecord(
+                                iteration_index=iteration_index,
+                                status="completed",
+                                sampled_parameters=sampled_values,
+                                surface_values=sample_surface_values,
+                            )
+                        )
                 for a in res.assumptions:
                     aggregated_assumptions_by_parameter.setdefault(a.parameter, set()).add(
                         a.model_dump_json()
@@ -308,6 +351,27 @@ class FateRuntime:
                 failed_iterations += 1
                 reason = exc.payload.code if hasattr(exc, 'payload') else str(exc)
                 failed_iteration_reasons[reason] = failed_iteration_reasons.get(reason, 0) + 1
+                if include_sample_manifest:
+                    hash_record = {
+                        "iteration_index": iteration_index,
+                        "status": "failed",
+                        "sampled_parameters": sampled_values,
+                        "surface_values": {},
+                        "error_code": reason,
+                    }
+                    sample_manifest_hash_records.append(hash_record)
+                    if (
+                        sample_manifest_mode == ProbabilisticSampleManifestMode.CAPPED_RECORDS
+                        and len(sample_manifest_records) < sample_manifest_max_records
+                    ):
+                        sample_manifest_records.append(
+                            ProbabilisticSampleRecord(
+                                iteration_index=iteration_index,
+                                status="failed",
+                                sampled_parameters=sampled_values,
+                                error_code=reason,
+                            )
+                        )
                 
         if completed_iterations == 0:
             raise FateValidationError(
@@ -447,6 +511,44 @@ class FateRuntime:
                 f"Failed iteration fraction {failed_iteration_fraction:.1%} exceeds the governed ready-review threshold of {probabilistic_policy.max_failed_iteration_fraction_for_ready_review:.0%}."
             )
 
+        sample_manifest = None
+        if include_sample_manifest:
+            hash_input = json.dumps(
+                sample_manifest_hash_records,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            limitation_lines = [
+                "Probabilistic sample manifest is an audit aid for sampled inputs and surface summaries only.",
+                "It does not include full per-iteration calculation traces or replace formal global sensitivity analysis.",
+            ]
+            if sample_manifest_mode == ProbabilisticSampleManifestMode.CAPPED_RECORDS:
+                limitation_lines.append(
+                    f"Row-level records are capped at {sample_manifest_max_records}; table_sha256 covers all iteration records used for the manifest hash."
+                )
+            else:
+                limitation_lines.append(
+                    "Summary mode emits a stable hash over iteration records without row-level values."
+                )
+            sample_manifest = ProbabilisticSampleManifest(
+                mode=sample_manifest_mode,
+                requested_iteration_count=iterations,
+                completed_iteration_count=completed_iterations,
+                failed_iteration_count=failed_iterations,
+                sampling_seed=seed,
+                sampled_parameter_count=len(dist_params),
+                sampled_parameters=sorted(p.parameter for p in dist_params),
+                record_count=len(sample_manifest_records),
+                max_record_count=(
+                    sample_manifest_max_records
+                    if sample_manifest_mode == ProbabilisticSampleManifestMode.CAPPED_RECORDS
+                    else 0
+                ),
+                table_sha256=hashlib.sha256(hash_input.encode("utf-8")).hexdigest(),
+                records=sample_manifest_records,
+                limitation_lines=limitation_lines,
+            )
+
         return ProbabilisticConcentrationResult(
             median_surfaces=median_surfaces,
             p90_surfaces=p90_surfaces,
@@ -459,6 +561,7 @@ class FateRuntime:
             sampled_parameter_count=len(dist_params),
             dominant_uncertainty_drivers=sorted(p.parameter for p in dist_params),
             uncertainty_limitation_lines=uncertainty_limitation_lines,
+            sample_manifest=sample_manifest,
             run_summary=ProbabilisticRunSummary(
                 scenario_id=scenario.scenario_id,
                 model_family=run_options.model_family,

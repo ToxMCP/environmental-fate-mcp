@@ -8,6 +8,8 @@
   experimental non-default screening kernel with first-order degradation plus governed residence-time clearance at `defaults://model-family-applicability-profile/advective_screening_mass_balance`
 - `erosion_sediment_transport`
   standalone scalar screening extension, not a concentration `ModelFamily`; supports RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, sediment-associated chemical-load handoff, inline observed-versus-predicted validation QA, and synthetic validation demos through governed method profiles at `defaults://erosion-sediment-method-profiles`, validation profiles at `defaults://erosion-sediment-validation-profiles`, and demo metadata at `defaults://erosion-sediment-validation-demo-pack`
+- `scientific_trust_diagnostics`
+  governed external benchmark replay at `defaults://scientific-external-benchmark-pack`, deterministic default sensitivity profiles at `defaults://default-sensitivity-profiles`, and optional probabilistic sample manifests for auditability; these are reviewer-facing trust diagnostics, not new fate kernels or calibration workflows
 
 ## Extension hook in the current public release
 
@@ -43,3 +45,4 @@
 - the advective family is intentionally experimental and should be compared against the default reference family before decision-facing reuse
 - RUSLE/MUSLE outputs and validation fit classifications should be reviewed as erosion-mediated transport screening QA only; they do not estimate final receiving-water concentration, exposure, risk, calibrated watershed performance, or regulator acceptance
 - synthetic erosion/sediment validation demos demonstrate classification behavior only; they are not field validation, calibration evidence, catchment validation, or WEPP validation
+- external benchmark replay and default sensitivity reports should be read as deterministic screening corroboration and assumption-transparency artifacts only; they are not field validation, calibrated model performance evidence, source-engine equivalence, or regulator acceptance

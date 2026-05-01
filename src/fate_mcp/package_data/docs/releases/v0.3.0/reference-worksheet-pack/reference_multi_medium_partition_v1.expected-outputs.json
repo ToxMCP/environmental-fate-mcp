@@ -1,0 +1,46 @@
+{
+  "claimId": "reference_multi_medium_partition_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference multi-medium partitioned screening output",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "unit": "mg/m3",
+          "value": 0.0011180886566889466
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 9.609374080646793e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "multi_medium_mass_balance_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "unit": "mg/m3",
+          "value": 0.001956655149205657
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 4.804687040323397e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_multi_medium_fraction_sensitivity_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.0"
+}

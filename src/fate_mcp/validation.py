@@ -18,15 +18,24 @@ from fate_mcp.errors import FateValidationError
 from fate_mcp.integrations import (
     assess_erosion_sediment_validation_fit,
     assess_release_scenario_fit,
+    build_default_sensitivity_report,
     build_erosion_sediment_validation_case,
     build_run_parameter_manifest,
     build_run_uncertainty_summary,
     preview_regulatory_handoff_resolution,
+    estimate_event_sediment_yield_musle,
+    estimate_sediment_associated_chemical_load,
+    estimate_soil_loss_rusle,
 )
 from fate_mcp.models import (
     BuildEnvironmentalReleaseScenarioRequest,
     AssessErosionSedimentValidationFitRequest,
+    BuildDefaultSensitivityReportRequest,
     BuildErosionSedimentValidationCaseRequest,
+    EstimateEventSedimentYieldMusleRequest,
+    EstimateSedimentAssociatedChemicalLoadRequest,
+    EstimateSoilLossRusleRequest,
+    ExternalBenchmarkReplayTool,
     FateModelRunOptions,
     FateParameterRecord,
     ModelFamily,
@@ -2812,6 +2821,150 @@ def validate_erosion_sediment_validation_demo_pack(repo_root: Path) -> dict:
     }
 
 
+def _benchmark_observed_value(runtime: FateRuntime, case) -> float:
+    payload = case.input_payload
+    if case.replay_tool == ExternalBenchmarkReplayTool.ESTIMATE_SOIL_LOSS_RUSLE:
+        result = estimate_soil_loss_rusle(
+            EstimateSoilLossRusleRequest(**payload),
+            runtime.provenance,
+        )
+        return result.annual_soil_loss_t_ha_yr
+    if case.replay_tool == ExternalBenchmarkReplayTool.ESTIMATE_EVENT_SEDIMENT_YIELD_MUSLE:
+        result = estimate_event_sediment_yield_musle(
+            EstimateEventSedimentYieldMusleRequest(**payload),
+            runtime.provenance,
+        )
+        return result.sediment_yield_t_event
+    if case.replay_tool == ExternalBenchmarkReplayTool.ESTIMATE_SEDIMENT_ASSOCIATED_CHEMICAL_LOAD:
+        result = estimate_sediment_associated_chemical_load(
+            EstimateSedimentAssociatedChemicalLoadRequest(**payload),
+            runtime.provenance,
+        )
+        return result.sediment_associated_load_kg
+    scenario_payload = {
+        key: value for key, value in payload.items() if key != "run_options"
+    }
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(**scenario_payload)
+    )
+    run_options = FateModelRunOptions(
+        **{
+            **payload["run_options"],
+            "region_profile_id": scenario.geographic_scope.region_id,
+        }
+    )
+    result = runtime.estimate(scenario, run_options)
+    return result.surfaces[0].concentration_value
+
+
+def validate_scientific_external_benchmark_pack(repo_root: Path) -> dict:
+    runtime = FateRuntime(repo_root)
+    manifest = runtime.defaults.scientific_external_benchmark_pack_manifest()
+    case_results = []
+    for case in manifest.cases:
+        observed_value = _benchmark_observed_value(runtime, case)
+        absolute_error = abs(observed_value - case.expected_value)
+        relative_error = (
+            absolute_error / case.expected_value if case.expected_value > 0.0 else 0.0
+        )
+        passed = (
+            absolute_error <= case.tolerance_absolute
+            or relative_error <= case.tolerance_relative
+        )
+        case_results.append(
+            {
+                "benchmarkCaseId": case.benchmark_case_id,
+                "classification": case.classification.value,
+                "replayTool": case.replay_tool.value,
+                "expectedValue": case.expected_value,
+                "observedValue": observed_value,
+                "absoluteError": absolute_error,
+                "relativeError": relative_error,
+                "passed": passed,
+            }
+        )
+    limitations_text = " ".join(manifest.limitations).lower()
+    boundary_clear = all(
+        phrase in limitations_text
+        for phrase in (
+            "screening",
+            "not field validation",
+            "not field validation, calibration evidence",
+            "regulator acceptance",
+            "wepp validation",
+        )
+    )
+    classifications = {case.classification.value for case in manifest.cases}
+    return {
+        "passed": (
+            manifest.case_count == len(manifest.cases)
+            and all(item["passed"] for item in case_results)
+            and boundary_clear
+            and "internal_oracle" in classifications
+            and "official_worked_example" in classifications
+        ),
+        "caseCount": manifest.case_count,
+        "classifications": sorted(classifications),
+        "boundaryClear": boundary_clear,
+        "caseResults": case_results,
+        "limitations": manifest.limitations,
+    }
+
+
+def validate_default_sensitivity_profiles(repo_root: Path) -> dict:
+    runtime = FateRuntime(repo_root)
+    manifest = runtime.defaults.default_sensitivity_profile_manifest()
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Default sensitivity validation substance",
+                "substance_class": "organic chemical",
+            },
+            total_release_mass_kg=12.5,
+            release_fractions=[
+                ReleaseFraction(medium=Media.WATER, fraction=0.5),
+                ReleaseFraction(medium=Media.SOIL, fraction=0.3),
+                ReleaseFraction(medium=Media.SEDIMENT, fraction=0.2),
+            ],
+            duration_days=30.0,
+        )
+    )
+    report = build_default_sensitivity_report(
+        BuildDefaultSensitivityReportRequest(
+            scenario=scenario,
+            run_options=FateModelRunOptions(
+                region_profile_id=scenario.geographic_scope.region_id
+            ),
+        ),
+        runtime,
+        runtime.provenance,
+    )
+    limitations_text = " ".join(manifest.limitations).lower()
+    boundary_clear = all(
+        phrase in limitations_text
+        for phrase in (
+            "deterministic sweeps",
+            "not formal global sensitivity analysis",
+            "no calibration",
+            "routing",
+        )
+    )
+    return {
+        "passed": (
+            manifest.profile_count == len(manifest.profiles)
+            and manifest.profile_count >= 6
+            and report.evaluated_variant_count >= manifest.profile_count
+            and bool(report.top_delta_lines)
+            and boundary_clear
+        ),
+        "profileCount": manifest.profile_count,
+        "evaluatedVariantCount": report.evaluated_variant_count,
+        "boundaryClear": boundary_clear,
+        "topDeltaLines": report.top_delta_lines,
+        "limitations": manifest.limitations,
+    }
+
+
 def validation_dossier(repo_root: Path) -> dict:
     generate_contract_artifacts(repo_root)
     return {
@@ -2834,6 +2987,8 @@ def validation_dossier(repo_root: Path) -> dict:
         "scientificMethodsDossierWorkflow": validate_scientific_methods_dossier_workflow(repo_root),
         "trustSurfaceConsistency": validate_trust_surface_consistency(repo_root),
         "erosionSedimentValidationDemoPack": validate_erosion_sediment_validation_demo_pack(repo_root),
+        "scientificExternalBenchmarkPack": validate_scientific_external_benchmark_pack(repo_root),
+        "defaultSensitivityProfiles": validate_default_sensitivity_profiles(repo_root),
         "modelFamilySelectionWorkflow": validate_model_family_selection_workflow(repo_root),
         "modelFamilySelectionReviewWorkflow": validate_model_family_selection_review_workflow(repo_root),
         "modelFamilyChallengeReviewWorkflow": validate_model_family_challenge_review_workflow(repo_root),
@@ -2849,6 +3004,10 @@ def main() -> None:
     dossier = validation_dossier(repo_root)
     if not dossier["erosionSedimentValidationDemoPack"]["passed"]:
         raise SystemExit("Erosion/sediment validation demo pack failed release validation.")
+    if not dossier["scientificExternalBenchmarkPack"]["passed"]:
+        raise SystemExit("Scientific external benchmark pack failed release validation.")
+    if not dossier["defaultSensitivityProfiles"]["passed"]:
+        raise SystemExit("Default sensitivity profiles failed release validation.")
 
 
 if __name__ == "__main__":

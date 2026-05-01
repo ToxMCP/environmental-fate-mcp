@@ -1,7 +1,7 @@
 {
   "package": {
     "schema_version": "v1",
-    "package_id": "regpkg-f7ebc515c29f",
+    "package_id": "regpkg-9ffe70e7412b",
     "scenario_id": "scenario-306863db9176",
     "handoff_profile_id": "exposure_scenario_mcp_v1",
     "profile_resolution_method": "default_profile",
@@ -455,7 +455,7 @@
       "generated_at": "2026-01-01T00:00:00.123456Z",
       "source_references": []
     },
-    "integrity_hash": "e3850c150a02486b8fd48b46444b4c081d5eabfac9a357673581d6bbc4c63c66",
+    "integrity_hash": "fa79e0ce7a824f4161b53472134c3f4b441b3a275d77f94291c5c08a9a4c7995",
     "regulatory_use_disclaimer": "This output packages concentration surfaces for downstream review. It is not a human dose, risk quotient, or regulatory decision. Downstream translation to dose requires Direct-Use Exposure MCP or equivalent.",
     "target_module_acknowledgement_schema_url": "https://toxmcp.example/contracts/schemas/exposureScenarioAcknowledgement.v1.json",
     "limitations": [

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-01
+
+### Added
+- Governed external benchmark replay pack with release-gated deterministic tolerance checks.
+- Governed default sensitivity profiles and `fate_build_default_sensitivity_report` for reviewer-facing assumption transparency.
+- Optional probabilistic sample manifests with summary mode, capped row records, iteration health, and stable hashes.
+- v0.3.0 scientific validation narrative and release reports for benchmark, sensitivity, and probabilistic audit interpretation.
+
+### Changed
+- Public release docs and release bundle now point at the v0.3.0 scientific trust surface.
+- Release validator now fails closed on malformed benchmark packs or default sensitivity profile drift.
+
 ## [0.2.1] - 2026-05-01
 
 ### Added

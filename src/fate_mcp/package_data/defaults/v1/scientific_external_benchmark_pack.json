@@ -1,0 +1,196 @@
+{
+  "defaults_version": "v1",
+  "cases": [
+    {
+      "benchmark_case_id": "reference_water_closed_form_internal_oracle_v1",
+      "display_name": "Reference water closed-form internal oracle",
+      "classification": "internal_oracle",
+      "replay_tool": "fate_estimate_multimedia_concentrations",
+      "model_family": "reference_mass_balance",
+      "run_mode": "steady_state",
+      "quantity": "surface_water_concentration_mg_l",
+      "expected_value": 0.000008415721071852286,
+      "expected_unit": "mg/L",
+      "tolerance_absolute": 1e-15,
+      "tolerance_relative": 1e-10,
+      "input_payload": {
+        "chemical_identity": {
+          "preferredName": "External benchmark closed-form substance",
+          "substance_class": "organic chemical"
+        },
+        "total_release_mass_kg": 10.0,
+        "release_fractions": [
+          {
+            "medium": "water",
+            "fraction": 1.0
+          }
+        ],
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "value": 10.0,
+            "unit": "day",
+            "source_classification": "user_input",
+            "rationale": "Closed-form benchmark override."
+          }
+        ],
+        "run_options": {
+          "model_family": "reference_mass_balance",
+          "run_mode": "steady_state",
+          "region_profile_id": "eu_screening_default"
+        }
+      },
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "interpretation_lines": [
+        "Replays the public reference closed-form first-order screening equation with fixed scalar inputs.",
+        "This case is an internal oracle for deterministic replay and auditability, not independent field validation."
+      ],
+      "limitations": [
+        "Screening closed-form replay only.",
+        "Not a multimedia fate validation dataset, field observation, calibration case, or regulator acceptance claim."
+      ],
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
+    },
+    {
+      "benchmark_case_id": "rusle_usda_equation_scalar_public_v1",
+      "display_name": "RUSLE scalar equation public worked benchmark",
+      "classification": "official_worked_example",
+      "replay_tool": "fate_estimate_soil_loss_rusle",
+      "quantity": "annual_soil_loss_t_ha_yr",
+      "expected_value": 6.4512,
+      "expected_unit": "t/ha/yr",
+      "tolerance_absolute": 1e-12,
+      "tolerance_relative": 1e-12,
+      "input_payload": {
+        "rainfall_erosivity_r": 150.0,
+        "soil_erodibility_k": 0.28,
+        "slope_length_steepness_ls": 1.6,
+        "cover_management_c": 0.12,
+        "support_practice_p": 0.8,
+        "area_ha": 2.5
+      },
+      "source_references": [
+        {
+          "source_id": "usda.nrcs.rusle2",
+          "title": "NRCS Water Erosion (RUSLE2)",
+          "url": "https://www.nrcs.usda.gov/resources/tech-tools/water-erosion-rusle2"
+        },
+        {
+          "source_id": "usda.rusle.equation",
+          "title": "USDA Revised Universal Soil Loss Equation guidance",
+          "url": "https://efotg.sc.egov.usda.gov/references/public/WA/Revised_Universal_Soil_Loss_Equation_%28RUSLE%29.htm"
+        }
+      ],
+      "interpretation_lines": [
+        "Replays the public RUSLE equation form A = R K LS C P with fixed scalar inputs.",
+        "The benchmark checks formula implementation and unit labeling only."
+      ],
+      "limitations": [
+        "No GIS raster handling, no field calibration, no sediment delivery, and no routing.",
+        "Not a regulator acceptance claim."
+      ],
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
+    },
+    {
+      "benchmark_case_id": "musle_hec_hms_metric_scalar_public_v1",
+      "display_name": "MUSLE metric scalar equation public worked benchmark",
+      "classification": "official_worked_example",
+      "replay_tool": "fate_estimate_event_sediment_yield_musle",
+      "quantity": "event_sediment_yield_t",
+      "expected_value": 43.92290413655426,
+      "expected_unit": "t/event",
+      "tolerance_absolute": 1e-10,
+      "tolerance_relative": 1e-10,
+      "input_payload": {
+        "runoff_volume_m3": 1200.0,
+        "peak_runoff_rate_m3_s": 2.4,
+        "soil_erodibility_k": 0.28,
+        "slope_length_steepness_ls": 1.6,
+        "cover_management_c": 0.12,
+        "support_practice_p": 0.8
+      },
+      "source_references": [
+        {
+          "source_id": "usace.hec_hms.musle",
+          "title": "HEC-HMS Modified USLE erosion method",
+          "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmstrm/erosion-and-sediment-transport-under-construction/erosion-methods/modified-usle"
+        }
+      ],
+      "interpretation_lines": [
+        "Replays the HEC-HMS documented metric MUSLE equation with caller-provided runoff volume and peak runoff rate.",
+        "The benchmark checks scalar equation behavior only and does not generate hydrology."
+      ],
+      "limitations": [
+        "No rainfall-runoff generation, hydrograph routing, channel transport, calibration, or WEPP execution.",
+        "Not a field validation or regulator acceptance claim."
+      ],
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
+    },
+    {
+      "benchmark_case_id": "sediment_load_dimensional_bridge_open_reference_v1",
+      "display_name": "Sediment-associated load dimensional bridge reference",
+      "classification": "open_literature_reference",
+      "replay_tool": "fate_estimate_sediment_associated_chemical_load",
+      "quantity": "sediment_associated_load_kg",
+      "expected_value": 0.00328125,
+      "expected_unit": "kg",
+      "tolerance_absolute": 1e-12,
+      "tolerance_relative": 1e-12,
+      "input_payload": {
+        "soil_concentration_mg_kg": 2.5,
+        "sediment_yield_t": 5.0,
+        "sediment_delivery_ratio": 0.35,
+        "particle_bound_availability_fraction": 0.75
+      },
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "interpretation_lines": [
+        "Checks dimensional conversion for mg/kg soil concentration times metric tons of sediment into kg load.",
+        "This is a screening handoff benchmark, not a receiving-water concentration or ecological risk benchmark."
+      ],
+      "limitations": [
+        "Sediment delivery ratio and availability are explicit caller assumptions.",
+        "No catchment routing, deposition, bioavailability model, or field validation is implied."
+      ],
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
+    }
+  ],
+  "source_references": [
+    {
+      "source_id": "epa.environmental_models_guidance",
+      "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+      "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+    },
+    {
+      "source_id": "usda.nrcs.rusle2",
+      "title": "NRCS Water Erosion (RUSLE2)",
+      "url": "https://www.nrcs.usda.gov/resources/tech-tools/water-erosion-rusle2"
+    },
+    {
+      "source_id": "usace.hec_hms.musle",
+      "title": "HEC-HMS Modified USLE erosion method",
+      "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmstrm/erosion-and-sediment-transport-under-construction/erosion-methods/modified-usle"
+    }
+  ],
+  "limitations": [
+    "This pack contains deterministic screening benchmarks and corroboration cases only.",
+    "It is not field validation, calibration evidence, source-engine equivalence, regulator acceptance, spatial routing evidence, hydrology generation evidence, or WEPP validation.",
+    "Cases with official-source grounding replay public equation forms or model-evaluation concepts using Environmental Fate MCP scalar inputs; they are not copied proprietary datasets."
+  ]
+}

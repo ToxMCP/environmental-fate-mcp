@@ -71,7 +71,7 @@ The released server is broader than a simple concentration calculator, but the b
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, or public wrapper around branded external model payloads.
 
-## What's in v0.2.1
+## What's in v0.3.0
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
@@ -79,7 +79,10 @@ The released server is broader than a simple concentration calculator, but the b
 - Bounded scalar erosion/sediment transport tools for RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, and sediment-associated chemical-load handoff
 - Inline erosion/sediment validation QA for observed-versus-predicted scalar screening records, with governed non-calibrating fit classifications
 - Governed synthetic erosion/sediment validation demo pack for public screening-QA orientation without field-validation, calibration, routing, or WEPP claims
+- Governed external benchmark replay pack for deterministic screening corroboration against official/public equation and reference scenarios, without claiming field validation or regulator acceptance
+- Deterministic default sensitivity reporting for soil/sediment mass, degradation half-life, temperature/Q10, residence-time, release-duration, and release-fraction assumptions
 - Additive probabilistic percentile orchestration with median, P90, and P95 concentration surfaces plus failed-iteration taxonomy and reproducibility metadata
+- Optional probabilistic sample manifests with seed, sampled-parameter summaries, iteration health, stable hashes, and capped row-level records when explicitly requested
 - Scientific review packets and briefs with equation, mass-balance, transport-regime, loss-transition, and post-release interpretation lines
 - Scientific methods dossiers and briefs with governed claims, benchmark support, source grounding, highlighted claim digests, promotion status, and blocker/action posture
 - Model-family selection, challenge, and comparison review workflows so experimental families remain challenge-path review surfaces rather than silent defaults
@@ -90,13 +93,15 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current local release verification and generated `v0.2.1` artifacts report:
+Current local release verification and generated `v0.3.0` artifacts report:
 
-- `192` repository test functions
-- `130` JSON schemas
-- `126` generated examples
-- `47` supported workflows surfaced through `56` tools, `21` prompts, and `27` resources
-- `54` benchmark fixtures with claim-coverage enforcement
+- `195` repository test functions
+- `139` JSON schemas
+- `135` generated examples
+- `48` supported workflows surfaced through `57` tools, `21` prompts, and `29` resources
+- `58` benchmark fixtures with claim-coverage enforcement
+- `4` governed external benchmark replay cases
+- `7` governed default sensitivity profiles
 - `30` governed scientific validation claims with plugin-code traceability
 - `25` governed scientific reference cases
 - `4` governed regulatory handoff profiles with downstream acknowledgement schema URLs
@@ -128,6 +133,7 @@ Environmental Fate MCP gives the suite a dedicated environmental-fate layer that
 | `🌊 Advective challenge family` | Publishes a governed experimental residence-time and bounded-transport challenge path with explicit comparison and challenge review workflows. |
 | `🌱 Erosion/sediment transport bridge` | Screens particle-bound transport relevance, computes scalar RUSLE soil loss and MUSLE event sediment yield, emits sediment-associated chemical-load handoff objects, and compares inline observed/predicted scalar records without claiming calibration, hydrologic routing, or final exposure. |
 | `📊 Probabilistic percentile reporting` | Runs an additive percentile orchestration layer over the deterministic kernels and emits reviewable median, P90, and P95 surfaces plus iteration-health context. |
+| `🔬 Scientific trust diagnostics` | Publishes governed external benchmark replay, deterministic default sensitivity reporting, and optional probabilistic sample manifests for reviewer-facing scientific transparency without adding calibration or routing scope. |
 | `🧪 Scientific review surface` | Exports assessor-facing review packets and briefs with equation traces, mass-balance partitions, transport-regime lines, loss-transition cues, and post-release recovery interpretation. |
 | `🧾 Scientific methods dossiers` | Publishes governed claim sets, source-grounding lines, benchmark support, highlighted claim digests, challenge posture, and promotion/blocker summaries for each model family. |
 | `🔌 External adapter normalization` | Normalizes governed external-engine exports into canonical concentration contracts with normalization-parity checks, semantic-loss disclosure, and fail-closed blocking for non-equivalent mappings. |
@@ -148,6 +154,9 @@ Current validation artifacts report:
 - server startup validates shipped artifacts without regenerating them
 - deterministic and probabilistic review workflow parity enforced through validation
 - governed synthetic erosion/sediment validation demos execute through the validation tools and match declared fit classifications
+- governed external benchmark replay cases execute through the public tools and match declared tolerances
+- default sensitivity profiles execute deterministically and keep calibration/routing/field-validation boundaries explicit
+- probabilistic sample manifests are opt-in, capped, and hash stable when requested
 - shipped defaults evidence governance, external corroboration governance, red-team review accounting, and reviewer trust-pack generation included in release gating
 - adapter normalization, scientific review, scientific methods dossier, model-family challenge, and regulatory handoff workflows included in release gating
 - scientific invariant tests proving mass-balance closure, advection bounds, mass linearity, and half-life monotonicity
@@ -172,11 +181,11 @@ See:
 - [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
-- [docs/releases/v0.2.1/scientific-trust-pack.md](./docs/releases/v0.2.1/scientific-trust-pack.md)
+- [docs/releases/v0.3.0/scientific-trust-pack.md](./docs/releases/v0.3.0/scientific-trust-pack.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.2.1/release-notes.md](./docs/releases/v0.2.1/release-notes.md)
+- [docs/releases/v0.3.0/release-notes.md](./docs/releases/v0.3.0/release-notes.md)
 
 ## Governance
 

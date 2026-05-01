@@ -1,7 +1,7 @@
 {
   "review_packet": {
     "schema_version": "v1",
-    "review_packet_id": "mfchallenge-98ed0b9351fc",
+    "review_packet_id": "mfchallenge-c2f129afd2b1",
     "scenario_id": "scenario-306863db9176",
     "run_mode": "steady_state",
     "fit_for_purpose": "screening",
@@ -290,7 +290,7 @@
     },
     "selection_review_packet": {
       "schema_version": "v1",
-      "review_packet_id": "selreview-0fd5a567cd3a",
+      "review_packet_id": "selreview-012ad2218327",
       "scenario_id": "scenario-306863db9176",
       "run_mode": "steady_state",
       "fit_for_purpose": "screening",
@@ -691,7 +691,7 @@
     },
     "comparison_packet": {
       "schema_version": "v1",
-      "comparison_packet_id": "familycmp-1dd5e5f84251",
+      "comparison_packet_id": "familycmp-61dd91689e5c",
       "scenario_id": "scenario-306863db9176",
       "run_mode": "steady_state",
       "fit_for_purpose": "screening",
@@ -871,7 +871,7 @@
       },
       "comparison": {
         "schema_version": "v1",
-        "comparison_id": "comparison-e976b17fec6c",
+        "comparison_id": "comparison-5bbd532ffe1b",
         "base_scenario_id": "scenario-306863db9176",
         "candidate_scenario_id": "scenario-306863db9176",
         "surface_deltas": [
@@ -1093,8 +1093,8 @@
     },
     "comparison_review_packet": {
       "schema_version": "v1",
-      "review_packet_id": "cmpreview-1a987e22443d",
-      "comparison_packet_id": "familycmp-1dd5e5f84251",
+      "review_packet_id": "cmpreview-15ab11c13c9c",
+      "comparison_packet_id": "familycmp-61dd91689e5c",
       "scenario_id": "scenario-306863db9176",
       "comparison_profile_id": "reference_vs_advective_screening_v1",
       "base_model_family": "reference_mass_balance",
@@ -1102,7 +1102,7 @@
       "comparison_outcome": "material_model_family_divergence",
       "review_status": "model_family_comparison_review_attention_needed",
       "review_preview": {
-        "comparison_packet_id": "familycmp-1dd5e5f84251",
+        "comparison_packet_id": "familycmp-61dd91689e5c",
         "scenario_id": "scenario-306863db9176",
         "comparison_profile_id": "reference_vs_advective_screening_v1",
         "comparison_outcome": "material_model_family_divergence",
@@ -1129,7 +1129,7 @@
       },
       "comparison_packet": {
         "schema_version": "v1",
-        "comparison_packet_id": "familycmp-1dd5e5f84251",
+        "comparison_packet_id": "familycmp-61dd91689e5c",
         "scenario_id": "scenario-306863db9176",
         "run_mode": "steady_state",
         "fit_for_purpose": "screening",
@@ -1309,7 +1309,7 @@
         },
         "comparison": {
           "schema_version": "v1",
-          "comparison_id": "comparison-e976b17fec6c",
+          "comparison_id": "comparison-5bbd532ffe1b",
           "base_scenario_id": "scenario-306863db9176",
           "candidate_scenario_id": "scenario-306863db9176",
           "surface_deltas": [

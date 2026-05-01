@@ -1,0 +1,25 @@
+{
+  "acceptedLimitations": [
+    "No GIS-scale dispersion in v0.3.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.3.",
+    "External benchmark packs are deterministic screening corroboration fixtures, not curated field validation datasets.",
+    "Erosion/sediment validation demos remain synthetic screening-QA demonstrations, not curated field benchmark validation.",
+    "No direct human dose calculation in Environmental Fate MCP.",
+    "No dietary intake workflows in Environmental Fate MCP.",
+    "No PBPK execution in Environmental Fate MCP.",
+    "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in this release."
+  ],
+  "benchmarkReport": "release://external-validation-benchmark-report",
+  "benchmarkResource": "defaults://scientific-external-benchmark-pack",
+  "narrativeLines": [
+    "v0.3.0 adds governed external benchmark replay, deterministic default sensitivity reporting, and optional probabilistic sample manifests.",
+    "The benchmark pack improves reproducibility and source-grounded corroboration for scalar screening equations, but it is not field validation, calibration evidence, source-engine equivalence, or regulator acceptance.",
+    "The default sensitivity report shows how shipped or scenario assumptions can move screening outputs; it is not formal global sensitivity analysis or uncertainty quantification.",
+    "Probabilistic sample manifests preserve seed, sampled parameter summaries, iteration health, and stable hashes when requested; full per-iteration calculation traces remain intentionally omitted.",
+    "The release remains bounded to concentration screening and scalar erosion/sediment screening; no hydrology generation, spatial routing, calibration, WEPP execution, or final risk decision is added."
+  ],
+  "sensitivityReport": "release://default-sensitivity-report",
+  "sensitivityResource": "defaults://default-sensitivity-profiles",
+  "status": "screening_corroboration_strengthened_not_regulatory_acceptance",
+  "version": "0.3.0"
+}

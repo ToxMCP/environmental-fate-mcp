@@ -1,0 +1,46 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "iteration_index": {
+      "minimum": 0,
+      "title": "Iteration Index",
+      "type": "integer"
+    },
+    "status": {
+      "title": "Status",
+      "type": "string"
+    },
+    "sampled_parameters": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Sampled Parameters",
+      "type": "object"
+    },
+    "surface_values": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Surface Values",
+      "type": "object"
+    },
+    "error_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error Code"
+    }
+  },
+  "required": [
+    "iteration_index",
+    "status"
+  ],
+  "title": "ProbabilisticSampleRecord",
+  "type": "object"
+}

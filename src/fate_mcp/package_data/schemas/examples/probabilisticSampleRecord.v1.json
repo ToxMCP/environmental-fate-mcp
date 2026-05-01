@@ -1,0 +1,10 @@
+{
+  "iteration_index": 0,
+  "status": "completed",
+  "sampled_parameters": {
+    "water_half_life_days": 10.0
+  },
+  "surface_values": {
+    "water/surface_water/steady_state": 1e-06
+  }
+}

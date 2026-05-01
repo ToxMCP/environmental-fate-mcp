@@ -12,6 +12,9 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     reports = build_release_reports(repo_root)
     assert "adapter-validation-report" in reports
     assert "erosion-sediment-validation-demo-report" in reports
+    assert "external-validation-benchmark-report" in reports
+    assert "default-sensitivity-report" in reports
+    assert "scientific-validation-narrative" in reports
     assert "benchmark-manifest" in reports
     assert "defaults-rebaseline-report" in reports
     assert "external-corroboration-report" in reports
@@ -69,6 +72,8 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["validation-dossier"]["scientificMethodsDossierWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["trustSurfaceConsistency"]["passed"] is True
     assert reports["validation-dossier"]["erosionSedimentValidationDemoPack"]["passed"] is True
+    assert reports["validation-dossier"]["scientificExternalBenchmarkPack"]["passed"] is True
+    assert reports["validation-dossier"]["defaultSensitivityProfiles"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionReviewWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilyChallengeReviewWorkflow"]["passed"] is True
@@ -163,6 +168,10 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["metadata-report"]["publicAdapterFixtureCount"] >= 2
     assert reports["metadata-report"]["erosionSedimentValidationDemoCaseCount"] == 4
     assert reports["metadata-report"]["erosionSedimentValidationDemoPackPassed"] is True
+    assert reports["metadata-report"]["scientificExternalBenchmarkCaseCount"] == 4
+    assert reports["metadata-report"]["scientificExternalBenchmarkPackPassed"] is True
+    assert reports["metadata-report"]["defaultSensitivityProfileCount"] == 7
+    assert reports["metadata-report"]["defaultSensitivityProfilesPassed"] is True
     assert reports["metadata-report"]["benchmarkMetadataFixtureCount"] >= 9
     assert reports["metadata-report"]["runScientificTrustBriefWorkflowCount"] == 1
     assert reports["metadata-report"]["scientificReviewWorkflowCount"] == 3
@@ -194,6 +203,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "fate_build_regulatory_handoff_review_brief" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_run_parameter_manifest" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_run_uncertainty_summary" in reports["metadata-report"]["supportedWorkflows"]
+    assert "fate_build_default_sensitivity_report" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_run_scientific_trust_brief" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_estimate_probabilistic_multimedia_concentrations" in reports["metadata-report"]["supportedWorkflows"]
     assert "fate_build_probabilistic_review_packet" in reports["metadata-report"]["supportedWorkflows"]
@@ -240,6 +250,11 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["advective-promotion-bar-report"]["promotable"] is False
     assert reports["erosion-sediment-validation-demo-report"]["passed"] is True
     assert reports["erosion-sediment-validation-demo-report"]["demoCaseCount"] == 4
+    assert reports["external-validation-benchmark-report"]["passed"] is True
+    assert reports["external-validation-benchmark-report"]["caseCount"] == 4
+    assert reports["default-sensitivity-report"]["passed"] is True
+    assert reports["default-sensitivity-report"]["profileCount"] == 7
+    assert "screening_corroboration_strengthened" in reports["scientific-validation-narrative"]["status"]
     assert reports["red-team-review-report"]["openBlockerCount"] == 0
     assert reports["red-team-review-report"]["unresolvedFindingCount"] == 0
     assert "Scientific Trust Brief" in reports["scientific-trust-brief"]["markdown"]
@@ -249,6 +264,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "## Reference Reviewer-Grade Anchor" in reports["scientific-trust-pack"]["markdown"]
     assert "## Experimental Advective Challenge Path" in reports["scientific-trust-pack"]["markdown"]
     assert "## Erosion/Sediment Validation Demo Pack" in reports["scientific-trust-pack"]["markdown"]
+    assert "## External Benchmark And Sensitivity Surface" in reports["scientific-trust-pack"]["markdown"]
     assert "## Claim Corroboration" in reports["scientific-trust-pack"]["markdown"]
     assert "scientific-trust-brief-generated" in {
         check["name"] for check in reports["readiness-report"]["checks"]
@@ -271,6 +287,12 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "erosion-sediment-validation-demo-pack-passed" in {
         check["name"] for check in reports["readiness-report"]["checks"]
     }
+    assert "scientific-external-benchmark-pack-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
+    assert "default-sensitivity-profiles-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
     assert {
         "unresolved_default_derivation_gap",
         "uncovered_corroboration_requirement",
@@ -284,6 +306,8 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
         "trust_pack_artifact_mismatch",
         "accidental_advective_promotion_language_drift",
         "erosion_sediment_validation_demo_pack_mismatch",
+        "scientific_external_benchmark_pack_mismatch",
+        "default_sensitivity_profile_drift",
         "unaddressed_red_team_finding",
     }.issubset({item["name"] for item in reports["readiness-report"]["blockerClasses"]})
 
@@ -291,16 +315,16 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
 def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     generate_contract_artifacts(repo_root)
-    bundle_dir = tmp_path / "v0.2.1-test"
-    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.2.1-test")
+    bundle_dir = tmp_path / "v0.3.0-test"
+    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.0-test")
     assert result_dir == bundle_dir
 
     manifest = json.loads((bundle_dir / "release-bundle-manifest.json").read_text())
-    assert manifest["version"] == "0.2.1"
-    assert manifest["releaseRef"] == "v0.2.1-test"
+    assert manifest["version"] == "0.3.0"
+    assert manifest["releaseRef"] == "v0.3.0-test"
 
     release_notes = (bundle_dir / "release-notes.md").read_text()
-    assert "# Environmental Fate MCP v0.2.1-test" in release_notes
+    assert "# Environmental Fate MCP v0.3.0-test" in release_notes
     assert "Release status: `ready_for_screening_release`" in release_notes
     assert "Machine-readable release reports are published" in release_notes
 
@@ -323,6 +347,9 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     ).exists()
     assert (bundle_dir / "advective-promotion-bar-report.json").exists()
     assert (bundle_dir / "erosion-sediment-validation-demo-report.json").exists()
+    assert (bundle_dir / "external-validation-benchmark-report.json").exists()
+    assert (bundle_dir / "default-sensitivity-report.json").exists()
+    assert (bundle_dir / "scientific-validation-narrative.json").exists()
 
     for item in manifest["files"]:
         digest = sha256((bundle_dir / item["path"]).read_bytes()).hexdigest()
@@ -342,7 +369,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
         for path in bundle_dir.rglob("*")
         if path.is_file()
     }
-    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.2.1-test")
+    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.0-test")
     second_pass = {
         str(path.relative_to(bundle_dir)): path.read_text()
         for path in bundle_dir.rglob("*")

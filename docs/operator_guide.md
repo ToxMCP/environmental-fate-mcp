@@ -138,6 +138,8 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - Run `uv run --extra dev ruff check .` before release-surface review.
 - Run `uv run environmental-fate-mcp-validate` after regenerating schemas, examples, defaults, or release artifacts.
 - External payload imports are limited to shipped adapter fixtures plus directories declared in `FATE_MCP_IMPORT_ROOTS`.
+- Scientific trust diagnostics are available through `defaults://scientific-external-benchmark-pack`, `defaults://default-sensitivity-profiles`, `release://external-validation-benchmark-report`, and `release://default-sensitivity-report`.
+- Probabilistic sample manifests are opt-in through `sample_manifest_mode`; keep `summary` for compact audit hashes and use `capped_records` only when row-level sampled-parameter review is needed.
 - Build and smoke the installable package with `uv build` followed by a clean virtualenv install before publishing. The CI smoke checks startup counts, tool annotations, tool output schemas, packaged release resources, validation demo-pack loading, and packaged adapter fixtures.
 
 ## Generated Artifact Discipline

@@ -434,6 +434,15 @@
       "title": "ParameterDistribution",
       "type": "object"
     },
+    "ProbabilisticSampleManifestMode": {
+      "enum": [
+        "none",
+        "summary",
+        "capped_records"
+      ],
+      "title": "ProbabilisticSampleManifestMode",
+      "type": "string"
+    },
     "ProvenanceBundle": {
       "additionalProperties": false,
       "properties": {
@@ -673,6 +682,17 @@
       ],
       "default": null,
       "title": "Seed"
+    },
+    "sample_manifest_mode": {
+      "$ref": "#/$defs/ProbabilisticSampleManifestMode",
+      "default": "none"
+    },
+    "sample_manifest_max_records": {
+      "default": 1000,
+      "maximum": 1000,
+      "minimum": 1,
+      "title": "Sample Manifest Max Records",
+      "type": "integer"
     }
   },
   "required": [

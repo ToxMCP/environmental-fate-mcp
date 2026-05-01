@@ -1,0 +1,34 @@
+{
+  "claimId": "reference_short_half_life_attenuation_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference short half-life attenuation anchor",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.9235346844404566e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_short_half_life_attenuation_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.88257231802619e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_short_half_life_sensitivity_companion_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.0"
+}

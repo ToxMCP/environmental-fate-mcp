@@ -290,7 +290,7 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
     async def _run() -> None:
         server = create_server()
         tools = await server.list_tools()
-        assert len(tools) == 56
+        assert len(tools) == 57
         for tool in tools:
             assert tool.annotations is not None, tool.name
             assert tool.annotations.readOnlyHint is True, tool.name
@@ -306,6 +306,7 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
             "fate_estimate_sediment_associated_chemical_load",
             "fate_build_erosion_sediment_validation_case",
             "fate_assess_erosion_sediment_validation_fit",
+            "fate_build_default_sensitivity_report",
         }:
             assert by_name[tool_name].annotations.openWorldHint is False
             assert by_name[tool_name].annotations.idempotentHint is True
@@ -325,18 +326,28 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         server = create_server()
         contents = await server.read_resource("release://metadata-report")
         metadata = json.loads(contents[0].content)
-        assert metadata["toolCount"] == 56
+        assert metadata["toolCount"] == 57
         assert metadata["promptCount"] == 21
-        assert metadata["resourceCount"] == 27
+        assert metadata["resourceCount"] == 29
         demo_contents = await server.read_resource(
             "release://erosion-sediment-validation-demo-report"
         )
         demo_report = json.loads(demo_contents[0].content)
         assert demo_report["passed"] is True
         assert demo_report["demoCaseCount"] == 4
+        benchmark_contents = await server.read_resource(
+            "release://external-validation-benchmark-report"
+        )
+        benchmark_report = json.loads(benchmark_contents[0].content)
+        assert benchmark_report["passed"] is True
+        assert benchmark_report["caseCount"] == 4
+        sensitivity_contents = await server.read_resource("release://default-sensitivity-report")
+        sensitivity_report = json.loads(sensitivity_contents[0].content)
+        assert sensitivity_report["passed"] is True
+        assert sensitivity_report["profileCount"] == 7
         notes_contents = await server.read_resource("release://release-notes")
         notes = json.loads(notes_contents[0].content)
-        assert "Environmental Fate MCP v0.2.1" in notes["markdown"]
+        assert "Environmental Fate MCP v0.3.0" in notes["markdown"]
         assert "public MCP import contract in this release" in notes["markdown"]
         manifest_contents = await server.read_resource("release://resource-manifest")
         manifest = json.loads(manifest_contents[0].content)

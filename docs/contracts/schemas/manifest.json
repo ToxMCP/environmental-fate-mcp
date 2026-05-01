@@ -25,6 +25,10 @@
       "path": "docs/contracts/schemas/buildConcentrationSurfaceBundleRequest.v1.json"
     },
     {
+      "name": "buildDefaultSensitivityReportRequest.v1",
+      "path": "docs/contracts/schemas/buildDefaultSensitivityReportRequest.v1.json"
+    },
+    {
       "name": "buildEnvironmentalReleaseScenarioRequest.v1",
       "path": "docs/contracts/schemas/buildEnvironmentalReleaseScenarioRequest.v1.json"
     },
@@ -135,6 +139,22 @@
     {
       "name": "concentrationSurfaceBundle.v1",
       "path": "docs/contracts/schemas/concentrationSurfaceBundle.v1.json"
+    },
+    {
+      "name": "defaultSensitivityProfile.v1",
+      "path": "docs/contracts/schemas/defaultSensitivityProfile.v1.json"
+    },
+    {
+      "name": "defaultSensitivityProfileManifest.v1",
+      "path": "docs/contracts/schemas/defaultSensitivityProfileManifest.v1.json"
+    },
+    {
+      "name": "defaultSensitivityReport.v1",
+      "path": "docs/contracts/schemas/defaultSensitivityReport.v1.json"
+    },
+    {
+      "name": "defaultSensitivityVariantResult.v1",
+      "path": "docs/contracts/schemas/defaultSensitivityVariantResult.v1.json"
     },
     {
       "name": "environmentalReleaseScenario.v1",
@@ -381,6 +401,14 @@
       "path": "docs/contracts/schemas/probabilisticReviewPacket.v1.json"
     },
     {
+      "name": "probabilisticSampleManifest.v1",
+      "path": "docs/contracts/schemas/probabilisticSampleManifest.v1.json"
+    },
+    {
+      "name": "probabilisticSampleRecord.v1",
+      "path": "docs/contracts/schemas/probabilisticSampleRecord.v1.json"
+    },
+    {
       "name": "recommendModelFamilySelectionRequest.v1",
       "path": "docs/contracts/schemas/recommendModelFamilySelectionRequest.v1.json"
     },
@@ -447,6 +475,14 @@
     {
       "name": "runUncertaintySummary.v1",
       "path": "docs/contracts/schemas/runUncertaintySummary.v1.json"
+    },
+    {
+      "name": "scientificExternalBenchmarkCase.v1",
+      "path": "docs/contracts/schemas/scientificExternalBenchmarkCase.v1.json"
+    },
+    {
+      "name": "scientificExternalBenchmarkPackManifest.v1",
+      "path": "docs/contracts/schemas/scientificExternalBenchmarkPackManifest.v1.json"
     },
     {
       "name": "scientificMethodsDossier.v1",

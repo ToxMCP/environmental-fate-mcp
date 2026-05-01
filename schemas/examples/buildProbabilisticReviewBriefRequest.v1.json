@@ -1,9 +1,9 @@
 {
   "review_packet": {
     "schema_version": "v1",
-    "review_packet_id": "probreview-98ae553776ec",
+    "review_packet_id": "probreview-0fd5a567cd3a",
     "scenario_id": "scenario-306863db9176",
-    "run_id": "probrun-40f43919f819",
+    "run_id": "probrun-3e4ea3086665",
     "model_family": "reference_mass_balance",
     "run_mode": "steady_state",
     "review_status": "ready_for_assessor_review",
@@ -11,7 +11,7 @@
       "median_surfaces": [
         {
           "schema_version": "v1",
-          "surface_id": "surface-626faecbab2f-median",
+          "surface_id": "surface-91335e63ad8f-median",
           "scenario_id": "scenario-306863db9176",
           "medium": "air",
           "compartment": "ambient_air",
@@ -68,7 +68,7 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-0c13e4d4febc-median",
+          "surface_id": "surface-a6078108925e-median",
           "scenario_id": "scenario-306863db9176",
           "medium": "soil",
           "compartment": "agricultural_soil",
@@ -125,7 +125,7 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-2c9602613f86-median",
+          "surface_id": "surface-c0037b28a201-median",
           "scenario_id": "scenario-306863db9176",
           "medium": "water",
           "compartment": "surface_water",
@@ -184,7 +184,7 @@
       "p90_surfaces": [
         {
           "schema_version": "v1",
-          "surface_id": "surface-626faecbab2f-p90",
+          "surface_id": "surface-91335e63ad8f-p90",
           "scenario_id": "scenario-306863db9176",
           "medium": "air",
           "compartment": "ambient_air",
@@ -241,7 +241,7 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-0c13e4d4febc-p90",
+          "surface_id": "surface-a6078108925e-p90",
           "scenario_id": "scenario-306863db9176",
           "medium": "soil",
           "compartment": "agricultural_soil",
@@ -298,7 +298,7 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-2c9602613f86-p90",
+          "surface_id": "surface-c0037b28a201-p90",
           "scenario_id": "scenario-306863db9176",
           "medium": "water",
           "compartment": "surface_water",
@@ -357,7 +357,7 @@
       "p95_surfaces": [
         {
           "schema_version": "v1",
-          "surface_id": "surface-626faecbab2f-p95",
+          "surface_id": "surface-91335e63ad8f-p95",
           "scenario_id": "scenario-306863db9176",
           "medium": "air",
           "compartment": "ambient_air",
@@ -414,7 +414,7 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-0c13e4d4febc-p95",
+          "surface_id": "surface-a6078108925e-p95",
           "scenario_id": "scenario-306863db9176",
           "medium": "soil",
           "compartment": "agricultural_soil",
@@ -471,7 +471,7 @@
         },
         {
           "schema_version": "v1",
-          "surface_id": "surface-2c9602613f86-p95",
+          "surface_id": "surface-c0037b28a201-p95",
           "scenario_id": "scenario-306863db9176",
           "medium": "water",
           "compartment": "surface_water",
@@ -529,7 +529,7 @@
       ],
       "surface_summaries": [
         {
-          "surface_id": "surface-626faecbab2f",
+          "surface_id": "surface-91335e63ad8f",
           "medium": "air",
           "compartment": "ambient_air",
           "concentration_unit": "mg/m3",
@@ -539,7 +539,7 @@
           "absolute_p95_minus_median": 0.0
         },
         {
-          "surface_id": "surface-0c13e4d4febc",
+          "surface_id": "surface-a6078108925e",
           "medium": "soil",
           "compartment": "agricultural_soil",
           "concentration_unit": "mg/kg",
@@ -549,7 +549,7 @@
           "absolute_p95_minus_median": 0.0
         },
         {
-          "surface_id": "surface-2c9602613f86",
+          "surface_id": "surface-c0037b28a201",
           "medium": "water",
           "compartment": "surface_water",
           "concentration_unit": "mg/L",
@@ -572,9 +572,29 @@
         "dominant_uncertainty_drivers enumerates sampled parameters only; formal sensitivity ranking is not yet implemented.",
         "run_summary.assumptions_applied preserves invariant assumptions only; iteration-varying sampled and derived assumptions are not expanded verbatim."
       ],
+      "sample_manifest": {
+        "mode": "summary",
+        "requested_iteration_count": 12,
+        "completed_iteration_count": 12,
+        "failed_iteration_count": 0,
+        "sampling_seed": 17,
+        "sampled_parameter_count": 1,
+        "sampled_parameters": [
+          "water_half_life_days"
+        ],
+        "record_count": 0,
+        "max_record_count": 0,
+        "table_sha256": "e15a2e28821f4836c8addc4d16fcd58fd2989d8a5a3b2dc1d1a17252ae948ee5",
+        "records": [],
+        "limitation_lines": [
+          "Probabilistic sample manifest is an audit aid for sampled inputs and surface summaries only.",
+          "It does not include full per-iteration calculation traces or replace formal global sensitivity analysis.",
+          "Summary mode emits a stable hash over iteration records without row-level values."
+        ]
+      },
       "run_summary": {
         "schema_version": "v1",
-        "run_id": "probrun-40f43919f819",
+        "run_id": "probrun-3e4ea3086665",
         "scenario_id": "scenario-306863db9176",
         "model_family": "reference_mass_balance",
         "run_mode": "steady_state",
@@ -736,7 +756,7 @@
     },
     "summary_lines": [
       "Build a probabilistic review packet that preserves percentile surfaces, sampled drivers, iteration health, and reproducibility context.",
-      "Probabilistic review packet covers run probrun-40f43919f819 for model family reference_mass_balance.",
+      "Probabilistic review packet covers run probrun-3e4ea3086665 for model family reference_mass_balance.",
       "Completed 12/12 iterations with 1 sampled parameters.",
       "Failed iteration fraction: 0.0%; governed ready-review threshold: 10%.",
       "Sampling seed: 17."

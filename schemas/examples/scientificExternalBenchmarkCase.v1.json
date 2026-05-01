@@ -1,0 +1,60 @@
+{
+  "benchmark_case_id": "reference_water_closed_form_internal_oracle_v1",
+  "display_name": "Reference water closed-form internal oracle",
+  "classification": "internal_oracle",
+  "replay_tool": "fate_estimate_multimedia_concentrations",
+  "model_family": "reference_mass_balance",
+  "run_mode": "steady_state",
+  "quantity": "surface_water_concentration_mg_l",
+  "expected_value": 8.415721071852286e-06,
+  "expected_unit": "mg/L",
+  "tolerance_absolute": 1e-15,
+  "tolerance_relative": 1e-10,
+  "input_payload": {
+    "chemical_identity": {
+      "preferredName": "External benchmark closed-form substance",
+      "substance_class": "organic chemical"
+    },
+    "total_release_mass_kg": 10.0,
+    "release_fractions": [
+      {
+        "medium": "water",
+        "fraction": 1.0
+      }
+    ],
+    "duration_days": 30.0,
+    "parameter_records": [
+      {
+        "parameter": "water_half_life_days",
+        "value": 10.0,
+        "unit": "day",
+        "source_classification": "user_input",
+        "rationale": "Closed-form benchmark override."
+      }
+    ],
+    "run_options": {
+      "model_family": "reference_mass_balance",
+      "run_mode": "steady_state",
+      "region_profile_id": "eu_screening_default"
+    }
+  },
+  "source_references": [
+    {
+      "source_id": "epa.environmental_models_guidance",
+      "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+      "effective_date": null,
+      "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+    }
+  ],
+  "interpretation_lines": [
+    "Replays the public reference closed-form first-order screening equation with fixed scalar inputs.",
+    "This case is an internal oracle for deterministic replay and auditability, not independent field validation."
+  ],
+  "limitations": [
+    "Screening closed-form replay only.",
+    "Not a multimedia fate validation dataset, field observation, calibration case, or regulator acceptance claim."
+  ],
+  "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
+  "screening_only": true,
+  "regulatory_acceptance_claim": false
+}

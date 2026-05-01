@@ -1,0 +1,20 @@
+{
+  "mode": "summary",
+  "requested_iteration_count": 12,
+  "completed_iteration_count": 12,
+  "failed_iteration_count": 0,
+  "sampling_seed": 17,
+  "sampled_parameter_count": 1,
+  "sampled_parameters": [
+    "water_half_life_days"
+  ],
+  "record_count": 0,
+  "max_record_count": 0,
+  "table_sha256": "e15a2e28821f4836c8addc4d16fcd58fd2989d8a5a3b2dc1d1a17252ae948ee5",
+  "records": [],
+  "limitation_lines": [
+    "Probabilistic sample manifest is an audit aid for sampled inputs and surface summaries only.",
+    "It does not include full per-iteration calculation traces or replace formal global sensitivity analysis.",
+    "Summary mode emits a stable hash over iteration records without row-level values."
+  ]
+}

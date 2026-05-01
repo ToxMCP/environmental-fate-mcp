@@ -35,6 +35,7 @@ from fate_mcp.integrations import (
     build_regulatory_handoff_review_brief,
     build_regulatory_handoff_review_packet,
     build_concentration_surface_bundle,
+    build_default_sensitivity_report,
     compare_fate_scenarios,
     estimate_event_sediment_yield_musle,
     estimate_sediment_associated_chemical_load,
@@ -76,6 +77,7 @@ from fate_mcp.models import (
     BuildRegulatoryHandoffReviewBriefRequest,
     BuildRegulatoryHandoffReviewPacketRequest,
     BuildConcentrationSurfaceBundleRequest,
+    BuildDefaultSensitivityReportRequest,
     BuildEnvironmentalReleaseScenarioRequest,
     CompareFateScenariosRequest,
     EstimateEventSedimentYieldMusleRequest,
@@ -92,6 +94,7 @@ from fate_mcp.models import (
     Media,
     ObservedErosionSedimentValidationRecord,
     ParameterDistribution,
+    ProbabilisticSampleManifestMode,
     PredictedErosionSedimentValidationRecord,
     RecommendRegulatoryHandoffProfileRequest,
     RecommendModelFamilySelectionRequest,
@@ -256,6 +259,20 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         steady_result,
         runtime.provenance,
     )
+    default_sensitivity_request = BuildDefaultSensitivityReportRequest(
+        scenario=scenario,
+        run_options=steady_run_options,
+        sensitivity_profile_ids=[
+            "water_half_life_two_way_v1",
+            "release_duration_two_way_v1",
+            "water_release_fraction_two_way_v1",
+        ],
+    )
+    default_sensitivity_report = build_default_sensitivity_report(
+        default_sensitivity_request,
+        runtime,
+        runtime.provenance,
+    )
     probabilistic_scenario = scenario.model_copy(deep=True)
     probabilistic_scenario.parameter_records = [
         record.model_copy(
@@ -276,6 +293,7 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         steady_run_options,
         iterations=12,
         seed=17,
+        sample_manifest_mode=ProbabilisticSampleManifestMode.SUMMARY,
     )
     probabilistic_review_packet = build_probabilistic_review_packet(
         BuildProbabilisticReviewPacketRequest(
@@ -561,6 +579,10 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         "erosionSedimentValidationProfileManifest.v1": runtime.defaults.erosion_sediment_validation_profile_manifest().model_dump(mode="json"),
         "erosionSedimentValidationDemoCase.v1": runtime.defaults.erosion_sediment_validation_demo_pack_manifest().demo_cases[0].model_dump(mode="json"),
         "erosionSedimentValidationDemoPackManifest.v1": runtime.defaults.erosion_sediment_validation_demo_pack_manifest().model_dump(mode="json"),
+        "scientificExternalBenchmarkCase.v1": runtime.defaults.scientific_external_benchmark_pack_manifest().cases[0].model_dump(mode="json"),
+        "scientificExternalBenchmarkPackManifest.v1": runtime.defaults.scientific_external_benchmark_pack_manifest().model_dump(mode="json"),
+        "defaultSensitivityProfile.v1": runtime.defaults.list_default_sensitivity_profiles()[0].model_dump(mode="json"),
+        "defaultSensitivityProfileManifest.v1": runtime.defaults.default_sensitivity_profile_manifest().model_dump(mode="json"),
         "buildEnvironmentalReleaseScenarioRequest.v1": scenario_request.model_dump(mode="json"),
         "environmentalReleaseScenario.v1": scenario.model_dump(mode="json"),
         "modelFamilyApplicabilityProfile.v1": runtime.defaults.model_family_applicability_profile(
@@ -678,12 +700,22 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
             result=steady_result,
         ).model_dump(mode="json"),
         "runUncertaintySummary.v1": uncertainty_summary.model_dump(mode="json"),
+        "buildDefaultSensitivityReportRequest.v1": default_sensitivity_request.model_dump(mode="json"),
+        "defaultSensitivityReport.v1": default_sensitivity_report.model_dump(mode="json"),
+        "defaultSensitivityVariantResult.v1": default_sensitivity_report.variant_results[0].model_dump(mode="json"),
         "buildRunScientificTrustBriefRequest.v1": BuildRunScientificTrustBriefRequest(
             scenario=scenario,
             result=steady_result,
         ).model_dump(mode="json"),
         "runScientificTrustBrief.v1": run_scientific_trust_brief.model_dump(mode="json"),
         "probabilisticConcentrationResult.v1": probabilistic_result.model_dump(mode="json"),
+        "probabilisticSampleManifest.v1": probabilistic_result.sample_manifest.model_dump(mode="json"),
+        "probabilisticSampleRecord.v1": {
+            "iteration_index": 0,
+            "status": "completed",
+            "sampled_parameters": {"water_half_life_days": 10.0},
+            "surface_values": {"water/surface_water/steady_state": 0.000001},
+        },
         "buildProbabilisticReviewPacketRequest.v1": BuildProbabilisticReviewPacketRequest(
             scenario=probabilistic_scenario,
             result=probabilistic_result,

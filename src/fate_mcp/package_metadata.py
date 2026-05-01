@@ -1,5 +1,5 @@
 PACKAGE_NAME = "Environmental Fate MCP"
-VERSION = "0.2.1"
+VERSION = "0.3.0"
 SCHEMA_VERSION = "v1"
 DEFAULTS_VERSION = "v1"
 ALGORITHM_VERSION = "reference-mass-balance-0.1.0"
@@ -20,6 +20,7 @@ SUPPORTED_WORKFLOWS = [
     "fate_assess_release_scenario_fit",
     "fate_build_run_parameter_manifest",
     "fate_build_run_uncertainty_summary",
+    "fate_build_default_sensitivity_report",
     "fate_build_run_scientific_trust_brief",
     "fate_build_probabilistic_review_packet",
     "fate_build_probabilistic_review_brief",

@@ -47,6 +47,7 @@ from fate_mcp.integrations import (
     build_regulatory_handoff_review_brief,
     build_regulatory_handoff_review_packet,
     build_concentration_surface_bundle,
+    build_default_sensitivity_report,
     compare_fate_scenarios,
     estimate_event_sediment_yield_musle,
     estimate_sediment_associated_chemical_load,
@@ -90,10 +91,12 @@ from fate_mcp.models import (
     BuildRegulatoryHandoffReviewBriefRequest,
     BuildRegulatoryHandoffReviewPacketRequest,
     BuildConcentrationSurfaceBundleRequest,
+    BuildDefaultSensitivityReportRequest,
     BuildEnvironmentalReleaseScenarioRequest,
     CompareFateScenariosRequest,
     ConcentrationEstimationResult,
     ConcentrationSurfaceBundle,
+    DefaultSensitivityReport,
     EnvironmentalReleaseScenario,
     EstimateProbabilisticMultimediaConcentrationsRequest,
     EstimateMultimediaConcentrationsRequest,
@@ -486,6 +489,8 @@ def fate_estimate_probabilistic_multimedia_concentrations(
         request.run_options,
         iterations=request.iterations,
         seed=request.seed,
+        sample_manifest_mode=request.sample_manifest_mode,
+        sample_manifest_max_records=request.sample_manifest_max_records,
     )
 
 
@@ -670,6 +675,7 @@ def fate_estimate_probabilistic_multimedia_concentrations_skeleton() -> str:
         ),
         iterations=100,
         seed=42,
+        sample_manifest_mode="summary",
     )
     return request.model_dump_json(indent=2)
 
@@ -866,6 +872,14 @@ def fate_build_run_uncertainty_summary(
 ) -> RunUncertaintySummary:
     """Build a deterministic reviewer-facing uncertainty-driver summary without probabilistic inference."""
     return build_run_uncertainty_summary(request.scenario, request.result, RUNTIME.provenance)
+
+
+@mcp.tool()
+def fate_build_default_sensitivity_report(
+    request: BuildDefaultSensitivityReportRequest,
+) -> DefaultSensitivityReport:
+    """Build a deterministic reviewer-facing default sensitivity report from governed profiles."""
+    return build_default_sensitivity_report(request, RUNTIME, RUNTIME.provenance)
 
 
 @mcp.tool()
@@ -1429,6 +1443,9 @@ def prompt_review_release_trust_for_screening(
         "- `release://advective-promotion-bar-report`\n"
         "- `release://external-corroboration-report`\n"
         "- `release://erosion-sediment-validation-demo-report`\n"
+        "- `release://external-validation-benchmark-report`\n"
+        "- `release://default-sensitivity-report`\n"
+        "- `release://scientific-validation-narrative`\n"
         "- `docs://scientific-trust-pack`\n"
         "- `release://red-team-review-report`\n"
         "- `release://readiness-report`\n"
@@ -1439,6 +1456,7 @@ def prompt_review_release_trust_for_screening(
         "- whether the shipped default path is free of tier-3 internal screening assumptions and carries explicit rebaseline delta records\n"
         "- whether mandatory reference-family claims satisfy the reviewer-grade corroboration bar with official grounding, worksheet manifest links, and machine-readable expected-output artifacts\n"
         "- whether the advective family remains explicitly experimental and non-promotable in the release artifacts\n"
+        "- whether benchmark replay and default sensitivity artifacts are interpreted as screening-trust diagnostics only\n"
         "- whether mandatory claims show explicit corroboration status, official source counts, jurisdiction breadth, and next actions\n"
         "- whether the red-team artifact shows unresolved blocker findings or only accepted public limitations\n"
         "- whether the trust pack, release readiness doc, and quick-start exclusions all tell the same story about when not to use this MCP\n"
@@ -1805,6 +1823,16 @@ def defaults_erosion_sediment_validation_profiles() -> str:
 @mcp.resource("defaults://erosion-sediment-validation-demo-pack")
 def defaults_erosion_sediment_validation_demo_pack() -> str:
     return DEFAULTS.erosion_sediment_validation_demo_pack_manifest().model_dump_json(indent=2)
+
+
+@mcp.resource("defaults://scientific-external-benchmark-pack")
+def defaults_scientific_external_benchmark_pack() -> str:
+    return DEFAULTS.scientific_external_benchmark_pack_manifest().model_dump_json(indent=2)
+
+
+@mcp.resource("defaults://default-sensitivity-profiles")
+def defaults_default_sensitivity_profiles() -> str:
+    return DEFAULTS.default_sensitivity_profile_manifest().model_dump_json(indent=2)
 
 
 @mcp.resource("defaults://temperature-correction-policy")

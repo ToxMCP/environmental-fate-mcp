@@ -1,8 +1,8 @@
 {
   "schema_version": "v1",
-  "review_packet_id": "probreview-98ae553776ec",
+  "review_packet_id": "probreview-0fd5a567cd3a",
   "scenario_id": "scenario-306863db9176",
-  "run_id": "probrun-40f43919f819",
+  "run_id": "probrun-3e4ea3086665",
   "model_family": "reference_mass_balance",
   "run_mode": "steady_state",
   "review_status": "ready_for_assessor_review",
@@ -12,7 +12,7 @@
   "brief_lines": [
     "Summarize whether the probabilistic percentile surfaces are reviewable within the declared Environmental Fate MCP boundary.",
     "Build a probabilistic review packet that preserves percentile surfaces, sampled drivers, iteration health, and reproducibility context.",
-    "Probabilistic review packet covers run probrun-40f43919f819 for model family reference_mass_balance.",
+    "Probabilistic review packet covers run probrun-3e4ea3086665 for model family reference_mass_balance.",
     "Completed 12/12 iterations with 1 sampled parameters.",
     "Failed iteration fraction: 0.0%; governed ready-review threshold: 10%.",
     "Sampling seed: 17.",

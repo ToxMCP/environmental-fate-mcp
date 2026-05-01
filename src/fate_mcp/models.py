@@ -140,6 +140,35 @@ class SourceClassification(str, Enum):
     HEURISTIC = "heuristic"
 
 
+class ScientificBenchmarkCaseClassification(str, Enum):
+    INTERNAL_ORACLE = "internal_oracle"
+    OFFICIAL_WORKED_EXAMPLE = "official_worked_example"
+    OPEN_LITERATURE_REFERENCE = "open_literature_reference"
+    FIELD_OBSERVATION = "field_observation"
+
+
+class ExternalBenchmarkReplayTool(str, Enum):
+    ESTIMATE_MULTIMEDIA_CONCENTRATIONS = "fate_estimate_multimedia_concentrations"
+    ESTIMATE_SOIL_LOSS_RUSLE = "fate_estimate_soil_loss_rusle"
+    ESTIMATE_EVENT_SEDIMENT_YIELD_MUSLE = "fate_estimate_event_sediment_yield_musle"
+    ESTIMATE_SEDIMENT_ASSOCIATED_CHEMICAL_LOAD = (
+        "fate_estimate_sediment_associated_chemical_load"
+    )
+
+
+class DefaultSensitivityTargetType(str, Enum):
+    PARAMETER = "parameter"
+    SCENARIO_DURATION_DAYS = "scenario_duration_days"
+    SCENARIO_TEMPERATURE_C = "scenario_temperature_c"
+    RELEASE_FRACTION = "release_fraction"
+
+
+class ProbabilisticSampleManifestMode(str, Enum):
+    NONE = "none"
+    SUMMARY = "summary"
+    CAPPED_RECORDS = "capped_records"
+
+
 class TreatmentExecutionMode(str, Enum):
     PROVENANCE_ONLY = "provenance_only"
     PRE_RELEASE_GLOBAL = "pre_release_global"
@@ -1134,6 +1163,58 @@ class ProbabilisticRunSummary(FateBaseModel):
     failed_iteration_reasons: dict[str, int] = Field(default_factory=dict)
     result_metadata: ResultMetadata
 
+
+class ProbabilisticSampleRecord(FateBaseModel):
+    iteration_index: int = Field(ge=0)
+    status: str
+    sampled_parameters: dict[str, float] = Field(default_factory=dict)
+    surface_values: dict[str, float] = Field(default_factory=dict)
+    error_code: str | None = None
+
+    @field_validator("status")
+    @classmethod
+    def validate_status(cls, value: str) -> str:
+        if value not in {"completed", "failed"}:
+            raise ValueError("status must be completed or failed")
+        return value
+
+    @field_validator("sampled_parameters", "surface_values")
+    @classmethod
+    def validate_numeric_maps(cls, value: dict[str, float], info) -> dict[str, float]:
+        for key, numeric_value in value.items():
+            if not key.strip():
+                raise ValueError(f"{info.field_name} keys must not be blank")
+            _ensure_finite(numeric_value, f"{info.field_name}.{key}")
+        return value
+
+
+class ProbabilisticSampleManifest(FateBaseModel):
+    mode: ProbabilisticSampleManifestMode
+    requested_iteration_count: int = Field(ge=1)
+    completed_iteration_count: int = Field(ge=0)
+    failed_iteration_count: int = Field(ge=0)
+    sampling_seed: int | None = None
+    sampled_parameter_count: int = Field(ge=0)
+    sampled_parameters: list[str] = Field(default_factory=list)
+    record_count: int = Field(ge=0)
+    max_record_count: int = Field(ge=0, le=1000)
+    table_sha256: str
+    records: list[ProbabilisticSampleRecord] = Field(default_factory=list)
+    limitation_lines: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_counts(self) -> "ProbabilisticSampleManifest":
+        if self.completed_iteration_count + self.failed_iteration_count > self.requested_iteration_count:
+            raise ValueError("completed + failed iterations must not exceed requested iterations")
+        if self.record_count != len(self.records):
+            raise ValueError("record_count must match records length")
+        if self.mode == ProbabilisticSampleManifestMode.SUMMARY and self.records:
+            raise ValueError("summary sample manifests must not include row-level records")
+        if self.record_count > self.max_record_count:
+            raise ValueError("record_count must not exceed max_record_count")
+        return self
+
+
 class ProbabilisticConcentrationResult(FateBaseModel):
     median_surfaces: list[ConcentrationSurface]
     p90_surfaces: list[ConcentrationSurface]
@@ -1146,6 +1227,7 @@ class ProbabilisticConcentrationResult(FateBaseModel):
     sampled_parameter_count: int
     dominant_uncertainty_drivers: list[str] = Field(default_factory=list)
     uncertainty_limitation_lines: list[str] = Field(default_factory=list)
+    sample_manifest: ProbabilisticSampleManifest | None = None
     run_summary: ProbabilisticRunSummary
 
 
@@ -2453,6 +2535,165 @@ class ErosionSedimentValidationDemoPackManifest(FateBaseModel):
         return self
 
 
+class ScientificExternalBenchmarkCase(FateBaseModel):
+    benchmark_case_id: str
+    display_name: str
+    classification: ScientificBenchmarkCaseClassification
+    replay_tool: ExternalBenchmarkReplayTool
+    model_family: ModelFamily | None = None
+    run_mode: RunMode | None = None
+    quantity: str
+    expected_value: float = Field(ge=0.0)
+    expected_unit: str
+    tolerance_absolute: float = Field(default=1e-12, ge=0.0)
+    tolerance_relative: float = Field(default=1e-9, ge=0.0)
+    input_payload: dict[str, Any]
+    source_references: list[SourceReference] = Field(default_factory=list)
+    interpretation_lines: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    source_pack: str | None = None
+    screening_only: bool = True
+    regulatory_acceptance_claim: bool = False
+
+    @field_validator("benchmark_case_id", "display_name", "quantity", "expected_unit")
+    @classmethod
+    def validate_required_text(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} must not be blank")
+        return value.strip()
+
+    @field_validator("expected_value", "tolerance_absolute", "tolerance_relative")
+    @classmethod
+    def validate_benchmark_numeric_values(cls, value: float, info) -> float:
+        return _ensure_finite_non_negative(value, info.field_name)
+
+    @model_validator(mode="after")
+    def validate_boundary_claims(self) -> "ScientificExternalBenchmarkCase":
+        if not self.screening_only:
+            raise ValueError("external benchmark cases must remain screening_only=true")
+        if self.regulatory_acceptance_claim:
+            raise ValueError("external benchmark cases must not claim regulator acceptance")
+        return self
+
+
+class ScientificExternalBenchmarkPackManifest(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    case_count: int = Field(ge=0)
+    cases: list[ScientificExternalBenchmarkCase]
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_case_count(self) -> "ScientificExternalBenchmarkPackManifest":
+        if self.case_count != len(self.cases):
+            raise ValueError("case_count must match cases length")
+        return self
+
+
+class DefaultSensitivityProfile(FateBaseModel):
+    profile_id: str
+    display_name: str
+    target_type: DefaultSensitivityTargetType
+    parameter: str | None = None
+    medium: Media | None = None
+    factor_values: list[float] = Field(min_length=1)
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    source_pack: str | None = None
+    applicability_note: str | None = None
+
+    @field_validator("profile_id", "display_name")
+    @classmethod
+    def validate_profile_text(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} must not be blank")
+        return value.strip()
+
+    @field_validator("factor_values")
+    @classmethod
+    def validate_factor_values(cls, value: list[float]) -> list[float]:
+        for factor in value:
+            if not math.isfinite(factor) or factor <= 0.0:
+                raise ValueError("factor_values must contain finite positive values")
+        return value
+
+    @model_validator(mode="after")
+    def validate_target(self) -> "DefaultSensitivityProfile":
+        if self.target_type == DefaultSensitivityTargetType.PARAMETER and not self.parameter:
+            raise ValueError("parameter sensitivity profiles must declare parameter")
+        if self.target_type == DefaultSensitivityTargetType.RELEASE_FRACTION and self.medium is None:
+            raise ValueError("release-fraction sensitivity profiles must declare medium")
+        return self
+
+
+class DefaultSensitivityProfileManifest(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    profile_count: int = Field(ge=0)
+    profiles: list[DefaultSensitivityProfile]
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_profile_count(self) -> "DefaultSensitivityProfileManifest":
+        if self.profile_count != len(self.profiles):
+            raise ValueError("profile_count must match profiles length")
+        return self
+
+
+class DefaultSensitivityVariantResult(FateBaseModel):
+    profile_id: str
+    target_type: DefaultSensitivityTargetType
+    parameter: str | None = None
+    medium: Media | None = None
+    factor: float
+    baseline_value: float
+    variant_value: float
+    unit: str | None = None
+    max_absolute_delta: float
+    max_relative_delta: float | None = None
+    surface_delta_lines: list[str] = Field(default_factory=list)
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+
+    @field_validator(
+        "factor",
+        "baseline_value",
+        "variant_value",
+        "max_absolute_delta",
+        "max_relative_delta",
+    )
+    @classmethod
+    def validate_variant_numeric_values(cls, value: float | None, info) -> float | None:
+        if value is None:
+            return value
+        return _ensure_finite(value, info.field_name)
+
+
+class DefaultSensitivityReport(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    report_id: str = Field(default_factory=lambda: f"default-sensitivity-{uuid4().hex[:12]}")
+    scenario_id: str
+    base_run_id: str
+    model_family: ModelFamily
+    run_mode: RunMode
+    profile_count: int = Field(ge=0)
+    evaluated_variant_count: int = Field(ge=0)
+    profile_ids: list[str] = Field(default_factory=list)
+    variant_results: list[DefaultSensitivityVariantResult] = Field(default_factory=list)
+    top_delta_lines: list[str] = Field(default_factory=list)
+    interpretation_lines: list[str] = Field(default_factory=list)
+    provenance: ProvenanceBundle
+    limitations: list[LimitationNote] = Field(default_factory=list)
+    quality_flags: list[QualityFlag] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_variant_count(self) -> "DefaultSensitivityReport":
+        if self.evaluated_variant_count != len(self.variant_results):
+            raise ValueError("evaluated_variant_count must match variant_results length")
+        return self
+
+
 class PhyschemEvidenceRecord(FateBaseModel):
     parameter: str
     value: float
@@ -2740,11 +2981,21 @@ class BuildRunUncertaintySummaryRequest(FateBaseModel):
     result: ConcentrationEstimationResult
 
 
+class BuildDefaultSensitivityReportRequest(FateBaseModel):
+    scenario: EnvironmentalReleaseScenario
+    run_options: FateModelRunOptions
+    sensitivity_profile_ids: list[str] = Field(default_factory=list)
+
+
 class EstimateProbabilisticMultimediaConcentrationsRequest(FateBaseModel):
     scenario: EnvironmentalReleaseScenario
     run_options: FateModelRunOptions
     iterations: int = Field(default=100, ge=1, le=10000)
     seed: int | None = None
+    sample_manifest_mode: ProbabilisticSampleManifestMode = Field(
+        default=ProbabilisticSampleManifestMode.NONE
+    )
+    sample_manifest_max_records: int = Field(default=1000, ge=1, le=1000)
 
 
 class BuildProbabilisticReviewPacketRequest(FateBaseModel):

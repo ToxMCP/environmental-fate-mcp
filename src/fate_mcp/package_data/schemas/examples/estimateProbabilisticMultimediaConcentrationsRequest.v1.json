@@ -108,5 +108,7 @@
     "escalation_concerns": []
   },
   "iterations": 12,
-  "seed": 17
+  "seed": 17,
+  "sample_manifest_mode": "none",
+  "sample_manifest_max_records": 1000
 }
