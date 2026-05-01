@@ -1,0 +1,80 @@
+{
+  "claimId": "reference_air_finite_duration_first_order_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference air finite-duration first-order screening equation",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "oecd.test_guidelines.section3",
+    "epa.environmental_models_guidance",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.1",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "End-of-duration air concentration matches the documented finite-duration first-order screening equation.",
+      "fixtureName": "air_reference_chemical_style_fixture",
+      "referenceType": "hand_worked_screening_equation",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark air"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "air"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration first-order single-medium air screening equation using governed ambient-air volume and half-life defaults.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "Air concentration increases proportionally when the governed ambient-air volume is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_air_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark air capacity sensitivity"
+        },
+        "duration_days": 10.0,
+        "parameter_records": [
+          {
+            "parameter": "ambient_air_volume_m3",
+            "rationale": "Benchmark ambient-air capacity override.",
+            "source_classification": "user_input",
+            "unit": "m3",
+            "value": 500000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "air"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration air screening case with an explicit ambient-air-volume override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Public Release Guide
 
-This guide describes the public `v0.3.0` release-preparation posture for Environmental Fate MCP.
+This guide describes the public `v0.3.1` release-preparation posture for Environmental Fate MCP.
 
 ## Release Boundary
 
@@ -41,6 +41,21 @@ Public release changes must treat repo-root artifacts and the packaged runtime m
 - keep known limitations visible in README, boundary docs, trust artifacts, and release reports
 - keep external import hard limits and release-fraction invariants visible in user-facing docs
 
+## Release Provenance
+
+Public releases should use the `Release provenance` workflow after the GitHub release is published.
+The workflow builds the wheel and source distribution from the tagged commit, uploads release checksums and reviewer trust assets, and creates GitHub Artifact Attestations for the release assets.
+
+Reviewers can verify downloaded assets with:
+
+```bash
+gh attestation verify environmental_fate_mcp-0.3.1-py3-none-any.whl \
+  --repo ToxMCP/environmental-fate-mcp
+```
+
+Artifact attestations provide build provenance, not scientific validation, regulator acceptance, deployment approval, or vulnerability absence.
+See [release_provenance.md](./release_provenance.md).
+
 ## Required Local Gate
 
 Run the full public-release gate before tagging or publishing:
@@ -59,4 +74,4 @@ Then install the built wheel into a clean Python 3.12 virtual environment and ve
 
 ## Tagging Posture
 
-This repository can be prepared for `v0.3.0` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete.
+This repository can be prepared for `v0.3.1` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete. After publishing the GitHub release, wait for the release-provenance workflow to upload assets and attestations before broad announcement.

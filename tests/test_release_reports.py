@@ -315,16 +315,16 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
 def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     generate_contract_artifacts(repo_root)
-    bundle_dir = tmp_path / "v0.3.0-test"
-    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.0-test")
+    bundle_dir = tmp_path / "v0.3.1-test"
+    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.1-test")
     assert result_dir == bundle_dir
 
     manifest = json.loads((bundle_dir / "release-bundle-manifest.json").read_text())
-    assert manifest["version"] == "0.3.0"
-    assert manifest["releaseRef"] == "v0.3.0-test"
+    assert manifest["version"] == "0.3.1"
+    assert manifest["releaseRef"] == "v0.3.1-test"
 
     release_notes = (bundle_dir / "release-notes.md").read_text()
-    assert "# Environmental Fate MCP v0.3.0-test" in release_notes
+    assert "# Environmental Fate MCP v0.3.1-test" in release_notes
     assert "Release status: `ready_for_screening_release`" in release_notes
     assert "Machine-readable release reports are published" in release_notes
 
@@ -369,7 +369,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
         for path in bundle_dir.rglob("*")
         if path.is_file()
     }
-    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.0-test")
+    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.1-test")
     second_pass = {
         str(path.relative_to(bundle_dir)): path.read_text()
         for path in bundle_dir.rglob("*")

@@ -1,0 +1,46 @@
+{
+  "claimId": "reference_sediment_finite_duration_first_order_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference sediment finite-duration first-order screening equation",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "freshwater_sediment",
+          "medium": "sediment",
+          "unit": "mg/kg",
+          "value": 0.14426950408889636
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_sediment_capacity_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "freshwater_sediment",
+          "medium": "sediment",
+          "unit": "mg/kg",
+          "value": 0.009016844005556022
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "freshwater_sediment",
+          "medium": "sediment",
+          "terms": {
+            "cumulative_degraded_mass_mg": 2786524.7955551823,
+            "decay_constant_per_day": 0.015403270679109895,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -4.656612873077393e-10
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "sediment_reference_chemical_style_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.1"
+}

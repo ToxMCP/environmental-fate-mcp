@@ -1,0 +1,46 @@
+{
+  "claimId": "reference_air_finite_duration_first_order_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference air finite-duration first-order screening equation",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "unit": "mg/m3",
+          "value": 0.0027952216417223663
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "terms": {
+            "cumulative_degraded_mass_mg": 7204778.358277633,
+            "decay_constant_per_day": 0.34657359027997264,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 9.313225746154785e-10
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "air_reference_chemical_style_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "unit": "mg/m3",
+          "value": 0.005590443283444733
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_air_capacity_sensitivity_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.1"
+}

@@ -1,0 +1,79 @@
+{
+  "claimId": "reference_multi_medium_partition_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference multi-medium partitioned screening output",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "epa.environmental_models_guidance",
+    "echa.euses"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.1",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Reference runtime emits one air and one water surface matching the documented partitioned first-order screening calculations.",
+      "fixtureName": "multi_medium_mass_balance_fixture",
+      "referenceType": "hand_worked_partition_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark multi-medium"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 0.4,
+            "medium": "air"
+          },
+          {
+            "fraction": 0.6,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked two-medium finite-duration first-order screening calculation across air and water under governed defaults.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Each surface is derived from a closed-form deterministic expression with no stochastic terms.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "Reference runtime emits air and water surfaces that scale with the declared release fractions while preserving one-surface-per-medium behavior.",
+      "fixtureName": "reference_multi_medium_fraction_sensitivity_fixture",
+      "referenceType": "hand_worked_partition_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark multi-medium sensitivity"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 0.7,
+            "medium": "air"
+          },
+          {
+            "fraction": 0.3,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked two-medium finite-duration first-order screening case with a shifted air-water release split, corroborating declared-fraction sensitivity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The partition sensitivity case remains analytically traceable because only the declared release fractions change.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

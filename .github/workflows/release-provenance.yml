@@ -1,0 +1,128 @@
+name: Release provenance
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to build and attest, for example v0.3.1"
+        required: true
+        type: string
+      upload_to_release:
+        description: "Upload generated assets to the matching GitHub release"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  build-attest-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve release tag
+        id: release
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            tag="${{ github.event.release.tag_name }}"
+            upload_to_release="true"
+          else
+            tag="${{ inputs.tag }}"
+            upload_to_release="${{ inputs.upload_to_release }}"
+          fi
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Release tag must look like vX.Y.Z; got '$tag'."
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+          echo "upload_to_release=$upload_to_release" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ steps.release.outputs.tag }}
+
+      - uses: astral-sh/setup-uv@v8.1.0
+
+      - name: Validate release metadata
+        shell: bash
+        run: |
+          python - <<'PY'
+          import tomllib
+          from pathlib import Path
+
+          expected = "${{ steps.release.outputs.version }}"
+          pyproject = tomllib.loads(Path("pyproject.toml").read_text())
+          actual = pyproject["project"]["version"]
+          if actual != expected:
+              raise SystemExit(f"pyproject version {actual!r} does not match release tag version {expected!r}")
+          PY
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Verify generated release surface
+        shell: bash
+        run: |
+          uv run fate-mcp-generate-artifacts
+          uv run environmental-fate-mcp-build-release-bundle --release-ref "${{ steps.release.outputs.tag }}"
+          git diff --exit-code || (
+            echo "::error::Generated artifacts or release bundle files are out of date for ${{ steps.release.outputs.tag }}." &&
+            exit 1
+          )
+          uv run environmental-fate-mcp-validate
+
+      - name: Build wheel and sdist
+        run: uv build
+
+      - name: Prepare release assets
+        shell: bash
+        run: |
+          tag="${{ steps.release.outputs.tag }}"
+          mkdir -p release-assets
+          cp dist/environmental_fate_mcp-${{ steps.release.outputs.version }}-py3-none-any.whl release-assets/
+          cp dist/environmental_fate_mcp-${{ steps.release.outputs.version }}.tar.gz release-assets/
+          cp "docs/releases/${tag}/SHA256SUMS" "release-assets/${tag}-release-bundle-SHA256SUMS"
+          cp "docs/releases/${tag}/release-bundle-manifest.json" "release-assets/${tag}-release-bundle-manifest.json"
+          cp "docs/releases/${tag}/scientific-trust-pack.md" "release-assets/${tag}-scientific-trust-pack.md"
+          (
+            cd release-assets
+            sha256sum * | sort -k2 > RELEASE_ASSET_SHA256SUMS
+          )
+
+      - name: Attest release assets
+        uses: actions/attest@v4
+        with:
+          subject-path: release-assets/*
+
+      - name: Verify generated attestations
+        shell: bash
+        run: |
+          verify_attestation() {
+            local asset="$1"
+            for attempt in 1 2 3 4 5; do
+              if gh attestation verify "$asset" --repo "$GITHUB_REPOSITORY"; then
+                return 0
+              fi
+              echo "Attestation verification for $asset failed on attempt $attempt; retrying..."
+              sleep 6
+            done
+            return 1
+          }
+          verify_attestation "release-assets/environmental_fate_mcp-${{ steps.release.outputs.version }}-py3-none-any.whl"
+          verify_attestation "release-assets/environmental_fate_mcp-${{ steps.release.outputs.version }}.tar.gz"
+          verify_attestation "release-assets/RELEASE_ASSET_SHA256SUMS"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Upload release assets
+        if: ${{ steps.release.outputs.upload_to_release == 'true' }}
+        shell: bash
+        run: gh release upload "${{ steps.release.outputs.tag }}" release-assets/* --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}

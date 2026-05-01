@@ -12,7 +12,7 @@ executor, receiving-water concentration model, or final exposure/risk engine.
 The governed validation demo pack is synthetic and demonstrates QA classification behavior only; it is not
 field validation, calibration evidence, catchment validation, regulator acceptance, or WEPP validation.
 
-The v0.3.0 scientific trust diagnostics follow the same boundary. The external benchmark pack replays
+The v0.3 release-line scientific trust diagnostics follow the same boundary. The external benchmark pack replays
 deterministic screening cases through public tools, the default sensitivity report perturbs governed scalar
 assumptions, and probabilistic sample manifests preserve audit hashes and sampled inputs when requested. None
 of these artifacts creates a calibrated model, a field-validation corpus, a source-engine equivalence claim, a

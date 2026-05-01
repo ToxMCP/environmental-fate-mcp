@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-05-01
+
+### Added
+- GitHub release provenance workflow that builds wheel/sdist assets, uploads release checksums, and generates Sigstore-backed artifact attestations through GitHub Artifact Attestations.
+- Release provenance guide with online verification commands for attested wheel, sdist, and checksum assets.
+
+### Changed
+- Public release docs now describe signed release asset provenance as a supply-chain trust layer, separate from scientific validation or regulator acceptance.
+
 ## [0.3.0] - 2026-05-01
 
 ### Added

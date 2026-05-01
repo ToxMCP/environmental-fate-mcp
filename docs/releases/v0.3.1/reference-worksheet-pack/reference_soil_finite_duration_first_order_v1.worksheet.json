@@ -1,0 +1,80 @@
+{
+  "claimId": "reference_soil_finite_duration_first_order_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference soil finite-duration first-order screening equation",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "oecd.test_guidelines.section3",
+    "epa.environmental_models_guidance",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.3.1",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Soil concentration increases proportionally when the governed soil mass is overridden downward under the same finite-duration first-order equation.",
+      "fixtureName": "reference_soil_capacity_sensitivity_fixture",
+      "referenceType": "hand_worked_capacity_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark soil capacity sensitivity"
+        },
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "agricultural_soil_mass_kg",
+            "rationale": "Benchmark soil-mass override.",
+            "source_classification": "user_input",
+            "unit": "kg",
+            "value": 100000000.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "soil"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration soil screening case with an explicit soil-mass override, corroborating inverse scaling against compartment capacity in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Capacity scaling remains analytically traceable because only the compartment capacity term changes in the deterministic reference equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "End-of-duration soil concentration matches the documented finite-duration first-order screening equation.",
+      "fixtureName": "soil_reference_chemical_style_fixture",
+      "referenceType": "hand_worked_screening_equation",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark soil"
+        },
+        "duration_days": 30.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "soil"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration first-order single-medium soil screening equation using governed soil-mass and half-life defaults.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Reference mass-balance kernel is deterministic, so floating-point precision is the only tolerated deviation.",
+      "validationTier": "reference_style"
+    }
+  ]
+}

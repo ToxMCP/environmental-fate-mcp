@@ -155,6 +155,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         f"- `{erosion_demo_report['demoCaseCount']}` synthetic erosion/sediment validation demo cases are published for reviewer-facing screening QA orientation.",
         f"- `{benchmark_report['caseCount']}` governed external benchmark replay cases are published for deterministic screening corroboration.",
         f"- `{sensitivity_report['profileCount']}` governed default sensitivity profiles are published for reviewer-facing assumption transparency.",
+        "- Release asset provenance is supported through GitHub Artifact Attestations for the wheel, sdist, checksums, release-bundle manifest, and trust pack.",
         "",
         "## Verification Summary",
         f"- Release checks passed: `{passed_checks}/{total_checks}`.",
@@ -187,6 +188,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
             else "- Experimental-family promotion posture changed in this release."
         ),
         "- Adapter posture remains normalization parity only; this release does not claim source-engine scientific equivalence.",
+        "- Release attestations, when present on GitHub release assets, establish build provenance only; they are not scientific validation or regulator acceptance.",
         "",
         "## Known Gaps",
     ]
@@ -1788,9 +1790,11 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
             "Defaults and assumption provenance are explicit and machine-readable.",
             "Concentration bundles and regulatory handoff packages carry SHA-256 integrity hashes.",
             "Quality flags and limitation notes are emitted in normalized outputs and review artifacts.",
+            "GitHub release assets are built by the release-provenance workflow and can be signed with GitHub Artifact Attestations.",
         ],
         "limitations": [
             "No secret handling is implemented because the public screening workflows do not require credential-bearing inputs.",
+            "Artifact attestations link release assets to their build workflow and repository; they do not guarantee vulnerability absence, scientific adequacy, regulator acceptance, or deployment safety.",
             "This report summarizes product-level provenance controls; it is not a substitute for deployment-specific security hardening or independent security assessment.",
         ],
         "notes": [
@@ -1806,10 +1810,11 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "version": VERSION,
         "status": "screening_corroboration_strengthened_not_regulatory_acceptance",
         "narrativeLines": [
-            "v0.3.0 adds governed external benchmark replay, deterministic default sensitivity reporting, and optional probabilistic sample manifests.",
+            "The v0.3 release line adds governed external benchmark replay, deterministic default sensitivity reporting, optional probabilistic sample manifests, and release-asset provenance support.",
             "The benchmark pack improves reproducibility and source-grounded corroboration for scalar screening equations, but it is not field validation, calibration evidence, source-engine equivalence, or regulator acceptance.",
             "The default sensitivity report shows how shipped or scenario assumptions can move screening outputs; it is not formal global sensitivity analysis or uncertainty quantification.",
             "Probabilistic sample manifests preserve seed, sampled parameter summaries, iteration health, and stable hashes when requested; full per-iteration calculation traces remain intentionally omitted.",
+            "GitHub Artifact Attestations for release assets, when published, support supply-chain provenance review; they are not scientific validation or a substitute for release-report review.",
             "The release remains bounded to concentration screening and scalar erosion/sediment screening; no hydrology generation, spatial routing, calibration, WEPP execution, or final risk decision is added.",
         ],
         "benchmarkResource": "defaults://scientific-external-benchmark-pack",
@@ -2056,7 +2061,7 @@ def main() -> None:
     parser.add_argument(
         "--release-ref",
         default=f"v{VERSION}",
-        help="Release reference label to embed in the generated bundle, for example a tag such as v0.3.0.",
+        help="Release reference label to embed in the generated bundle, for example a tag such as v0.3.1.",
     )
     args = parser.parse_args()
     bundle_dir = write_release_bundle(Path.cwd(), output_dir=args.output_dir, release_ref=args.release_ref)

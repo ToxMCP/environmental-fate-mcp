@@ -290,7 +290,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "EnvironmentalReleaseScenario",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/environmental-release-scenario",
           "schemaVersion": "1.1.0"
         },
@@ -309,7 +309,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "ConcentrationSurface",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/concentration-surface/soil",
           "schemaVersion": "1.1.0"
         },
@@ -338,7 +338,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "ConcentrationSurfaceBundle",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/concentration-surface-bundle",
           "schemaVersion": "1.1.0"
         },
@@ -383,7 +383,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffPackage",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-package",
           "schemaVersion": "1.1.0"
         },
@@ -428,7 +428,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffPackageSummary",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-package-summary",
           "schemaVersion": "1.1.0"
         },
@@ -476,7 +476,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffReviewPacket",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-review",
           "schemaVersion": "1.1.0"
         }
@@ -576,7 +576,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "EnvironmentalReleaseScenario",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/environmental-release-scenario",
           "schemaVersion": "1.1.0"
         },
@@ -595,7 +595,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "ConcentrationSurface",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/concentration-surface/air",
           "schemaVersion": "1.1.0"
         },
@@ -624,7 +624,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "ConcentrationSurfaceBundle",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/concentration-surface-bundle",
           "schemaVersion": "1.1.0"
         },
@@ -669,7 +669,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffPackage",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-package",
           "schemaVersion": "1.1.0"
         },
@@ -714,7 +714,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffPackageSummary",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-package-summary",
           "schemaVersion": "1.1.0"
         },
@@ -762,7 +762,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffReviewPacket",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-review",
           "schemaVersion": "1.1.0"
         }
@@ -862,7 +862,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "EnvironmentalReleaseScenario",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/environmental-release-scenario",
           "schemaVersion": "1.1.0"
         },
@@ -881,7 +881,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "ConcentrationSurface",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/concentration-surface/water",
           "schemaVersion": "1.1.0"
         },
@@ -910,7 +910,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "ConcentrationSurfaceBundle",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/concentration-surface-bundle",
           "schemaVersion": "1.1.0"
         },
@@ -955,7 +955,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffPackage",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-package",
           "schemaVersion": "1.1.0"
         },
@@ -1000,7 +1000,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffPackageSummary",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-package-summary",
           "schemaVersion": "1.1.0"
         },
@@ -1048,7 +1048,7 @@
           "objectType": "typedHandoffRef",
           "objectTypeRef": "RegulatoryHandoffReviewPacket",
           "producerModule": "environmental_fate",
-          "producerVersion": "0.3.0",
+          "producerVersion": "0.3.1",
           "retrievalEndpoint": "fate://cross-suite/regulatory-handoff-review",
           "schemaVersion": "1.1.0"
         }

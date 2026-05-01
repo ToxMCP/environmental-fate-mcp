@@ -16,6 +16,7 @@ Explain why the work fits the Environmental Fate MCP boundary instead of a neigh
 - [ ] `uv run python -c "from fate_mcp.server import create_server; create_server()"`
 - [ ] `uv build`
 - [ ] installed-wheel smoke startup in a fresh Python 3.12 environment
+- [ ] release-provenance workflow impact reviewed for release-affecting changes
 
 ## Release Surface Checklist
 
@@ -29,6 +30,7 @@ Explain why the work fits the Environmental Fate MCP boundary instead of a neigh
 - [ ] Scientific limitations remain explicit
 - [ ] Downstream handoff semantics remain auditable if affected
 - [ ] Security workflow implications were checked for dependency, packaging, import, or CI changes
+- [ ] Release asset attestation/provenance implications were checked for release packaging changes
 
 ## Risk Notes
 
