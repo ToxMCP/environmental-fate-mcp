@@ -45,6 +45,7 @@ from fate_mcp.plugins.base import FatePlugin, PluginKey
 from fate_mcp.provenance import ProvenanceBuilder
 
 MAX_DISTRIBUTION_SAMPLE_ATTEMPTS = 100
+MAX_PROBABILISTIC_ITERATIONS = 10_000
 
 
 class PluginRegistry:
@@ -210,6 +211,19 @@ class FateRuntime:
                 code="probabilistic_orchestration_invalid_iteration_count",
                 message="Probabilistic orchestration requires at least one iteration.",
                 suggestion="Set iterations to a positive integer.",
+            )
+        if iterations > MAX_PROBABILISTIC_ITERATIONS:
+            raise FateValidationError(
+                code="probabilistic_orchestration_iteration_limit_exceeded",
+                message=(
+                    f"Probabilistic orchestration supports at most "
+                    f"{MAX_PROBABILISTIC_ITERATIONS} iterations."
+                ),
+                suggestion=(
+                    "Use 10,000 or fewer iterations for this screening MCP, or split sensitivity work "
+                    "outside the public runtime."
+                ),
+                details={"iterations": iterations, "maxIterations": MAX_PROBABILISTIC_ITERATIONS},
             )
         probabilistic_policy = self.defaults.probabilistic_review_policy()
         plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)

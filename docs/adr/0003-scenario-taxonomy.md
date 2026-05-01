@@ -6,9 +6,9 @@ Accepted
 
 ## Decision
 
-Environmental Fate MCP v0.1 supports two run classes:
+Environmental Fate MCP supports two run classes:
 
-- `steady_state`: a single concentration interpretation with no explicit start or end
+- `steady_state`: a single end-of-duration screening concentration interpretation with no explicit start or end; this is not an infinite-time equilibrium claim
 - `time_bucket`: one or more bounded windows with explicit `start` and `end`
 
 Mandatory result semantics:
@@ -18,7 +18,7 @@ Mandatory result semantics:
 - every concentration surface declares `geographicScope`
 - every concentration surface declares either `steady_state` or a bounded time window
 
-Canonical compartments for v0.1:
+Canonical compartments for the current defaults set:
 
 - `ambient_air`
 - `surface_water`

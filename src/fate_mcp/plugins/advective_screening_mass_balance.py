@@ -110,7 +110,8 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                 code="advective_residence_time_temperature_assumed_constant",
                 message=(
                     f"Scenario temperature {scenario.temperature_c:.1f} °C did not change the governed "
-                    f"{medium.value} residence time. Advective clearance remains temperature-invariant in v0.1."
+                    f"{medium.value} residence time. Advective clearance remains temperature-invariant "
+                    "in the current screening kernel."
                 ),
             )
         release_mass_mg = effective_total_release_mass_kg * 1_000_000.0 * fraction
@@ -426,7 +427,7 @@ class AdvectiveScreeningMassBalancePlugin(ReferenceMassBalancePlugin):
                         f"{medium.value}_temperature_adjusts_advective_residence_time",
                         "no",
                         None,
-                        "Advective residence times remain temperature-invariant in the v0.1 screening kernel.",
+                        "Advective residence times remain temperature-invariant in the current screening kernel.",
                     ),
                 ]
             )

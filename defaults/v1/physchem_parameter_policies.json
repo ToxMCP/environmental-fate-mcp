@@ -109,7 +109,7 @@
     "log_kow": {
       "family": "log10_descriptor",
       "expectedUnit": "log10",
-      "applicabilityNote": "Preserved for provenance and future adapters, but not consumed by the reference runtime in v0.1."
+      "applicabilityNote": "Preserved for provenance and future adapters, but not consumed by the current reference runtime."
     }
   }
 }

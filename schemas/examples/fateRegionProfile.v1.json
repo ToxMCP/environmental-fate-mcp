@@ -8,9 +8,9 @@
     "freshwater_sediment": 1.0
   },
   "known_gaps": [
-    "No coastal marine compartment in v0.1",
-    "No explicit sludge or dust pack in v0.1"
+    "No coastal marine compartment in the current public screening release",
+    "No explicit sludge or dust pack in the current public screening release"
   ],
   "source_pack": "defaults/v1/region_profiles.json",
-  "applicability_note": "Baseline regional screening profile for general v0.1 use."
+  "applicability_note": "Baseline regional screening profile for general current-release use."
 }

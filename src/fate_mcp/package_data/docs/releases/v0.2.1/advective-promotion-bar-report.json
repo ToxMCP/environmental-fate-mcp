@@ -1,0 +1,418 @@
+{
+  "claims": [
+    {
+      "claimId": "advective_clearance_dominant_loss_share_v1",
+      "displayName": "Advective clearance-dominant loss-share transition",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_cumulative_mass_balance_closure_v1",
+      "displayName": "Advective cumulative mass-balance closure",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "high",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_degradation_dominant_loss_share_v1",
+      "displayName": "Advective degradation-dominant loss-share transition",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_extreme_persistence_clearance_bound_v1",
+      "displayName": "Advective extreme-persistence clearance bound",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "high",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_long_duration_combined_loss_plateau_v1",
+      "displayName": "Advective long-duration combined-loss plateau anchor",
+      "independentEvidenceFamilies": [
+        "advective_duration_plateau_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_long_residence_time_accumulation_anchor_v1",
+      "displayName": "Advective long-residence-time accumulation anchor",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_loss_regime_flip_directionality_v1",
+      "displayName": "Advective loss-regime flip directionality",
+      "independentEvidenceFamilies": [
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": false,
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_mixed_loss_transition_margin_v1",
+      "displayName": "Advective mixed-loss transition margin",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 4,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_post_release_flushing_directionality_v1",
+      "displayName": "Advective post-release flushing directionality",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_directionality_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_post_release_flushing_recovery_v1",
+      "displayName": "Advective post-release flushing and recovery accounting",
+      "independentEvidenceFamilies": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 4,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_post_release_flushing_regime_transition_v1",
+      "displayName": "Advective post-release flushing regime transition",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_post_release_half_recovery_directionality_v1",
+      "displayName": "Advective post-release half-recovery directionality",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1",
+        "oecd_post_release_half_recovery_directionality_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_post_release_half_recovery_pace_v1",
+      "displayName": "Advective post-release half-recovery pace",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_post_release_late_recovery_regime_v1",
+      "displayName": "Advective post-release late-recovery regime",
+      "independentEvidenceFamilies": [
+        "oecd_post_release_half_recovery_directionality_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_residence_time_override_application_v1",
+      "displayName": "Advective residence-time override application",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_residence_time_turnover_regime_v1",
+      "displayName": "Advective residence-time turnover regime interpretation",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 4,
+      "priority": "medium",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_short_residence_time_clearance_anchor_v1",
+      "displayName": "Advective short-residence-time clearance anchor",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "referenceStyleReady": false,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "sensitivity"
+      ]
+    },
+    {
+      "claimId": "advective_time_bucket_elapsed_time_v1",
+      "displayName": "Advective time-bucket elapsed-time semantics",
+      "independentEvidenceFamilies": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "echa_elapsed_time_flowing_water_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 2,
+      "priority": "high",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "invariance",
+        "reference_style"
+      ]
+    },
+    {
+      "claimId": "advective_water_finite_duration_first_order_v1",
+      "displayName": "Advective water finite-duration first-order screening equation",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "mandatoryForRelease": true,
+      "officialSourceCount": 3,
+      "priority": "high",
+      "referenceStyleReady": true,
+      "sensitivityOnlySupport": false,
+      "supportStrength": "multi_anchor_multi_tier",
+      "supportingValidationTiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ]
+    }
+  ],
+  "explicitNonPromotableReasons": [
+    "governed_policy_retains_experimental_status",
+    "reference_style_anchor_gap"
+  ],
+  "governance": {
+    "claimCount": 19,
+    "explicitNonPromotableReasons": [
+      "governed_policy_retains_experimental_status",
+      "reference_style_anchor_gap"
+    ],
+    "missingIndependentEvidenceClaimIds": [],
+    "missingOfficialGuidanceClaimIds": [],
+    "nonReferenceStyleSupportClaimIds": [
+      "advective_clearance_dominant_loss_share_v1",
+      "advective_degradation_dominant_loss_share_v1",
+      "advective_extreme_persistence_clearance_bound_v1",
+      "advective_long_duration_combined_loss_plateau_v1",
+      "advective_long_residence_time_accumulation_anchor_v1",
+      "advective_loss_regime_flip_directionality_v1",
+      "advective_residence_time_override_application_v1",
+      "advective_short_residence_time_clearance_anchor_v1"
+    ],
+    "passed": true,
+    "policyHoldExperimental": true,
+    "remainsExperimental": true,
+    "sensitivityOnlySupportClaimIds": []
+  },
+  "modelFamily": "advective_screening_mass_balance",
+  "passed": true,
+  "promotable": false,
+  "promotionStatus": "non_promotable_experimental",
+  "remainsExperimental": true,
+  "version": "0.2.1"
+}

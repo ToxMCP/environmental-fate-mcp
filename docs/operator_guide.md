@@ -112,7 +112,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - use MCP prompts to generate governed model-family comparison review guidance
 - use scientific review outcomes, review-status rule lines, governing-rule lines, and recommended-action lines to decide whether a run is acceptable, qualified, or should be escalated
 
-## Not supported in v0.1
+## Not supported in the current public screening release
 
 - direct human dose calculation
 - dietary intake workflows

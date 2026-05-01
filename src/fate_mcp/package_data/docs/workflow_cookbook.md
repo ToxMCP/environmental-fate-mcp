@@ -39,7 +39,7 @@ Use this when an external tool has already produced normalized payload data and 
 3. Call `fate_import_external_result_payload`.
 4. Continue with scientific review or downstream handoff tools, but keep adapter provenance, normalization scope, and source-engine limitations explicit rather than treating the result as a native physics run.
 
-Public import profiles in v0.1:
+Public import profiles in the current public screening release:
 - `normalized_external_payload_json`
 - `normalized_external_payload_csv`
 

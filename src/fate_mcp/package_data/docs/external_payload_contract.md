@@ -57,3 +57,17 @@ Use `fate_import_external_result_payload_skeleton` if you want a validated start
 ## File Access Boundary
 
 `payload_path` must resolve inside an allowed import root. By default, only shipped adapter fixtures under `config/adapter-fixtures` are allowed. Operators can add directories with `FATE_MCP_IMPORT_ROOTS` using the platform path separator. Symlinks are resolved before the boundary check, so links that point outside allowed roots are rejected.
+
+## Import Size Boundary
+
+Normalized JSON, normalized CSV, and legacy desktop CSV imports are bounded before normalization:
+
+- default maximum file size: `5 MB`
+- default maximum imported surface rows: `5,000`
+
+Operators may raise these limits only for controlled local imports:
+
+- `FATE_MCP_EXTERNAL_PAYLOAD_MAX_BYTES`
+- `FATE_MCP_EXTERNAL_PAYLOAD_MAX_SURFACES`
+
+Invalid override values fail closed. Oversized payloads return structured validation errors with remediation text instead of attempting partial normalization.

@@ -26,6 +26,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 0.00024044183555505707,
           "concentration_unit": "mg/m3",
           "model_family": "reference_mass_balance",
@@ -82,6 +83,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 0.0010820212806667226,
           "concentration_unit": "mg/kg",
           "model_family": "reference_mass_balance",
@@ -138,6 +140,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 6.155406476620715e-06,
           "concentration_unit": "mg/L",
           "model_family": "reference_mass_balance",
@@ -196,6 +199,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 0.00024044183555505707,
           "concentration_unit": "mg/m3",
           "model_family": "reference_mass_balance",
@@ -252,6 +256,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 0.0010820212806667226,
           "concentration_unit": "mg/kg",
           "model_family": "reference_mass_balance",
@@ -308,6 +313,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 6.6188418322385e-06,
           "concentration_unit": "mg/L",
           "model_family": "reference_mass_balance",
@@ -366,6 +372,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 0.00024044183555505707,
           "concentration_unit": "mg/m3",
           "model_family": "reference_mass_balance",
@@ -422,6 +429,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 0.0010820212806667226,
           "concentration_unit": "mg/kg",
           "model_family": "reference_mass_balance",
@@ -478,6 +486,7 @@
             "end": null,
             "bucket_label": null
           },
+          "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
           "concentration_value": 6.760793490024277e-06,
           "concentration_unit": "mg/L",
           "model_family": "reference_mass_balance",

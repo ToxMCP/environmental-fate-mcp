@@ -6,7 +6,7 @@ Accepted
 
 ## Decision
 
-Environmental Fate MCP v0.1 prioritizes deterministic steady-state or bounded time-bucket workflows. Full Monte Carlo orchestration, GIS dispersion, and unrestricted mechanistic dynamic simulation are deferred.
+Environmental Fate MCP prioritizes deterministic steady-state or bounded time-bucket workflows. Full Monte Carlo orchestration, GIS dispersion, and unrestricted mechanistic dynamic simulation are deferred.
 
 ## Rationale
 

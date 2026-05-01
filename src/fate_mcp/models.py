@@ -94,6 +94,11 @@ class RunMode(str, Enum):
     TIME_BUCKET = "time_bucket"
 
 
+class ReportedTimeSemantics(str, Enum):
+    END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM = "end_of_duration_screening_not_infinite_equilibrium"
+    BOUNDED_TIME_BUCKET = "bounded_time_bucket"
+
+
 class ModelFamily(str, Enum):
     REFERENCE_MASS_BALANCE = "reference_mass_balance"
     ADVECTIVE_SCREENING_MASS_BALANCE = "advective_screening_mass_balance"
@@ -1058,6 +1063,7 @@ class ConcentrationSurface(FateBaseModel):
     compartment: Compartment
     geographic_scope: GeographicScope
     time_window: TimeWindow
+    reported_time_semantics: ReportedTimeSemantics | None = None
     concentration_value: float = Field(ge=0.0)
     concentration_unit: str
     model_family: ModelFamily
@@ -1071,6 +1077,17 @@ class ConcentrationSurface(FateBaseModel):
     @classmethod
     def validate_concentration_value(cls, value: float) -> float:
         return _ensure_finite_non_negative(value, "concentration_value")
+
+    @model_validator(mode="after")
+    def populate_reported_time_semantics(self) -> "ConcentrationSurface":
+        if self.reported_time_semantics is None:
+            if self.time_window.mode == RunMode.STEADY_STATE:
+                self.reported_time_semantics = (
+                    ReportedTimeSemantics.END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM
+                )
+            else:
+                self.reported_time_semantics = ReportedTimeSemantics.BOUNDED_TIME_BUCKET
+        return self
 
 
 class FateRunSummary(FateBaseModel):

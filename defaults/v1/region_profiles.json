@@ -11,11 +11,11 @@
         "freshwater_sediment": 1.0
       },
       "knownGaps": [
-        "No coastal marine compartment in v0.1",
-        "No explicit sludge or dust pack in v0.1"
+        "No coastal marine compartment in the current public screening release",
+        "No explicit sludge or dust pack in the current public screening release"
       ],
       "sourcePack": "defaults/v1/region_profiles.json",
-      "applicabilityNote": "Baseline regional screening profile for general v0.1 use."
+      "applicabilityNote": "Baseline regional screening profile for general current-release use."
     },
     {
       "regionId": "temperate_river_basin",
@@ -43,7 +43,7 @@
       },
       "knownGaps": [
         "Representative regional screening profile only",
-        "No estuarine or coastal receiving-water compartment in v0.1"
+        "No estuarine or coastal receiving-water compartment in the current public screening release"
       ],
       "sourcePack": "defaults/v1/region_profiles.json",
       "applicabilityNote": "Useful for broad US-style regional screening when a jurisdiction-specific extension pack is unavailable."

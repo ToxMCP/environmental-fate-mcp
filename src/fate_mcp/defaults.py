@@ -292,7 +292,7 @@ class DefaultsRegistry:
             raise FateRegistryError(
                 code="unsupported_medium",
                 message=f"Unsupported medium: {medium.value}",
-                suggestion="Use one of the declared v0.1 media values.",
+                suggestion="Use one of the declared defaults v1 media values.",
             ) from exc
         return MediaDefaults(
             compartment=Compartment(entry["compartment"]),

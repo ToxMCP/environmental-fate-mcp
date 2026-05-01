@@ -21,6 +21,7 @@
           "end": null,
           "bucket_label": null
         },
+        "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
         "concentration_value": 0.00024044183555505707,
         "concentration_unit": "mg/m3",
         "model_family": "reference_mass_balance",
@@ -217,6 +218,7 @@
           "end": null,
           "bucket_label": null
         },
+        "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
         "concentration_value": 5.93830089619883e-06,
         "concentration_unit": "mg/L",
         "model_family": "reference_mass_balance",
@@ -413,6 +415,7 @@
           "end": null,
           "bucket_label": null
         },
+        "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
         "concentration_value": 0.0010820212806667226,
         "concentration_unit": "mg/kg",
         "model_family": "reference_mass_balance",
@@ -936,16 +939,16 @@
     "dependencies": [
       {
         "name": "environmental-fate-mcp",
-        "version": "0.2.0",
+        "version": "0.2.1",
         "role": "producer"
       },
       {
         "name": "reference_mass_balance",
-        "version": "0.2.0",
+        "version": "0.2.1",
         "role": "model_family"
       }
     ],
-    "integrity_hash": "248341fd8bc96f1441afc3511864507669ae332b696355506f73def42a8d6589",
+    "integrity_hash": "5e2bbeea604293f3ed709c4a50aa86916ed81902656169c2581cca1b6a0785de",
     "regulatory_use_disclaimer": "This output is a concentration surface. It is not a human dose, risk quotient, or regulatory decision. Downstream translation to dose requires Direct-Use Exposure MCP or equivalent."
   }
 }
