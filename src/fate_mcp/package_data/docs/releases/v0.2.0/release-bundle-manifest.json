@@ -34,7 +34,7 @@
     },
     {
       "path": "known-gap-report.json",
-      "sha256": "1a2ecbc38ec1cd646021d015b3de0a9a0c626311ff60389cb6157b8db970760c"
+      "sha256": "f99083d129485a33b598b22d6ff6a2e52188054b5a501ae29e942fe2820bda61"
     },
     {
       "path": "metadata-report.json",
@@ -46,7 +46,7 @@
     },
     {
       "path": "red-team-review-report.json",
-      "sha256": "11dc1fe99b900a39f9aed7531d13821e65af4dbb68e790ada23f429d6866af5c"
+      "sha256": "5086504928f338e807db192ac9679f8ed7890b268d730cec58d1759edfa0f501"
     },
     {
       "path": "reference-corroboration-report.json",
@@ -142,7 +142,7 @@
     },
     {
       "path": "release-notes.md",
-      "sha256": "c27d4ecbab76f53a72c342113125f95bb8e650bd0e94cc09e3cc07230dab21c1"
+      "sha256": "b796718a840b72027754d3190d0b766656b0512156cc7f12f8ac0d0acb135151"
     },
     {
       "path": "scientific-claim-coverage-report.json",
@@ -154,7 +154,7 @@
     },
     {
       "path": "scientific-trust-pack.md",
-      "sha256": "e32d32bd2410fa3a750a6bec097bae459c9eb398a3a51231e01ca1d1636b43c2"
+      "sha256": "2cd3640c3f00ed36f93780cf273b361c405ed207903d05c9d0101b813fba2d35"
     },
     {
       "path": "security-provenance-review-report.json",

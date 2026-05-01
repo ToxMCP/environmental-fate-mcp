@@ -39,7 +39,7 @@ This is an internal bounded-screening release gate, not a statement of regulator
 - No direct human dose calculation in Environmental Fate MCP.
 - No dietary intake workflows in Environmental Fate MCP.
 - No PBPK execution in Environmental Fate MCP.
-- Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in v0.1.
+- Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in this release.
 
 ## Bundle Contents
 - Machine-readable release reports are published alongside this note in the same directory.

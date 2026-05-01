@@ -111,7 +111,7 @@
       "findingId": "accepted-limitation-18",
       "resolution": "accepted limitation with public wording",
       "severity": "accepted_limitation",
-      "summary": "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in v0.1."
+      "summary": "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in this release."
     }
   ],
   "openBlockerCount": 0,
