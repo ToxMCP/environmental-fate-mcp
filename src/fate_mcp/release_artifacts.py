@@ -23,9 +23,10 @@ from fate_mcp.validation import validation_dossier
 
 
 KNOWN_GAPS = [
-    "No GIS-scale dispersion in v0.2.",
-    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.2.",
-    "Erosion/sediment validation demos are synthetic screening-QA demonstrations, not curated field benchmark validation.",
+    "No GIS-scale dispersion in v0.3.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.3.",
+    "External benchmark packs are deterministic screening corroboration fixtures, not curated field validation datasets.",
+    "Erosion/sediment validation demos remain synthetic screening-QA demonstrations, not curated field benchmark validation.",
     "No direct human dose calculation in Environmental Fate MCP.",
     "No dietary intake workflows in Environmental Fate MCP.",
     "No PBPK execution in Environmental Fate MCP.",
@@ -49,6 +50,9 @@ REPORT_FILENAMES = (
     ("validation-dossier", "validation-dossier.json"),
     ("adapter-validation-report", "adapter-validation-report.json"),
     ("erosion-sediment-validation-demo-report", "erosion-sediment-validation-demo-report.json"),
+    ("external-validation-benchmark-report", "external-validation-benchmark-report.json"),
+    ("default-sensitivity-report", "default-sensitivity-report.json"),
+    ("scientific-validation-narrative", "scientific-validation-narrative.json"),
     ("known-gap-report", "known-gap-report.json"),
 )
 
@@ -67,6 +71,9 @@ REPORT_DESCRIPTIONS = {
     "validation-dossier.json": "Full validation dossier across scientific, interoperability, and release checks.",
     "adapter-validation-report.json": "Focused validation report for governed adapter interoperability.",
     "erosion-sediment-validation-demo-report.json": "Governed synthetic erosion/sediment validation demo-pack report and classification checks.",
+    "external-validation-benchmark-report.json": "Governed external benchmark-pack report for deterministic screening corroboration checks.",
+    "default-sensitivity-report.json": "Deterministic governed default-sensitivity report for reviewer-facing assumption transparency.",
+    "scientific-validation-narrative.json": "Reviewer-facing scientific validation narrative covering benchmark, sensitivity, uncertainty, and boundary interpretation.",
     "known-gap-report.json": "Declared known gaps that remain intentionally out of scope for this release.",
     "reference-proof-brief.md": "Compact reviewer-facing brief for the reviewer-grade reference-family proof surface.",
     "advective-promotion-brief.md": "Compact reviewer-facing brief for the experimental advective-family promotion bar.",
@@ -127,6 +134,8 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
     worksheet_manifest = reports["reference-worksheet-manifest"]
     advective_report = reports["advective-promotion-bar-report"]
     erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
+    benchmark_report = reports["external-validation-benchmark-report"]
+    sensitivity_report = reports["default-sensitivity-report"]
     known_gaps = reports["known-gap-report"]["knownGaps"]
     passed_checks = sum(1 for item in readiness["checks"] if item["passed"])
     total_checks = len(readiness["checks"])
@@ -144,6 +153,8 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         f"- `{metadata['scientificValidationClaimCount']}` governed scientific validation claims and `{metadata['scientificReferenceCaseCount']}` governed scientific reference cases are included.",
         f"- `{metadata['regulatoryHandoffProfileCount']}` governed regulatory handoff profiles are published for downstream suite consumers.",
         f"- `{erosion_demo_report['demoCaseCount']}` synthetic erosion/sediment validation demo cases are published for reviewer-facing screening QA orientation.",
+        f"- `{benchmark_report['caseCount']}` governed external benchmark replay cases are published for deterministic screening corroboration.",
+        f"- `{sensitivity_report['profileCount']}` governed default sensitivity profiles are published for reviewer-facing assumption transparency.",
         "",
         "## Verification Summary",
         f"- Release checks passed: `{passed_checks}/{total_checks}`.",
@@ -155,6 +166,8 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         f"- Regulatory handoff governance passed: `{validation['regulatoryHandoffGovernance']['passed']}`.",
         f"- Scientific review artifacts passed: `{validation['scientificReviewArtifacts']['passed']}`.",
         f"- Erosion/sediment validation demo pack passed: `{erosion_demo_report['passed']}`.",
+        f"- External benchmark pack passed: `{benchmark_report['passed']}`.",
+        f"- Default sensitivity profiles passed: `{sensitivity_report['passed']}`.",
         "",
         "## Scientific Change Log",
         f"- Shipped-default numeric deltas recorded this release: `{defaults_report['changedParameterCount']}` parameter(s), with `{defaults_report['materiallyChangedParameterCount']}` marked as materially output-affecting.",
@@ -190,6 +203,9 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
             "- `reference-worksheet-pack/` contains the claim-linked worksheet and expected-output artifacts used for skeptical reviewer handoff.",
             "- `advective-promotion-bar-report.json` explains why the advective family remains experimental in this release.",
             "- `erosion-sediment-validation-demo-report.json` checks the synthetic erosion/sediment validation demo pack and expected fit classifications.",
+            "- `external-validation-benchmark-report.json` checks deterministic external benchmark replay cases and expected tolerances.",
+            "- `default-sensitivity-report.json` checks governed default sensitivity profile execution and boundary language.",
+            "- `scientific-validation-narrative.json` summarizes benchmark, sensitivity, probabilistic manifest, and boundary interpretation for reviewers.",
             "- `release-bundle-manifest.json` records SHA-256 checksums for the bundled release files.",
             "- `SHA256SUMS` provides a reviewer-friendly checksum list for manual verification.",
             "",
@@ -766,6 +782,8 @@ def _render_scientific_trust_pack(
     worksheet_manifest = reports["reference-worksheet-manifest"]
     advective_report = reports["advective-promotion-bar-report"]
     erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
+    benchmark_report = reports["external-validation-benchmark-report"]
+    sensitivity_report = reports["default-sensitivity-report"]
     exclusions = _hard_exclusions(defaults_registry)
     mandatory_claims = [
         claim for claim in corroboration_report["claims"] if claim["mandatoryForRelease"]
@@ -798,6 +816,8 @@ def _render_scientific_trust_pack(
         "- The reference-family proof surface is treated as reviewer-grade; the advective family remains explicitly non-promotable in this release.",
         "- Public wording remains bounded-screening only and does not imply regulator acceptance or source-engine equivalence.",
         f"- The erosion/sediment validation demo pack publishes `{erosion_demo_report['demoCaseCount']}` synthetic screening-QA cases and passed its classification checks.",
+        f"- The external benchmark pack publishes `{benchmark_report['caseCount']}` deterministic replay cases and passed its tolerance checks.",
+        f"- The default sensitivity surface publishes `{sensitivity_report['profileCount']}` governed deterministic sensitivity profiles.",
         "",
         "## When Not To Use This MCP",
     ]
@@ -859,6 +879,17 @@ def _render_scientific_trust_pack(
             "- Resource: `defaults://erosion-sediment-validation-demo-pack`.",
             "- Report: `release://erosion-sediment-validation-demo-report`.",
             "- These cases demonstrate screening QA interpretation only; they are not field validation, calibration evidence, regulator acceptance, catchment validation, spatial routing evidence, or WEPP validation.",
+            "",
+            "## External Benchmark And Sensitivity Surface",
+            f"- External benchmark pack passed: `{benchmark_report['passed']}`.",
+            f"- External benchmark cases: `{benchmark_report['caseCount']}`.",
+            "- Resource: `defaults://scientific-external-benchmark-pack`.",
+            "- Report: `release://external-validation-benchmark-report`.",
+            f"- Default sensitivity profiles passed: `{sensitivity_report['passed']}`.",
+            f"- Default sensitivity profiles: `{sensitivity_report['profileCount']}`.",
+            "- Resource: `defaults://default-sensitivity-profiles`.",
+            "- Report: `release://default-sensitivity-report`.",
+            "- These artifacts improve deterministic screening corroboration and assumption transparency; they are not field validation, calibration, source-engine equivalence, or regulator acceptance.",
             "",
             "## Claim Corroboration",
             f"- Governed scientific validation claims: `{metadata['scientificValidationClaimCount']}`.",
@@ -922,6 +953,8 @@ def _render_scientific_trust_brief(
     advective_report = reports["advective-promotion-bar-report"]
     red_team_report = reports["red-team-review-report"]
     erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
+    benchmark_report = reports["external-validation-benchmark-report"]
+    sensitivity_report = reports["default-sensitivity-report"]
     known_gaps = reports["known-gap-report"]["knownGaps"]
     mandatory_claims = [
         claim for claim in corroboration_report["claims"] if claim["mandatoryForRelease"]
@@ -970,6 +1003,8 @@ def _render_scientific_trust_brief(
             f"`{red_team_report['acceptedLimitationCount']}` accepted public limitations."
         ),
         f"- Erosion/sediment validation demo pack: `{erosion_demo_report['demoCaseCount']}` synthetic cases, passed `{erosion_demo_report['passed']}`.",
+        f"- External benchmark pack: `{benchmark_report['caseCount']}` deterministic replay cases, passed `{benchmark_report['passed']}`.",
+        f"- Default sensitivity profiles: `{sensitivity_report['profileCount']}` governed profiles, passed `{sensitivity_report['passed']}`.",
         "",
         "## Reviewer Signals",
         "- `reference_mass_balance` remains the decision-facing baseline family.",
@@ -979,6 +1014,7 @@ def _render_scientific_trust_brief(
         + ".",
         "- Use the full trust pack if you need the mandatory-claim table, reviewer challenge matrix, or the full exclusion list.",
         "- Use `release://erosion-sediment-validation-demo-report` only as a synthetic screening-QA orientation surface, not as field validation or calibration evidence.",
+        "- Use `release://external-validation-benchmark-report` and `release://default-sensitivity-report` as screening-trust diagnostics only, not as regulator acceptance or calibrated validation evidence.",
     ]
     if weaker_mandatory_claims:
         lines.extend(
@@ -1466,6 +1502,18 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "erosionSedimentValidationDemoPackPassed": dossier[
             "erosionSedimentValidationDemoPack"
         ]["passed"],
+        "scientificExternalBenchmarkCaseCount": dossier[
+            "scientificExternalBenchmarkPack"
+        ]["caseCount"],
+        "scientificExternalBenchmarkPackPassed": dossier[
+            "scientificExternalBenchmarkPack"
+        ]["passed"],
+        "defaultSensitivityProfileCount": dossier[
+            "defaultSensitivityProfiles"
+        ]["profileCount"],
+        "defaultSensitivityProfilesPassed": dossier[
+            "defaultSensitivityProfiles"
+        ]["passed"],
         "parameterManifestEntryCount": len(parameter_manifest_example["entries"]),
         "parameterManifestRuntimeConsumedCount": sum(
             1 for entry in parameter_manifest_example["entries"] if entry["runtime_consumed"]
@@ -1610,6 +1658,8 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         and dossier["scientificMethodsDossierWorkflow"]["passed"]
         and dossier["trustSurfaceConsistency"]["passed"]
         and dossier["erosionSedimentValidationDemoPack"]["passed"]
+        and dossier["scientificExternalBenchmarkPack"]["passed"]
+        and dossier["defaultSensitivityProfiles"]["passed"]
         and dossier["modelFamilySelectionWorkflow"]["passed"]
         and dossier["modelFamilySelectionReviewWorkflow"]["passed"]
         and dossier["modelFamilyChallengeReviewWorkflow"]["passed"]
@@ -1655,6 +1705,14 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
             {
                 "name": "erosion-sediment-validation-demo-pack-passed",
                 "passed": dossier["erosionSedimentValidationDemoPack"]["passed"],
+            },
+            {
+                "name": "scientific-external-benchmark-pack-passed",
+                "passed": dossier["scientificExternalBenchmarkPack"]["passed"],
+            },
+            {
+                "name": "default-sensitivity-profiles-passed",
+                "passed": dossier["defaultSensitivityProfiles"]["passed"],
             },
             {"name": "model-family-selection-workflow-passed", "passed": dossier["modelFamilySelectionWorkflow"]["passed"]},
             {
@@ -1709,6 +1767,14 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
                 "name": "erosion_sediment_validation_demo_pack_mismatch",
                 "passed": dossier["erosionSedimentValidationDemoPack"]["passed"],
             },
+            {
+                "name": "scientific_external_benchmark_pack_mismatch",
+                "passed": dossier["scientificExternalBenchmarkPack"]["passed"],
+            },
+            {
+                "name": "default_sensitivity_profile_drift",
+                "passed": dossier["defaultSensitivityProfiles"]["passed"],
+            },
         ],
     }
     security_provenance_review = {
@@ -1736,6 +1802,22 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "version": VERSION,
         "knownGaps": KNOWN_GAPS,
     }
+    scientific_validation_narrative = {
+        "version": VERSION,
+        "status": "screening_corroboration_strengthened_not_regulatory_acceptance",
+        "narrativeLines": [
+            "v0.3.0 adds governed external benchmark replay, deterministic default sensitivity reporting, and optional probabilistic sample manifests.",
+            "The benchmark pack improves reproducibility and source-grounded corroboration for scalar screening equations, but it is not field validation, calibration evidence, source-engine equivalence, or regulator acceptance.",
+            "The default sensitivity report shows how shipped or scenario assumptions can move screening outputs; it is not formal global sensitivity analysis or uncertainty quantification.",
+            "Probabilistic sample manifests preserve seed, sampled parameter summaries, iteration health, and stable hashes when requested; full per-iteration calculation traces remain intentionally omitted.",
+            "The release remains bounded to concentration screening and scalar erosion/sediment screening; no hydrology generation, spatial routing, calibration, WEPP execution, or final risk decision is added.",
+        ],
+        "benchmarkResource": "defaults://scientific-external-benchmark-pack",
+        "benchmarkReport": "release://external-validation-benchmark-report",
+        "sensitivityResource": "defaults://default-sensitivity-profiles",
+        "sensitivityReport": "release://default-sensitivity-report",
+        "acceptedLimitations": KNOWN_GAPS,
+    }
     reports = {
         "metadata-report": metadata_report,
         "readiness-report": readiness_report,
@@ -1752,6 +1834,9 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "erosion-sediment-validation-demo-report": dossier[
             "erosionSedimentValidationDemoPack"
         ],
+        "external-validation-benchmark-report": dossier["scientificExternalBenchmarkPack"],
+        "default-sensitivity-report": dossier["defaultSensitivityProfiles"],
+        "scientific-validation-narrative": scientific_validation_narrative,
         "known-gap-report": known_gap_report,
     }
     red_team_review_report = _build_red_team_review_report(defaults_registry, reports)
@@ -1971,7 +2056,7 @@ def main() -> None:
     parser.add_argument(
         "--release-ref",
         default=f"v{VERSION}",
-        help="Release reference label to embed in the generated bundle, for example a tag such as v0.2.1.",
+        help="Release reference label to embed in the generated bundle, for example a tag such as v0.3.0.",
     )
     args = parser.parse_args()
     bundle_dir = write_release_bundle(Path.cwd(), output_dir=args.output_dir, release_ref=args.release_ref)

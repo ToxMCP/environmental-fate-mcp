@@ -1,10 +1,10 @@
 # Public Release Guide
 
-This guide describes the public `v0.2.1` release-preparation posture for Environmental Fate MCP.
+This guide describes the public `v0.3.0` release-preparation posture for Environmental Fate MCP.
 
 ## Release Boundary
 
-Environmental Fate MCP is released as a bounded environmental concentration-screening MCP. It supports deterministic and bounded probabilistic concentration workflows, scientific review artifacts, regulatory handoff packaging, governed external-result normalization, scalar erosion/sediment screening, and inline validation QA.
+Environmental Fate MCP is released as a bounded environmental concentration-screening MCP. It supports deterministic and bounded probabilistic concentration workflows, scientific review artifacts, regulatory handoff packaging, governed external-result normalization, scalar erosion/sediment screening, inline validation QA, governed benchmark replay, deterministic default sensitivity reporting, and optional probabilistic sample manifests.
 
 The public release does not claim regulator acceptance, submission approval, final exposure or risk assessment, source-engine equivalence, hydrology generation, calibration, spatial routing, catchment validation, or native WEPP execution.
 
@@ -22,6 +22,13 @@ It contains synthetic observed-versus-predicted erosion/sediment records for fou
 - `insufficient_evidence`
 
 These cases demonstrate the mechanics and interpretation of the scalar validation tools. They are not field validation, calibration evidence, watershed model acceptance, regulator acceptance, or WEPP/catchment validation.
+
+## Scientific Trust Diagnostics
+
+The governed external benchmark pack is exposed at `defaults://scientific-external-benchmark-pack`, with release results at `release://external-validation-benchmark-report`.
+The governed default sensitivity profiles are exposed at `defaults://default-sensitivity-profiles`, with release results at `release://default-sensitivity-report`.
+
+These artifacts improve deterministic screening corroboration and assumption transparency. They are not field validation, calibration, source-engine equivalence, global sensitivity analysis, or regulator acceptance.
 
 ## Artifact Maintenance
 
@@ -52,4 +59,4 @@ Then install the built wheel into a clean Python 3.12 virtual environment and ve
 
 ## Tagging Posture
 
-This repository can be prepared for `v0.2.1` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete.
+This repository can be prepared for `v0.3.0` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete.

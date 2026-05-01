@@ -1,0 +1,183 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "48de11947d62ed4e0ce6363627b3fb732cb0fee5767be5d666f82af38dc9d403"
+    },
+    {
+      "path": "adapter-validation-report.json",
+      "sha256": "8272610945048bfb07baecb08f574d20eb59a7114a1a5e4a0c23ffcf0506665d"
+    },
+    {
+      "path": "advective-promotion-bar-report.json",
+      "sha256": "4214de009f591d7e0abaa49c1b337c8b9b5ce29b44a4957a9282bbf7c39fe7ee"
+    },
+    {
+      "path": "advective-promotion-brief.md",
+      "sha256": "6c0e5862f88e8d2954e3538e17d8b568be17e73bdcba604639c8d6300e932ba3"
+    },
+    {
+      "path": "benchmark-manifest.json",
+      "sha256": "89fe0baaf21c77be37acbd091f3514d55ebe57cca200f056c51eb873b619d083"
+    },
+    {
+      "path": "default-sensitivity-report.json",
+      "sha256": "712652a8c202b6cd45e7b55a17fa67b2b2938e6c5bb4bc067ba9ca7895790b3a"
+    },
+    {
+      "path": "defaults-rebaseline-report.json",
+      "sha256": "805224298c5d9d1b84e2cc773d1990479995819ff615fd1b575a6d4787852eab"
+    },
+    {
+      "path": "erosion-sediment-validation-demo-report.json",
+      "sha256": "d44b0b65fef8b7487059311e7fc4b8b7ccf56e896ea8a93604d04e8725fb32d5"
+    },
+    {
+      "path": "external-corroboration-report.json",
+      "sha256": "f0611a8ef9c87777b30c444a5bd01bafbff7d76d91d1a1a38683d3a282c9169f"
+    },
+    {
+      "path": "external-validation-benchmark-report.json",
+      "sha256": "1d75607cc8e2afd5590e028d4708da536f7473d1aa46a895fb245fd4af7015b5"
+    },
+    {
+      "path": "known-gap-report.json",
+      "sha256": "efbafa2130af0166705d0f0e6299d4a38168a07b51b8923a88479b14bfcf3acf"
+    },
+    {
+      "path": "metadata-report.json",
+      "sha256": "6ad9c14e9ae6ad5123505ee4e63e7cd30997662a8dcbaed9cd3f03c96d2cb914"
+    },
+    {
+      "path": "readiness-report.json",
+      "sha256": "55f4fadcc7b660cae6dcd0a5eca63c71fb173fac434dffb85f20dd312f585ab1"
+    },
+    {
+      "path": "red-team-review-report.json",
+      "sha256": "9613310aeeb6775e8c0e1285c47f64cad223a40c769124a349058d024aa01059"
+    },
+    {
+      "path": "reference-corroboration-report.json",
+      "sha256": "14d003d30c5923653555b8e540daae19dcf2b33a4d75c72395ba445eef3dc479"
+    },
+    {
+      "path": "reference-proof-brief.md",
+      "sha256": "f27ace05c1ccfefe15680e08e1e200f9641bdd3452160fd59581aaf368c02582"
+    },
+    {
+      "path": "reference-worksheet-manifest.json",
+      "sha256": "5819d98cb8ac14a5ae24f2e4713b59d37aebea62b4aff2a5f95e9e46bb7e154c"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "868773942021172d2a06eb770af64ac377d4bbb4385f1ac2bb058f2367ca8201"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "cfef780dbb7eb62d24868cde0dad59163f6e3dcaa8205bd79d8d9a64b3eb9b76"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.expected-outputs.json",
+      "sha256": "23a77a48b5b89040364a219271f5a38f9f983e2d0f70a03cc242cb1da66edc3a"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.worksheet.json",
+      "sha256": "18c8e60d664650c734f2f5e30ae0b26a40c3d48b632703a8e0ee647f2d8ebc06"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.expected-outputs.json",
+      "sha256": "0cd5ebbe479e908b39605c19687cfac79a16abe5938a6aeef82d395e46e7ac21"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.worksheet.json",
+      "sha256": "bda928f5388809bc9d68137cf4c8ab90f1a672bf8ffb189b3dedcb716863bbfb"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_multi_medium_partition_v1.expected-outputs.json",
+      "sha256": "312e8316831e92852f95163be0f69f6efa83be544841ea51781fba0acf8c0648"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_multi_medium_partition_v1.worksheet.json",
+      "sha256": "df8fdf115b11ee1d56b8d2c6552c254baeabb9e83c67f6debb1dca41f06b0e02"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_parameter_override_application_v1.expected-outputs.json",
+      "sha256": "df4985cc130de1b5163be77540e4a11a71d4fff70f672435e486a6e28245c6db"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_parameter_override_application_v1.worksheet.json",
+      "sha256": "ef29b9b0bc8ead232058e789c6c0e86800137e9125ff4c639adf5222e253e48a"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "f0c4f741fbcce20f368fc2c970389c0c9e7580ae03bf2eac596c01d54b02bb68"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "776ffb482976e7eda057fa3a07d2e7518e7ceec8aaf3aa66d173f9dea7708643"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.expected-outputs.json",
+      "sha256": "ddb26a4dc6b7ffa30180f13828cb37ec1e01b0d0d17153ba8370ad246c4cbfb8"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.worksheet.json",
+      "sha256": "9cc885c1220d9c600339df07d506a5664af4b12d3c8fed686419ea08ee8387f7"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "14c33eb543cc493d9414d5adddb0ea7dda816b804f4442b46620d345ebd0fdac"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "7d29518fddb3de108308d2b855bf79d9e0c96c7ced44ecae51cd71b3760de1c5"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.expected-outputs.json",
+      "sha256": "9d54f2c6b36204e3c303a1b255774485398d19cf4d16b5d75b6e71b6e8355deb"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.worksheet.json",
+      "sha256": "c0110caa128a53ab59f3c7744974ee8fdad2f7c1e3a34185076609fa4757c028"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "2412dbbf5b7a9b2c3edd9aeb1ec5a2ee9c817c225ad3be74e8c7ceb6169d9624"
+    },
+    {
+      "path": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "f028b9d59a7604e430951c022eb3c427ee8b38885455064f1492e12142690030"
+    },
+    {
+      "path": "release-notes.md",
+      "sha256": "ba0092220acfa5daf2a607afc6aef92657494781f371c2fc75deed7b92de5560"
+    },
+    {
+      "path": "scientific-claim-coverage-report.json",
+      "sha256": "324679bc7916add968ce49366f5c1b1ae53c4c74ec8e3dfcdf9136f28fdb03e5"
+    },
+    {
+      "path": "scientific-trust-brief.md",
+      "sha256": "c034791960c10b0c332bd2d8c88aa270ef42284952cbfc82b2417a5a5a5084b9"
+    },
+    {
+      "path": "scientific-trust-pack.md",
+      "sha256": "cab86c6b4426596881dac9491593407ea203bd6af6d66d1d84bc9414a85b63a4"
+    },
+    {
+      "path": "scientific-validation-narrative.json",
+      "sha256": "7e3e9948488d4a1d1740a78cbbe98a52bac1d2e79629b7638fd352a6c0dd86ed"
+    },
+    {
+      "path": "security-provenance-review-report.json",
+      "sha256": "52aefd50878f3ed456fd4b88aedd7c9412e6da37360d39ef8fc2d3cbe562cd67"
+    },
+    {
+      "path": "validation-dossier.json",
+      "sha256": "974dba13807413e5217e955f47662a2f173e717ca324040226c79e4e1d92e6ad"
+    }
+  ],
+  "releaseRef": "v0.3.0",
+  "status": "ready_for_screening_release",
+  "version": "0.3.0"
+}

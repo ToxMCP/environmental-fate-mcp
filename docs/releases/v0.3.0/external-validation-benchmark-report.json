@@ -1,0 +1,57 @@
+{
+  "boundaryClear": true,
+  "caseCount": 4,
+  "caseResults": [
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "reference_water_closed_form_internal_oracle_v1",
+      "classification": "internal_oracle",
+      "expectedValue": 8.415721071852286e-06,
+      "observedValue": 8.415721071852286e-06,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_multimedia_concentrations"
+    },
+    {
+      "absoluteError": 1.7763568394002505e-15,
+      "benchmarkCaseId": "rusle_usda_equation_scalar_public_v1",
+      "classification": "official_worked_example",
+      "expectedValue": 6.4512,
+      "observedValue": 6.451200000000002,
+      "passed": true,
+      "relativeError": 2.753529326947313e-16,
+      "replayTool": "fate_estimate_soil_loss_rusle"
+    },
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "musle_hec_hms_metric_scalar_public_v1",
+      "classification": "official_worked_example",
+      "expectedValue": 43.92290413655426,
+      "observedValue": 43.92290413655426,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_event_sediment_yield_musle"
+    },
+    {
+      "absoluteError": 4.336808689942018e-19,
+      "benchmarkCaseId": "sediment_load_dimensional_bridge_open_reference_v1",
+      "classification": "open_literature_reference",
+      "expectedValue": 0.00328125,
+      "observedValue": 0.0032812499999999994,
+      "passed": true,
+      "relativeError": 1.3216940769347102e-16,
+      "replayTool": "fate_estimate_sediment_associated_chemical_load"
+    }
+  ],
+  "classifications": [
+    "internal_oracle",
+    "official_worked_example",
+    "open_literature_reference"
+  ],
+  "limitations": [
+    "This pack contains deterministic screening benchmarks and corroboration cases only.",
+    "It is not field validation, calibration evidence, source-engine equivalence, regulator acceptance, spatial routing evidence, hydrology generation evidence, or WEPP validation.",
+    "Cases with official-source grounding replay public equation forms or model-evaluation concepts using Environmental Fate MCP scalar inputs; they are not copied proprietary datasets."
+  ],
+  "passed": true
+}

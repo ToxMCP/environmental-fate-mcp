@@ -1,0 +1,13 @@
+{
+  "knownGaps": [
+    "No GIS-scale dispersion in v0.3.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.3.",
+    "External benchmark packs are deterministic screening corroboration fixtures, not curated field validation datasets.",
+    "Erosion/sediment validation demos remain synthetic screening-QA demonstrations, not curated field benchmark validation.",
+    "No direct human dose calculation in Environmental Fate MCP.",
+    "No dietary intake workflows in Environmental Fate MCP.",
+    "No PBPK execution in Environmental Fate MCP.",
+    "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in this release."
+  ],
+  "version": "0.3.0"
+}

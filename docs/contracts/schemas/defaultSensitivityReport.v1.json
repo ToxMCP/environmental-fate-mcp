@@ -1,0 +1,365 @@
+{
+  "$defs": {
+    "DefaultSensitivityTargetType": {
+      "enum": [
+        "parameter",
+        "scenario_duration_days",
+        "scenario_temperature_c",
+        "release_fraction"
+      ],
+      "title": "DefaultSensitivityTargetType",
+      "type": "string"
+    },
+    "DefaultSensitivityVariantResult": {
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "target_type": {
+          "$ref": "#/$defs/DefaultSensitivityTargetType"
+        },
+        "parameter": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parameter"
+        },
+        "medium": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Media"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "factor": {
+          "title": "Factor",
+          "type": "number"
+        },
+        "baseline_value": {
+          "title": "Baseline Value",
+          "type": "number"
+        },
+        "variant_value": {
+          "title": "Variant Value",
+          "type": "number"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "max_absolute_delta": {
+          "title": "Max Absolute Delta",
+          "type": "number"
+        },
+        "max_relative_delta": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Relative Delta"
+        },
+        "surface_delta_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Surface Delta Lines",
+          "type": "array"
+        },
+        "quality_flags": {
+          "items": {
+            "$ref": "#/$defs/QualityFlag"
+          },
+          "title": "Quality Flags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "profile_id",
+        "target_type",
+        "factor",
+        "baseline_value",
+        "variant_value",
+        "max_absolute_delta"
+      ],
+      "title": "DefaultSensitivityVariantResult",
+      "type": "object"
+    },
+    "LimitationNote": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "LimitationNote",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ProvenanceBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "defaults_version": {
+          "default": "v1",
+          "title": "Defaults Version",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "title": "Algorithm Version",
+          "type": "string"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        }
+      },
+      "required": [
+        "algorithm_version",
+        "generated_at"
+      ],
+      "title": "ProvenanceBundle",
+      "type": "object"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "report_id": {
+      "title": "Report Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "base_run_id": {
+      "title": "Base Run Id",
+      "type": "string"
+    },
+    "model_family": {
+      "$ref": "#/$defs/ModelFamily"
+    },
+    "run_mode": {
+      "$ref": "#/$defs/RunMode"
+    },
+    "profile_count": {
+      "minimum": 0,
+      "title": "Profile Count",
+      "type": "integer"
+    },
+    "evaluated_variant_count": {
+      "minimum": 0,
+      "title": "Evaluated Variant Count",
+      "type": "integer"
+    },
+    "profile_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Profile Ids",
+      "type": "array"
+    },
+    "variant_results": {
+      "items": {
+        "$ref": "#/$defs/DefaultSensitivityVariantResult"
+      },
+      "title": "Variant Results",
+      "type": "array"
+    },
+    "top_delta_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Top Delta Lines",
+      "type": "array"
+    },
+    "interpretation_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Interpretation Lines",
+      "type": "array"
+    },
+    "provenance": {
+      "$ref": "#/$defs/ProvenanceBundle"
+    },
+    "limitations": {
+      "items": {
+        "$ref": "#/$defs/LimitationNote"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "quality_flags": {
+      "items": {
+        "$ref": "#/$defs/QualityFlag"
+      },
+      "title": "Quality Flags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "base_run_id",
+    "model_family",
+    "run_mode",
+    "profile_count",
+    "evaluated_variant_count",
+    "provenance"
+  ],
+  "title": "DefaultSensitivityReport",
+  "type": "object"
+}

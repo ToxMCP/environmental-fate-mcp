@@ -12,6 +12,11 @@
       "defaultsVersion": "v1"
     },
     {
+      "path": "defaults/v1/default_sensitivity_profiles.json",
+      "sha256": "d6ef35dd6766aff8ca57f4d785fdb50abf4be93d38ca8f8119a1c919f1f47cfe",
+      "defaultsVersion": "v1"
+    },
+    {
       "path": "defaults/v1/erosion_sediment_method_profiles.json",
       "sha256": "1389b38c73a1507cfc05030f4104fdace43e69b51ca7b05d16063703880d9615",
       "defaultsVersion": "v1"
@@ -64,6 +69,11 @@
     {
       "path": "defaults/v1/regulatory_handoff_profiles.json",
       "sha256": "99267b8ca1171d2e2cd682a4598eb6c7ac69e89230042f4f460d47aeb121f652",
+      "defaultsVersion": "v1"
+    },
+    {
+      "path": "defaults/v1/scientific_external_benchmark_pack.json",
+      "sha256": "f64cd3ecc43b2a0ec536c469f06b8aa06f1ed6122448d484ef770619283bb936",
       "defaultsVersion": "v1"
     },
     {

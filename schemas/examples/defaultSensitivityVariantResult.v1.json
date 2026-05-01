@@ -1,0 +1,18 @@
+{
+  "profile_id": "water_half_life_two_way_v1",
+  "target_type": "parameter",
+  "parameter": "water_half_life_days",
+  "medium": null,
+  "factor": 0.5,
+  "baseline_value": 12.0,
+  "variant_value": 6.0,
+  "unit": "day",
+  "max_absolute_delta": 2.444273844045872e-06,
+  "max_relative_delta": 0.41161165235168157,
+  "surface_delta_lines": [
+    "air/ambient_air/steady_state: base=0.000240442, variant=0.000240442 mg/m3, relative_delta=0.",
+    "soil/agricultural_soil/steady_state: base=0.00108202, variant=0.00108202 mg/kg, relative_delta=0.",
+    "water/surface_water/steady_state: base=5.9383e-06, variant=3.49403e-06 mg/L, relative_delta=-0.412."
+  ],
+  "quality_flags": []
+}

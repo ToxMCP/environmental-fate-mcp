@@ -411,6 +411,149 @@
       "title": "ProbabilisticRunSummary",
       "type": "object"
     },
+    "ProbabilisticSampleManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "$ref": "#/$defs/ProbabilisticSampleManifestMode"
+        },
+        "requested_iteration_count": {
+          "minimum": 1,
+          "title": "Requested Iteration Count",
+          "type": "integer"
+        },
+        "completed_iteration_count": {
+          "minimum": 0,
+          "title": "Completed Iteration Count",
+          "type": "integer"
+        },
+        "failed_iteration_count": {
+          "minimum": 0,
+          "title": "Failed Iteration Count",
+          "type": "integer"
+        },
+        "sampling_seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sampling Seed"
+        },
+        "sampled_parameter_count": {
+          "minimum": 0,
+          "title": "Sampled Parameter Count",
+          "type": "integer"
+        },
+        "sampled_parameters": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Sampled Parameters",
+          "type": "array"
+        },
+        "record_count": {
+          "minimum": 0,
+          "title": "Record Count",
+          "type": "integer"
+        },
+        "max_record_count": {
+          "maximum": 1000,
+          "minimum": 0,
+          "title": "Max Record Count",
+          "type": "integer"
+        },
+        "table_sha256": {
+          "title": "Table Sha256",
+          "type": "string"
+        },
+        "records": {
+          "items": {
+            "$ref": "#/$defs/ProbabilisticSampleRecord"
+          },
+          "title": "Records",
+          "type": "array"
+        },
+        "limitation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitation Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "mode",
+        "requested_iteration_count",
+        "completed_iteration_count",
+        "failed_iteration_count",
+        "sampled_parameter_count",
+        "record_count",
+        "max_record_count",
+        "table_sha256"
+      ],
+      "title": "ProbabilisticSampleManifest",
+      "type": "object"
+    },
+    "ProbabilisticSampleManifestMode": {
+      "enum": [
+        "none",
+        "summary",
+        "capped_records"
+      ],
+      "title": "ProbabilisticSampleManifestMode",
+      "type": "string"
+    },
+    "ProbabilisticSampleRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "iteration_index": {
+          "minimum": 0,
+          "title": "Iteration Index",
+          "type": "integer"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "sampled_parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Sampled Parameters",
+          "type": "object"
+        },
+        "surface_values": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Surface Values",
+          "type": "object"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Code"
+        }
+      },
+      "required": [
+        "iteration_index",
+        "status"
+      ],
+      "title": "ProbabilisticSampleRecord",
+      "type": "object"
+    },
     "ProbabilisticSurfaceSummary": {
       "additionalProperties": false,
       "properties": {
@@ -773,6 +916,17 @@
       },
       "title": "Uncertainty Limitation Lines",
       "type": "array"
+    },
+    "sample_manifest": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProbabilisticSampleManifest"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "run_summary": {
       "$ref": "#/$defs/ProbabilisticRunSummary"

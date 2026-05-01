@@ -1,0 +1,555 @@
+{
+  "claimCount": 30,
+  "claims": [
+    {
+      "claimId": "advective_clearance_dominant_loss_share_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective clearance-dominant loss-share transition",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_cumulative_mass_balance_closure_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective cumulative mass-balance closure",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_degradation_dominant_loss_share_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective degradation-dominant loss-share transition",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_extreme_persistence_clearance_bound_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective extreme-persistence clearance bound",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_long_duration_combined_loss_plateau_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective long-duration combined-loss plateau anchor",
+      "independentEvidenceFamilies": [
+        "advective_duration_plateau_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_long_residence_time_accumulation_anchor_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective long-residence-time accumulation anchor",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_loss_regime_flip_directionality_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective loss-regime flip directionality",
+      "independentEvidenceFamilies": [
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": false,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_mixed_loss_transition_margin_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective mixed-loss transition margin",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 4,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_post_release_flushing_directionality_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective post-release flushing directionality",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_directionality_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_post_release_flushing_recovery_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective post-release flushing and recovery accounting",
+      "independentEvidenceFamilies": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 4,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_post_release_flushing_regime_transition_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective post-release flushing regime transition",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_post_release_half_recovery_directionality_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective post-release half-recovery directionality",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1",
+        "oecd_post_release_half_recovery_directionality_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_post_release_half_recovery_pace_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective post-release half-recovery pace",
+      "independentEvidenceFamilies": [
+        "epa_post_release_decay_bucket_case_family_v1",
+        "epa_post_release_flushing_screening_case_family_v1",
+        "oecd_post_release_recovery_screening_case_family_v1",
+        "echa_post_release_flushing_boundary_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_post_release_late_recovery_regime_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective post-release late-recovery regime",
+      "independentEvidenceFamilies": [
+        "oecd_post_release_half_recovery_directionality_case_family_v1",
+        "epa_post_release_recovery_pace_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 3,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_residence_time_override_application_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective residence-time override application",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_transition_boundary_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_residence_time_turnover_regime_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective residence-time turnover regime interpretation",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "advective_clearance_edge_case_family_v1",
+        "echa_transition_boundary_screening_case_family_v1",
+        "epa_turnover_boundary_screening_case_family_v1",
+        "oecd_bounded_transport_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 4,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_short_residence_time_clearance_anchor_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective short-residence-time clearance anchor",
+      "independentEvidenceFamilies": [
+        "advective_clearance_edge_case_family_v1",
+        "echa_bounded_clearance_edge_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_time_bucket_elapsed_time_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective time-bucket elapsed-time semantics",
+      "independentEvidenceFamilies": [
+        "epa_environmental_models_elapsed_time_case_family_v1",
+        "epa_post_release_decay_bucket_case_family_v1",
+        "echa_elapsed_time_flowing_water_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "advective_water_finite_duration_first_order_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Advective water finite-duration first-order screening equation",
+      "independentEvidenceFamilies": [
+        "echa_euses_water_screening_case_family_v1",
+        "epa_flow_through_water_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "advective_screening_mass_balance",
+      "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
+      "officialSourceCount": 3,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "external_adapter_canonical_equivalence_v1",
+      "corroborationStatus": "none",
+      "covered": true,
+      "displayName": "External adapter canonical normalization parity",
+      "independentEvidenceFamilies": [],
+      "jurisdictionBreadth": "none",
+      "mandatoryForRelease": true,
+      "modelFamily": "external_result_adapter",
+      "nextCorroborationAction": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration.",
+      "officialSourceCount": 0,
+      "priority": "high",
+      "supportStrength": "single_anchor"
+    },
+    {
+      "claimId": "reference_air_finite_duration_first_order_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference air finite-duration first-order screening equation",
+      "independentEvidenceFamilies": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_executable_treatment_reduction_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference executable treatment reduction",
+      "independentEvidenceFamilies": [
+        "echa_source_term_reduction_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_long_duration_rate_anchor_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference long-duration near-plateau anchor",
+      "independentEvidenceFamilies": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_multi_medium_partition_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference multi-medium partitioned screening output",
+      "independentEvidenceFamilies": [
+        "echa_partitioned_release_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_parameter_override_application_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference runtime parameter override application",
+      "independentEvidenceFamilies": [
+        "echa_parameter_transparency_screening_case_family_v1",
+        "epa_parameterization_override_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_sediment_finite_duration_first_order_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference sediment finite-duration first-order screening equation",
+      "independentEvidenceFamilies": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_short_half_life_attenuation_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference short half-life attenuation anchor",
+      "independentEvidenceFamilies": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "medium",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_soil_finite_duration_first_order_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference soil finite-duration first-order screening equation",
+      "independentEvidenceFamilies": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_time_bucket_elapsed_time_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference time-bucket elapsed-time semantics",
+      "independentEvidenceFamilies": [
+        "epa_elapsed_time_bucket_screening_case_family_v1",
+        "oecd_single_medium_first_order_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    },
+    {
+      "claimId": "reference_water_finite_duration_first_order_v1",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "covered": true,
+      "displayName": "Reference water finite-duration first-order screening equation",
+      "independentEvidenceFamilies": [
+        "oecd_single_medium_first_order_screening_case_family_v1",
+        "epa_single_compartment_environmental_screening_case_family_v1"
+      ],
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "mandatoryForRelease": true,
+      "modelFamily": "reference_mass_balance",
+      "nextCorroborationAction": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change.",
+      "officialSourceCount": 2,
+      "priority": "high",
+      "supportStrength": "multi_anchor_multi_tier"
+    }
+  ],
+  "governance": {
+    "claimCount": 30,
+    "experimentalPriorityInsufficientIndependentEvidenceClaimIds": [],
+    "experimentalPriorityMissingGuidanceFamilyClaimIds": [],
+    "inconsistentCorroborationStatusClaimIds": [],
+    "missingIndependentEvidenceFamilyClaimIds": [],
+    "missingNextCorroborationActionClaimIds": [],
+    "passed": true,
+    "referenceMandatoryInsufficientIndependentEvidenceClaimIds": [],
+    "referenceMandatoryMissingGuidanceFamilyClaimIds": [],
+    "unresolvedIndependentEvidenceFamilyClaimIds": []
+  },
+  "passed": true,
+  "version": "0.3.0"
+}

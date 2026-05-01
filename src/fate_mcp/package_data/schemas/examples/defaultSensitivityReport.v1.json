@@ -1,0 +1,163 @@
+{
+  "schema_version": "v1",
+  "report_id": "default-sensitivity-24c7cc0f52c9",
+  "scenario_id": "scenario-306863db9176",
+  "base_run_id": "run-1de6da572c2d",
+  "model_family": "reference_mass_balance",
+  "run_mode": "steady_state",
+  "profile_count": 3,
+  "evaluated_variant_count": 6,
+  "profile_ids": [
+    "water_half_life_two_way_v1",
+    "release_duration_two_way_v1",
+    "water_release_fraction_two_way_v1"
+  ],
+  "variant_results": [
+    {
+      "profile_id": "water_half_life_two_way_v1",
+      "target_type": "parameter",
+      "parameter": "water_half_life_days",
+      "medium": null,
+      "factor": 0.5,
+      "baseline_value": 12.0,
+      "variant_value": 6.0,
+      "unit": "day",
+      "max_absolute_delta": 2.444273844045872e-06,
+      "max_relative_delta": 0.41161165235168157,
+      "surface_delta_lines": [
+        "air/ambient_air/steady_state: base=0.000240442, variant=0.000240442 mg/m3, relative_delta=0.",
+        "soil/agricultural_soil/steady_state: base=0.00108202, variant=0.00108202 mg/kg, relative_delta=0.",
+        "water/surface_water/steady_state: base=5.9383e-06, variant=3.49403e-06 mg/L, relative_delta=-0.412."
+      ],
+      "quality_flags": []
+    },
+    {
+      "profile_id": "water_half_life_two_way_v1",
+      "target_type": "parameter",
+      "parameter": "water_half_life_days",
+      "medium": null,
+      "factor": 2.0,
+      "baseline_value": 12.0,
+      "variant_value": 24.0,
+      "unit": "day",
+      "max_absolute_delta": 2.4228640717516028e-06,
+      "max_relative_delta": 0.40800628228564567,
+      "surface_delta_lines": [
+        "air/ambient_air/steady_state: base=0.000240442, variant=0.000240442 mg/m3, relative_delta=0.",
+        "soil/agricultural_soil/steady_state: base=0.00108202, variant=0.00108202 mg/kg, relative_delta=0.",
+        "water/surface_water/steady_state: base=5.9383e-06, variant=8.36116e-06 mg/L, relative_delta=0.408."
+      ],
+      "quality_flags": []
+    },
+    {
+      "profile_id": "release_duration_two_way_v1",
+      "target_type": "scenario_duration_days",
+      "parameter": null,
+      "medium": null,
+      "factor": 0.5,
+      "baseline_value": 30.0,
+      "variant_value": 15.0,
+      "unit": "day",
+      "max_absolute_delta": 0.00023779989826575154,
+      "max_relative_delta": 0.989012156377834,
+      "surface_delta_lines": [
+        "air/ambient_air/steady_state: base=0.000240442, variant=0.000478242 mg/m3, relative_delta=0.989.",
+        "soil/agricultural_soil/steady_state: base=0.00108202, variant=0.00126767 mg/kg, relative_delta=0.172.",
+        "water/surface_water/steady_state: base=5.9383e-06, variant=8.36116e-06 mg/L, relative_delta=0.408."
+      ],
+      "quality_flags": []
+    },
+    {
+      "profile_id": "release_duration_two_way_v1",
+      "target_type": "scenario_duration_days",
+      "parameter": null,
+      "medium": null,
+      "factor": 2.0,
+      "baseline_value": 30.0,
+      "variant_value": 60.0,
+      "unit": "day",
+      "max_absolute_delta": 0.0002705053201666806,
+      "max_relative_delta": 0.49998474121093756,
+      "surface_delta_lines": [
+        "air/ambient_air/steady_state: base=0.000240442, variant=0.000120225 mg/m3, relative_delta=-0.5.",
+        "soil/agricultural_soil/steady_state: base=0.00108202, variant=0.000811516 mg/kg, relative_delta=-0.25.",
+        "water/surface_water/steady_state: base=5.9383e-06, variant=3.49403e-06 mg/L, relative_delta=-0.412."
+      ],
+      "quality_flags": []
+    },
+    {
+      "profile_id": "water_release_fraction_two_way_v1",
+      "target_type": "release_fraction",
+      "parameter": null,
+      "medium": "water",
+      "factor": 0.5,
+      "baseline_value": 0.5,
+      "variant_value": 0.25,
+      "unit": "fraction",
+      "max_absolute_delta": 0.0005410106403333612,
+      "max_relative_delta": 0.5000000000000004,
+      "surface_delta_lines": [
+        "air/ambient_air/steady_state: base=0.000240442, variant=0.000360663 mg/m3, relative_delta=0.5.",
+        "soil/agricultural_soil/steady_state: base=0.00108202, variant=0.00162303 mg/kg, relative_delta=0.5.",
+        "water/surface_water/steady_state: base=5.9383e-06, variant=2.96915e-06 mg/L, relative_delta=-0.5."
+      ],
+      "quality_flags": []
+    },
+    {
+      "profile_id": "water_release_fraction_two_way_v1",
+      "target_type": "release_fraction",
+      "parameter": null,
+      "medium": "water",
+      "factor": 1.5,
+      "baseline_value": 0.5,
+      "variant_value": 0.75,
+      "unit": "fraction",
+      "max_absolute_delta": 0.0005410106403333613,
+      "max_relative_delta": 0.5,
+      "surface_delta_lines": [
+        "air/ambient_air/steady_state: base=0.000240442, variant=0.000120221 mg/m3, relative_delta=-0.5.",
+        "soil/agricultural_soil/steady_state: base=0.00108202, variant=0.000541011 mg/kg, relative_delta=-0.5.",
+        "water/surface_water/steady_state: base=5.9383e-06, variant=8.90745e-06 mg/L, relative_delta=0.5."
+      ],
+      "quality_flags": []
+    }
+  ],
+  "top_delta_lines": [
+    "release_duration_two_way_v1 factor=0.5: max_abs_delta=0.0002378, max_relative_delta=0.989.",
+    "water_release_fraction_two_way_v1 factor=0.5: max_abs_delta=0.000541011, max_relative_delta=0.5.",
+    "water_release_fraction_two_way_v1 factor=1.5: max_abs_delta=0.000541011, max_relative_delta=0.5.",
+    "release_duration_two_way_v1 factor=2: max_abs_delta=0.000270505, max_relative_delta=0.5.",
+    "water_half_life_two_way_v1 factor=0.5: max_abs_delta=2.44427e-06, max_relative_delta=0.412.",
+    "water_half_life_two_way_v1 factor=2: max_abs_delta=2.42286e-06, max_relative_delta=0.408."
+  ],
+  "interpretation_lines": [
+    "Default sensitivity report replays deterministic scalar variants against the current screening kernel.",
+    "The report ranks output movement from governed profile factors; it is not calibration, optimization, or field validation.",
+    "Use the results to decide which defaults or scenario assumptions need source-specific evidence before downstream use."
+  ],
+  "provenance": {
+    "schema_version": "v1",
+    "defaults_version": "v1",
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "generated_at": "2026-01-01T00:00:00.123456Z",
+    "source_references": [
+      {
+        "source_id": "example.release.note",
+        "title": "Illustrative release scenario",
+        "effective_date": "2026-04-08",
+        "url": null
+      }
+    ]
+  },
+  "limitations": [
+    {
+      "code": "deterministic_default_sensitivity_only",
+      "message": "Default sensitivity report is a deterministic reviewer diagnostic and does not provide formal global sensitivity indices, calibration, or probability bounds."
+    },
+    {
+      "code": "no_new_model_scope",
+      "message": "Sensitivity variants use the existing screening kernels only; no GIS routing, hydrology generation, WEPP execution, or final risk decision is added."
+    }
+  ],
+  "quality_flags": []
+}

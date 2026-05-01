@@ -1,0 +1,189 @@
+{
+  "schema_version": "v1",
+  "defaults_version": "v1",
+  "profile_count": 7,
+  "profiles": [
+    {
+      "profile_id": "release_duration_two_way_v1",
+      "display_name": "Release duration two-way sensitivity",
+      "target_type": "scenario_duration_days",
+      "parameter": null,
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens declared release-duration sensitivity only; it does not infer emission timing from monitoring data."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use when duration controls end-of-duration screening concentration interpretation."
+    },
+    {
+      "profile_id": "sediment_mass_two_way_v1",
+      "display_name": "Freshwater sediment mass two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "freshwater_sediment_mass_kg",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens sediment capacity scaling only; it is not a burial, resuspension, deposition, or field sediment characterization model."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use when sediment concentration outputs depend on governed sediment mass defaults."
+    },
+    {
+      "profile_id": "soil_mass_two_way_v1",
+      "display_name": "Agricultural soil mass two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "agricultural_soil_mass_kg",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens bounded soil-mass scaling only; it is not a site-specific bulk-density or vadose-zone transport analysis."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use when soil concentration outputs depend on governed soil mass defaults."
+    },
+    {
+      "profile_id": "temperature_q10_screen_v1",
+      "display_name": "Temperature/Q10 screening sensitivity",
+      "target_type": "scenario_temperature_c",
+      "parameter": null,
+      "medium": null,
+      "factor_values": [
+        0.8,
+        1.2
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Scales declared scenario temperature around its baseline to exercise governed Q10 screening behavior; it is not a mechanistic temperature-response model."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use when reviewer attention should include temperature-adjusted degradation behavior."
+    },
+    {
+      "profile_id": "water_half_life_two_way_v1",
+      "display_name": "Water half-life two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "water_half_life_days",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens sensitivity to a scalar degradation half-life only; it does not model degradation pathway chemistry."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use when water degradation uncertainty may dominate a concentration screening result."
+    },
+    {
+      "profile_id": "water_release_fraction_two_way_v1",
+      "display_name": "Water release-fraction two-way sensitivity",
+      "target_type": "release_fraction",
+      "parameter": null,
+      "medium": "water",
+      "factor_values": [
+        0.5,
+        1.5
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Adjusts the target medium and proportionally rescales other scoped media to keep the release-fraction invariant at or below 1.0.",
+        "Does not estimate real intermedia transfer or fate redistribution."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use when source allocation uncertainty may change concentration-screening outputs."
+    },
+    {
+      "profile_id": "water_residence_time_two_way_v1",
+      "display_name": "Surface-water residence-time two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "water_residence_time_days",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Only applies when the selected model family consumes advective residence time; otherwise the profile is skipped with a reviewer flag."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use for the experimental advective screening family when residence-time clearance is a key uncertainty driver."
+    }
+  ],
+  "source_references": [
+    {
+      "source_id": "epa.environmental_models_guidance",
+      "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+      "effective_date": null,
+      "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+    }
+  ],
+  "limitations": [
+    "Default sensitivity profiles are reviewer-facing deterministic sweeps, not formal global sensitivity analysis.",
+    "No calibration, optimization, field validation, hydrology generation, routing, or regulator acceptance claim is implied.",
+    "Profiles are intentionally scalar and bounded to the current Environmental Fate MCP screening kernel."
+  ]
+}

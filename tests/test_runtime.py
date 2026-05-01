@@ -10,6 +10,7 @@ from fate_mcp.models import (
     Media,
     ModelFamily,
     ParameterDistribution,
+    ProbabilisticSampleManifestMode,
     ReportedTimeSemantics,
     ReleaseFraction,
     SourceClassification,
@@ -418,6 +419,87 @@ def test_estimate_probabilistic_runs_iterations_and_aggregates() -> None:
         note.code == "probabilistic_surface_aggregation"
         for note in result.p95_surfaces[0].limitations
     )
+
+
+def test_estimate_probabilistic_can_emit_summary_sample_manifest() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Probabilistic manifest example",
+                "substance_class": "organic chemical",
+            },
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+            parameter_records=[
+                FateParameterRecord(
+                    parameter="water_half_life_days",
+                    value=10.0,
+                    unit="day",
+                    source_classification=SourceClassification.USER_INPUT,
+                    rationale="Manifest test",
+                    distribution=ParameterDistribution(
+                        distribution_type="uniform",
+                        parameters={"low": 8.0, "high": 12.0},
+                    ),
+                )
+            ],
+        )
+    )
+    result = runtime.estimate_probabilistic(
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+        iterations=6,
+        seed=123,
+        sample_manifest_mode=ProbabilisticSampleManifestMode.SUMMARY,
+    )
+    assert result.sample_manifest is not None
+    assert result.sample_manifest.mode == ProbabilisticSampleManifestMode.SUMMARY
+    assert result.sample_manifest.record_count == 0
+    assert result.sample_manifest.records == []
+    assert len(result.sample_manifest.table_sha256) == 64
+
+
+def test_estimate_probabilistic_can_emit_capped_sample_records() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Probabilistic capped manifest example",
+                "substance_class": "organic chemical",
+            },
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+            parameter_records=[
+                FateParameterRecord(
+                    parameter="water_half_life_days",
+                    value=10.0,
+                    unit="day",
+                    source_classification=SourceClassification.USER_INPUT,
+                    rationale="Manifest test",
+                    distribution=ParameterDistribution(
+                        distribution_type="uniform",
+                        parameters={"low": 8.0, "high": 12.0},
+                    ),
+                )
+            ],
+        )
+    )
+    result = runtime.estimate_probabilistic(
+        scenario,
+        FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+        iterations=6,
+        seed=123,
+        sample_manifest_mode=ProbabilisticSampleManifestMode.CAPPED_RECORDS,
+        sample_manifest_max_records=3,
+    )
+    assert result.sample_manifest is not None
+    assert result.sample_manifest.record_count == 3
+    assert result.sample_manifest.max_record_count == 3
+    assert result.sample_manifest.records[0].sampled_parameters
+    assert result.sample_manifest.records[0].surface_values
 
 def test_estimate_probabilistic_fails_without_distributions() -> None:
     runtime = FateRuntime(Path(__file__).resolve().parents[1])

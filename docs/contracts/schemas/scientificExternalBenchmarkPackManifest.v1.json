@@ -1,0 +1,257 @@
+{
+  "$defs": {
+    "ExternalBenchmarkReplayTool": {
+      "enum": [
+        "fate_estimate_multimedia_concentrations",
+        "fate_estimate_soil_loss_rusle",
+        "fate_estimate_event_sediment_yield_musle",
+        "fate_estimate_sediment_associated_chemical_load"
+      ],
+      "title": "ExternalBenchmarkReplayTool",
+      "type": "string"
+    },
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "RunMode": {
+      "enum": [
+        "steady_state",
+        "time_bucket"
+      ],
+      "title": "RunMode",
+      "type": "string"
+    },
+    "ScientificBenchmarkCaseClassification": {
+      "enum": [
+        "internal_oracle",
+        "official_worked_example",
+        "open_literature_reference",
+        "field_observation"
+      ],
+      "title": "ScientificBenchmarkCaseClassification",
+      "type": "string"
+    },
+    "ScientificExternalBenchmarkCase": {
+      "additionalProperties": false,
+      "properties": {
+        "benchmark_case_id": {
+          "title": "Benchmark Case Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "classification": {
+          "$ref": "#/$defs/ScientificBenchmarkCaseClassification"
+        },
+        "replay_tool": {
+          "$ref": "#/$defs/ExternalBenchmarkReplayTool"
+        },
+        "model_family": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ModelFamily"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "run_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RunMode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "string"
+        },
+        "expected_value": {
+          "minimum": 0.0,
+          "title": "Expected Value",
+          "type": "number"
+        },
+        "expected_unit": {
+          "title": "Expected Unit",
+          "type": "string"
+        },
+        "tolerance_absolute": {
+          "default": 1e-12,
+          "minimum": 0.0,
+          "title": "Tolerance Absolute",
+          "type": "number"
+        },
+        "tolerance_relative": {
+          "default": 1e-09,
+          "minimum": 0.0,
+          "title": "Tolerance Relative",
+          "type": "number"
+        },
+        "input_payload": {
+          "additionalProperties": true,
+          "title": "Input Payload",
+          "type": "object"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        },
+        "interpretation_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Interpretation Lines",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "source_pack": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Pack"
+        },
+        "screening_only": {
+          "default": true,
+          "title": "Screening Only",
+          "type": "boolean"
+        },
+        "regulatory_acceptance_claim": {
+          "default": false,
+          "title": "Regulatory Acceptance Claim",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "benchmark_case_id",
+        "display_name",
+        "classification",
+        "replay_tool",
+        "quantity",
+        "expected_value",
+        "expected_unit",
+        "input_payload"
+      ],
+      "title": "ScientificExternalBenchmarkCase",
+      "type": "object"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "defaults_version": {
+      "default": "v1",
+      "title": "Defaults Version",
+      "type": "string"
+    },
+    "case_count": {
+      "minimum": 0,
+      "title": "Case Count",
+      "type": "integer"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/ScientificExternalBenchmarkCase"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "source_references": {
+      "items": {
+        "$ref": "#/$defs/SourceReference"
+      },
+      "title": "Source References",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "case_count",
+    "cases"
+  ],
+  "title": "ScientificExternalBenchmarkPackManifest",
+  "type": "object"
+}

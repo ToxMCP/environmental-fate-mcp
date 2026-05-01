@@ -8,6 +8,7 @@ from fate_mcp.integrations import (
     assess_release_scenario_fit,
     build_model_family_comparison_brief,
     build_model_family_comparison_packet,
+    build_default_sensitivity_report,
     build_model_family_comparison_review_brief,
     build_model_family_comparison_review_packet,
     build_model_family_challenge_scientific_dossier,
@@ -60,6 +61,7 @@ from fate_mcp.models import (
     BuildRegulatoryHandoffReviewBriefRequest,
     BuildRegulatoryHandoffReviewPacketRequest,
     BuildEnvironmentalReleaseScenarioRequest,
+    BuildDefaultSensitivityReportRequest,
     CompareFateScenariosRequest,
     ExportRegulatoryHandoffPackageRequest,
     FateModelRunOptions,
@@ -121,6 +123,42 @@ def test_compare_fate_scenarios_exposes_delta() -> None:
     assert len(bundle.integrity_hash) == 64
     assert "concentration surface" in bundle.regulatory_use_disclaimer.lower()
     assert "not a human dose" in bundle.regulatory_use_disclaimer.lower()
+
+
+def test_build_default_sensitivity_report_uses_governed_profiles() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Sensitivity example",
+                "substance_class": "organic chemical",
+            },
+            total_release_mass_kg=10.0,
+            release_fractions=[
+                ReleaseFraction(medium=Media.WATER, fraction=0.7),
+                ReleaseFraction(medium=Media.SOIL, fraction=0.3),
+            ],
+            duration_days=20.0,
+        )
+    )
+    report = build_default_sensitivity_report(
+        BuildDefaultSensitivityReportRequest(
+            scenario=scenario,
+            run_options=FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+            sensitivity_profile_ids=[
+                "water_half_life_two_way_v1",
+                "release_duration_two_way_v1",
+                "water_release_fraction_two_way_v1",
+            ],
+        ),
+        runtime,
+        runtime.provenance,
+    )
+    assert report.profile_count == 3
+    assert report.evaluated_variant_count == 6
+    assert report.top_delta_lines
+    assert any(item.profile_id == "water_release_fraction_two_way_v1" for item in report.variant_results)
+    assert any("calibration" in note.message for note in report.limitations)
 
 
 def test_apply_physchem_evidence_updates_parameter_records_and_changes_runtime() -> None:

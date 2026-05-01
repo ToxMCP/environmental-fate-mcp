@@ -16,11 +16,16 @@ from fate_mcp.models import (
     CompareFateScenariosRequest,
     ConcentrationEstimationResult,
     ConcentrationSurfaceBundle,
+    BuildDefaultSensitivityReportRequest,
+    DefaultSensitivityReport,
+    DefaultSensitivityTargetType,
+    DefaultSensitivityVariantResult,
     DependencyDescriptor,
     FateAssumptionRecord,
     FateParameterRecord,
     FateScenarioComparisonRecord,
     LimitationNote,
+    Media,
     PhyschemEvidenceApplicationResult,
     PhyschemEvidenceConflict,
     PhyschemEvidenceObservation,
@@ -29,6 +34,7 @@ from fate_mcp.models import (
     ReconciledPhyschemParameter,
     DefaultEvidenceStatus,
     ReleaseScenarioFitAssessment,
+    ReleaseFraction,
     RunDefaultProofPosture,
     RunParameterManifest,
     RunParameterManifestEntry,
@@ -887,6 +893,326 @@ def build_run_parameter_manifest(
         provenance=provenance_builder.bundle(_collect_source_references(scenario, result)),
     )
 
+
+
+def _scenario_parameter_map(scenario) -> dict[str, FateParameterRecord]:
+    return {record.parameter: record for record in scenario.parameter_records}
+
+
+def _parameter_baseline_and_unit(
+    request: BuildDefaultSensitivityReportRequest,
+    parameter: str,
+    defaults_registry: DefaultsRegistry,
+) -> tuple[float, str]:
+    existing_record = _scenario_parameter_map(request.scenario).get(parameter)
+    if existing_record is not None:
+        return existing_record.value, existing_record.unit
+    default_record = defaults_registry.parameter_record(parameter)
+    return float(default_record["value"]), str(default_record["unit"])
+
+
+def _scenario_with_parameter_variant(
+    request: BuildDefaultSensitivityReportRequest,
+    parameter: str,
+    value: float,
+    unit: str,
+) -> object:
+    existing_records = _scenario_parameter_map(request.scenario)
+    variant_records = []
+    for record in request.scenario.parameter_records:
+        if record.parameter == parameter:
+            variant_records.append(
+                record.model_copy(
+                    update={
+                        "value": value,
+                        "source_classification": SourceClassification.DERIVED,
+                        "rationale": (
+                            "Default sensitivity report variant; do not treat as a calibrated "
+                            "or measured parameter."
+                        ),
+                    }
+                )
+            )
+        else:
+            variant_records.append(record)
+    if parameter not in existing_records:
+        variant_records.append(
+            FateParameterRecord(
+                parameter=parameter,
+                value=value,
+                unit=unit,
+                source_classification=SourceClassification.DERIVED,
+                rationale=(
+                    "Default sensitivity report variant generated from the governed default path; "
+                    "not a scenario-specific measurement."
+                ),
+            )
+        )
+    return request.scenario.model_copy(update={"parameter_records": variant_records})
+
+
+def _scenario_with_release_fraction_variant(
+    request: BuildDefaultSensitivityReportRequest,
+    medium: Media,
+    factor: float,
+) -> tuple[object, float, float, list[QualityFlag]]:
+    baseline_fractions = list(request.scenario.release_fractions)
+    total_fraction = sum(item.fraction for item in baseline_fractions)
+    target_fraction = sum(item.fraction for item in baseline_fractions if item.medium == medium)
+    if target_fraction <= 0.0:
+        return (
+            request.scenario,
+            target_fraction,
+            target_fraction,
+            [
+                QualityFlag(
+                    code="sensitivity_target_release_fraction_absent",
+                    severity=Severity.WARNING,
+                    message=(
+                        f"Release-fraction sensitivity target {medium.value} is absent from the "
+                        "scenario and was skipped."
+                    ),
+                )
+            ],
+        )
+    variant_target = min(max(target_fraction * factor, 0.0), 1.0)
+    other_total = max(total_fraction - target_fraction, 0.0)
+    target_delta = variant_target - target_fraction
+    if target_delta > other_total + 1e-12:
+        variant_target = target_fraction + other_total
+        target_delta = other_total
+    remaining_other_total = max(other_total - target_delta, 0.0)
+    other_scale = remaining_other_total / other_total if other_total > 0.0 else 0.0
+    variant_fractions = []
+    for release_fraction in baseline_fractions:
+        if release_fraction.medium == medium:
+            variant_fractions.append(
+                ReleaseFraction(medium=release_fraction.medium, fraction=variant_target)
+            )
+        else:
+            variant_fractions.append(
+                ReleaseFraction(
+                    medium=release_fraction.medium,
+                    fraction=release_fraction.fraction * other_scale,
+                )
+            )
+    return (
+        request.scenario.model_copy(update={"release_fractions": variant_fractions}),
+        target_fraction,
+        variant_target,
+        [],
+    )
+
+
+def _surface_delta_lines(
+    base_result: ConcentrationEstimationResult,
+    variant_result: ConcentrationEstimationResult,
+) -> tuple[float, float | None, list[str]]:
+    base_by_key = {
+        (surface.medium, surface.compartment, surface.time_window.bucket_label): surface
+        for surface in base_result.surfaces
+    }
+    variant_by_key = {
+        (surface.medium, surface.compartment, surface.time_window.bucket_label): surface
+        for surface in variant_result.surfaces
+    }
+    max_absolute_delta = 0.0
+    max_relative_delta: float | None = None
+    lines = []
+    for key in sorted(set(base_by_key) & set(variant_by_key), key=lambda item: str(item)):
+        base_surface = base_by_key[key]
+        variant_surface = variant_by_key[key]
+        absolute_delta = variant_surface.concentration_value - base_surface.concentration_value
+        relative_delta = (
+            absolute_delta / base_surface.concentration_value
+            if base_surface.concentration_value > 0.0
+            else None
+        )
+        max_absolute_delta = max(max_absolute_delta, abs(absolute_delta))
+        if relative_delta is not None:
+            max_relative_delta = max(max_relative_delta or 0.0, abs(relative_delta))
+        bucket = base_surface.time_window.bucket_label or base_surface.time_window.mode.value
+        relative_text = "n/a" if relative_delta is None else f"{relative_delta:.3g}"
+        lines.append(
+            f"{base_surface.medium.value}/{base_surface.compartment.value}/{bucket}: "
+            f"base={base_surface.concentration_value:.6g}, "
+            f"variant={variant_surface.concentration_value:.6g} "
+            f"{base_surface.concentration_unit}, relative_delta={relative_text}."
+        )
+    return max_absolute_delta, max_relative_delta, lines
+
+
+def build_default_sensitivity_report(
+    request: BuildDefaultSensitivityReportRequest,
+    runtime,
+    provenance_builder: ProvenanceBuilder,
+) -> DefaultSensitivityReport:
+    if request.scenario.geographic_scope.region_id != request.run_options.region_profile_id:
+        raise FateValidationError(
+            code="region_profile_mismatch",
+            message="Run options region profile must match the scenario geographic scope.",
+            suggestion="Align the scenario region and run options region_profile_id.",
+        )
+    defaults_registry = provenance_builder.defaults_registry
+    profiles = (
+        [
+            defaults_registry.default_sensitivity_profile(profile_id)
+            for profile_id in request.sensitivity_profile_ids
+        ]
+        if request.sensitivity_profile_ids
+        else defaults_registry.list_default_sensitivity_profiles()
+    )
+    missing_profiles = [
+        profile_id
+        for profile_id, profile in zip(request.sensitivity_profile_ids, profiles, strict=False)
+        if profile is None
+    ]
+    if missing_profiles:
+        raise FateValidationError(
+            code="unknown_default_sensitivity_profile",
+            message=f"Unknown default sensitivity profiles: {missing_profiles}.",
+            suggestion="Inspect defaults://default-sensitivity-profiles and choose declared profile IDs.",
+            details={"missingProfileIds": missing_profiles},
+        )
+    resolved_profiles = [profile for profile in profiles if profile is not None]
+    base_result = runtime.estimate(request.scenario, request.run_options)
+    variant_results = []
+    report_quality_flags: list[QualityFlag] = []
+    for profile in resolved_profiles:
+        for factor in profile.factor_values:
+            unit = None
+            quality_flags: list[QualityFlag] = []
+            if profile.target_type == DefaultSensitivityTargetType.PARAMETER:
+                if profile.parameter is None:
+                    raise FateValidationError(
+                        code="default_sensitivity_profile_missing_parameter",
+                        message=f"Default sensitivity profile {profile.profile_id!r} is missing its parameter.",
+                        suggestion="Inspect defaults://default-sensitivity-profiles and provide a governed profile with a parameter.",
+                        details={"profileId": profile.profile_id},
+                    )
+                baseline_value, unit = _parameter_baseline_and_unit(
+                    request,
+                    profile.parameter,
+                    defaults_registry,
+                )
+                variant_value = baseline_value * factor
+                variant_scenario = _scenario_with_parameter_variant(
+                    request,
+                    profile.parameter,
+                    variant_value,
+                    unit,
+                )
+            elif profile.target_type == DefaultSensitivityTargetType.SCENARIO_DURATION_DAYS:
+                baseline_value = request.scenario.duration_days
+                variant_value = baseline_value * factor
+                unit = "day"
+                variant_scenario = request.scenario.model_copy(
+                    update={"duration_days": variant_value}
+                )
+            elif profile.target_type == DefaultSensitivityTargetType.SCENARIO_TEMPERATURE_C:
+                baseline_value = request.scenario.temperature_c
+                variant_value = baseline_value * factor
+                unit = "degC"
+                variant_scenario = request.scenario.model_copy(
+                    update={"temperature_c": variant_value}
+                )
+            else:
+                if profile.medium is None:
+                    raise FateValidationError(
+                        code="default_sensitivity_profile_missing_medium",
+                        message=f"Default sensitivity profile {profile.profile_id!r} is missing its medium.",
+                        suggestion="Inspect defaults://default-sensitivity-profiles and provide a governed release-fraction profile with a medium.",
+                        details={"profileId": profile.profile_id},
+                    )
+                (
+                    variant_scenario,
+                    baseline_value,
+                    variant_value,
+                    quality_flags,
+                ) = _scenario_with_release_fraction_variant(
+                    request,
+                    profile.medium,
+                    factor,
+                )
+                unit = "fraction"
+            if quality_flags:
+                max_absolute_delta = 0.0
+                max_relative_delta = None
+                surface_delta_lines = []
+                report_quality_flags.extend(quality_flags)
+            else:
+                variant_result = runtime.estimate(variant_scenario, request.run_options)
+                max_absolute_delta, max_relative_delta, surface_delta_lines = _surface_delta_lines(
+                    base_result,
+                    variant_result,
+                )
+            variant_results.append(
+                DefaultSensitivityVariantResult(
+                    profile_id=profile.profile_id,
+                    target_type=profile.target_type,
+                    parameter=profile.parameter,
+                    medium=profile.medium,
+                    factor=factor,
+                    baseline_value=baseline_value,
+                    variant_value=variant_value,
+                    unit=unit,
+                    max_absolute_delta=max_absolute_delta,
+                    max_relative_delta=max_relative_delta,
+                    surface_delta_lines=surface_delta_lines,
+                    quality_flags=quality_flags,
+                )
+            )
+    ranked = sorted(
+        variant_results,
+        key=lambda item: (
+            item.max_relative_delta if item.max_relative_delta is not None else -1.0,
+            item.max_absolute_delta,
+        ),
+        reverse=True,
+    )
+    top_delta_lines = [
+        (
+            f"{item.profile_id} factor={item.factor:g}: max_abs_delta="
+            f"{item.max_absolute_delta:.6g}, max_relative_delta="
+            f"{'n/a' if item.max_relative_delta is None else f'{item.max_relative_delta:.3g}'}."
+        )
+        for item in ranked[:6]
+    ]
+    interpretation_lines = [
+        "Default sensitivity report replays deterministic scalar variants against the current screening kernel.",
+        "The report ranks output movement from governed profile factors; it is not calibration, optimization, or field validation.",
+        "Use the results to decide which defaults or scenario assumptions need source-specific evidence before downstream use.",
+    ]
+    return DefaultSensitivityReport(
+        scenario_id=request.scenario.scenario_id,
+        base_run_id=base_result.run_summary.run_id,
+        model_family=base_result.run_summary.model_family,
+        run_mode=base_result.run_summary.run_mode,
+        profile_count=len(resolved_profiles),
+        evaluated_variant_count=len(variant_results),
+        profile_ids=[profile.profile_id for profile in resolved_profiles],
+        variant_results=variant_results,
+        top_delta_lines=top_delta_lines,
+        interpretation_lines=interpretation_lines,
+        provenance=provenance_builder.bundle(_collect_source_references(request.scenario)),
+        limitations=[
+            LimitationNote(
+                code="deterministic_default_sensitivity_only",
+                message=(
+                    "Default sensitivity report is a deterministic reviewer diagnostic and does not "
+                    "provide formal global sensitivity indices, calibration, or probability bounds."
+                ),
+            ),
+            LimitationNote(
+                code="no_new_model_scope",
+                message=(
+                    "Sensitivity variants use the existing screening kernels only; no GIS routing, "
+                    "hydrology generation, WEPP execution, or final risk decision is added."
+                ),
+            ),
+        ],
+        quality_flags=report_quality_flags,
+    )
 
 
 def build_run_uncertainty_summary(

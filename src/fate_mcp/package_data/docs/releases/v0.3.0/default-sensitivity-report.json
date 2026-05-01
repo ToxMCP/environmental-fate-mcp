@@ -1,0 +1,19 @@
+{
+  "boundaryClear": true,
+  "evaluatedVariantCount": 14,
+  "limitations": [
+    "Default sensitivity profiles are reviewer-facing deterministic sweeps, not formal global sensitivity analysis.",
+    "No calibration, optimization, field validation, hydrology generation, routing, or regulator acceptance claim is implied.",
+    "Profiles are intentionally scalar and bounded to the current Environmental Fate MCP screening kernel."
+  ],
+  "passed": true,
+  "profileCount": 7,
+  "topDeltaLines": [
+    "sediment_mass_two_way_v1 factor=0.5: max_abs_delta=0.00250244, max_relative_delta=1.",
+    "soil_mass_two_way_v1 factor=0.5: max_abs_delta=0.00108202, max_relative_delta=1.",
+    "water_release_fraction_two_way_v1 factor=0.5: max_abs_delta=0.00125122, max_relative_delta=0.5.",
+    "water_release_fraction_two_way_v1 factor=1.5: max_abs_delta=0.00125122, max_relative_delta=0.5.",
+    "sediment_mass_two_way_v1 factor=2: max_abs_delta=0.00125122, max_relative_delta=0.5.",
+    "soil_mass_two_way_v1 factor=2: max_abs_delta=0.000541011, max_relative_delta=0.5."
+  ]
+}

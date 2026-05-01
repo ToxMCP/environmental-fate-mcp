@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "DefaultSensitivityTargetType": {
+      "enum": [
+        "parameter",
+        "scenario_duration_days",
+        "scenario_temperature_c",
+        "release_fraction"
+      ],
+      "title": "DefaultSensitivityTargetType",
+      "type": "string"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "QualityFlag": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "severity",
+        "message"
+      ],
+      "title": "QualityFlag",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "profile_id": {
+      "title": "Profile Id",
+      "type": "string"
+    },
+    "target_type": {
+      "$ref": "#/$defs/DefaultSensitivityTargetType"
+    },
+    "parameter": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parameter"
+    },
+    "medium": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Media"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "factor": {
+      "title": "Factor",
+      "type": "number"
+    },
+    "baseline_value": {
+      "title": "Baseline Value",
+      "type": "number"
+    },
+    "variant_value": {
+      "title": "Variant Value",
+      "type": "number"
+    },
+    "unit": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit"
+    },
+    "max_absolute_delta": {
+      "title": "Max Absolute Delta",
+      "type": "number"
+    },
+    "max_relative_delta": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Max Relative Delta"
+    },
+    "surface_delta_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Surface Delta Lines",
+      "type": "array"
+    },
+    "quality_flags": {
+      "items": {
+        "$ref": "#/$defs/QualityFlag"
+      },
+      "title": "Quality Flags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "profile_id",
+    "target_type",
+    "factor",
+    "baseline_value",
+    "variant_value",
+    "max_absolute_delta"
+  ],
+  "title": "DefaultSensitivityVariantResult",
+  "type": "object"
+}
