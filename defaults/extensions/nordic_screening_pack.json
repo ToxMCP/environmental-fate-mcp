@@ -12,7 +12,7 @@
       },
       "knownGaps": [
         "Representative extension pack only",
-        "No snowpack or sea-spray compartments in v0.1"
+        "No snowpack or sea-spray compartments in the current public screening release"
       ],
       "sourcePack": "defaults/extensions/nordic_screening_pack.json",
       "applicabilityNote": "Illustrative extension hook for cooler-climate screening contexts."

@@ -10,6 +10,7 @@ from fate_mcp.models import (
     Media,
     ModelFamily,
     ParameterDistribution,
+    ReportedTimeSemantics,
     ReleaseFraction,
     SourceClassification,
     TreatmentAssumption,
@@ -38,6 +39,11 @@ def test_reference_runtime_produces_surfaces() -> None:
     assert result.run_summary.surfaces_emitted == 2
     assert {surface.medium.value for surface in result.surfaces} == {"air", "water"}
     assert all(surface.calculation_trace is not None for surface in result.surfaces)
+    assert all(
+        surface.reported_time_semantics
+        == ReportedTimeSemantics.END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM
+        for surface in result.surfaces
+    )
 
 
 def test_advective_runtime_adds_clearance_and_lowers_concentration() -> None:
@@ -65,6 +71,10 @@ def test_advective_runtime_adds_clearance_and_lowers_concentration() -> None:
     assert advective_result.surfaces[0].concentration_value < reference_result.surfaces[0].concentration_value
     assert advective_result.surfaces[0].calculation_trace is not None
     assert advective_result.surfaces[0].calculation_trace.equation_id.startswith("advective_screening_")
+    assert (
+        advective_result.surfaces[0].reported_time_semantics
+        == ReportedTimeSemantics.END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM
+    )
     resolved_term_names = {
         term.name for term in advective_result.surfaces[0].calculation_trace.resolved_terms
     }
@@ -126,6 +136,10 @@ def test_time_bucket_runtime_is_invariant_to_bucket_partitioning_for_same_horizo
         five_bucket_result.surfaces[-1].concentration_value
     )
     assert two_bucket_result.surfaces[-1].calculation_trace is not None
+    assert all(
+        surface.reported_time_semantics == ReportedTimeSemantics.BOUNDED_TIME_BUCKET
+        for surface in two_bucket_result.surfaces + five_bucket_result.surfaces
+    )
 
 
 def test_advective_time_bucket_runtime_is_invariant_to_bucket_partitioning_for_same_horizon() -> None:
@@ -393,6 +407,10 @@ def test_estimate_probabilistic_runs_iterations_and_aggregates() -> None:
     assert len(result.median_surfaces) == 1
     assert result.median_surfaces[0].concentration_value > 0
     assert result.median_surfaces[0].calculation_trace is None
+    assert (
+        result.median_surfaces[0].reported_time_semantics
+        == ReportedTimeSemantics.END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM
+    )
     assert result.p90_surfaces[0].calculation_trace is None
     assert result.p95_surfaces[0].calculation_trace is None
     assert result.median_surfaces[0].surface_id.endswith("-median")
@@ -552,6 +570,88 @@ def test_probabilistic_iterations_are_capped() -> None:
             },
             run_options={"region_profile_id": "eu_screening_default"},
             iterations=20000,
+        )
+
+
+def test_runtime_probabilistic_iterations_are_defensively_capped() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Runtime cap test",
+                "substance_class": "organic chemical",
+            },
+            total_release_mass_kg=10.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=30.0,
+            parameter_records=[
+                FateParameterRecord(
+                    parameter="water_half_life_days",
+                    value=10.0,
+                    unit="day",
+                    source_classification=SourceClassification.USER_INPUT,
+                    rationale="Runtime cap test",
+                    distribution=ParameterDistribution(
+                        distribution_type="uniform",
+                        parameters={"low": 8.0, "high": 12.0},
+                    ),
+                )
+            ],
+        )
+    )
+
+    with pytest.raises(FateValidationError) as exc:
+        runtime.estimate_probabilistic(
+            scenario,
+            FateModelRunOptions(region_profile_id=scenario.geographic_scope.region_id),
+            iterations=10_001,
+        )
+
+    assert exc.value.payload.code == "probabilistic_orchestration_iteration_limit_exceeded"
+
+
+def test_release_fraction_sum_invariant_and_unallocated_warning() -> None:
+    runtime = FateRuntime(Path(__file__).resolve().parents[1])
+    accepted = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Accepted fraction sum",
+                "substance_class": "organic chemical",
+            },
+            total_release_mass_kg=1.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=1.0)],
+            duration_days=1.0,
+        )
+    )
+    assert sum(item.fraction for item in accepted.release_fractions) == pytest.approx(1.0)
+
+    partial = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Partial fraction sum",
+                "substance_class": "organic chemical",
+            },
+            total_release_mass_kg=1.0,
+            release_fractions=[ReleaseFraction(medium=Media.WATER, fraction=0.8)],
+            duration_days=1.0,
+        )
+    )
+    assert any(flag.code == "unallocated_release_fraction" for flag in partial.quality_flags)
+
+    with pytest.raises(ValueError, match="release fractions must sum to 1.0 or less"):
+        runtime.build_environmental_release_scenario(
+            BuildEnvironmentalReleaseScenarioRequest(
+                chemical_identity={
+                    "preferredName": "Invalid fraction sum",
+                    "substance_class": "organic chemical",
+                },
+                total_release_mass_kg=1.0,
+                release_fractions=[
+                    ReleaseFraction(medium=Media.WATER, fraction=0.8),
+                    ReleaseFraction(medium=Media.SOIL, fraction=0.3),
+                ],
+                duration_days=1.0,
+            )
         )
 
 

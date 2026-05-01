@@ -71,7 +71,7 @@ The released server is broader than a simple concentration calculator, but the b
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, or public wrapper around branded external model payloads.
 
-## What's in v0.2.0
+## What's in v0.2.1
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
@@ -90,9 +90,9 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current local release verification and generated `v0.2.0` artifacts report:
+Current local release verification and generated `v0.2.1` artifacts report:
 
-- `185` repository test functions
+- `192` repository test functions
 - `130` JSON schemas
 - `126` generated examples
 - `47` supported workflows surfaced through `56` tools, `21` prompts, and `27` resources
@@ -154,6 +154,9 @@ Current validation artifacts report:
 - CI fails if generated artifacts or defaults manifest hashes drift from committed state, if the full release validator fails, or if startup validation cannot load the shipped artifacts
 - CI builds the wheel and installs it into a clean Python 3.12 environment before checking server startup, packaged release resources, public tool annotations/output schemas, validation demo-pack loading, and shipped adapter-fixture access
 - external payload imports are confined to shipped adapter fixtures unless operators opt in additional roots through `FATE_MCP_IMPORT_ROOTS`; symlink escapes are rejected after path resolution
+- external payload imports are capped by default at 5 MB and 5,000 surface rows, with explicit operator overrides for controlled local imports
+- concentration surfaces report `reported_time_semantics`; `steady_state` is end-of-duration screening, not an infinite-time equilibrium claim
+- release fractions are invariant-checked at `0 < sum(release_fractions) <= 1.0`; unallocated mass remains outside scoped media and is surfaced as a warning
 - supply-chain checks run Ruff, tests, Bandit, `pip-audit`, SBOM generation, and checksum-verified Gitleaks CLI secret scanning
 
 This release gate remains a product-level screening-readiness status rather than a claim of formal regulatory acceptance, legal sufficiency, or source-engine scientific equivalence.
@@ -169,11 +172,11 @@ See:
 - [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
-- [docs/releases/v0.2.0/scientific-trust-pack.md](./docs/releases/v0.2.0/scientific-trust-pack.md)
+- [docs/releases/v0.2.1/scientific-trust-pack.md](./docs/releases/v0.2.1/scientific-trust-pack.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.2.0/release-notes.md](./docs/releases/v0.2.0/release-notes.md)
+- [docs/releases/v0.2.1/release-notes.md](./docs/releases/v0.2.1/release-notes.md)
 
 ## Governance
 

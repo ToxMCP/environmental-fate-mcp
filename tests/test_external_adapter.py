@@ -8,6 +8,7 @@ from fate_mcp.models import (
     FateModelRunOptions,
     Media,
     ModelFamily,
+    ReportedTimeSemantics,
     ReleaseFraction,
 )
 from fate_mcp.plugins.external_result_adapter import (
@@ -44,6 +45,11 @@ def test_external_result_adapter_harness_plugin_returns_normalized_outputs() -> 
     )
     assert result.run_summary.model_family == ModelFamily.EXTERNAL_RESULT_ADAPTER
     assert all(surface.model_family == ModelFamily.EXTERNAL_RESULT_ADAPTER for surface in result.surfaces)
+    assert all(
+        surface.reported_time_semantics
+        == ReportedTimeSemantics.END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM
+        for surface in result.surfaces
+    )
     assert any(item.parameter == "external_engine_name" for item in result.assumptions)
 
 
@@ -102,6 +108,10 @@ def test_external_result_adapter_fixture_can_be_loaded_and_round_tripped(tmp_pat
         runtime.provenance,
     )
     assert result.surfaces[0].concentration_value == pytest.approx(0.0125)
+    assert (
+        result.surfaces[0].reported_time_semantics
+        == ReportedTimeSemantics.END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM
+    )
 
     out_path = tmp_path / "roundtrip.json"
     write_external_payload(out_path, payload)
@@ -202,6 +212,10 @@ def test_external_result_adapter_csv_fixture_can_be_loaded_and_round_tripped(tmp
         runtime.provenance,
     )
     assert result.surfaces[0].concentration_value == pytest.approx(0.0125)
+    assert (
+        result.surfaces[0].reported_time_semantics
+        == ReportedTimeSemantics.END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM
+    )
 
     out_path = tmp_path / "roundtrip.csv"
     write_external_payload(out_path, payload)
@@ -220,6 +234,108 @@ def test_external_result_adapter_csv_rejects_inconsistent_engine_metadata(tmp_pa
 
     with pytest.raises(FateValidationError):
         load_external_payload(bad_csv)
+
+
+def test_external_result_adapter_rejects_oversized_payload_file(tmp_path, monkeypatch) -> None:
+    payload = tmp_path / "oversized.json"
+    payload.write_text(
+        '{"engine_name":"x","engine_version":"1","surfaces":[],"padding":"too large"}\n'
+    )
+    monkeypatch.setenv("FATE_MCP_EXTERNAL_PAYLOAD_MAX_BYTES", "20")
+
+    with pytest.raises(FateValidationError) as exc:
+        load_external_payload(payload)
+
+    assert exc.value.payload.code == "external_payload_file_too_large"
+
+
+def test_external_result_adapter_rejects_invalid_payload_limit_override(tmp_path, monkeypatch) -> None:
+    payload = tmp_path / "payload.json"
+    payload.write_text('{"engine_name":"x","engine_version":"1","surfaces":[]}\n')
+    monkeypatch.setenv("FATE_MCP_EXTERNAL_PAYLOAD_MAX_BYTES", "0")
+
+    with pytest.raises(FateValidationError) as exc:
+        load_external_payload(payload)
+
+    assert exc.value.payload.code == "external_payload_limit_invalid"
+
+
+def test_external_result_adapter_rejects_json_surface_count_over_limit(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    payload = tmp_path / "too-many.json"
+    payload.write_text(
+        """{
+  "engine_name": "x",
+  "engine_version": "1",
+  "surfaces": [
+    {
+      "compartment_code": "WATER_SURFACE",
+      "concentration": 0.1,
+      "unit": "mg/L",
+      "context_scope": "eu_screening_default",
+      "mode": "steady_state"
+    },
+    {
+      "compartment_code": "SOIL_TOP",
+      "concentration": 0.2,
+      "unit": "mg/kg",
+      "context_scope": "eu_screening_default",
+      "mode": "steady_state"
+    }
+  ]
+}
+"""
+    )
+    monkeypatch.setenv("FATE_MCP_EXTERNAL_PAYLOAD_MAX_SURFACES", "1")
+
+    with pytest.raises(FateValidationError) as exc:
+        load_external_payload(payload)
+
+    assert exc.value.payload.code == "external_payload_too_many_surfaces"
+
+
+def test_external_result_adapter_rejects_csv_surface_count_over_limit(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    payload = tmp_path / "too-many.csv"
+    payload.write_text(
+        "engine_name,engine_version,compartment_code,concentration,unit,context_scope,mode,interval_start,interval_end,notes\n"
+        "engine-a,1.0,WATER_SURFACE,0.5,mg/L,eu_screening_default,steady_state,,,\n"
+        "engine-a,1.0,SOIL_TOP,0.2,mg/kg,eu_screening_default,steady_state,,,\n"
+    )
+    monkeypatch.setenv("FATE_MCP_EXTERNAL_PAYLOAD_MAX_SURFACES", "1")
+
+    with pytest.raises(FateValidationError) as exc:
+        load_external_payload(payload)
+
+    assert exc.value.payload.code == "external_payload_too_many_surfaces"
+
+
+def test_external_result_adapter_rejects_legacy_surface_count_over_limit(
+    tmp_path,
+    monkeypatch,
+) -> None:
+    payload = tmp_path / "too-many-legacy.csv"
+    payload.write_text(
+        "export_type,legacy_screening_desktop_export_v1\n"
+        "engine_name,legacy-screening-desktop\n"
+        "engine_version,2026.04\n"
+        "region_id,eu_screening_default\n"
+        "mode,steady_state\n"
+        "\n"
+        "compartment_label,bulk_concentration,bulk_unit,notes\n"
+        "Regional air,0.0015,mg/m3,Legacy desktop screening export fixture.\n"
+        "Surface water,0.0125,mg/L,Legacy desktop screening export fixture.\n"
+    )
+    monkeypatch.setenv("FATE_MCP_EXTERNAL_PAYLOAD_MAX_SURFACES", "1")
+
+    with pytest.raises(FateValidationError) as exc:
+        load_external_payload(payload)
+
+    assert exc.value.payload.code == "external_payload_too_many_surfaces"
 
 
 def test_external_result_adapter_legacy_desktop_export_fixture_can_be_loaded() -> None:
@@ -299,6 +415,10 @@ def test_external_result_adapter_legacy_time_bucket_export_fixture_can_be_loaded
     )
     assert len(result.surfaces) == 2
     assert all(surface.time_window.mode.value == "time_bucket" for surface in result.surfaces)
+    assert all(
+        surface.reported_time_semantics == ReportedTimeSemantics.BOUNDED_TIME_BUCKET
+        for surface in result.surfaces
+    )
     assert result.surfaces[0].time_window.start is not None
     assert result.surfaces[0].time_window.end is not None
 

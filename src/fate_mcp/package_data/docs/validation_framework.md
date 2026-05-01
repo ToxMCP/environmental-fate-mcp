@@ -1,6 +1,6 @@
 # Validation Framework
 
-Minimum validation scope for v0.1:
+Minimum validation scope for the current public screening release:
 
 - hand-worked mass-balance fixtures
 - hand-worked advective-screening fixtures for experimental native families

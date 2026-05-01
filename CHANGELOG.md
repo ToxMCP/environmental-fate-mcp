@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-05-01
+
+### Added
+- `reported_time_semantics` on concentration surfaces to clarify that `steady_state` means end-of-duration screening, not infinite-time equilibrium.
+- Conservative external-payload import limits for payload bytes and surface rows, with operator overrides.
+- Runtime-level probabilistic iteration guard matching the public request schema cap.
+
+### Changed
+- Public release docs now point at the `v0.2.1` patch release surface.
+- Non-historical v0.1 wording updated to current-public-release language.
+- Release-fraction invariant wording is now more explicit in reviewer-facing docs.
+
+### Security
+- External JSON/CSV/legacy payload imports now fail closed on oversized files or excessive rows before normalization.
+
 ## [0.2.0] - 2026-05-01
 
 ### Added

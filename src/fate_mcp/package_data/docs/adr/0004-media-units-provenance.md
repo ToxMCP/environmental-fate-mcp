@@ -6,7 +6,7 @@ Accepted
 
 ## Decision
 
-Canonical media and units for v0.1:
+Canonical media and units for the current defaults set:
 
 - air -> `mg/m3`
 - water -> `mg/L`

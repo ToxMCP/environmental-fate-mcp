@@ -48,7 +48,7 @@
     },
     {
       "path": "defaults/v1/physchem_parameter_policies.json",
-      "sha256": "83da6e8d50a8e37a04765aef1dacaba2ff8258c773a1070f8bbd2a36dc29792b",
+      "sha256": "4f351147ee91dcbaa62a22ed452ac43625af3cdc2121a33d77a160c432728cf4",
       "defaultsVersion": "v1"
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       "path": "defaults/v1/region_profiles.json",
-      "sha256": "3dd32a1fc79f1de6cf311a6c1b4c48243ea80db0a6f283e80c6079571c060893",
+      "sha256": "60c6f564a93817732fd55bde01305bde7f410f33fae449efd4870cad1ad1a965",
       "defaultsVersion": "v1"
     },
     {
@@ -83,7 +83,7 @@
     },
     {
       "path": "defaults/extensions/nordic_screening_pack.json",
-      "sha256": "9917c2c8144362856e931e685d4c3f835d85cda79a0e90d8e253923d60c4fd05",
+      "sha256": "ca2409fdaa6176e4b1447e630ea4af74a977f7067b32aad78c49dc33c859632e",
       "defaultsVersion": "v1"
     }
   ]

@@ -109,6 +109,17 @@
         "time_window": {
           "$ref": "#/$defs/TimeWindow"
         },
+        "reported_time_semantics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportedTimeSemantics"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "concentration_value": {
           "minimum": 0.0,
           "title": "Concentration Value",
@@ -641,6 +652,14 @@
       ],
       "title": "QualityFlag",
       "type": "object"
+    },
+    "ReportedTimeSemantics": {
+      "enum": [
+        "end_of_duration_screening_not_infinite_equilibrium",
+        "bounded_time_bucket"
+      ],
+      "title": "ReportedTimeSemantics",
+      "type": "string"
     },
     "ResultMetadata": {
       "properties": {

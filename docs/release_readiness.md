@@ -1,6 +1,6 @@
 # Release Readiness
 
-Environmental Fate MCP v0.1 release readiness is gated on reproducible contracts, examples, defaults manifests, benchmark fixtures, and downstream-consumer interoperability.
+Environmental Fate MCP public release readiness is gated on reproducible contracts, examples, defaults manifests, benchmark fixtures, and downstream-consumer interoperability.
 Released artifacts must remain deterministic across regeneration, and server startup must validate the shipped artifact set without mutating it.
 `ready_for_screening_release` is an internal bounded-screening release gate. It is not a statement of regulator acceptance, submission approval, or scientific equivalence to external engines.
 `reference_mass_balance` remains the reviewer-grade baseline family. `advective_screening_mass_balance` remains an experimental challenge family and must not drift into promoted baseline language without an explicit later decision.

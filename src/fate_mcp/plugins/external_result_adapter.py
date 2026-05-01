@@ -4,6 +4,7 @@ import csv
 from datetime import datetime
 from io import StringIO
 import math
+import os
 from pathlib import Path
 
 from pydantic import BaseModel, Field, field_validator
@@ -85,6 +86,11 @@ REQUIRED_EXTERNAL_PAYLOAD_CSV_COLUMNS = [
     "interval_end",
 ]
 
+EXTERNAL_PAYLOAD_MAX_BYTES_ENV = "FATE_MCP_EXTERNAL_PAYLOAD_MAX_BYTES"
+EXTERNAL_PAYLOAD_MAX_SURFACES_ENV = "FATE_MCP_EXTERNAL_PAYLOAD_MAX_SURFACES"
+DEFAULT_EXTERNAL_PAYLOAD_MAX_BYTES = 5 * 1024 * 1024
+DEFAULT_EXTERNAL_PAYLOAD_MAX_SURFACES = 5_000
+
 LEGACY_DESKTOP_EXPORT_TYPE = "legacy_screening_desktop_export_v1"
 EUSES_EXPORT_TYPE = "euses_screening_export_v1"
 EPI_SUITE_EXPORT_TYPE = "epi_suite_screening_export_v1"
@@ -107,6 +113,91 @@ LEGACY_DESKTOP_COMPARTMENT_LABEL_MAP = {
     "agricultural soil": "SOIL_TOP",
     "freshwater sediment": "SEDIMENT_FRESH",
 }
+
+
+def _configured_positive_int(env_name: str, default: int) -> int:
+    raw_value = os.getenv(env_name)
+    if raw_value is None or not raw_value.strip():
+        return default
+    try:
+        value = int(raw_value)
+    except ValueError as exc:
+        raise FateValidationError(
+            code="external_payload_limit_invalid",
+            message=f"{env_name} must be a positive integer.",
+            suggestion=f"Unset {env_name} or set it to a positive integer.",
+            details={"environmentVariable": env_name, "configuredValue": raw_value},
+        ) from exc
+    if value < 1:
+        raise FateValidationError(
+            code="external_payload_limit_invalid",
+            message=f"{env_name} must be greater than or equal to 1.",
+            suggestion=f"Unset {env_name} or set it to a positive integer.",
+            details={"environmentVariable": env_name, "configuredValue": raw_value},
+        )
+    return value
+
+
+def external_payload_max_bytes() -> int:
+    return _configured_positive_int(EXTERNAL_PAYLOAD_MAX_BYTES_ENV, DEFAULT_EXTERNAL_PAYLOAD_MAX_BYTES)
+
+
+def external_payload_max_surfaces() -> int:
+    return _configured_positive_int(
+        EXTERNAL_PAYLOAD_MAX_SURFACES_ENV,
+        DEFAULT_EXTERNAL_PAYLOAD_MAX_SURFACES,
+    )
+
+
+def _validate_external_payload_text_size(text: str) -> None:
+    max_bytes = external_payload_max_bytes()
+    size_bytes = len(text.encode("utf-8"))
+    if size_bytes > max_bytes:
+        raise FateValidationError(
+            code="external_payload_too_large",
+            message=f"External payload is {size_bytes} bytes, above the configured limit of {max_bytes} bytes.",
+            suggestion=(
+                "Reduce the payload size, split large exports, or raise "
+                f"{EXTERNAL_PAYLOAD_MAX_BYTES_ENV} for a controlled local import."
+            ),
+            details={"payloadBytes": size_bytes, "maxBytes": max_bytes},
+        )
+
+
+def _validate_external_payload_file_size(path: Path) -> None:
+    max_bytes = external_payload_max_bytes()
+    size_bytes = path.stat().st_size
+    if size_bytes > max_bytes:
+        raise FateValidationError(
+            code="external_payload_file_too_large",
+            message=f"External payload file is {size_bytes} bytes, above the configured limit of {max_bytes} bytes.",
+            suggestion=(
+                "Reduce the payload size, split large exports, or raise "
+                f"{EXTERNAL_PAYLOAD_MAX_BYTES_ENV} for a controlled local import."
+            ),
+            details={"path": str(path), "payloadBytes": size_bytes, "maxBytes": max_bytes},
+        )
+
+
+def _validate_external_payload_surface_count(count: int, *, context: str, row_number: int | None = None) -> None:
+    max_surfaces = external_payload_max_surfaces()
+    if count > max_surfaces:
+        details: dict[str, int | str] = {
+            "surfaceCount": count,
+            "maxSurfaces": max_surfaces,
+            "context": context,
+        }
+        if row_number is not None:
+            details["row"] = row_number
+        raise FateValidationError(
+            code="external_payload_too_many_surfaces",
+            message=f"External payload contains more than {max_surfaces} imported surface rows.",
+            suggestion=(
+                "Split large exports or raise "
+                f"{EXTERNAL_PAYLOAD_MAX_SURFACES_ENV} for a controlled local import."
+            ),
+            details=details,
+        )
 ADAPTER_IMPORT_PROFILES = [
     AdapterImportProfile(
         profile_id="normalized_external_payload_json",
@@ -297,7 +388,13 @@ def _parse_legacy_export_metadata(text: str) -> tuple[dict[str, str], str]:
 
 
 def external_payload_from_json(text: str) -> ExternalEngineResultPayload:
-    return ExternalEngineResultPayload.model_validate_json(text)
+    _validate_external_payload_text_size(text)
+    payload = ExternalEngineResultPayload.model_validate_json(text)
+    _validate_external_payload_surface_count(
+        len(payload.surfaces),
+        context="normalized_json",
+    )
+    return payload
 
 
 def external_payload_to_json(payload: ExternalEngineResultPayload) -> str:
@@ -305,6 +402,7 @@ def external_payload_to_json(payload: ExternalEngineResultPayload) -> str:
 
 
 def external_payload_from_csv(text: str) -> ExternalEngineResultPayload:
+    _validate_external_payload_text_size(text)
     reader = csv.DictReader(StringIO(text))
     if reader.fieldnames is None:
         raise FateValidationError(
@@ -354,6 +452,11 @@ def external_payload_from_csv(text: str) -> ExternalEngineResultPayload:
         engine_names.add(engine_name)
         engine_versions.add(engine_version)
         notes_text = _csv_value(row, "notes")
+        _validate_external_payload_surface_count(
+            len(surfaces) + 1,
+            context="normalized_csv",
+            row_number=row_number,
+        )
         surfaces.append(
             ExternalEngineSurfacePayload(
                 compartment_code=_required_csv_value(row, row_number, "compartment_code"),
@@ -408,6 +511,7 @@ def _require_time_bucket_bounds(
 
 
 def external_payload_from_legacy_desktop_export_csv(text: str) -> ExternalEngineResultPayload:
+    _validate_external_payload_text_size(text)
     metadata, table_text = _parse_legacy_export_metadata(text)
     export_type = metadata.get("export_type")
     if export_type not in SUPPORTED_DESKTOP_EXPORT_TYPES:
@@ -511,6 +615,11 @@ def external_payload_from_legacy_desktop_export_csv(text: str) -> ExternalEngine
                 row_number,
                 "legacy_external_payload",
             )
+        _validate_external_payload_surface_count(
+            len(surfaces) + 1,
+            context="legacy_desktop_csv",
+            row_number=row_number,
+        )
         surfaces.append(
             ExternalEngineSurfacePayload(
                 compartment_code=compartment_code,
@@ -562,6 +671,7 @@ def external_payload_to_csv(payload: ExternalEngineResultPayload) -> str:
 
 def load_external_payload(path: Path) -> ExternalEngineResultPayload:
     payload_format = _external_payload_format(path)
+    _validate_external_payload_file_size(path)
     text = path.read_text()
     if payload_format == ".json":
         return external_payload_from_json(text)

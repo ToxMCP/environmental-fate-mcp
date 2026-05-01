@@ -1971,7 +1971,7 @@ def main() -> None:
     parser.add_argument(
         "--release-ref",
         default=f"v{VERSION}",
-        help="Release reference label to embed in the generated bundle, for example a tag such as v0.2.0.",
+        help="Release reference label to embed in the generated bundle, for example a tag such as v0.2.1.",
     )
     args = parser.parse_args()
     bundle_dir = write_release_bundle(Path.cwd(), output_dir=args.output_dir, release_ref=args.release_ref)
