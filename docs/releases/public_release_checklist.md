@@ -12,6 +12,7 @@ This checklist is the public-facing companion to the deeper release-readiness ru
 - [ ] issue templates and PR template still match the actual release process
 - [ ] public docs do not overclaim beyond the declared screening boundary
 - [ ] validation demo-pack wording remains synthetic screening QA only, not field validation or calibration evidence
+- [ ] evidence-quality matrix wording remains proof-posture only, not field validation, calibration evidence, source-engine equivalence, or regulator acceptance
 
 ## Build and Validation
 
@@ -37,6 +38,7 @@ This checklist is the public-facing companion to the deeper release-readiness ru
 - [ ] downstream handoff packages remain integrity-protected and disclaimer-bearing
 - [ ] release notes do not imply final regulatory decision-engine status
 - [ ] `release://erosion-sediment-validation-demo-report` passes and remains clearly synthetic
+- [ ] `release://scientific-evidence-quality-matrix-report` passes and includes explicit limitations plus next corroboration actions for all rows
 
 ## Public Release Packaging
 

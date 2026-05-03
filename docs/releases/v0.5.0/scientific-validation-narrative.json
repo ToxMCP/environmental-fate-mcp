@@ -1,0 +1,34 @@
+{
+  "acceptedLimitations": [
+    "No GIS-scale dispersion in v0.5.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, SWAT/PRZM execution, or native WEPP execution in v0.5.",
+    "Fugacity equilibrium screening is experimental Level I/II-style partitioning only; no Level III intermedia-transfer, advective export, calibration, field validation, or regulatory acceptance claim is added.",
+    "External benchmark packs are deterministic screening corroboration fixtures, not curated field validation datasets.",
+    "The evidence-quality matrix grades release-review evidence posture only; it does not add field validation, calibration evidence, regulator acceptance, or model promotion.",
+    "Erosion/sediment validation demos remain synthetic screening-QA demonstrations, not curated field benchmark validation.",
+    "No direct human dose calculation in Environmental Fate MCP.",
+    "No dietary intake workflows in Environmental Fate MCP.",
+    "No PBPK execution in Environmental Fate MCP.",
+    "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in this release."
+  ],
+  "benchmarkReport": "release://external-validation-benchmark-report",
+  "benchmarkResource": "defaults://scientific-external-benchmark-pack",
+  "evidenceQualityMatrixReport": "release://scientific-evidence-quality-matrix-report",
+  "evidenceQualityRubricResource": "defaults://scientific-evidence-quality-rubric",
+  "fugacityReport": "release://fugacity-screening-validation-report",
+  "fugacityResource": "defaults://fugacity-screening-method-profiles",
+  "narrativeLines": [
+    "The v0.5 release line adds a governed scientific evidence-quality matrix without adding model scope, Level III transfer, GIS routing, hydrology generation, calibration, WEPP/SWAT/PRZM execution, or final risk decisions.",
+    "The benchmark pack improves reproducibility and source-grounded corroboration for scalar screening equations, but it is not field validation, calibration evidence, source-engine equivalence, or regulator acceptance.",
+    "The default sensitivity report shows how shipped or scenario assumptions can move screening outputs; it is not formal global sensitivity analysis or uncertainty quantification.",
+    "The fugacity screening validation report checks mass conservation, degradation-loss balance, requested-media filtering, source references, and explicit Level III/routing/calibration boundary language.",
+    "The evidence-quality matrix separates reviewer-grade screening, source-grounded screening, internal-oracle screening, synthetic-demo-only, and deferred/gap rows so reviewers can see proof posture without overreading release claims.",
+    "Probabilistic sample manifests preserve seed, sampled parameter summaries, iteration health, and stable hashes when requested; full per-iteration calculation traces remain intentionally omitted.",
+    "GitHub Artifact Attestations for release assets, when published, support supply-chain provenance review; they are not scientific validation or a substitute for release-report review.",
+    "The release remains bounded to concentration screening, scalar erosion/sediment screening, and experimental fugacity equilibrium screening; no hydrology generation, spatial routing, calibration, WEPP execution, Level III transfer, or final risk decision is added."
+  ],
+  "sensitivityReport": "release://default-sensitivity-report",
+  "sensitivityResource": "defaults://default-sensitivity-profiles",
+  "status": "evidence_quality_matrix_added_without_model_scope_expansion",
+  "version": "0.5.0"
+}

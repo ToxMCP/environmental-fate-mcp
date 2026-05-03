@@ -1,0 +1,151 @@
+{
+  "$defs": {
+    "ScientificEvidenceQualityRubricTier": {
+      "additionalProperties": false,
+      "properties": {
+        "tier": {
+          "$ref": "#/$defs/ScientificEvidenceTrustTier"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "minimum_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Minimum Conditions",
+          "type": "array"
+        },
+        "boundary_lines": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Boundary Lines",
+          "type": "array"
+        },
+        "next_action_template": {
+          "title": "Next Action Template",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tier",
+        "display_name",
+        "description",
+        "next_action_template"
+      ],
+      "title": "ScientificEvidenceQualityRubricTier",
+      "type": "object"
+    },
+    "ScientificEvidenceTrustTier": {
+      "enum": [
+        "reviewer_grade_screening",
+        "source_grounded_screening",
+        "internal_oracle_screening",
+        "synthetic_demo_only",
+        "deferred_or_gap"
+      ],
+      "title": "ScientificEvidenceTrustTier",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "defaults_version": {
+      "default": "v1",
+      "title": "Defaults Version",
+      "type": "string"
+    },
+    "rubric_version": {
+      "title": "Rubric Version",
+      "type": "string"
+    },
+    "tier_count": {
+      "minimum": 0,
+      "title": "Tier Count",
+      "type": "integer"
+    },
+    "tiers": {
+      "items": {
+        "$ref": "#/$defs/ScientificEvidenceQualityRubricTier"
+      },
+      "title": "Tiers",
+      "type": "array"
+    },
+    "source_references": {
+      "items": {
+        "$ref": "#/$defs/SourceReference"
+      },
+      "title": "Source References",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "rubric_version",
+    "tier_count",
+    "tiers"
+  ],
+  "title": "ScientificEvidenceQualityRubric",
+  "type": "object"
+}

@@ -1,0 +1,1564 @@
+{
+  "schema_version": "v1",
+  "release_version": "0.5.0",
+  "defaults_version": "v1",
+  "rubric_version": "scientific-evidence-quality-rubric-v1",
+  "claim_row_count": 34,
+  "model_family_row_count": 5,
+  "claim_rows": [
+    {
+      "row_id": "claim:advective_clearance_dominant_loss_share_v1",
+      "row_type": "claim",
+      "claim_id": "advective_clearance_dominant_loss_share_v1",
+      "display_name": "Advective clearance-dominant loss-share transition",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_dominance_anchor",
+        "hand_worked_advective_loss_dominance_sensitivity_fixture",
+        "hand_worked_advective_transition_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_clearance_dominant_loss_share_anchor_fixture",
+        "advective_clearance_dominant_loss_share_companion_fixture",
+        "advective_transition_flip_to_clearance_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_cumulative_mass_balance_closure_v1",
+      "row_type": "claim",
+      "claim_id": "advective_cumulative_mass_balance_closure_v1",
+      "display_name": "Advective cumulative mass-balance closure",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_air_reference_fixture",
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_loss_dominance_anchor",
+        "hand_worked_advective_loss_dominance_sensitivity_fixture",
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_loss_transition_sensitivity_fixture",
+        "hand_worked_advective_soil_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_degradation_dominant_loss_share_anchor_fixture",
+        "advective_degradation_dominant_loss_share_companion_fixture",
+        "advective_clearance_dominant_loss_share_anchor_fixture",
+        "advective_clearance_dominant_loss_share_companion_fixture",
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_mixed_loss_transition_companion_fixture",
+        "advective_bounded_transport_reference_fixture",
+        "advective_flow_through_transport_reference_fixture",
+        "advective_transition_boundary_reference_fixture",
+        "advective_storage_dominant_transport_reference_fixture",
+        "advective_air_transport_reference_fixture",
+        "advective_soil_transport_reference_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_degradation_dominant_loss_share_v1",
+      "row_type": "claim",
+      "claim_id": "advective_degradation_dominant_loss_share_v1",
+      "display_name": "Advective degradation-dominant loss-share transition",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_dominance_anchor",
+        "hand_worked_advective_loss_dominance_sensitivity_fixture",
+        "hand_worked_advective_transition_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_degradation_dominant_loss_share_anchor_fixture",
+        "advective_degradation_dominant_loss_share_companion_fixture",
+        "advective_transition_flip_to_degradation_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_extreme_persistence_clearance_bound_v1",
+      "row_type": "claim",
+      "claim_id": "advective_extreme_persistence_clearance_bound_v1",
+      "display_name": "Advective extreme-persistence clearance bound",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_edge_anchor",
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor"
+      ],
+      "supporting_fixture_names": [
+        "advective_extreme_persistence_clearance_anchor_fixture",
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_long_duration_combined_loss_plateau_v1",
+      "row_type": "claim",
+      "claim_id": "advective_long_duration_combined_loss_plateau_v1",
+      "display_name": "Advective long-duration combined-loss plateau anchor",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_duration_edge_anchor",
+        "hand_worked_advective_override_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_long_duration_plateau_anchor_fixture",
+        "advective_long_duration_plateau_companion_fixture",
+        "advective_long_duration_plateau_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_long_residence_time_accumulation_anchor_v1",
+      "row_type": "claim",
+      "claim_id": "advective_long_residence_time_accumulation_anchor_v1",
+      "display_name": "Advective long-residence-time accumulation anchor",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor"
+      ],
+      "supporting_fixture_names": [
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_loss_regime_flip_directionality_v1",
+      "row_type": "claim",
+      "claim_id": "advective_loss_regime_flip_directionality_v1",
+      "display_name": "Advective loss-regime flip directionality",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": false,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_transition_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_transition_flip_to_degradation_fixture",
+        "advective_transition_flip_to_clearance_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_mixed_loss_transition_margin_v1",
+      "row_type": "claim",
+      "claim_id": "advective_mixed_loss_transition_margin_v1",
+      "display_name": "Advective mixed-loss transition margin",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_loss_transition_sensitivity_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_mixed_loss_transition_companion_fixture",
+        "advective_transition_boundary_reference_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 4,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_post_release_flushing_directionality_v1",
+      "row_type": "claim",
+      "claim_id": "advective_post_release_flushing_directionality_v1",
+      "display_name": "Advective post-release flushing directionality",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_subboundary_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture",
+        "advective_post_release_subboundary_directionality_sensitivity_fixture",
+        "advective_post_release_boundary_transition_reference_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_post_release_flushing_recovery_v1",
+      "row_type": "claim",
+      "claim_id": "advective_post_release_flushing_recovery_v1",
+      "display_name": "Advective post-release flushing and recovery accounting",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 4,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_post_release_flushing_regime_transition_v1",
+      "row_type": "claim",
+      "claim_id": "advective_post_release_flushing_regime_transition_v1",
+      "display_name": "Advective post-release flushing regime transition",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_boundary_transition_reference_fixture",
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_post_release_recovery_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_recovery_sensitivity_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture",
+        "advective_post_release_boundary_transition_reference_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_post_release_half_recovery_directionality_v1",
+      "row_type": "claim",
+      "claim_id": "advective_post_release_half_recovery_directionality_v1",
+      "display_name": "Advective post-release half-recovery directionality",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "advective_post_release_half_recovery_reference_fixture",
+        "advective_post_release_extended_flushing_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_post_release_half_recovery_pace_v1",
+      "row_type": "claim",
+      "claim_id": "advective_post_release_half_recovery_pace_v1",
+      "display_name": "Advective post-release half-recovery pace",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_half_recovery_reference_fixture",
+        "hand_worked_advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "hand_worked_advective_post_release_recovery_reference_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture",
+        "advective_post_release_pre_half_recovery_sensitivity_fixture",
+        "advective_post_release_half_recovery_reference_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_post_release_late_recovery_regime_v1",
+      "row_type": "claim",
+      "claim_id": "advective_post_release_late_recovery_regime_v1",
+      "display_name": "Advective post-release late-recovery regime",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_extended_flushing_sensitivity_fixture",
+        "hand_worked_advective_post_release_late_recovery_edge_anchor",
+        "hand_worked_advective_post_release_late_recovery_reference_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_post_release_extended_flushing_sensitivity_fixture",
+        "advective_post_release_late_recovery_reference_fixture",
+        "advective_post_release_late_recovery_edge_anchor"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_residence_time_override_application_v1",
+      "row_type": "claim",
+      "claim_id": "advective_residence_time_override_application_v1",
+      "display_name": "Advective residence-time override application",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor"
+      ],
+      "supporting_fixture_names": [
+        "advective_long_duration_plateau_sensitivity_fixture",
+        "advective_residence_time_override_sensitivity_fixture",
+        "advective_short_residence_time_clearance_companion_fixture",
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_residence_time_turnover_regime_v1",
+      "row_type": "claim",
+      "claim_id": "advective_residence_time_turnover_regime_v1",
+      "display_name": "Advective residence-time turnover regime interpretation",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_air_reference_fixture",
+        "hand_worked_advective_bounded_transport_reference_fixture",
+        "hand_worked_advective_clearance_edge_anchor",
+        "hand_worked_advective_flow_through_transport_reference_fixture",
+        "hand_worked_advective_loss_transition_anchor",
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_residence_edge_anchor",
+        "hand_worked_advective_soil_reference_fixture",
+        "hand_worked_advective_storage_dominant_transport_reference_fixture",
+        "hand_worked_advective_transition_boundary_reference_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_mixed_loss_transition_anchor_fixture",
+        "advective_bounded_transport_reference_fixture",
+        "advective_flow_through_transport_reference_fixture",
+        "advective_transition_boundary_reference_fixture",
+        "advective_storage_dominant_transport_reference_fixture",
+        "advective_air_transport_reference_fixture",
+        "advective_soil_transport_reference_fixture",
+        "advective_short_residence_time_clearance_anchor_fixture",
+        "advective_short_residence_time_clearance_companion_fixture",
+        "advective_long_residence_time_accumulation_anchor_fixture",
+        "advective_long_residence_time_accumulation_companion_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 4,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_short_residence_time_clearance_anchor_v1",
+      "row_type": "claim",
+      "claim_id": "advective_short_residence_time_clearance_anchor_v1",
+      "display_name": "Advective short-residence-time clearance anchor",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_clearance_edge_anchor",
+        "hand_worked_advective_override_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_short_residence_time_clearance_anchor_fixture",
+        "advective_short_residence_time_clearance_companion_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_time_bucket_elapsed_time_v1",
+      "row_type": "claim",
+      "claim_id": "advective_time_bucket_elapsed_time_v1",
+      "display_name": "Advective time-bucket elapsed-time semantics",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "invariance",
+        "reference_style"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_post_release_bucket_anchor",
+        "hand_worked_advective_post_release_recovery_reference_fixture",
+        "hand_worked_advective_time_bucket_fixture"
+      ],
+      "supporting_fixture_names": [
+        "advective_time_bucket_invariance_fixture",
+        "advective_post_release_decay_anchor_fixture",
+        "advective_post_release_recovery_reference_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:advective_water_finite_duration_first_order_v1",
+      "row_type": "claim",
+      "claim_id": "advective_water_finite_duration_first_order_v1",
+      "display_name": "Advective water finite-duration first-order screening equation",
+      "model_family": "advective_screening_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_advective_duration_edge_anchor",
+        "hand_worked_advective_override_fixture",
+        "hand_worked_advective_screening_equation"
+      ],
+      "supporting_fixture_names": [
+        "advective_water_reference_chemical_style_fixture",
+        "advective_long_duration_plateau_anchor_fixture",
+        "advective_long_duration_plateau_companion_fixture",
+        "advective_long_duration_plateau_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "claim:external_adapter_canonical_equivalence_v1",
+      "row_type": "claim",
+      "claim_id": "external_adapter_canonical_equivalence_v1",
+      "display_name": "External adapter canonical normalization parity",
+      "model_family": "external_result_adapter",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "internal_oracle_screening",
+      "covered": true,
+      "support_strength": "single_anchor",
+      "supporting_validation_tiers": [
+        "normalization_parity"
+      ],
+      "supporting_reference_types": [
+        "governed_fixture_normalization_parity"
+      ],
+      "supporting_fixture_names": [
+        "external_adapter_equivalence_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 0,
+      "jurisdiction_breadth": "none",
+      "corroboration_status": "none",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "External-result adapter evidence covers normalization parity only; it does not validate the upstream source engine or claim scientific equivalence."
+      ],
+      "next_corroboration_action": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration."
+    },
+    {
+      "row_id": "claim:fugacity_level_boundary_v1",
+      "row_type": "claim",
+      "claim_id": "fugacity_level_boundary_v1",
+      "display_name": "Fugacity Level I/II boundary and Level III deferral claim",
+      "model_family": "fugacity_equilibrium_screening",
+      "priority": "medium",
+      "mandatory_for_release": false,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_single_tier",
+      "supporting_validation_tiers": [
+        "source_backed_method"
+      ],
+      "supporting_reference_types": [
+        "public_method_description"
+      ],
+      "supporting_fixture_names": [
+        "fugacity_level_i_public_method_boundary_fixture",
+        "fugacity_level_i_solid_partitioning_public_method_fixture",
+        "fugacity_level_ii_public_method_boundary_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle",
+        "open_literature_reference"
+      ],
+      "official_source_count": 4,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Fugacity equilibrium screening remains experimental Level I/II-style partitioning; it is not Level III intermedia-transfer, routing, calibration, or field validation."
+      ],
+      "next_corroboration_action": "Keep boundary docs and prompt language synchronized with runtime limitations."
+    },
+    {
+      "row_id": "claim:fugacity_level_i_mass_conservation_v1",
+      "row_type": "claim",
+      "claim_id": "fugacity_level_i_mass_conservation_v1",
+      "display_name": "Fugacity Level I mass conservation screening equation",
+      "model_family": "fugacity_equilibrium_screening",
+      "priority": "high",
+      "mandatory_for_release": false,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "supporting_fixture_names": [
+        "fugacity_level_i_mass_conservation_fixture",
+        "fugacity_level_i_public_method_boundary_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle",
+        "open_literature_reference"
+      ],
+      "official_source_count": 3,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Fugacity equilibrium screening remains experimental Level I/II-style partitioning; it is not Level III intermedia-transfer, routing, calibration, or field validation."
+      ],
+      "next_corroboration_action": "Add independent published worked examples or official executable examples if redistributable cases become available."
+    },
+    {
+      "row_id": "claim:fugacity_level_i_partitioning_v1",
+      "row_type": "claim",
+      "claim_id": "fugacity_level_i_partitioning_v1",
+      "display_name": "Fugacity Level I air-water and solid partitioning screening equation",
+      "model_family": "fugacity_equilibrium_screening",
+      "priority": "high",
+      "mandatory_for_release": false,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "supporting_fixture_names": [
+        "fugacity_level_i_air_water_partitioning_fixture",
+        "fugacity_level_i_solid_partitioning_public_method_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle",
+        "open_literature_reference"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Fugacity equilibrium screening remains experimental Level I/II-style partitioning; it is not Level III intermedia-transfer, routing, calibration, or field validation."
+      ],
+      "next_corroboration_action": "Add independent published worked examples or official executable examples if redistributable cases become available."
+    },
+    {
+      "row_id": "claim:fugacity_level_ii_loss_balance_v1",
+      "row_type": "claim",
+      "claim_id": "fugacity_level_ii_loss_balance_v1",
+      "display_name": "Fugacity Level II degradation-loss balance screening equation",
+      "model_family": "fugacity_equilibrium_screening",
+      "priority": "high",
+      "mandatory_for_release": false,
+      "trust_tier": "source_grounded_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "supporting_fixture_names": [
+        "fugacity_level_ii_loss_balance_fixture",
+        "fugacity_level_ii_public_method_boundary_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle",
+        "open_literature_reference"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Fugacity equilibrium screening remains experimental Level I/II-style partitioning; it is not Level III intermedia-transfer, routing, calibration, or field validation."
+      ],
+      "next_corroboration_action": "Add independent published worked examples or official executable examples if redistributable cases become available."
+    },
+    {
+      "row_id": "claim:reference_air_finite_duration_first_order_v1",
+      "row_type": "claim",
+      "claim_id": "reference_air_finite_duration_first_order_v1",
+      "display_name": "Reference air finite-duration first-order screening equation",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_screening_equation"
+      ],
+      "supporting_fixture_names": [
+        "air_reference_chemical_style_fixture",
+        "reference_air_capacity_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_executable_treatment_reduction_v1",
+      "row_type": "claim",
+      "claim_id": "reference_executable_treatment_reduction_v1",
+      "display_name": "Reference executable treatment reduction",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_treatment_anchor",
+        "hand_worked_treatment_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "reference_treatment_reduction_anchor_fixture",
+        "reference_treatment_proportionality_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_long_duration_rate_anchor_v1",
+      "row_type": "claim",
+      "claim_id": "reference_long_duration_rate_anchor_v1",
+      "display_name": "Reference long-duration near-plateau anchor",
+      "model_family": "reference_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_duration_edge_anchor",
+        "hand_worked_duration_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "reference_long_duration_rate_anchor_fixture",
+        "reference_long_duration_plateau_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_multi_medium_partition_v1",
+      "row_type": "claim",
+      "claim_id": "reference_multi_medium_partition_v1",
+      "display_name": "Reference multi-medium partitioned screening output",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_partition_fixture",
+        "hand_worked_partition_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "multi_medium_mass_balance_fixture",
+        "reference_multi_medium_fraction_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_parameter_override_application_v1",
+      "row_type": "claim",
+      "claim_id": "reference_parameter_override_application_v1",
+      "display_name": "Reference runtime parameter override application",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_override_fixture",
+        "hand_worked_override_reference_case"
+      ],
+      "supporting_fixture_names": [
+        "reference_air_capacity_sensitivity_fixture",
+        "reference_water_capacity_sensitivity_fixture",
+        "reference_soil_capacity_sensitivity_fixture",
+        "reference_sediment_capacity_sensitivity_fixture",
+        "reference_parameter_override_reference_fixture",
+        "parameter_override_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_sediment_finite_duration_first_order_v1",
+      "row_type": "claim",
+      "claim_id": "reference_sediment_finite_duration_first_order_v1",
+      "display_name": "Reference sediment finite-duration first-order screening equation",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_screening_equation"
+      ],
+      "supporting_fixture_names": [
+        "sediment_reference_chemical_style_fixture",
+        "reference_sediment_capacity_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_short_half_life_attenuation_v1",
+      "row_type": "claim",
+      "claim_id": "reference_short_half_life_attenuation_v1",
+      "display_name": "Reference short half-life attenuation anchor",
+      "model_family": "reference_mass_balance",
+      "priority": "medium",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_decay_edge_anchor",
+        "hand_worked_decay_sensitivity_fixture"
+      ],
+      "supporting_fixture_names": [
+        "reference_short_half_life_attenuation_anchor_fixture",
+        "reference_short_half_life_sensitivity_companion_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_soil_finite_duration_first_order_v1",
+      "row_type": "claim",
+      "claim_id": "reference_soil_finite_duration_first_order_v1",
+      "display_name": "Reference soil finite-duration first-order screening equation",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_screening_equation"
+      ],
+      "supporting_fixture_names": [
+        "soil_reference_chemical_style_fixture",
+        "reference_soil_capacity_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_time_bucket_elapsed_time_v1",
+      "row_type": "claim",
+      "claim_id": "reference_time_bucket_elapsed_time_v1",
+      "display_name": "Reference time-bucket elapsed-time semantics",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "invariance",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_time_bucket_decay_fixture",
+        "hand_worked_time_bucket_fixture"
+      ],
+      "supporting_fixture_names": [
+        "time_bucket_invariance_fixture",
+        "reference_time_bucket_post_release_companion_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    },
+    {
+      "row_id": "claim:reference_water_finite_duration_first_order_v1",
+      "row_type": "claim",
+      "claim_id": "reference_water_finite_duration_first_order_v1",
+      "display_name": "Reference water finite-duration first-order screening equation",
+      "model_family": "reference_mass_balance",
+      "priority": "high",
+      "mandatory_for_release": true,
+      "trust_tier": "reviewer_grade_screening",
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_validation_tiers": [
+        "edge_condition",
+        "reference_style",
+        "sensitivity"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_capacity_sensitivity_fixture",
+        "hand_worked_no_decay_limit_fixture",
+        "hand_worked_screening_equation",
+        "hand_worked_temperature_correction_fixture"
+      ],
+      "supporting_fixture_names": [
+        "water_reference_chemical_style_fixture",
+        "reference_water_no_decay_limit_branch_fixture",
+        "reference_water_temperature_correction_reference_fixture",
+        "reference_water_capacity_sensitivity_fixture"
+      ],
+      "benchmark_classifications": [
+        "internal_oracle"
+      ],
+      "official_source_count": 2,
+      "jurisdiction_breadth": "multi_jurisdiction",
+      "corroboration_status": "multi_official_multi_jurisdiction",
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    }
+  ],
+  "model_family_rows": [
+    {
+      "row_id": "model_family:adapter_stub",
+      "row_type": "model_family",
+      "model_family": "adapter_stub",
+      "proof_posture": "deferred_adapter_stub_boundary",
+      "trust_tier": "deferred_or_gap",
+      "claim_count": 0,
+      "high_or_medium_claim_count": 0,
+      "supported": true,
+      "experimental": false,
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Family-level trust tier summarizes release evidence posture only; it is not field validation, calibration adequacy, regulator acceptance, source-engine equivalence, or final risk suitability.",
+        "Adapter stub is a supported interface boundary with no native scientific claim row; use external_result_adapter for governed import normalization."
+      ],
+      "next_corroboration_action": "Define the missing evidence, validation, or implementation tranche before treating this row as usable scientific capability."
+    },
+    {
+      "row_id": "model_family:advective_screening_mass_balance",
+      "row_type": "model_family",
+      "model_family": "advective_screening_mass_balance",
+      "proof_posture": "experimental_challenge_path",
+      "trust_tier": "source_grounded_screening",
+      "claim_count": 19,
+      "high_or_medium_claim_count": 19,
+      "supported": false,
+      "experimental": true,
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Family-level trust tier summarizes release evidence posture only; it is not field validation, calibration adequacy, regulator acceptance, source-engine equivalence, or final risk suitability.",
+        "Advective family remains experimental and non-default until independent review justifies promotion.",
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Advective screening remains experimental and non-default; it is not routed hydrology, catchment validation, or calibrated transport."
+      ],
+      "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    {
+      "row_id": "model_family:external_result_adapter",
+      "row_type": "model_family",
+      "model_family": "external_result_adapter",
+      "proof_posture": "normalization_parity_lane",
+      "trust_tier": "internal_oracle_screening",
+      "claim_count": 1,
+      "high_or_medium_claim_count": 1,
+      "supported": true,
+      "experimental": false,
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Family-level trust tier summarizes release evidence posture only; it is not field validation, calibration adequacy, regulator acceptance, source-engine equivalence, or final risk suitability.",
+        "External-result adapter remains a normalization-parity lane and does not verify upstream engine calculations.",
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "External-result adapter evidence covers normalization parity only; it does not validate the upstream source engine or claim scientific equivalence."
+      ],
+      "next_corroboration_action": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration."
+    },
+    {
+      "row_id": "model_family:fugacity_equilibrium_screening",
+      "row_type": "model_family",
+      "model_family": "fugacity_equilibrium_screening",
+      "proof_posture": "experimental_challenge_path",
+      "trust_tier": "source_grounded_screening",
+      "claim_count": 4,
+      "high_or_medium_claim_count": 4,
+      "supported": false,
+      "experimental": true,
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Family-level trust tier summarizes release evidence posture only; it is not field validation, calibration adequacy, regulator acceptance, source-engine equivalence, or final risk suitability.",
+        "Fugacity family remains experimental Level I/II equilibrium screening and does not implement Level III transfer.",
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Fugacity equilibrium screening remains experimental Level I/II-style partitioning; it is not Level III intermedia-transfer, routing, calibration, or field validation."
+      ],
+      "next_corroboration_action": "Keep boundary docs and prompt language synchronized with runtime limitations."
+    },
+    {
+      "row_id": "model_family:reference_mass_balance",
+      "row_type": "model_family",
+      "model_family": "reference_mass_balance",
+      "proof_posture": "reviewer_grade_reference_anchor",
+      "trust_tier": "reviewer_grade_screening",
+      "claim_count": 10,
+      "high_or_medium_claim_count": 10,
+      "supported": true,
+      "experimental": false,
+      "field_validation_present": false,
+      "calibration_claim_present": false,
+      "regulatory_acceptance_claim_present": false,
+      "source_engine_equivalence_claim_present": false,
+      "limitations": [
+        "Family-level trust tier summarizes release evidence posture only; it is not field validation, calibration adequacy, regulator acceptance, source-engine equivalence, or final risk suitability.",
+        "Reference family is the reviewer-grade bounded-screening anchor but remains a simplified screening kernel.",
+        "Evidence tier is for bounded screening release review only; it is not regulator acceptance, field validation, calibration evidence, or final risk assessment.",
+        "Reference mass-balance evidence supports the reviewer-grade bounded-screening anchor, not full multimedia fate realism or site-specific adequacy."
+      ],
+      "next_corroboration_action": "Maintain dual-jurisdiction official guidance coverage and rerun the governed corroboration worksheet whenever defaults, benchmark anchors, or reference-case mappings change."
+    }
+  ],
+  "trust_tier_counts": {
+    "deferred_or_gap": 1,
+    "internal_oracle_screening": 2,
+    "reviewer_grade_screening": 11,
+    "source_grounded_screening": 25
+  },
+  "passed": true,
+  "limitations": [
+    "Evidence-quality tiers summarize release-review confidence for bounded screening only.",
+    "The matrix deliberately preserves unsupported/deferred rows instead of hiding them.",
+    "No row is allowed to imply field validation, calibration adequacy, regulatory acceptance, or source-engine equivalence without a future governed evidence tranche."
+  ],
+  "summary_lines": [
+    "Matrix covers 34 governed scientific validation claims.",
+    "Matrix covers 5 model-family posture rows, including supported and experimental families.",
+    "Experimental families remain non-default and below reviewer-grade promotion in this report.",
+    "Deferred rows are accepted only when boundary language and next actions are explicit."
+  ]
+}

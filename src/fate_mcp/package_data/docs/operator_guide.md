@@ -53,6 +53,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - inspect governed erosion/sediment validation profiles through `defaults://erosion-sediment-validation-profiles`
 - inspect governed synthetic erosion/sediment validation demos through `defaults://erosion-sediment-validation-demo-pack`
 - inspect governed fugacity screening method profiles through `defaults://fugacity-screening-method-profiles`
+- inspect the governed evidence-quality rubric and matrix through `defaults://scientific-evidence-quality-rubric` and `release://scientific-evidence-quality-matrix-report`
 - inspect governed model-family selection profiles
 - inspect governed model-family challenge review profiles
 - inspect governed model-family comparison profiles
@@ -143,7 +144,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - Run `uv run --extra dev ruff check .` before release-surface review.
 - Run `uv run environmental-fate-mcp-validate` after regenerating schemas, examples, defaults, or release artifacts.
 - External payload imports are limited to shipped adapter fixtures plus directories declared in `FATE_MCP_IMPORT_ROOTS`.
-- Scientific trust diagnostics are available through `defaults://scientific-external-benchmark-pack`, `defaults://default-sensitivity-profiles`, `release://external-validation-benchmark-report`, and `release://default-sensitivity-report`.
+- Scientific trust diagnostics are available through `defaults://scientific-external-benchmark-pack`, `defaults://default-sensitivity-profiles`, `defaults://scientific-evidence-quality-rubric`, `release://external-validation-benchmark-report`, `release://default-sensitivity-report`, and `release://scientific-evidence-quality-matrix-report`.
 - Probabilistic sample manifests are opt-in through `sample_manifest_mode`; keep `summary` for compact audit hashes and use `capped_records` only when row-level sampled-parameter review is needed.
 - Release assets can be verified with GitHub Artifact Attestations when a release includes provenance assets. Use `gh attestation verify <asset> --repo ToxMCP/environmental-fate-mcp` before treating a downloaded wheel or sdist as provenance-linked to the public release workflow.
 - Build and smoke the installable package with `uv build` followed by a clean virtualenv install before publishing. The CI smoke checks startup counts, tool annotations, tool output schemas, packaged release resources, validation demo-pack loading, and packaged adapter fixtures.

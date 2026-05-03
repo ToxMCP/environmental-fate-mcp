@@ -1,6 +1,6 @@
 # Fugacity Equilibrium Screening
 
-Environmental Fate MCP v0.4.0 adds `fugacity_equilibrium_screening` as an experimental, non-default concentration `ModelFamily`.
+Environmental Fate MCP v0.4.0 added `fugacity_equilibrium_screening` as an experimental, non-default concentration `ModelFamily`. The v0.5.0 release preserves that boundary and adds evidence-quality reporting around the public scientific trust surface.
 
 This family is intended for reviewer-facing multimedia partitioning challenges against the reference mass-balance baseline. It is not a general multimedia fate model, not a Level III implementation, not source-engine equivalence to CEMC tools, not calibration evidence, and not regulator acceptance.
 
@@ -21,7 +21,7 @@ Caller-provided scenario parameter records are required for:
 - `henry_law_constant_pa_m3_mol` in `Pa m3/mol`
 - `organic_carbon_partition_coefficient_koc_l_kg` in `L/kg`
 
-Scenario temperature is used in the `R * T` air-capacity term. Henry-law temperature correction is not applied in v0.4.0.
+Scenario temperature is used in the `R * T` air-capacity term. Henry-law temperature correction is not applied in the current experimental fugacity screening kernel.
 
 ## Equations
 

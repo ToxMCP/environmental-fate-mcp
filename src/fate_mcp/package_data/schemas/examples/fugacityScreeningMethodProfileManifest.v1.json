@@ -57,7 +57,7 @@
       "limitations": [
         "Experimental Level I screening assumes equilibrium partitioning across all four active media.",
         "Release entry medium affects scoped mass only; it does not route mass between compartments.",
-        "Uses scenario temperature in R*T but does not apply Henry-law temperature correction in v0.4.0.",
+        "Uses scenario temperature in R*T but does not apply Henry-law temperature correction in the current experimental fugacity screening kernel.",
         "Not Level III, not intermedia-transfer kinetics, not GIS routing, not calibration, not field validation, and not regulator acceptance."
       ],
       "deferred_capabilities": [

@@ -1,5 +1,5 @@
 PACKAGE_NAME = "Environmental Fate MCP"
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 SCHEMA_VERSION = "v1"
 DEFAULTS_VERSION = "v1"
 ALGORITHM_VERSION = "reference-mass-balance-0.1.0"

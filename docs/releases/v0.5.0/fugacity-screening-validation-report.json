@@ -1,0 +1,23 @@
+{
+  "allSurfacesHaveFugacityTimeSemantics": true,
+  "boundaryClear": true,
+  "levelIIInputRateMolDay": 1.6666666666666667,
+  "levelIILossBalanced": true,
+  "levelIITotalDegradationLossMolDay": 1.666666666666667,
+  "levelIMassConserved": true,
+  "levelIRequestedMediaFilterPreservesDenominator": true,
+  "levelIScopedMassMg": 10000000.0,
+  "levelITotalMassMg": 10000000.0,
+  "levelIWaterConcentrationMgM3": 0.01693757196685118,
+  "limitations": [
+    "Fugacity profiles are experimental Level I/II screening descriptions only.",
+    "No Level III, hydrology, routing, calibration, field-validation, WEPP/SWAT/PRZM execution, exposure, risk, or regulator acceptance claim is implied."
+  ],
+  "passed": true,
+  "profileCount": 2,
+  "profileIds": [
+    "fugacity_level_i_equilibrium_v1",
+    "fugacity_level_ii_equilibrium_persistence_v1"
+  ],
+  "profileSourceBacked": true
+}

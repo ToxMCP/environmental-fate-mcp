@@ -45,6 +45,8 @@ from fate_mcp.models import (
     ModelFamilySelectionStatus,
     ScientificReferenceCase,
     ScientificReferenceCaseManifest,
+    ScientificEvidenceQualityRubric,
+    ScientificEvidenceQualityRubricTier,
     ScientificExternalBenchmarkCase,
     ScientificExternalBenchmarkPackManifest,
     ScientificReviewChecklistTemplate,
@@ -163,6 +165,9 @@ class DefaultsRegistry:
         )
         self.default_sensitivity_profiles = _load_json(
             self.version_root / "default_sensitivity_profiles.json"
+        )
+        self.scientific_evidence_quality_rubric = _load_json(
+            self.version_root / "scientific_evidence_quality_rubric.json"
         )
         self.model_family_applicability_profiles = _load_json(
             self.version_root / "model_family_applicability_profiles.json"
@@ -759,6 +764,28 @@ class DefaultsRegistry:
                 for item in self.default_sensitivity_profiles.get("source_references", [])
             ],
             limitations=self.default_sensitivity_profiles.get("limitations", []),
+        )
+
+    def scientific_evidence_quality_rubric_manifest(
+        self,
+    ) -> ScientificEvidenceQualityRubric:
+        tiers = [
+            ScientificEvidenceQualityRubricTier(**payload)
+            for payload in self.scientific_evidence_quality_rubric.get("tiers", [])
+        ]
+        return ScientificEvidenceQualityRubric(
+            defaults_version=self.scientific_evidence_quality_rubric.get(
+                "defaults_version",
+                DEFAULTS_VERSION,
+            ),
+            rubric_version=self.scientific_evidence_quality_rubric["rubric_version"],
+            tier_count=len(tiers),
+            tiers=tiers,
+            source_references=[
+                SourceReference(**item)
+                for item in self.scientific_evidence_quality_rubric.get("source_references", [])
+            ],
+            limitations=self.scientific_evidence_quality_rubric.get("limitations", []),
         )
 
     def model_family_applicability_profile(

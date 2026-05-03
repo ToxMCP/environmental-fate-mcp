@@ -8,6 +8,7 @@ from unittest.mock import patch
 
 from fate_mcp.benchmarks import scientific_validation_claim_coverage_manifest
 from fate_mcp.compat import UTC, datetime
+from fate_mcp.evidence_quality import build_scientific_evidence_quality_matrix_report
 from fate_mcp.integrations import (
     apply_physchem_evidence,
     assess_erosion_sediment_validation_fit,
@@ -272,6 +273,10 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         default_sensitivity_request,
         runtime,
         runtime.provenance,
+    )
+    evidence_quality_rubric = runtime.defaults.scientific_evidence_quality_rubric_manifest()
+    evidence_quality_matrix_report = build_scientific_evidence_quality_matrix_report(
+        runtime.repo_root
     )
     probabilistic_scenario = scenario.model_copy(deep=True)
     probabilistic_scenario.parameter_records = [
@@ -707,6 +712,8 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
         "buildDefaultSensitivityReportRequest.v1": default_sensitivity_request.model_dump(mode="json"),
         "defaultSensitivityReport.v1": default_sensitivity_report.model_dump(mode="json"),
         "defaultSensitivityVariantResult.v1": default_sensitivity_report.variant_results[0].model_dump(mode="json"),
+        "scientificEvidenceQualityRubric.v1": evidence_quality_rubric.model_dump(mode="json"),
+        "scientificEvidenceQualityMatrixReport.v1": evidence_quality_matrix_report.model_dump(mode="json"),
         "buildRunScientificTrustBriefRequest.v1": BuildRunScientificTrustBriefRequest(
             scenario=scenario,
             result=steady_result,

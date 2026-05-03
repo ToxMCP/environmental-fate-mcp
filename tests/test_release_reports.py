@@ -15,6 +15,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "external-validation-benchmark-report" in reports
     assert "default-sensitivity-report" in reports
     assert "fugacity-screening-validation-report" in reports
+    assert "scientific-evidence-quality-matrix-report" in reports
     assert "scientific-validation-narrative" in reports
     assert "benchmark-manifest" in reports
     assert "defaults-rebaseline-report" in reports
@@ -76,6 +77,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["validation-dossier"]["scientificExternalBenchmarkPack"]["passed"] is True
     assert reports["validation-dossier"]["defaultSensitivityProfiles"]["passed"] is True
     assert reports["validation-dossier"]["fugacityScreeningValidation"]["passed"] is True
+    assert reports["validation-dossier"]["scientificEvidenceQualityMatrix"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionReviewWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilyChallengeReviewWorkflow"]["passed"] is True
@@ -122,6 +124,9 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["metadata-report"]["scientificValidationCoveredClaimCount"] >= 10
     assert reports["metadata-report"]["scientificValidationUncoveredMandatoryClaimCount"] == 0
     assert reports["metadata-report"]["scientificReferenceCaseCount"] >= 13
+    assert reports["metadata-report"]["scientificEvidenceQualityMatrixPassed"] is True
+    assert reports["metadata-report"]["scientificEvidenceQualityMatrixClaimRowCount"] == 34
+    assert reports["metadata-report"]["scientificEvidenceQualityMatrixModelFamilyRowCount"] == 5
     assert reports["metadata-report"]["scientificValidationMappedReferenceCaseClaimCount"] >= 16
     assert reports["metadata-report"]["scientificValidationReferenceMandatoryMappedReferenceCaseClaimCount"] >= 10
     assert reports["metadata-report"]["scientificValidationReferenceMandatorySingleReferenceCaseClaimCount"] == 0
@@ -261,7 +266,10 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["default-sensitivity-report"]["profileCount"] == 11
     assert reports["fugacity-screening-validation-report"]["passed"] is True
     assert reports["fugacity-screening-validation-report"]["profileCount"] == 2
-    assert "experimental_fugacity_screening_added" in reports["scientific-validation-narrative"]["status"]
+    assert reports["scientific-evidence-quality-matrix-report"]["passed"] is True
+    assert reports["scientific-evidence-quality-matrix-report"]["claim_row_count"] == 34
+    assert reports["scientific-evidence-quality-matrix-report"]["model_family_row_count"] == 5
+    assert "evidence_quality_matrix_added" in reports["scientific-validation-narrative"]["status"]
     assert reports["red-team-review-report"]["openBlockerCount"] == 0
     assert reports["red-team-review-report"]["unresolvedFindingCount"] == 0
     assert "Scientific Trust Brief" in reports["scientific-trust-brief"]["markdown"]
@@ -273,6 +281,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "## Erosion/Sediment Validation Demo Pack" in reports["scientific-trust-pack"]["markdown"]
     assert "## External Benchmark And Sensitivity Surface" in reports["scientific-trust-pack"]["markdown"]
     assert "## Experimental Fugacity Challenge Path" in reports["scientific-trust-pack"]["markdown"]
+    assert "## Evidence-Quality Matrix" in reports["scientific-trust-pack"]["markdown"]
     assert "## Claim Corroboration" in reports["scientific-trust-pack"]["markdown"]
     assert "scientific-trust-brief-generated" in {
         check["name"] for check in reports["readiness-report"]["checks"]
@@ -304,6 +313,9 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "fugacity-screening-validation-passed" in {
         check["name"] for check in reports["readiness-report"]["checks"]
     }
+    assert "scientific-evidence-quality-matrix-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
     assert {
         "unresolved_default_derivation_gap",
         "uncovered_corroboration_requirement",
@@ -320,6 +332,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
         "scientific_external_benchmark_pack_mismatch",
         "default_sensitivity_profile_drift",
         "fugacity_screening_validation_drift",
+        "scientific_evidence_quality_matrix_drift",
         "unaddressed_red_team_finding",
     }.issubset({item["name"] for item in reports["readiness-report"]["blockerClasses"]})
 
@@ -327,16 +340,16 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
 def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     generate_contract_artifacts(repo_root)
-    bundle_dir = tmp_path / "v0.4.0-test"
-    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.4.0-test")
+    bundle_dir = tmp_path / "v0.5.0-test"
+    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.5.0-test")
     assert result_dir == bundle_dir
 
     manifest = json.loads((bundle_dir / "release-bundle-manifest.json").read_text())
-    assert manifest["version"] == "0.4.0"
-    assert manifest["releaseRef"] == "v0.4.0-test"
+    assert manifest["version"] == "0.5.0"
+    assert manifest["releaseRef"] == "v0.5.0-test"
 
     release_notes = (bundle_dir / "release-notes.md").read_text()
-    assert "# Environmental Fate MCP v0.4.0-test" in release_notes
+    assert "# Environmental Fate MCP v0.5.0-test" in release_notes
     assert "Release status: `ready_for_screening_release`" in release_notes
     assert "Machine-readable release reports are published" in release_notes
 
@@ -362,6 +375,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     assert (bundle_dir / "external-validation-benchmark-report.json").exists()
     assert (bundle_dir / "default-sensitivity-report.json").exists()
     assert (bundle_dir / "fugacity-screening-validation-report.json").exists()
+    assert (bundle_dir / "scientific-evidence-quality-matrix-report.json").exists()
     assert (bundle_dir / "scientific-validation-narrative.json").exists()
 
     for item in manifest["files"]:
@@ -382,7 +396,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
         for path in bundle_dir.rglob("*")
         if path.is_file()
     }
-    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.4.0-test")
+    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.5.0-test")
     second_pass = {
         str(path.relative_to(bundle_dir)): path.read_text()
         for path in bundle_dir.rglob("*")

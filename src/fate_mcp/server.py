@@ -1445,6 +1445,7 @@ def prompt_review_release_trust_for_screening(
         "- `release://erosion-sediment-validation-demo-report`\n"
         "- `release://external-validation-benchmark-report`\n"
         "- `release://default-sensitivity-report`\n"
+        "- `release://scientific-evidence-quality-matrix-report`\n"
         "- `release://scientific-validation-narrative`\n"
         "- `docs://scientific-trust-pack`\n"
         "- `release://red-team-review-report`\n"
@@ -1914,6 +1915,11 @@ def defaults_default_sensitivity_profiles() -> str:
     return DEFAULTS.default_sensitivity_profile_manifest().model_dump_json(indent=2)
 
 
+@mcp.resource("defaults://scientific-evidence-quality-rubric")
+def defaults_scientific_evidence_quality_rubric() -> str:
+    return DEFAULTS.scientific_evidence_quality_rubric_manifest().model_dump_json(indent=2)
+
+
 @mcp.resource("defaults://temperature-correction-policy")
 def defaults_temperature_correction_policy() -> str:
     policy = DEFAULTS.temperature_correction_policy()
@@ -2185,6 +2191,15 @@ def release_resource(report_name: str) -> str:
         return json.dumps(prebuilt, indent=2)
     reports = build_release_reports(REPO_ROOT)
     return json.dumps(reports[report_name], indent=2)
+
+
+@mcp.resource("release://scientific-evidence-quality-matrix-report")
+def release_scientific_evidence_quality_matrix_report() -> str:
+    prebuilt = _prebuilt_release_report("scientific-evidence-quality-matrix-report")
+    if prebuilt is not None:
+        return json.dumps(prebuilt, indent=2)
+    reports = build_release_reports(REPO_ROOT)
+    return json.dumps(reports["scientific-evidence-quality-matrix-report"], indent=2)
 
 
 @mcp.resource("release://resource-manifest")

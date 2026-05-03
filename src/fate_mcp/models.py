@@ -407,6 +407,117 @@ class ScientificProofPosture(str, Enum):
     NORMALIZATION_PARITY_LANE = "normalization_parity_lane"
 
 
+class ScientificEvidenceTrustTier(str, Enum):
+    REVIEWER_GRADE_SCREENING = "reviewer_grade_screening"
+    SOURCE_GROUNDED_SCREENING = "source_grounded_screening"
+    INTERNAL_ORACLE_SCREENING = "internal_oracle_screening"
+    SYNTHETIC_DEMO_ONLY = "synthetic_demo_only"
+    DEFERRED_OR_GAP = "deferred_or_gap"
+
+
+class ScientificEvidenceQualityRubricTier(FateBaseModel):
+    tier: ScientificEvidenceTrustTier
+    display_name: str
+    description: str
+    minimum_conditions: list[str] = Field(default_factory=list)
+    boundary_lines: list[str] = Field(default_factory=list)
+    next_action_template: str
+
+    @field_validator("display_name", "description", "next_action_template")
+    @classmethod
+    def validate_required_rubric_text(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} must not be blank")
+        return value.strip()
+
+
+class ScientificEvidenceQualityRubric(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    rubric_version: str
+    tier_count: int = Field(ge=0)
+    tiers: list[ScientificEvidenceQualityRubricTier]
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_tier_count(self) -> "ScientificEvidenceQualityRubric":
+        if self.tier_count != len(self.tiers):
+            raise ValueError("tier_count must match tiers length")
+        if len({tier.tier for tier in self.tiers}) != len(self.tiers):
+            raise ValueError("rubric tiers must be unique")
+        return self
+
+
+class ScientificEvidenceQualityMatrixClaimRow(FateBaseModel):
+    row_id: str
+    row_type: str = Field(default="claim")
+    claim_id: str
+    display_name: str
+    model_family: ModelFamily
+    priority: ScientificValidationClaimPriority
+    mandatory_for_release: bool
+    trust_tier: ScientificEvidenceTrustTier
+    covered: bool
+    support_strength: ScientificClaimSupportStrength
+    supporting_validation_tiers: list[str] = Field(default_factory=list)
+    supporting_reference_types: list[str] = Field(default_factory=list)
+    supporting_fixture_names: list[str] = Field(default_factory=list)
+    benchmark_classifications: list[ScientificBenchmarkCaseClassification] = Field(
+        default_factory=list
+    )
+    official_source_count: int = Field(ge=0)
+    jurisdiction_breadth: ScientificCorroborationJurisdictionBreadth
+    corroboration_status: ScientificExternalCorroborationStatus
+    field_validation_present: bool = False
+    calibration_claim_present: bool = False
+    regulatory_acceptance_claim_present: bool = False
+    source_engine_equivalence_claim_present: bool = False
+    limitations: list[str] = Field(default_factory=list)
+    next_corroboration_action: str
+
+
+class ScientificEvidenceQualityMatrixModelFamilyRow(FateBaseModel):
+    row_id: str
+    row_type: str = Field(default="model_family")
+    model_family: ModelFamily
+    proof_posture: str
+    trust_tier: ScientificEvidenceTrustTier
+    claim_count: int = Field(ge=0)
+    high_or_medium_claim_count: int = Field(ge=0)
+    supported: bool
+    experimental: bool
+    field_validation_present: bool = False
+    calibration_claim_present: bool = False
+    regulatory_acceptance_claim_present: bool = False
+    source_engine_equivalence_claim_present: bool = False
+    limitations: list[str] = Field(default_factory=list)
+    next_corroboration_action: str
+
+
+class ScientificEvidenceQualityMatrixReport(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    release_version: str
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    rubric_version: str
+    claim_row_count: int = Field(ge=0)
+    model_family_row_count: int = Field(ge=0)
+    claim_rows: list[ScientificEvidenceQualityMatrixClaimRow]
+    model_family_rows: list[ScientificEvidenceQualityMatrixModelFamilyRow]
+    trust_tier_counts: dict[ScientificEvidenceTrustTier, int] = Field(default_factory=dict)
+    passed: bool
+    limitations: list[str] = Field(default_factory=list)
+    summary_lines: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_row_counts(self) -> "ScientificEvidenceQualityMatrixReport":
+        if self.claim_row_count != len(self.claim_rows):
+            raise ValueError("claim_row_count must match claim_rows length")
+        if self.model_family_row_count != len(self.model_family_rows):
+            raise ValueError("model_family_row_count must match model_family_rows length")
+        return self
+
+
 class ScientificValidationClaim(FateBaseModel):
     claim_id: str
     display_name: str

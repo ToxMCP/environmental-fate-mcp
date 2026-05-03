@@ -249,7 +249,7 @@
         "All four active media contribute to the fugacity denominator even when requested_media filters returned surfaces.",
         "Level I assumes equilibrium partitioning without loss; Level II assumes equilibrium partitioning with first-order degradation losses only.",
         "Release entry medium affects scoped mass/rate only and does not route mass between compartments.",
-        "Scenario temperature is used in R*T; Henry law temperature correction is not applied in v0.4.0."
+        "Scenario temperature is used in R*T; Henry law temperature correction is not applied in the current experimental fugacity screening kernel."
       ],
       "deferredCapabilities": [
         "Level III non-equilibrium intermedia transfer",

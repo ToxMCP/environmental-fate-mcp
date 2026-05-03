@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-05-03
+
+### Added
+- Governed scientific evidence-quality rubric exposed at `defaults://scientific-evidence-quality-rubric`.
+- Claim-by-claim and model-family evidence-quality matrix exposed at `release://scientific-evidence-quality-matrix-report`.
+- Public evidence-quality matrix guide and release-gated validator checks for false field-validation, calibration, regulatory-acceptance, and source-engine-equivalence claims.
+
+### Changed
+- Release metadata now reports evidence-quality matrix claim rows and model-family posture rows.
+- Scientific trust pack, trust brief, public release guide, validation framework, operator guide, and applicability docs now include evidence-quality matrix interpretation.
+
+## [0.4.0] - 2026-05-03
+
+### Added
+- Experimental non-default `fugacity_equilibrium_screening` model family for Level I/II equilibrium screening challenge review.
+- Governed fugacity method profiles, validation report, prompt guidance, reference cases, benchmark support, and sensitivity profiles.
+
+### Changed
+- Public trust artifacts now describe fugacity screening as experimental Level I/II only, not Level III, routing, calibration, source-engine equivalence, field validation, or regulator acceptance.
+
 ## [0.3.1] - 2026-05-01
 
 ### Added

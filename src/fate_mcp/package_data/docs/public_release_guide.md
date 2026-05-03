@@ -1,10 +1,10 @@
 # Public Release Guide
 
-This guide describes the public `v0.4.0` release-preparation posture for Environmental Fate MCP.
+This guide describes the public `v0.5.0` release-preparation posture for Environmental Fate MCP.
 
 ## Release Boundary
 
-Environmental Fate MCP is released as a bounded environmental concentration-screening MCP. It supports deterministic and bounded probabilistic concentration workflows, scientific review artifacts, regulatory handoff packaging, governed external-result normalization, scalar erosion/sediment screening, inline validation QA, governed benchmark replay, deterministic default sensitivity reporting, optional probabilistic sample manifests, and an experimental non-default Level I/II fugacity equilibrium screening challenge family.
+Environmental Fate MCP is released as a bounded environmental concentration-screening MCP. It supports deterministic and bounded probabilistic concentration workflows, scientific review artifacts, regulatory handoff packaging, governed external-result normalization, scalar erosion/sediment screening, inline validation QA, governed benchmark replay, deterministic default sensitivity reporting, optional probabilistic sample manifests, a governed evidence-quality matrix, and an experimental non-default Level I/II fugacity equilibrium screening challenge family.
 
 The public release does not claim regulator acceptance, submission approval, final exposure or risk assessment, source-engine equivalence, Level III fugacity intermedia transfer, hydrology generation, calibration, spatial routing, catchment validation, SWAT/PRZM execution, or native WEPP execution.
 
@@ -28,8 +28,9 @@ These cases demonstrate the mechanics and interpretation of the scalar validatio
 
 The governed external benchmark pack is exposed at `defaults://scientific-external-benchmark-pack`, with release results at `release://external-validation-benchmark-report`.
 The governed default sensitivity profiles are exposed at `defaults://default-sensitivity-profiles`, with release results at `release://default-sensitivity-report`.
+The governed evidence-quality rubric is exposed at `defaults://scientific-evidence-quality-rubric`, with the claim-by-claim release matrix at `release://scientific-evidence-quality-matrix-report`.
 
-These artifacts improve deterministic screening corroboration and assumption transparency. They are not field validation, calibration, source-engine equivalence, global sensitivity analysis, or regulator acceptance.
+These artifacts improve deterministic screening corroboration, assumption transparency, and reviewer orientation. They are not field validation, calibration, source-engine equivalence, global sensitivity analysis, or regulator acceptance.
 
 ## Fugacity Screening
 
@@ -56,7 +57,7 @@ The workflow builds the wheel and source distribution from the tagged commit, up
 Reviewers can verify downloaded assets with:
 
 ```bash
-gh attestation verify environmental_fate_mcp-0.4.0-py3-none-any.whl \
+gh attestation verify environmental_fate_mcp-0.5.0-py3-none-any.whl \
   --repo ToxMCP/environmental-fate-mcp
 ```
 
@@ -81,4 +82,4 @@ Then install the built wheel into a clean Python 3.12 virtual environment and ve
 
 ## Tagging Posture
 
-This repository can be prepared for `v0.4.0` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete. After publishing the GitHub release, wait for the release-provenance workflow to upload assets and attestations before broad announcement.
+This repository can be prepared for `v0.5.0` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete. After publishing the GitHub release, wait for the release-provenance workflow to upload assets and attestations before broad announcement.

@@ -292,13 +292,13 @@ class FugacityEquilibriumScreeningPlugin:
                 "soil_organic_carbon_fraction",
                 soil_foc,
                 "fraction",
-                "Governed v0.4.0 fugacity screening soil organic-carbon fraction.",
+                "Governed fugacity screening soil organic-carbon fraction.",
             ),
             self.provenance_builder.derived(
                 "sediment_organic_carbon_fraction",
                 sediment_foc,
                 "fraction",
-                "Governed v0.4.0 fugacity screening sediment organic-carbon fraction.",
+                "Governed fugacity screening sediment organic-carbon fraction.",
             ),
         ]
         terms: dict[Media, dict[str, float]] = {}
@@ -448,7 +448,7 @@ class FugacityEquilibriumScreeningPlugin:
             notes=[
                 "Fugacity screening uses all four active media in the partition denominator.",
                 "requested_media filters returned surfaces only and does not alter equilibrium partitioning.",
-                "Scenario temperature is used in R*T; Henry law temperature correction is not applied in v0.4.0.",
+                "Scenario temperature is used in R*T; Henry law temperature correction is not applied in the current experimental fugacity screening kernel.",
                 "Release entry medium does not affect equilibrium partitioning in this experimental family.",
             ],
         )
@@ -482,7 +482,7 @@ class FugacityEquilibriumScreeningPlugin:
                     code="henry_temperature_correction_not_applied",
                     message=(
                         "Scenario temperature is used in R*T, but Henry law temperature correction is not "
-                        "applied in v0.4.0."
+                        "applied in the current experimental fugacity screening kernel."
                     ),
                 ),
             ]
@@ -497,7 +497,10 @@ class FugacityEquilibriumScreeningPlugin:
         if run_options.run_mode != RunMode.STEADY_STATE:
             raise FateValidationError(
                 code="fugacity_screening_time_bucket_unsupported",
-                message="Fugacity equilibrium screening supports steady_state mode only in v0.4.0.",
+                message=(
+                    "Fugacity equilibrium screening supports steady_state mode only in the "
+                    "current experimental screening kernel."
+                ),
                 suggestion="Use run_mode=steady_state, or keep the reference family for time-bucket screening.",
             )
         molecular_weight, henry, koc, physchem_assumptions, parameter_quality_flags = (

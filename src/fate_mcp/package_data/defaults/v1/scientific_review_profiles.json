@@ -344,7 +344,7 @@
       "warningSeverityPromotesQualification": true,
       "acceptableOutcomeTemplate": "Use the fugacity run only as experimental equilibrium partitioning screening support inside the declared boundary.",
       "qualifiedOutcomeTemplate": "Use the fugacity run only with explicit qualification notes because physchem, equilibrium, or default caveats remain material.",
-      "escalationOutcomeTemplate": "Escalate beyond v0.4.0 fugacity screening when Level III transfer, routing, calibration, field validation, or decision-facing model adequacy is required.",
+      "escalationOutcomeTemplate": "Escalate beyond the current experimental fugacity screening kernel when Level III transfer, routing, calibration, field validation, or decision-facing model adequacy is required.",
       "driverActionTemplates": {
         "heuristic_parameter": "Replace heuristic physchem inputs with measured or higher-confidence evidence where feasible.",
         "unsupported_runtime_parameter": "Do not treat unsupported descriptors as if they were used by the fugacity runtime.",

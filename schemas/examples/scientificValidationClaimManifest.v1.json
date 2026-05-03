@@ -2074,7 +2074,7 @@
         "screening",
         "benchmark"
       ],
-      "statement": "The fugacity family explicitly limits v0.4.0 execution to Level I/II equilibrium screening and defers Level III intermedia-transfer, routing, and calibration claims.",
+      "statement": "The fugacity family explicitly limits current execution to Level I/II equilibrium screening and defers Level III intermedia-transfer, routing, and calibration claims.",
       "claim_class": "fugacity_boundary_claim",
       "priority": "medium",
       "mandatory_for_release": false,
@@ -2116,7 +2116,7 @@
         "oecd_multimedia_persistence_screening_case_family_v1"
       ],
       "methods_basis_lines": [
-        "Level III is documented as a separate non-equilibrium model class and is not implemented in v0.4.0."
+        "Level III is documented as a separate non-equilibrium model class and is not implemented in the current experimental fugacity screening kernel."
       ],
       "reference_case_lines": [
         "Grounded to CEMC Level III boundary wording and EPA model-use transparency guidance."

@@ -33,12 +33,12 @@
     },
     {
       "path": "defaults/v1/fugacity_screening_method_profiles.json",
-      "sha256": "e8f60427658ef3c151d2dcf3b33dab513496e8983c4958a99996382f0f7e09a6",
+      "sha256": "b93f7887b7b316df0fb1bba1624b1041c4bccb59d36f50b482f7d4ae69578731",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/model_family_applicability_profiles.json",
-      "sha256": "26e934f7c65bd6f00b2be6616f0e89ab19e7c0a67b41a55c16c27377be35b99c",
+      "sha256": "d1c43b7eddc7957100aaecdfb9b1b7fd12891f1c8718d84c8bd402e203581957",
       "defaultsVersion": "v1"
     },
     {
@@ -77,6 +77,11 @@
       "defaultsVersion": "v1"
     },
     {
+      "path": "defaults/v1/scientific_evidence_quality_rubric.json",
+      "sha256": "c73801401634282578d7f9e63b96dc9bea4a9685b187b227a7073edba9bf7912",
+      "defaultsVersion": "v1"
+    },
+    {
       "path": "defaults/v1/scientific_external_benchmark_pack.json",
       "sha256": "f940446d73cdacb401687fb610a22bda0d8a65b2b67d3489ad8aa72bf56f39e0",
       "defaultsVersion": "v1"
@@ -88,12 +93,12 @@
     },
     {
       "path": "defaults/v1/scientific_review_profiles.json",
-      "sha256": "3d3fe8ce5afc7729d8827f83dfa9d0cdee3b03be96d280ac6bd844240fd9a816",
+      "sha256": "ae520cd809d8a5d5bffdc0c31fb64eeb0be9295a2422d8f7f27b2eeb60e683b4",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/scientific_validation_claims.json",
-      "sha256": "9be9bf794670f4da048806757cd8be8539b9395b99a36d8214d8fe5f0fc2b45e",
+      "sha256": "ec9ebb0e23f9592d46c226b1ceaa20e1bf56be4163438d0f3eed48dfb719a7b4",
       "defaultsVersion": "v1"
     },
     {

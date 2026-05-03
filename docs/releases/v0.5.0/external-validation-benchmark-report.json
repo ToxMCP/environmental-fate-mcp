@@ -1,0 +1,98 @@
+{
+  "boundaryClear": true,
+  "caseCount": 8,
+  "caseResults": [
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "reference_water_closed_form_internal_oracle_v1",
+      "classification": "internal_oracle",
+      "expectedValue": 8.415721071852286e-06,
+      "observedValue": 8.415721071852286e-06,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_multimedia_concentrations"
+    },
+    {
+      "absoluteError": 1.7763568394002505e-15,
+      "benchmarkCaseId": "rusle_usda_equation_scalar_public_v1",
+      "classification": "official_worked_example",
+      "expectedValue": 6.4512,
+      "observedValue": 6.451200000000002,
+      "passed": true,
+      "relativeError": 2.753529326947313e-16,
+      "replayTool": "fate_estimate_soil_loss_rusle"
+    },
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "musle_hec_hms_metric_scalar_public_v1",
+      "classification": "official_worked_example",
+      "expectedValue": 43.92290413655426,
+      "observedValue": 43.92290413655426,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_event_sediment_yield_musle"
+    },
+    {
+      "absoluteError": 4.336808689942018e-19,
+      "benchmarkCaseId": "sediment_load_dimensional_bridge_open_reference_v1",
+      "classification": "open_literature_reference",
+      "expectedValue": 0.00328125,
+      "observedValue": 0.0032812499999999994,
+      "passed": true,
+      "relativeError": 1.3216940769347102e-16,
+      "replayTool": "fate_estimate_sediment_associated_chemical_load"
+    },
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "fugacity_level_i_air_partition_internal_oracle_v1",
+      "classification": "internal_oracle",
+      "expectedValue": 6.832539557802613e-06,
+      "observedValue": 6.832539557802613e-06,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_multimedia_concentrations"
+    },
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "fugacity_level_i_water_partition_public_method_v1",
+      "classification": "open_literature_reference",
+      "expectedValue": 0.01693757196685118,
+      "observedValue": 0.01693757196685118,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_multimedia_concentrations"
+    },
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "fugacity_level_i_soil_koc_partition_internal_oracle_v1",
+      "classification": "internal_oracle",
+      "expectedValue": 0.0003387514393370236,
+      "observedValue": 0.0003387514393370236,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_multimedia_concentrations"
+    },
+    {
+      "absoluteError": 0.0,
+      "benchmarkCaseId": "fugacity_level_ii_water_loss_balance_internal_oracle_v1",
+      "classification": "internal_oracle",
+      "expectedValue": 0.01332475839396872,
+      "observedValue": 0.01332475839396872,
+      "passed": true,
+      "relativeError": 0.0,
+      "replayTool": "fate_estimate_multimedia_concentrations"
+    }
+  ],
+  "classifications": [
+    "internal_oracle",
+    "official_worked_example",
+    "open_literature_reference"
+  ],
+  "limitations": [
+    "Cases with official-source grounding replay public equation forms or model-evaluation concepts using Environmental Fate MCP scalar inputs; they are not copied proprietary datasets.",
+    "Fugacity benchmark cases are deterministic screening oracles, not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III validation, routing validation, or WEPP validation.",
+    "It is not field validation, calibration evidence, source-engine equivalence, regulator acceptance, spatial routing evidence, hydrology generation evidence, or WEPP validation.",
+    "This pack contains deterministic screening benchmarks and corroboration cases only."
+  ],
+  "passed": true
+}

@@ -2987,7 +2987,7 @@ BENCHMARK_FIXTURES = [
         "name": "fugacity_level_i_public_method_boundary_fixture",
         "category": "fugacity_equilibrium_screening",
         "validation_tier": "source_backed_method",
-        "scientific_basis": "CEMC Level I describes equilibrium partitioning without in/out flows or degrading reactions; this fixture anchors the public method boundary for v0.4.0 screening.",
+        "scientific_basis": "CEMC Level I describes equilibrium partitioning without in/out flows or degrading reactions; this fixture anchors the current public method boundary for fugacity screening.",
         "reference_type": "public_method_description",
         "expected_behavior": "Requested media filters the returned water surface without changing the all-media equilibrium denominator.",
         "tolerance_rationale": "The public-method fixture is deterministic and uses the same denominator as the all-media Level I oracle.",

@@ -203,7 +203,10 @@ class FateRuntime:
         ):
             raise FateValidationError(
                 code="fugacity_screening_time_bucket_unsupported",
-                message="Fugacity equilibrium screening supports steady_state mode only in v0.4.0.",
+                message=(
+                    "Fugacity equilibrium screening supports steady_state mode only in the "
+                    "current experimental screening kernel."
+                ),
                 suggestion="Use run_mode=steady_state, or keep the reference family for time-bucket screening.",
             )
         plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)

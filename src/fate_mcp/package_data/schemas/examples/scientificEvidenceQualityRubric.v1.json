@@ -1,0 +1,109 @@
+{
+  "schema_version": "v1",
+  "defaults_version": "v1",
+  "rubric_version": "scientific-evidence-quality-rubric-v1",
+  "tier_count": 5,
+  "tiers": [
+    {
+      "tier": "reviewer_grade_screening",
+      "display_name": "Reviewer-grade screening",
+      "description": "Claim is covered by deterministic fixtures, source references, multi-anchor support, and reviewer-facing limitations strong enough for bounded screening release review.",
+      "minimum_conditions": [
+        "Claim is covered by the governed scientific-claim coverage manifest.",
+        "Claim has source references, methods-basis lines, and reference-case lines.",
+        "Mandatory reference-family claims meet the multi-anchor, multi-tier, multi-official-source bar.",
+        "No row claims field validation, calibration adequacy, regulatory acceptance, or source-engine equivalence."
+      ],
+      "boundary_lines": [
+        "Reviewer-grade screening is still screening evidence, not regulator acceptance.",
+        "This tier does not imply site calibration, field validation, hydrology routing, fugacity Level III realism, or endpoint risk adequacy."
+      ],
+      "next_action_template": "Maintain dual-source references, deterministic fixtures, generated worksheet artifacts, and non-author review on each release."
+    },
+    {
+      "tier": "source_grounded_screening",
+      "display_name": "Source-grounded screening",
+      "description": "Claim is covered and source-backed, but remains experimental, challenge-path, or otherwise below the reviewer-grade reference anchor bar.",
+      "minimum_conditions": [
+        "Claim is covered by at least one governed support fixture.",
+        "Claim has source references or official-source grounding.",
+        "Limitations and next corroboration actions are explicit.",
+        "Experimental families remain non-default and non-promoted."
+      ],
+      "boundary_lines": [
+        "Source-grounded screening is corroboration, not field validation or calibration evidence.",
+        "Experimental model families require stronger independent benchmarks before promotion."
+      ],
+      "next_action_template": "Add redistributable worked examples, independent benchmark references, and reviewer worksheets before considering promotion."
+    },
+    {
+      "tier": "internal_oracle_screening",
+      "display_name": "Internal-oracle screening",
+      "description": "Claim is internally reproducible or normalization-parity checked, but external scientific corroboration is limited or intentionally out of scope.",
+      "minimum_conditions": [
+        "Deterministic internal fixture or normalization-parity support exists.",
+        "External model/source-engine equivalence is not claimed.",
+        "The row identifies the missing external corroboration path."
+      ],
+      "boundary_lines": [
+        "Internal oracles verify repo behavior, not external model correctness.",
+        "Adapter normalization parity does not validate upstream source-engine calculations."
+      ],
+      "next_action_template": "Add independent source-grounded examples or external-engine comparison cases before increasing trust tier."
+    },
+    {
+      "tier": "synthetic_demo_only",
+      "display_name": "Synthetic demo only",
+      "description": "Evidence is useful for reviewer orientation, workflow QA, or expected classification checks, but it is explicitly synthetic.",
+      "minimum_conditions": [
+        "Synthetic-demo status is explicit in the governed artifact.",
+        "No field-validation, calibration, regulatory-acceptance, or source-engine-equivalence claim is made."
+      ],
+      "boundary_lines": [
+        "Synthetic demos are not empirical validation datasets.",
+        "Synthetic demos should not be used as evidence of scientific adequacy beyond workflow behavior."
+      ],
+      "next_action_template": "Keep synthetic demos separated from benchmark and field-evidence packs; add real redistributable data only through a separate governed evidence layer."
+    },
+    {
+      "tier": "deferred_or_gap",
+      "display_name": "Deferred or gap",
+      "description": "Capability is intentionally deferred, unsupported by claim-level evidence, or present only as a boundary/documentation lane.",
+      "minimum_conditions": [
+        "The gap or deferred boundary is explicit.",
+        "The row avoids decision-facing scientific claims.",
+        "The next action is concrete enough for a future release plan."
+      ],
+      "boundary_lines": [
+        "Deferred rows are not failures when they are honest and fail closed.",
+        "Deferred rows must not be presented as validated model capability."
+      ],
+      "next_action_template": "Define the missing evidence, validation, or implementation tranche before treating this row as usable scientific capability."
+    }
+  ],
+  "source_references": [
+    {
+      "source_id": "epa.environmental_models_guidance",
+      "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+      "effective_date": null,
+      "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+    },
+    {
+      "source_id": "oecd.pov_lrtp_screening_tool",
+      "title": "OECD Pov and LRTP Screening Tool",
+      "effective_date": null,
+      "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+    },
+    {
+      "source_id": "cemc.evaluative_fugacity_models",
+      "title": "CEMC Evaluative Level I, II and III Fugacity Models",
+      "effective_date": null,
+      "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+    }
+  ],
+  "limitations": [
+    "This rubric grades evidence posture for bounded screening release review only.",
+    "It does not establish regulator acceptance, field validation, source-engine equivalence, calibration adequacy, or full multimedia fate realism.",
+    "Rows may legitimately remain deferred when the public release intentionally excludes hydrology generation, GIS/catchment routing, WEPP/SWAT/PRZM execution, calibration, Level III transfer, or endpoint risk decisions."
+  ]
+}

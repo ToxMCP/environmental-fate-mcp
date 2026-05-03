@@ -1,0 +1,373 @@
+{
+  "$defs": {
+    "ModelFamily": {
+      "enum": [
+        "reference_mass_balance",
+        "advective_screening_mass_balance",
+        "fugacity_equilibrium_screening",
+        "adapter_stub",
+        "external_result_adapter"
+      ],
+      "title": "ModelFamily",
+      "type": "string"
+    },
+    "ScientificBenchmarkCaseClassification": {
+      "enum": [
+        "internal_oracle",
+        "official_worked_example",
+        "open_literature_reference",
+        "field_observation"
+      ],
+      "title": "ScientificBenchmarkCaseClassification",
+      "type": "string"
+    },
+    "ScientificClaimSupportStrength": {
+      "enum": [
+        "uncovered",
+        "single_anchor",
+        "multi_anchor_single_tier",
+        "multi_anchor_multi_tier"
+      ],
+      "title": "ScientificClaimSupportStrength",
+      "type": "string"
+    },
+    "ScientificCorroborationJurisdictionBreadth": {
+      "enum": [
+        "none",
+        "single_jurisdiction",
+        "multi_jurisdiction"
+      ],
+      "title": "ScientificCorroborationJurisdictionBreadth",
+      "type": "string"
+    },
+    "ScientificEvidenceQualityMatrixClaimRow": {
+      "additionalProperties": false,
+      "properties": {
+        "row_id": {
+          "title": "Row Id",
+          "type": "string"
+        },
+        "row_type": {
+          "default": "claim",
+          "title": "Row Type",
+          "type": "string"
+        },
+        "claim_id": {
+          "title": "Claim Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "priority": {
+          "$ref": "#/$defs/ScientificValidationClaimPriority"
+        },
+        "mandatory_for_release": {
+          "title": "Mandatory For Release",
+          "type": "boolean"
+        },
+        "trust_tier": {
+          "$ref": "#/$defs/ScientificEvidenceTrustTier"
+        },
+        "covered": {
+          "title": "Covered",
+          "type": "boolean"
+        },
+        "support_strength": {
+          "$ref": "#/$defs/ScientificClaimSupportStrength"
+        },
+        "supporting_validation_tiers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supporting Validation Tiers",
+          "type": "array"
+        },
+        "supporting_reference_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supporting Reference Types",
+          "type": "array"
+        },
+        "supporting_fixture_names": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Supporting Fixture Names",
+          "type": "array"
+        },
+        "benchmark_classifications": {
+          "items": {
+            "$ref": "#/$defs/ScientificBenchmarkCaseClassification"
+          },
+          "title": "Benchmark Classifications",
+          "type": "array"
+        },
+        "official_source_count": {
+          "minimum": 0,
+          "title": "Official Source Count",
+          "type": "integer"
+        },
+        "jurisdiction_breadth": {
+          "$ref": "#/$defs/ScientificCorroborationJurisdictionBreadth"
+        },
+        "corroboration_status": {
+          "$ref": "#/$defs/ScientificExternalCorroborationStatus"
+        },
+        "field_validation_present": {
+          "default": false,
+          "title": "Field Validation Present",
+          "type": "boolean"
+        },
+        "calibration_claim_present": {
+          "default": false,
+          "title": "Calibration Claim Present",
+          "type": "boolean"
+        },
+        "regulatory_acceptance_claim_present": {
+          "default": false,
+          "title": "Regulatory Acceptance Claim Present",
+          "type": "boolean"
+        },
+        "source_engine_equivalence_claim_present": {
+          "default": false,
+          "title": "Source Engine Equivalence Claim Present",
+          "type": "boolean"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "next_corroboration_action": {
+          "title": "Next Corroboration Action",
+          "type": "string"
+        }
+      },
+      "required": [
+        "row_id",
+        "claim_id",
+        "display_name",
+        "model_family",
+        "priority",
+        "mandatory_for_release",
+        "trust_tier",
+        "covered",
+        "support_strength",
+        "official_source_count",
+        "jurisdiction_breadth",
+        "corroboration_status",
+        "next_corroboration_action"
+      ],
+      "title": "ScientificEvidenceQualityMatrixClaimRow",
+      "type": "object"
+    },
+    "ScientificEvidenceQualityMatrixModelFamilyRow": {
+      "additionalProperties": false,
+      "properties": {
+        "row_id": {
+          "title": "Row Id",
+          "type": "string"
+        },
+        "row_type": {
+          "default": "model_family",
+          "title": "Row Type",
+          "type": "string"
+        },
+        "model_family": {
+          "$ref": "#/$defs/ModelFamily"
+        },
+        "proof_posture": {
+          "title": "Proof Posture",
+          "type": "string"
+        },
+        "trust_tier": {
+          "$ref": "#/$defs/ScientificEvidenceTrustTier"
+        },
+        "claim_count": {
+          "minimum": 0,
+          "title": "Claim Count",
+          "type": "integer"
+        },
+        "high_or_medium_claim_count": {
+          "minimum": 0,
+          "title": "High Or Medium Claim Count",
+          "type": "integer"
+        },
+        "supported": {
+          "title": "Supported",
+          "type": "boolean"
+        },
+        "experimental": {
+          "title": "Experimental",
+          "type": "boolean"
+        },
+        "field_validation_present": {
+          "default": false,
+          "title": "Field Validation Present",
+          "type": "boolean"
+        },
+        "calibration_claim_present": {
+          "default": false,
+          "title": "Calibration Claim Present",
+          "type": "boolean"
+        },
+        "regulatory_acceptance_claim_present": {
+          "default": false,
+          "title": "Regulatory Acceptance Claim Present",
+          "type": "boolean"
+        },
+        "source_engine_equivalence_claim_present": {
+          "default": false,
+          "title": "Source Engine Equivalence Claim Present",
+          "type": "boolean"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "next_corroboration_action": {
+          "title": "Next Corroboration Action",
+          "type": "string"
+        }
+      },
+      "required": [
+        "row_id",
+        "model_family",
+        "proof_posture",
+        "trust_tier",
+        "claim_count",
+        "high_or_medium_claim_count",
+        "supported",
+        "experimental",
+        "next_corroboration_action"
+      ],
+      "title": "ScientificEvidenceQualityMatrixModelFamilyRow",
+      "type": "object"
+    },
+    "ScientificEvidenceTrustTier": {
+      "enum": [
+        "reviewer_grade_screening",
+        "source_grounded_screening",
+        "internal_oracle_screening",
+        "synthetic_demo_only",
+        "deferred_or_gap"
+      ],
+      "title": "ScientificEvidenceTrustTier",
+      "type": "string"
+    },
+    "ScientificExternalCorroborationStatus": {
+      "enum": [
+        "none",
+        "single_official_source",
+        "multi_official_single_jurisdiction",
+        "multi_official_multi_jurisdiction"
+      ],
+      "title": "ScientificExternalCorroborationStatus",
+      "type": "string"
+    },
+    "ScientificValidationClaimPriority": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "title": "ScientificValidationClaimPriority",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "release_version": {
+      "title": "Release Version",
+      "type": "string"
+    },
+    "defaults_version": {
+      "default": "v1",
+      "title": "Defaults Version",
+      "type": "string"
+    },
+    "rubric_version": {
+      "title": "Rubric Version",
+      "type": "string"
+    },
+    "claim_row_count": {
+      "minimum": 0,
+      "title": "Claim Row Count",
+      "type": "integer"
+    },
+    "model_family_row_count": {
+      "minimum": 0,
+      "title": "Model Family Row Count",
+      "type": "integer"
+    },
+    "claim_rows": {
+      "items": {
+        "$ref": "#/$defs/ScientificEvidenceQualityMatrixClaimRow"
+      },
+      "title": "Claim Rows",
+      "type": "array"
+    },
+    "model_family_rows": {
+      "items": {
+        "$ref": "#/$defs/ScientificEvidenceQualityMatrixModelFamilyRow"
+      },
+      "title": "Model Family Rows",
+      "type": "array"
+    },
+    "trust_tier_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "propertyNames": {
+        "$ref": "#/$defs/ScientificEvidenceTrustTier"
+      },
+      "title": "Trust Tier Counts",
+      "type": "object"
+    },
+    "passed": {
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "summary_lines": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Summary Lines",
+      "type": "array"
+    }
+  },
+  "required": [
+    "release_version",
+    "rubric_version",
+    "claim_row_count",
+    "model_family_row_count",
+    "claim_rows",
+    "model_family_rows",
+    "passed"
+  ],
+  "title": "ScientificEvidenceQualityMatrixReport",
+  "type": "object"
+}

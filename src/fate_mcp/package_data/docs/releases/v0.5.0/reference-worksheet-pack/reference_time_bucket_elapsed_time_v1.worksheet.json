@@ -1,0 +1,88 @@
+{
+  "claimId": "reference_time_bucket_elapsed_time_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference time-bucket elapsed-time semantics",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "epa.environmental_models_guidance",
+    "oecd.test_guidelines.section3",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Time-bucket water surfaces continue to reflect elapsed time and post-release decay under a different half-life, rather than arbitrary bucket pagination.",
+      "fixtureName": "reference_time_bucket_post_release_companion_fixture",
+      "referenceType": "hand_worked_time_bucket_decay_fixture",
+      "runOptions": {
+        "bucket_count": 4,
+        "bucket_duration_days": 5.0,
+        "run_mode": "time_bucket"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark time bucket companion"
+        },
+        "duration_days": 10.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark alternate bucket decay half-life.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 8.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration first-order time-bucket case with a water half-life override, corroborating elapsed-time and post-release decay behavior under alternate degradation kinetics.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The alternate bucket-decay case remains analytically traceable because only the first-order degradation constant changes.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "Time-bucket water surfaces follow physical elapsed time rather than arbitrary bucket-count scaling, and later buckets can decay after release ends.",
+      "fixtureName": "time_bucket_invariance_fixture",
+      "referenceType": "hand_worked_time_bucket_fixture",
+      "runOptions": {
+        "bucket_count": 3,
+        "bucket_duration_days": 7.5,
+        "run_mode": "time_bucket"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark time bucket"
+        },
+        "duration_days": 15.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration first-order time-bucket case evaluated at explicit elapsed bucket end times, including post-release decay.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The finite-duration first-order bucket calculation is deterministic and analytically traceable to elapsed time.",
+      "validationTier": "invariance"
+    }
+  ]
+}

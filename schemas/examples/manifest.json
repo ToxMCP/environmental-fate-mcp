@@ -473,6 +473,14 @@
       "path": "schemas/examples/runUncertaintySummary.v1.json"
     },
     {
+      "name": "scientificEvidenceQualityMatrixReport.v1",
+      "path": "schemas/examples/scientificEvidenceQualityMatrixReport.v1.json"
+    },
+    {
+      "name": "scientificEvidenceQualityRubric.v1",
+      "path": "schemas/examples/scientificEvidenceQualityRubric.v1.json"
+    },
+    {
       "name": "scientificExternalBenchmarkCase.v1",
       "path": "schemas/examples/scientificExternalBenchmarkCase.v1.json"
     },

@@ -22,14 +22,14 @@ The workflow signs these assets with GitHub Artifact Attestations through Sigsto
 Install the GitHub CLI, download a release asset, then run:
 
 ```bash
-gh attestation verify environmental_fate_mcp-0.4.0-py3-none-any.whl \
+gh attestation verify environmental_fate_mcp-0.5.0-py3-none-any.whl \
   --repo ToxMCP/environmental-fate-mcp
 ```
 
 For the source distribution:
 
 ```bash
-gh attestation verify environmental_fate_mcp-0.4.0.tar.gz \
+gh attestation verify environmental_fate_mcp-0.5.0.tar.gz \
   --repo ToxMCP/environmental-fate-mcp
 ```
 

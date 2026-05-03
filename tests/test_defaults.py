@@ -20,6 +20,10 @@ def test_defaults_manifest_contains_versioned_files() -> None:
     assert any(item["path"].endswith("model_family_challenge_review_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("scientific_reference_cases.json") for item in manifest["files"])
     assert any(item["path"].endswith("scientific_validation_claims.json") for item in manifest["files"])
+    assert any(
+        item["path"].endswith("scientific_evidence_quality_rubric.json")
+        for item in manifest["files"]
+    )
     assert any(item["path"].endswith("scientific_review_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("nordic_screening_pack.json") for item in manifest["files"])
     assert any(item["path"].endswith("regulatory_handoff_profiles.json") for item in manifest["files"])
@@ -97,6 +101,18 @@ def test_fugacity_screening_method_profiles_are_governed() -> None:
     assert profiles["fugacity_level_i_equilibrium_v1"].source_references
     assert "no level iii" in " ".join(manifest.limitations).lower()
     assert registry.fugacity_screening_method_profile("missing_profile") is None
+
+
+def test_scientific_evidence_quality_rubric_is_governed() -> None:
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    manifest = registry.scientific_evidence_quality_rubric_manifest()
+    tiers = {tier.tier.value: tier for tier in manifest.tiers}
+    assert manifest.tier_count == 5
+    assert "reviewer_grade_screening" in tiers
+    assert "deferred_or_gap" in tiers
+    assert tiers["reviewer_grade_screening"].minimum_conditions
+    assert tiers["deferred_or_gap"].boundary_lines
+    assert "regulator acceptance" in " ".join(manifest.limitations).lower()
 
 
 def test_core_defaults_are_source_backed_and_free_of_shipped_tier3_assumptions() -> None:

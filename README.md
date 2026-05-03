@@ -67,12 +67,13 @@ The released server is broader than a simple concentration calculator, but the b
 - `Environmental Fate MCP` owns environmental release scenarios, multimedia concentration estimation, scientific review, scientific methods dossiers, and downstream concentration handoff packaging.
 - It also owns bounded scalar erosion/sediment transport screening for RUSLE, MUSLE, sediment-associated chemical-load handoffs, and inline validation QA when particle-bound soil transport is relevant.
 - It now includes experimental non-default Level I/II fugacity equilibrium screening for multimedia partitioning challenge review; this is not Level III intermedia transfer, routing, calibration, source-engine equivalence, or regulator acceptance.
+- It now publishes a governed evidence-quality matrix so reviewers can distinguish reviewer-grade, source-grounded, internal-oracle, synthetic-demo, and deferred/gap evidence without treating that posture as field validation or regulatory acceptance.
 - `Direct-Use Exposure MCP` owns direct-use product scenarios, near-field external exposure construction, and PBPK-ready direct-use handoffs.
 - `Dietary Exposure MCP` owns food-mediated oral intake, commodity-consumption mappings, and dietary PBPK-ready oral handoffs.
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, experimental fugacity equilibrium screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, Level III engine, or public wrapper around branded external model payloads.
 
-## What's in v0.4.0
+## What's in v0.5.0
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
@@ -83,6 +84,7 @@ The released server is broader than a simple concentration calculator, but the b
 - Governed synthetic erosion/sediment validation demo pack for public screening-QA orientation without field-validation, calibration, routing, or WEPP claims
 - Governed external benchmark replay pack for deterministic screening corroboration against official/public equation and reference scenarios, without claiming field validation or regulator acceptance
 - Deterministic default sensitivity reporting for soil/sediment mass, degradation half-life, temperature/Q10, residence-time, release-duration, and release-fraction assumptions
+- Governed scientific evidence-quality rubric and release matrix mapping every validation claim and model-family lane to reviewer-grade, source-grounded, internal-oracle, synthetic-demo, or deferred/gap posture
 - Additive probabilistic percentile orchestration with median, P90, and P95 concentration surfaces plus failed-iteration taxonomy and reproducibility metadata
 - Optional probabilistic sample manifests with seed, sampled-parameter summaries, iteration health, stable hashes, and capped row-level records when explicitly requested
 - Scientific review packets and briefs with equation, mass-balance, transport-regime, loss-transition, and post-release interpretation lines
@@ -96,15 +98,16 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current local release verification and generated `v0.4.0` artifacts report:
+Current local release verification and generated `v0.5.0` artifacts report:
 
-- `207` repository test functions
-- `141` JSON schemas
-- `137` generated examples
-- `48` supported workflows surfaced through `57` tools, `22` prompts, and `30` resources
+- `212` repository test functions
+- `143` JSON schemas
+- `139` generated examples
+- `48` supported workflows surfaced through `57` tools, `22` prompts, and `32` resources
 - `64` benchmark fixtures with claim-coverage enforcement
 - `8` governed external benchmark replay cases
 - `11` governed default sensitivity profiles
+- `34` scientific evidence-quality claim rows and `5` model-family posture rows
 - `34` governed scientific validation claims with plugin-code traceability
 - `28` governed scientific reference cases
 - `4` governed regulatory handoff profiles with downstream acknowledgement schema URLs
@@ -187,14 +190,15 @@ See:
 - [docs/external_payload_contract.md](./docs/external_payload_contract.md)
 - [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
 - [docs/fugacity_screening.md](./docs/fugacity_screening.md)
+- [docs/scientific_evidence_quality_matrix.md](./docs/scientific_evidence_quality_matrix.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
-- [docs/releases/v0.4.0/scientific-trust-pack.md](./docs/releases/v0.4.0/scientific-trust-pack.md)
+- [docs/releases/v0.5.0/scientific-trust-pack.md](./docs/releases/v0.5.0/scientific-trust-pack.md)
 - [docs/release_provenance.md](./docs/release_provenance.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.4.0/release-notes.md](./docs/releases/v0.4.0/release-notes.md)
+- [docs/releases/v0.5.0/release-notes.md](./docs/releases/v0.5.0/release-notes.md)
 
 ## Governance
 

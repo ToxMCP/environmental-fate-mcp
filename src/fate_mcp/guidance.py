@@ -21,11 +21,12 @@ DOC_RESOURCE_MAP = {
     "external-payload-contract": "docs/external_payload_contract.md",
     "erosion-sediment-transport": "docs/erosion_sediment_transport.md",
     "fugacity-screening": "docs/fugacity_screening.md",
+    "scientific-evidence-quality-matrix": "docs/scientific_evidence_quality_matrix.md",
     "agent-evaluations": "docs/agent_evaluations.md",
-    "scientific-trust-pack": "docs/releases/v0.4.0/scientific-trust-pack.md",
-    "scientific-trust-brief": "docs/releases/v0.4.0/scientific-trust-brief.md",
-    "reference-proof-brief": "docs/releases/v0.4.0/reference-proof-brief.md",
-    "advective-promotion-brief": "docs/releases/v0.4.0/advective-promotion-brief.md",
+    "scientific-trust-pack": "docs/releases/v0.5.0/scientific-trust-pack.md",
+    "scientific-trust-brief": "docs/releases/v0.5.0/scientific-trust-brief.md",
+    "reference-proof-brief": "docs/releases/v0.5.0/reference-proof-brief.md",
+    "advective-promotion-brief": "docs/releases/v0.5.0/advective-promotion-brief.md",
 }
 
 

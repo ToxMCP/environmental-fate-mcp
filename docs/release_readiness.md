@@ -19,6 +19,7 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - the governed external benchmark pack must remain deterministic, tolerance-stable, and visible through both `defaults://scientific-external-benchmark-pack` and `release://external-validation-benchmark-report`
 - governed default sensitivity profiles must remain deterministic, boundary-limited, and visible through both `defaults://default-sensitivity-profiles` and `release://default-sensitivity-report`
 - governed fugacity screening method profiles must remain experimental, Level I/II-only, and visible through both `defaults://fugacity-screening-method-profiles` and `release://fugacity-screening-validation-report`
+- the governed scientific evidence-quality rubric and matrix must remain visible through `defaults://scientific-evidence-quality-rubric` and `release://scientific-evidence-quality-matrix-report`, with false field-validation, calibration, regulatory-acceptance, and source-engine-equivalence flags blocked
 - provenance-bearing releases must run the `Release provenance` workflow and publish attested wheel, sdist, checksum, release-bundle manifest, and trust-pack assets
 
 ## Required checks
@@ -29,6 +30,7 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - governed external benchmark replay cases parse, execute through public tools, and match declared expected values within tolerance
 - governed default sensitivity profiles parse, execute through `fate_build_default_sensitivity_report`, and keep sensitivity interpretation separate from calibration or field validation
 - governed fugacity screening profiles parse and pass mass-conservation, requested-media filtering, Level II loss-balance, source-reference, and boundary-language checks
+- governed scientific evidence-quality matrix rows cover all scientific validation claims and supported/experimental model-family lanes without promoting experimental families to reviewer-grade evidence
 - optional probabilistic sample manifest schemas preserve seed, sampled-parameter summaries, iteration health, stable hashes, and capped records when requested
 - release asset provenance remains verifiable with `gh attestation verify` for the wheel, sdist, and `RELEASE_ASSET_SHA256SUMS`
 - server startup validates shipped artifacts without regenerating them

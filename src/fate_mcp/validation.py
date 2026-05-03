@@ -14,6 +14,7 @@ from fate_mcp.benchmarks import (
 )
 from fate_mcp.contracts import SCHEMA_MODELS, generate_contract_artifacts
 from fate_mcp.defaults import DefaultsRegistry
+from fate_mcp.evidence_quality import build_scientific_evidence_quality_matrix_report
 from fate_mcp.errors import FateValidationError
 from fate_mcp.integrations import (
     assess_erosion_sediment_validation_fit,
@@ -44,6 +45,7 @@ from fate_mcp.models import (
     ReportedTimeSemantics,
     ReleaseFraction,
     RunMode,
+    ScientificEvidenceTrustTier,
     TimeWindow,
     Media,
     SourceClassification,
@@ -3126,6 +3128,71 @@ def validate_fugacity_screening_profiles(repo_root: Path) -> dict:
     }
 
 
+def validate_scientific_evidence_quality_matrix(repo_root: Path) -> dict:
+    registry = DefaultsRegistry(repo_root)
+    rubric = registry.scientific_evidence_quality_rubric_manifest()
+    report = build_scientific_evidence_quality_matrix_report(repo_root)
+    claim_manifest = registry.scientific_validation_claim_manifest()
+    expected_model_families = {
+        *(ModelFamily(family) for family in SUPPORTED_MODEL_FAMILIES),
+        *(ModelFamily(family) for family in EXPERIMENTAL_MODEL_FAMILIES),
+        *(claim.model_family for claim in claim_manifest.claims),
+    }
+    rubric_tiers = {tier.tier for tier in rubric.tiers}
+    row_tiers = {
+        *(row.trust_tier for row in report.claim_rows),
+        *(row.trust_tier for row in report.model_family_rows),
+    }
+    false_claim_rows = [
+        row.row_id
+        for row in [*report.claim_rows, *report.model_family_rows]
+        if row.field_validation_present
+        or row.calibration_claim_present
+        or row.regulatory_acceptance_claim_present
+        or row.source_engine_equivalence_claim_present
+    ]
+    experimental_reviewer_grade_rows = [
+        row.row_id
+        for row in report.model_family_rows
+        if row.experimental
+        and row.trust_tier == ScientificEvidenceTrustTier.REVIEWER_GRADE_SCREENING
+    ]
+    missing_limitations = [
+        row.row_id for row in [*report.claim_rows, *report.model_family_rows] if not row.limitations
+    ]
+    missing_next_actions = [
+        row.row_id
+        for row in [*report.claim_rows, *report.model_family_rows]
+        if not row.next_corroboration_action
+    ]
+    model_family_values = {row.model_family for row in report.model_family_rows}
+    return {
+        "passed": (
+            report.passed
+            and rubric.tier_count == len(rubric.tiers) == 5
+            and row_tiers.issubset(rubric_tiers)
+            and report.claim_row_count == claim_manifest.claim_count
+            and model_family_values == expected_model_families
+            and not false_claim_rows
+            and not experimental_reviewer_grade_rows
+            and not missing_limitations
+            and not missing_next_actions
+        ),
+        "rubricVersion": rubric.rubric_version,
+        "tierCount": rubric.tier_count,
+        "claimRowCount": report.claim_row_count,
+        "modelFamilyRowCount": report.model_family_row_count,
+        "trustTierCounts": {
+            tier.value: count for tier, count in report.trust_tier_counts.items()
+        },
+        "falseClaimRows": false_claim_rows,
+        "experimentalReviewerGradeRows": experimental_reviewer_grade_rows,
+        "missingLimitationRows": missing_limitations,
+        "missingNextActionRows": missing_next_actions,
+        "limitations": report.limitations,
+    }
+
+
 def validation_dossier(repo_root: Path) -> dict:
     generate_contract_artifacts(repo_root)
     return {
@@ -3151,6 +3218,7 @@ def validation_dossier(repo_root: Path) -> dict:
         "scientificExternalBenchmarkPack": validate_scientific_external_benchmark_pack(repo_root),
         "defaultSensitivityProfiles": validate_default_sensitivity_profiles(repo_root),
         "fugacityScreeningValidation": validate_fugacity_screening_profiles(repo_root),
+        "scientificEvidenceQualityMatrix": validate_scientific_evidence_quality_matrix(repo_root),
         "modelFamilySelectionWorkflow": validate_model_family_selection_workflow(repo_root),
         "modelFamilySelectionReviewWorkflow": validate_model_family_selection_review_workflow(repo_root),
         "modelFamilyChallengeReviewWorkflow": validate_model_family_challenge_review_workflow(repo_root),
@@ -3172,6 +3240,8 @@ def main() -> None:
         raise SystemExit("Default sensitivity profiles failed release validation.")
     if not dossier["fugacityScreeningValidation"]["passed"]:
         raise SystemExit("Fugacity screening validation failed release validation.")
+    if not dossier["scientificEvidenceQualityMatrix"]["passed"]:
+        raise SystemExit("Scientific evidence quality matrix failed release validation.")
 
 
 if __name__ == "__main__":

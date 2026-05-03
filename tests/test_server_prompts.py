@@ -10,6 +10,7 @@ from fate_mcp.server import (
     defaults_erosion_sediment_validation_demo_pack,
     defaults_erosion_sediment_validation_profiles,
     defaults_fugacity_screening_method_profiles,
+    defaults_scientific_evidence_quality_rubric,
     docs_manifest_resource,
     docs_resource,
     example_resource,
@@ -344,7 +345,7 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         metadata = json.loads(contents[0].content)
         assert metadata["toolCount"] == 57
         assert metadata["promptCount"] == 22
-        assert metadata["resourceCount"] == 30
+        assert metadata["resourceCount"] == 32
         demo_contents = await server.read_resource(
             "release://erosion-sediment-validation-demo-report"
         )
@@ -367,9 +368,16 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         fugacity_report = json.loads(fugacity_contents[0].content)
         assert fugacity_report["passed"] is True
         assert fugacity_report["profileCount"] == 2
+        evidence_contents = await server.read_resource(
+            "release://scientific-evidence-quality-matrix-report"
+        )
+        evidence_report = json.loads(evidence_contents[0].content)
+        assert evidence_report["passed"] is True
+        assert evidence_report["claim_row_count"] == 34
+        assert evidence_report["model_family_row_count"] == 5
         notes_contents = await server.read_resource("release://release-notes")
         notes = json.loads(notes_contents[0].content)
-        assert "Environmental Fate MCP v0.4.0" in notes["markdown"]
+        assert "Environmental Fate MCP v0.5.0" in notes["markdown"]
         assert "public MCP import contract in this release" in notes["markdown"]
         manifest_contents = await server.read_resource("release://resource-manifest")
         manifest = json.loads(manifest_contents[0].content)
@@ -422,6 +430,8 @@ def test_new_docs_resources_are_available() -> None:
     assert "Erosion/Sediment Transport Screening" in erosion_transport
     fugacity_screening = docs_resource("fugacity-screening")
     assert "Fugacity Equilibrium Screening" in fugacity_screening
+    evidence_quality = docs_resource("scientific-evidence-quality-matrix")
+    assert "Scientific Evidence-Quality Matrix" in evidence_quality
 
 
 def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
@@ -429,6 +439,7 @@ def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     doc_names = {item["name"] for item in docs_manifest["docs"]}
     assert "erosion-sediment-transport" in doc_names
     assert "fugacity-screening" in doc_names
+    assert "scientific-evidence-quality-matrix" in doc_names
     assert "defaults-evidence-map" in doc_names
     assert "regulatory-quick-start" in doc_names
     assert "scientific-trust-brief" in doc_names
@@ -446,6 +457,7 @@ def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     assert "advective-promotion-bar-report" in release_names
     assert "erosion-sediment-validation-demo-report" in release_names
     assert "fugacity-screening-validation-report" in release_names
+    assert "scientific-evidence-quality-matrix-report" in release_names
     assert "red-team-review-report" in release_names
     assert "scientific-trust-brief" in release_names
     assert "scientific-trust-pack" in release_names
@@ -468,6 +480,20 @@ def test_erosion_sediment_method_profiles_resource() -> None:
         "sediment_associated_chemical_load",
         "wepp_deferred_adapter",
     } <= profile_ids
+
+
+def test_scientific_evidence_quality_rubric_resource() -> None:
+    manifest = json.loads(defaults_scientific_evidence_quality_rubric())
+    tiers = {tier["tier"] for tier in manifest["tiers"]}
+    assert manifest["tier_count"] == 5
+    assert {
+        "reviewer_grade_screening",
+        "source_grounded_screening",
+        "internal_oracle_screening",
+        "synthetic_demo_only",
+        "deferred_or_gap",
+    } == tiers
+    assert "regulator acceptance" in " ".join(manifest["limitations"]).lower()
 
 
 def test_erosion_sediment_validation_profiles_resource() -> None:
