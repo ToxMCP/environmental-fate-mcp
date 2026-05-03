@@ -1,0 +1,30 @@
+{
+  "acceptedLimitations": [
+    "No GIS-scale dispersion in v0.4.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, SWAT/PRZM execution, or native WEPP execution in v0.4.",
+    "Fugacity equilibrium screening is experimental Level I/II-style partitioning only; no Level III intermedia-transfer, advective export, calibration, field validation, or regulatory acceptance claim is added.",
+    "External benchmark packs are deterministic screening corroboration fixtures, not curated field validation datasets.",
+    "Erosion/sediment validation demos remain synthetic screening-QA demonstrations, not curated field benchmark validation.",
+    "No direct human dose calculation in Environmental Fate MCP.",
+    "No dietary intake workflows in Environmental Fate MCP.",
+    "No PBPK execution in Environmental Fate MCP.",
+    "Branded desktop-model ingestion remains limited to governed adapter profiles; only normalized external payload JSON/CSV is a public MCP import contract in this release."
+  ],
+  "benchmarkReport": "release://external-validation-benchmark-report",
+  "benchmarkResource": "defaults://scientific-external-benchmark-pack",
+  "fugacityReport": "release://fugacity-screening-validation-report",
+  "fugacityResource": "defaults://fugacity-screening-method-profiles",
+  "narrativeLines": [
+    "The v0.4 release line adds an experimental Level I/II-style fugacity equilibrium partitioning challenge family without adding Level III transfer, GIS routing, hydrology generation, calibration, WEPP/SWAT/PRZM execution, or final risk decisions.",
+    "The benchmark pack improves reproducibility and source-grounded corroboration for scalar screening equations, but it is not field validation, calibration evidence, source-engine equivalence, or regulator acceptance.",
+    "The default sensitivity report shows how shipped or scenario assumptions can move screening outputs; it is not formal global sensitivity analysis or uncertainty quantification.",
+    "The fugacity screening validation report checks mass conservation, degradation-loss balance, requested-media filtering, source references, and explicit Level III/routing/calibration boundary language.",
+    "Probabilistic sample manifests preserve seed, sampled parameter summaries, iteration health, and stable hashes when requested; full per-iteration calculation traces remain intentionally omitted.",
+    "GitHub Artifact Attestations for release assets, when published, support supply-chain provenance review; they are not scientific validation or a substitute for release-report review.",
+    "The release remains bounded to concentration screening, scalar erosion/sediment screening, and experimental fugacity equilibrium screening; no hydrology generation, spatial routing, calibration, WEPP execution, Level III transfer, or final risk decision is added."
+  ],
+  "sensitivityReport": "release://default-sensitivity-report",
+  "sensitivityResource": "defaults://default-sensitivity-profiles",
+  "status": "experimental_fugacity_screening_added_without_regulatory_acceptance",
+  "version": "0.4.0"
+}

@@ -32,6 +32,25 @@ Use this path for:
 
 ## 3. Public External Payload Import
 
+## 3. Fugacity Partitioning Challenge
+
+Use this when equilibrium multimedia partitioning may materially change the reviewer story and you want a non-default experimental challenge against the reference baseline.
+
+1. Build a scenario with explicit `molecular_weight_g_mol`, `henry_law_constant_pa_m3_mol`, and `organic_carbon_partition_coefficient_koc_l_kg` parameter records.
+2. Run the baseline `reference_mass_balance` family with `fate_estimate_multimedia_concentrations`.
+3. Run `fugacity_equilibrium_screening` with `fugacity_screening_level` set to `level_i_equilibrium` or `level_ii_equilibrium_persistence`.
+4. Compare the baseline and fugacity challenge with the governed model-family comparison tools.
+5. Build the review packet or trust brief, keeping the experimental boundary explicit.
+
+Use this path for:
+- equilibrium partitioning challenge review
+- hydrophobic or particle-associated chemicals where multimedia distribution assumptions matter
+- reviewer-visible comparison against the default reference family
+
+Do not use this path for Level III intermedia transfer, hydrologic routing, calibration, field validation, source-engine equivalence, or regulator acceptance.
+
+## 4. Public External Payload Import
+
 Use this when an external tool has already produced normalized payload data and you want canonical Environmental Fate MCP outputs.
 
 1. Inspect `adapters://public-import-manifest`.
@@ -48,7 +67,7 @@ Keep in mind:
 - branded legacy/EUSES/EPI paths remain governed adapter details, not the stable public API
 - normalization parity across governed import paths is a contract-level check, not a claim of scientific equivalence to the source engine
 
-## 4. Probabilistic Review
+## 5. Probabilistic Review
 
 Use this when you want bounded percentile output rather than a single deterministic line.
 
@@ -63,7 +82,7 @@ Use this path for:
 - percentile handoff inputs
 - sensitivity framing without leaving the governed MCP surface
 
-## 5. Regulatory Handoff Export
+## 6. Regulatory Handoff Export
 
 Use this when another module needs concentration outputs in a governed downstream format.
 

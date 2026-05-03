@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "profile_count": 1,
+  "profile_count": 2,
   "profiles": [
     {
       "profile_id": "reference_vs_advective_screening_v1",
@@ -74,6 +74,75 @@
       ],
       "source_pack": "defaults/v1/model_family_comparison_profiles.json",
       "applicability_note": "This profile is intended for governed reference-versus-advective screening comparisons inside the concentration-only Fate MCP boundary."
+    },
+    {
+      "profile_id": "reference_vs_fugacity_equilibrium_screening_v1",
+      "display_name": "Reference vs Fugacity Equilibrium Screening Comparison",
+      "base_model_family": "reference_mass_balance",
+      "candidate_model_family": "fugacity_equilibrium_screening",
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "material_relative_delta_threshold": 0.2,
+      "material_absolute_delta_floor": 1e-12,
+      "packet_template": "Build a deterministic comparison packet treating reference_mass_balance as the baseline and fugacity_equilibrium_screening as an experimental equilibrium-partitioning challenge path.",
+      "brief_template": "Summarize whether the experimental fugacity equilibrium family materially changes screening interpretation relative to the reference family.",
+      "comparable_outcome_template": "Treat the comparison as a bounded partitioning sensitivity check when outputs are comparable and applicability remains satisfied.",
+      "divergence_outcome_template": "Treat divergence as a material model-family signal requiring review of Henry, Koc, molecular weight, and equilibrium-partitioning assumptions before downstream reuse.",
+      "review_needed_outcome_template": "Do not reuse the comparison until both baseline and fugacity applicability limitations are resolved.",
+      "review_checklist": [
+        {
+          "code": "fugacity_scope_confirmed",
+          "prompt": "Confirm the candidate family is being treated as experimental Level I/II equilibrium screening, not Level III or routed transport.",
+          "rationale": "Comparison review must preserve non-default challenge framing.",
+          "evidence_hint_fields": [
+            "comparison_outcome",
+            "comparison_profile_id",
+            "limitations"
+          ]
+        },
+        {
+          "code": "physchem_inputs_reviewed",
+          "prompt": "Review molecular weight, Henry law constant, and Koc provenance before interpreting partitioning deltas.",
+          "rationale": "Fugacity outputs are sensitive to explicit physchem inputs.",
+          "evidence_hint_fields": [
+            "parameter_quality_lines",
+            "candidate_equation_lines"
+          ]
+        },
+        {
+          "code": "dominant_partition_deltas_reviewed",
+          "prompt": "Review dominant media deltas together with the fugacity calculation traces.",
+          "rationale": "Assessor-facing comparison should identify whether partitioning, not routing, drives divergence.",
+          "evidence_hint_fields": [
+            "dominant_delta_lines",
+            "candidate_equation_lines"
+          ]
+        }
+      ],
+      "review_packet_template": "Build a governed review packet for the reference-versus-fugacity comparison, preserving experimental-family caution, applicability, dominant deltas, and equation traces.",
+      "review_brief_template": "Summarize whether the reference-versus-fugacity comparison is ready for assessor-facing review.",
+      "ready_comparison_outcomes": [
+        "comparable_screening_outputs"
+      ],
+      "attention_outcomes": [
+        "material_model_family_divergence",
+        "review_needed"
+      ],
+      "attention_if_any_checks_fail": true,
+      "attention_if_candidate_experimental": true,
+      "review_notes": [
+        "Use only for steady_state fugacity challenge comparisons.",
+        "Do not interpret the candidate family as a default replacement for reference_mass_balance.",
+        "Escalate when Level III transfer, routing, calibration, or field validation is required."
+      ],
+      "source_pack": "defaults/v1/model_family_comparison_profiles.json",
+      "applicability_note": "Comparison profile for bounded reference-versus-experimental fugacity screening only."
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "case_count": 25,
+  "case_count": 28,
   "cases": [
     {
       "case_id": "advective_clearance_edge_case_family_v1",
@@ -89,6 +89,94 @@
       ],
       "review_notes": [
         "Use this case family when the reviewer needs to understand why the advective family saturates toward a bounded plateau at fixed release rate."
+      ],
+      "source_pack": "defaults/v1/scientific_reference_cases.json"
+    },
+    {
+      "case_id": "cemc_level_i_equilibrium_partitioning_case_family_v1",
+      "display_name": "CEMC Level I equilibrium partitioning case family",
+      "model_families": [
+        "fugacity_equilibrium_screening"
+      ],
+      "jurisdictions": [
+        "International"
+      ],
+      "source_type": "open_literature_reference",
+      "evidence_family": "public_method_description_plus_internal_oracle",
+      "official_source_ids": [
+        "cemc.evaluative_fugacity_models",
+        "cemc.level_iii_fugacity_model"
+      ],
+      "last_reviewed_date": "2026-05-03",
+      "summary_lines": [
+        "Anchors Level I equilibrium partitioning concepts against CEMC evaluative fugacity model descriptions.",
+        "Used for screening corroboration only, not source-engine equivalence or regulator acceptance."
+      ],
+      "applicability_lines": [
+        "Appropriate for reviewer-facing Level I equilibrium partitioning interpretation with explicit physchem inputs.",
+        "Not appropriate for Level III intermedia transfer, spatial routing, or calibrated fate simulation."
+      ],
+      "scientific_unsuitability_lines": [],
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "cemc.level_iii_fugacity_model",
+          "title": "CEMC Level III Fugacity Model boundary description",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
+        }
+      ],
+      "review_notes": [
+        "Use to explain equilibrium partitioning scope and Level III deferral."
+      ],
+      "source_pack": "defaults/v1/scientific_reference_cases.json"
+    },
+    {
+      "case_id": "cemc_level_ii_equilibrium_persistence_case_family_v1",
+      "display_name": "CEMC Level II equilibrium persistence case family",
+      "model_families": [
+        "fugacity_equilibrium_screening"
+      ],
+      "jurisdictions": [
+        "International"
+      ],
+      "source_type": "open_literature_reference",
+      "evidence_family": "public_method_description_plus_internal_oracle",
+      "official_source_ids": [
+        "cemc.evaluative_fugacity_models",
+        "oecd.pov_lrtp_screening_tool"
+      ],
+      "last_reviewed_date": "2026-05-03",
+      "summary_lines": [
+        "Anchors Level II equilibrium partitioning with first-order loss concepts against CEMC evaluative fugacity descriptions.",
+        "Used for screening corroboration of degradation-loss balance only."
+      ],
+      "applicability_lines": [
+        "Appropriate for Level II equilibrium persistence screening when scalar degradation half-lives are declared.",
+        "Not a Level III non-equilibrium transfer model or source-engine equivalence claim."
+      ],
+      "scientific_unsuitability_lines": [],
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Pov and LRTP Screening Tool",
+          "effective_date": null,
+          "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+        }
+      ],
+      "review_notes": [
+        "Use to explain first-order loss balance under equilibrium partitioning."
       ],
       "source_pack": "defaults/v1/scientific_reference_cases.json"
     },
@@ -885,6 +973,50 @@
       ],
       "review_notes": [
         "Use this case family when the reviewer needs a regulator-recognizable rationale for plateau-fraction and bounded-transport interpretation in the advective screening family."
+      ],
+      "source_pack": "defaults/v1/scientific_reference_cases.json"
+    },
+    {
+      "case_id": "oecd_multimedia_persistence_screening_case_family_v1",
+      "display_name": "OECD multimedia persistence screening case family",
+      "model_families": [
+        "fugacity_equilibrium_screening"
+      ],
+      "jurisdictions": [
+        "OECD"
+      ],
+      "source_type": "official_guidance_case_family",
+      "evidence_family": "official_guidance_case_family",
+      "official_source_ids": [
+        "oecd.pov_lrtp_screening_tool",
+        "oecd.pov_lrtp_screening_tool_manual"
+      ],
+      "last_reviewed_date": "2026-05-03",
+      "summary_lines": [
+        "Anchors multimedia fugacity-based persistence and LRTP screening interpretation to OECD Pov/LRTP tool documentation.",
+        "Used as independent official-guidance corroboration for the experimental fugacity screening boundary."
+      ],
+      "applicability_lines": [
+        "Appropriate for explaining why multimedia fugacity models can support screening-level partitioning and persistence interpretation.",
+        "Not a source-engine equivalence claim, OECD tool reimplementation, Level III route, calibration workflow, or regulator acceptance claim."
+      ],
+      "scientific_unsuitability_lines": [],
+      "source_references": [
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Screening Tool for overall persistence and long-range transport potential",
+          "effective_date": null,
+          "url": "https://www.oecd.org/en/data/tools/screening-tool-for-overall-persistence-and-long-range-transport-potential.html"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool_manual",
+          "title": "OECD Pov and LRTP Screening Tool manual",
+          "effective_date": null,
+          "url": "https://www.oecd.org/content/dam/oecd/en/data/tools/oecd-pov-and-lrtp-screening-tool/manual-pov-lrtp-screening-tool.pdf/_jcr_content/renditions/original./manual-pov-lrtp-screening-tool.pdf"
+        }
+      ],
+      "review_notes": [
+        "Use this case family only to contextualize screening-level multimedia fugacity interpretation and OECD Pov/LRTP boundary language."
       ],
       "source_pack": "defaults/v1/scientific_reference_cases.json"
     },

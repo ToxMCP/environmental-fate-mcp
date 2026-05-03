@@ -1,5 +1,5 @@
 PACKAGE_NAME = "Environmental Fate MCP"
-VERSION = "0.3.1"
+VERSION = "0.4.0"
 SCHEMA_VERSION = "v1"
 DEFAULTS_VERSION = "v1"
 ALGORITHM_VERSION = "reference-mass-balance-0.1.0"
@@ -60,4 +60,5 @@ SUPPORTED_MODEL_FAMILIES = [
 ]
 EXPERIMENTAL_MODEL_FAMILIES = [
     "advective_screening_mass_balance",
+    "fugacity_equilibrium_screening",
 ]

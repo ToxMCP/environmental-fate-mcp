@@ -269,6 +269,14 @@
       "path": "docs/contracts/schemas/fateScenarioComparisonRecord.v1.json"
     },
     {
+      "name": "fugacityScreeningMethodProfile.v1",
+      "path": "docs/contracts/schemas/fugacityScreeningMethodProfile.v1.json"
+    },
+    {
+      "name": "fugacityScreeningMethodProfileManifest.v1",
+      "path": "docs/contracts/schemas/fugacityScreeningMethodProfileManifest.v1.json"
+    },
+    {
       "name": "importExternalResultPayloadRequest.v1",
       "path": "docs/contracts/schemas/importExternalResultPayloadRequest.v1.json"
     },

@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "profile_count": 1,
+  "profile_count": 2,
   "profiles": [
     {
       "profile_id": "reference_baseline_advective_challenge_review_v1",
@@ -69,6 +69,68 @@
       ],
       "source_pack": "defaults/v1/model_family_challenge_review_profiles.json",
       "applicability_note": "This challenge review profile is intended for the composed reference-baseline and advective-challenge assessor workflow inside Fate MCP's concentration-only boundary."
+    },
+    {
+      "profile_id": "reference_baseline_fugacity_challenge_review_v1",
+      "display_name": "Reference Baseline With Fugacity Challenge Review",
+      "selection_profile_id": "reference_baseline_fugacity_challenge_v1",
+      "comparison_profile_id": "reference_vs_fugacity_equilibrium_screening_v1",
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "review_checklist": [
+        {
+          "code": "selection_review_status_confirmed",
+          "prompt": "Confirm the fugacity challenge selection review status is recorded and preserves experimental framing.",
+          "rationale": "Composed review depends on the governed selection path.",
+          "evidence_hint_fields": [
+            "selection_recommendation_status",
+            "selection_review_status"
+          ]
+        },
+        {
+          "code": "comparison_review_status_confirmed",
+          "prompt": "Confirm the reference-versus-fugacity comparison review status and dominant deltas are recorded.",
+          "rationale": "Assessors need comparison context before interpreting fugacity outputs.",
+          "evidence_hint_fields": [
+            "comparison_profile_id",
+            "comparison_outcome",
+            "dominant_delta_lines"
+          ]
+        },
+        {
+          "code": "level_boundary_preserved",
+          "prompt": "Confirm the artifact states no Level III, no routed transport, no calibration, and no regulator acceptance.",
+          "rationale": "Fugacity wording can otherwise be overread as full multimedia fate modelling.",
+          "evidence_hint_fields": [
+            "limitations",
+            "challenge_applicability_lines"
+          ]
+        }
+      ],
+      "review_packet_template": "Build a governed composed challenge review packet for the reference baseline and experimental fugacity challenge path.",
+      "review_brief_template": "Summarize whether the fugacity challenge review is ready for assessor-facing use while preserving all boundary caveats.",
+      "ready_selection_review_statuses": [
+        "ready_for_model_family_selection_review"
+      ],
+      "ready_comparison_review_statuses": [
+        "ready_for_model_family_comparison_review"
+      ],
+      "attention_if_any_checks_fail": true,
+      "attention_if_comparison_missing_when_challenge_recommended": true,
+      "ready_action_template": "Fugacity challenge review is ready only as experimental assessor-facing screening support with a ready comparison review.",
+      "attention_action_template": "Keep fugacity challenge review in attention status until selection, comparison, or boundary concerns are resolved.",
+      "review_notes": [
+        "Use when reference remains the baseline and fugacity is carried as an experimental challenge path.",
+        "Do not present fugacity outputs as Level III, routed, calibrated, or regulator-accepted."
+      ],
+      "source_pack": "defaults/v1/model_family_challenge_review_profiles.json",
+      "applicability_note": "Composed review profile for bounded fugacity challenge workflows only."
     }
   ]
 }

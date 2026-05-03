@@ -2426,6 +2426,292 @@
       "jurisdictionBreadth": "multi_jurisdiction",
       "corroborationStatus": "multi_official_multi_jurisdiction",
       "nextCorroborationAction": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use."
+    },
+    "fugacity_level_i_mass_conservation_v1": {
+      "displayName": "Fugacity Level I mass conservation screening equation",
+      "modelFamily": "fugacity_equilibrium_screening",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The fugacity Level I screening family conserves scoped mass across active equilibrium media under fixed scalar inputs.",
+      "claimClass": "fugacity_level_i_mass_conservation",
+      "priority": "high",
+      "mandatoryForRelease": false,
+      "requiredValidationTiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "referenceCaseIds": [
+        "cemc_level_i_equilibrium_partitioning_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "cemc.level_iii_fugacity_model",
+          "title": "CEMC Level III Fugacity Model boundary description",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Screening Tool for overall persistence and long-range transport potential",
+          "url": "https://www.oecd.org/en/data/tools/screening-tool-for-overall-persistence-and-long-range-transport-potential.html"
+        }
+      ],
+      "methodsBasisLines": [
+        "Level I mass is distributed by f * capacity_i after solving total scoped moles over summed capacities."
+      ],
+      "referenceCaseLines": [
+        "Grounded to CEMC evaluative Level I fugacity model descriptions and internal hand-worked oracle cases."
+      ],
+      "reviewNotes": [
+        "Mass conservation is a screening-equation claim, not field validation."
+      ],
+      "pluginCodeReferences": [
+        "fate_mcp.plugins.fugacity_equilibrium_screening:FugacityEquilibriumScreeningPlugin.run"
+      ],
+      "independentEvidenceFamilies": [
+        "cemc_level_i_equilibrium_partitioning_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "officialSourceCount": 3,
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "nextCorroborationAction": "Add independent published worked examples or official executable examples if redistributable cases become available.",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "officialSourceIds": [
+        "cemc.evaluative_fugacity_models",
+        "cemc.level_iii_fugacity_model",
+        "oecd.pov_lrtp_screening_tool"
+      ],
+      "worksheetStatus": "ready",
+      "lastReviewedDate": "2026-05-03",
+      "toleranceBasis": "Internal oracle tolerance requires mass closure within floating-point screening tolerance."
+    },
+    "fugacity_level_i_partitioning_v1": {
+      "displayName": "Fugacity Level I air-water and solid partitioning screening equation",
+      "modelFamily": "fugacity_equilibrium_screening",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The fugacity Level I family reproduces hand-worked air/water and Koc-driven soil/sediment partitioning ratios for fixed scalar inputs.",
+      "claimClass": "fugacity_level_i_partitioning",
+      "priority": "high",
+      "mandatoryForRelease": false,
+      "requiredValidationTiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "referenceCaseIds": [
+        "cemc_level_i_equilibrium_partitioning_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Pov and LRTP Screening Tool",
+          "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+        }
+      ],
+      "methodsBasisLines": [
+        "Air/water partitioning is driven by 1/(RT) and 1/H; solid capacity uses Z_water * Kd * mass."
+      ],
+      "referenceCaseLines": [
+        "Grounded to CEMC evaluative fugacity concepts and OECD multimedia screening context."
+      ],
+      "reviewNotes": [
+        "Partitioning ratios are scalar screening checks only."
+      ],
+      "pluginCodeReferences": [
+        "fate_mcp.plugins.fugacity_equilibrium_screening:FugacityEquilibriumScreeningPlugin._media_capacity_terms"
+      ],
+      "independentEvidenceFamilies": [
+        "cemc_level_i_equilibrium_partitioning_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "officialSourceCount": 2,
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "nextCorroborationAction": "Add independent published worked examples or official executable examples if redistributable cases become available.",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "officialSourceIds": [
+        "cemc.evaluative_fugacity_models",
+        "oecd.pov_lrtp_screening_tool"
+      ],
+      "worksheetStatus": "ready",
+      "lastReviewedDate": "2026-05-03",
+      "toleranceBasis": "Internal oracle tolerance requires surface concentrations to match hand-worked fixture values."
+    },
+    "fugacity_level_ii_loss_balance_v1": {
+      "displayName": "Fugacity Level II degradation-loss balance screening equation",
+      "modelFamily": "fugacity_equilibrium_screening",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The fugacity Level II family balances continuous input rate against summed first-order degradation losses under equilibrium partitioning.",
+      "claimClass": "fugacity_level_ii_loss_balance",
+      "priority": "high",
+      "mandatoryForRelease": false,
+      "requiredValidationTiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "requiredReferenceTypes": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "referenceCaseIds": [
+        "cemc_level_ii_equilibrium_persistence_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Pov and LRTP Screening Tool",
+          "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+        }
+      ],
+      "methodsBasisLines": [
+        "Level II solves fugacity from input_rate_mol_day / sum(k_i * capacity_i)."
+      ],
+      "referenceCaseLines": [
+        "Grounded to CEMC Level II evaluative fugacity descriptions and OECD persistence screening context."
+      ],
+      "reviewNotes": [
+        "Loss balance excludes advective export and Level III transfer."
+      ],
+      "pluginCodeReferences": [
+        "fate_mcp.plugins.fugacity_equilibrium_screening:FugacityEquilibriumScreeningPlugin.run"
+      ],
+      "independentEvidenceFamilies": [
+        "cemc_level_ii_equilibrium_persistence_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "officialSourceCount": 2,
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "nextCorroborationAction": "Add independent published worked examples or official executable examples if redistributable cases become available.",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "officialSourceIds": [
+        "cemc.evaluative_fugacity_models",
+        "oecd.pov_lrtp_screening_tool"
+      ],
+      "worksheetStatus": "ready",
+      "lastReviewedDate": "2026-05-03",
+      "toleranceBasis": "Internal oracle tolerance requires summed loss rate to match input rate within floating-point screening tolerance."
+    },
+    "fugacity_level_boundary_v1": {
+      "displayName": "Fugacity Level I/II boundary and Level III deferral claim",
+      "modelFamily": "fugacity_equilibrium_screening",
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "fitForPurpose": [
+        "screening",
+        "benchmark"
+      ],
+      "statement": "The fugacity family explicitly limits v0.4.0 execution to Level I/II equilibrium screening and defers Level III intermedia-transfer, routing, and calibration claims.",
+      "claimClass": "fugacity_boundary_claim",
+      "priority": "medium",
+      "mandatoryForRelease": false,
+      "requiredValidationTiers": [
+        "source_backed_method"
+      ],
+      "requiredReferenceTypes": [
+        "public_method_description"
+      ],
+      "referenceCaseIds": [
+        "cemc_level_i_equilibrium_partitioning_case_family_v1",
+        "cemc_level_ii_equilibrium_persistence_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "sourceReferences": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "cemc.level_iii_fugacity_model",
+          "title": "CEMC Level III Fugacity Model boundary description",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Screening Tool for overall persistence and long-range transport potential",
+          "url": "https://www.oecd.org/en/data/tools/screening-tool-for-overall-persistence-and-long-range-transport-potential.html"
+        }
+      ],
+      "methodsBasisLines": [
+        "Level III is documented as a separate non-equilibrium model class and is not implemented in v0.4.0."
+      ],
+      "referenceCaseLines": [
+        "Grounded to CEMC Level III boundary wording and EPA model-use transparency guidance."
+      ],
+      "reviewNotes": [
+        "Boundary claim is about preventing overinterpretation, not model accuracy."
+      ],
+      "pluginCodeReferences": [
+        "fate_mcp.plugins.fugacity_equilibrium_screening:FugacityEquilibriumScreeningPlugin.limitations"
+      ],
+      "independentEvidenceFamilies": [
+        "cemc_level_i_equilibrium_partitioning_case_family_v1",
+        "cemc_level_ii_equilibrium_persistence_case_family_v1",
+        "oecd_multimedia_persistence_screening_case_family_v1"
+      ],
+      "officialSourceCount": 4,
+      "jurisdictionBreadth": "multi_jurisdiction",
+      "corroborationStatus": "multi_official_multi_jurisdiction",
+      "nextCorroborationAction": "Keep boundary docs and prompt language synchronized with runtime limitations.",
+      "evidenceFamily": "public_method_description_plus_boundary_docs",
+      "officialSourceIds": [
+        "cemc.evaluative_fugacity_models",
+        "cemc.level_iii_fugacity_model",
+        "epa.environmental_models_guidance",
+        "oecd.pov_lrtp_screening_tool"
+      ],
+      "worksheetStatus": "ready",
+      "lastReviewedDate": "2026-05-03",
+      "toleranceBasis": "Boundary validation requires explicit runtime, docs, and prompt language for no Level III/routing/calibration/regulatory acceptance."
     }
   }
 }

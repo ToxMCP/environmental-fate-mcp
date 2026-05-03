@@ -2883,6 +2883,356 @@ BENCHMARK_FIXTURES = [
                 },
                 "tolerance": 1e-12
             }
+    ]
+},
+    {
+        "name": "fugacity_level_i_mass_conservation_fixture",
+        "category": "fugacity_equilibrium_screening",
+        "validation_tier": "internal_oracle",
+        "scientific_basis": "Hand-worked Level I fugacity equilibrium screen distributing scoped mass across air, water, soil, and sediment by capacity terms.",
+        "reference_type": "hand_worked_screening_equation",
+        "expected_behavior": "Summed medium mass equals scoped release mass and each medium follows mass_i = f * capacity_i.",
+        "tolerance_rationale": "The Level I fugacity screen is deterministic; floating-point precision is the only tolerated deviation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": ["fugacity_level_i_mass_conservation_v1"],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark fugacity",
+                "substance_class": "neutral organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [
+                {"medium": "air", "fraction": 0.25},
+                {"medium": "water", "fraction": 0.25},
+                {"medium": "soil", "fraction": 0.25},
+                {"medium": "sediment", "fraction": 0.25}
+            ],
+            "duration_days": 30.0,
+            "parameter_records": [
+                {
+                    "parameter": "molecular_weight_g_mol",
+                    "value": 200.0,
+                    "unit": "g/mol",
+                    "source_classification": "user_input",
+                    "rationale": "Fugacity benchmark molecular weight."
+                },
+                {
+                    "parameter": "henry_law_constant_pa_m3_mol",
+                    "value": 1.0,
+                    "unit": "Pa m3/mol",
+                    "source_classification": "user_input",
+                    "rationale": "Fugacity benchmark Henry law constant."
+                },
+                {
+                    "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+                    "value": 1000.0,
+                    "unit": "L/kg",
+                    "source_classification": "user_input",
+                    "rationale": "Fugacity benchmark Koc."
+                }
+            ]
+        },
+        "run_options": {
+            "model_family": "fugacity_equilibrium_screening",
+            "fugacity_screening_level": "level_i_equilibrium"
+        },
+        "expected_surfaces": [
+            {"medium": "air", "compartment": "ambient_air", "value": 6.832539557802613e-06, "unit": "mg/m3"},
+            {"medium": "water", "compartment": "surface_water", "value": 0.01693757196685118, "unit": "mg/m3"},
+            {"medium": "soil", "compartment": "agricultural_soil", "value": 0.0003387514393370236, "unit": "mg/kg"},
+            {"medium": "sediment", "compartment": "freshwater_sediment", "value": 0.000846878598342559, "unit": "mg/kg"}
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "air",
+                "compartment": "ambient_air",
+                "terms": {
+                    "fugacity": 8.468785983425591e-08,
+                    "total_capacity_denominator": 590403395.455451,
+                    "medium_mass_mg": 6832.539557802614,
+                    "medium_partition_fraction": 0.0006832539557802613
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "medium_mass_mg": 8468785.983425591,
+                    "medium_partition_fraction": 0.8468785983425591
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "soil",
+                "compartment": "agricultural_soil",
+                "terms": {
+                    "medium_mass_mg": 846878.5983425591,
+                    "medium_partition_fraction": 0.0846878598342559
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "sediment",
+                "compartment": "freshwater_sediment",
+                "terms": {
+                    "medium_mass_mg": 677502.8786740472,
+                    "medium_partition_fraction": 0.06775028786740472
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "fugacity_level_i_public_method_boundary_fixture",
+        "category": "fugacity_equilibrium_screening",
+        "validation_tier": "source_backed_method",
+        "scientific_basis": "CEMC Level I describes equilibrium partitioning without in/out flows or degrading reactions; this fixture anchors the public method boundary for v0.4.0 screening.",
+        "reference_type": "public_method_description",
+        "expected_behavior": "Requested media filters the returned water surface without changing the all-media equilibrium denominator.",
+        "tolerance_rationale": "The public-method fixture is deterministic and uses the same denominator as the all-media Level I oracle.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "fugacity_level_i_mass_conservation_v1",
+            "fugacity_level_boundary_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark fugacity",
+                "substance_class": "neutral organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [
+                {"medium": "air", "fraction": 0.25},
+                {"medium": "water", "fraction": 0.25},
+                {"medium": "soil", "fraction": 0.25},
+                {"medium": "sediment", "fraction": 0.25}
+            ],
+            "duration_days": 30.0,
+            "parameter_records": [
+                {"parameter": "molecular_weight_g_mol", "value": 200.0, "unit": "g/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark molecular weight."},
+                {"parameter": "henry_law_constant_pa_m3_mol", "value": 1.0, "unit": "Pa m3/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark Henry law constant."},
+                {"parameter": "organic_carbon_partition_coefficient_koc_l_kg", "value": 1000.0, "unit": "L/kg", "source_classification": "user_input", "rationale": "Fugacity benchmark Koc."}
+            ]
+        },
+        "run_options": {
+            "model_family": "fugacity_equilibrium_screening",
+            "fugacity_screening_level": "level_i_equilibrium",
+            "requested_media": ["water"]
+        },
+        "expected_surfaces": [
+            {"medium": "water", "compartment": "surface_water", "value": 0.01693757196685118, "unit": "mg/m3"}
+        ]
+    },
+    {
+        "name": "fugacity_level_i_air_water_partitioning_fixture",
+        "category": "fugacity_equilibrium_screening",
+        "validation_tier": "internal_oracle",
+        "scientific_basis": "Hand-worked Level I air/water fugacity partitioning driven by Z_air = 1/(RT) and Z_water = 1/H.",
+        "reference_type": "hand_worked_screening_equation",
+        "expected_behavior": "Air and water concentrations match fixed scalar fugacity-capacity calculations.",
+        "tolerance_rationale": "The Level I partitioning screen is deterministic; floating-point precision is the only tolerated deviation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": ["fugacity_level_i_partitioning_v1"],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark fugacity",
+                "substance_class": "neutral organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [
+                {"medium": "air", "fraction": 0.25},
+                {"medium": "water", "fraction": 0.25},
+                {"medium": "soil", "fraction": 0.25},
+                {"medium": "sediment", "fraction": 0.25}
+            ],
+            "duration_days": 30.0,
+            "parameter_records": [
+                {"parameter": "molecular_weight_g_mol", "value": 200.0, "unit": "g/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark molecular weight."},
+                {"parameter": "henry_law_constant_pa_m3_mol", "value": 1.0, "unit": "Pa m3/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark Henry law constant."},
+                {"parameter": "organic_carbon_partition_coefficient_koc_l_kg", "value": 1000.0, "unit": "L/kg", "source_classification": "user_input", "rationale": "Fugacity benchmark Koc."}
+            ]
+        },
+        "run_options": {
+            "model_family": "fugacity_equilibrium_screening",
+            "fugacity_screening_level": "level_i_equilibrium",
+            "requested_media": ["air", "water"]
+        },
+        "expected_surfaces": [
+            {"medium": "air", "compartment": "ambient_air", "value": 6.832539557802613e-06, "unit": "mg/m3"},
+            {"medium": "water", "compartment": "surface_water", "value": 0.01693757196685118, "unit": "mg/m3"}
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "air",
+                "compartment": "ambient_air",
+                "terms": {
+                    "medium_z_value": 0.00040339545545103493,
+                    "medium_capacity_term": 403395.45545103494
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {
+                    "medium_z_value": 1.0,
+                    "medium_capacity_term": 500000000.0
+                },
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "fugacity_level_i_solid_partitioning_public_method_fixture",
+        "category": "fugacity_equilibrium_screening",
+        "validation_tier": "source_backed_method",
+        "scientific_basis": "CEMC Level I partitioning is extended here through governed Koc-derived solid capacity terms for scalar soil and sediment screening.",
+        "reference_type": "public_method_description",
+        "expected_behavior": "Soil and sediment outputs follow Z_water * Kd * mass capacity terms while remaining experimental screening outputs.",
+        "tolerance_rationale": "The solid partitioning fixture is deterministic and checks Koc-derived scalar capacity terms.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "fugacity_level_i_partitioning_v1",
+            "fugacity_level_boundary_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark fugacity",
+                "substance_class": "neutral organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [
+                {"medium": "air", "fraction": 0.25},
+                {"medium": "water", "fraction": 0.25},
+                {"medium": "soil", "fraction": 0.25},
+                {"medium": "sediment", "fraction": 0.25}
+            ],
+            "duration_days": 30.0,
+            "parameter_records": [
+                {"parameter": "molecular_weight_g_mol", "value": 200.0, "unit": "g/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark molecular weight."},
+                {"parameter": "henry_law_constant_pa_m3_mol", "value": 1.0, "unit": "Pa m3/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark Henry law constant."},
+                {"parameter": "organic_carbon_partition_coefficient_koc_l_kg", "value": 1000.0, "unit": "L/kg", "source_classification": "user_input", "rationale": "Fugacity benchmark Koc."}
+            ]
+        },
+        "run_options": {
+            "model_family": "fugacity_equilibrium_screening",
+            "fugacity_screening_level": "level_i_equilibrium",
+            "requested_media": ["soil", "sediment"]
+        },
+        "expected_surfaces": [
+            {"medium": "soil", "compartment": "agricultural_soil", "value": 0.0003387514393370236, "unit": "mg/kg"},
+            {"medium": "sediment", "compartment": "freshwater_sediment", "value": 0.000846878598342559, "unit": "mg/kg"}
+        ]
+    },
+    {
+        "name": "fugacity_level_ii_loss_balance_fixture",
+        "category": "fugacity_equilibrium_screening",
+        "validation_tier": "internal_oracle",
+        "scientific_basis": "Hand-worked Level II fugacity equilibrium persistence screen balancing continuous input rate against first-order degradation loss.",
+        "reference_type": "hand_worked_screening_equation",
+        "expected_behavior": "Summed degradation loss rate equals input_rate_mol_day while media masses follow f * capacity_i.",
+        "tolerance_rationale": "The Level II fugacity screen is deterministic; floating-point precision is the only tolerated deviation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": ["fugacity_level_ii_loss_balance_v1"],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark fugacity",
+                "substance_class": "neutral organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [
+                {"medium": "air", "fraction": 0.25},
+                {"medium": "water", "fraction": 0.25},
+                {"medium": "soil", "fraction": 0.25},
+                {"medium": "sediment", "fraction": 0.25}
+            ],
+            "duration_days": 30.0,
+            "parameter_records": [
+                {"parameter": "molecular_weight_g_mol", "value": 200.0, "unit": "g/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark molecular weight."},
+                {"parameter": "henry_law_constant_pa_m3_mol", "value": 1.0, "unit": "Pa m3/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark Henry law constant."},
+                {"parameter": "organic_carbon_partition_coefficient_koc_l_kg", "value": 1000.0, "unit": "L/kg", "source_classification": "user_input", "rationale": "Fugacity benchmark Koc."}
+            ]
+        },
+        "run_options": {
+            "model_family": "fugacity_equilibrium_screening",
+            "fugacity_screening_level": "level_ii_equilibrium_persistence"
+        },
+        "expected_surfaces": [
+            {"medium": "air", "compartment": "ambient_air", "value": 5.3751469811100114e-06, "unit": "mg/m3"},
+            {"medium": "water", "compartment": "surface_water", "value": 0.01332475839396872, "unit": "mg/m3"},
+            {"medium": "soil", "compartment": "agricultural_soil", "value": 0.00026649516787937436, "unit": "mg/kg"},
+            {"medium": "sediment", "compartment": "freshwater_sediment", "value": 0.000666237919698436, "unit": "mg/kg"}
+        ],
+        "expected_trace_terms": [
+            {
+                "medium": "air",
+                "compartment": "ambient_air",
+                "terms": {
+                    "total_scoped_moles_or_rate": 1.6666666666666667,
+                    "medium_degradation_loss_rate": 0.009314419937629265
+                },
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "terms": {"medium_degradation_loss_rate": 1.5393364520703137},
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "soil",
+                "compartment": "agricultural_soil",
+                "terms": {"medium_degradation_loss_rate": 0.07696682260351567},
+                "tolerance": 1e-12
+            },
+            {
+                "medium": "sediment",
+                "compartment": "freshwater_sediment",
+                "terms": {"medium_degradation_loss_rate": 0.04104897205520836},
+                "tolerance": 1e-12
+            }
+        ]
+    },
+    {
+        "name": "fugacity_level_ii_public_method_boundary_fixture",
+        "category": "fugacity_equilibrium_screening",
+        "validation_tier": "source_backed_method",
+        "scientific_basis": "CEMC Level II describes steady input with degrading reactions; this fixture anchors the public method boundary without Level III transfer or advection claims.",
+        "reference_type": "public_method_description",
+        "expected_behavior": "Requested media filters the returned water surface without changing Level II loss-balance denominator.",
+        "tolerance_rationale": "The public-method fixture is deterministic and uses the same all-media Level II denominator as the loss-balance oracle.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": [
+            "fugacity_level_ii_loss_balance_v1",
+            "fugacity_level_boundary_v1"
+        ],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Benchmark fugacity",
+                "substance_class": "neutral organic chemical"
+            },
+            "total_release_mass_kg": 10.0,
+            "release_fractions": [
+                {"medium": "air", "fraction": 0.25},
+                {"medium": "water", "fraction": 0.25},
+                {"medium": "soil", "fraction": 0.25},
+                {"medium": "sediment", "fraction": 0.25}
+            ],
+            "duration_days": 30.0,
+            "parameter_records": [
+                {"parameter": "molecular_weight_g_mol", "value": 200.0, "unit": "g/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark molecular weight."},
+                {"parameter": "henry_law_constant_pa_m3_mol", "value": 1.0, "unit": "Pa m3/mol", "source_classification": "user_input", "rationale": "Fugacity benchmark Henry law constant."},
+                {"parameter": "organic_carbon_partition_coefficient_koc_l_kg", "value": 1000.0, "unit": "L/kg", "source_classification": "user_input", "rationale": "Fugacity benchmark Koc."}
+            ]
+        },
+        "run_options": {
+            "model_family": "fugacity_equilibrium_screening",
+            "fugacity_screening_level": "level_ii_equilibrium_persistence",
+            "requested_media": ["water"]
+        },
+        "expected_surfaces": [
+            {"medium": "water", "compartment": "surface_water", "value": 0.01332475839396872, "unit": "mg/m3"}
         ]
     },
     {

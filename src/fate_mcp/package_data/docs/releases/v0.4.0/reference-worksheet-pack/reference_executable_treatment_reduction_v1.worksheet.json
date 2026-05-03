@@ -1,0 +1,84 @@
+{
+  "claimId": "reference_executable_treatment_reduction_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference executable treatment reduction",
+  "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+  "lastReviewedDate": "2026-04-21",
+  "modelFamily": "reference_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "epa.environmental_models_guidance"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.4.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Water concentration scales with the effective post-treatment release mass when executable pre_release_global treatment changes.",
+      "fixtureName": "reference_treatment_proportionality_sensitivity_fixture",
+      "referenceType": "hand_worked_treatment_sensitivity_fixture",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark treatment proportionality"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 12.0,
+        "treatment_assumptions": [
+          {
+            "description": "Executable proportionality treatment",
+            "execution_mode": "pre_release_global",
+            "removal_fraction": 0.5
+          }
+        ]
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case with a different executable pre-release treatment fraction, corroborating proportional source-term reduction in the baseline reference kernel.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Treatment proportionality remains deterministic because the reduction applies before the same finite-duration first-order equation is evaluated.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "Water concentration reflects the pre_release_global treatment removal fraction before the finite-duration first-order screening equation is evaluated.",
+      "fixtureName": "reference_treatment_reduction_anchor_fixture",
+      "referenceType": "hand_worked_treatment_anchor",
+      "runOptions": null,
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark treatment"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0,
+        "treatment_assumptions": [
+          {
+            "description": "Executable pre-release treatment",
+            "execution_mode": "pre_release_global",
+            "removal_fraction": 0.9
+          }
+        ]
+      },
+      "scientificBasis": "Hand-worked finite-duration water screening case where executable pre-release treatment reduces the effective release mass before the first-order calculation.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Treatment execution is a deterministic mass-reduction step before the governed reference equation.",
+      "validationTier": "edge_condition"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "profile_count": 4,
+  "profile_count": 5,
   "profiles": [
     {
       "model_family": "adapter_stub",
@@ -207,6 +207,84 @@
       },
       "source_pack": "defaults/v1/scientific_review_profiles.json",
       "applicability_note": "Use this review profile when Fate MCP is normalizing an external engine's concentration outputs rather than producing native concentrations."
+    },
+    {
+      "model_family": "fugacity_equilibrium_screening",
+      "display_name": "Fugacity Equilibrium Screening Scientific Review",
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "review_checklist": [
+        {
+          "code": "fugacity_level_scope_confirmed",
+          "prompt": "Confirm the run is Level I or Level II equilibrium screening only and not Level III intermedia-transfer modelling.",
+          "rationale": "Scientific review should prevent overinterpretation of fugacity outputs.",
+          "evidence_hint_fields": [
+            "fit_verdict",
+            "applicability_lines",
+            "limitations"
+          ]
+        },
+        {
+          "code": "physchem_provenance_reviewed",
+          "prompt": "Review molecular weight, Henry law constant, Koc, and Level II half-life provenance.",
+          "rationale": "Fugacity outputs are highly sensitive to physchem inputs and scalar half-lives.",
+          "evidence_hint_fields": [
+            "parameter_quality_lines",
+            "equation_lines"
+          ]
+        },
+        {
+          "code": "partitioning_uncertainty_acknowledged",
+          "prompt": "Acknowledge equilibrium partitioning uncertainty and deferred Level III/routing scope before downstream reuse.",
+          "rationale": "Review packets must preserve screening-only interpretation.",
+          "evidence_hint_fields": [
+            "uncertainty_lines",
+            "benchmark_reference_lines"
+          ]
+        }
+      ],
+      "packet_template": "Build a scientific review packet for experimental Level I/II fugacity equilibrium screening with physchem provenance, equation traces, and boundary caveats.",
+      "brief_template": "Summarize whether the fugacity run is scientifically reviewable as experimental equilibrium partitioning screening.",
+      "ready_fit_verdicts": [
+        "good_fit"
+      ],
+      "attention_outcomes": [
+        "qualified_screening_use",
+        "escalate_model_review"
+      ],
+      "attention_if_any_checks_fail": true,
+      "escalation_fit_verdicts": [
+        "review_needed",
+        "not_applicable"
+      ],
+      "escalation_driver_types": [
+        "evidence_conflict"
+      ],
+      "qualification_driver_types": [
+        "heuristic_parameter",
+        "multi_medium_simplification_burden",
+        "default_heavy_parameter",
+        "unsupported_runtime_parameter",
+        "unexecuted_treatment_assumption"
+      ],
+      "warning_severity_promotes_qualification": true,
+      "acceptable_outcome_template": "Use the fugacity run only as experimental equilibrium partitioning screening support inside the declared boundary.",
+      "qualified_outcome_template": "Use the fugacity run only with explicit qualification notes because physchem, equilibrium, or default caveats remain material.",
+      "escalation_outcome_template": "Escalate beyond v0.4.0 fugacity screening when Level III transfer, routing, calibration, field validation, or decision-facing model adequacy is required.",
+      "driver_action_templates": {
+        "heuristic_parameter": "Replace heuristic physchem inputs with measured or higher-confidence evidence where feasible.",
+        "unsupported_runtime_parameter": "Do not treat unsupported descriptors as if they were used by the fugacity runtime.",
+        "unexecuted_treatment_assumption": "Clarify which treatment assumptions remained provenance-only.",
+        "default_screening_capacity": "Document when governed screening capacities dominate fugacity partitioning.",
+        "default_heavy_parameter": "Consider scenario-specific capacity or half-life evidence for sensitive decisions.",
+        "multi_medium_simplification_burden": "Escalate if non-equilibrium transfer or spatial routing dominates the question.",
+        "evidence_conflict": "Resolve conflicting physchem evidence before downstream reuse."
+      },
+      "source_pack": "defaults/v1/scientific_review_profiles.json",
+      "applicability_note": "Use this review profile only for the experimental fugacity_equilibrium_screening family."
     },
     {
       "model_family": "reference_mass_balance",

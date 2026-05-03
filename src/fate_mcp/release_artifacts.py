@@ -23,8 +23,9 @@ from fate_mcp.validation import validation_dossier
 
 
 KNOWN_GAPS = [
-    "No GIS-scale dispersion in v0.3.",
-    "No rainfall-runoff generation, channel routing, deposition-field modelling, or native WEPP execution in v0.3.",
+    "No GIS-scale dispersion in v0.4.",
+    "No rainfall-runoff generation, channel routing, deposition-field modelling, SWAT/PRZM execution, or native WEPP execution in v0.4.",
+    "Fugacity equilibrium screening is experimental Level I/II-style partitioning only; no Level III intermedia-transfer, advective export, calibration, field validation, or regulatory acceptance claim is added.",
     "External benchmark packs are deterministic screening corroboration fixtures, not curated field validation datasets.",
     "Erosion/sediment validation demos remain synthetic screening-QA demonstrations, not curated field benchmark validation.",
     "No direct human dose calculation in Environmental Fate MCP.",
@@ -52,6 +53,7 @@ REPORT_FILENAMES = (
     ("erosion-sediment-validation-demo-report", "erosion-sediment-validation-demo-report.json"),
     ("external-validation-benchmark-report", "external-validation-benchmark-report.json"),
     ("default-sensitivity-report", "default-sensitivity-report.json"),
+    ("fugacity-screening-validation-report", "fugacity-screening-validation-report.json"),
     ("scientific-validation-narrative", "scientific-validation-narrative.json"),
     ("known-gap-report", "known-gap-report.json"),
 )
@@ -73,6 +75,7 @@ REPORT_DESCRIPTIONS = {
     "erosion-sediment-validation-demo-report.json": "Governed synthetic erosion/sediment validation demo-pack report and classification checks.",
     "external-validation-benchmark-report.json": "Governed external benchmark-pack report for deterministic screening corroboration checks.",
     "default-sensitivity-report.json": "Deterministic governed default-sensitivity report for reviewer-facing assumption transparency.",
+    "fugacity-screening-validation-report.json": "Focused validation report for the experimental Level I/II fugacity equilibrium screening family.",
     "scientific-validation-narrative.json": "Reviewer-facing scientific validation narrative covering benchmark, sensitivity, uncertainty, and boundary interpretation.",
     "known-gap-report.json": "Declared known gaps that remain intentionally out of scope for this release.",
     "reference-proof-brief.md": "Compact reviewer-facing brief for the reviewer-grade reference-family proof surface.",
@@ -136,6 +139,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
     erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
     benchmark_report = reports["external-validation-benchmark-report"]
     sensitivity_report = reports["default-sensitivity-report"]
+    fugacity_report = reports["fugacity-screening-validation-report"]
     known_gaps = reports["known-gap-report"]["knownGaps"]
     passed_checks = sum(1 for item in readiness["checks"] if item["passed"])
     total_checks = len(readiness["checks"])
@@ -155,6 +159,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         f"- `{erosion_demo_report['demoCaseCount']}` synthetic erosion/sediment validation demo cases are published for reviewer-facing screening QA orientation.",
         f"- `{benchmark_report['caseCount']}` governed external benchmark replay cases are published for deterministic screening corroboration.",
         f"- `{sensitivity_report['profileCount']}` governed default sensitivity profiles are published for reviewer-facing assumption transparency.",
+        f"- `{fugacity_report['profileCount']}` experimental fugacity screening method profiles are published with Level I/II validation checks.",
         "- Release asset provenance is supported through GitHub Artifact Attestations for the wheel, sdist, checksums, release-bundle manifest, and trust pack.",
         "",
         "## Verification Summary",
@@ -169,6 +174,7 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
         f"- Erosion/sediment validation demo pack passed: `{erosion_demo_report['passed']}`.",
         f"- External benchmark pack passed: `{benchmark_report['passed']}`.",
         f"- Default sensitivity profiles passed: `{sensitivity_report['passed']}`.",
+        f"- Fugacity screening validation passed: `{fugacity_report['passed']}`.",
         "",
         "## Scientific Change Log",
         f"- Shipped-default numeric deltas recorded this release: `{defaults_report['changedParameterCount']}` parameter(s), with `{defaults_report['materiallyChangedParameterCount']}` marked as materially output-affecting.",
@@ -205,8 +211,9 @@ def _render_release_notes(reports: dict[str, dict], release_ref: str) -> str:
             "- `reference-worksheet-pack/` contains the claim-linked worksheet and expected-output artifacts used for skeptical reviewer handoff.",
             "- `advective-promotion-bar-report.json` explains why the advective family remains experimental in this release.",
             "- `erosion-sediment-validation-demo-report.json` checks the synthetic erosion/sediment validation demo pack and expected fit classifications.",
-            "- `external-validation-benchmark-report.json` checks deterministic external benchmark replay cases and expected tolerances.",
-            "- `default-sensitivity-report.json` checks governed default sensitivity profile execution and boundary language.",
+        "- `external-validation-benchmark-report.json` checks deterministic external benchmark replay cases and expected tolerances.",
+        "- `default-sensitivity-report.json` checks governed default sensitivity profile execution and boundary language.",
+        "- `fugacity-screening-validation-report.json` checks experimental Level I/II fugacity mass conservation, loss balance, and boundary language.",
             "- `scientific-validation-narrative.json` summarizes benchmark, sensitivity, probabilistic manifest, and boundary interpretation for reviewers.",
             "- `release-bundle-manifest.json` records SHA-256 checksums for the bundled release files.",
             "- `SHA256SUMS` provides a reviewer-friendly checksum list for manual verification.",
@@ -786,6 +793,7 @@ def _render_scientific_trust_pack(
     erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
     benchmark_report = reports["external-validation-benchmark-report"]
     sensitivity_report = reports["default-sensitivity-report"]
+    fugacity_report = reports["fugacity-screening-validation-report"]
     exclusions = _hard_exclusions(defaults_registry)
     mandatory_claims = [
         claim for claim in corroboration_report["claims"] if claim["mandatoryForRelease"]
@@ -807,6 +815,7 @@ def _render_scientific_trust_pack(
         "- Environmental Fate MCP remains a concentration-only screening module inside the broader ToxMCP suite.",
         "- `reference_mass_balance` is the default reviewer-grade baseline family.",
         "- `advective_screening_mass_balance` remains an experimental challenge family and should be interpreted through the governed baseline-versus-challenge workflow.",
+        "- `fugacity_equilibrium_screening` is an experimental non-default Level I/II equilibrium partitioning challenge family; it is not Level III, routed, calibrated, field validated, or regulator accepted.",
         "",
         "## What Changed Scientifically In This Release",
         f"- Shipped-default delta records are published for `{defaults_report['parameterCount']}` parameter(s).",
@@ -820,6 +829,7 @@ def _render_scientific_trust_pack(
         f"- The erosion/sediment validation demo pack publishes `{erosion_demo_report['demoCaseCount']}` synthetic screening-QA cases and passed its classification checks.",
         f"- The external benchmark pack publishes `{benchmark_report['caseCount']}` deterministic replay cases and passed its tolerance checks.",
         f"- The default sensitivity surface publishes `{sensitivity_report['profileCount']}` governed deterministic sensitivity profiles.",
+        f"- The fugacity screening validation report publishes `{fugacity_report['profileCount']}` experimental Level I/II method profiles and passed mass/loss/boundary checks.",
         "",
         "## When Not To Use This MCP",
     ]
@@ -893,6 +903,13 @@ def _render_scientific_trust_pack(
             "- Report: `release://default-sensitivity-report`.",
             "- These artifacts improve deterministic screening corroboration and assumption transparency; they are not field validation, calibration, source-engine equivalence, or regulator acceptance.",
             "",
+            "## Experimental Fugacity Challenge Path",
+            f"- Fugacity validation passed: `{fugacity_report['passed']}`.",
+            f"- Fugacity method profiles: `{fugacity_report['profileCount']}`.",
+            "- Resource: `defaults://fugacity-screening-method-profiles`.",
+            "- Report: `release://fugacity-screening-validation-report`.",
+            "- This path supports experimental Level I and Level II equilibrium screening only; it does not implement Level III intermedia-transfer, advection, spatial routing, calibration, field validation, source-engine equivalence, or regulator acceptance.",
+            "",
             "## Claim Corroboration",
             f"- Governed scientific validation claims: `{metadata['scientificValidationClaimCount']}`.",
             f"- Mandatory claims: `{metadata['scientificValidationMandatoryClaimCount']}`.",
@@ -957,6 +974,7 @@ def _render_scientific_trust_brief(
     erosion_demo_report = reports["erosion-sediment-validation-demo-report"]
     benchmark_report = reports["external-validation-benchmark-report"]
     sensitivity_report = reports["default-sensitivity-report"]
+    fugacity_report = reports["fugacity-screening-validation-report"]
     known_gaps = reports["known-gap-report"]["knownGaps"]
     mandatory_claims = [
         claim for claim in corroboration_report["claims"] if claim["mandatoryForRelease"]
@@ -1007,6 +1025,7 @@ def _render_scientific_trust_brief(
         f"- Erosion/sediment validation demo pack: `{erosion_demo_report['demoCaseCount']}` synthetic cases, passed `{erosion_demo_report['passed']}`.",
         f"- External benchmark pack: `{benchmark_report['caseCount']}` deterministic replay cases, passed `{benchmark_report['passed']}`.",
         f"- Default sensitivity profiles: `{sensitivity_report['profileCount']}` governed profiles, passed `{sensitivity_report['passed']}`.",
+        f"- Experimental fugacity screening: `{fugacity_report['profileCount']}` method profiles, passed `{fugacity_report['passed']}`.",
         "",
         "## Reviewer Signals",
         "- `reference_mass_balance` remains the decision-facing baseline family.",
@@ -1017,6 +1036,7 @@ def _render_scientific_trust_brief(
         "- Use the full trust pack if you need the mandatory-claim table, reviewer challenge matrix, or the full exclusion list.",
         "- Use `release://erosion-sediment-validation-demo-report` only as a synthetic screening-QA orientation surface, not as field validation or calibration evidence.",
         "- Use `release://external-validation-benchmark-report` and `release://default-sensitivity-report` as screening-trust diagnostics only, not as regulator acceptance or calibrated validation evidence.",
+        "- Use `release://fugacity-screening-validation-report` only for Level I/II equilibrium screening checks; it is not Level III, routed, calibrated, field validation, or source-engine equivalence evidence.",
     ]
     if weaker_mandatory_claims:
         lines.extend(
@@ -1516,6 +1536,12 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "defaultSensitivityProfilesPassed": dossier[
             "defaultSensitivityProfiles"
         ]["passed"],
+        "fugacityScreeningMethodProfileCount": dossier[
+            "fugacityScreeningValidation"
+        ]["profileCount"],
+        "fugacityScreeningValidationPassed": dossier[
+            "fugacityScreeningValidation"
+        ]["passed"],
         "parameterManifestEntryCount": len(parameter_manifest_example["entries"]),
         "parameterManifestRuntimeConsumedCount": sum(
             1 for entry in parameter_manifest_example["entries"] if entry["runtime_consumed"]
@@ -1662,6 +1688,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         and dossier["erosionSedimentValidationDemoPack"]["passed"]
         and dossier["scientificExternalBenchmarkPack"]["passed"]
         and dossier["defaultSensitivityProfiles"]["passed"]
+        and dossier["fugacityScreeningValidation"]["passed"]
         and dossier["modelFamilySelectionWorkflow"]["passed"]
         and dossier["modelFamilySelectionReviewWorkflow"]["passed"]
         and dossier["modelFamilyChallengeReviewWorkflow"]["passed"]
@@ -1715,6 +1742,10 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
             {
                 "name": "default-sensitivity-profiles-passed",
                 "passed": dossier["defaultSensitivityProfiles"]["passed"],
+            },
+            {
+                "name": "fugacity-screening-validation-passed",
+                "passed": dossier["fugacityScreeningValidation"]["passed"],
             },
             {"name": "model-family-selection-workflow-passed", "passed": dossier["modelFamilySelectionWorkflow"]["passed"]},
             {
@@ -1777,6 +1808,10 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
                 "name": "default_sensitivity_profile_drift",
                 "passed": dossier["defaultSensitivityProfiles"]["passed"],
             },
+            {
+                "name": "fugacity_screening_validation_drift",
+                "passed": dossier["fugacityScreeningValidation"]["passed"],
+            },
         ],
     }
     security_provenance_review = {
@@ -1808,19 +1843,22 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
     }
     scientific_validation_narrative = {
         "version": VERSION,
-        "status": "screening_corroboration_strengthened_not_regulatory_acceptance",
+        "status": "experimental_fugacity_screening_added_without_regulatory_acceptance",
         "narrativeLines": [
-            "The v0.3 release line adds governed external benchmark replay, deterministic default sensitivity reporting, optional probabilistic sample manifests, and release-asset provenance support.",
+            "The v0.4 release line adds an experimental Level I/II-style fugacity equilibrium partitioning challenge family without adding Level III transfer, GIS routing, hydrology generation, calibration, WEPP/SWAT/PRZM execution, or final risk decisions.",
             "The benchmark pack improves reproducibility and source-grounded corroboration for scalar screening equations, but it is not field validation, calibration evidence, source-engine equivalence, or regulator acceptance.",
             "The default sensitivity report shows how shipped or scenario assumptions can move screening outputs; it is not formal global sensitivity analysis or uncertainty quantification.",
+            "The fugacity screening validation report checks mass conservation, degradation-loss balance, requested-media filtering, source references, and explicit Level III/routing/calibration boundary language.",
             "Probabilistic sample manifests preserve seed, sampled parameter summaries, iteration health, and stable hashes when requested; full per-iteration calculation traces remain intentionally omitted.",
             "GitHub Artifact Attestations for release assets, when published, support supply-chain provenance review; they are not scientific validation or a substitute for release-report review.",
-            "The release remains bounded to concentration screening and scalar erosion/sediment screening; no hydrology generation, spatial routing, calibration, WEPP execution, or final risk decision is added.",
+            "The release remains bounded to concentration screening, scalar erosion/sediment screening, and experimental fugacity equilibrium screening; no hydrology generation, spatial routing, calibration, WEPP execution, Level III transfer, or final risk decision is added.",
         ],
         "benchmarkResource": "defaults://scientific-external-benchmark-pack",
         "benchmarkReport": "release://external-validation-benchmark-report",
         "sensitivityResource": "defaults://default-sensitivity-profiles",
         "sensitivityReport": "release://default-sensitivity-report",
+        "fugacityResource": "defaults://fugacity-screening-method-profiles",
+        "fugacityReport": "release://fugacity-screening-validation-report",
         "acceptedLimitations": KNOWN_GAPS,
     }
     reports = {
@@ -1841,6 +1879,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         ],
         "external-validation-benchmark-report": dossier["scientificExternalBenchmarkPack"],
         "default-sensitivity-report": dossier["defaultSensitivityProfiles"],
+        "fugacity-screening-validation-report": dossier["fugacityScreeningValidation"],
         "scientific-validation-narrative": scientific_validation_narrative,
         "known-gap-report": known_gap_report,
     }
@@ -2061,7 +2100,7 @@ def main() -> None:
     parser.add_argument(
         "--release-ref",
         default=f"v{VERSION}",
-        help="Release reference label to embed in the generated bundle, for example a tag such as v0.3.1.",
+        help="Release reference label to embed in the generated bundle, for example a tag such as v0.4.0.",
     )
     args = parser.parse_args()
     bundle_dir = write_release_bundle(Path.cwd(), output_dir=args.output_dir, release_ref=args.release_ref)

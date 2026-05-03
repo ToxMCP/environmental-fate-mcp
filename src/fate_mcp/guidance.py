@@ -20,11 +20,12 @@ DOC_RESOURCE_MAP = {
     "workflow-cookbook": "docs/workflow_cookbook.md",
     "external-payload-contract": "docs/external_payload_contract.md",
     "erosion-sediment-transport": "docs/erosion_sediment_transport.md",
+    "fugacity-screening": "docs/fugacity_screening.md",
     "agent-evaluations": "docs/agent_evaluations.md",
-    "scientific-trust-pack": "docs/releases/v0.3.1/scientific-trust-pack.md",
-    "scientific-trust-brief": "docs/releases/v0.3.1/scientific-trust-brief.md",
-    "reference-proof-brief": "docs/releases/v0.3.1/reference-proof-brief.md",
-    "advective-promotion-brief": "docs/releases/v0.3.1/advective-promotion-brief.md",
+    "scientific-trust-pack": "docs/releases/v0.4.0/scientific-trust-pack.md",
+    "scientific-trust-brief": "docs/releases/v0.4.0/scientific-trust-brief.md",
+    "reference-proof-brief": "docs/releases/v0.4.0/reference-proof-brief.md",
+    "advective-promotion-brief": "docs/releases/v0.4.0/advective-promotion-brief.md",
 }
 
 

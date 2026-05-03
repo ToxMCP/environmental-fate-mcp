@@ -573,6 +573,10 @@ def _build_examples(runtime: FateRuntime) -> dict[str, dict]:
             "rusle"
         ).model_dump(mode="json"),
         "erosionSedimentMethodProfileManifest.v1": runtime.defaults.erosion_sediment_method_profile_manifest().model_dump(mode="json"),
+        "fugacityScreeningMethodProfile.v1": runtime.defaults.fugacity_screening_method_profile(
+            "fugacity_level_i_equilibrium_v1"
+        ).model_dump(mode="json"),
+        "fugacityScreeningMethodProfileManifest.v1": runtime.defaults.fugacity_screening_method_profile_manifest().model_dump(mode="json"),
         "erosionSedimentValidationProfile.v1": runtime.defaults.erosion_sediment_validation_profile(
             "erosion_sediment_screening_validation_v1"
         ).model_dump(mode="json"),

@@ -1,0 +1,66 @@
+{
+  "profile_id": "fugacity_level_i_equilibrium_v1",
+  "display_name": "Experimental Level I equilibrium fugacity screening",
+  "screening_level": "level_i_equilibrium",
+  "method_class": "experimental_equilibrium_fugacity_screening",
+  "equation_ids": [
+    "fugacity-level-i-total-capacity-v0.4.0",
+    "fugacity-level-i-medium-mass-v0.4.0"
+  ],
+  "equation_text": [
+    "f = total_scoped_moles / sum(Z_i * V_i)",
+    "mass_i = f * Z_i * V_i",
+    "solid capacity terms use Z_water * Kd * mass_kg with governed organic-carbon fractions"
+  ],
+  "required_inputs": [
+    "molecular_weight_g_mol",
+    "henry_law_constant_pa_m3_mol",
+    "organic_carbon_partition_coefficient_koc_l_kg",
+    "air/water capacity volumes and soil/sediment capacity masses"
+  ],
+  "supported_media": [
+    "air",
+    "water",
+    "soil",
+    "sediment"
+  ],
+  "constants": {
+    "gas_constant_pa_m3_mol_k": 8.31446261815324,
+    "soil_organic_carbon_fraction": 0.02,
+    "sediment_organic_carbon_fraction": 0.05
+  },
+  "source_references": [
+    {
+      "source_id": "cemc.evaluative_fugacity_models",
+      "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+      "effective_date": null,
+      "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+    },
+    {
+      "source_id": "cemc.level_iii_fugacity_model",
+      "title": "CEMC Level III Fugacity Model boundary description",
+      "effective_date": null,
+      "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
+    },
+    {
+      "source_id": "oecd.pov_lrtp_screening_tool",
+      "title": "OECD Pov and LRTP Screening Tool",
+      "effective_date": null,
+      "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+    }
+  ],
+  "limitations": [
+    "Experimental Level I screening assumes equilibrium partitioning across all four active media.",
+    "Release entry medium affects scoped mass only; it does not route mass between compartments.",
+    "Uses scenario temperature in R*T but does not apply Henry-law temperature correction in v0.4.0.",
+    "Not Level III, not intermedia-transfer kinetics, not GIS routing, not calibration, not field validation, and not regulator acceptance."
+  ],
+  "deferred_capabilities": [
+    "Level III non-equilibrium intermedia transfer",
+    "advection/deposition/routing between media",
+    "chemical-specific temperature-corrected Henry constants",
+    "calibration or field validation"
+  ],
+  "source_pack": "defaults/v1/fugacity_screening_method_profiles.json",
+  "applicability_note": "Use only as an experimental non-default partitioning challenge path against the reference mass-balance baseline."
+}
