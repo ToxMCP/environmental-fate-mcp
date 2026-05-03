@@ -44,6 +44,7 @@ from fate_mcp.plugins import (
     AdvectiveScreeningMassBalancePlugin,
     AdvectiveTimeBucketMassBalancePlugin,
     ExternalResultAdapterHarnessPlugin,
+    FugacityEquilibriumScreeningPlugin,
     ReferenceMassBalancePlugin,
 )
 from fate_mcp.plugins.base import FatePlugin, PluginKey
@@ -97,6 +98,7 @@ class FateRuntime:
         self.plugins.register(TimeBucketMassBalancePlugin(self.defaults, self.provenance))
         self.plugins.register(AdvectiveScreeningMassBalancePlugin(self.defaults, self.provenance))
         self.plugins.register(AdvectiveTimeBucketMassBalancePlugin(self.defaults, self.provenance))
+        self.plugins.register(FugacityEquilibriumScreeningPlugin(self.defaults, self.provenance))
         self.plugins.register(AdapterStubPlugin(self.defaults, self.provenance))
         self.plugins.register(ExternalResultAdapterHarnessPlugin(self.defaults, self.provenance))
 
@@ -194,6 +196,15 @@ class FateRuntime:
                 code="region_profile_mismatch",
                 message="Run options region profile must match the scenario geographic scope.",
                 suggestion="Align the scenario region and run options region_profile_id.",
+            )
+        if (
+            run_options.model_family == ModelFamily.FUGACITY_EQUILIBRIUM_SCREENING
+            and run_options.run_mode != RunMode.STEADY_STATE
+        ):
+            raise FateValidationError(
+                code="fugacity_screening_time_bucket_unsupported",
+                message="Fugacity equilibrium screening supports steady_state mode only in v0.4.0.",
+                suggestion="Use run_mode=steady_state, or keep the reference family for time-bucket screening.",
             )
         plugin = self.plugins.resolve(run_options.run_mode, run_options.model_family)
         return plugin.run(scenario, run_options)

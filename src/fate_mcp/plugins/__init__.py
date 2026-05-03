@@ -4,6 +4,7 @@ from fate_mcp.plugins.advective_screening_mass_balance import (
     AdvectiveTimeBucketMassBalancePlugin,
 )
 from fate_mcp.plugins.external_result_adapter import ExternalResultAdapterHarnessPlugin
+from fate_mcp.plugins.fugacity_equilibrium_screening import FugacityEquilibriumScreeningPlugin
 from fate_mcp.plugins.reference_mass_balance import ReferenceMassBalancePlugin
 
 __all__ = [
@@ -11,5 +12,6 @@ __all__ = [
     "AdvectiveScreeningMassBalancePlugin",
     "AdvectiveTimeBucketMassBalancePlugin",
     "ExternalResultAdapterHarnessPlugin",
+    "FugacityEquilibriumScreeningPlugin",
     "ReferenceMassBalancePlugin",
 ]

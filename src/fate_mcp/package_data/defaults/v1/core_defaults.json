@@ -414,6 +414,117 @@
         "validityNote": "Use only for bounded screening interpretation; this is not a burial, resuspension, or site-specific sediment recovery model.",
         "derivationNote": "This default anchors the bounded advective-loss timescale used when the experimental advective family is selected."
       }
+    },
+    "molecular_weight_g_mol": {
+      "value": 200.0,
+      "unit": "g/mol",
+      "sourceId": "screening.default.fugacity.molecular_weight_g_mol",
+      "title": "Fugacity screening molecular-weight sensitivity anchor",
+      "effectiveDate": "2026-05-03",
+      "previousValue": 200.0,
+      "previousEffectiveDate": "2026-05-03",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "new_v0.4.0_screening_anchor",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Added as a governed v0.4.0 sensitivity/reporting anchor; fugacity runtime still requires explicit scenario parameter records for execution.",
+      "sourceReferences": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Pov and LRTP Screening Tool",
+          "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (CEMC/OECD/US)",
+        "basis": "governed fugacity screening sensitivity anchor",
+        "calculationMethod": "Representative scalar value used for deterministic sensitivity examples and generated artifacts, not a substance-specific default for production execution.",
+        "validityNote": "Use only for sensitivity/reporting scaffolds. Provide substance-specific evidence before running fugacity_equilibrium_screening.",
+        "derivationNote": "The fugacity plugin fails closed without explicit scenario records for this parameter."
+      }
+    },
+    "henry_law_constant_pa_m3_mol": {
+      "value": 1.0,
+      "unit": "Pa m3/mol",
+      "sourceId": "screening.default.fugacity.henry_law_constant_pa_m3_mol",
+      "title": "Fugacity screening Henry law sensitivity anchor",
+      "effectiveDate": "2026-05-03",
+      "previousValue": 1.0,
+      "previousEffectiveDate": "2026-05-03",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "new_v0.4.0_screening_anchor",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Added as a governed v0.4.0 sensitivity/reporting anchor; fugacity runtime still requires explicit scenario parameter records for execution.",
+      "sourceReferences": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Pov and LRTP Screening Tool",
+          "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (CEMC/OECD/US)",
+        "basis": "governed fugacity screening sensitivity anchor",
+        "calculationMethod": "Representative scalar value used for deterministic sensitivity examples and generated artifacts, not a substance-specific default for production execution.",
+        "validityNote": "Use only for sensitivity/reporting scaffolds. Provide substance-specific evidence before running fugacity_equilibrium_screening.",
+        "derivationNote": "The fugacity plugin fails closed without explicit scenario records for this parameter."
+      }
+    },
+    "organic_carbon_partition_coefficient_koc_l_kg": {
+      "value": 1000.0,
+      "unit": "L/kg",
+      "sourceId": "screening.default.fugacity.organic_carbon_partition_coefficient_koc_l_kg",
+      "title": "Fugacity screening Koc sensitivity anchor",
+      "effectiveDate": "2026-05-03",
+      "previousValue": 1000.0,
+      "previousEffectiveDate": "2026-05-03",
+      "evidenceTier": "tier_2_reference",
+      "rebaselineStatus": "new_v0.4.0_screening_anchor",
+      "materialOutputChange": false,
+      "scientificChangeNote": "Added as a governed v0.4.0 sensitivity/reporting anchor; fugacity runtime still requires explicit scenario parameter records for execution.",
+      "sourceReferences": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Pov and LRTP Screening Tool",
+          "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "derivationMetadata": {
+        "jurisdiction": "Cross-jurisdiction screening alignment (CEMC/OECD/US)",
+        "basis": "governed fugacity screening sensitivity anchor",
+        "calculationMethod": "Representative scalar value used for deterministic sensitivity examples and generated artifacts, not a substance-specific default for production execution.",
+        "validityNote": "Use only for sensitivity/reporting scaffolds. Provide substance-specific evidence before running fugacity_equilibrium_screening.",
+        "derivationNote": "The fugacity plugin fails closed without explicit scenario records for this parameter."
+      }
     }
   },
   "mediaDefaults": {

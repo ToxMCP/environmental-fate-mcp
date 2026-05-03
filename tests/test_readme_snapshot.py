@@ -23,7 +23,7 @@ def test_readme_release_snapshot_counts_are_current() -> None:
         f"- `{metadata['regulatoryHandoffProfileCount']}` governed regulatory handoff profiles with downstream acknowledgement schema URLs",
         (
             f"- `{len(metadata['supportedModelFamilies'])}` supported model families and "
-            f"`{metadata['experimentalModelFamilyCount']}` experimental model family"
+            f"`{metadata['experimentalModelFamilyCount']}` experimental model families"
         ),
     ]
 

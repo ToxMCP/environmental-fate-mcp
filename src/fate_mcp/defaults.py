@@ -23,6 +23,9 @@ from fate_mcp.models import (
     ErosionSedimentValidationThresholdSet,
     DefaultSensitivityProfile,
     DefaultSensitivityProfileManifest,
+    FugacityScreeningMethodProfile,
+    FugacityScreeningMethodProfileManifest,
+    FugacityScreeningLevel,
     FateParameterPolicy,
     FateParameterPolicyFamily,
     FateRegionProfile,
@@ -145,6 +148,9 @@ class DefaultsRegistry:
         )
         self.erosion_sediment_method_profiles = _load_json(
             self.version_root / "erosion_sediment_method_profiles.json"
+        )
+        self.fugacity_screening_method_profiles = _load_json(
+            self.version_root / "fugacity_screening_method_profiles.json"
         )
         self.erosion_sediment_validation_profiles = _load_json(
             self.version_root / "erosion_sediment_validation_profiles.json"
@@ -564,6 +570,58 @@ class DefaultsRegistry:
         return ErosionSedimentMethodProfileManifest(
             profile_count=len(profiles),
             profiles=profiles,
+        )
+
+    def fugacity_screening_method_profile(
+        self,
+        profile_id: str,
+    ) -> FugacityScreeningMethodProfile | None:
+        payload = self.fugacity_screening_method_profiles["profiles"].get(profile_id)
+        if not payload:
+            return None
+        return FugacityScreeningMethodProfile(
+            profile_id=profile_id,
+            display_name=payload["displayName"],
+            screening_level=FugacityScreeningLevel(payload["screeningLevel"]),
+            method_class=payload["methodClass"],
+            equation_ids=payload.get("equationIds", []),
+            equation_text=payload.get("equationText", []),
+            required_inputs=payload.get("requiredInputs", []),
+            supported_media=[Media(item) for item in payload.get("supportedMedia", [])],
+            constants=payload.get("constants", {}),
+            source_references=[
+                SourceReference(**item) for item in payload.get("sourceReferences", [])
+            ],
+            limitations=payload.get("limitations", []),
+            deferred_capabilities=payload.get("deferredCapabilities", []),
+            source_pack=f"defaults/{DEFAULTS_VERSION}/fugacity_screening_method_profiles.json",
+            applicability_note=payload.get("applicabilityNote"),
+        )
+
+    def list_fugacity_screening_method_profiles(self) -> list[FugacityScreeningMethodProfile]:
+        profiles = []
+        for profile_id in sorted(self.fugacity_screening_method_profiles["profiles"].keys()):
+            profile = self.fugacity_screening_method_profile(profile_id)
+            if profile is not None:
+                profiles.append(profile)
+        return profiles
+
+    def fugacity_screening_method_profile_manifest(
+        self,
+    ) -> FugacityScreeningMethodProfileManifest:
+        profiles = self.list_fugacity_screening_method_profiles()
+        return FugacityScreeningMethodProfileManifest(
+            defaults_version=self.fugacity_screening_method_profiles.get(
+                "defaults_version",
+                DEFAULTS_VERSION,
+            ),
+            profile_count=len(profiles),
+            profiles=profiles,
+            source_references=[
+                SourceReference(**item)
+                for item in self.fugacity_screening_method_profiles.get("source_references", [])
+            ],
+            limitations=self.fugacity_screening_method_profiles.get("limitations", []),
         )
 
     def erosion_sediment_validation_profile(

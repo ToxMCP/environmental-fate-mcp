@@ -164,6 +164,10 @@
           "$ref": "#/$defs/ModelFamily",
           "default": "reference_mass_balance"
         },
+        "fugacity_screening_level": {
+          "$ref": "#/$defs/FugacityScreeningLevel",
+          "default": "level_i_equilibrium"
+        },
         "region_profile_id": {
           "default": "eu_screening_default",
           "title": "Region Profile Id",
@@ -294,6 +298,14 @@
       "title": "FitForPurpose",
       "type": "string"
     },
+    "FugacityScreeningLevel": {
+      "enum": [
+        "level_i_equilibrium",
+        "level_ii_equilibrium_persistence"
+      ],
+      "title": "FugacityScreeningLevel",
+      "type": "string"
+    },
     "GeographicScope": {
       "additionalProperties": false,
       "properties": {
@@ -358,6 +370,7 @@
       "enum": [
         "reference_mass_balance",
         "advective_screening_mass_balance",
+        "fugacity_equilibrium_screening",
         "adapter_stub",
         "external_result_adapter"
       ],

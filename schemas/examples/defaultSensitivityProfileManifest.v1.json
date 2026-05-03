@@ -1,8 +1,128 @@
 {
   "schema_version": "v1",
   "defaults_version": "v1",
-  "profile_count": 7,
+  "profile_count": 11,
   "profiles": [
+    {
+      "profile_id": "fugacity_henry_law_two_way_v1",
+      "display_name": "Fugacity Henry law two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "henry_law_constant_pa_m3_mol",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens scalar fugacity parameter sensitivity only; it is not calibration, formal global sensitivity analysis, field validation, routing, or regulator acceptance."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use with fugacity_equilibrium_screening when reviewing physchem or half-life sensitivity."
+    },
+    {
+      "profile_id": "fugacity_koc_two_way_v1",
+      "display_name": "Fugacity Koc two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens scalar fugacity parameter sensitivity only; it is not calibration, formal global sensitivity analysis, field validation, routing, or regulator acceptance."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use with fugacity_equilibrium_screening when reviewing physchem or half-life sensitivity."
+    },
+    {
+      "profile_id": "fugacity_molecular_weight_two_way_v1",
+      "display_name": "Fugacity molecular-weight two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "molecular_weight_g_mol",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens scalar fugacity parameter sensitivity only; it is not calibration, formal global sensitivity analysis, field validation, routing, or regulator acceptance."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use with fugacity_equilibrium_screening when reviewing physchem or half-life sensitivity."
+    },
+    {
+      "profile_id": "fugacity_water_half_life_two_way_v1",
+      "display_name": "Fugacity Level II water half-life two-way sensitivity",
+      "target_type": "parameter",
+      "parameter": "water_half_life_days",
+      "medium": null,
+      "factor_values": [
+        0.5,
+        2.0
+      ],
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "epa.environmental_models_guidance",
+          "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
+          "effective_date": null,
+          "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        }
+      ],
+      "limitations": [
+        "Screens scalar fugacity parameter sensitivity only; it is not calibration, formal global sensitivity analysis, field validation, routing, or regulator acceptance."
+      ],
+      "source_pack": "defaults/v1/default_sensitivity_profiles.json",
+      "applicability_note": "Use with fugacity_equilibrium_screening when reviewing physchem or half-life sensitivity."
+    },
     {
       "profile_id": "release_duration_two_way_v1",
       "display_name": "Release duration two-way sensitivity",
@@ -174,6 +294,12 @@
     }
   ],
   "source_references": [
+    {
+      "source_id": "cemc.evaluative_fugacity_models",
+      "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+      "effective_date": null,
+      "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+    },
     {
       "source_id": "epa.environmental_models_guidance",
       "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",

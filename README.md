@@ -66,16 +66,18 @@ The released server is broader than a simple concentration calculator, but the b
 
 - `Environmental Fate MCP` owns environmental release scenarios, multimedia concentration estimation, scientific review, scientific methods dossiers, and downstream concentration handoff packaging.
 - It also owns bounded scalar erosion/sediment transport screening for RUSLE, MUSLE, sediment-associated chemical-load handoffs, and inline validation QA when particle-bound soil transport is relevant.
+- It now includes experimental non-default Level I/II fugacity equilibrium screening for multimedia partitioning challenge review; this is not Level III intermedia transfer, routing, calibration, source-engine equivalence, or regulator acceptance.
 - `Direct-Use Exposure MCP` owns direct-use product scenarios, near-field external exposure construction, and PBPK-ready direct-use handoffs.
 - `Dietary Exposure MCP` owns food-mediated oral intake, commodity-consumption mappings, and dietary PBPK-ready oral handoffs.
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
-- The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, or public wrapper around branded external model payloads.
+- The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, experimental fugacity equilibrium screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, Level III engine, or public wrapper around branded external model payloads.
 
-## What's in v0.3.1
+## What's in v0.4.0
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
 - Governed experimental `advective_screening_mass_balance` challenge family with residence-time, bounded-transport, loss-dominance, transition, mass-balance, and post-release authority layers
+- Experimental non-default `fugacity_equilibrium_screening` challenge family for Level I mass-conserving equilibrium partitioning and Level II equilibrium persistence/loss-balance screening
 - Bounded scalar erosion/sediment transport tools for RUSLE annual soil-loss screening, MUSLE event sediment-yield screening, particle-bound relevance screening, and sediment-associated chemical-load handoff
 - Inline erosion/sediment validation QA for observed-versus-predicted scalar screening records, with governed non-calibrating fit classifications
 - Governed synthetic erosion/sediment validation demo pack for public screening-QA orientation without field-validation, calibration, routing, or WEPP claims
@@ -94,19 +96,19 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current local release verification and generated `v0.3.1` artifacts report:
+Current local release verification and generated `v0.4.0` artifacts report:
 
-- `198` repository test functions
-- `139` JSON schemas
-- `135` generated examples
-- `48` supported workflows surfaced through `57` tools, `21` prompts, and `29` resources
-- `58` benchmark fixtures with claim-coverage enforcement
-- `4` governed external benchmark replay cases
-- `7` governed default sensitivity profiles
-- `30` governed scientific validation claims with plugin-code traceability
-- `25` governed scientific reference cases
+- `207` repository test functions
+- `141` JSON schemas
+- `137` generated examples
+- `48` supported workflows surfaced through `57` tools, `22` prompts, and `30` resources
+- `64` benchmark fixtures with claim-coverage enforcement
+- `8` governed external benchmark replay cases
+- `11` governed default sensitivity profiles
+- `34` governed scientific validation claims with plugin-code traceability
+- `28` governed scientific reference cases
 - `4` governed regulatory handoff profiles with downstream acknowledgement schema URLs
-- `3` supported model families and `1` experimental model family
+- `3` supported model families and `2` experimental model families
 - `ready_for_screening_release` release status
 
 The machine-readable source of truth for these counts is generated from the release metadata and validation-report builders in the repository.
@@ -132,6 +134,7 @@ Environmental Fate MCP gives the suite a dedicated environmental-fate layer that
 | --- | --- |
 | `🌍 Environmental release screening` | Builds typed environmental release scenarios and deterministic concentration surfaces for multimedia screening use cases. |
 | `🌊 Advective challenge family` | Publishes a governed experimental residence-time and bounded-transport challenge path with explicit comparison and challenge review workflows. |
+| `⚖️ Fugacity equilibrium challenge` | Publishes an experimental non-default Level I/II multimedia partitioning challenge path with mass-conservation and degradation-loss validation, while explicitly excluding Level III transfer, routing, calibration, and acceptance claims. |
 | `🌱 Erosion/sediment transport bridge` | Screens particle-bound transport relevance, computes scalar RUSLE soil loss and MUSLE event sediment yield, emits sediment-associated chemical-load handoff objects, and compares inline observed/predicted scalar records without claiming calibration, hydrologic routing, or final exposure. |
 | `📊 Probabilistic percentile reporting` | Runs an additive percentile orchestration layer over the deterministic kernels and emits reviewable median, P90, and P95 surfaces plus iteration-health context. |
 | `🔬 Scientific trust diagnostics` | Publishes governed external benchmark replay, deterministic default sensitivity reporting, and optional probabilistic sample manifests for reviewer-facing scientific transparency without adding calibration or routing scope. |
@@ -157,6 +160,7 @@ Current validation artifacts report:
 - governed synthetic erosion/sediment validation demos execute through the validation tools and match declared fit classifications
 - governed external benchmark replay cases execute through the public tools and match declared tolerances
 - default sensitivity profiles execute deterministically and keep calibration/routing/field-validation boundaries explicit
+- experimental fugacity screening profiles validate Level I mass conservation, requested-media filtering, Level II degradation-loss balance, and explicit no-Level-III/no-routing/no-calibration boundary language
 - probabilistic sample manifests are opt-in, capped, and hash stable when requested
 - shipped defaults evidence governance, external corroboration governance, red-team review accounting, and reviewer trust-pack generation included in release gating
 - adapter normalization, scientific review, scientific methods dossier, model-family challenge, and regulatory handoff workflows included in release gating
@@ -166,6 +170,7 @@ Current validation artifacts report:
 - external payload imports are confined to shipped adapter fixtures unless operators opt in additional roots through `FATE_MCP_IMPORT_ROOTS`; symlink escapes are rejected after path resolution
 - external payload imports are capped by default at 5 MB and 5,000 surface rows, with explicit operator overrides for controlled local imports
 - concentration surfaces report `reported_time_semantics`; `steady_state` is end-of-duration screening, not an infinite-time equilibrium claim
+- fugacity concentration surfaces report `reported_time_semantics=fugacity_equilibrium_partitioning` so the experimental equilibrium path is not confused with the reference end-of-duration screen
 - release fractions are invariant-checked at `0 < sum(release_fractions) <= 1.0`; unallocated mass remains outside scoped media and is surfaced as a warning
 - supply-chain checks run Ruff, tests, Bandit, `pip-audit`, SBOM generation, and checksum-verified Gitleaks CLI secret scanning
 - GitHub releases can publish wheel/sdist/checksum assets with Sigstore-backed GitHub Artifact Attestations; verify them with `gh attestation verify`
@@ -181,14 +186,15 @@ See:
 - [docs/workflow_cookbook.md](./docs/workflow_cookbook.md)
 - [docs/external_payload_contract.md](./docs/external_payload_contract.md)
 - [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
+- [docs/fugacity_screening.md](./docs/fugacity_screening.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
-- [docs/releases/v0.3.1/scientific-trust-pack.md](./docs/releases/v0.3.1/scientific-trust-pack.md)
+- [docs/releases/v0.4.0/scientific-trust-pack.md](./docs/releases/v0.4.0/scientific-trust-pack.md)
 - [docs/release_provenance.md](./docs/release_provenance.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.3.1/release-notes.md](./docs/releases/v0.3.1/release-notes.md)
+- [docs/releases/v0.4.0/release-notes.md](./docs/releases/v0.4.0/release-notes.md)
 
 ## Governance
 

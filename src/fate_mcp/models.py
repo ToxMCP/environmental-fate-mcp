@@ -97,13 +97,20 @@ class RunMode(str, Enum):
 class ReportedTimeSemantics(str, Enum):
     END_OF_DURATION_SCREENING_NOT_INFINITE_EQUILIBRIUM = "end_of_duration_screening_not_infinite_equilibrium"
     BOUNDED_TIME_BUCKET = "bounded_time_bucket"
+    FUGACITY_EQUILIBRIUM_PARTITIONING = "fugacity_equilibrium_partitioning"
 
 
 class ModelFamily(str, Enum):
     REFERENCE_MASS_BALANCE = "reference_mass_balance"
     ADVECTIVE_SCREENING_MASS_BALANCE = "advective_screening_mass_balance"
+    FUGACITY_EQUILIBRIUM_SCREENING = "fugacity_equilibrium_screening"
     ADAPTER_STUB = "adapter_stub"
     EXTERNAL_RESULT_ADAPTER = "external_result_adapter"
+
+
+class FugacityScreeningLevel(str, Enum):
+    LEVEL_I_EQUILIBRIUM = "level_i_equilibrium"
+    LEVEL_II_EQUILIBRIUM_PERSISTENCE = "level_ii_equilibrium_persistence"
 
 
 class FitForPurpose(str, Enum):
@@ -264,6 +271,55 @@ class ErosionSedimentMethodProfileManifest(FateBaseModel):
     defaults_version: str = Field(default=DEFAULTS_VERSION)
     profile_count: int
     profiles: list[ErosionSedimentMethodProfile]
+
+
+class FugacityScreeningMethodProfile(FateBaseModel):
+    profile_id: str
+    display_name: str
+    screening_level: FugacityScreeningLevel
+    method_class: str
+    equation_ids: list[str] = Field(default_factory=list)
+    equation_text: list[str] = Field(default_factory=list)
+    required_inputs: list[str] = Field(default_factory=list)
+    supported_media: list[Media] = Field(default_factory=list)
+    constants: dict[str, float] = Field(default_factory=dict)
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    deferred_capabilities: list[str] = Field(default_factory=list)
+    source_pack: str
+    applicability_note: str | None = None
+
+    @field_validator("profile_id", "display_name", "method_class")
+    @classmethod
+    def validate_required_text(cls, value: str, info) -> str:
+        if not value.strip():
+            raise ValueError(f"{info.field_name} must not be blank")
+        return value.strip()
+
+    @field_validator("constants")
+    @classmethod
+    def validate_constants(cls, value: dict[str, float]) -> dict[str, float]:
+        for key, constant in value.items():
+            if not key.strip():
+                raise ValueError("constant keys must not be blank")
+            if not math.isfinite(constant) or constant <= 0.0:
+                raise ValueError("fugacity method constants must be finite positive values")
+        return value
+
+
+class FugacityScreeningMethodProfileManifest(FateBaseModel):
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    defaults_version: str = Field(default=DEFAULTS_VERSION)
+    profile_count: int = Field(ge=0)
+    profiles: list[FugacityScreeningMethodProfile]
+    source_references: list[SourceReference] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_profile_count(self) -> "FugacityScreeningMethodProfileManifest":
+        if self.profile_count != len(self.profiles):
+            raise ValueError("profile_count must match profiles length")
+        return self
 
 
 class ErosionSedimentValidationThresholdSet(FateBaseModel):
@@ -1063,6 +1119,9 @@ class FateModelRunOptions(FateBaseModel):
     schema_version: str = Field(default=SCHEMA_VERSION)
     run_mode: RunMode = Field(default=RunMode.STEADY_STATE)
     model_family: ModelFamily = Field(default=ModelFamily.REFERENCE_MASS_BALANCE)
+    fugacity_screening_level: FugacityScreeningLevel = Field(
+        default=FugacityScreeningLevel.LEVEL_I_EQUILIBRIUM
+    )
     region_profile_id: str = Field(default="eu_screening_default")
     fit_for_purpose: FitForPurpose = Field(default=FitForPurpose.SCREENING)
     bucket_count: int = Field(default=1, ge=1, le=24)

@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
   "defaults_version": "v1",
-  "case_count": 4,
+  "case_count": 8,
   "cases": [
     {
       "benchmark_case_id": "reference_water_closed_form_internal_oracle_v1",
@@ -186,6 +186,390 @@
       "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
       "screening_only": true,
       "regulatory_acceptance_claim": false
+    },
+    {
+      "benchmark_case_id": "fugacity_level_i_air_partition_internal_oracle_v1",
+      "display_name": "Fugacity Level I air partition internal oracle",
+      "classification": "internal_oracle",
+      "replay_tool": "fate_estimate_multimedia_concentrations",
+      "model_family": "fugacity_equilibrium_screening",
+      "run_mode": "steady_state",
+      "quantity": "air_concentration_mg_m3",
+      "expected_value": 6.832539557802613e-06,
+      "expected_unit": "mg/m3",
+      "tolerance_absolute": 1e-12,
+      "tolerance_relative": 1e-10,
+      "input_payload": {
+        "chemical_identity": {
+          "preferredName": "Fugacity benchmark substance",
+          "substance_class": "neutral organic chemical"
+        },
+        "total_release_mass_kg": 10.0,
+        "release_fractions": [
+          {
+            "medium": "air",
+            "fraction": 0.25
+          },
+          {
+            "medium": "water",
+            "fraction": 0.25
+          },
+          {
+            "medium": "soil",
+            "fraction": 0.25
+          },
+          {
+            "medium": "sediment",
+            "fraction": 0.25
+          }
+        ],
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "molecular_weight_g_mol",
+            "value": 200.0,
+            "unit": "g/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark molecular weight."
+          },
+          {
+            "parameter": "henry_law_constant_pa_m3_mol",
+            "value": 1.0,
+            "unit": "Pa m3/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Henry law constant."
+          },
+          {
+            "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+            "value": 1000.0,
+            "unit": "L/kg",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Koc."
+          }
+        ],
+        "run_options": {
+          "model_family": "fugacity_equilibrium_screening",
+          "run_mode": "steady_state",
+          "fugacity_screening_level": "level_i_equilibrium",
+          "requested_media": [
+            "air"
+          ],
+          "region_profile_id": "eu_screening_default"
+        }
+      },
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "cemc.level_iii_fugacity_model",
+          "title": "CEMC Level III Fugacity Model boundary description",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
+        }
+      ],
+      "interpretation_lines": [
+        "Replays experimental fugacity Level I partitioning with fixed scalar inputs.",
+        "Checks deterministic screening implementation only."
+      ],
+      "limitations": [
+        "Screening oracle only.",
+        "Not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III, routing, or WEPP validation."
+      ],
+      "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
+    },
+    {
+      "benchmark_case_id": "fugacity_level_i_water_partition_public_method_v1",
+      "display_name": "Fugacity Level I water partition public method benchmark",
+      "classification": "open_literature_reference",
+      "replay_tool": "fate_estimate_multimedia_concentrations",
+      "model_family": "fugacity_equilibrium_screening",
+      "run_mode": "steady_state",
+      "quantity": "water_concentration_mg_m3",
+      "expected_value": 0.01693757196685118,
+      "expected_unit": "mg/m3",
+      "tolerance_absolute": 1e-12,
+      "tolerance_relative": 1e-10,
+      "input_payload": {
+        "chemical_identity": {
+          "preferredName": "Fugacity benchmark substance",
+          "substance_class": "neutral organic chemical"
+        },
+        "total_release_mass_kg": 10.0,
+        "release_fractions": [
+          {
+            "medium": "air",
+            "fraction": 0.25
+          },
+          {
+            "medium": "water",
+            "fraction": 0.25
+          },
+          {
+            "medium": "soil",
+            "fraction": 0.25
+          },
+          {
+            "medium": "sediment",
+            "fraction": 0.25
+          }
+        ],
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "molecular_weight_g_mol",
+            "value": 200.0,
+            "unit": "g/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark molecular weight."
+          },
+          {
+            "parameter": "henry_law_constant_pa_m3_mol",
+            "value": 1.0,
+            "unit": "Pa m3/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Henry law constant."
+          },
+          {
+            "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+            "value": 1000.0,
+            "unit": "L/kg",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Koc."
+          }
+        ],
+        "run_options": {
+          "model_family": "fugacity_equilibrium_screening",
+          "run_mode": "steady_state",
+          "fugacity_screening_level": "level_i_equilibrium",
+          "requested_media": [
+            "water"
+          ],
+          "region_profile_id": "eu_screening_default"
+        }
+      },
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "cemc.level_iii_fugacity_model",
+          "title": "CEMC Level III Fugacity Model boundary description",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
+        }
+      ],
+      "interpretation_lines": [
+        "Replays experimental fugacity Level I partitioning with fixed scalar inputs.",
+        "Checks deterministic screening implementation only."
+      ],
+      "limitations": [
+        "Screening oracle only.",
+        "Not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III, routing, or WEPP validation."
+      ],
+      "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
+    },
+    {
+      "benchmark_case_id": "fugacity_level_i_soil_koc_partition_internal_oracle_v1",
+      "display_name": "Fugacity Level I soil Koc partition internal oracle",
+      "classification": "internal_oracle",
+      "replay_tool": "fate_estimate_multimedia_concentrations",
+      "model_family": "fugacity_equilibrium_screening",
+      "run_mode": "steady_state",
+      "quantity": "soil_concentration_mg_kg",
+      "expected_value": 0.0003387514393370236,
+      "expected_unit": "mg/kg",
+      "tolerance_absolute": 1e-12,
+      "tolerance_relative": 1e-10,
+      "input_payload": {
+        "chemical_identity": {
+          "preferredName": "Fugacity benchmark substance",
+          "substance_class": "neutral organic chemical"
+        },
+        "total_release_mass_kg": 10.0,
+        "release_fractions": [
+          {
+            "medium": "air",
+            "fraction": 0.25
+          },
+          {
+            "medium": "water",
+            "fraction": 0.25
+          },
+          {
+            "medium": "soil",
+            "fraction": 0.25
+          },
+          {
+            "medium": "sediment",
+            "fraction": 0.25
+          }
+        ],
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "molecular_weight_g_mol",
+            "value": 200.0,
+            "unit": "g/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark molecular weight."
+          },
+          {
+            "parameter": "henry_law_constant_pa_m3_mol",
+            "value": 1.0,
+            "unit": "Pa m3/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Henry law constant."
+          },
+          {
+            "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+            "value": 1000.0,
+            "unit": "L/kg",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Koc."
+          }
+        ],
+        "run_options": {
+          "model_family": "fugacity_equilibrium_screening",
+          "run_mode": "steady_state",
+          "fugacity_screening_level": "level_i_equilibrium",
+          "requested_media": [
+            "soil"
+          ],
+          "region_profile_id": "eu_screening_default"
+        }
+      },
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "cemc.level_iii_fugacity_model",
+          "title": "CEMC Level III Fugacity Model boundary description",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
+        }
+      ],
+      "interpretation_lines": [
+        "Replays experimental fugacity Level I partitioning with fixed scalar inputs.",
+        "Checks deterministic screening implementation only."
+      ],
+      "limitations": [
+        "Screening oracle only.",
+        "Not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III, routing, or WEPP validation."
+      ],
+      "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
+    },
+    {
+      "benchmark_case_id": "fugacity_level_ii_water_loss_balance_internal_oracle_v1",
+      "display_name": "Fugacity Level II water loss-balance internal oracle",
+      "classification": "internal_oracle",
+      "replay_tool": "fate_estimate_multimedia_concentrations",
+      "model_family": "fugacity_equilibrium_screening",
+      "run_mode": "steady_state",
+      "quantity": "water_concentration_mg_m3_level_ii",
+      "expected_value": 0.01332475839396872,
+      "expected_unit": "mg/m3",
+      "tolerance_absolute": 1e-12,
+      "tolerance_relative": 1e-10,
+      "input_payload": {
+        "chemical_identity": {
+          "preferredName": "Fugacity benchmark substance",
+          "substance_class": "neutral organic chemical"
+        },
+        "total_release_mass_kg": 10.0,
+        "release_fractions": [
+          {
+            "medium": "air",
+            "fraction": 0.25
+          },
+          {
+            "medium": "water",
+            "fraction": 0.25
+          },
+          {
+            "medium": "soil",
+            "fraction": 0.25
+          },
+          {
+            "medium": "sediment",
+            "fraction": 0.25
+          }
+        ],
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "molecular_weight_g_mol",
+            "value": 200.0,
+            "unit": "g/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark molecular weight."
+          },
+          {
+            "parameter": "henry_law_constant_pa_m3_mol",
+            "value": 1.0,
+            "unit": "Pa m3/mol",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Henry law constant."
+          },
+          {
+            "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+            "value": 1000.0,
+            "unit": "L/kg",
+            "source_classification": "user_input",
+            "rationale": "Fugacity benchmark Koc."
+          }
+        ],
+        "run_options": {
+          "model_family": "fugacity_equilibrium_screening",
+          "run_mode": "steady_state",
+          "fugacity_screening_level": "level_ii_equilibrium_persistence",
+          "requested_media": [
+            "water"
+          ],
+          "region_profile_id": "eu_screening_default"
+        }
+      },
+      "source_references": [
+        {
+          "source_id": "cemc.evaluative_fugacity_models",
+          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "effective_date": null,
+          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+        },
+        {
+          "source_id": "oecd.pov_lrtp_screening_tool",
+          "title": "OECD Pov and LRTP Screening Tool",
+          "effective_date": null,
+          "url": "https://www.oecd.org/chemicalsafety/risk-assessment/oecdpovandlrtpscreeningtool.htm"
+        }
+      ],
+      "interpretation_lines": [
+        "Replays experimental fugacity Level II equilibrium persistence with fixed scalar inputs.",
+        "Checks deterministic screening implementation only."
+      ],
+      "limitations": [
+        "Screening oracle only.",
+        "Not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III, routing, or WEPP validation."
+      ],
+      "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
+      "screening_only": true,
+      "regulatory_acceptance_claim": false
     }
   ],
   "source_references": [
@@ -209,8 +593,9 @@
     }
   ],
   "limitations": [
-    "This pack contains deterministic screening benchmarks and corroboration cases only.",
+    "Cases with official-source grounding replay public equation forms or model-evaluation concepts using Environmental Fate MCP scalar inputs; they are not copied proprietary datasets.",
+    "Fugacity benchmark cases are deterministic screening oracles, not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III validation, routing validation, or WEPP validation.",
     "It is not field validation, calibration evidence, source-engine equivalence, regulator acceptance, spatial routing evidence, hydrology generation evidence, or WEPP validation.",
-    "Cases with official-source grounding replay public equation forms or model-evaluation concepts using Environmental Fate MCP scalar inputs; they are not copied proprietary datasets."
+    "This pack contains deterministic screening benchmarks and corroboration cases only."
   ]
 }

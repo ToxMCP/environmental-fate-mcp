@@ -11,6 +11,7 @@ def test_defaults_manifest_contains_versioned_files() -> None:
     assert any(item["path"].endswith("adapter_unit_conversions.json") for item in manifest["files"])
     assert any(item["path"].endswith("core_defaults.json") for item in manifest["files"])
     assert any(item["path"].endswith("erosion_sediment_method_profiles.json") for item in manifest["files"])
+    assert any(item["path"].endswith("fugacity_screening_method_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("erosion_sediment_validation_profiles.json") for item in manifest["files"])
     assert any(item["path"].endswith("erosion_sediment_validation_demo_pack.json") for item in manifest["files"])
     assert any(item["path"].endswith("model_family_applicability_profiles.json") for item in manifest["files"])
@@ -82,6 +83,22 @@ def test_erosion_sediment_validation_demo_pack_is_governed() -> None:
     assert "not field validation" in " ".join(manifest.limitations).lower()
 
 
+def test_fugacity_screening_method_profiles_are_governed() -> None:
+    registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
+    manifest = registry.fugacity_screening_method_profile_manifest()
+    profiles = {profile.profile_id: profile for profile in manifest.profiles}
+    assert manifest.profile_count == 2
+    assert profiles["fugacity_level_i_equilibrium_v1"].screening_level.value == "level_i_equilibrium"
+    assert (
+        profiles["fugacity_level_ii_equilibrium_persistence_v1"].screening_level.value
+        == "level_ii_equilibrium_persistence"
+    )
+    assert profiles["fugacity_level_i_equilibrium_v1"].constants["soil_organic_carbon_fraction"] == 0.02
+    assert profiles["fugacity_level_i_equilibrium_v1"].source_references
+    assert "no level iii" in " ".join(manifest.limitations).lower()
+    assert registry.fugacity_screening_method_profile("missing_profile") is None
+
+
 def test_core_defaults_are_source_backed_and_free_of_shipped_tier3_assumptions() -> None:
     registry = DefaultsRegistry(Path(__file__).resolve().parents[1])
     parameters = registry.core_defaults["parameters"]
@@ -107,7 +124,9 @@ def test_model_family_applicability_profiles_cover_supported_model_families() ->
     assert "advective_screening_mass_balance" in profiles
     assert "reference_mass_balance" in profiles
     assert "external_result_adapter" in profiles
+    assert "fugacity_equilibrium_screening" in profiles
     assert "adapter_stub" in profiles
+    assert "fugacity_equilibrium_screening" in profiles
     assert profiles["reference_mass_balance"]["required_inputs"]
     assert profiles["reference_mass_balance"]["core_assumptions"]
     assert profiles["reference_mass_balance"]["review_notes"]
@@ -181,6 +200,16 @@ def test_scientific_validation_claims_are_governed_and_cover_primary_families() 
         "hand_worked_advective_residence_edge_anchor"
     ]
     assert claims["external_adapter_canonical_equivalence_v1"].model_family.value == "external_result_adapter"
+    assert claims["fugacity_level_i_mass_conservation_v1"].model_family.value == "fugacity_equilibrium_screening"
+    assert claims["fugacity_level_i_partitioning_v1"].required_validation_tiers == [
+        "internal_oracle",
+        "source_backed_method",
+    ]
+    assert claims["fugacity_level_ii_loss_balance_v1"].required_reference_types == [
+        "hand_worked_screening_equation",
+        "public_method_description",
+    ]
+    assert claims["fugacity_level_boundary_v1"].priority.value == "medium"
     assert (
         claims["reference_water_finite_duration_first_order_v1"].corroboration_status.value
         == "multi_official_multi_jurisdiction"
@@ -455,8 +484,12 @@ def test_scientific_reference_cases_are_governed_and_resolvable() -> None:
     assert cases["echa_transition_boundary_screening_case_family_v1"].review_notes
     assert cases["epa_turnover_boundary_screening_case_family_v1"].source_references
     assert cases["oecd_bounded_transport_screening_case_family_v1"].review_notes
+    assert cases["cemc_level_i_equilibrium_partitioning_case_family_v1"].source_references
+    assert cases["cemc_level_ii_equilibrium_persistence_case_family_v1"].source_references
     advective_cases = registry.list_scientific_reference_cases(model_family="advective_screening_mass_balance")
     assert len(advective_cases) >= 12
+    fugacity_cases = registry.list_scientific_reference_cases(model_family="fugacity_equilibrium_screening")
+    assert len(fugacity_cases) >= 2
     reference_cases = registry.list_scientific_reference_cases(model_family="reference_mass_balance")
     assert len(reference_cases) >= 6
     assert registry.scientific_reference_case("missing_case") is None
@@ -485,6 +518,10 @@ def test_model_family_comparison_profiles_are_governed() -> None:
         "reference_mass_balance",
         "advective_screening_mass_balance",
     ) is not None
+    assert registry.resolve_model_family_comparison_profile(
+        "reference_mass_balance",
+        "fugacity_equilibrium_screening",
+    ) is not None
     assert registry.model_family_comparison_profile("missing_profile") is None
 
 
@@ -509,6 +546,9 @@ def test_model_family_selection_profiles_are_governed() -> None:
     assert profile.attention_statuses
     assert profile.attention_if_any_checks_fail is True
     assert profile.attention_if_challenge_experimental is True
+    assert profiles["reference_baseline_fugacity_challenge_v1"].challenge_model_family.value == (
+        "fugacity_equilibrium_screening"
+    )
     assert registry.model_family_selection_profile("missing_profile") is None
 
 
@@ -560,6 +600,7 @@ def test_scientific_review_profiles_cover_supported_model_families() -> None:
     assert profiles["adapter_stub"].warning_severity_promotes_qualification is False
     assert profiles["reference_mass_balance"].driver_action_templates
     assert profiles["advective_screening_mass_balance"].driver_action_templates
+    assert profiles["fugacity_equilibrium_screening"].driver_action_templates
     assert registry.scientific_review_profile("missing_model_family") is None
 
 

@@ -1,14 +1,20 @@
 {
-  "profile_id": "release_duration_two_way_v1",
-  "display_name": "Release duration two-way sensitivity",
-  "target_type": "scenario_duration_days",
-  "parameter": null,
+  "profile_id": "fugacity_henry_law_two_way_v1",
+  "display_name": "Fugacity Henry law two-way sensitivity",
+  "target_type": "parameter",
+  "parameter": "henry_law_constant_pa_m3_mol",
   "medium": null,
   "factor_values": [
     0.5,
     2.0
   ],
   "source_references": [
+    {
+      "source_id": "cemc.evaluative_fugacity_models",
+      "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+      "effective_date": null,
+      "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+    },
     {
       "source_id": "epa.environmental_models_guidance",
       "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
@@ -17,8 +23,8 @@
     }
   ],
   "limitations": [
-    "Screens declared release-duration sensitivity only; it does not infer emission timing from monitoring data."
+    "Screens scalar fugacity parameter sensitivity only; it is not calibration, formal global sensitivity analysis, field validation, routing, or regulator acceptance."
   ],
   "source_pack": "defaults/v1/default_sensitivity_profiles.json",
-  "applicability_note": "Use when duration controls end-of-duration screening concentration interpretation."
+  "applicability_note": "Use with fugacity_equilibrium_screening when reviewing physchem or half-life sensitivity."
 }

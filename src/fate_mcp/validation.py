@@ -38,8 +38,10 @@ from fate_mcp.models import (
     ExternalBenchmarkReplayTool,
     FateModelRunOptions,
     FateParameterRecord,
+    FugacityScreeningLevel,
     ModelFamily,
     PreviewRegulatoryHandoffResolutionRequest,
+    ReportedTimeSemantics,
     ReleaseFraction,
     RunMode,
     TimeWindow,
@@ -2965,6 +2967,165 @@ def validate_default_sensitivity_profiles(repo_root: Path) -> dict:
     }
 
 
+def validate_fugacity_screening_profiles(repo_root: Path) -> dict:
+    runtime = FateRuntime(repo_root)
+    manifest = runtime.defaults.fugacity_screening_method_profile_manifest()
+    scenario = runtime.build_environmental_release_scenario(
+        BuildEnvironmentalReleaseScenarioRequest(
+            chemical_identity={
+                "preferredName": "Fugacity validation substance",
+                "substance_class": "neutral organic chemical",
+            },
+            total_release_mass_kg=10.0,
+            release_fractions=[
+                ReleaseFraction(medium=Media.AIR, fraction=0.25),
+                ReleaseFraction(medium=Media.WATER, fraction=0.25),
+                ReleaseFraction(medium=Media.SOIL, fraction=0.25),
+                ReleaseFraction(medium=Media.SEDIMENT, fraction=0.25),
+            ],
+            duration_days=30.0,
+            parameter_records=[
+                FateParameterRecord(
+                    parameter="molecular_weight_g_mol",
+                    value=200.0,
+                    unit="g/mol",
+                    source_classification=SourceClassification.USER_INPUT,
+                    rationale="Fugacity validation molecular weight.",
+                ),
+                FateParameterRecord(
+                    parameter="henry_law_constant_pa_m3_mol",
+                    value=1.0,
+                    unit="Pa m3/mol",
+                    source_classification=SourceClassification.USER_INPUT,
+                    rationale="Fugacity validation Henry law constant.",
+                ),
+                FateParameterRecord(
+                    parameter="organic_carbon_partition_coefficient_koc_l_kg",
+                    value=1000.0,
+                    unit="L/kg",
+                    source_classification=SourceClassification.USER_INPUT,
+                    rationale="Fugacity validation Koc.",
+                ),
+            ],
+        )
+    )
+    level_i_result = runtime.estimate(
+        scenario,
+        FateModelRunOptions(
+            region_profile_id=scenario.geographic_scope.region_id,
+            model_family=ModelFamily.FUGACITY_EQUILIBRIUM_SCREENING,
+            fugacity_screening_level=FugacityScreeningLevel.LEVEL_I_EQUILIBRIUM,
+        ),
+    )
+    level_i_water_only = runtime.estimate(
+        scenario,
+        FateModelRunOptions(
+            region_profile_id=scenario.geographic_scope.region_id,
+            model_family=ModelFamily.FUGACITY_EQUILIBRIUM_SCREENING,
+            fugacity_screening_level=FugacityScreeningLevel.LEVEL_I_EQUILIBRIUM,
+            requested_media=[Media.WATER],
+        ),
+    )
+    level_ii_result = runtime.estimate(
+        scenario,
+        FateModelRunOptions(
+            region_profile_id=scenario.geographic_scope.region_id,
+            model_family=ModelFamily.FUGACITY_EQUILIBRIUM_SCREENING,
+            fugacity_screening_level=FugacityScreeningLevel.LEVEL_II_EQUILIBRIUM_PERSISTENCE,
+        ),
+    )
+
+    level_i_terms_by_medium = {
+        surface.medium.value: {
+            term.name: term.value
+            for term in (surface.calculation_trace.resolved_terms if surface.calculation_trace else [])
+        }
+        for surface in level_i_result.surfaces
+    }
+    level_ii_terms_by_medium = {
+        surface.medium.value: {
+            term.name: term.value
+            for term in (surface.calculation_trace.resolved_terms if surface.calculation_trace else [])
+        }
+        for surface in level_ii_result.surfaces
+    }
+    scoped_mass_mg = scenario.total_release_mass_kg * 1_000_000.0
+    level_i_total_mass_mg = sum(
+        float(terms["medium_mass_mg"]) for terms in level_i_terms_by_medium.values()
+    )
+    level_ii_input_rate_mol_day = float(
+        next(iter(level_ii_terms_by_medium.values()))["total_scoped_moles_or_rate"]
+    )
+    level_ii_total_loss_mol_day = sum(
+        float(terms["medium_degradation_loss_rate"])
+        for terms in level_ii_terms_by_medium.values()
+    )
+    water_surface = next(surface for surface in level_i_result.surfaces if surface.medium == Media.WATER)
+    requested_media_filter_preserves_denominator = (
+        len(level_i_water_only.surfaces) == 1
+        and level_i_water_only.surfaces[0].medium == Media.WATER
+        and abs(level_i_water_only.surfaces[0].concentration_value - water_surface.concentration_value)
+        <= 1e-15
+    )
+    all_surfaces_have_fugacity_time_semantics = all(
+        surface.reported_time_semantics == ReportedTimeSemantics.FUGACITY_EQUILIBRIUM_PARTITIONING
+        for surface in [*level_i_result.surfaces, *level_ii_result.surfaces]
+    )
+    profile_limitations_text = " ".join(
+        [
+            *manifest.limitations,
+            *[
+                limitation
+                for profile in manifest.profiles
+                for limitation in profile.limitations
+            ],
+            *[
+                capability
+                for profile in manifest.profiles
+                for capability in profile.deferred_capabilities
+            ],
+        ]
+    ).lower()
+    boundary_clear = all(
+        phrase in profile_limitations_text
+        for phrase in (
+            "level iii",
+            "routing",
+            "calibration",
+            "regulator acceptance",
+        )
+    )
+    profile_source_backed = all(profile.source_references for profile in manifest.profiles)
+    level_i_mass_conserved = abs(level_i_total_mass_mg - scoped_mass_mg) <= 1e-6
+    level_ii_loss_balanced = abs(level_ii_total_loss_mol_day - level_ii_input_rate_mol_day) <= 1e-12
+    return {
+        "passed": (
+            manifest.profile_count == len(manifest.profiles)
+            and manifest.profile_count == 2
+            and profile_source_backed
+            and boundary_clear
+            and level_i_mass_conserved
+            and level_ii_loss_balanced
+            and requested_media_filter_preserves_denominator
+            and all_surfaces_have_fugacity_time_semantics
+        ),
+        "profileCount": manifest.profile_count,
+        "profileIds": [profile.profile_id for profile in manifest.profiles],
+        "levelIMassConserved": level_i_mass_conserved,
+        "levelITotalMassMg": level_i_total_mass_mg,
+        "levelIScopedMassMg": scoped_mass_mg,
+        "levelIRequestedMediaFilterPreservesDenominator": requested_media_filter_preserves_denominator,
+        "levelIWaterConcentrationMgM3": water_surface.concentration_value,
+        "levelIIInputRateMolDay": level_ii_input_rate_mol_day,
+        "levelIITotalDegradationLossMolDay": level_ii_total_loss_mol_day,
+        "levelIILossBalanced": level_ii_loss_balanced,
+        "boundaryClear": boundary_clear,
+        "profileSourceBacked": profile_source_backed,
+        "allSurfacesHaveFugacityTimeSemantics": all_surfaces_have_fugacity_time_semantics,
+        "limitations": manifest.limitations,
+    }
+
+
 def validation_dossier(repo_root: Path) -> dict:
     generate_contract_artifacts(repo_root)
     return {
@@ -2989,6 +3150,7 @@ def validation_dossier(repo_root: Path) -> dict:
         "erosionSedimentValidationDemoPack": validate_erosion_sediment_validation_demo_pack(repo_root),
         "scientificExternalBenchmarkPack": validate_scientific_external_benchmark_pack(repo_root),
         "defaultSensitivityProfiles": validate_default_sensitivity_profiles(repo_root),
+        "fugacityScreeningValidation": validate_fugacity_screening_profiles(repo_root),
         "modelFamilySelectionWorkflow": validate_model_family_selection_workflow(repo_root),
         "modelFamilySelectionReviewWorkflow": validate_model_family_selection_review_workflow(repo_root),
         "modelFamilyChallengeReviewWorkflow": validate_model_family_challenge_review_workflow(repo_root),
@@ -3008,6 +3170,8 @@ def main() -> None:
         raise SystemExit("Scientific external benchmark pack failed release validation.")
     if not dossier["defaultSensitivityProfiles"]["passed"]:
         raise SystemExit("Default sensitivity profiles failed release validation.")
+    if not dossier["fugacityScreeningValidation"]["passed"]:
+        raise SystemExit("Fugacity screening validation failed release validation.")
 
 
 if __name__ == "__main__":

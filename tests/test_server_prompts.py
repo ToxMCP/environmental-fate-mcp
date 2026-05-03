@@ -9,6 +9,7 @@ from fate_mcp.server import (
     defaults_erosion_sediment_method_profiles,
     defaults_erosion_sediment_validation_demo_pack,
     defaults_erosion_sediment_validation_profiles,
+    defaults_fugacity_screening_method_profiles,
     docs_manifest_resource,
     docs_resource,
     example_resource,
@@ -39,6 +40,7 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "fate_request_external_result_import" in names
         assert "fate_request_erosion_sediment_transport_screening" in names
         assert "fate_request_erosion_sediment_validation_case" in names
+        assert "fate_request_fugacity_partitioning_screening" in names
         assert "fate_request_regulatory_handoff_for_profile" in names
         assert "fate_request_regulatory_handoff_for_consumer" in names
         assert "fate_summarize_regulatory_handoff_for_profile" in names
@@ -243,6 +245,20 @@ def test_server_exposes_governed_regulatory_handoff_prompts() -> None:
         assert "fate_build_erosion_sediment_validation_case" in erosion_validation_text
         assert "fate_assess_erosion_sediment_validation_fit" in erosion_validation_text
 
+        fugacity_prompt = await server.get_prompt(
+            "fate_request_fugacity_partitioning_screening",
+            {"screening_goal": "partitioning challenge review"},
+        )
+        fugacity_text = fugacity_prompt.messages[0].content.text
+        assert "partitioning challenge review" in fugacity_text
+        assert "fugacity_equilibrium_screening" in fugacity_text
+        assert "defaults://fugacity-screening-method-profiles" in fugacity_text
+        assert "fate_estimate_multimedia_concentrations" in fugacity_text
+        assert "no Level III" in fugacity_text
+        assert "no routed transport" in fugacity_text
+        assert "no calibration" in fugacity_text
+        assert "no regulatory acceptance" in fugacity_text
+
         request_prompt = await server.get_prompt(
             "fate_request_regulatory_handoff_for_profile",
             {
@@ -327,8 +343,8 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         contents = await server.read_resource("release://metadata-report")
         metadata = json.loads(contents[0].content)
         assert metadata["toolCount"] == 57
-        assert metadata["promptCount"] == 21
-        assert metadata["resourceCount"] == 29
+        assert metadata["promptCount"] == 22
+        assert metadata["resourceCount"] == 30
         demo_contents = await server.read_resource(
             "release://erosion-sediment-validation-demo-report"
         )
@@ -340,14 +356,20 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         )
         benchmark_report = json.loads(benchmark_contents[0].content)
         assert benchmark_report["passed"] is True
-        assert benchmark_report["caseCount"] == 4
+        assert benchmark_report["caseCount"] == 8
         sensitivity_contents = await server.read_resource("release://default-sensitivity-report")
         sensitivity_report = json.loads(sensitivity_contents[0].content)
         assert sensitivity_report["passed"] is True
-        assert sensitivity_report["profileCount"] == 7
+        assert sensitivity_report["profileCount"] == 11
+        fugacity_contents = await server.read_resource(
+            "release://fugacity-screening-validation-report"
+        )
+        fugacity_report = json.loads(fugacity_contents[0].content)
+        assert fugacity_report["passed"] is True
+        assert fugacity_report["profileCount"] == 2
         notes_contents = await server.read_resource("release://release-notes")
         notes = json.loads(notes_contents[0].content)
-        assert "Environmental Fate MCP v0.3.1" in notes["markdown"]
+        assert "Environmental Fate MCP v0.4.0" in notes["markdown"]
         assert "public MCP import contract in this release" in notes["markdown"]
         manifest_contents = await server.read_resource("release://resource-manifest")
         manifest = json.loads(manifest_contents[0].content)
@@ -398,12 +420,15 @@ def test_new_docs_resources_are_available() -> None:
     assert "Advective Promotion Brief" in advective_promotion
     erosion_transport = docs_resource("erosion-sediment-transport")
     assert "Erosion/Sediment Transport Screening" in erosion_transport
+    fugacity_screening = docs_resource("fugacity-screening")
+    assert "Fugacity Equilibrium Screening" in fugacity_screening
 
 
 def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     docs_manifest = json.loads(docs_manifest_resource())
     doc_names = {item["name"] for item in docs_manifest["docs"]}
     assert "erosion-sediment-transport" in doc_names
+    assert "fugacity-screening" in doc_names
     assert "defaults-evidence-map" in doc_names
     assert "regulatory-quick-start" in doc_names
     assert "scientific-trust-brief" in doc_names
@@ -420,6 +445,7 @@ def test_docs_and_release_resource_manifests_expose_trust_surfaces() -> None:
     assert "reference-worksheet-manifest" in release_names
     assert "advective-promotion-bar-report" in release_names
     assert "erosion-sediment-validation-demo-report" in release_names
+    assert "fugacity-screening-validation-report" in release_names
     assert "red-team-review-report" in release_names
     assert "scientific-trust-brief" in release_names
     assert "scientific-trust-pack" in release_names
@@ -463,6 +489,19 @@ def test_erosion_sediment_validation_demo_pack_resource() -> None:
     }
     assert "synthetic" in " ".join(manifest["limitations"]).lower()
     assert "not field validation" in " ".join(manifest["limitations"]).lower()
+
+
+def test_fugacity_screening_method_profiles_resource() -> None:
+    manifest = json.loads(defaults_fugacity_screening_method_profiles())
+    profile_ids = {profile["profile_id"] for profile in manifest["profiles"]}
+    assert manifest["profile_count"] == 2
+    assert {
+        "fugacity_level_i_equilibrium_v1",
+        "fugacity_level_ii_equilibrium_persistence_v1",
+    } == profile_ids
+    limitations = " ".join(manifest["limitations"]).lower()
+    assert "no level iii" in limitations
+    assert "regulator acceptance" in limitations
 
 
 def test_create_server_does_not_mutate_generated_examples() -> None:

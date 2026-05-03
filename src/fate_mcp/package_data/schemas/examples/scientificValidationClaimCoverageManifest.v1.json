@@ -1,7 +1,7 @@
 {
   "schema_version": "v1",
-  "claim_count": 30,
-  "covered_claim_count": 30,
+  "claim_count": 34,
+  "covered_claim_count": 34,
   "mandatory_claim_count": 29,
   "uncovered_mandatory_claim_count": 0,
   "coverage": [
@@ -764,6 +764,133 @@
       ],
       "supporting_validation_tiers": [
         "normalization_parity"
+      ],
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "gap_lines": []
+    },
+    {
+      "claim_id": "fugacity_level_boundary_v1",
+      "display_name": "Fugacity Level I/II boundary and Level III deferral claim",
+      "model_family": "fugacity_equilibrium_screening",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "priority": "medium",
+      "mandatory_for_release": false,
+      "covered": true,
+      "support_strength": "multi_anchor_single_tier",
+      "supporting_fixture_count": 3,
+      "supporting_validation_tier_count": 1,
+      "supporting_fixture_names": [
+        "fugacity_level_i_public_method_boundary_fixture",
+        "fugacity_level_i_solid_partitioning_public_method_fixture",
+        "fugacity_level_ii_public_method_boundary_fixture"
+      ],
+      "supporting_categories": [
+        "fugacity_equilibrium_screening"
+      ],
+      "supporting_reference_types": [
+        "public_method_description"
+      ],
+      "supporting_validation_tiers": [
+        "source_backed_method"
+      ],
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "gap_lines": []
+    },
+    {
+      "claim_id": "fugacity_level_i_mass_conservation_v1",
+      "display_name": "Fugacity Level I mass conservation screening equation",
+      "model_family": "fugacity_equilibrium_screening",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "priority": "high",
+      "mandatory_for_release": false,
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_fixture_count": 2,
+      "supporting_validation_tier_count": 2,
+      "supporting_fixture_names": [
+        "fugacity_level_i_mass_conservation_fixture",
+        "fugacity_level_i_public_method_boundary_fixture"
+      ],
+      "supporting_categories": [
+        "fugacity_equilibrium_screening"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "supporting_validation_tiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "gap_lines": []
+    },
+    {
+      "claim_id": "fugacity_level_i_partitioning_v1",
+      "display_name": "Fugacity Level I air-water and solid partitioning screening equation",
+      "model_family": "fugacity_equilibrium_screening",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "priority": "high",
+      "mandatory_for_release": false,
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_fixture_count": 2,
+      "supporting_validation_tier_count": 2,
+      "supporting_fixture_names": [
+        "fugacity_level_i_air_water_partitioning_fixture",
+        "fugacity_level_i_solid_partitioning_public_method_fixture"
+      ],
+      "supporting_categories": [
+        "fugacity_equilibrium_screening"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "supporting_validation_tiers": [
+        "internal_oracle",
+        "source_backed_method"
+      ],
+      "satisfies_required_reference_types": true,
+      "satisfies_required_validation_tiers": true,
+      "gap_lines": []
+    },
+    {
+      "claim_id": "fugacity_level_ii_loss_balance_v1",
+      "display_name": "Fugacity Level II degradation-loss balance screening equation",
+      "model_family": "fugacity_equilibrium_screening",
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "priority": "high",
+      "mandatory_for_release": false,
+      "covered": true,
+      "support_strength": "multi_anchor_multi_tier",
+      "supporting_fixture_count": 2,
+      "supporting_validation_tier_count": 2,
+      "supporting_fixture_names": [
+        "fugacity_level_ii_loss_balance_fixture",
+        "fugacity_level_ii_public_method_boundary_fixture"
+      ],
+      "supporting_categories": [
+        "fugacity_equilibrium_screening"
+      ],
+      "supporting_reference_types": [
+        "hand_worked_screening_equation",
+        "public_method_description"
+      ],
+      "supporting_validation_tiers": [
+        "internal_oracle",
+        "source_backed_method"
       ],
       "satisfies_required_reference_types": true,
       "satisfies_required_validation_tiers": true,

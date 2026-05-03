@@ -398,6 +398,7 @@
       "enum": [
         "reference_mass_balance",
         "advective_screening_mass_balance",
+        "fugacity_equilibrium_screening",
         "adapter_stub",
         "external_result_adapter"
       ],
@@ -467,7 +468,8 @@
     "ReportedTimeSemantics": {
       "enum": [
         "end_of_duration_screening_not_infinite_equilibrium",
-        "bounded_time_bucket"
+        "bounded_time_bucket",
+        "fugacity_equilibrium_partitioning"
       ],
       "title": "ReportedTimeSemantics",
       "type": "string"

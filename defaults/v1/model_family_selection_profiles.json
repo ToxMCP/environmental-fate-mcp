@@ -76,6 +76,77 @@
         "Do not skip the reference baseline when a challenge family is recommended."
       ],
       "applicabilityNote": "Use this selection profile when the corrected reference family remains the suite baseline and the advective family is only a governed experimental challenge path."
+    },
+    "reference_baseline_fugacity_challenge_v1": {
+      "displayName": "Reference Baseline With Fugacity Challenge",
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supportedRunModes": [
+        "steady_state"
+      ],
+      "defaultModelFamily": "reference_mass_balance",
+      "challengeModelFamily": "fugacity_equilibrium_screening",
+      "comparisonProfileId": "reference_vs_fugacity_equilibrium_screening_v1",
+      "minimumDurationDaysForChallenge": 0.0,
+      "triggerParameterNames": [
+        "molecular_weight_g_mol",
+        "henry_law_constant_pa_m3_mol",
+        "organic_carbon_partition_coefficient_koc_l_kg"
+      ],
+      "defaultRecommendationTemplate": "Keep reference_mass_balance as the default screening baseline unless equilibrium partitioning is explicitly under review.",
+      "challengeRecommendationTemplate": "Run fugacity_equilibrium_screening as an experimental challenge path because explicit physchem partitioning inputs are present and equilibrium partitioning is scientifically relevant.",
+      "reviewNeededTemplate": "Do not recommend a fugacity challenge path until explicit molecular weight, Henry, and Koc provenance is present and baseline fit is acceptable.",
+      "reviewChecklist": [
+        {
+          "code": "selection_scope_confirmed",
+          "prompt": "Confirm fugacity remains an experimental challenge path and not the default family.",
+          "rationale": "Model-family selection should preserve the released reference baseline.",
+          "evidenceHintFields": [
+            "recommendation_status",
+            "comparison_profile_id",
+            "limitations"
+          ]
+        },
+        {
+          "code": "fugacity_trigger_inputs_reviewed",
+          "prompt": "Review whether molecular weight, Henry, and Koc trigger records are explicit and source-backed.",
+          "rationale": "Fugacity challenge should not run on implicit or unsupported physchem assumptions.",
+          "evidenceHintFields": [
+            "triggered_signal_lines",
+            "primary_applicability_lines",
+            "challenge_applicability_lines"
+          ]
+        },
+        {
+          "code": "comparison_path_recorded",
+          "prompt": "Confirm the governed reference-versus-fugacity comparison profile is recorded when the challenge path is recommended.",
+          "rationale": "Assessors need a deterministic comparison before downstream reuse.",
+          "evidenceHintFields": [
+            "comparison_profile_id",
+            "fit_for_purpose"
+          ]
+        }
+      ],
+      "reviewPacketTemplate": "Build a governed assessor-facing selection review packet for reference baseline with experimental fugacity challenge.",
+      "reviewBriefTemplate": "Summarize whether the fugacity challenge recommendation is ready for assessor-facing reuse.",
+      "readyRecommendationStatuses": [
+        "default_baseline_only"
+      ],
+      "attentionStatuses": [
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "attentionIfAnyChecksFail": true,
+      "attentionIfChallengeExperimental": true,
+      "reviewNotes": [
+        "Treat fugacity_equilibrium_screening as experimental and non-default.",
+        "Use the governed comparison profile before carrying fugacity outputs downstream.",
+        "Do not skip the reference baseline."
+      ],
+      "applicabilityNote": "Use when equilibrium partitioning is relevant and explicit fugacity physchem inputs are available."
     }
   }
 }

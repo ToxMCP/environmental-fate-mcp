@@ -15,6 +15,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - assess erosion/sediment validation fit with governed, non-calibrating screening classifications
 - import normalized external JSON/CSV payloads through the public adapter contract
 - assess model-family applicability for a scenario/run pair
+- run the experimental non-default `fugacity_equilibrium_screening` family through `fate_estimate_multimedia_concentrations` for Level I/II equilibrium partitioning challenge review
 - recommend whether to keep the default model-family baseline only or add a governed experimental challenge path
 - preview governed assessor-facing model-family selection review status
 - build assessor-facing model-family selection review packets
@@ -51,6 +52,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - inspect governed erosion/sediment method profiles through `defaults://erosion-sediment-method-profiles`
 - inspect governed erosion/sediment validation profiles through `defaults://erosion-sediment-validation-profiles`
 - inspect governed synthetic erosion/sediment validation demos through `defaults://erosion-sediment-validation-demo-pack`
+- inspect governed fugacity screening method profiles through `defaults://fugacity-screening-method-profiles`
 - inspect governed model-family selection profiles
 - inspect governed model-family challenge review profiles
 - inspect governed model-family comparison profiles
@@ -100,6 +102,7 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - treat single-case grounding on a medium-priority experimental edge claim as a release concern as well, especially for clearance and duration challenges
 - distinguish multi-anchor support from true multi-tier corroboration when challenging experimental advective claims
 - compare the default `reference_mass_balance` family against the experimental `advective_screening_mass_balance` family when residence-time clearance matters
+- compare the default `reference_mass_balance` family against the experimental `fugacity_equilibrium_screening` family when equilibrium multimedia partitioning matters
 - challenge the experimental advective family with paired long-duration, long-residence, short-residence, and post-release bucket anchors before treating it as more than a governed challenge family
 - use MCP prompts to generate profile-specific or consumer-specific handoff request, summary, and review guidance
 - use MCP prompts to generate profile-specific model-family comparison request and summary guidance
@@ -118,6 +121,8 @@ Environmental Fate MCP accepts environmental release scenarios and returns conce
 - dietary intake workflows
 - PBPK execution
 - final risk characterization
+- Level III fugacity intermedia-transfer modelling
+- hydrologic/GIS/catchment routing, calibration, field validation, SWAT/PRZM execution, or native WEPP execution
 - full GIS dispersion
 - watershed hydrology, rainfall-runoff generation, channel routing, deposition fields, and WEPP execution
 - automated RUSLE/MUSLE parameter fitting or erosion/sediment calibration workflows

@@ -218,6 +218,62 @@
         "unsupported_substance_class": 1.0
       },
       "applicabilityNote": "External-result adapter is suitable when imported concentration surfaces need governed normalization and reviewable provenance, not when Fate MCP should replace the source engine."
+    },
+    "fugacity_equilibrium_screening": {
+      "fitForPurpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supportedSubstanceClasses": [
+        "neutral organic chemicals with explicit molecular weight, Henry law constant, and Koc records suitable for screening-level equilibrium partitioning",
+        "review workflows that need a non-default partitioning challenge path against the reference mass-balance baseline"
+      ],
+      "unsupportedSubstanceClasses": [
+        "metals and metal species requiring speciation-aware fate treatment",
+        "ionizable chemicals without governed speciation and pH-dependent partitioning evidence",
+        "nanomaterials or particulate systems requiring size-resolved transport behavior",
+        "PFAS-like transport concerns requiring specialized multimedia distribution logic",
+        "cases requiring Level III intermedia-transfer coefficients, hydrologic routing, GIS gradients, calibration, field validation, or regulator acceptance"
+      ],
+      "requiredInputs": [
+        "molecular_weight_g_mol",
+        "henry_law_constant_pa_m3_mol",
+        "organic_carbon_partition_coefficient_koc_l_kg",
+        "total_release_mass_kg and release_fractions",
+        "region_profile_id with all four active media capacities",
+        "media-specific degradation half-lives for level_ii_equilibrium_persistence"
+      ],
+      "coreAssumptions": [
+        "The family is experimental, non-default, and should be compared against reference_mass_balance before downstream reuse.",
+        "All four active media contribute to the fugacity denominator even when requested_media filters returned surfaces.",
+        "Level I assumes equilibrium partitioning without loss; Level II assumes equilibrium partitioning with first-order degradation losses only.",
+        "Release entry medium affects scoped mass/rate only and does not route mass between compartments.",
+        "Scenario temperature is used in R*T; Henry law temperature correction is not applied in v0.4.0."
+      ],
+      "deferredCapabilities": [
+        "Level III non-equilibrium intermedia transfer",
+        "advection, deposition, or routed transport between media",
+        "hydrology generation, GIS/catchment routing, calibration, WEPP/SWAT/PRZM execution",
+        "field-validation or regulatory-acceptance claims"
+      ],
+      "reviewNotes": [
+        "Use as a challenge path when equilibrium partitioning is scientifically relevant but Level III modelling is out of scope.",
+        "Require explicit physchem parameter provenance before interpreting outputs.",
+        "Escalate beyond Fate MCP when non-equilibrium transport, ionization, speciation, or spatial routing dominates the decision context."
+      ],
+      "fitScoreThreshold": 0.75,
+      "fitScorePenalties": {
+        "unsupported_fit_for_purpose": 0.25,
+        "excessive_time_bucket_count": 0.2,
+        "provenance_only_treatments": 0.1,
+        "multi_medium_release_complexity": 0.1,
+        "unsupported_runtime_parameters": 0.15,
+        "missing_required_inputs": 0.35,
+        "missing_substance_class": 0.3,
+        "unsupported_substance_class": 1.0
+      },
+      "applicabilityNote": "Experimental fugacity equilibrium screening is appropriate only for bounded Level I/II partitioning review, not as a full multimedia fate model."
     }
   }
 }

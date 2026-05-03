@@ -1,0 +1,71 @@
+{
+  "claimId": "reference_time_bucket_elapsed_time_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Reference time-bucket elapsed-time semantics",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "bucket_label": "bucket_1",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 8.115568699634107e-06
+        },
+        {
+          "bucket_label": "bucket_2",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.3377863948720692e-05
+        },
+        {
+          "bucket_label": "bucket_3",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 8.67447156272037e-06
+        },
+        {
+          "bucket_label": "bucket_4",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 5.6246989191155655e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "reference_time_bucket_post_release_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "bucket_label": "bucket_1",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 8.451111885843478e-06
+        },
+        {
+          "bucket_label": "bucket_2",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.4426950408889635e-05
+        },
+        {
+          "bucket_label": "bucket_3",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.0201394465967895e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "time_bucket_invariance_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-04-21",
+  "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+  "version": "0.4.0"
+}

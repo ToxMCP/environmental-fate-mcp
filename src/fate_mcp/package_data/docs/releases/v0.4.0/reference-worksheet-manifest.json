@@ -1,0 +1,349 @@
+{
+  "claimCount": 10,
+  "claims": [
+    {
+      "claimId": "reference_air_finite_duration_first_order_v1",
+      "displayName": "Reference air finite-duration first-order screening equation",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_executable_treatment_reduction_v1",
+      "displayName": "Reference executable treatment reduction",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_executable_treatment_reduction_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_long_duration_rate_anchor_v1",
+      "displayName": "Reference long-duration near-plateau anchor",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_multi_medium_partition_v1",
+      "displayName": "Reference multi-medium partitioned screening output",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_multi_medium_partition_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_multi_medium_partition_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_parameter_override_application_v1",
+      "displayName": "Reference runtime parameter override application",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_parameter_override_application_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_parameter_override_application_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_sediment_finite_duration_first_order_v1",
+      "displayName": "Reference sediment finite-duration first-order screening equation",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_short_half_life_attenuation_v1",
+      "displayName": "Reference short half-life attenuation anchor",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_short_half_life_attenuation_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_soil_finite_duration_first_order_v1",
+      "displayName": "Reference soil finite-duration first-order screening equation",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_time_bucket_elapsed_time_v1",
+      "displayName": "Reference time-bucket elapsed-time semantics",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "reference_water_finite_duration_first_order_v1",
+      "displayName": "Reference water finite-duration first-order screening equation",
+      "evidenceFamily": "official_guidance_plus_independent_machine_readable_worksheet",
+      "expectedOutputArtifactPath": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-04-21",
+      "officialSourceIds": [
+        "oecd.test_guidelines.section3",
+        "epa.environmental_models_guidance",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Reviewer-grade proof requires every linked hand-worked worksheet fixture for this claim to match the public runtime entrypoint within the declared fixture tolerances and rationales bundled in the reference worksheet pack.",
+      "worksheetArtifactPath": "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    }
+  ],
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "expectedOutputArtifactCount": 10,
+  "generatedArtifactPaths": [
+    "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_air_finite_duration_first_order_v1.worksheet.json",
+    "reference-worksheet-pack/reference_executable_treatment_reduction_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_executable_treatment_reduction_v1.worksheet.json",
+    "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_long_duration_rate_anchor_v1.worksheet.json",
+    "reference-worksheet-pack/reference_multi_medium_partition_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_multi_medium_partition_v1.worksheet.json",
+    "reference-worksheet-pack/reference_parameter_override_application_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_parameter_override_application_v1.worksheet.json",
+    "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_sediment_finite_duration_first_order_v1.worksheet.json",
+    "reference-worksheet-pack/reference_short_half_life_attenuation_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_short_half_life_attenuation_v1.worksheet.json",
+    "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_soil_finite_duration_first_order_v1.worksheet.json",
+    "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_time_bucket_elapsed_time_v1.worksheet.json",
+    "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.expected-outputs.json",
+    "reference-worksheet-pack/reference_water_finite_duration_first_order_v1.worksheet.json"
+  ],
+  "governance": {
+    "claimCount": 10,
+    "insufficientReferenceAnchorClaimIds": [],
+    "missingEvidenceFamilyClaimIds": [],
+    "missingExpectedOutputArtifactClaimIds": [],
+    "missingIndependentEvidenceClaimIds": [],
+    "missingLastReviewedClaimIds": [],
+    "missingOfficialGuidanceClaimIds": [],
+    "missingOfficialSourceIdClaimIds": [],
+    "missingToleranceBasisClaimIds": [],
+    "missingWorksheetArtifactClaimIds": [],
+    "missingWorksheetClaimIds": [],
+    "missingWorksheetStatusClaimIds": [],
+    "passed": true,
+    "unresolvedReferenceCaseClaimIds": [],
+    "worksheetFixtureMap": {
+      "reference_air_finite_duration_first_order_v1": [
+        "air_reference_chemical_style_fixture",
+        "reference_air_capacity_sensitivity_fixture"
+      ],
+      "reference_executable_treatment_reduction_v1": [
+        "reference_treatment_proportionality_sensitivity_fixture",
+        "reference_treatment_reduction_anchor_fixture"
+      ],
+      "reference_long_duration_rate_anchor_v1": [
+        "reference_long_duration_plateau_sensitivity_fixture",
+        "reference_long_duration_rate_anchor_fixture"
+      ],
+      "reference_multi_medium_partition_v1": [
+        "multi_medium_mass_balance_fixture",
+        "reference_multi_medium_fraction_sensitivity_fixture"
+      ],
+      "reference_parameter_override_application_v1": [
+        "parameter_override_sensitivity_fixture",
+        "reference_air_capacity_sensitivity_fixture",
+        "reference_parameter_override_reference_fixture",
+        "reference_sediment_capacity_sensitivity_fixture",
+        "reference_soil_capacity_sensitivity_fixture",
+        "reference_water_capacity_sensitivity_fixture"
+      ],
+      "reference_sediment_finite_duration_first_order_v1": [
+        "reference_sediment_capacity_sensitivity_fixture",
+        "sediment_reference_chemical_style_fixture"
+      ],
+      "reference_short_half_life_attenuation_v1": [
+        "reference_short_half_life_attenuation_anchor_fixture",
+        "reference_short_half_life_sensitivity_companion_fixture"
+      ],
+      "reference_soil_finite_duration_first_order_v1": [
+        "reference_soil_capacity_sensitivity_fixture",
+        "soil_reference_chemical_style_fixture"
+      ],
+      "reference_time_bucket_elapsed_time_v1": [
+        "reference_time_bucket_post_release_companion_fixture",
+        "time_bucket_invariance_fixture"
+      ],
+      "reference_water_finite_duration_first_order_v1": [
+        "reference_water_capacity_sensitivity_fixture",
+        "reference_water_no_decay_limit_branch_fixture",
+        "reference_water_temperature_correction_reference_fixture",
+        "water_reference_chemical_style_fixture"
+      ]
+    }
+  },
+  "passed": true,
+  "reviewStatus": "reviewed_no_numeric_default_change",
+  "version": "0.4.0",
+  "worksheetArtifactCount": 10,
+  "worksheetPackDirectory": "reference-worksheet-pack"
+}

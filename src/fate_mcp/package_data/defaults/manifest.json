@@ -8,12 +8,12 @@
     },
     {
       "path": "defaults/v1/core_defaults.json",
-      "sha256": "2fa48e407fb9da420c24791593b0fb22456c68d39c56e29395226a8836634d16",
+      "sha256": "19e4706b073875e1944966f16370f9ab5d6649ee2b067f2ab18d8aa9eab67301",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/default_sensitivity_profiles.json",
-      "sha256": "d6ef35dd6766aff8ca57f4d785fdb50abf4be93d38ca8f8119a1c919f1f47cfe",
+      "sha256": "8d691f6601033bd4114bf3cb3f604771c94cb4c939001fce745e3af63ea112ab",
       "defaultsVersion": "v1"
     },
     {
@@ -32,28 +32,33 @@
       "defaultsVersion": "v1"
     },
     {
+      "path": "defaults/v1/fugacity_screening_method_profiles.json",
+      "sha256": "e8f60427658ef3c151d2dcf3b33dab513496e8983c4958a99996382f0f7e09a6",
+      "defaultsVersion": "v1"
+    },
+    {
       "path": "defaults/v1/model_family_applicability_profiles.json",
-      "sha256": "fbcd03bc5e8850b00edfbbee4b297a835a97a3f985326612abb0d1daf201003a",
+      "sha256": "26e934f7c65bd6f00b2be6616f0e89ab19e7c0a67b41a55c16c27377be35b99c",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/model_family_challenge_review_profiles.json",
-      "sha256": "3d7a189414e2f7171b9ee1fa3b759bf818f8ddc30f4ba442a74adbf4f55a1182",
+      "sha256": "c3c7930b57cf3eb38c36a68dfd7a33ff7ce29bf72fd672730deb5fe003726447",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/model_family_comparison_profiles.json",
-      "sha256": "301628b42016bada03130225a879f6baab2cf8e515e206a73993e882f02a09c0",
+      "sha256": "845c3a469320c121f271f927bdea6b77ca6d619b22cc14cc7d2ba7e32d3717f5",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/model_family_selection_profiles.json",
-      "sha256": "2b91e7617817f568cd2ba8ff90e36ab21b05e1699d086a1d46f42015073d1258",
+      "sha256": "d303dc0a84cd20726f0d5bb0844138a89f0fd1865652eac6b34f69b5de60e09e",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/physchem_parameter_policies.json",
-      "sha256": "4f351147ee91dcbaa62a22ed452ac43625af3cdc2121a33d77a160c432728cf4",
+      "sha256": "6ecef0471e3d78ef0e6e659fda64673afd33e5157ec22a9d5657a2e518868adc",
       "defaultsVersion": "v1"
     },
     {
@@ -73,22 +78,22 @@
     },
     {
       "path": "defaults/v1/scientific_external_benchmark_pack.json",
-      "sha256": "f64cd3ecc43b2a0ec536c469f06b8aa06f1ed6122448d484ef770619283bb936",
+      "sha256": "f940446d73cdacb401687fb610a22bda0d8a65b2b67d3489ad8aa72bf56f39e0",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/scientific_reference_cases.json",
-      "sha256": "c890a3cab68a9cab95d037f6397a8e35b9b0dc49f246f0f0219a5bd0b1bed035",
+      "sha256": "0e4300bf536c6021f2634cc0e551070a38184129cb84483a1018a469843a4020",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/scientific_review_profiles.json",
-      "sha256": "3dc13819355d4a80e324253fbabfff43c413bb5595cb5eb87c7777812c9a8eb5",
+      "sha256": "3d3fe8ce5afc7729d8827f83dfa9d0cdee3b03be96d280ac6bd844240fd9a816",
       "defaultsVersion": "v1"
     },
     {
       "path": "defaults/v1/scientific_validation_claims.json",
-      "sha256": "1e074e208e8c5f6e03723b045a1e33b3c7ce056bbfe842d3ec19df4ae4b22b0f",
+      "sha256": "9be9bf794670f4da048806757cd8be8539b9395b99a36d8214d8fe5f0fc2b45e",
       "defaultsVersion": "v1"
     },
     {

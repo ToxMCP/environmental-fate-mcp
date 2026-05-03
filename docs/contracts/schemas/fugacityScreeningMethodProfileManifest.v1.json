@@ -1,0 +1,212 @@
+{
+  "$defs": {
+    "FugacityScreeningLevel": {
+      "enum": [
+        "level_i_equilibrium",
+        "level_ii_equilibrium_persistence"
+      ],
+      "title": "FugacityScreeningLevel",
+      "type": "string"
+    },
+    "FugacityScreeningMethodProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "title": "Profile Id",
+          "type": "string"
+        },
+        "display_name": {
+          "title": "Display Name",
+          "type": "string"
+        },
+        "screening_level": {
+          "$ref": "#/$defs/FugacityScreeningLevel"
+        },
+        "method_class": {
+          "title": "Method Class",
+          "type": "string"
+        },
+        "equation_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Ids",
+          "type": "array"
+        },
+        "equation_text": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Equation Text",
+          "type": "array"
+        },
+        "required_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Inputs",
+          "type": "array"
+        },
+        "supported_media": {
+          "items": {
+            "$ref": "#/$defs/Media"
+          },
+          "title": "Supported Media",
+          "type": "array"
+        },
+        "constants": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Constants",
+          "type": "object"
+        },
+        "source_references": {
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          },
+          "title": "Source References",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        },
+        "deferred_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Deferred Capabilities",
+          "type": "array"
+        },
+        "source_pack": {
+          "title": "Source Pack",
+          "type": "string"
+        },
+        "applicability_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Applicability Note"
+        }
+      },
+      "required": [
+        "profile_id",
+        "display_name",
+        "screening_level",
+        "method_class",
+        "source_pack"
+      ],
+      "title": "FugacityScreeningMethodProfile",
+      "type": "object"
+    },
+    "Media": {
+      "enum": [
+        "air",
+        "water",
+        "soil",
+        "sediment"
+      ],
+      "title": "Media",
+      "type": "string"
+    },
+    "SourceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effective Date"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title"
+      ],
+      "title": "SourceReference",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "defaults_version": {
+      "default": "v1",
+      "title": "Defaults Version",
+      "type": "string"
+    },
+    "profile_count": {
+      "minimum": 0,
+      "title": "Profile Count",
+      "type": "integer"
+    },
+    "profiles": {
+      "items": {
+        "$ref": "#/$defs/FugacityScreeningMethodProfile"
+      },
+      "title": "Profiles",
+      "type": "array"
+    },
+    "source_references": {
+      "items": {
+        "$ref": "#/$defs/SourceReference"
+      },
+      "title": "Source References",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "profile_count",
+    "profiles"
+  ],
+  "title": "FugacityScreeningMethodProfileManifest",
+  "type": "object"
+}

@@ -14,6 +14,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "erosion-sediment-validation-demo-report" in reports
     assert "external-validation-benchmark-report" in reports
     assert "default-sensitivity-report" in reports
+    assert "fugacity-screening-validation-report" in reports
     assert "scientific-validation-narrative" in reports
     assert "benchmark-manifest" in reports
     assert "defaults-rebaseline-report" in reports
@@ -74,6 +75,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["validation-dossier"]["erosionSedimentValidationDemoPack"]["passed"] is True
     assert reports["validation-dossier"]["scientificExternalBenchmarkPack"]["passed"] is True
     assert reports["validation-dossier"]["defaultSensitivityProfiles"]["passed"] is True
+    assert reports["validation-dossier"]["fugacityScreeningValidation"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilySelectionReviewWorkflow"]["passed"] is True
     assert reports["validation-dossier"]["modelFamilyChallengeReviewWorkflow"]["passed"] is True
@@ -168,11 +170,13 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["metadata-report"]["publicAdapterFixtureCount"] >= 2
     assert reports["metadata-report"]["erosionSedimentValidationDemoCaseCount"] == 4
     assert reports["metadata-report"]["erosionSedimentValidationDemoPackPassed"] is True
-    assert reports["metadata-report"]["scientificExternalBenchmarkCaseCount"] == 4
+    assert reports["metadata-report"]["scientificExternalBenchmarkCaseCount"] == 8
     assert reports["metadata-report"]["scientificExternalBenchmarkPackPassed"] is True
-    assert reports["metadata-report"]["defaultSensitivityProfileCount"] == 7
+    assert reports["metadata-report"]["defaultSensitivityProfileCount"] == 11
     assert reports["metadata-report"]["defaultSensitivityProfilesPassed"] is True
-    assert reports["metadata-report"]["benchmarkMetadataFixtureCount"] >= 9
+    assert reports["metadata-report"]["fugacityScreeningMethodProfileCount"] == 2
+    assert reports["metadata-report"]["fugacityScreeningValidationPassed"] is True
+    assert reports["metadata-report"]["benchmarkMetadataFixtureCount"] >= 64
     assert reports["metadata-report"]["runScientificTrustBriefWorkflowCount"] == 1
     assert reports["metadata-report"]["scientificReviewWorkflowCount"] == 3
     assert reports["metadata-report"]["scientificMethodsDossierWorkflowCount"] == 2
@@ -184,6 +188,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["metadata-report"]["modelFamilyComparisonReviewWorkflowCount"] == 3
     assert reports["metadata-report"]["experimentalModelFamilyCount"] >= 1
     assert "advective_screening_mass_balance" in reports["metadata-report"]["experimentalModelFamilies"]
+    assert "fugacity_equilibrium_screening" in reports["metadata-report"]["experimentalModelFamilies"]
     assert reports["metadata-report"]["parameterManifestEntryCount"] >= 5
     assert reports["metadata-report"]["parameterManifestRuntimeConsumedCount"] >= 3
     assert reports["metadata-report"]["parameterManifestPreservedOnlyCount"] >= 1
@@ -251,10 +256,12 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert reports["erosion-sediment-validation-demo-report"]["passed"] is True
     assert reports["erosion-sediment-validation-demo-report"]["demoCaseCount"] == 4
     assert reports["external-validation-benchmark-report"]["passed"] is True
-    assert reports["external-validation-benchmark-report"]["caseCount"] == 4
+    assert reports["external-validation-benchmark-report"]["caseCount"] == 8
     assert reports["default-sensitivity-report"]["passed"] is True
-    assert reports["default-sensitivity-report"]["profileCount"] == 7
-    assert "screening_corroboration_strengthened" in reports["scientific-validation-narrative"]["status"]
+    assert reports["default-sensitivity-report"]["profileCount"] == 11
+    assert reports["fugacity-screening-validation-report"]["passed"] is True
+    assert reports["fugacity-screening-validation-report"]["profileCount"] == 2
+    assert "experimental_fugacity_screening_added" in reports["scientific-validation-narrative"]["status"]
     assert reports["red-team-review-report"]["openBlockerCount"] == 0
     assert reports["red-team-review-report"]["unresolvedFindingCount"] == 0
     assert "Scientific Trust Brief" in reports["scientific-trust-brief"]["markdown"]
@@ -265,6 +272,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "## Experimental Advective Challenge Path" in reports["scientific-trust-pack"]["markdown"]
     assert "## Erosion/Sediment Validation Demo Pack" in reports["scientific-trust-pack"]["markdown"]
     assert "## External Benchmark And Sensitivity Surface" in reports["scientific-trust-pack"]["markdown"]
+    assert "## Experimental Fugacity Challenge Path" in reports["scientific-trust-pack"]["markdown"]
     assert "## Claim Corroboration" in reports["scientific-trust-pack"]["markdown"]
     assert "scientific-trust-brief-generated" in {
         check["name"] for check in reports["readiness-report"]["checks"]
@@ -293,6 +301,9 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
     assert "default-sensitivity-profiles-passed" in {
         check["name"] for check in reports["readiness-report"]["checks"]
     }
+    assert "fugacity-screening-validation-passed" in {
+        check["name"] for check in reports["readiness-report"]["checks"]
+    }
     assert {
         "unresolved_default_derivation_gap",
         "uncovered_corroboration_requirement",
@@ -308,6 +319,7 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
         "erosion_sediment_validation_demo_pack_mismatch",
         "scientific_external_benchmark_pack_mismatch",
         "default_sensitivity_profile_drift",
+        "fugacity_screening_validation_drift",
         "unaddressed_red_team_finding",
     }.issubset({item["name"] for item in reports["readiness-report"]["blockerClasses"]})
 
@@ -315,16 +327,16 @@ def test_release_reports_include_validation_and_known_gaps() -> None:
 def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     repo_root = Path(__file__).resolve().parents[1]
     generate_contract_artifacts(repo_root)
-    bundle_dir = tmp_path / "v0.3.1-test"
-    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.1-test")
+    bundle_dir = tmp_path / "v0.4.0-test"
+    result_dir = write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.4.0-test")
     assert result_dir == bundle_dir
 
     manifest = json.loads((bundle_dir / "release-bundle-manifest.json").read_text())
-    assert manifest["version"] == "0.3.1"
-    assert manifest["releaseRef"] == "v0.3.1-test"
+    assert manifest["version"] == "0.4.0"
+    assert manifest["releaseRef"] == "v0.4.0-test"
 
     release_notes = (bundle_dir / "release-notes.md").read_text()
-    assert "# Environmental Fate MCP v0.3.1-test" in release_notes
+    assert "# Environmental Fate MCP v0.4.0-test" in release_notes
     assert "Release status: `ready_for_screening_release`" in release_notes
     assert "Machine-readable release reports are published" in release_notes
 
@@ -349,6 +361,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     assert (bundle_dir / "erosion-sediment-validation-demo-report.json").exists()
     assert (bundle_dir / "external-validation-benchmark-report.json").exists()
     assert (bundle_dir / "default-sensitivity-report.json").exists()
+    assert (bundle_dir / "fugacity-screening-validation-report.json").exists()
     assert (bundle_dir / "scientific-validation-narrative.json").exists()
 
     for item in manifest["files"]:
@@ -369,7 +382,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
         for path in bundle_dir.rglob("*")
         if path.is_file()
     }
-    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.3.1-test")
+    write_release_bundle(repo_root, output_dir=bundle_dir, release_ref="v0.4.0-test")
     second_pass = {
         str(path.relative_to(bundle_dir)): path.read_text()
         for path in bundle_dir.rglob("*")

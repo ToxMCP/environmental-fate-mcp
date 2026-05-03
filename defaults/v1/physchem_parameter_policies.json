@@ -110,6 +110,39 @@
       "family": "log10_descriptor",
       "expectedUnit": "log10",
       "applicabilityNote": "Preserved for provenance and future adapters, but not consumed by the current reference runtime."
+    },
+    "molecular_weight_g_mol": {
+      "expectedUnit": "g/mol",
+      "runtimeSupported": true,
+      "conflictRelativeSpreadThreshold": 0.5,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "linear",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": true,
+      "sourcePack": "defaults/v1/physchem_parameter_policies.json",
+      "applicabilityNote": "Runtime-consumed by experimental fugacity equilibrium screening; must be explicit on the scenario for fugacity execution."
+    },
+    "henry_law_constant_pa_m3_mol": {
+      "expectedUnit": "Pa m3/mol",
+      "runtimeSupported": true,
+      "conflictRelativeSpreadThreshold": 0.5,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "linear",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": true,
+      "sourcePack": "defaults/v1/physchem_parameter_policies.json",
+      "applicabilityNote": "Runtime-consumed by experimental fugacity equilibrium screening; must be explicit on the scenario for fugacity execution."
+    },
+    "organic_carbon_partition_coefficient_koc_l_kg": {
+      "expectedUnit": "L/kg",
+      "runtimeSupported": true,
+      "conflictRelativeSpreadThreshold": 0.5,
+      "weightingStrategy": "evidence_quality_weighted_mean",
+      "reconciliationDomain": "linear",
+      "conflictMetric": "relative_spread",
+      "disallowConservativeEmpiricalBlend": true,
+      "sourcePack": "defaults/v1/physchem_parameter_policies.json",
+      "applicabilityNote": "Runtime-consumed by experimental fugacity equilibrium screening for soil/sediment capacity terms; must be explicit on the scenario."
     }
   }
 }

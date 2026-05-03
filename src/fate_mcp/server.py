@@ -1578,6 +1578,80 @@ def prompt_request_external_result_import(
 
 
 @mcp.prompt(
+    name="fate_request_fugacity_partitioning_screening",
+    title="Request Fugacity Partitioning Screening",
+    description="Render a bounded workflow for experimental Level I/II fugacity partitioning screening.",
+)
+def prompt_request_fugacity_partitioning_screening(
+    screening_goal: str = "experimental fugacity equilibrium partitioning screening",
+) -> str:
+    """Build an Environmental Fate MCP prompt for experimental fugacity partitioning screening."""
+    scenario_payload = {
+        "chemical_identity": {
+            "preferredName": "Example organic chemical",
+            "substance_class": "neutral organic chemical",
+        },
+        "total_release_mass_kg": 10.0,
+        "release_fractions": [
+            {"medium": "air", "fraction": 0.25},
+            {"medium": "water", "fraction": 0.25},
+            {"medium": "soil", "fraction": 0.25},
+            {"medium": "sediment", "fraction": 0.25},
+        ],
+        "duration_days": 30.0,
+        "parameter_records": [
+            {
+                "parameter": "molecular_weight_g_mol",
+                "value": 200.0,
+                "unit": "g/mol",
+                "source_classification": "user_input",
+            },
+            {
+                "parameter": "henry_law_constant_pa_m3_mol",
+                "value": 1.0,
+                "unit": "Pa m3/mol",
+                "source_classification": "user_input",
+            },
+            {
+                "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+                "value": 1000.0,
+                "unit": "L/kg",
+                "source_classification": "user_input",
+            },
+        ],
+    }
+    fugacity_run_options = {
+        "model_family": "fugacity_equilibrium_screening",
+        "run_mode": "steady_state",
+        "fugacity_screening_level": "level_i_equilibrium",
+        "region_profile_id": "eu_screening_default",
+    }
+    comparison_payload = {
+        "scenario": "<EnvironmentalReleaseScenario>",
+        "comparison_profile_id": "reference_vs_fugacity_equilibrium_screening_v1",
+        "candidate_model_family": "fugacity_equilibrium_screening",
+    }
+    return (
+        f"Prepare Environmental Fate MCP fugacity partitioning screening for {screening_goal}.\n\n"
+        "Read `defaults://fugacity-screening-method-profiles` before running the model so the "
+        "experimental Level I/II boundary is explicit.\n\n"
+        "Recommended workflow:\n"
+        "1. Build an Environmental Fate scenario with explicit molecular weight, Henry law constant, and Koc:\n"
+        f"```json\n{json.dumps(scenario_payload, indent=2)}\n```\n"
+        "2. Run the reference baseline with `fate_estimate_multimedia_concentrations` using `reference_mass_balance`.\n"
+        "3. Run the experimental fugacity challenge with `fate_estimate_multimedia_concentrations` using:\n"
+        f"```json\n{json.dumps(fugacity_run_options, indent=2)}\n```\n"
+        "4. Compare the reference baseline and fugacity challenge path with:\n"
+        f"```json\n{json.dumps(comparison_payload, indent=2)}\n```\n"
+        "5. Build the governed model-family comparison review packet before carrying outputs downstream.\n\n"
+        "Keep the result framed as experimental Level I/II equilibrium screening with no Level III "
+        "intermedia transfer, no routed transport, no hydrology, no calibration, no field validation, "
+        "no WEPP/SWAT/PRZM execution, no exposure/risk claim, no regulatory acceptance, and no "
+        "source-engine equivalence."
+    )
+
+
+@mcp.prompt(
     name="fate_request_erosion_sediment_transport_screening",
     title="Request Erosion Sediment Transport Screening",
     description="Render a bounded workflow for RUSLE/MUSLE erosion-mediated transport screening.",
@@ -1813,6 +1887,11 @@ def defaults_adapter_unit_conversions() -> str:
 @mcp.resource("defaults://erosion-sediment-method-profiles")
 def defaults_erosion_sediment_method_profiles() -> str:
     return DEFAULTS.erosion_sediment_method_profile_manifest().model_dump_json(indent=2)
+
+
+@mcp.resource("defaults://fugacity-screening-method-profiles")
+def defaults_fugacity_screening_method_profiles() -> str:
+    return DEFAULTS.fugacity_screening_method_profile_manifest().model_dump_json(indent=2)
 
 
 @mcp.resource("defaults://erosion-sediment-validation-profiles")

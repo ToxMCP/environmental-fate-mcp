@@ -3,7 +3,7 @@
 Environmental Fate MCP public release readiness is gated on reproducible contracts, examples, defaults manifests, benchmark fixtures, and downstream-consumer interoperability.
 Released artifacts must remain deterministic across regeneration, and server startup must validate the shipped artifact set without mutating it.
 `ready_for_screening_release` is an internal bounded-screening release gate. It is not a statement of regulator acceptance, submission approval, or scientific equivalence to external engines.
-`reference_mass_balance` remains the reviewer-grade baseline family. `advective_screening_mass_balance` remains an experimental challenge family and must not drift into promoted baseline language without an explicit later decision.
+`reference_mass_balance` remains the reviewer-grade baseline family. `advective_screening_mass_balance` and `fugacity_equilibrium_screening` remain experimental challenge families and must not drift into promoted baseline language without an explicit later decision.
 
 ## Generated artifact maintenance
 
@@ -18,6 +18,7 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - the governed erosion/sediment validation demo pack must remain synthetic, classification-stable, and visible through both `defaults://erosion-sediment-validation-demo-pack` and `release://erosion-sediment-validation-demo-report`
 - the governed external benchmark pack must remain deterministic, tolerance-stable, and visible through both `defaults://scientific-external-benchmark-pack` and `release://external-validation-benchmark-report`
 - governed default sensitivity profiles must remain deterministic, boundary-limited, and visible through both `defaults://default-sensitivity-profiles` and `release://default-sensitivity-report`
+- governed fugacity screening method profiles must remain experimental, Level I/II-only, and visible through both `defaults://fugacity-screening-method-profiles` and `release://fugacity-screening-validation-report`
 - provenance-bearing releases must run the `Release provenance` workflow and publish attested wheel, sdist, checksum, release-bundle manifest, and trust-pack assets
 
 ## Required checks
@@ -27,6 +28,7 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - governed erosion/sediment validation demo cases parse, execute through the validation tools, and match their declared expected classifications
 - governed external benchmark replay cases parse, execute through public tools, and match declared expected values within tolerance
 - governed default sensitivity profiles parse, execute through `fate_build_default_sensitivity_report`, and keep sensitivity interpretation separate from calibration or field validation
+- governed fugacity screening profiles parse and pass mass-conservation, requested-media filtering, Level II loss-balance, source-reference, and boundary-language checks
 - optional probabilistic sample manifest schemas preserve seed, sampled-parameter summaries, iteration health, stable hashes, and capped records when requested
 - release asset provenance remains verifiable with `gh attestation verify` for the wheel, sdist, and `RELEASE_ASSET_SHA256SUMS`
 - server startup validates shipped artifacts without regenerating them
@@ -52,6 +54,7 @@ needed for checkout-free deployments. To keep that surface reviewable:
 - governed model-family selection profiles exist for published baseline-versus-experimental selection workflows
 - governed model-family comparison profiles exist for every published model-family comparison workflow
 - every experimental model family published in metadata has a governed applicability profile and scientific review profile
+- every fugacity screening artifact keeps the no-Level-III, no-routing, no-calibration, no-source-engine-equivalence, and no-regulator-acceptance boundary explicit
 - run parameter manifests remain consistent with scenario parameter records, runtime assumptions, and provenance
 - deterministic uncertainty summaries remain machine-readable and limitation-bound
 - model-family selection recommendations remain internally consistent with the governed selection profile, fit assessments, and challenge-trigger lines

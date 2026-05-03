@@ -46,20 +46,23 @@ jobs:
               server = create_server()
               tools = await server.list_tools()
               assert len(tools) == 57
-              assert len(await server.list_prompts()) == 21
-              assert len(await server.list_resources()) == 29
+              assert len(await server.list_prompts()) == 22
+              assert len(await server.list_resources()) == 30
               assert all(tool.annotations is not None for tool in tools)
               assert all(tool.outputSchema is not None for tool in tools)
               metadata_contents = await server.read_resource("release://metadata-report")
               metadata = json.loads(metadata_contents[0].content)
               assert metadata["toolCount"] == 57
-              assert metadata["resourceCount"] == 29
+              assert metadata["promptCount"] == 22
+              assert metadata["resourceCount"] == 30
+              fugacity = json.loads((await server.read_resource("defaults://fugacity-screening-method-profiles"))[0].content)
+              assert fugacity["profile_count"] == 2
               demo_pack = await server.read_resource("defaults://erosion-sediment-validation-demo-pack")
               assert "synthetic" in demo_pack[0].content.lower()
               benchmark_pack = await server.read_resource("defaults://scientific-external-benchmark-pack")
-              assert json.loads(benchmark_pack[0].content)["case_count"] == 4
+              assert json.loads(benchmark_pack[0].content)["case_count"] == 8
               sensitivity_profiles = await server.read_resource("defaults://default-sensitivity-profiles")
-              assert json.loads(sensitivity_profiles[0].content)["profile_count"] == 7
+              assert json.loads(sensitivity_profiles[0].content)["profile_count"] == 11
               fixture_path = _resolve_external_payload_path(
                   "config/adapter-fixtures/illustrative_external_engine_payload.json"
               )

@@ -9,6 +9,7 @@ Minimum validation scope for the current public screening release:
 - governed synthetic erosion/sediment validation demo cases that must execute through the public validation tools and match declared screening fit classifications, without field-validation or calibration claims
 - governed external benchmark replay cases that must execute through public tools and match declared deterministic tolerances, without field-validation, calibration, source-engine equivalence, or regulator-acceptance claims
 - governed default sensitivity profiles that must execute through the public sensitivity report builder and preserve the deterministic screening-only boundary
+- governed experimental fugacity screening profiles that must pass Level I mass-conservation, requested-media filtering, Level II degradation-loss balance, source-reference, and no-Level-III/no-routing/no-calibration boundary checks
 - optional probabilistic sample manifest schemas that preserve seed, sampled-parameter summaries, iteration health, stable hashes, and capped row-level records when requested
 - governed scientific validation claims mapped to benchmark fixtures, validation tiers, and reference types
 - governed scientific validation claim provenance checks for source references, methods-basis lines, and reference-case lines

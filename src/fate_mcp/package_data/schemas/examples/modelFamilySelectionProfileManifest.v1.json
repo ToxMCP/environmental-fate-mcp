@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "profile_count": 1,
+  "profile_count": 2,
   "profiles": [
     {
       "profile_id": "reference_baseline_advective_challenge_v1",
@@ -79,6 +79,79 @@
       ],
       "source_pack": "defaults/v1/model_family_selection_profiles.json",
       "applicability_note": "Use this selection profile when the corrected reference family remains the suite baseline and the advective family is only a governed experimental challenge path."
+    },
+    {
+      "profile_id": "reference_baseline_fugacity_challenge_v1",
+      "display_name": "Reference Baseline With Fugacity Challenge",
+      "fit_for_purpose": [
+        "screening",
+        "benchmark",
+        "downstream_export"
+      ],
+      "supported_run_modes": [
+        "steady_state"
+      ],
+      "default_model_family": "reference_mass_balance",
+      "challenge_model_family": "fugacity_equilibrium_screening",
+      "comparison_profile_id": "reference_vs_fugacity_equilibrium_screening_v1",
+      "minimum_duration_days_for_challenge": 0.0,
+      "trigger_parameter_names": [
+        "molecular_weight_g_mol",
+        "henry_law_constant_pa_m3_mol",
+        "organic_carbon_partition_coefficient_koc_l_kg"
+      ],
+      "default_recommendation_template": "Keep reference_mass_balance as the default screening baseline unless equilibrium partitioning is explicitly under review.",
+      "challenge_recommendation_template": "Run fugacity_equilibrium_screening as an experimental challenge path because explicit physchem partitioning inputs are present and equilibrium partitioning is scientifically relevant.",
+      "review_needed_template": "Do not recommend a fugacity challenge path until explicit molecular weight, Henry, and Koc provenance is present and baseline fit is acceptable.",
+      "review_checklist": [
+        {
+          "code": "selection_scope_confirmed",
+          "prompt": "Confirm fugacity remains an experimental challenge path and not the default family.",
+          "rationale": "Model-family selection should preserve the released reference baseline.",
+          "evidence_hint_fields": [
+            "recommendation_status",
+            "comparison_profile_id",
+            "limitations"
+          ]
+        },
+        {
+          "code": "fugacity_trigger_inputs_reviewed",
+          "prompt": "Review whether molecular weight, Henry, and Koc trigger records are explicit and source-backed.",
+          "rationale": "Fugacity challenge should not run on implicit or unsupported physchem assumptions.",
+          "evidence_hint_fields": [
+            "triggered_signal_lines",
+            "primary_applicability_lines",
+            "challenge_applicability_lines"
+          ]
+        },
+        {
+          "code": "comparison_path_recorded",
+          "prompt": "Confirm the governed reference-versus-fugacity comparison profile is recorded when the challenge path is recommended.",
+          "rationale": "Assessors need a deterministic comparison before downstream reuse.",
+          "evidence_hint_fields": [
+            "comparison_profile_id",
+            "fit_for_purpose"
+          ]
+        }
+      ],
+      "review_packet_template": "Build a governed assessor-facing selection review packet for reference baseline with experimental fugacity challenge.",
+      "review_brief_template": "Summarize whether the fugacity challenge recommendation is ready for assessor-facing reuse.",
+      "ready_recommendation_statuses": [
+        "default_baseline_only"
+      ],
+      "attention_statuses": [
+        "default_with_experimental_challenge",
+        "review_needed"
+      ],
+      "attention_if_any_checks_fail": true,
+      "attention_if_challenge_experimental": true,
+      "review_notes": [
+        "Treat fugacity_equilibrium_screening as experimental and non-default.",
+        "Use the governed comparison profile before carrying fugacity outputs downstream.",
+        "Do not skip the reference baseline."
+      ],
+      "source_pack": "defaults/v1/model_family_selection_profiles.json",
+      "applicability_note": "Use when equilibrium partitioning is relevant and explicit fugacity physchem inputs are available."
     }
   ]
 }

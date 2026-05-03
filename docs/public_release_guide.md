@@ -1,14 +1,15 @@
 # Public Release Guide
 
-This guide describes the public `v0.3.1` release-preparation posture for Environmental Fate MCP.
+This guide describes the public `v0.4.0` release-preparation posture for Environmental Fate MCP.
 
 ## Release Boundary
 
-Environmental Fate MCP is released as a bounded environmental concentration-screening MCP. It supports deterministic and bounded probabilistic concentration workflows, scientific review artifacts, regulatory handoff packaging, governed external-result normalization, scalar erosion/sediment screening, inline validation QA, governed benchmark replay, deterministic default sensitivity reporting, and optional probabilistic sample manifests.
+Environmental Fate MCP is released as a bounded environmental concentration-screening MCP. It supports deterministic and bounded probabilistic concentration workflows, scientific review artifacts, regulatory handoff packaging, governed external-result normalization, scalar erosion/sediment screening, inline validation QA, governed benchmark replay, deterministic default sensitivity reporting, optional probabilistic sample manifests, and an experimental non-default Level I/II fugacity equilibrium screening challenge family.
 
-The public release does not claim regulator acceptance, submission approval, final exposure or risk assessment, source-engine equivalence, hydrology generation, calibration, spatial routing, catchment validation, or native WEPP execution.
+The public release does not claim regulator acceptance, submission approval, final exposure or risk assessment, source-engine equivalence, Level III fugacity intermedia transfer, hydrology generation, calibration, spatial routing, catchment validation, SWAT/PRZM execution, or native WEPP execution.
 
 Concentration surfaces expose `reported_time_semantics`. A `steady_state` run mode means end-of-duration screening concentration, not infinite-time equilibrium.
+Fugacity surfaces explicitly report `fugacity_equilibrium_partitioning` because that experimental family is an equilibrium partitioning challenge path, not the reference end-of-duration screen.
 
 ## Validation Demo Pack
 
@@ -30,6 +31,12 @@ The governed default sensitivity profiles are exposed at `defaults://default-sen
 
 These artifacts improve deterministic screening corroboration and assumption transparency. They are not field validation, calibration, source-engine equivalence, global sensitivity analysis, or regulator acceptance.
 
+## Fugacity Screening
+
+The governed fugacity screening method profiles are exposed at `defaults://fugacity-screening-method-profiles`, with release validation at `release://fugacity-screening-validation-report`.
+
+This path supports experimental Level I equilibrium mass partitioning and Level II equilibrium persistence/loss-balance screening only. It is not a Level III implementation, routed transport model, calibrated model, CEMC source-engine equivalence claim, field-validation claim, exposure/risk result, or regulator acceptance.
+
 ## Artifact Maintenance
 
 Public release changes must treat repo-root artifacts and the packaged runtime mirror as one release surface:
@@ -49,7 +56,7 @@ The workflow builds the wheel and source distribution from the tagged commit, up
 Reviewers can verify downloaded assets with:
 
 ```bash
-gh attestation verify environmental_fate_mcp-0.3.1-py3-none-any.whl \
+gh attestation verify environmental_fate_mcp-0.4.0-py3-none-any.whl \
   --repo ToxMCP/environmental-fate-mcp
 ```
 
@@ -74,4 +81,4 @@ Then install the built wheel into a clean Python 3.12 virtual environment and ve
 
 ## Tagging Posture
 
-This repository can be prepared for `v0.3.1` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete. After publishing the GitHub release, wait for the release-provenance workflow to upload assets and attestations before broad announcement.
+This repository can be prepared for `v0.4.0` without creating the tag in the same change. Tagging and GitHub release publication should happen only after CI, security scanning, release artifact review, and maintainer approval are complete. After publishing the GitHub release, wait for the release-provenance workflow to upload assets and attestations before broad announcement.
