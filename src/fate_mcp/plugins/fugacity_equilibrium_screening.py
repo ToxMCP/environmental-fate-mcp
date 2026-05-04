@@ -169,9 +169,22 @@ class FugacityEquilibriumScreeningPlugin:
             "L/kg",
             required=True,
         )
-        assert molecular_weight is not None
-        assert henry is not None
-        assert koc is not None
+        missing_parameters = [
+            parameter
+            for parameter, record in (
+                (MOLECULAR_WEIGHT_PARAMETER, molecular_weight),
+                (HENRY_PARAMETER, henry),
+                (KOC_PARAMETER, koc),
+            )
+            if record is None
+        ]
+        if missing_parameters:
+            raise FateValidationError(
+                code="fugacity_screening_missing_required_parameter",
+                message="Fugacity screening requires explicit molecular weight, Henry law constant, and Koc parameter records.",
+                suggestion="Provide finite positive scenario parameter records for molecular weight, Henry law constant, and Koc before running fugacity screening.",
+                details={"missing_parameters": missing_parameters},
+            )
         for record in (molecular_weight, henry, koc):
             self._ensure_positive(record.value, parameter=record.parameter)
         return (
