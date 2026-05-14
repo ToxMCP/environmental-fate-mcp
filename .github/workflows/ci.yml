@@ -45,14 +45,14 @@ jobs:
           async def main() -> None:
               server = create_server()
               tools = await server.list_tools()
-              assert len(tools) == 57
+              assert len(tools) == 60
               assert len(await server.list_prompts()) == 22
               assert len(await server.list_resources()) == 32
               assert all(tool.annotations is not None for tool in tools)
               assert all(tool.outputSchema is not None for tool in tools)
               metadata_contents = await server.read_resource("release://metadata-report")
               metadata = json.loads(metadata_contents[0].content)
-              assert metadata["toolCount"] == 57
+              assert metadata["toolCount"] == 60
               assert metadata["promptCount"] == 22
               assert metadata["resourceCount"] == 32
               fugacity = json.loads((await server.read_resource("defaults://fugacity-screening-method-profiles"))[0].content)

@@ -103,7 +103,7 @@ Current local release verification and generated `v0.5.0` artifacts report:
 - `259` repository test functions
 - `143` JSON schemas
 - `139` generated examples
-- `48` supported workflows surfaced through `57` tools, `22` prompts, and `32` resources
+- `51` supported workflows surfaced through `60` tools, `22` prompts, and `32` resources
 - `64` benchmark fixtures with claim-coverage enforcement
 - `8` governed external benchmark replay cases
 - `11` governed default sensitivity profiles

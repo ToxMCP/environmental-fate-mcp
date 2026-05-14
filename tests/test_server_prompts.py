@@ -307,7 +307,7 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
     async def _run() -> None:
         server = create_server()
         tools = await server.list_tools()
-        assert len(tools) == 57
+        assert len(tools) == 60
         for tool in tools:
             assert tool.annotations is not None, tool.name
             assert tool.annotations.readOnlyHint is True, tool.name
@@ -324,6 +324,9 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
             "fate_build_erosion_sediment_validation_case",
             "fate_assess_erosion_sediment_validation_fit",
             "fate_build_default_sensitivity_report",
+            "fate_sanitise_concentration_surface_bundle_for_public_release",
+            "fate_enqueue_scientific_follow_up",
+            "fate_advance_scientific_follow_up",
         }:
             assert by_name[tool_name].annotations.openWorldHint is False
             assert by_name[tool_name].annotations.idempotentHint is True
@@ -343,7 +346,7 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         server = create_server()
         contents = await server.read_resource("release://metadata-report")
         metadata = json.loads(contents[0].content)
-        assert metadata["toolCount"] == 57
+        assert metadata["toolCount"] == 60
         assert metadata["promptCount"] == 22
         assert metadata["resourceCount"] == 32
         demo_contents = await server.read_resource(
