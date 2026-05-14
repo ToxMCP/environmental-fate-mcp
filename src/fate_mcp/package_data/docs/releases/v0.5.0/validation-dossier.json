@@ -1333,7 +1333,7 @@
     ]
   },
   "benchmarks": {
-    "benchmarkCount": 64,
+    "benchmarkCount": 65,
     "passed": true,
     "results": [
       {
@@ -6210,6 +6210,36 @@
         "validationTier": "normalization_parity"
       },
       {
+        "category": "external_adapter_normalization_parity",
+        "comparisons": [
+          {
+            "matchesCanonical": true,
+            "path": "config/adapter-fixtures/illustrative_external_engine_payload.json",
+            "signature": [
+              {
+                "bucket_label": null,
+                "compartment": "surface_water",
+                "medium": "water",
+                "unit": "mg/L",
+                "value": 0.0125
+              }
+            ]
+          }
+        ],
+        "expectedBehavior": "The JSON adapter fixture normalizes to a single surface_water concentration of 1.25e-02 mg/L with model_family external_result_adapter under the matching scenario and run options.",
+        "name": "external_adapter_canonical_surface_signature_fixture",
+        "passed": true,
+        "referenceType": "hand_worked_adapter_normalization_signature",
+        "scientificBasis": "Hand-worked canonical surface signature for the governed JSON adapter fixture. Anchors the exact concentration-surface contract that the external_result_adapter plugin must produce after normalizing illustrative_external_engine_payload.json under the matching scenario and run options. Pairs with the existing external_adapter_equivalence_fixture (which proves multiple input fixtures normalize to the same shape) by pinning the actual value the shape resolves to.",
+        "scientificClaimIds": [
+          "external_adapter_canonical_equivalence_v1"
+        ],
+        "surfaceCount": 1,
+        "tolerance": 1e-12,
+        "toleranceRationale": "Adapter normalization is value-preserving by construction (no kernel arithmetic), so the only tolerated deviation is floating-point representation.",
+        "validationTier": "normalization_parity"
+      },
+      {
         "category": "reference_chemical_style",
         "comparisons": [
           {
@@ -7376,19 +7406,21 @@
           "priority": "high",
           "satisfies_required_reference_types": true,
           "satisfies_required_validation_tiers": true,
-          "support_strength": "single_anchor",
+          "support_strength": "multi_anchor_single_tier",
           "supported_run_modes": [
             "steady_state"
           ],
           "supporting_categories": [
             "external_adapter_normalization_parity"
           ],
-          "supporting_fixture_count": 1,
+          "supporting_fixture_count": 2,
           "supporting_fixture_names": [
-            "external_adapter_equivalence_fixture"
+            "external_adapter_equivalence_fixture",
+            "external_adapter_canonical_surface_signature_fixture"
           ],
           "supporting_reference_types": [
-            "governed_fixture_normalization_parity"
+            "governed_fixture_normalization_parity",
+            "hand_worked_adapter_normalization_signature"
           ],
           "supporting_validation_tier_count": 1,
           "supporting_validation_tiers": [
@@ -8335,7 +8367,7 @@
   },
   "scientificReviewArtifacts": {
     "benchmarkMetadataComplete": true,
-    "benchmarkMetadataFixtureCount": 64,
+    "benchmarkMetadataFixtureCount": 65,
     "missingApplicabilityProfiles": [],
     "missingExperimentalApplicabilityProfiles": [],
     "missingExperimentalScientificReviewProfiles": [],

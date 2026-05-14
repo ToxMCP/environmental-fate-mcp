@@ -4,10 +4,10 @@
   "adapterUnitConversionRuleCount": 4,
   "artifactHashes": {
     "contractsManifest": "dd788fc7e6bd06640071ff57cfd5798c93f03c32be6ca16cba4ab7c96561535f",
-    "defaultsManifest": "12e68746363e3eb51ef91d0620afc418fe1f5d4006cecd100e1c1ef5d48416f4",
+    "defaultsManifest": "fbe57c709b3bad0de537dec23b4dc7373131020e3aa7a9b7fbda8e9bc19c242f",
     "examplesManifest": "778e01d1914bcab3930577d60d8992e895a9dc99028d068852465a27e32c1400"
   },
-  "benchmarkMetadataFixtureCount": 64,
+  "benchmarkMetadataFixtureCount": 65,
   "defaultSensitivityProfileCount": 11,
   "defaultSensitivityProfilesPassed": true,
   "defaultsEvidenceGovernancePassed": true,
@@ -163,7 +163,7 @@
     "fate_enqueue_scientific_follow_up",
     "fate_advance_scientific_follow_up"
   ],
-  "testCount": 259,
+  "testCount": 264,
   "toolCount": 60,
   "version": "0.5.0"
 }

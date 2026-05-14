@@ -364,7 +364,7 @@
       "nextCorroborationAction": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration.",
       "officialSourceCount": 0,
       "priority": "high",
-      "supportStrength": "single_anchor"
+      "supportStrength": "multi_anchor_single_tier"
     },
     {
       "claimId": "fugacity_level_boundary_v1",

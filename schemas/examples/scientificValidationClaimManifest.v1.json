@@ -2217,11 +2217,11 @@
       "independent_evidence_families": [],
       "evidence_family": "public_method_description_plus_internal_oracle",
       "official_source_ids": [],
-      "worksheet_artifact_path": null,
-      "expected_output_artifact_path": null,
-      "worksheet_status": "missing",
+      "worksheet_artifact_path": "adapter-worksheet-pack/external_adapter_canonical_equivalence_v1.worksheet.json",
+      "expected_output_artifact_path": "adapter-worksheet-pack/external_adapter_canonical_equivalence_v1.expected-outputs.json",
+      "worksheet_status": "ready",
       "last_reviewed_date": "2026-05-14",
-      "tolerance_basis": "Internal-oracle tolerance requires governed JSON, CSV, and alternate-unit fixtures to normalize to the same canonical concentration-surface contract within floating-point screening tolerance, with no semantic-loss classification dropped during normalization.",
+      "tolerance_basis": "Shipped adapter worksheet pack requires governed JSON, CSV, and alternate-unit fixtures to normalize to the same canonical concentration-surface contract within floating-point screening tolerance, with no semantic-loss classification dropped during normalization. The hand-worked fixture pins the exact canonical surface signature (single surface_water concentration of 1.25e-02 mg/L) the JSON adapter fixture must reproduce.",
       "next_corroboration_action": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration.",
       "review_notes": [
         "This is an import-normalization claim, not a claim about the external engine's native transport physics or scientific equivalence."

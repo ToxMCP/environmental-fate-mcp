@@ -750,17 +750,19 @@
       "priority": "high",
       "mandatory_for_release": true,
       "covered": true,
-      "support_strength": "single_anchor",
-      "supporting_fixture_count": 1,
+      "support_strength": "multi_anchor_single_tier",
+      "supporting_fixture_count": 2,
       "supporting_validation_tier_count": 1,
       "supporting_fixture_names": [
-        "external_adapter_equivalence_fixture"
+        "external_adapter_equivalence_fixture",
+        "external_adapter_canonical_surface_signature_fixture"
       ],
       "supporting_categories": [
         "external_adapter_normalization_parity"
       ],
       "supporting_reference_types": [
-        "governed_fixture_normalization_parity"
+        "governed_fixture_normalization_parity",
+        "hand_worked_adapter_normalization_signature"
       ],
       "supporting_validation_tiers": [
         "normalization_parity"

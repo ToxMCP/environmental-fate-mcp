@@ -1,0 +1,22 @@
+{
+  "claimId": "external_adapter_canonical_equivalence_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "External adapter canonical normalization parity",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 0.0125
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "external_adapter_canonical_surface_signature_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped adapter worksheet pack requires governed JSON, CSV, and alternate-unit fixtures to normalize to the same canonical concentration-surface contract within floating-point screening tolerance, with no semantic-loss classification dropped during normalization. The hand-worked fixture pins the exact canonical surface signature (single surface_water concentration of 1.25e-02 mg/L) the JSON adapter fixture must reproduce.",
+  "version": "0.5.0"
+}
