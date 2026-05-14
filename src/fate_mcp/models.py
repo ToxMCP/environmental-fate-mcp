@@ -1642,6 +1642,48 @@ class SanitisedConcentrationSurfaceBundle(FateBaseModel):
     )
 
 
+class SanitiseConcentrationSurfaceBundleForPublicReleaseRequest(FateBaseModel):
+    """Public MCP-tool request for the sanitisation lane.
+
+    Wraps the integration helper of the same name. ``redact_parameter_names``
+    and ``remove_source_ids`` are caller-declared confidentiality lists.
+    See ``docs/confidentiality_bundles.md`` for the governance posture.
+    """
+
+    bundle: ConcentrationSurfaceBundle
+    redact_parameter_names: list[str] = Field(default_factory=list)
+    remove_source_ids: list[str] = Field(default_factory=list)
+    sanitisation_rationale: str | None = None
+
+
+class EnqueueScientificFollowUpRequest(FateBaseModel):
+    """Public MCP-tool request to enqueue a follow-up bundle in the QUEUED stage.
+
+    See ``docs/scientific_follow_up.md`` for the governance posture and the
+    linear five-stage pipeline contract.
+    """
+
+    scenario_id: str
+    rationale: str
+    acceptance_evidence: list[ScientificFollowUpAcceptanceEvidence]
+    review_outcome_preview_id: str | None = None
+
+
+class AdvanceScientificFollowUpRequest(FateBaseModel):
+    """Public MCP-tool request to advance a follow-up bundle by one stage.
+
+    The pipeline is strictly linear: ``to_stage`` must be the next-permitted
+    stage after the bundle's ``current_stage``. Skipping a stage, going
+    backward, or attempting to advance past ``OWNER_SIGNOFF`` raises a
+    ``FateValidationError`` with a named code.
+    """
+
+    bundle: ScientificFollowUpBundle
+    to_stage: ScientificFollowUpStage
+    rationale: str
+    acceptance_evidence: list[ScientificFollowUpAcceptanceEvidence]
+
+
 class SurfaceDelta(FateBaseModel):
     medium: Media
     compartment: Compartment

@@ -52,6 +52,9 @@ SUPPORTED_WORKFLOWS = [
     "fate_summarize_regulatory_handoff_package",
     "fate_build_regulatory_handoff_review_packet",
     "fate_build_regulatory_handoff_review_brief",
+    "fate_sanitise_concentration_surface_bundle_for_public_release",
+    "fate_enqueue_scientific_follow_up",
+    "fate_advance_scientific_follow_up",
 ]
 SUPPORTED_MODEL_FAMILIES = [
     "reference_mass_balance",

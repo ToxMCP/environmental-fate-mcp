@@ -21,6 +21,7 @@ from fate_mcp.defaults import DefaultsRegistry
 from fate_mcp.errors import FateValidationError
 from fate_mcp.guidance import build_doc_manifest, read_doc
 from fate_mcp.integrations import (
+    advance_scientific_follow_up,
     apply_physchem_evidence,
     assess_erosion_sediment_validation_fit,
     assess_release_scenario_fit,
@@ -49,6 +50,7 @@ from fate_mcp.integrations import (
     build_concentration_surface_bundle,
     build_default_sensitivity_report,
     compare_fate_scenarios,
+    enqueue_scientific_follow_up,
     estimate_event_sediment_yield_musle,
     estimate_sediment_associated_chemical_load,
     estimate_soil_loss_rusle,
@@ -61,6 +63,7 @@ from fate_mcp.integrations import (
     preview_regulatory_handoff_resolution,
     recommend_model_family_selection,
     recommend_regulatory_handoff_profile,
+    sanitise_concentration_surface_bundle_for_public_release,
     screen_erosion_transport_relevance,
     summarize_regulatory_handoff_package,
 )
@@ -157,12 +160,17 @@ from fate_mcp.models import (
     RunParameterManifest,
     RunScientificTrustBrief,
     RunUncertaintySummary,
+    SanitiseConcentrationSurfaceBundleForPublicReleaseRequest,
+    SanitisedConcentrationSurfaceBundle,
     SummarizeRegulatoryHandoffPackageRequest,
+    ScientificFollowUpBundle,
     ScientificMethodsDossier,
     ScientificMethodsDossierBrief,
     ScientificReviewBrief,
     ScientificReviewOutcomePreview,
     ScientificReviewPacket,
+    AdvanceScientificFollowUpRequest,
+    EnqueueScientificFollowUpRequest,
 )
 from fate_mcp.plugins.external_result_adapter import (
     PUBLIC_ADAPTER_IMPORT_PROFILE_IDS,
@@ -836,6 +844,64 @@ def fate_build_concentration_surface_bundle(
 ) -> ConcentrationSurfaceBundle:
     """Package concentration surfaces and run metadata for downstream consumers."""
     return build_concentration_surface_bundle(request.result)
+
+
+@mcp.tool()
+def fate_sanitise_concentration_surface_bundle_for_public_release(
+    request: SanitiseConcentrationSurfaceBundleForPublicReleaseRequest,
+) -> SanitisedConcentrationSurfaceBundle:
+    """Produce a public-facing projection of a ConcentrationSurfaceBundle with
+    confidential parameter values and source references redacted.
+
+    See docs/confidentiality_bundles.md for the governance posture, the
+    caller-declared confidentiality contract, and the v1-vs-roadmap scope
+    split. The sanitised bundle carries its own SHA-256
+    sanitised_integrity_hash distinct from the source bundle's integrity_hash."""
+    return sanitise_concentration_surface_bundle_for_public_release(
+        request.bundle,
+        redact_parameter_names=request.redact_parameter_names,
+        remove_source_ids=request.remove_source_ids,
+        sanitisation_rationale=request.sanitisation_rationale,
+    )
+
+
+@mcp.tool()
+def fate_enqueue_scientific_follow_up(
+    request: EnqueueScientificFollowUpRequest,
+) -> ScientificFollowUpBundle:
+    """Enqueue a governed scientific follow-up bundle in the QUEUED stage of
+    the linear five-stage pipeline.
+
+    See docs/scientific_follow_up.md for the governance posture and the
+    queue -> review-board -> owner-handoff -> owner-remediation -> owner-
+    signoff contract. At least one acceptance-evidence entry is required at
+    enqueue time so the initial QUEUED state is traceable to a concrete
+    artifact."""
+    return enqueue_scientific_follow_up(
+        scenario_id=request.scenario_id,
+        rationale=request.rationale,
+        acceptance_evidence=request.acceptance_evidence,
+        review_outcome_preview_id=request.review_outcome_preview_id,
+    )
+
+
+@mcp.tool()
+def fate_advance_scientific_follow_up(
+    request: AdvanceScientificFollowUpRequest,
+) -> ScientificFollowUpBundle:
+    """Advance a governed scientific follow-up bundle by exactly one stage in
+    the linear pipeline.
+
+    Returns a new bundle with the transition appended and integrity_hash
+    recomputed; the source bundle is never mutated. Raises FateValidationError
+    with a named code on non-linear transitions, terminal-stage advances,
+    empty rationale, or empty acceptance-evidence."""
+    return advance_scientific_follow_up(
+        request.bundle,
+        to_stage=request.to_stage,
+        rationale=request.rationale,
+        acceptance_evidence=request.acceptance_evidence,
+    )
 
 
 @mcp.tool()
