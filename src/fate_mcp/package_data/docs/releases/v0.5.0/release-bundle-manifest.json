@@ -206,7 +206,7 @@
     },
     {
       "path": "metadata-report.json",
-      "sha256": "3108628973d340940969ca928525095d54df9ca0f47c4a815c313d678727c527"
+      "sha256": "f5752dfb0d0e60b42d3d94001c8c9af9ba719dda9c7224518a2aff1a93c5b8b7"
     },
     {
       "path": "readiness-report.json",
@@ -310,7 +310,7 @@
     },
     {
       "path": "release-notes.md",
-      "sha256": "2844fb1c3e1593687aac7fcd2c246761d9cc2fc26f3e8a67af4f3d6770bfea53"
+      "sha256": "ef444bb941ab6666bd322a1a69e46bca5d09344d0a381d49932538b637171f70"
     },
     {
       "path": "scientific-claim-coverage-report.json",

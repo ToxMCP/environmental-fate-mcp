@@ -100,7 +100,7 @@ The released server is broader than a simple concentration calculator, but the b
 
 Current local release verification and generated `v0.5.0` artifacts report:
 
-- `247` repository test functions
+- `259` repository test functions
 - `143` JSON schemas
 - `139` generated examples
 - `48` supported workflows surfaced through `57` tools, `22` prompts, and `32` resources
@@ -193,6 +193,7 @@ See:
 - [docs/scientific_evidence_quality_matrix.md](./docs/scientific_evidence_quality_matrix.md)
 - [docs/scientific_hardening_tracker.md](./docs/scientific_hardening_tracker.md)
 - [docs/confidentiality_bundles.md](./docs/confidentiality_bundles.md)
+- [docs/scientific_follow_up.md](./docs/scientific_follow_up.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
 - [docs/releases/v0.5.0/scientific-trust-pack.md](./docs/releases/v0.5.0/scientific-trust-pack.md)
