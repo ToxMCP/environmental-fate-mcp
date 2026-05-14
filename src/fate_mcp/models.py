@@ -1503,6 +1503,80 @@ class SanitisationRedactionKind(str, Enum):
     SOURCE_REFERENCE_REMOVED = "source_reference_removed"
 
 
+class ScientificFollowUpStage(str, Enum):
+    """Stages in the governed scientific follow-up pipeline (R12).
+
+    The pipeline is intentionally linear: each transition advances by
+    exactly one stage. Going backward, skipping a stage, or re-entering
+    a completed stage fires a FateValidationError. ``OWNER_SIGNOFF`` is
+    a terminal stage; no further transition is permitted.
+    """
+
+    QUEUED = "queued"
+    UNDER_REVIEW_BOARD = "under_review_board"
+    OWNER_HANDOFF = "owner_handoff"
+    OWNER_REMEDIATION = "owner_remediation"
+    OWNER_SIGNOFF = "owner_signoff"
+
+
+class ScientificFollowUpAcceptanceEvidence(FateBaseModel):
+    """A single piece of acceptance evidence supplied alongside a stage
+    transition. The pipeline requires at least one entry per transition so
+    every stage advance is traceable to a concrete artifact (a test path,
+    a PR URL, a docs link)."""
+
+    evidence_uri: str
+    description: str
+    recorded_at: datetime
+    recorded_by: str
+
+
+class ScientificFollowUpStageTransition(FateBaseModel):
+    """Audit log entry for one stage transition in the follow-up pipeline.
+
+    ``from_stage`` is ``None`` for the initial enqueue (the bundle did not
+    exist before the QUEUED state). For every subsequent transition,
+    ``from_stage`` and ``to_stage`` differ by exactly one position in the
+    linear stage order.
+    """
+
+    from_stage: ScientificFollowUpStage | None
+    to_stage: ScientificFollowUpStage
+    transitioned_at: datetime
+    rationale: str
+    acceptance_evidence: list[ScientificFollowUpAcceptanceEvidence] = Field(
+        default_factory=list
+    )
+
+
+class ScientificFollowUpBundle(FateBaseModel):
+    """A governed scientific follow-up bundle traversing the linear
+    queue -> review-board -> owner-handoff -> owner-remediation ->
+    owner-signoff pipeline.
+
+    See ``docs/scientific_follow_up.md`` for the governance posture.
+    """
+
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    follow_up_id: str = Field(default_factory=lambda: f"followup-{uuid4().hex[:12]}")
+    scenario_id: str
+    review_outcome_preview_id: str | None = None
+    current_stage: ScientificFollowUpStage
+    transitions: list[ScientificFollowUpStageTransition]
+    integrity_hash: str | None = None
+    regulatory_use_disclaimer: str = Field(
+        default=(
+            "This output is a governed scientific follow-up bundle that "
+            "records the linear progression of a screening review through "
+            "queue, review-board, owner-handoff, owner-remediation, and "
+            "owner-signoff stages. It is not a regulatory decision, not "
+            "a submission dossier, and not a claim that any external "
+            "authority has reviewed or accepted the underlying scientific "
+            "outputs."
+        )
+    )
+
+
 class SanitisationRecord(FateBaseModel):
     """Machine-readable record of a single redaction applied to a bundle.
 

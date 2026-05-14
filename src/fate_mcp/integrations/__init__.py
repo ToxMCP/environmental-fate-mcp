@@ -47,6 +47,10 @@ from .regulatory_handoff import (
     recommend_regulatory_handoff_profile,
     summarize_regulatory_handoff_package,
 )
+from .scientific_follow_up import (
+    advance_scientific_follow_up,
+    enqueue_scientific_follow_up,
+)
 from .scientific_methods import (
     build_scientific_methods_dossier,
     build_scientific_methods_dossier_brief,
@@ -59,6 +63,8 @@ from .scientific_review import (
 )
 
 __all__ = [
+    "advance_scientific_follow_up",
+    "enqueue_scientific_follow_up",
     "apply_physchem_evidence",
     "assess_release_scenario_fit",
     "assess_erosion_sediment_validation_fit",
