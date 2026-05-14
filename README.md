@@ -191,6 +191,7 @@ See:
 - [docs/erosion_sediment_transport.md](./docs/erosion_sediment_transport.md)
 - [docs/fugacity_screening.md](./docs/fugacity_screening.md)
 - [docs/scientific_evidence_quality_matrix.md](./docs/scientific_evidence_quality_matrix.md)
+- [docs/scientific_hardening_tracker.md](./docs/scientific_hardening_tracker.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
 - [docs/releases/v0.5.0/scientific-trust-pack.md](./docs/releases/v0.5.0/scientific-trust-pack.md)
