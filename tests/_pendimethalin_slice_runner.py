@@ -39,7 +39,6 @@ from fate_mcp.integrations import (
 from fate_mcp.models import (
     BuildEnvironmentalReleaseScenarioRequest,
     EstimateEventSedimentYieldMusleRequest,
-    EstimateMultimediaConcentrationsRequest,
     EstimateProbabilisticMultimediaConcentrationsRequest,
     EstimateSedimentAssociatedChemicalLoadRequest,
     EstimateSoilLossRusleRequest,
