@@ -160,7 +160,7 @@
     "fate_build_regulatory_handoff_review_packet",
     "fate_build_regulatory_handoff_review_brief"
   ],
-  "testCount": 232,
+  "testCount": 238,
   "toolCount": 57,
   "version": "0.5.0"
 }
