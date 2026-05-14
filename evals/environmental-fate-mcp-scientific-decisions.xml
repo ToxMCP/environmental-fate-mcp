@@ -1,0 +1,62 @@
+<evaluation>
+  <qa_pair>
+    <question>A scenario describes a substance with log Kow 5.5 and Koc 25000 L per kg released to a single soil compartment. An agent must pick the experimental challenge family that exercises the governed multimedia equilibrium-partitioning kernel for this hydrophobic substance. Which model family value should the agent set in run_options.model_family?</question>
+    <answer>fugacity_equilibrium_screening</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>A 30-day continuous water-only release into a fast-flowing river with surface_water_residence_time_days = 4.0 is being screened. The agent must compare the reviewer-grade baseline against the governed experimental challenge that adds advective clearance to the loss balance. Which model family value should the agent set on the challenge run options?</question>
+    <answer>advective_screening_mass_balance</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>A scenario provides a single parameter_record water_half_life_days with value -5.0. The runtime must fail closed rather than silently substitute a default. What FateValidationError code does the reference mass-balance plugin raise?</question>
+    <answer>non_positive_half_life</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>A scenario provides scenario.temperature_c = 50.0 degrees Celsius and run options run in strict mode. The runtime must fail closed instead of boundary-clamping. What FateValidationError code is emitted?</question>
+    <answer>temperature_correction_clamped_to_governed_range</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>A scenario provides treatment_assumptions whose total declared removal fraction exceeds 1.0. What FateValidationError code is emitted by the reference mass-balance plugin?</question>
+    <answer>treatment_removal_fraction_exceeds_unity</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What is the maximum supported scenario temperature in degrees Celsius before the governed temperature-correction policy clamps non-strict runs or rejects strict-mode runs?</question>
+    <answer>40.0</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What governed Q10 factor does the temperature-correction policy use for surface-water degradation half-life correction?</question>
+    <answer>2.0</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>An agent has built a deterministic ConcentrationEstimationResult and needs to package it for the Direct-Use Exposure MCP using the governed regulatory handoff profile exposure_scenario_mcp_v1. Which tool produces the hash-stamped handoff package?</question>
+    <answer>fate_export_regulatory_handoff_package</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Which model family is the only reviewer-grade promoted baseline in v0.5.0 (the family every other family is compared against, never the other way around)?</question>
+    <answer>reference_mass_balance</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What string-valued field name on a ConcentrationSurfaceBundle (and on a RegulatoryHandoffPackage) is the SHA-256 fingerprint that downstream consumers re-verify for tamper detection?</question>
+    <answer>integrity_hash</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Before committing an erosion / sediment workflow, an agent must screen whether particle-bound transport is even relevant for the substance in question. Which screening tool should the agent call first to obtain the relevance level (high / medium / low / unknown)?</question>
+    <answer>fate_screen_erosion_transport_relevance</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What promotionStatus string does the advective challenge family carry in the v0.5.0 release-readiness governance report?</question>
+    <answer>non_promotable_experimental</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>A user asks an agent to predict the internal plasma concentration time-course of a chemical in a population, given an environmental release. Environmental Fate MCP must decline this work and route it. Which suite module is the correct downstream owner of internal-dose toxicokinetic simulation?</question>
+    <answer>PBPK MCP</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Which environment variable enables durable JSONL audit logging for regulatory deployments of the Environmental Fate MCP server?</question>
+    <answer>FATE_MCP_AUDIT_LOG_PATH</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What is the directory name (relative to docs/releases/v0.5.0/) that ships the governed worksheet pack for the experimental advective challenge family without falsely upgrading its evidence posture?</question>
+    <answer>advective-worksheet-pack</answer>
+  </qa_pair>
+</evaluation>

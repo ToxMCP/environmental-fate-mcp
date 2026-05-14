@@ -408,7 +408,8 @@ def test_new_docs_resources_are_available() -> None:
     external_contract = docs_resource("external-payload-contract")
     assert "normalized external payload import" in external_contract
     agent_evals = docs_resource("agent-evaluations")
-    assert "read-only evaluation pack" in agent_evals
+    assert "Read-only QA pack" in agent_evals
+    assert "Scientific-decisions pack" in agent_evals
     public_release = docs_resource("public-release-guide")
     assert "Public Release Guide" in public_release
     release_provenance = docs_resource("release-provenance")
