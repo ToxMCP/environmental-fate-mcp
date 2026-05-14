@@ -1,0 +1,66 @@
+{
+  "claimId": "advective_extreme_persistence_clearance_bound_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective extreme-persistence clearance bound",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.334012807287605e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_extreme_persistence_clearance_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.573727311929898e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 0.5,
+            "elapsed_turnover_count": 0.5
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_long_residence_time_accumulation_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.7006451169663176e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 0.3333333333333333,
+            "elapsed_turnover_count": 0.3333333333333333
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_long_residence_time_accumulation_companion_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires effective-persistence (negligible degradation) screening surfaces to remain bounded by residence-time clearance alone on every bundled persistence-edge fixture within fixture-declared tolerance.",
+  "version": "0.5.0"
+}

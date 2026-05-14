@@ -1,0 +1,135 @@
+{
+  "assumptions": [
+    {
+      "parameter": "runoff_volume_m3",
+      "quality_flags": [],
+      "rationale": "Caller-provided event surface runoff volume.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "m3",
+      "value": 525.0
+    },
+    {
+      "parameter": "peak_runoff_rate_m3_s",
+      "quality_flags": [],
+      "rationale": "Caller-provided event peak runoff rate.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "m3/s",
+      "value": 0.18
+    },
+    {
+      "parameter": "soil_erodibility_k",
+      "quality_flags": [],
+      "rationale": "Caller-provided MUSLE soil erodibility factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "K factor",
+      "value": 0.3
+    },
+    {
+      "parameter": "slope_length_steepness_ls",
+      "quality_flags": [],
+      "rationale": "Caller-provided MUSLE topographic factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "dimensionless",
+      "value": 1.2
+    },
+    {
+      "parameter": "cover_management_c",
+      "quality_flags": [],
+      "rationale": "Caller-provided MUSLE cover-management factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "dimensionless",
+      "value": 0.2
+    },
+    {
+      "parameter": "support_practice_p",
+      "quality_flags": [],
+      "rationale": "Caller-provided MUSLE support-practice factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "dimensionless",
+      "value": 1.0
+    }
+  ],
+  "calculation_trace": {
+    "equation_id": "musle_metric_v1",
+    "equation_text": "Sed = 11.8 * (Qsurf * qpeak)^0.56 * K * LS * C * P",
+    "notes": [
+      "MUSLE uses caller-provided runoff volume and peak runoff rate.",
+      "Environmental Fate MCP does not compute rainfall-runoff generation or routing in this v1 tool."
+    ],
+    "resolved_terms": [
+      {
+        "name": "runoff_volume_m3",
+        "unit": "m3",
+        "value": 525.0
+      },
+      {
+        "name": "peak_runoff_rate_m3_s",
+        "unit": "m3/s",
+        "value": 0.18
+      },
+      {
+        "name": "soil_erodibility_k",
+        "unit": null,
+        "value": 0.3
+      },
+      {
+        "name": "slope_length_steepness_ls",
+        "unit": null,
+        "value": 1.2
+      },
+      {
+        "name": "cover_management_c",
+        "unit": null,
+        "value": 0.2
+      },
+      {
+        "name": "support_practice_p",
+        "unit": null,
+        "value": 1.0
+      },
+      {
+        "name": "sediment_yield",
+        "unit": "t/event",
+        "value": 10.850664027720713
+      }
+    ]
+  },
+  "handoff_notes": [
+    "Use this event sediment-yield estimate as the sediment input to the chemical-load bridge when topsoil concentration and delivery assumptions are available.",
+    "Calibrate runoff and peak-flow inputs externally for decision-facing watershed work."
+  ],
+  "limitations": [
+    {
+      "code": "erosion_sediment_screening_only",
+      "message": "This result is a scalar screening estimate for erosion-mediated transport; it is not a calibrated watershed, GIS, hydrodynamic, exposure, risk, or regulatory decision model."
+    },
+    {
+      "code": "no_explicit_spatial_routing",
+      "message": "The v1 erosion/sediment tools do not simulate hillslope routing, channel transport, deposition fields, rainfall-runoff generation, or receiving-water dilution."
+    }
+  ],
+  "method_id": "musle",
+  "provenance": {
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "defaults_version": "v1",
+    "generated_at": "2026-05-14T12:00:00Z",
+    "schema_version": "v1",
+    "source_references": [
+      {
+        "effective_date": null,
+        "source_id": "usace.hec_hms.musle",
+        "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+        "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+      }
+    ]
+  },
+  "quality_flags": [],
+  "schema_version": "v1",
+  "sediment_yield_t_event": 10.850664027720713
+}

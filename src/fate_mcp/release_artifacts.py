@@ -37,6 +37,7 @@ KNOWN_GAPS = [
 ]
 
 REFERENCE_WORKSHEET_PACK_DIR = "reference-worksheet-pack"
+ADVECTIVE_WORKSHEET_PACK_DIR = "advective-worksheet-pack"
 
 REPORT_FILENAMES = (
     ("metadata-report", "metadata-report.json"),
@@ -48,6 +49,7 @@ REPORT_FILENAMES = (
     ("external-corroboration-report", "external-corroboration-report.json"),
     ("reference-corroboration-report", "reference-corroboration-report.json"),
     ("reference-worksheet-manifest", "reference-worksheet-manifest.json"),
+    ("advective-worksheet-manifest", "advective-worksheet-manifest.json"),
     ("advective-promotion-bar-report", "advective-promotion-bar-report.json"),
     ("red-team-review-report", "red-team-review-report.json"),
     ("validation-dossier", "validation-dossier.json"),
@@ -71,6 +73,7 @@ REPORT_DESCRIPTIONS = {
     "external-corroboration-report.json": "Governed claim-level corroboration posture and stronger evidence-bar report.",
     "reference-corroboration-report.json": "Reviewer-grade corroboration matrix for mandatory reference-family claims, official grounding, and worksheet readiness.",
     "reference-worksheet-manifest.json": "Deterministic worksheet-pack manifest linking mandatory reference claims to machine-readable worksheet and expected-output artifacts.",
+    "advective-worksheet-manifest.json": "Deterministic worksheet-pack manifest linking experimental advective-family claims to machine-readable internal-oracle worksheet and expected-output artifacts.",
     "advective-promotion-bar-report.json": "Experimental-family promotion-bar posture with explicit non-promotable reasons for the advective challenge path.",
     "red-team-review-report.json": "Release red-team review cycle summary with blocker accounting and accepted limitations.",
     "validation-dossier.json": "Full validation dossier across scientific, interoperability, and release checks.",
@@ -459,6 +462,7 @@ def _build_reference_worksheet_pack(
     reference_claim_rows: list[dict[str, object]],
     reference_claim_fixtures: dict[str, list[dict]],
     defaults_report: dict,
+    pack_directory_name: str = REFERENCE_WORKSHEET_PACK_DIR,
 ) -> tuple[dict[str, object], dict[str, str]]:
     artifact_texts: dict[str, str] = {}
     manifest_claims: list[dict[str, object]] = []
@@ -543,7 +547,7 @@ def _build_reference_worksheet_pack(
         "expectedOutputArtifactCount": sum(
             1 for row in reference_claim_rows if row.get("expectedOutputArtifactPath")
         ),
-        "worksheetPackDirectory": REFERENCE_WORKSHEET_PACK_DIR,
+        "worksheetPackDirectory": pack_directory_name,
         "reviewStatus": defaults_report["reviewStatus"],
         "defaultChangeSensitivityLines": defaults_report["defaultChangeSensitivityLines"],
         "generatedArtifactPaths": sorted(artifact_texts),
@@ -702,6 +706,58 @@ def _build_reference_worksheet_manifest_report(
         defaults_report,
     )
     manifest_payload["governance"] = reference_report["governance"]
+    return manifest_payload, artifact_texts
+
+
+def _build_advective_worksheet_manifest_report(
+    defaults_registry: DefaultsRegistry,
+    scientific_claim_coverage: dict,
+    defaults_report: dict,
+    advective_promotion_bar_report: dict,
+) -> tuple[dict[str, object], dict[str, str]]:
+    """Build the advective worksheet pack manifest + per-claim artifacts.
+
+    The advective family remains experimental (``promotable: False``) under the
+    project's governance, so claims keep their ``public_method_description_plus_
+    internal_oracle`` evidence family. This pack ships the hand-worked
+    machine-readable fixtures that back those internal-oracle claims as
+    reviewable JSON artifacts, giving downstream reviewers the same direct
+    inspection path the reference family already enjoys, without overstating
+    the evidence posture.
+    """
+    coverage_by_id = {record["claim_id"]: record for record in scientific_claim_coverage["coverage"]}
+    advective_rows: list[dict[str, object]] = []
+    advective_fixtures: dict[str, list[dict]] = {}
+    for claim in defaults_registry.scientific_validation_claim_manifest().claims:
+        if claim.model_family.value != "advective_screening_mass_balance":
+            continue
+        coverage_record = coverage_by_id.get(claim.claim_id, {})
+        row, _ = _reference_claim_row(
+            claim,
+            coverage_record,
+            defaults_registry,
+            defaults_report,
+        )
+        advective_rows.append(row)
+        advective_fixtures[str(row["claimId"])] = _machine_readable_worksheet_fixtures(
+            str(row["claimId"])
+        )
+
+    manifest_payload, artifact_texts = _build_reference_worksheet_pack(
+        defaults_registry,
+        advective_rows,
+        advective_fixtures,
+        defaults_report,
+        pack_directory_name=ADVECTIVE_WORKSHEET_PACK_DIR,
+    )
+    # The advective family is non-promotable by governance; surface that
+    # explicitly on the manifest so downstream readers cannot misinterpret
+    # the shipped worksheets as reviewer-grade promotion evidence.
+    manifest_payload["modelFamily"] = "advective_screening_mass_balance"
+    manifest_payload["remainsExperimental"] = True
+    manifest_payload["promotable"] = False
+    manifest_payload["promotionStatus"] = advective_promotion_bar_report["promotionStatus"]
+    manifest_payload["governance"] = advective_promotion_bar_report["governance"]
     return manifest_payload, artifact_texts
 
 
@@ -1697,6 +1753,15 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         dossier,
         scientific_claim_coverage,
     )
+    (
+        advective_worksheet_manifest,
+        advective_worksheet_pack_files,
+    ) = _build_advective_worksheet_manifest_report(
+        defaults_registry,
+        scientific_claim_coverage,
+        defaults_rebaseline_report,
+        advective_promotion_bar_report,
+    )
     readiness_report = {
         "version": VERSION,
         "status": "ready_for_screening_release"
@@ -1916,6 +1981,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "external-corroboration-report": external_corroboration_report,
         "reference-corroboration-report": reference_corroboration_report,
         "reference-worksheet-manifest": reference_worksheet_manifest,
+        "advective-worksheet-manifest": advective_worksheet_manifest,
         "advective-promotion-bar-report": advective_promotion_bar_report,
         "validation-dossier": dossier,
         "adapter-validation-report": dossier["adapterInteroperability"],
@@ -2074,6 +2140,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
     reports["reference-proof-brief"] = {"markdown": reference_proof_brief}
     reports["advective-promotion-brief"] = {"markdown": advective_promotion_brief}
     reports["_reference-worksheet-pack-files"] = reference_worksheet_pack_files
+    reports["_advective-worksheet-pack-files"] = advective_worksheet_pack_files
     return reports
 
 
@@ -2107,6 +2174,7 @@ def write_release_bundle(repo_root: Path, output_dir: Path | None = None, releas
     bundle_texts["release-notes.md"] = _render_release_notes(reports, release_ref)
     bundle_texts["README.md"] = _render_release_bundle_readme(reports, release_ref)
     bundle_texts.update(reports.get("_reference-worksheet-pack-files", {}))
+    bundle_texts.update(reports.get("_advective-worksheet-pack-files", {}))
 
     for filename, text in bundle_texts.items():
         target_path = bundle_dir / filename

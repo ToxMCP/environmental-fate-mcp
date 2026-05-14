@@ -1,0 +1,130 @@
+{
+  "claimId": "advective_post_release_late_recovery_regime_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective post-release late-recovery regime",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "bucket_label": "bucket_4",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.9975643704619074e-07
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "bucket_label": "bucket_4",
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "post_release_advected_fraction_of_release_stop_mass": 0.6264731687718155,
+            "post_release_boundary_retained_fraction_of_release_stop_mass": 0.2187424244521521,
+            "post_release_degraded_fraction_of_release_stop_mass": 0.325678582972979,
+            "post_release_elapsed_days": 12.0,
+            "post_release_elapsed_turnover_count": 2.0,
+            "post_release_flushing_boundary_offset_turnovers": 1.0,
+            "post_release_half_recovery_days": 2.7363586308689225,
+            "post_release_half_recovery_offset_turnovers": 1.543940228188513,
+            "post_release_half_recovery_transition_margin_turnovers": 1.543940228188513,
+            "post_release_half_recovery_turnovers": 0.45605977181148705,
+            "post_release_recovery_window_multiple_of_half_recovery": 4.385390081777927,
+            "post_release_removed_fraction_of_release_stop_mass": 0.9521517517447945,
+            "post_release_retained_fraction_of_release_stop_mass": 0.04784824825520548,
+            "post_release_retained_fraction_offset_from_boundary": -0.17089417619694663,
+            "post_release_retained_fraction_offset_from_half_recovery_anchor": -0.45215175174479455,
+            "post_release_retained_fraction_ratio_to_boundary": 0.21874242445215214,
+            "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.09569649651041096,
+            "post_release_transition_margin_turnovers": 1.0
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_post_release_extended_flushing_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "bucket_label": "bucket_4",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.9975643704619074e-07
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "bucket_label": "bucket_4",
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "post_release_advected_fraction_of_release_stop_mass": 0.6264731687718155,
+            "post_release_boundary_retained_fraction_of_release_stop_mass": 0.2187424244521521,
+            "post_release_degraded_fraction_of_release_stop_mass": 0.325678582972979,
+            "post_release_elapsed_days": 12.0,
+            "post_release_elapsed_turnover_count": 2.0,
+            "post_release_flushing_boundary_offset_turnovers": 1.0,
+            "post_release_half_recovery_days": 2.7363586308689225,
+            "post_release_half_recovery_offset_turnovers": 1.543940228188513,
+            "post_release_half_recovery_transition_margin_turnovers": 1.543940228188513,
+            "post_release_half_recovery_turnovers": 0.45605977181148705,
+            "post_release_recovery_window_multiple_of_half_recovery": 4.385390081777927,
+            "post_release_removed_fraction_of_release_stop_mass": 0.9521517517447945,
+            "post_release_retained_fraction_of_release_stop_mass": 0.04784824825520548,
+            "post_release_retained_fraction_offset_from_boundary": -0.17089417619694663,
+            "post_release_retained_fraction_offset_from_half_recovery_anchor": -0.45215175174479455,
+            "post_release_retained_fraction_ratio_to_boundary": 0.21874242445215214,
+            "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.09569649651041096,
+            "post_release_transition_margin_turnovers": 1.0
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_post_release_late_recovery_edge_anchor"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "bucket_label": "bucket_4",
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.9975643704619074e-07
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "bucket_label": "bucket_4",
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "post_release_advected_fraction_of_release_stop_mass": 0.6264731687718155,
+            "post_release_boundary_retained_fraction_of_release_stop_mass": 0.2187424244521521,
+            "post_release_degraded_fraction_of_release_stop_mass": 0.325678582972979,
+            "post_release_elapsed_days": 12.0,
+            "post_release_elapsed_turnover_count": 2.0,
+            "post_release_flushing_boundary_offset_turnovers": 1.0,
+            "post_release_half_recovery_days": 2.7363586308689225,
+            "post_release_half_recovery_offset_turnovers": 1.543940228188513,
+            "post_release_half_recovery_transition_margin_turnovers": 1.543940228188513,
+            "post_release_half_recovery_turnovers": 0.45605977181148705,
+            "post_release_recovery_window_multiple_of_half_recovery": 4.385390081777927,
+            "post_release_removed_fraction_of_release_stop_mass": 0.9521517517447945,
+            "post_release_retained_fraction_of_release_stop_mass": 0.04784824825520548,
+            "post_release_retained_fraction_offset_from_boundary": -0.17089417619694663,
+            "post_release_retained_fraction_offset_from_half_recovery_anchor": -0.45215175174479455,
+            "post_release_retained_fraction_ratio_to_boundary": 0.21874242445215214,
+            "post_release_retained_fraction_ratio_to_half_recovery_anchor": 0.09569649651041096,
+            "post_release_transition_margin_turnovers": 1.0
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_post_release_late_recovery_reference_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires the late-recovery regime classification to remain stable under the bounded combined-loss depletion authority layer on every bundled late-recovery fixture.",
+  "version": "0.5.0"
+}

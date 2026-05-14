@@ -1,6 +1,6 @@
 {
-  "benchmark_case_id": "reference_water_closed_form_internal_oracle_v1",
-  "display_name": "Reference water closed-form internal oracle",
+  "benchmark_case_id": "reference_water_closed_form_self_consistency_oracle_v1",
+  "display_name": "Reference water closed-form self-consistency oracle",
   "classification": "internal_oracle",
   "replay_tool": "fate_estimate_multimedia_concentrations",
   "model_family": "reference_mass_balance",
@@ -12,7 +12,7 @@
   "tolerance_relative": 1e-10,
   "input_payload": {
     "chemical_identity": {
-      "preferredName": "External benchmark closed-form substance",
+      "preferredName": "Closed-form screening reference substance",
       "substance_class": "organic chemical"
     },
     "total_release_mass_kg": 10.0,
@@ -29,7 +29,7 @@
         "value": 10.0,
         "unit": "day",
         "source_classification": "user_input",
-        "rationale": "Closed-form benchmark override."
+        "rationale": "Round-number half-life pinned for closed-form self-consistency replay."
       }
     ],
     "run_options": {
@@ -44,14 +44,21 @@
       "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
       "effective_date": null,
       "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+    },
+    {
+      "source_id": "methods.reference_mass_balance.v1",
+      "title": "Fate MCP governed reference-mass-balance method notes",
+      "effective_date": null,
+      "url": "docs://model_applicability_limits"
     }
   ],
   "interpretation_lines": [
-    "Replays the public reference closed-form first-order screening equation with fixed scalar inputs.",
-    "This case is an internal oracle for deterministic replay and auditability, not independent field validation."
+    "Anchors the closed-form C(t) = (R / (k*V)) * (1 - exp(-k*t)) first-order screening equation against the reference kernel implementation.",
+    "Acts as an internal-oracle drift detector: if the kernel diverges from the closed-form equation it implements (e.g., float-repr change, refactor regression), this case fails.",
+    "Inputs are deliberately round numbers; the case is a self-consistency anchor, not an external scientific validation."
   ],
   "limitations": [
-    "Screening closed-form replay only.",
+    "Internal-oracle self-consistency anchor only.",
     "Not a multimedia fate validation dataset, field observation, calibration case, or regulator acceptance claim."
   ],
   "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",

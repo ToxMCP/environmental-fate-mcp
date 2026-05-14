@@ -1,0 +1,6 @@
+{
+  "iterations": 200,
+  "sample_manifest_max_records": 1000,
+  "sample_manifest_mode": "none",
+  "seed": 20260514
+}

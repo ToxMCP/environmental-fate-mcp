@@ -1,0 +1,107 @@
+{
+  "claimId": "advective_short_residence_time_clearance_anchor_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective short-residence-time clearance anchor",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "echa.euses",
+    "epa.environmental_models_guidance",
+    "echa.guidance.ircsa"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires retained-mass concentration to respond to residence-time overrides in the expected direction on every bundled clearance-edge fixture (shorter residence reduces, longer residence raises) within fixture-declared tolerance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Advective water concentration remains low when short residence-time clearance dominates the total loss term even for an effectively persistent substance.",
+      "fixtureName": "advective_short_residence_time_clearance_anchor_fixture",
+      "referenceType": "hand_worked_advective_clearance_edge_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark short residence time"
+        },
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark extreme persistence override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 100000.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark short residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 2.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with an effectively non-degrading substance and a short residence time, anchoring clearance-dominant concentration suppression.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The clearance-dominant advective edge anchor is a deterministic closed-form reference calculation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration is strongly suppressed when a very short residence-time override further strengthens clearance under effectively persistent conditions.",
+      "fixtureName": "advective_short_residence_time_clearance_companion_fixture",
+      "referenceType": "hand_worked_advective_override_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark very short residence time"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark effective persistence override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 100000.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark very short residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 0.5
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with an effectively persistent substance and a very short residence-time override, corroborating clearance-dominant suppression through a second override regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The short-residence companion remains a deterministic override case under the governed combined-loss equation.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

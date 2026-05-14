@@ -2,7 +2,7 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "36c870a8c670beef93aec3bf637ca907e6bffb98dcf652c5cd8486a92609858e"
+      "sha256": "48a560e0f999a994d230b3d063b3021de61fd426057c4dfb1fbdb7c0a95bb06b"
     },
     {
       "path": "adapter-validation-report.json",
@@ -17,8 +17,164 @@
       "sha256": "3c2732bd5330db4eada7ebb8c984ee0be27998ef3f65eb9c056c13dd77cae857"
     },
     {
+      "path": "advective-worksheet-manifest.json",
+      "sha256": "220af386cdd229d702e4a2823f11ea13d8c7c984ddb9dbc71eb3fd4faeb7167f"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.expected-outputs.json",
+      "sha256": "80ac29f4c88e730fce3a2b816e2895a9a853ccfabe629db79bd5c99cbbb982c3"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.worksheet.json",
+      "sha256": "8ff392657c36bb44d0332e16999456c357efd1e71e94c4a6b175363b54f0d73c"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.expected-outputs.json",
+      "sha256": "aa50ade248245d1541ab61977b540813931ad68754e1ef2eca3c2fe9477dc298"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.worksheet.json",
+      "sha256": "7fe6289fe64aa120c558b1cb4e5ded407bd8997bbe2ca69bbbb785f5dd1d637e"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.expected-outputs.json",
+      "sha256": "785d7212689f4cd5d8acb3530d98a8e40f88612428686cdbac2fda3ec12b7ff5"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.worksheet.json",
+      "sha256": "4552f0d5bce949f24dfdfff5c6f13591e0572a321bf2304e482c9a472a57f188"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.expected-outputs.json",
+      "sha256": "8f85887c6f919dd8def359fb04b449cb7af5d6aa0157b95c9f48e9d40cebd4ed"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.worksheet.json",
+      "sha256": "b59fa1c1005944e79b788e85fe917155c211fff6d061180400ed9bd412270f52"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.expected-outputs.json",
+      "sha256": "425ab6996e98c0aadbdc7f83e91af05c783124cf3047db693891da699e2b93cc"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.worksheet.json",
+      "sha256": "30621ec265d73ac60d5c520f8db208ba035ed9be4edce94fbae3c53a4482df42"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.expected-outputs.json",
+      "sha256": "0f587776214741151437ccd134678fc3bcaec6682e41000d3e38eb1043c3dbb3"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.worksheet.json",
+      "sha256": "4681e26c53a32fb1491e8d26e32397e643c75800fc972eacc530ce7115eedef6"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.expected-outputs.json",
+      "sha256": "1c5a47e45bcc796dba4642f544b46c95ad6350d90817d0a85281653c89848145"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.worksheet.json",
+      "sha256": "c4a4ecbb106f0093e7575091ffebbb470ecdaa506696c60ec86c638d05687357"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.expected-outputs.json",
+      "sha256": "4b9dabf3d12e3954fd4e7a75cd5b3286f5a1507de5c4a53d73df73e76ed951b7"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.worksheet.json",
+      "sha256": "75a8daee2ca66041a815974c9000983f8710ed14e38074b203af45c35814532a"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.expected-outputs.json",
+      "sha256": "f32c8fb4fbf4fcc1b4aedcdc666ddca8be422e94b71d756a120fb5bd71e92167"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.worksheet.json",
+      "sha256": "cd111b6283a24f21238f338b7ee5b9ea2c108fb83c7bd40f161f2cdfcf46c08b"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.expected-outputs.json",
+      "sha256": "84078eb82072edd0f4aa1c2a87b043b105dc50219e870b86e7b3a1734eec9837"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.worksheet.json",
+      "sha256": "ae5132bc98cec4ce4b4d01656e68be06dea44795295ac2933046c307cc73dbdf"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.expected-outputs.json",
+      "sha256": "8c5429ca086a5177cc49f8f05ce8f63e415218c66800ab9dc7b9297c4ffbb851"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.worksheet.json",
+      "sha256": "8a877e663092795eb02bf04c234f99841a48b89b8373541948e776bae0112aac"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.expected-outputs.json",
+      "sha256": "d864ce1439fb6392928d12dd7753fd80b481e70b4324aabb8a2f8a136a06ab19"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.worksheet.json",
+      "sha256": "88d120a92460a39336f8cc586ca57edcf65df942a7285c0bc82fe9b592532eaa"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.expected-outputs.json",
+      "sha256": "ea2cf75b3d40caedb40bc02dd1876fb4f5015d0a27b7ae89042a2cca0bfcd5f2"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.worksheet.json",
+      "sha256": "9ad42f57bc7972dc216471728e497e9333d48074680d13f2bd1e99d7fa5b3ea0"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.expected-outputs.json",
+      "sha256": "8a529c939c6073c754d308b0f773d6a81ea0af500cfbfc7f911010bdb5c32873"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.worksheet.json",
+      "sha256": "37d78ae79ddeaac189cac7a6d993f8c77e215db5fcb0208e9779c0df1f1d7388"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_residence_time_override_application_v1.expected-outputs.json",
+      "sha256": "2a48e383ad815927b1844b27d6448d463f0304b727a511a0f9663d441c34baef"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_residence_time_override_application_v1.worksheet.json",
+      "sha256": "ecc5ddec833fe994cd9ae6dd99b9120be3f4a2d24aa6676e46b6622225584e2d"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.expected-outputs.json",
+      "sha256": "43b46e1b9d92757462881a6ad6379e3d6333bcaff71148983d40ed83f4640197"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.worksheet.json",
+      "sha256": "bc8b70f2ccaf1af70ca5e89c8cbf104f8280d9911d48ea18c7d218d1db3c4a11"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.expected-outputs.json",
+      "sha256": "f306675f184c700fac5dde3a270a6d505efcc21d6a04f3241df2e45ba17d7a6b"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.worksheet.json",
+      "sha256": "ba57b46bb052d6fe860d6179308e11b2c2a73f0fc54a932b55c73e59a14ff0e0"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.expected-outputs.json",
+      "sha256": "d35c6b5ab244be51e7e2a0c95ba5aebe57ce1a8494eb9a10e1e78bf8b7962b16"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.worksheet.json",
+      "sha256": "48dcc007c81b6229fff6556533c087de861b0a245974bdf266a06229ccfe4b7b"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.expected-outputs.json",
+      "sha256": "d26c810dedb9103709fa6bd21bc4c66cb351d6513f6a1c28785362138a34a349"
+    },
+    {
+      "path": "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.worksheet.json",
+      "sha256": "cb39e0382a0eca83fbee5938c0b138bb00ab5b07bcddff3ca446fd3b36ded881"
+    },
+    {
       "path": "benchmark-manifest.json",
-      "sha256": "5e94c45df194367eabc4cc131ebf5ece3c80b0d83cacfb61668ea4ea8a587a07"
+      "sha256": "05a2409de251a00742a52dfb392c59081c8191c694adf0463d0e955e69c3a35d"
     },
     {
       "path": "default-sensitivity-report.json",
@@ -38,7 +194,7 @@
     },
     {
       "path": "external-validation-benchmark-report.json",
-      "sha256": "59c33905e280349886a185d6aa6fe2ff692af522382b47893a3577e352da46ba"
+      "sha256": "39d1743355999f44a7db339be8fbf77826cdeffcae1a306bd8eee5313a3cf6a5"
     },
     {
       "path": "fugacity-screening-validation-report.json",
@@ -50,7 +206,7 @@
     },
     {
       "path": "metadata-report.json",
-      "sha256": "2062c38096023655e5f193c2e42315a206a049b5850fdf36e97fc0678861a593"
+      "sha256": "35d66ef64549c373c574d306f618c337b21e9d7fb444bdcb0b6ad8bede9f1f2e"
     },
     {
       "path": "readiness-report.json",
@@ -154,7 +310,7 @@
     },
     {
       "path": "release-notes.md",
-      "sha256": "a1072c70d3efe049438ebfa7823e2f645b0005ac00a4ec65ae318d1049ddf169"
+      "sha256": "75f06ff9e5521ca6cab1c2e2deea6f173a2e847b4811775d9c898c6e79548837"
     },
     {
       "path": "scientific-claim-coverage-report.json",
@@ -182,7 +338,7 @@
     },
     {
       "path": "validation-dossier.json",
-      "sha256": "b245a067e565d44117cd271e5c63cc2e0e40f2b78dfa4f87940301f839233453"
+      "sha256": "de32797ef9fab588660657e052677dacd178676c3d1ad9138fef829864ac1982"
     }
   ],
   "releaseRef": "v0.5.0",

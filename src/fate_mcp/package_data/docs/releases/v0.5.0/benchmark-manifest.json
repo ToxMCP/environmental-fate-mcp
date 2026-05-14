@@ -5350,8 +5350,8 @@
         "claim_id": "advective_clearance_dominant_loss_share_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective clearance-dominant loss-share transition",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -5361,7 +5361,7 @@
           "echa_bounded_clearance_edge_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
@@ -5370,8 +5370,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.euses",
+          "epa.environmental_models_guidance",
+          "echa.guidance.ircsa"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "advective_clearance_edge_case_family_v1",
@@ -5388,7 +5394,9 @@
           "edge_condition",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -5426,9 +5434,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -5436,8 +5444,8 @@
         "claim_id": "advective_cumulative_mass_balance_closure_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective cumulative mass-balance closure",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -5448,7 +5456,7 @@
           "advective_clearance_edge_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the governed one-compartment advective screening equation and its cumulative trace accounting at elapsed time.",
@@ -5457,8 +5465,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "echa.euses",
+          "epa.environmental_models_guidance"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "high",
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
@@ -5478,7 +5492,9 @@
           "edge_condition",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -5522,9 +5538,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires |emitted_mass - retained_mass - cumulative_degraded_mass - cumulative_advected_mass| to remain below the screening closure threshold on every bundled fixture (typically < 1 microgram).",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -5532,8 +5548,8 @@
         "claim_id": "advective_degradation_dominant_loss_share_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective degradation-dominant loss-share transition",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -5543,7 +5559,7 @@
           "epa_flow_through_water_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
@@ -5552,8 +5568,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "echa.euses",
+          "epa.environmental_models_guidance"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
@@ -5570,7 +5592,9 @@
           "edge_condition",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -5608,9 +5632,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -5618,8 +5642,8 @@
         "claim_id": "advective_extreme_persistence_clearance_bound_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective extreme-persistence clearance bound",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -5629,7 +5653,7 @@
           "echa_bounded_clearance_edge_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors the advective family when degradation is negligible and residence-time clearance dominates the total loss term.",
@@ -5639,8 +5663,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.euses",
+          "epa.environmental_models_guidance",
+          "echa.guidance.ircsa"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "high",
         "reference_case_ids": [
           "advective_clearance_edge_case_family_v1",
@@ -5657,7 +5687,9 @@
         "required_validation_tiers": [
           "edge_condition"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -5707,9 +5739,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires effective-persistence (negligible degradation) screening surfaces to remain bounded by residence-time clearance alone on every bundled persistence-edge fixture within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -5717,8 +5749,8 @@
         "claim_id": "advective_long_duration_combined_loss_plateau_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective long-duration combined-loss plateau anchor",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -5728,7 +5760,7 @@
           "epa_flow_through_water_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors the long-duration limit of the governed advective screening equation at a fixed release rate.",
@@ -5737,8 +5769,13 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "epa.environmental_models_guidance"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "advective_duration_plateau_case_family_v1",
@@ -5755,7 +5792,9 @@
         "required_validation_tiers": [
           "edge_condition"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -5799,9 +5838,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires long-duration runs to approach the combined-loss plateau on every bundled duration-edge fixture within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -5809,8 +5848,8 @@
         "claim_id": "advective_long_residence_time_accumulation_anchor_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective long-residence-time accumulation anchor",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -5820,7 +5859,7 @@
           "echa_bounded_clearance_edge_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors the weak-clearance side of the governed advective family under effectively persistent degradation assumptions.",
@@ -5829,8 +5868,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.euses",
+          "epa.environmental_models_guidance",
+          "echa.guidance.ircsa"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "advective_clearance_edge_case_family_v1",
@@ -5846,7 +5891,9 @@
         "required_validation_tiers": [
           "edge_condition"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -5884,9 +5931,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires retained-mass concentration to respond to residence-time overrides in the expected direction on every bundled clearance-edge fixture (shorter residence reduces, longer residence raises) within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -5894,8 +5941,8 @@
         "claim_id": "advective_loss_regime_flip_directionality_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective loss-regime flip directionality",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -5907,7 +5954,7 @@
           "oecd_bounded_transport_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": false,
         "methods_basis_lines": [
           "This claim is limited to directional sensitivity around the governed near-parity transition band in the advective screening equation.",
@@ -5916,8 +5963,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 3,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "echa.euses",
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "echa_transition_boundary_screening_case_family_v1",
@@ -5939,7 +5994,9 @@
           "edge_condition",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -5989,9 +6046,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires the dominant-loss interpretation to flip in the expected direction across the bundled near-parity sensitivity fixtures (half-life or residence-time crossing the loss-balance boundary).",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -5999,8 +6056,8 @@
         "claim_id": "advective_mixed_loss_transition_margin_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective mixed-loss transition margin",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -6014,7 +6071,7 @@
           "oecd_bounded_transport_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the trace-level loss decomposition in the governed advective screening equation, where degradation and clearance shares sum to the total first-order loss term.",
@@ -6024,8 +6081,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 4,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "echa.euses",
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
@@ -6051,7 +6116,9 @@
           "reference_style",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6107,9 +6174,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6117,8 +6184,8 @@
         "claim_id": "advective_post_release_flushing_directionality_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release flushing directionality",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
@@ -6132,7 +6199,7 @@
           "epa_post_release_directionality_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the one-turnover flushing anchor.",
@@ -6142,8 +6209,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 3,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation",
+          "echa.guidance.ircsa",
+          "echa.euses"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "epa_post_release_decay_bucket_case_family_v1",
@@ -6171,7 +6246,9 @@
           "reference_style",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6233,9 +6310,9 @@
         "supported_run_modes": [
           "time_bucket"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires retained-mass to decline monotonically as recovery windows cross the one-turnover anchor in the expected direction on every bundled directionality fixture.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6243,8 +6320,8 @@
         "claim_id": "advective_post_release_flushing_recovery_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release flushing and recovery accounting",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
@@ -6258,7 +6335,7 @@
           "echa_post_release_flushing_boundary_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs where elapsed time extends beyond the declared release duration and the kernel applies combined degradation-plus-clearance decay to the retained release-stop mass.",
@@ -6267,8 +6344,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 4,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation",
+          "echa.guidance.ircsa",
+          "echa.euses"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "epa_environmental_models_elapsed_time_case_family_v1",
@@ -6292,7 +6377,9 @@
           "reference_style",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6348,9 +6435,9 @@
         "supported_run_modes": [
           "time_bucket"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires post-release retained-mass to follow the closed-form combined-loss decay anchored at release-stop, with release-stop fractions for retained, degraded, and advected mass summing to 1.0 on every bundled recovery fixture within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6358,8 +6445,8 @@
         "claim_id": "advective_post_release_flushing_regime_transition_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release flushing regime transition",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
@@ -6372,7 +6459,7 @@
           "echa_post_release_flushing_boundary_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose post-release turnover count relative to the one-turnover flushing boundary.",
@@ -6382,8 +6469,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 3,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation",
+          "echa.guidance.ircsa",
+          "echa.euses"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "epa_post_release_decay_bucket_case_family_v1",
@@ -6410,7 +6505,9 @@
           "reference_style",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6472,9 +6569,9 @@
         "supported_run_modes": [
           "time_bucket"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires post-release recovery windows to be classified consistently with the one-turnover flushing boundary across every bundled boundary-transition fixture.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6482,8 +6579,8 @@
         "claim_id": "advective_post_release_half_recovery_directionality_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release half-recovery directionality",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
@@ -6498,7 +6595,7 @@
           "oecd_post_release_half_recovery_directionality_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose retained release-stop mass relative to the combined-loss half-recovery anchor.",
@@ -6508,8 +6605,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 3,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation",
+          "echa.guidance.ircsa",
+          "echa.euses"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "epa_post_release_decay_bucket_case_family_v1",
@@ -6538,7 +6643,9 @@
           "reference_style",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6600,9 +6707,9 @@
         "supported_run_modes": [
           "time_bucket"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires retained-mass to remain monotonically below 50% on every bundled post-half-recovery fixture.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6610,8 +6717,8 @@
         "claim_id": "advective_post_release_half_recovery_pace_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release half-recovery pace",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
@@ -6625,7 +6732,7 @@
           "epa_post_release_recovery_pace_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to governed advective time-bucket outputs that extend beyond release stop and expose the combined-loss half-recovery pace for retained release-stop mass.",
@@ -6635,8 +6742,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 3,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation",
+          "echa.guidance.ircsa",
+          "echa.euses"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "epa_post_release_decay_bucket_case_family_v1",
@@ -6662,7 +6777,9 @@
           "reference_style",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6718,9 +6835,9 @@
         "supported_run_modes": [
           "time_bucket"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires the reported combined-loss half-recovery time to match (ln 2) / (decay_constant + advective_constant) on every bundled pace fixture within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6728,8 +6845,8 @@
         "claim_id": "advective_post_release_late_recovery_regime_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective post-release late-recovery regime",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
@@ -6740,7 +6857,7 @@
           "epa_post_release_recovery_pace_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim evaluates advective time-bucket outputs that extend far beyond the combined-loss half-recovery boundary.",
@@ -6749,8 +6866,13 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 3,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "oecd.harmonised_templates.degradation_accumulation",
+          "epa.environmental_models_guidance"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "oecd_post_release_half_recovery_directionality_case_family_v1",
@@ -6769,7 +6891,9 @@
           "reference_style",
           "edge_condition"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6807,9 +6931,9 @@
         "supported_run_modes": [
           "time_bucket"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires the late-recovery regime classification to remain stable under the bounded combined-loss depletion authority layer on every bundled late-recovery fixture.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6817,8 +6941,8 @@
         "claim_id": "advective_residence_time_override_application_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective residence-time override application",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_residence_time_override_application_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -6830,7 +6954,7 @@
           "epa_transition_boundary_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to runtime-supported residence-time parameters in the advective screening family.",
@@ -6841,8 +6965,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "echa.euses",
+          "epa.environmental_models_guidance"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
@@ -6864,7 +6994,9 @@
         "required_validation_tiers": [
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -6914,9 +7046,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires a user-supplied surface-water residence-time override to be reflected in the assumption ledger and to drive the resulting concentration surface on every bundled parameter-override fixture within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_residence_time_override_application_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -6924,8 +7056,8 @@
         "claim_id": "advective_residence_time_turnover_regime_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective residence-time turnover regime interpretation",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -6938,7 +7070,7 @@
           "oecd_bounded_transport_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim is limited to the one-compartment advective screening trace, where residence time is interpreted through elapsed and active-emission turnover counts, turnover-boundary offsets, and retained mass as a fraction of the finite loss-limited plateau.",
@@ -6947,8 +7079,16 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 4,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "echa.euses",
+          "epa.environmental_models_guidance",
+          "oecd.test_guidelines.section3",
+          "oecd.harmonised_templates.degradation_accumulation"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
@@ -6978,7 +7118,9 @@
           "reference_style",
           "sensitivity"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -7058,9 +7200,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires residence-time turnover counts, turnover-boundary offsets, and plateau-fraction reporting to match the bundled closed-form combined-loss expressions within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -7068,8 +7210,8 @@
         "claim_id": "advective_short_residence_time_clearance_anchor_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective short-residence-time clearance anchor",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -7079,7 +7221,7 @@
           "echa_bounded_clearance_edge_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim anchors clearance-dominant suppression in the experimental advective family under effectively persistent degradation assumptions.",
@@ -7088,8 +7230,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.euses",
+          "epa.environmental_models_guidance",
+          "echa.guidance.ircsa"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "medium",
         "reference_case_ids": [
           "advective_clearance_edge_case_family_v1",
@@ -7105,7 +7253,9 @@
         "required_validation_tiers": [
           "edge_condition"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -7143,9 +7293,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires retained-mass concentration to respond to residence-time overrides in the expected direction on every bundled clearance-edge fixture (shorter residence reduces, longer residence raises) within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -7153,8 +7303,8 @@
         "claim_id": "advective_time_bucket_elapsed_time_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective time-bucket elapsed-time semantics",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark",
@@ -7166,7 +7316,7 @@
           "echa_elapsed_time_flowing_water_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers elapsed-time advective bucket semantics with combined degradation and residence-time loss.",
@@ -7176,8 +7326,15 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 2,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "epa.environmental_models_guidance",
+          "echa.guidance.ircsa",
+          "echa.euses"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveTimeBucketMassBalancePlugin._build_surface",
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "high",
         "reference_case_ids": [
           "epa_environmental_models_elapsed_time_case_family_v1",
@@ -7194,7 +7351,9 @@
         "required_validation_tiers": [
           "invariance"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -7232,9 +7391,9 @@
         "supported_run_modes": [
           "time_bucket"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires each bucket-level surface to align with the elapsed-time first-order combined-loss expression on every bundled time-bucket fixture within fixture-declared tolerance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -7242,8 +7401,8 @@
         "claim_id": "advective_water_finite_duration_first_order_v1",
         "corroboration_status": "multi_official_multi_jurisdiction",
         "display_name": "Advective water finite-duration first-order screening equation",
-        "evidence_family": null,
-        "expected_output_artifact_path": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
+        "expected_output_artifact_path": "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.expected-outputs.json",
         "fit_for_purpose": [
           "screening",
           "benchmark"
@@ -7253,7 +7412,7 @@
           "epa_flow_through_water_screening_case_family_v1"
         ],
         "jurisdiction_breadth": "multi_jurisdiction",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers a one-compartment finite-duration water screening equation with first-order degradation plus first-order advective clearance.",
@@ -7263,8 +7422,14 @@
         "model_family": "advective_screening_mass_balance",
         "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
         "official_source_count": 3,
-        "official_source_ids": [],
-        "plugin_code_references": [],
+        "official_source_ids": [
+          "echa.guidance.ircsa",
+          "echa.euses",
+          "epa.environmental_models_guidance"
+        ],
+        "plugin_code_references": [
+          "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+        ],
         "priority": "high",
         "reference_case_ids": [
           "echa_euses_water_screening_case_family_v1",
@@ -7282,7 +7447,9 @@
         "required_validation_tiers": [
           "reference_style"
         ],
-        "review_notes": [],
+        "review_notes": [
+          "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+        ],
         "source_pack": "defaults/v1/scientific_validation_claims.json",
         "source_references": [
           {
@@ -7338,9 +7505,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
-        "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "tolerance_basis": "Shipped advective worksheet pack requires the advective finite-duration screening surface to match the bundled hand-worked first-order degradation + first-order advective clearance fixtures within the fixture-declared tolerance. Internal-oracle posture remains because the advective family is non-promotable by governance.",
+        "worksheet_artifact_path": "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.worksheet.json",
+        "worksheet_status": "ready"
       },
       {
         "applicability_note": null,
@@ -7348,7 +7515,7 @@
         "claim_id": "external_adapter_canonical_equivalence_v1",
         "corroboration_status": "none",
         "display_name": "External adapter canonical normalization parity",
-        "evidence_family": null,
+        "evidence_family": "public_method_description_plus_internal_oracle",
         "expected_output_artifact_path": null,
         "fit_for_purpose": [
           "downstream_export",
@@ -7356,7 +7523,7 @@
         ],
         "independent_evidence_families": [],
         "jurisdiction_breadth": "none",
-        "last_reviewed_date": null,
+        "last_reviewed_date": "2026-05-14",
         "mandatory_for_release": true,
         "methods_basis_lines": [
           "This claim covers adapter-side normalization into canonical Fate MCP surfaces with provenance-preserving import metadata.",
@@ -7366,7 +7533,9 @@
         "next_corroboration_action": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration.",
         "official_source_count": 0,
         "official_source_ids": [],
-        "plugin_code_references": [],
+        "plugin_code_references": [
+          "fate_mcp.plugins.external_result_adapter:ExternalResultAdapterHarnessPlugin.run"
+        ],
         "priority": "high",
         "reference_case_ids": [],
         "reference_case_lines": [
@@ -7400,9 +7569,9 @@
         "supported_run_modes": [
           "steady_state"
         ],
-        "tolerance_basis": null,
+        "tolerance_basis": "Internal-oracle tolerance requires governed JSON, CSV, and alternate-unit fixtures to normalize to the same canonical concentration-surface contract within floating-point screening tolerance, with no semantic-loss classification dropped during normalization.",
         "worksheet_artifact_path": null,
-        "worksheet_status": null
+        "worksheet_status": "missing"
       },
       {
         "applicability_note": null,

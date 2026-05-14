@@ -1,0 +1,76 @@
+{
+  "casePackId": "pendimethalin_public_slice_v1",
+  "chemicalIdentity": {
+    "casrn": "40487-42-1",
+    "preferredName": "Pendimethalin"
+  },
+  "deterministicConcentrations": {
+    "airAmbientAir": {
+      "modelFamily": "reference_mass_balance",
+      "reportedTimeSemantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "unit": "mg/m3",
+      "value": 8.920782357820891e-05
+    },
+    "soilAgriculturalSoil": {
+      "modelFamily": "reference_mass_balance",
+      "reportedTimeSemantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "unit": "mg/kg",
+      "value": 0.0009488196531919435
+    }
+  },
+  "erosion": {
+    "musleEventSedimentYieldT": 10.850664027720713,
+    "particleBoundTransportPlausible": true,
+    "relevanceLevel": "high",
+    "rusleAnnualSoilLossTHaYr": 6.12,
+    "rusleTotalSoilLossTYr": 15.3,
+    "sedimentAssociatedLoadKg": 0.0036078457892171362
+  },
+  "generatedAt": "2026-05-14T12:00:00+00:00",
+  "generatedBy": "FateRuntime via tests/_pendimethalin_slice_runner.run_pipeline",
+  "integrityHashes": {
+    "concentrationSurfaceBundle": "05ce9fcbf092a3cd8ee84738e7b1f828e388df9ffb34043bdfdf91ca97b3e2ac",
+    "regulatoryHandoffPackage": "fc52ebd151af20507046e79a432f075920f76c07dec8116b950c59b9be3489f7"
+  },
+  "probabilisticSoil": {
+    "completedIterationCount": 200,
+    "failedIterationCount": 0,
+    "iterationCount": 200,
+    "p50": 0.0009487678501251358,
+    "p90": 0.0009492057375223219,
+    "p95": 0.0009492629824489593,
+    "sampledParameterCount": 1,
+    "samplingSeed": 20260514,
+    "unit": "mg/kg"
+  },
+  "regulatoryHandoff": {
+    "crosswalkEntryCount": 2,
+    "handoffProfileId": "exposure_scenario_mcp_v1",
+    "targetModules": [
+      "Direct-Use Exposure MCP"
+    ]
+  },
+  "reviewPosture": {
+    "qualityFlags": [
+      {
+        "code": "screening_only_demonstration",
+        "message": "This slice is a public-source pendimethalin screening demonstration; it is not a regulatory submission, not a calibrated site-specific assessment, and not a claim of source-engine equivalence to EUSES, SimpleBox, or WEPP.",
+        "severity": "info"
+      }
+    ],
+    "regulatorAcceptance": false,
+    "screeningOnly": true
+  },
+  "runIdentifiers": {
+    "bundleId": "bundle-000000000005",
+    "deterministicRunId": "run-000000000004",
+    "probabilisticRunId": "probrun-00000000025e",
+    "regulatoryHandoffPackageId": "regpkg-00000000025f"
+  },
+  "scenarioId": "scenario-000000000001",
+  "scientificReview": {
+    "modelFamily": "reference_mass_balance",
+    "reviewOutcome": "qualified_screening_use",
+    "reviewStatus": "scientific_review_attention_needed"
+  }
+}

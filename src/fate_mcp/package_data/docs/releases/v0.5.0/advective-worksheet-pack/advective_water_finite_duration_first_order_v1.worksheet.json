@@ -1,0 +1,134 @@
+{
+  "claimId": "advective_water_finite_duration_first_order_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective water finite-duration first-order screening equation",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "echa.euses",
+    "epa.environmental_models_guidance"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires the advective finite-duration screening surface to match the bundled hand-worked first-order degradation + first-order advective clearance fixtures within the fixture-declared tolerance. Internal-oracle posture remains because the advective family is non-promotable by governance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Advective water concentration approaches the governed finite-duration combined-loss plateau when duration is long relative to both water half-life and residence time.",
+      "fixtureName": "advective_long_duration_plateau_anchor_fixture",
+      "referenceType": "hand_worked_advective_duration_edge_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective long duration"
+        },
+        "duration_days": 120.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 80.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with long finite duration, anchoring approach toward the combined degradation-plus-clearance plateau at a fixed release rate.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-duration advective anchor remains analytically traceable to the same deterministic combined-loss equation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration remains close to the governed combined-loss plateau when duration is extended further at the same release rate.",
+      "fixtureName": "advective_long_duration_plateau_companion_fixture",
+      "referenceType": "hand_worked_advective_duration_edge_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective long duration companion"
+        },
+        "duration_days": 240.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 160.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with a longer finite duration at the same release rate, corroborating approach toward the combined degradation-plus-clearance plateau.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The companion duration anchor remains analytically traceable to the deterministic combined-loss equation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration still approaches a bounded combined-loss plateau under long duration when residence time is overridden, while the plateau level shifts consistently with the stronger clearance term.",
+      "fixtureName": "advective_long_duration_plateau_sensitivity_fixture",
+      "referenceType": "hand_worked_advective_override_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective long duration sensitivity"
+        },
+        "duration_days": 180.0,
+        "parameter_records": [
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark long-duration residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 120.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with long finite duration and a residence-time override, corroborating plateau behavior under an alternate governed clearance regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-duration sensitivity anchor remains analytically traceable to the same deterministic combined-loss equation with a governed residence-time override.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "End-of-duration surface-water concentration matches the documented finite-duration first-order screening equation with degradation plus advective clearance.",
+      "fixtureName": "advective_water_reference_chemical_style_fixture",
+      "referenceType": "hand_worked_advective_screening_equation",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective water"
+        },
+        "duration_days": 15.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration first-order single-medium water screening equation using governed surface-water volume, water half-life, and residence-time defaults.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "Advective screening kernel is deterministic, so floating-point precision is the only tolerated deviation.",
+      "validationTier": "reference_style"
+    }
+  ]
+}

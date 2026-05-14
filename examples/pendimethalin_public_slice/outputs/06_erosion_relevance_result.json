@@ -1,0 +1,49 @@
+{
+  "driver_lines": [
+    "Substance class 'organic chemical' does not by itself trigger particle-bound transport in v1 screening.",
+    "logKow 5.18 is at or above the high particle-bound screening threshold."
+  ],
+  "limitations": [
+    {
+      "code": "erosion_sediment_screening_only",
+      "message": "This result is a scalar screening estimate for erosion-mediated transport; it is not a calibrated watershed, GIS, hydrodynamic, exposure, risk, or regulatory decision model."
+    },
+    {
+      "code": "no_explicit_spatial_routing",
+      "message": "The v1 erosion/sediment tools do not simulate hillslope routing, channel transport, deposition fields, rainfall-runoff generation, or receiving-water dilution."
+    },
+    {
+      "code": "chemical_load_screening_assumptions",
+      "message": "Sediment-associated chemical load is computed from caller-provided soil concentration, sediment delivery ratio, and particle-bound availability fraction; it is not a final environmental concentration or dose."
+    }
+  ],
+  "particle_bound_transport_plausible": true,
+  "provenance": {
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "defaults_version": "v1",
+    "generated_at": "2026-05-14T12:00:00Z",
+    "schema_version": "v1",
+    "source_references": [
+      {
+        "effective_date": null,
+        "source_id": "usda.nrcs.rusle.efotg",
+        "title": "USDA NRCS Revised Universal Soil Loss Equation guidance",
+        "url": "https://efotg.sc.egov.usda.gov/references/public/WA/Revised_Universal_Soil_Loss_Equation_%28RUSLE%29.htm"
+      },
+      {
+        "effective_date": null,
+        "source_id": "usace.hec_hms.musle",
+        "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+        "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+      }
+    ]
+  },
+  "quality_flags": [],
+  "recommended_next_steps": [
+    "Use MUSLE for event sediment yield when runoff volume and peak runoff rate are available.",
+    "Use the sediment-associated chemical-load bridge when topsoil concentration and delivery assumptions are available."
+  ],
+  "relevance_level": "high",
+  "scenario_id": "scenario-000000000001",
+  "schema_version": "v1"
+}

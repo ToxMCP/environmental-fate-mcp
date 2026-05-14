@@ -1,0 +1,8 @@
+{
+  "cover_management_c": 0.2,
+  "peak_runoff_rate_m3_s": 0.18,
+  "runoff_volume_m3": 525.0,
+  "slope_length_steepness_ls": 1.2,
+  "soil_erodibility_k": 0.3,
+  "support_practice_p": 1.0
+}

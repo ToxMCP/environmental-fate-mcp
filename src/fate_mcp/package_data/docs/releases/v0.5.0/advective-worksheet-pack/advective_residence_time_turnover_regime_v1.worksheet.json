@@ -1,0 +1,449 @@
+{
+  "claimId": "advective_residence_time_turnover_regime_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective residence-time turnover regime interpretation",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "echa.euses",
+    "epa.environmental_models_guidance",
+    "oecd.test_guidelines.section3",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires residence-time turnover counts, turnover-boundary offsets, and plateau-fraction reporting to match the bundled closed-form combined-loss expressions within fixture-declared tolerance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Advective air concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping as the water anchors.",
+      "fixtureName": "advective_air_transport_reference_fixture",
+      "referenceType": "hand_worked_advective_air_reference_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective air transport",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "air"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration advective air screening case, broadening the governed proof surface beyond water while retaining explicit degradation-versus-clearance accounting.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The air advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "The advective trace reports intermediate-turnover bounded transport with explicit turnover-boundary offsets and a finite plateau fraction below unity.",
+      "fixtureName": "advective_bounded_transport_reference_fixture",
+      "referenceType": "hand_worked_advective_bounded_transport_reference_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective bounded transport reference"
+        },
+        "duration_days": 10.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark bounded-transport half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 14.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark bounded-transport residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case expressed directly in bounded-transport terms, using turnover-boundary offsets and retained mass as a fraction of the finite active-emission plateau.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The bounded-transport reference case remains analytically traceable because the plateau fraction and boundary offsets come directly from the same governed combined-loss equation.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "The advective trace reports stable flow-through transport with retained mass essentially at the finite active-emission plateau and a large positive flow-through boundary offset.",
+      "fixtureName": "advective_flow_through_transport_reference_fixture",
+      "referenceType": "hand_worked_advective_flow_through_transport_reference_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective flow-through transport reference"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark flow-through transport half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 5.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark flow-through transport residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 0.5
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case expressed directly in stable flow-through bounded-transport terms, using large positive flow-through boundary offset and a plateau fraction effectively at unity.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The flow-through bounded-transport reference remains analytically traceable because the turnover counts, boundary offsets, plateau fraction, and cumulative mass terms come directly from the governed combined-loss equation.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "Advective water concentration rises materially when a long residence-time override weakens advective clearance under effectively persistent conditions.",
+      "fixtureName": "advective_long_residence_time_accumulation_anchor_fixture",
+      "referenceType": "hand_worked_advective_residence_edge_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark long residence time"
+        },
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark effective persistence override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 100000.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark long residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 60.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with effectively persistent degradation and a long residence-time override, anchoring accumulation under weak advective clearance.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-residence advective anchor is a deterministic closed-form reference calculation for the governed combined-loss equation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration rises further when a longer residence-time override weakens advective clearance under effectively persistent conditions.",
+      "fixtureName": "advective_long_residence_time_accumulation_companion_fixture",
+      "referenceType": "hand_worked_advective_override_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark very long residence time"
+        },
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark effective persistence override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 100000.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark very long residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 90.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with effectively persistent degradation and a longer residence-time override, corroborating weak-clearance accumulation through a second override regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-residence companion remains a deterministic override case under the governed combined-loss equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "The advective trace reports a mixed-loss regime with a near-parity dominance margin when degradation and residence-time clearance are almost equal.",
+      "fixtureName": "advective_mixed_loss_transition_anchor_fixture",
+      "referenceType": "hand_worked_advective_loss_transition_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective mixed-loss transition"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark mixed-loss transition half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 7.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark mixed-loss transition residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with nearly equal degradation and clearance terms, anchoring the governed mixed-loss transition regime at near-parity.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The transition anchor is analytically traceable because the governed trace exposes both loss shares and the explicit dominance margin.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration remains low when short residence-time clearance dominates the total loss term even for an effectively persistent substance.",
+      "fixtureName": "advective_short_residence_time_clearance_anchor_fixture",
+      "referenceType": "hand_worked_advective_clearance_edge_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark short residence time"
+        },
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark extreme persistence override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 100000.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark short residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 2.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with an effectively non-degrading substance and a short residence time, anchoring clearance-dominant concentration suppression.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The clearance-dominant advective edge anchor is a deterministic closed-form reference calculation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration is strongly suppressed when a very short residence-time override further strengthens clearance under effectively persistent conditions.",
+      "fixtureName": "advective_short_residence_time_clearance_companion_fixture",
+      "referenceType": "hand_worked_advective_override_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark very short residence time"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark effective persistence override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 100000.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark very short residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 0.5
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with an effectively persistent substance and a very short residence-time override, corroborating clearance-dominant suppression through a second override regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The short-residence companion remains a deterministic override case under the governed combined-loss equation.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "Advective soil concentration follows the same combined-loss equation and trace-level degradation/clearance bookkeeping while remaining storage-dominant under the governed soil residence time.",
+      "fixtureName": "advective_soil_transport_reference_fixture",
+      "referenceType": "hand_worked_advective_soil_reference_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective soil transport",
+          "substance_class": "organic chemical"
+        },
+        "duration_days": 60.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "soil"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration advective soil screening case, broadening the governed proof surface into a mass-based medium with long residence time and explicit combined-loss accounting.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The soil advective reference case remains analytically traceable because only medium-specific governed capacity, half-life, and residence-time parameters differ.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "The advective trace reports stable storage-dominant transport with retained mass materially below the finite active-emission plateau and a negative storage-boundary offset.",
+      "fixtureName": "advective_storage_dominant_transport_reference_fixture",
+      "referenceType": "hand_worked_advective_storage_dominant_transport_reference_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective storage-dominant transport reference"
+        },
+        "duration_days": 30.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark storage-dominant transport half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 12.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark storage-dominant transport residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 120.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case expressed directly in stable storage-dominant bounded-transport terms, using a negative storage-boundary offset and a large remaining plateau gap under finite loss.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The storage-dominant bounded-transport reference remains analytically traceable because the turnover counts, boundary offsets, plateau fraction, and cumulative mass terms are all direct outputs of the governed combined-loss equation.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "The advective trace reports boundary-sensitive intermediate transport together with a small mixed-loss dominance margin and finite bounded-transport plateau fraction.",
+      "fixtureName": "advective_transition_boundary_reference_fixture",
+      "referenceType": "hand_worked_advective_transition_boundary_reference_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective transition-boundary transport reference"
+        },
+        "duration_days": 18.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark transition-boundary half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 8.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark transition-boundary residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.5
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case expressed directly in near-boundary transport and mixed-loss terms, using an intermediate turnover count and a small degradation-versus-clearance margin.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The transition-boundary reference remains analytically traceable because the mixed-loss share, turnover-boundary offsets, plateau fraction, and cumulative mass terms all resolve from the same governed combined-loss equation.",
+      "validationTier": "reference_style"
+    }
+  ]
+}

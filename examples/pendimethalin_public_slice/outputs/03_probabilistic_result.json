@@ -1,0 +1,574 @@
+{
+  "completed_iteration_count": 200,
+  "dominant_uncertainty_drivers": [
+    "soil_half_life_days"
+  ],
+  "failed_iteration_count": 0,
+  "iteration_count": 200,
+  "median_surfaces": [
+    {
+      "calculation_trace": null,
+      "compartment": "ambient_air",
+      "concentration_unit": "mg/m3",
+      "concentration_value": 8.920782357820891e-05,
+      "fit_for_purpose": "screening",
+      "geographic_scope": {
+        "context_label": "uk_arable_screening",
+        "notes": null,
+        "region_id": "eu_screening_default"
+      },
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "temperature_correction_governed",
+          "message": "Scenario temperature 12.0 \u00b0C was applied to the governed air degradation Q10 correction from the 25.0 \u00b0C reference."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "median probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ],
+      "medium": "air",
+      "model_family": "reference_mass_balance",
+      "provenance": {
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "defaults_version": "v1",
+        "generated_at": "2026-05-14T12:00:00Z",
+        "schema_version": "v1",
+        "source_references": [
+          {
+            "effective_date": "2024-06-01",
+            "source_id": "footprint.ppdb.pendimethalin",
+            "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+            "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+          }
+        ]
+      },
+      "quality_flags": [],
+      "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "scenario_id": "scenario-000000000001",
+      "schema_version": "v1",
+      "surface_id": "surface-000000000007-median",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    },
+    {
+      "calculation_trace": null,
+      "compartment": "agricultural_soil",
+      "concentration_unit": "mg/kg",
+      "concentration_value": 0.0009487678501251358,
+      "fit_for_purpose": "screening",
+      "geographic_scope": {
+        "context_label": "uk_arable_screening",
+        "notes": null,
+        "region_id": "eu_screening_default"
+      },
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "temperature_correction_governed",
+          "message": "Scenario temperature 12.0 \u00b0C was applied to the governed soil degradation Q10 correction from the 25.0 \u00b0C reference."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "median probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ],
+      "medium": "soil",
+      "model_family": "reference_mass_balance",
+      "provenance": {
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "defaults_version": "v1",
+        "generated_at": "2026-05-14T12:00:00Z",
+        "schema_version": "v1",
+        "source_references": [
+          {
+            "effective_date": "2024-06-01",
+            "source_id": "footprint.ppdb.pendimethalin",
+            "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+            "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+          }
+        ]
+      },
+      "quality_flags": [],
+      "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "scenario_id": "scenario-000000000001",
+      "schema_version": "v1",
+      "surface_id": "surface-000000000006-median",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    }
+  ],
+  "p90_surfaces": [
+    {
+      "calculation_trace": null,
+      "compartment": "ambient_air",
+      "concentration_unit": "mg/m3",
+      "concentration_value": 8.920782357820891e-05,
+      "fit_for_purpose": "screening",
+      "geographic_scope": {
+        "context_label": "uk_arable_screening",
+        "notes": null,
+        "region_id": "eu_screening_default"
+      },
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "temperature_correction_governed",
+          "message": "Scenario temperature 12.0 \u00b0C was applied to the governed air degradation Q10 correction from the 25.0 \u00b0C reference."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p90 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ],
+      "medium": "air",
+      "model_family": "reference_mass_balance",
+      "provenance": {
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "defaults_version": "v1",
+        "generated_at": "2026-05-14T12:00:00Z",
+        "schema_version": "v1",
+        "source_references": [
+          {
+            "effective_date": "2024-06-01",
+            "source_id": "footprint.ppdb.pendimethalin",
+            "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+            "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+          }
+        ]
+      },
+      "quality_flags": [],
+      "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "scenario_id": "scenario-000000000001",
+      "schema_version": "v1",
+      "surface_id": "surface-000000000007-p90",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    },
+    {
+      "calculation_trace": null,
+      "compartment": "agricultural_soil",
+      "concentration_unit": "mg/kg",
+      "concentration_value": 0.0009492057375223219,
+      "fit_for_purpose": "screening",
+      "geographic_scope": {
+        "context_label": "uk_arable_screening",
+        "notes": null,
+        "region_id": "eu_screening_default"
+      },
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "temperature_correction_governed",
+          "message": "Scenario temperature 12.0 \u00b0C was applied to the governed soil degradation Q10 correction from the 25.0 \u00b0C reference."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p90 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ],
+      "medium": "soil",
+      "model_family": "reference_mass_balance",
+      "provenance": {
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "defaults_version": "v1",
+        "generated_at": "2026-05-14T12:00:00Z",
+        "schema_version": "v1",
+        "source_references": [
+          {
+            "effective_date": "2024-06-01",
+            "source_id": "footprint.ppdb.pendimethalin",
+            "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+            "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+          }
+        ]
+      },
+      "quality_flags": [],
+      "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "scenario_id": "scenario-000000000001",
+      "schema_version": "v1",
+      "surface_id": "surface-000000000006-p90",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    }
+  ],
+  "p95_surfaces": [
+    {
+      "calculation_trace": null,
+      "compartment": "ambient_air",
+      "concentration_unit": "mg/m3",
+      "concentration_value": 8.920782357820891e-05,
+      "fit_for_purpose": "screening",
+      "geographic_scope": {
+        "context_label": "uk_arable_screening",
+        "notes": null,
+        "region_id": "eu_screening_default"
+      },
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "temperature_correction_governed",
+          "message": "Scenario temperature 12.0 \u00b0C was applied to the governed air degradation Q10 correction from the 25.0 \u00b0C reference."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p95 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ],
+      "medium": "air",
+      "model_family": "reference_mass_balance",
+      "provenance": {
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "defaults_version": "v1",
+        "generated_at": "2026-05-14T12:00:00Z",
+        "schema_version": "v1",
+        "source_references": [
+          {
+            "effective_date": "2024-06-01",
+            "source_id": "footprint.ppdb.pendimethalin",
+            "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+            "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+          }
+        ]
+      },
+      "quality_flags": [],
+      "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "scenario_id": "scenario-000000000001",
+      "schema_version": "v1",
+      "surface_id": "surface-000000000007-p95",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    },
+    {
+      "calculation_trace": null,
+      "compartment": "agricultural_soil",
+      "concentration_unit": "mg/kg",
+      "concentration_value": 0.0009492629824489593,
+      "fit_for_purpose": "screening",
+      "geographic_scope": {
+        "context_label": "uk_arable_screening",
+        "notes": null,
+        "region_id": "eu_screening_default"
+      },
+      "limitations": [
+        {
+          "code": "screening_model",
+          "message": "Reference plugin is deterministic and screening-oriented."
+        },
+        {
+          "code": "screening_model",
+          "message": "Reference plugin does not model spatial gradients or explicit intermedia transfer coefficients."
+        },
+        {
+          "code": "finite_duration_screening_kernel",
+          "message": "Reference_mass_balance uses deterministic finite-duration first-order screening math within a single compartment per medium."
+        },
+        {
+          "code": "temperature_correction_governed",
+          "message": "Scenario temperature 12.0 \u00b0C was applied to the governed soil degradation Q10 correction from the 25.0 \u00b0C reference."
+        },
+        {
+          "code": "probabilistic_surface_aggregation",
+          "message": "p95 probabilistic surface is an aggregated percentile summary; iteration-specific closed-form calculation_trace terms are intentionally omitted."
+        }
+      ],
+      "medium": "soil",
+      "model_family": "reference_mass_balance",
+      "provenance": {
+        "algorithm_version": "reference-mass-balance-0.1.0",
+        "defaults_version": "v1",
+        "generated_at": "2026-05-14T12:00:00Z",
+        "schema_version": "v1",
+        "source_references": [
+          {
+            "effective_date": "2024-06-01",
+            "source_id": "footprint.ppdb.pendimethalin",
+            "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+            "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+          }
+        ]
+      },
+      "quality_flags": [],
+      "reported_time_semantics": "end_of_duration_screening_not_infinite_equilibrium",
+      "scenario_id": "scenario-000000000001",
+      "schema_version": "v1",
+      "surface_id": "surface-000000000006-p95",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    }
+  ],
+  "run_summary": {
+    "assumptions_applied": [
+      {
+        "parameter": "agricultural_soil_mass_kg",
+        "quality_flags": [],
+        "rationale": "Capacity used for soil concentration calculation.",
+        "source_classification": "curated_default",
+        "source_reference": {
+          "effective_date": null,
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        "unit": "kg",
+        "value": 2500000000.0
+      },
+      {
+        "parameter": "air_decay_constant_per_day",
+        "quality_flags": [],
+        "rationale": "First-order decay constant used in the finite-duration screening calculation.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "1/day",
+        "value": 0.7173955701743551
+      },
+      {
+        "parameter": "air_effective_release_mass_kg",
+        "quality_flags": [],
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "kg",
+        "value": 0.125
+      },
+      {
+        "parameter": "air_effective_temperature_c",
+        "quality_flags": [],
+        "rationale": "Effective temperature used after applying the governed correction range.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "degC",
+        "value": 12.0
+      },
+      {
+        "parameter": "air_half_life_days",
+        "quality_flags": [],
+        "rationale": "User- or evidence-supplied half-life override used to attenuate air release over the declared scenario duration.",
+        "source_classification": "user_input",
+        "source_reference": null,
+        "unit": "day",
+        "value": 0.45
+      },
+      {
+        "parameter": "air_region_scalar",
+        "quality_flags": [],
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "scalar",
+        "value": 1.0
+      },
+      {
+        "parameter": "air_scenario_temperature_c",
+        "quality_flags": [],
+        "rationale": "Scenario temperature supplied for governed degradation correction.",
+        "source_classification": "user_input",
+        "source_reference": null,
+        "unit": "degC",
+        "value": 12.0
+      },
+      {
+        "parameter": "air_temperature_corrected_half_life_days",
+        "quality_flags": [],
+        "rationale": "Declared half-life after governed temperature correction.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "day",
+        "value": 0.9661994154654224
+      },
+      {
+        "parameter": "air_temperature_correction_factor",
+        "quality_flags": [],
+        "rationale": "Medium-specific governed Q10 factor applied to the declared degradation half-life.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "scalar",
+        "value": 0.4657423641508136
+      },
+      {
+        "parameter": "ambient_air_volume_m3",
+        "quality_flags": [],
+        "rationale": "Capacity used for air concentration calculation.",
+        "source_classification": "curated_default",
+        "source_reference": {
+          "effective_date": null,
+          "source_id": "echa.guidance.ircsa",
+          "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+          "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+        },
+        "unit": "m3",
+        "value": 1000000000.0
+      },
+      {
+        "parameter": "soil_effective_release_mass_kg",
+        "quality_flags": [],
+        "rationale": "Medium-specific effective release mass after executable pre-release treatment removal.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "kg",
+        "value": 2.375
+      },
+      {
+        "parameter": "soil_effective_temperature_c",
+        "quality_flags": [],
+        "rationale": "Effective temperature used after applying the governed correction range.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "degC",
+        "value": 12.0
+      },
+      {
+        "parameter": "soil_region_scalar",
+        "quality_flags": [],
+        "rationale": "Region profile scalar applied to the default compartment capacity.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "scalar",
+        "value": 1.0
+      },
+      {
+        "parameter": "soil_scenario_temperature_c",
+        "quality_flags": [],
+        "rationale": "Scenario temperature supplied for governed degradation correction.",
+        "source_classification": "user_input",
+        "source_reference": null,
+        "unit": "degC",
+        "value": 12.0
+      },
+      {
+        "parameter": "soil_temperature_correction_factor",
+        "quality_flags": [],
+        "rationale": "Medium-specific governed Q10 factor applied to the declared degradation half-life.",
+        "source_classification": "derived",
+        "source_reference": null,
+        "unit": "scalar",
+        "value": 0.35879841422373565
+      }
+    ],
+    "escalation_concerns": [],
+    "failed_iteration_reasons": {},
+    "model_family": "reference_mass_balance",
+    "result_metadata": {
+      "executed_at": "2026-05-14T12:00:00Z",
+      "execution_mode": "synchronous",
+      "result_id": "result-scenario-000000000001-prob",
+      "status": "completed"
+    },
+    "run_id": "probrun-00000000025e",
+    "run_mode": "steady_state",
+    "scenario_id": "scenario-000000000001",
+    "schema_version": "v1",
+    "surfaces_emitted": 2,
+    "warnings": []
+  },
+  "sample_manifest": null,
+  "sampled_parameter_count": 1,
+  "sampling_seed": 20260514,
+  "surface_summaries": [
+    {
+      "absolute_p95_minus_median": 0.0,
+      "compartment": "ambient_air",
+      "concentration_unit": "mg/m3",
+      "median_value": 8.920782357820891e-05,
+      "medium": "air",
+      "p90_value": 8.920782357820891e-05,
+      "p95_value": 8.920782357820891e-05,
+      "surface_id": "surface-000000000007"
+    },
+    {
+      "absolute_p95_minus_median": 4.951323238235441e-07,
+      "compartment": "agricultural_soil",
+      "concentration_unit": "mg/kg",
+      "median_value": 0.0009487678501251358,
+      "medium": "soil",
+      "p90_value": 0.0009492057375223219,
+      "p95_value": 0.0009492629824489593,
+      "surface_id": "surface-000000000006"
+    }
+  ],
+  "uncertainty_limitation_lines": [
+    "Probabilistic orchestration completed with governed distribution sampling and percentile aggregation.",
+    "dominant_uncertainty_drivers enumerates sampled parameters only; formal sensitivity ranking is not yet implemented.",
+    "run_summary.assumptions_applied preserves invariant assumptions only; iteration-varying sampled and derived assumptions are not expanded verbatim."
+  ]
+}

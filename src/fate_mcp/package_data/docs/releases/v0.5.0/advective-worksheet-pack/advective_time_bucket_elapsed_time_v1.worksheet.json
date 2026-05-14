@@ -1,0 +1,125 @@
+{
+  "claimId": "advective_time_bucket_elapsed_time_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective time-bucket elapsed-time semantics",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "epa.environmental_models_guidance",
+    "echa.guidance.ircsa",
+    "echa.euses"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires each bucket-level surface to align with the elapsed-time first-order combined-loss expression on every bundled time-bucket fixture within fixture-declared tolerance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Advective time-bucket outputs decay after release ends according to the governed combined degradation-plus-clearance loss term.",
+      "fixtureName": "advective_post_release_decay_anchor_fixture",
+      "referenceType": "hand_worked_advective_post_release_bucket_anchor",
+      "runOptions": {
+        "bucket_count": 4,
+        "bucket_duration_days": 5.0,
+        "model_family": "advective_screening_mass_balance",
+        "run_mode": "time_bucket"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective post-release decay"
+        },
+        "duration_days": 10.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water time-bucket case with buckets extending beyond the release duration, anchoring post-release combined-loss decay.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The post-release bucket anchor is deterministic and directly traceable to the governed advective bucket equation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Post-release advective bucket outputs preserve release-stop retained-mass decline with explicit degraded-versus-advected recovery accounting under a reference-style bounded-transport case.",
+      "fixtureName": "advective_post_release_recovery_reference_fixture",
+      "referenceType": "hand_worked_advective_post_release_recovery_reference_fixture",
+      "runOptions": {
+        "bucket_count": 5,
+        "bucket_duration_days": 4.0,
+        "model_family": "advective_screening_mass_balance",
+        "run_mode": "time_bucket"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective post-release recovery reference"
+        },
+        "duration_days": 12.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Reference-style post-release half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 8.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Reference-style post-release residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 6.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water time-bucket case expressed directly in release-stop mass recovery terms, anchoring post-release retained, degraded, and advected mass fractions under a bounded flowing-water screening regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The reference-style post-release recovery case remains analytically traceable because retained mass at release stop and the subsequent combined-loss decay share the same governed closed-form solution.",
+      "validationTier": "reference_style"
+    },
+    {
+      "expectedBehavior": "Advective time-bucket water surfaces follow elapsed physical time with combined first-order degradation and advective clearance rather than bucket-count scaling.",
+      "fixtureName": "advective_time_bucket_invariance_fixture",
+      "referenceType": "hand_worked_advective_time_bucket_fixture",
+      "runOptions": {
+        "bucket_count": 3,
+        "bucket_duration_days": 7.5,
+        "model_family": "advective_screening_mass_balance",
+        "run_mode": "time_bucket"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective time bucket"
+        },
+        "duration_days": 15.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked finite-duration advective water time-bucket case evaluated at explicit elapsed bucket end times with combined degradation and residence-time loss.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The advective bucket anchor is deterministic and analytically traceable to the governed combined-loss equation.",
+      "validationTier": "invariance"
+    }
+  ]
+}

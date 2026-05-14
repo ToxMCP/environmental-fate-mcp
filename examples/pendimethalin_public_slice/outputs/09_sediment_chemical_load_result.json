@@ -1,0 +1,122 @@
+{
+  "assumptions": [
+    {
+      "parameter": "soil_concentration_mg_kg",
+      "quality_flags": [],
+      "rationale": "Caller-provided chemical concentration in erodible soil.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "mg/kg",
+      "value": 1.0
+    },
+    {
+      "parameter": "sediment_yield_t",
+      "quality_flags": [],
+      "rationale": "Caller-provided or upstream-estimated sediment yield.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "t",
+      "value": 10.850664027720713
+    },
+    {
+      "parameter": "sediment_delivery_ratio",
+      "quality_flags": [],
+      "rationale": "Caller-provided fraction of mobilized sediment delivered to the receiving pathway.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "fraction",
+      "value": 0.35
+    },
+    {
+      "parameter": "particle_bound_availability_fraction",
+      "quality_flags": [],
+      "rationale": "Caller-provided particle-bound availability or correction fraction.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "fraction",
+      "value": 0.95
+    }
+  ],
+  "calculation_trace": {
+    "equation_id": "sediment_associated_chemical_load_screening_v1",
+    "equation_text": "load_kg = soil_concentration_mg_kg * sediment_yield_t * 0.001 * sediment_delivery_ratio * particle_bound_availability_fraction",
+    "notes": [
+      "The 0.001 factor converts mg/kg times metric tons of sediment to kg of chemical.",
+      "Delivery and availability fractions are explicit caller assumptions in v1."
+    ],
+    "resolved_terms": [
+      {
+        "name": "soil_concentration_mg_kg",
+        "unit": "mg/kg",
+        "value": 1.0
+      },
+      {
+        "name": "sediment_yield_t",
+        "unit": "t",
+        "value": 10.850664027720713
+      },
+      {
+        "name": "mg_per_kg_t_to_kg_factor",
+        "unit": "kg per (mg/kg * t)",
+        "value": 0.001
+      },
+      {
+        "name": "sediment_delivery_ratio",
+        "unit": null,
+        "value": 0.35
+      },
+      {
+        "name": "particle_bound_availability_fraction",
+        "unit": null,
+        "value": 0.95
+      },
+      {
+        "name": "sediment_associated_load",
+        "unit": "kg",
+        "value": 0.0036078457892171362
+      }
+    ]
+  },
+  "handoff_notes": [
+    "This is a sediment-associated load handoff, not a receiving-water concentration.",
+    "Downstream exposure or surface-water modules must add receiving-environment dilution, timing, bioavailability, and endpoint-specific assumptions."
+  ],
+  "limitations": [
+    {
+      "code": "erosion_sediment_screening_only",
+      "message": "This result is a scalar screening estimate for erosion-mediated transport; it is not a calibrated watershed, GIS, hydrodynamic, exposure, risk, or regulatory decision model."
+    },
+    {
+      "code": "no_explicit_spatial_routing",
+      "message": "The v1 erosion/sediment tools do not simulate hillslope routing, channel transport, deposition fields, rainfall-runoff generation, or receiving-water dilution."
+    },
+    {
+      "code": "chemical_load_screening_assumptions",
+      "message": "Sediment-associated chemical load is computed from caller-provided soil concentration, sediment delivery ratio, and particle-bound availability fraction; it is not a final environmental concentration or dose."
+    }
+  ],
+  "method_id": "sediment_associated_chemical_load_screening",
+  "provenance": {
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "defaults_version": "v1",
+    "generated_at": "2026-05-14T12:00:00Z",
+    "schema_version": "v1",
+    "source_references": [
+      {
+        "effective_date": null,
+        "source_id": "usace.hec_hms.musle",
+        "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+        "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+      },
+      {
+        "effective_date": null,
+        "source_id": "usace.hec_hms.musle",
+        "title": "USACE HEC-HMS Technical Reference: Modified USLE",
+        "url": "https://www.hec.usace.army.mil/confluence/display/HMSTRM/Modified%2BUSLE?src=contextnavpagetreemode"
+      }
+    ]
+  },
+  "quality_flags": [],
+  "schema_version": "v1",
+  "sediment_associated_load_kg": 0.0036078457892171362
+}

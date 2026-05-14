@@ -4,7 +4,7 @@
   "adapterUnitConversionRuleCount": 4,
   "artifactHashes": {
     "contractsManifest": "dd788fc7e6bd06640071ff57cfd5798c93f03c32be6ca16cba4ab7c96561535f",
-    "defaultsManifest": "01e04b569b5d582169e0fe7d2c46b801794e0fe2c1bba19999fa3e03de467ef8",
+    "defaultsManifest": "12e68746363e3eb51ef91d0620afc418fe1f5d4006cecd100e1c1ef5d48416f4",
     "examplesManifest": "778e01d1914bcab3930577d60d8992e895a9dc99028d068852465a27e32c1400"
   },
   "benchmarkMetadataFixtureCount": 64,
@@ -160,7 +160,7 @@
     "fate_build_regulatory_handoff_review_packet",
     "fate_build_regulatory_handoff_review_brief"
   ],
-  "testCount": 212,
+  "testCount": 232,
   "toolCount": 57,
   "version": "0.5.0"
 }

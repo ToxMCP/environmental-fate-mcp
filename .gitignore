@@ -13,3 +13,4 @@ Fate_MCP_tasks.json
 patch_*.py
 research/*.txt
 review_exports/
+out/

@@ -1,0 +1,148 @@
+{
+  "claimId": "advective_degradation_dominant_loss_share_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective degradation-dominant loss-share transition",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "echa.euses",
+    "epa.environmental_models_guidance"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "The advective trace reports degradation as the dominant loss share when half-life is short relative to residence time.",
+      "fixtureName": "advective_degradation_dominant_loss_share_anchor_fixture",
+      "referenceType": "hand_worked_advective_loss_dominance_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective degradation dominance"
+        },
+        "duration_days": 20.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark degradation-dominant half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 2.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark degradation-dominant residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 40.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with short half-life and long residence time, anchoring a degradation-dominant combined-loss regime in the trace decomposition.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The dominance split is analytically traceable because the governed trace exposes the exact degradation, clearance, and total-loss constants.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "The advective trace continues to report degradation as the dominant loss share under a different short-half-life and long-residence regime.",
+      "fixtureName": "advective_degradation_dominant_loss_share_companion_fixture",
+      "referenceType": "hand_worked_advective_loss_dominance_sensitivity_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective degradation dominance companion"
+        },
+        "duration_days": 25.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark degradation-dominant companion half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 3.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark degradation-dominant companion residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 45.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with an alternate short half-life and long residence time, corroborating degradation-dominant loss-share behavior under a second governed regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The companion dominance case remains analytically traceable because only the declared degradation and residence-time terms change.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "The advective trace reports degradation as the larger resolved loss-share component after a small half-life shift away from the mixed-loss transition anchor.",
+      "fixtureName": "advective_transition_flip_to_degradation_fixture",
+      "referenceType": "hand_worked_advective_transition_sensitivity_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective transition flip to degradation"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark degradation-side transition half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 6.5
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark degradation-side transition residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with a modest half-life shift away from the near-parity anchor, demonstrating that the governed transition flips toward degradation dominance in the expected direction.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The degradation-side transition sensitivity case remains analytically traceable because it modifies only the declared half-life while preserving the same bounded screening equation.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "fit_for_purpose": "screening",
+  "governing_rule_lines": [
+    "Qualification driver types present: multi_medium_simplification_burden, unsupported_runtime_parameter."
+  ],
+  "model_family": "reference_mass_balance",
+  "outcome_lines": [
+    "Use the run only with explicit qualification notes because screening-use caveats remain material.",
+    "Fit verdict good_fit with score 0.85 informed the outcome."
+  ],
+  "recommended_actions": [
+    "Carry the qualification notes and limitation lines forward in assessor-facing summaries.",
+    "Document when governed screening capacities dominate the concentration scaling and whether scenario-specific capacities are available.",
+    "Consider a richer model family if intermedia dynamics are central to the decision context.",
+    "Do not treat preserved-only parameters as if they were actively modeled by the runtime."
+  ],
+  "review_outcome": "qualified_screening_use",
+  "review_profile_model_family": "reference_mass_balance",
+  "review_status": "scientific_review_attention_needed",
+  "run_id": "run-000000000004",
+  "scenario_id": "scenario-000000000001",
+  "status_rule_lines": [
+    "Attention required because outcome qualified_screening_use is governed as attention-worthy."
+  ],
+  "triggered_check_codes": [],
+  "triggered_driver_types": [
+    "multi_medium_simplification_burden",
+    "unsupported_runtime_parameter"
+  ],
+  "triggered_fit_verdicts": []
+}

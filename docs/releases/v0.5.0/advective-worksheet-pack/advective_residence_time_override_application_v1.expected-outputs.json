@@ -1,0 +1,100 @@
+{
+  "claimId": "advective_residence_time_override_application_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective residence-time override application",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 9.119315008680499e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_long_duration_plateau_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.573727311929898e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 0.5,
+            "elapsed_turnover_count": 0.5
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_long_residence_time_accumulation_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.7006451169663176e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 0.3333333333333333,
+            "elapsed_turnover_count": 0.3333333333333333
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_long_residence_time_accumulation_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 5.280626079290048e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_residence_time_override_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.6666435618401e-07
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 30.0,
+            "elapsed_turnover_count": 30.0
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_short_residence_time_clearance_companion_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires a user-supplied surface-water residence-time override to be reflected in the assumption ledger and to drive the resulting concentration surface on every bundled parameter-override fixture within fixture-declared tolerance.",
+  "version": "0.5.0"
+}
