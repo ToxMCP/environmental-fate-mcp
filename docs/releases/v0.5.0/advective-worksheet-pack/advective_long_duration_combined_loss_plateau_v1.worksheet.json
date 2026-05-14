@@ -1,0 +1,108 @@
+{
+  "claimId": "advective_long_duration_combined_loss_plateau_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective long-duration combined-loss plateau anchor",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "epa.environmental_models_guidance"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires long-duration runs to approach the combined-loss plateau on every bundled duration-edge fixture within fixture-declared tolerance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "Advective water concentration approaches the governed finite-duration combined-loss plateau when duration is long relative to both water half-life and residence time.",
+      "fixtureName": "advective_long_duration_plateau_anchor_fixture",
+      "referenceType": "hand_worked_advective_duration_edge_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective long duration"
+        },
+        "duration_days": 120.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 80.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with long finite duration, anchoring approach toward the combined degradation-plus-clearance plateau at a fixed release rate.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-duration advective anchor remains analytically traceable to the same deterministic combined-loss equation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration remains close to the governed combined-loss plateau when duration is extended further at the same release rate.",
+      "fixtureName": "advective_long_duration_plateau_companion_fixture",
+      "referenceType": "hand_worked_advective_duration_edge_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective long duration companion"
+        },
+        "duration_days": 240.0,
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 160.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with a longer finite duration at the same release rate, corroborating approach toward the combined degradation-plus-clearance plateau.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The companion duration anchor remains analytically traceable to the deterministic combined-loss equation.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "Advective water concentration still approaches a bounded combined-loss plateau under long duration when residence time is overridden, while the plateau level shifts consistently with the stronger clearance term.",
+      "fixtureName": "advective_long_duration_plateau_sensitivity_fixture",
+      "referenceType": "hand_worked_advective_override_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective long duration sensitivity"
+        },
+        "duration_days": 180.0,
+        "parameter_records": [
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark long-duration residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 120.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with long finite duration and a residence-time override, corroborating plateau behavior under an alternate governed clearance regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The long-duration sensitivity anchor remains analytically traceable to the same deterministic combined-loss equation with a governed residence-time override.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

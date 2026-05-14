@@ -1,0 +1,435 @@
+{
+  "claimId": "advective_cumulative_mass_balance_closure_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective cumulative mass-balance closure",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "unit": "mg/m3",
+          "value": 0.0014691498983410997
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "ambient_air",
+          "medium": "air",
+          "terms": {
+            "active_emission_turnover_count": 3.333333333333333,
+            "advective_clearance_share_fraction": 0.4902631842044826,
+            "cumulative_advected_mass_mg": 4182361.734810427,
+            "cumulative_degraded_mass_mg": 4348488.366848473,
+            "degradation_loss_share_fraction": 0.5097368157955173,
+            "elapsed_turnover_count": 3.333333333333333,
+            "mass_balance_closure_error_mg": -9.313225746154785e-10,
+            "retained_mass_fraction_of_finite_plateau": 0.9988851877078984
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_air_transport_reference_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.0377530703665923e-05
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 1.0,
+            "elapsed_turnover_count": 1.0,
+            "finite_plateau_mass_mg": 6688492.873327144,
+            "flow_through_boundary_offset_turnovers": -1.0,
+            "retained_mass_fraction_of_finite_plateau": 0.7757749690554497,
+            "storage_boundary_offset_turnovers": 0.25
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 5188765.351832962,
+            "cumulative_advected_mass_mg": 3217990.8656169865,
+            "cumulative_degraded_mass_mg": 1593243.7825500513,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_bounded_transport_reference_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 9.980782892606555e-07
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.9980782912401356,
+            "degradation_loss_share_fraction": 0.0019217087598644108,
+            "total_loss_constant_per_day": 2.0038508176697776
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 499039.14463032776,
+            "cumulative_advected_mass_mg": 9482702.775666779,
+            "cumulative_degraded_mass_mg": 18258.079702892763,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 0.0
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_clearance_dominant_loss_share_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.6570854114047607e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.9942569466721837,
+            "degradation_loss_share_fraction": 0.005743053327816367,
+            "total_loss_constant_per_day": 1.0057762265046661
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 828542.7057023804,
+            "cumulative_advected_mass_mg": 9118785.125962678,
+            "cumulative_degraded_mass_mg": 52672.16833494163,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -1.862645149230957e-09
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_clearance_dominant_loss_share_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.6896628583037676e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.06728142326036424,
+            "degradation_loss_share_fraction": 0.9327185767396358,
+            "total_loss_constant_per_day": 0.37157359027997267
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 1344831.4291518838,
+            "cumulative_advected_mass_mg": 582332.060005034,
+            "cumulative_degraded_mass_mg": 8072836.510843082,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 3.4924596548080444e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_degradation_dominant_loss_share_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 3.1530495825671985e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.08774078928675218,
+            "degradation_loss_share_fraction": 0.9122592107132478,
+            "total_loss_constant_per_day": 0.25327128240887065
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 1576524.791283599,
+            "cumulative_advected_mass_mg": 739082.3633501665,
+            "cumulative_degraded_mass_mg": 7684392.845366233,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_degradation_dominant_loss_share_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.234522497536118e-07
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 30.0,
+            "elapsed_turnover_count": 30.0,
+            "finite_plateau_mass_mg": 311726.12487680954,
+            "flow_through_boundary_offset_turnovers": 28.0,
+            "retained_mass_fraction_of_finite_plateau": 0.9999999999999885,
+            "storage_boundary_offset_turnovers": 29.25
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 311726.12487680593,
+            "cumulative_advected_mass_mg": 9060264.215512153,
+            "cumulative_degraded_mass_mg": 628009.6596110412,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 0.0
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_flow_through_transport_reference_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.360979061693635e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 1.5,
+            "advective_clearance_share_fraction": 0.5024594743239191,
+            "degradation_loss_share_fraction": 0.497540525676081,
+            "elapsed_turnover_count": 1.5,
+            "loss_dominance_margin_fraction": 0.0049189486478381506,
+            "total_loss_constant_per_day": 0.19902102579427788
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 3180489.530846818,
+            "cumulative_advected_mass_mg": 3426527.645477171,
+            "cumulative_degraded_mass_mg": 3392982.823676012,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_mixed_loss_transition_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 5.893869007823266e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.4902631842044826,
+            "degradation_loss_share_fraction": 0.5097368157955173,
+            "loss_dominance_margin_fraction": 0.019473631591034712,
+            "total_loss_constant_per_day": 0.2719627694453224
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 2946934.5039116335,
+            "cumulative_advected_mass_mg": 3457858.3485150514,
+            "cumulative_degraded_mass_mg": 3595207.147573315,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_mixed_loss_transition_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "unit": "mg/kg",
+          "value": 0.0019094067279895887
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "agricultural_soil",
+          "medium": "soil",
+          "terms": {
+            "active_emission_turnover_count": 0.33333333333333337,
+            "advective_clearance_share_fraction": 0.19384040766994082,
+            "cumulative_advected_mass_mg": 1013103.630296334,
+            "cumulative_degraded_mass_mg": 4213379.549729694,
+            "degradation_loss_share_fraction": 0.8061595923300592,
+            "elapsed_turnover_count": 0.33333333333333337,
+            "mass_balance_closure_error_mg": 1.5133991837501526e-09,
+            "retained_mass_fraction_of_finite_plateau": 0.8208671723565526
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_soil_transport_reference_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 8.697766996187716e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 0.25,
+            "elapsed_turnover_count": 0.25,
+            "finite_plateau_mass_mg": 5043200.175251312,
+            "flow_through_boundary_offset_turnovers": -1.75,
+            "retained_mass_fraction_of_finite_plateau": 0.8623261712742041,
+            "storage_boundary_offset_turnovers": -0.5
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 4348883.498093858,
+            "cumulative_advected_mass_mg": 712492.7933194657,
+            "cumulative_degraded_mass_mg": 4938623.708586675,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 8.149072527885437e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_storage_dominant_transport_reference_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 5.8776993269409705e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 1.7142857142857142,
+            "advective_clearance_share_fraction": 0.5236271913524778,
+            "degradation_loss_share_fraction": 0.4763728086475221,
+            "elapsed_turnover_count": 1.7142857142857142,
+            "finite_plateau_mass_mg": 3054491.9495561207,
+            "flow_through_boundary_offset_turnovers": -0.2857142857142858,
+            "loss_dominance_margin_fraction": 0.047254382704955744,
+            "retained_mass_fraction_of_finite_plateau": 0.9621402550750082,
+            "storage_boundary_offset_turnovers": 0.9642857142857142
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 2938849.6634704852,
+            "cumulative_advected_mass_mg": 3697410.318434553,
+            "cumulative_degraded_mass_mg": 3363740.0180949606,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 9.313225746154785e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_transition_boundary_reference_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires |emitted_mass - retained_mass - cumulative_degraded_mass - cumulative_advected_mass| to remain below the screening closure threshold on every bundled fixture (typically < 1 microgram).",
+  "version": "0.5.0"
+}

@@ -1,0 +1,151 @@
+{
+  "claimId": "advective_mixed_loss_transition_margin_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective mixed-loss transition margin",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "echa.guidance.ircsa",
+    "echa.euses",
+    "epa.environmental_models_guidance",
+    "oecd.test_guidelines.section3",
+    "oecd.harmonised_templates.degradation_accumulation"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "OECD",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "The advective trace reports a mixed-loss regime with a near-parity dominance margin when degradation and residence-time clearance are almost equal.",
+      "fixtureName": "advective_mixed_loss_transition_anchor_fixture",
+      "referenceType": "hand_worked_advective_loss_transition_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective mixed-loss transition"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark mixed-loss transition half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 7.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark mixed-loss transition residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with nearly equal degradation and clearance terms, anchoring the governed mixed-loss transition regime at near-parity.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The transition anchor is analytically traceable because the governed trace exposes both loss shares and the explicit dominance margin.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "The advective trace continues to report a mixed-loss regime with a small dominance margin under a second near-parity half-life versus residence-time configuration.",
+      "fixtureName": "advective_mixed_loss_transition_companion_fixture",
+      "referenceType": "hand_worked_advective_loss_transition_sensitivity_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective mixed-loss transition companion"
+        },
+        "duration_days": 12.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark mixed-loss companion half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 5.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark mixed-loss companion residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 7.5
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with a second near-parity loss split, corroborating the governed mixed-loss transition regime under an alternate duration and rate pair.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The companion transition case remains analytically traceable because only the declared degradation and residence-time terms change while the near-parity regime is preserved.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "The advective trace reports boundary-sensitive intermediate transport together with a small mixed-loss dominance margin and finite bounded-transport plateau fraction.",
+      "fixtureName": "advective_transition_boundary_reference_fixture",
+      "referenceType": "hand_worked_advective_transition_boundary_reference_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective transition-boundary transport reference"
+        },
+        "duration_days": 18.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark transition-boundary half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 8.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark transition-boundary residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 10.5
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case expressed directly in near-boundary transport and mixed-loss terms, using an intermediate turnover count and a small degradation-versus-clearance margin.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The transition-boundary reference remains analytically traceable because the mixed-loss share, turnover-boundary offsets, plateau fraction, and cumulative mass terms all resolve from the same governed combined-loss equation.",
+      "validationTier": "reference_style"
+    }
+  ]
+}

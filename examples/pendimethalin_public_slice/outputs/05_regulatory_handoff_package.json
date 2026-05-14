@@ -1,0 +1,85 @@
+{
+  "blockers": [],
+  "crosswalk_entries": [
+    {
+      "compartment": "agricultural_soil",
+      "concentration_unit": "mg/kg",
+      "concentration_value": 0.0009488196531919435,
+      "downstream_field": "environmental_media_concentration",
+      "equation_id": "finite_duration_continuous_release_first_order",
+      "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+      "medium": "soil",
+      "requires_dose_translation": true,
+      "route_hint": "soil_contact_or_crop_uptake_precursor",
+      "semantic_label": "environmental_media_concentration",
+      "source_surface_id": "surface-000000000002",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    },
+    {
+      "compartment": "ambient_air",
+      "concentration_unit": "mg/m3",
+      "concentration_value": 8.920782357820891e-05,
+      "downstream_field": "environmental_media_concentration",
+      "equation_id": "finite_duration_continuous_release_first_order",
+      "equation_text": "C(t) = (R / (k * V)) * (1 - exp(-k * t))",
+      "medium": "air",
+      "requires_dose_translation": true,
+      "route_hint": "inhalation_precursor",
+      "semantic_label": "environmental_media_concentration",
+      "source_surface_id": "surface-000000000003",
+      "time_window": {
+        "bucket_label": null,
+        "end": null,
+        "mode": "steady_state",
+        "start": null
+      }
+    }
+  ],
+  "handoff_profile_id": "exposure_scenario_mcp_v1",
+  "integrity_hash": "fc52ebd151af20507046e79a432f075920f76c07dec8116b950c59b9be3489f7",
+  "limitations": [
+    {
+      "code": "concentration_only",
+      "message": "Crosswalk exports concentrations only; downstream modules must perform route translation and dose calculation."
+    },
+    {
+      "code": "suite_handoff_semantics",
+      "message": "Crosswalk fields express ToxMCP handoff semantics, not final regulatory conclusions."
+    },
+    {
+      "code": "handoff_profile",
+      "message": "Crosswalk exported using governed handoff profile exposure_scenario_mcp_v1."
+    },
+    {
+      "code": "handoff_profile_resolution",
+      "message": "Handoff profile was resolved via default_profile using exposure_scenario_mcp_v1."
+    }
+  ],
+  "package_id": "regpkg-00000000025f",
+  "parameter_manifest": null,
+  "profile_resolution_basis": "exposure_scenario_mcp_v1",
+  "profile_resolution_confidence": 1.0,
+  "profile_resolution_method": "default_profile",
+  "provenance": {
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "defaults_version": "v1",
+    "generated_at": "2026-05-14T12:00:00Z",
+    "schema_version": "v1",
+    "source_references": []
+  },
+  "regulatory_use_disclaimer": "This output packages concentration surfaces for downstream review. It is not a human dose, risk quotient, or regulatory decision. Downstream translation to dose requires Direct-Use Exposure MCP or equivalent.",
+  "scenario_id": "scenario-000000000001",
+  "schema_version": "v1",
+  "source_model_family": "reference_mass_balance",
+  "source_module": "fate_mcp",
+  "target_module_acknowledgement_schema_url": "https://toxmcp.example/contracts/schemas/exposureScenarioAcknowledgement.v1.json",
+  "target_modules": [
+    "Direct-Use Exposure MCP"
+  ],
+  "uncertainty_summary": null
+}

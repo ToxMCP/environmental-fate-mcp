@@ -1,0 +1,96 @@
+{
+  "claimId": "advective_loss_regime_flip_directionality_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective loss-regime flip directionality",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.360979061693635e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 1.5,
+            "advective_clearance_share_fraction": 0.5024594743239191,
+            "degradation_loss_share_fraction": 0.497540525676081,
+            "elapsed_turnover_count": 1.5,
+            "loss_dominance_margin_fraction": 0.0049189486478381506,
+            "total_loss_constant_per_day": 0.19902102579427788
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 3180489.530846818,
+            "cumulative_advected_mass_mg": 3426527.645477171,
+            "cumulative_degraded_mass_mg": 3392982.823676012,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_mixed_loss_transition_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.073846284368942e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.5287678160391923,
+            "degradation_loss_share_fraction": 0.4712321839608076,
+            "loss_dominance_margin_fraction": 0.05753563207838469,
+            "total_loss_constant_per_day": 0.210132136905389
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_transition_flip_to_clearance_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.16170186633071e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.4839380295828944,
+            "degradation_loss_share_fraction": 0.5160619704171056,
+            "loss_dominance_margin_fraction": 0.03212394083421116,
+            "total_loss_constant_per_day": 0.20663802777845314
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_transition_flip_to_degradation_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss interpretation to flip in the expected direction across the bundled near-parity sensitivity fixtures (half-life or residence-time crossing the loss-balance boundary).",
+  "version": "0.5.0"
+}

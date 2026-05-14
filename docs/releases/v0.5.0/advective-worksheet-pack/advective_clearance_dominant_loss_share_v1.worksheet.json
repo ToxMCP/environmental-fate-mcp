@@ -1,0 +1,148 @@
+{
+  "claimId": "advective_clearance_dominant_loss_share_v1",
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective clearance-dominant loss-share transition",
+  "evidenceFamily": "public_method_description_plus_internal_oracle",
+  "lastReviewedDate": "2026-05-14",
+  "modelFamily": "advective_screening_mass_balance",
+  "officialSourceIds": [
+    "echa.euses",
+    "epa.environmental_models_guidance",
+    "echa.guidance.ircsa"
+  ],
+  "officialSourceJurisdictions": [
+    "EU",
+    "US"
+  ],
+  "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+  "version": "0.5.0",
+  "worksheetStatus": "ready",
+  "worksheets": [
+    {
+      "expectedBehavior": "The advective trace reports clearance as the dominant loss share when residence time is short relative to half-life.",
+      "fixtureName": "advective_clearance_dominant_loss_share_anchor_fixture",
+      "referenceType": "hand_worked_advective_loss_dominance_anchor",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective clearance dominance"
+        },
+        "duration_days": 10.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark clearance-dominant half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 180.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark clearance-dominant residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 0.5
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with effectively persistent degradation and very short residence time, anchoring a clearance-dominant combined-loss regime in the trace decomposition.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The dominance split is analytically traceable because the governed trace exposes the exact degradation, clearance, and total-loss constants.",
+      "validationTier": "edge_condition"
+    },
+    {
+      "expectedBehavior": "The advective trace continues to report clearance as the dominant loss share under a second short-residence regime.",
+      "fixtureName": "advective_clearance_dominant_loss_share_companion_fixture",
+      "referenceType": "hand_worked_advective_loss_dominance_sensitivity_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective clearance dominance companion"
+        },
+        "duration_days": 12.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark clearance-dominant companion half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 120.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark clearance-dominant companion residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 1.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with an alternate persistent half-life and short residence time, corroborating clearance-dominant loss-share behavior under a second governed regime.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The companion dominance case remains analytically traceable because only the declared degradation and residence-time terms change.",
+      "validationTier": "sensitivity"
+    },
+    {
+      "expectedBehavior": "The advective trace reports clearance as the larger resolved loss-share component after a small residence-time shift away from the mixed-loss transition anchor.",
+      "fixtureName": "advective_transition_flip_to_clearance_fixture",
+      "referenceType": "hand_worked_advective_transition_sensitivity_fixture",
+      "runOptions": {
+        "model_family": "advective_screening_mass_balance"
+      },
+      "scenario": {
+        "chemical_identity": {
+          "preferredName": "Benchmark advective transition flip to clearance"
+        },
+        "duration_days": 15.0,
+        "parameter_records": [
+          {
+            "parameter": "water_half_life_days",
+            "rationale": "Benchmark clearance-side transition half-life override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 7.0
+          },
+          {
+            "parameter": "water_residence_time_days",
+            "rationale": "Benchmark clearance-side transition residence-time override.",
+            "source_classification": "user_input",
+            "unit": "day",
+            "value": 9.0
+          }
+        ],
+        "release_fractions": [
+          {
+            "fraction": 1.0,
+            "medium": "water"
+          }
+        ],
+        "total_release_mass_kg": 10.0
+      },
+      "scientificBasis": "Hand-worked advective water screening case with a modest residence-time shift away from the near-parity anchor, demonstrating that the governed transition flips toward clearance dominance in the expected direction.",
+      "tolerance": 1e-12,
+      "toleranceRationale": "The clearance-side transition sensitivity case remains analytically traceable because it modifies only the declared residence time while preserving the same bounded screening equation.",
+      "validationTier": "sensitivity"
+    }
+  ]
+}

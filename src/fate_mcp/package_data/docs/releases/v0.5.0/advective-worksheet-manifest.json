@@ -1,0 +1,579 @@
+{
+  "claimCount": 19,
+  "claims": [
+    {
+      "claimId": "advective_clearance_dominant_loss_share_v1",
+      "displayName": "Advective clearance-dominant loss-share transition",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.euses",
+        "epa.environmental_models_guidance",
+        "echa.guidance.ircsa"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_edge_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_cumulative_mass_balance_closure_v1",
+      "displayName": "Advective cumulative mass-balance closure",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses",
+        "epa.environmental_models_guidance"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_edge_case_family",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires |emitted_mass - retained_mass - cumulative_degraded_mass - cumulative_advected_mass| to remain below the screening closure threshold on every bundled fixture (typically < 1 microgram).",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_degradation_dominant_loss_share_v1",
+      "displayName": "Advective degradation-dominant loss-share transition",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses",
+        "epa.environmental_models_guidance"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_extreme_persistence_clearance_bound_v1",
+      "displayName": "Advective extreme-persistence clearance bound",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.euses",
+        "epa.environmental_models_guidance",
+        "echa.guidance.ircsa"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_edge_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires effective-persistence (negligible degradation) screening surfaces to remain bounded by residence-time clearance alone on every bundled persistence-edge fixture within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_long_duration_combined_loss_plateau_v1",
+      "displayName": "Advective long-duration combined-loss plateau anchor",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "epa.environmental_models_guidance"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_duration_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires long-duration runs to approach the combined-loss plateau on every bundled duration-edge fixture within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_long_residence_time_accumulation_anchor_v1",
+      "displayName": "Advective long-residence-time accumulation anchor",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.euses",
+        "epa.environmental_models_guidance",
+        "echa.guidance.ircsa"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_edge_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires retained-mass concentration to respond to residence-time overrides in the expected direction on every bundled clearance-edge fixture (shorter residence reduces, longer residence raises) within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_loss_regime_flip_directionality_v1",
+      "displayName": "Advective loss-regime flip directionality",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses",
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss interpretation to flip in the expected direction across the bundled near-parity sensitivity fixtures (half-life or residence-time crossing the loss-balance boundary).",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_mixed_loss_transition_margin_v1",
+      "displayName": "Advective mixed-loss transition margin",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses",
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_post_release_flushing_directionality_v1",
+      "displayName": "Advective post-release flushing directionality",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation",
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires retained-mass to decline monotonically as recovery windows cross the one-turnover anchor in the expected direction on every bundled directionality fixture.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_post_release_flushing_recovery_v1",
+      "displayName": "Advective post-release flushing and recovery accounting",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation",
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires post-release retained-mass to follow the closed-form combined-loss decay anchored at release-stop, with release-stop fractions for retained, degraded, and advected mass summing to 1.0 on every bundled recovery fixture within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_post_release_flushing_regime_transition_v1",
+      "displayName": "Advective post-release flushing regime transition",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation",
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires post-release recovery windows to be classified consistently with the one-turnover flushing boundary across every bundled boundary-transition fixture.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_post_release_half_recovery_directionality_v1",
+      "displayName": "Advective post-release half-recovery directionality",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation",
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires retained-mass to remain monotonically below 50% on every bundled post-half-recovery fixture.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_post_release_half_recovery_pace_v1",
+      "displayName": "Advective post-release half-recovery pace",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation",
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires the reported combined-loss half-recovery time to match (ln 2) / (decay_constant + advective_constant) on every bundled pace fixture within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_post_release_late_recovery_regime_v1",
+      "displayName": "Advective post-release late-recovery regime",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "oecd.harmonised_templates.degradation_accumulation",
+        "epa.environmental_models_guidance"
+      ],
+      "officialSourceJurisdictions": [
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires the late-recovery regime classification to remain stable under the bounded combined-loss depletion authority layer on every bundled late-recovery fixture.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_residence_time_override_application_v1",
+      "displayName": "Advective residence-time override application",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_residence_time_override_application_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses",
+        "epa.environmental_models_guidance"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_edge_case_family",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires a user-supplied surface-water residence-time override to be reflected in the assumption ledger and to drive the resulting concentration surface on every bundled parameter-override fixture within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_residence_time_override_application_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_residence_time_turnover_regime_v1",
+      "displayName": "Advective residence-time turnover regime interpretation",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses",
+        "epa.environmental_models_guidance",
+        "oecd.test_guidelines.section3",
+        "oecd.harmonised_templates.degradation_accumulation"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "OECD",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_edge_case_family",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family",
+        "official_test_guideline_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires residence-time turnover counts, turnover-boundary offsets, and plateau-fraction reporting to match the bundled closed-form combined-loss expressions within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_short_residence_time_clearance_anchor_v1",
+      "displayName": "Advective short-residence-time clearance anchor",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.euses",
+        "epa.environmental_models_guidance",
+        "echa.guidance.ircsa"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_anchored_edge_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires retained-mass concentration to respond to residence-time overrides in the expected direction on every bundled clearance-edge fixture (shorter residence reduces, longer residence raises) within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_time_bucket_elapsed_time_v1",
+      "displayName": "Advective time-bucket elapsed-time semantics",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "epa.environmental_models_guidance",
+        "echa.guidance.ircsa",
+        "echa.euses"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires each bucket-level surface to align with the elapsed-time first-order combined-loss expression on every bundled time-bucket fixture within fixture-declared tolerance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    },
+    {
+      "claimId": "advective_water_finite_duration_first_order_v1",
+      "displayName": "Advective water finite-duration first-order screening equation",
+      "evidenceFamily": "public_method_description_plus_internal_oracle",
+      "expectedOutputArtifactPath": "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.expected-outputs.json",
+      "lastReviewedDate": "2026-05-14",
+      "officialSourceIds": [
+        "echa.guidance.ircsa",
+        "echa.euses",
+        "epa.environmental_models_guidance"
+      ],
+      "officialSourceJurisdictions": [
+        "EU",
+        "US"
+      ],
+      "passed": true,
+      "satisfiedEvidenceFamilies": [
+        "independent_machine_readable_worksheet",
+        "official_guidance_case_family",
+        "official_modeling_guidance_case_family"
+      ],
+      "toleranceBasis": "Shipped advective worksheet pack requires the advective finite-duration screening surface to match the bundled hand-worked first-order degradation + first-order advective clearance fixtures within the fixture-declared tolerance. Internal-oracle posture remains because the advective family is non-promotable by governance.",
+      "worksheetArtifactPath": "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.worksheet.json",
+      "worksheetStatus": "ready"
+    }
+  ],
+  "defaultChangeSensitivityLines": [
+    "No shipped-default numeric changes are recorded in this release; the rebaseline posture is explicitly reviewed and no-change."
+  ],
+  "expectedOutputArtifactCount": 19,
+  "generatedArtifactPaths": [
+    "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.worksheet.json",
+    "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.worksheet.json",
+    "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_degradation_dominant_loss_share_v1.worksheet.json",
+    "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_extreme_persistence_clearance_bound_v1.worksheet.json",
+    "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_long_duration_combined_loss_plateau_v1.worksheet.json",
+    "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_long_residence_time_accumulation_anchor_v1.worksheet.json",
+    "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_loss_regime_flip_directionality_v1.worksheet.json",
+    "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_mixed_loss_transition_margin_v1.worksheet.json",
+    "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_post_release_flushing_directionality_v1.worksheet.json",
+    "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_post_release_flushing_recovery_v1.worksheet.json",
+    "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_post_release_flushing_regime_transition_v1.worksheet.json",
+    "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_post_release_half_recovery_directionality_v1.worksheet.json",
+    "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_post_release_half_recovery_pace_v1.worksheet.json",
+    "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_post_release_late_recovery_regime_v1.worksheet.json",
+    "advective-worksheet-pack/advective_residence_time_override_application_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_residence_time_override_application_v1.worksheet.json",
+    "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_residence_time_turnover_regime_v1.worksheet.json",
+    "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_short_residence_time_clearance_anchor_v1.worksheet.json",
+    "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_time_bucket_elapsed_time_v1.worksheet.json",
+    "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.expected-outputs.json",
+    "advective-worksheet-pack/advective_water_finite_duration_first_order_v1.worksheet.json"
+  ],
+  "governance": {
+    "claimCount": 19,
+    "explicitNonPromotableReasons": [
+      "governed_policy_retains_experimental_status",
+      "reference_style_anchor_gap"
+    ],
+    "missingIndependentEvidenceClaimIds": [],
+    "missingOfficialGuidanceClaimIds": [],
+    "nonReferenceStyleSupportClaimIds": [
+      "advective_clearance_dominant_loss_share_v1",
+      "advective_degradation_dominant_loss_share_v1",
+      "advective_extreme_persistence_clearance_bound_v1",
+      "advective_long_duration_combined_loss_plateau_v1",
+      "advective_long_residence_time_accumulation_anchor_v1",
+      "advective_loss_regime_flip_directionality_v1",
+      "advective_residence_time_override_application_v1",
+      "advective_short_residence_time_clearance_anchor_v1"
+    ],
+    "passed": true,
+    "policyHoldExperimental": true,
+    "remainsExperimental": true,
+    "sensitivityOnlySupportClaimIds": []
+  },
+  "modelFamily": "advective_screening_mass_balance",
+  "passed": true,
+  "promotable": false,
+  "promotionStatus": "non_promotable_experimental",
+  "remainsExperimental": true,
+  "reviewStatus": "reviewed_no_numeric_default_change",
+  "version": "0.5.0",
+  "worksheetArtifactCount": 19,
+  "worksheetPackDirectory": "advective-worksheet-pack"
+}

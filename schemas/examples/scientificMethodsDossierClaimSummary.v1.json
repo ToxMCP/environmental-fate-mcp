@@ -103,14 +103,18 @@
     "EU",
     "US"
   ],
-  "evidence_family": null,
-  "official_source_ids": [],
-  "worksheet_artifact_path": null,
-  "expected_output_artifact_path": null,
-  "worksheet_status": null,
-  "last_reviewed_date": null,
-  "tolerance_basis": null,
-  "reviewer_grade_passed": false,
+  "evidence_family": "public_method_description_plus_internal_oracle",
+  "official_source_ids": [
+    "echa.guidance.ircsa",
+    "echa.euses",
+    "epa.environmental_models_guidance"
+  ],
+  "worksheet_artifact_path": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.worksheet.json",
+  "expected_output_artifact_path": "advective-worksheet-pack/advective_cumulative_mass_balance_closure_v1.expected-outputs.json",
+  "worksheet_status": "ready",
+  "last_reviewed_date": "2026-05-14",
+  "tolerance_basis": "Shipped advective worksheet pack requires |emitted_mass - retained_mass - cumulative_degraded_mass - cumulative_advected_mass| to remain below the screening closure threshold on every bundled fixture (typically < 1 microgram).",
+  "reviewer_grade_passed": true,
   "external_corroboration_lines": [
     "Advective cumulative mass-balance closure: external corroboration status is multi_official_multi_jurisdiction from 2 official source(s).",
     "Advective cumulative mass-balance closure: independent external corroboration cites ECHA EUSES support page, EPA Guidance on the Development, Evaluation, and Application of Environmental Models.",
@@ -137,6 +141,8 @@
     "EPA flow-through water screening case family: This governed reference case family anchors finite-duration flowing-water screening logic against EPA environmental model guidance for bounded transport and model-use transparency.",
     "Advective clearance edge-condition case family: This governed reference case family anchors the experimental advective screening model at the two reviewer-critical clearance extremes: short residence time and long residence time under effective persistence."
   ],
-  "review_notes": [],
+  "review_notes": [
+    "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+  ],
   "gap_lines": []
 }

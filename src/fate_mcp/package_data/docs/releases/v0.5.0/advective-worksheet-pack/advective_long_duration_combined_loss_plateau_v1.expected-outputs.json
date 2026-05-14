@@ -1,0 +1,46 @@
+{
+  "claimId": "advective_long_duration_combined_loss_plateau_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective long-duration combined-loss plateau anchor",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.3858466147386445e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_long_duration_plateau_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.385860033372679e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_long_duration_plateau_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 9.119315008680499e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_long_duration_plateau_sensitivity_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires long-duration runs to approach the combined-loss plateau on every bundled duration-edge fixture within fixture-declared tolerance.",
+  "version": "0.5.0"
+}

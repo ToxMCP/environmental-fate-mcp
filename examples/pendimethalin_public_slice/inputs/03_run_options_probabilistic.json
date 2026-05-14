@@ -1,0 +1,12 @@
+{
+  "bucket_count": 1,
+  "bucket_duration_days": 1.0,
+  "escalation_concerns": [],
+  "fit_for_purpose": "screening",
+  "fugacity_screening_level": "level_i_equilibrium",
+  "model_family": "reference_mass_balance",
+  "region_profile_id": "eu_screening_default",
+  "requested_media": [],
+  "run_mode": "steady_state",
+  "schema_version": "v1"
+}

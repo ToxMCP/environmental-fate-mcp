@@ -1,0 +1,141 @@
+{
+  "annual_soil_loss_t_ha_yr": 6.12,
+  "assumptions": [
+    {
+      "parameter": "rainfall_erosivity_r",
+      "quality_flags": [],
+      "rationale": "Caller-provided RUSLE rainfall erosivity factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "R factor",
+      "value": 85.0
+    },
+    {
+      "parameter": "soil_erodibility_k",
+      "quality_flags": [],
+      "rationale": "Caller-provided RUSLE soil erodibility factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "K factor",
+      "value": 0.3
+    },
+    {
+      "parameter": "slope_length_steepness_ls",
+      "quality_flags": [],
+      "rationale": "Caller-provided RUSLE topographic factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "dimensionless",
+      "value": 1.2
+    },
+    {
+      "parameter": "cover_management_c",
+      "quality_flags": [],
+      "rationale": "Caller-provided RUSLE cover-management factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "dimensionless",
+      "value": 0.2
+    },
+    {
+      "parameter": "support_practice_p",
+      "quality_flags": [],
+      "rationale": "Caller-provided RUSLE support-practice factor.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "dimensionless",
+      "value": 1.0
+    },
+    {
+      "parameter": "area_ha",
+      "quality_flags": [],
+      "rationale": "Caller-provided area used to convert RUSLE rate to annual total soil loss.",
+      "source_classification": "user_input",
+      "source_reference": null,
+      "unit": "ha",
+      "value": 2.5
+    }
+  ],
+  "calculation_trace": {
+    "equation_id": "rusle_v1",
+    "equation_text": "A = R * K * LS * C * P",
+    "notes": [
+      "A is a long-term average annual soil-loss screening estimate.",
+      "Optional total soil loss multiplies A by area_ha when area_ha is supplied."
+    ],
+    "resolved_terms": [
+      {
+        "name": "rainfall_erosivity_r",
+        "unit": null,
+        "value": 85.0
+      },
+      {
+        "name": "soil_erodibility_k",
+        "unit": null,
+        "value": 0.3
+      },
+      {
+        "name": "slope_length_steepness_ls",
+        "unit": null,
+        "value": 1.2
+      },
+      {
+        "name": "cover_management_c",
+        "unit": null,
+        "value": 0.2
+      },
+      {
+        "name": "support_practice_p",
+        "unit": null,
+        "value": 1.0
+      },
+      {
+        "name": "annual_soil_loss",
+        "unit": "t/ha/yr",
+        "value": 6.12
+      },
+      {
+        "name": "area_ha",
+        "unit": "ha",
+        "value": 2.5
+      },
+      {
+        "name": "total_soil_loss",
+        "unit": "t/yr",
+        "value": 15.3
+      }
+    ]
+  },
+  "handoff_notes": [
+    "Use this as an erosion potential or gross soil-loss screen, not as delivered sediment to surface water.",
+    "Use MUSLE or an external hydrology/sediment model when event sediment yield is needed."
+  ],
+  "limitations": [
+    {
+      "code": "erosion_sediment_screening_only",
+      "message": "This result is a scalar screening estimate for erosion-mediated transport; it is not a calibrated watershed, GIS, hydrodynamic, exposure, risk, or regulatory decision model."
+    },
+    {
+      "code": "no_explicit_spatial_routing",
+      "message": "The v1 erosion/sediment tools do not simulate hillslope routing, channel transport, deposition fields, rainfall-runoff generation, or receiving-water dilution."
+    }
+  ],
+  "method_id": "rusle",
+  "provenance": {
+    "algorithm_version": "reference-mass-balance-0.1.0",
+    "defaults_version": "v1",
+    "generated_at": "2026-05-14T12:00:00Z",
+    "schema_version": "v1",
+    "source_references": [
+      {
+        "effective_date": null,
+        "source_id": "usda.nrcs.rusle.efotg",
+        "title": "USDA NRCS Revised Universal Soil Loss Equation guidance",
+        "url": "https://efotg.sc.egov.usda.gov/references/public/WA/Revised_Universal_Soil_Loss_Equation_%28RUSLE%29.htm"
+      }
+    ]
+  },
+  "quality_flags": [],
+  "schema_version": "v1",
+  "total_soil_loss_t_yr": 15.3
+}

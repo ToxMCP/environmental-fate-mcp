@@ -83,7 +83,7 @@
     },
     {
       "path": "defaults/v1/scientific_external_benchmark_pack.json",
-      "sha256": "f940446d73cdacb401687fb610a22bda0d8a65b2b67d3489ad8aa72bf56f39e0",
+      "sha256": "83375baceb23b38a291b11494f0ca5338d5b5c36ef588c7a1015a8038c55cee4",
       "defaultsVersion": "v1"
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "path": "defaults/v1/scientific_validation_claims.json",
-      "sha256": "ec9ebb0e23f9592d46c226b1ceaa20e1bf56be4163438d0f3eed48dfb719a7b4",
+      "sha256": "2c7cffbe593f341e26cc048ffc16c1cdcb37c171a0d102e696139deb74ac4fd0",
       "defaultsVersion": "v1"
     },
     {

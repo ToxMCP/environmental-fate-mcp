@@ -1,0 +1,102 @@
+{
+  "chemical_identity": {
+    "casrn": "40487-42-1",
+    "preferredName": "Pendimethalin",
+    "substance_class": "organic chemical"
+  },
+  "context_label": "uk_arable_screening",
+  "duration_days": 1.0,
+  "evidence_sources": [
+    {
+      "effective_date": "2024-06-01",
+      "source_id": "footprint.ppdb.pendimethalin",
+      "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+      "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+    }
+  ],
+  "parameter_records": [
+    {
+      "evidence_quality": "reference",
+      "parameter": "water_half_life_days",
+      "rationale": "Pendimethalin surface-water DT50 (FOOTPRINT PPDB).",
+      "source_classification": "user_input",
+      "unit": "day",
+      "value": 16.0
+    },
+    {
+      "distribution": {
+        "bounds": [
+          33.0,
+          182.0
+        ],
+        "distribution_type": "lognormal",
+        "parameters": {
+          "mu": 4.61,
+          "sigma": 0.5
+        },
+        "sampling_basis": "PPDB-reported field soil DT50 range across temperate trials (approximately 33-182 days); lognormal screening envelope with median 100 d."
+      },
+      "evidence_quality": "reference",
+      "parameter": "soil_half_life_days",
+      "rationale": "Pendimethalin field soil DT50 (FOOTPRINT PPDB).",
+      "source_classification": "user_input",
+      "unit": "day",
+      "value": 100.0
+    },
+    {
+      "evidence_quality": "reference",
+      "parameter": "air_half_life_days",
+      "rationale": "Tropospheric OH-radical photodegradation estimate.",
+      "source_classification": "user_input",
+      "unit": "day",
+      "value": 0.45
+    },
+    {
+      "evidence_quality": "reference",
+      "parameter": "log_kow",
+      "rationale": "Pendimethalin log Kow (FOOTPRINT PPDB).",
+      "source_classification": "user_input",
+      "unit": "log10",
+      "value": 5.18
+    },
+    {
+      "evidence_quality": "reference",
+      "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
+      "rationale": "Pendimethalin Koc (FOOTPRINT PPDB).",
+      "source_classification": "user_input",
+      "unit": "L/kg",
+      "value": 17491.0
+    },
+    {
+      "evidence_quality": "reference",
+      "parameter": "molecular_weight_g_mol",
+      "rationale": "Pendimethalin molecular weight.",
+      "source_classification": "user_input",
+      "unit": "g/mol",
+      "value": 281.31
+    },
+    {
+      "evidence_quality": "reference",
+      "parameter": "henry_law_constant_pa_m3_mol",
+      "rationale": "Pendimethalin Henry's law constant (FOOTPRINT PPDB).",
+      "source_classification": "user_input",
+      "unit": "Pa*m3/mol",
+      "value": 2.728
+    }
+  ],
+  "region_id": "eu_screening_default",
+  "release_fractions": [
+    {
+      "fraction": 0.95,
+      "medium": "soil"
+    },
+    {
+      "fraction": 0.05,
+      "medium": "air"
+    }
+  ],
+  "temperature_c": 12.0,
+  "timing_pattern": "continuous",
+  "total_release_mass_kg": 2.5,
+  "treatment_assumptions": []
+}

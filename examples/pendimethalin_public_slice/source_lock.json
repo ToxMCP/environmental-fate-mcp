@@ -1,0 +1,94 @@
+{
+  "casePackId": "pendimethalin_public_slice_v1",
+  "lockedOn": "2026-05-14",
+  "nonClaims": [
+    "This slice does not reproduce EUSES, SimpleBox, ChemFate, EUFRAM, or PRZM model outputs.",
+    "This slice does not execute WEPP, hydrologic routing, or channel transport.",
+    "This slice does not claim regulatory acceptance, submission readiness, or source-engine equivalence.",
+    "This slice does not field-validate or calibrate against UK monitoring data.",
+    "This slice's R/K/LS/C/P values are illustrative UK arable inputs, not site-measured factors.",
+    "This slice's MUSLE Q and q_p values are illustrative design-storm inputs, not measured runoff.",
+    "This slice's region defaults are EU regional-screening surrogates; the UK has post-Brexit divergence that is not modelled in this v1 slice."
+  ],
+  "purpose": "Public-source Environmental Fate MCP demonstration of UK arable pendimethalin screening through the deterministic, probabilistic, scientific review, and erosion / sediment lanes.",
+  "screeningInputPosture": {
+    "physchemPosture": "public_source_anchored_screening_fixture",
+    "physchemReviewStatus": "schema_reviewed_and_source_grounded",
+    "regionPosture": "eu_regional_screening_default_used_as_uk_proxy",
+    "scenarioPosture": "illustrative_uk_arable_screening_scenario",
+    "scenarioReviewStatus": "schema_reviewed_not_site_calibrated"
+  },
+  "sourceAnchors": [
+    {
+      "casePackReviewedAt": "2026-05-14T00:00:00Z",
+      "lockedFacts": [
+        "Pendimethalin is a dinitroaniline herbicide widely used on UK arable crops.",
+        "Pendimethalin Koc is reported as approximately 17 491 L/kg, indicating strong sorption to soil.",
+        "Pendimethalin log Kow is reported as 5.18, consistent with high hydrophobicity.",
+        "Surface-water DT50 is reported as approximately 16 days under PPDB-cited conditions.",
+        "Field soil DT50 is reported as approximately 100 days."
+      ],
+      "observedUse": "Physchem evidence: water DT50, soil DT50, log Kow, Koc, Henry's law constant, molecular weight.",
+      "publisherLastReviewed": "2024-06-01",
+      "retrievalMethod": "manual_web_review",
+      "retrievedAt": "2026-05-14T00:00:00Z",
+      "sourceId": "footprint.ppdb.pendimethalin",
+      "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+      "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+    },
+    {
+      "casePackReviewedAt": "2026-05-14T00:00:00Z",
+      "lockedFacts": [
+        "ECHA Guidance R.16 describes regional screening environmental compartment defaults.",
+        "Temperature correction is governed against a 25 degC reference temperature."
+      ],
+      "observedUse": "Governed regional-screening default capacities (soil mass, freshwater volume, ambient air volume) and the half-life scaling temperature-correction policy.",
+      "publisherLastReviewed": null,
+      "retrievalMethod": "manual_web_review",
+      "retrievedAt": "2026-05-14T00:00:00Z",
+      "sourceId": "echa.guidance.ircsa",
+      "title": "ECHA Guidance on Information Requirements and Chemical Safety Assessment",
+      "url": "https://echa.europa.eu/guidance-documents/guidance-on-information-requirements-and-chemical-safety-assessment"
+    },
+    {
+      "casePackReviewedAt": "2026-05-14T00:00:00Z",
+      "lockedFacts": [
+        "OECD Section 3 covers degradation and accumulation test guidelines."
+      ],
+      "observedUse": "Reference case family for hand-worked single-medium first-order screening equations.",
+      "publisherLastReviewed": null,
+      "retrievalMethod": "manual_web_review",
+      "retrievedAt": "2026-05-14T00:00:00Z",
+      "sourceId": "oecd.test_guidelines.section3",
+      "title": "OECD Test Guidelines for the Testing of Chemicals, Section 3",
+      "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html"
+    },
+    {
+      "casePackReviewedAt": "2026-05-14T00:00:00Z",
+      "lockedFacts": [
+        "RUSLE predicts annual soil loss as A = R x K x LS x C x P.",
+        "The factors are dimensionless or have published units in Handbook 703."
+      ],
+      "observedUse": "Source for the RUSLE A = R x K x LS x C x P screening formulation. Slice values for R, K, LS, C, and P are illustrative UK lowland arable inputs, not field-measured site values.",
+      "publisherLastReviewed": null,
+      "retrievalMethod": "manual_web_review",
+      "retrievedAt": "2026-05-14T00:00:00Z",
+      "sourceId": "usda.rusle.handbook703",
+      "title": "USDA Agriculture Handbook 703 - Predicting Soil Erosion by Water (RUSLE)",
+      "url": "https://www.ars.usda.gov/ARSUserFiles/64080530/RUSLE/AH_703.pdf"
+    },
+    {
+      "casePackReviewedAt": "2026-05-14T00:00:00Z",
+      "lockedFacts": [
+        "MUSLE replaces the RUSLE rainfall erosivity factor R with a runoff energy factor 11.8 x (Q x q_p)^0.56."
+      ],
+      "observedUse": "Source for the MUSLE Y = 11.8 x (Q x q_p)^0.56 x K x LS x C x P event sediment-yield formulation.",
+      "publisherLastReviewed": null,
+      "retrievalMethod": "manual_web_review",
+      "retrievedAt": "2026-05-14T00:00:00Z",
+      "sourceId": "usda.musle.williams1975",
+      "title": "Williams 1975 - Sediment-yield prediction with universal equation using runoff energy factor (MUSLE)",
+      "url": "https://naldc.nal.usda.gov/download/CAT87208932/PDF"
+    }
+  ]
+}

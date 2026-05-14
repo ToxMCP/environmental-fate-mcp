@@ -71,16 +71,24 @@
     "advective_clearance_edge_case_family_v1",
     "echa_bounded_clearance_edge_case_family_v1"
   ],
-  "evidence_family": null,
-  "official_source_ids": [],
-  "worksheet_artifact_path": null,
-  "expected_output_artifact_path": null,
-  "worksheet_status": null,
-  "last_reviewed_date": null,
-  "tolerance_basis": null,
+  "evidence_family": "public_method_description_plus_internal_oracle",
+  "official_source_ids": [
+    "echa.euses",
+    "epa.environmental_models_guidance",
+    "echa.guidance.ircsa"
+  ],
+  "worksheet_artifact_path": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.worksheet.json",
+  "expected_output_artifact_path": "advective-worksheet-pack/advective_clearance_dominant_loss_share_v1.expected-outputs.json",
+  "worksheet_status": "ready",
+  "last_reviewed_date": "2026-05-14",
+  "tolerance_basis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
   "next_corroboration_action": "Maintain challenge-path wording, preserve at least two independent evidence families with official guidance anchoring, and require non-author review before any promotion beyond experimental screening use.",
-  "review_notes": [],
-  "plugin_code_references": [],
+  "review_notes": [
+    "This claim is verified against the experimental advective challenge family via deterministic internal-oracle fixtures; reviewer-grade promotion remains gated on shipping an independent hand-worked advective worksheet pack."
+  ],
+  "plugin_code_references": [
+    "fate_mcp.plugins.advective_screening_mass_balance:AdvectiveScreeningMassBalancePlugin._build_surface"
+  ],
   "source_pack": "defaults/v1/scientific_validation_claims.json",
   "applicability_note": null
 }

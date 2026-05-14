@@ -1,0 +1,125 @@
+{
+  "claimId": "advective_mixed_loss_transition_margin_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective mixed-loss transition margin",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.360979061693635e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 1.5,
+            "advective_clearance_share_fraction": 0.5024594743239191,
+            "degradation_loss_share_fraction": 0.497540525676081,
+            "elapsed_turnover_count": 1.5,
+            "loss_dominance_margin_fraction": 0.0049189486478381506,
+            "total_loss_constant_per_day": 0.19902102579427788
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 3180489.530846818,
+            "cumulative_advected_mass_mg": 3426527.645477171,
+            "cumulative_degraded_mass_mg": 3392982.823676012,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": -4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_mixed_loss_transition_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 5.893869007823266e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.4902631842044826,
+            "degradation_loss_share_fraction": 0.5097368157955173,
+            "loss_dominance_margin_fraction": 0.019473631591034712,
+            "total_loss_constant_per_day": 0.2719627694453224
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 2946934.5039116335,
+            "cumulative_advected_mass_mg": 3457858.3485150514,
+            "cumulative_degraded_mass_mg": 3595207.147573315,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_mixed_loss_transition_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 5.8776993269409705e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "active_emission_turnover_count": 1.7142857142857142,
+            "advective_clearance_share_fraction": 0.5236271913524778,
+            "degradation_loss_share_fraction": 0.4763728086475221,
+            "elapsed_turnover_count": 1.7142857142857142,
+            "finite_plateau_mass_mg": 3054491.9495561207,
+            "flow_through_boundary_offset_turnovers": -0.2857142857142858,
+            "loss_dominance_margin_fraction": 0.047254382704955744,
+            "retained_mass_fraction_of_finite_plateau": 0.9621402550750082,
+            "storage_boundary_offset_turnovers": 0.9642857142857142
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 2938849.6634704852,
+            "cumulative_advected_mass_mg": 3697410.318434553,
+            "cumulative_degraded_mass_mg": 3363740.0180949606,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 9.313225746154785e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_transition_boundary_reference_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+  "version": "0.5.0"
+}

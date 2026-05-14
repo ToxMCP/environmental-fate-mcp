@@ -1,0 +1,104 @@
+{
+  "claimId": "advective_degradation_dominant_loss_share_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective degradation-dominant loss-share transition",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 2.6896628583037676e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.06728142326036424,
+            "degradation_loss_share_fraction": 0.9327185767396358,
+            "total_loss_constant_per_day": 0.37157359027997267
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 1344831.4291518838,
+            "cumulative_advected_mass_mg": 582332.060005034,
+            "cumulative_degraded_mass_mg": 8072836.510843082,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 3.4924596548080444e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_degradation_dominant_loss_share_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 3.1530495825671985e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.08774078928675218,
+            "degradation_loss_share_fraction": 0.9122592107132478,
+            "total_loss_constant_per_day": 0.25327128240887065
+          },
+          "tolerance": 1e-12
+        },
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "compartment_mass_at_elapsed_mg": 1576524.791283599,
+            "cumulative_advected_mass_mg": 739082.3633501665,
+            "cumulative_degraded_mass_mg": 7684392.845366233,
+            "emitted_mass_to_elapsed_mg": 10000000.0,
+            "mass_balance_closure_error_mg": 4.656612873077393e-10
+          },
+          "tolerance": 1e-06
+        }
+      ],
+      "fixtureName": "advective_degradation_dominant_loss_share_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 6.16170186633071e-06
+        }
+      ],
+      "expectedTraceTerms": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "terms": {
+            "advective_clearance_share_fraction": 0.4839380295828944,
+            "degradation_loss_share_fraction": 0.5160619704171056,
+            "loss_dominance_margin_fraction": 0.03212394083421116,
+            "total_loss_constant_per_day": 0.20663802777845314
+          },
+          "tolerance": 1e-12
+        }
+      ],
+      "fixtureName": "advective_transition_flip_to_degradation_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires the dominant-loss classification to match the hand-worked anchor + companion fixtures across degradation-dominant, clearance-dominant, and mixed-margin configurations within fixture-declared tolerance.",
+  "version": "0.5.0"
+}

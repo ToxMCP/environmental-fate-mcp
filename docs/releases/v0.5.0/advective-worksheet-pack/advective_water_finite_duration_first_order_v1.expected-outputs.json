@@ -1,0 +1,58 @@
+{
+  "claimId": "advective_water_finite_duration_first_order_v1",
+  "defaultReviewStatus": "reviewed_no_numeric_default_change",
+  "displayName": "Advective water finite-duration first-order screening equation",
+  "expectedOutputs": [
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.3858466147386445e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_long_duration_plateau_anchor_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.385860033372679e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_long_duration_plateau_companion_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 9.119315008680499e-06
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_long_duration_plateau_sensitivity_fixture"
+    },
+    {
+      "expectedSurfaces": [
+        {
+          "compartment": "surface_water",
+          "medium": "water",
+          "unit": "mg/L",
+          "value": 1.0585430701990208e-05
+        }
+      ],
+      "expectedTraceTerms": [],
+      "fixtureName": "advective_water_reference_chemical_style_fixture"
+    }
+  ],
+  "lastReviewedDate": "2026-05-14",
+  "toleranceBasis": "Shipped advective worksheet pack requires the advective finite-duration screening surface to match the bundled hand-worked first-order degradation + first-order advective clearance fixtures within the fixture-declared tolerance. Internal-oracle posture remains because the advective family is non-promotable by governance.",
+  "version": "0.5.0"
+}

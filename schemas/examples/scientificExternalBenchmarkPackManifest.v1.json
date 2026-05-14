@@ -4,8 +4,8 @@
   "case_count": 8,
   "cases": [
     {
-      "benchmark_case_id": "reference_water_closed_form_internal_oracle_v1",
-      "display_name": "Reference water closed-form internal oracle",
+      "benchmark_case_id": "reference_water_closed_form_self_consistency_oracle_v1",
+      "display_name": "Reference water closed-form self-consistency oracle",
       "classification": "internal_oracle",
       "replay_tool": "fate_estimate_multimedia_concentrations",
       "model_family": "reference_mass_balance",
@@ -17,7 +17,7 @@
       "tolerance_relative": 1e-10,
       "input_payload": {
         "chemical_identity": {
-          "preferredName": "External benchmark closed-form substance",
+          "preferredName": "Closed-form screening reference substance",
           "substance_class": "organic chemical"
         },
         "total_release_mass_kg": 10.0,
@@ -34,7 +34,7 @@
             "value": 10.0,
             "unit": "day",
             "source_classification": "user_input",
-            "rationale": "Closed-form benchmark override."
+            "rationale": "Round-number half-life pinned for closed-form self-consistency replay."
           }
         ],
         "run_options": {
@@ -49,14 +49,21 @@
           "title": "EPA Guidance on the Development, Evaluation, and Application of Environmental Models",
           "effective_date": null,
           "url": "https://www.epa.gov/measurements-modeling/guidance-development-evaluation-and-application-environmental-models"
+        },
+        {
+          "source_id": "methods.reference_mass_balance.v1",
+          "title": "Fate MCP governed reference-mass-balance method notes",
+          "effective_date": null,
+          "url": "docs://model_applicability_limits"
         }
       ],
       "interpretation_lines": [
-        "Replays the public reference closed-form first-order screening equation with fixed scalar inputs.",
-        "This case is an internal oracle for deterministic replay and auditability, not independent field validation."
+        "Anchors the closed-form C(t) = (R / (k*V)) * (1 - exp(-k*t)) first-order screening equation against the reference kernel implementation.",
+        "Acts as an internal-oracle drift detector: if the kernel diverges from the closed-form equation it implements (e.g., float-repr change, refactor regression), this case fails.",
+        "Inputs are deliberately round numbers; the case is a self-consistency anchor, not an external scientific validation."
       ],
       "limitations": [
-        "Screening closed-form replay only.",
+        "Internal-oracle self-consistency anchor only.",
         "Not a multimedia fate validation dataset, field observation, calibration case, or regulator acceptance claim."
       ],
       "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
@@ -188,20 +195,21 @@
       "regulatory_acceptance_claim": false
     },
     {
-      "benchmark_case_id": "fugacity_level_i_air_partition_internal_oracle_v1",
-      "display_name": "Fugacity Level I air partition internal oracle",
-      "classification": "internal_oracle",
+      "benchmark_case_id": "fugacity_level_i_air_benzene_open_literature_v1",
+      "display_name": "Fugacity Level I air partition: benzene open-literature benchmark",
+      "classification": "open_literature_reference",
       "replay_tool": "fate_estimate_multimedia_concentrations",
       "model_family": "fugacity_equilibrium_screening",
       "run_mode": "steady_state",
       "quantity": "air_concentration_mg_m3",
-      "expected_value": 6.832539557802613e-06,
+      "expected_value": 0.0030764400895792435,
       "expected_unit": "mg/m3",
       "tolerance_absolute": 1e-12,
       "tolerance_relative": 1e-10,
       "input_payload": {
         "chemical_identity": {
-          "preferredName": "Fugacity benchmark substance",
+          "preferredName": "Benzene",
+          "casrn": "71-43-2",
           "substance_class": "neutral organic chemical"
         },
         "total_release_mass_kg": 10.0,
@@ -227,24 +235,24 @@
         "parameter_records": [
           {
             "parameter": "molecular_weight_g_mol",
-            "value": 200.0,
+            "value": 78.11,
             "unit": "g/mol",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark molecular weight."
+            "rationale": "Benzene molecular weight (mackay.illustrated_handbook.benzene)."
           },
           {
             "parameter": "henry_law_constant_pa_m3_mol",
-            "value": 1.0,
+            "value": 557.0,
             "unit": "Pa m3/mol",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark Henry law constant."
+            "rationale": "Benzene Henry's law constant (mackay.illustrated_handbook.benzene)."
           },
           {
             "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
-            "value": 1000.0,
+            "value": 63.0,
             "unit": "L/kg",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark Koc."
+            "rationale": "Benzene Koc (mackay.illustrated_handbook.benzene)."
           }
         ],
         "run_options": {
@@ -259,25 +267,32 @@
       },
       "source_references": [
         {
+          "source_id": "mackay.illustrated_handbook.benzene",
+          "title": "Mackay, Shiu & Ma (1992) Illustrated Handbook of Physical-Chemical Properties and Environmental Fate for Organic Chemicals, Vol. I",
+          "effective_date": null,
+          "url": "https://comptox.epa.gov/dashboard/chemical/details/DTXSID3039242"
+        },
+        {
+          "source_id": "mackay.multimedia_environmental_models_2001",
+          "title": "Mackay (2001) Multimedia Environmental Models: The Fugacity Approach, 2nd ed., CRC Press",
+          "effective_date": null,
+          "url": "https://doi.org/10.1201/9781420032543"
+        },
+        {
           "source_id": "cemc.evaluative_fugacity_models",
           "title": "CEMC Evaluative Level I, II, III Fugacity Models",
           "effective_date": null,
           "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
-        },
-        {
-          "source_id": "cemc.level_iii_fugacity_model",
-          "title": "CEMC Level III Fugacity Model boundary description",
-          "effective_date": null,
-          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
         }
       ],
       "interpretation_lines": [
-        "Replays experimental fugacity Level I partitioning with fixed scalar inputs.",
-        "Checks deterministic screening implementation only."
+        "Exercises the Level I equilibrium-partitioning calculation against real benzene physchem (H = 557 Pa m3/mol; Koc = 63 L/kg) traceable to the Mackay Illustrated Handbook of Physical-Chemical Properties.",
+        "Benzene is the canonical Level I volatile-organic example in the multimedia fugacity literature; its high Henry's law constant drives the air partition that this case anchors.",
+        "The expected air concentration is what the Mackay Level I equations as implemented in the MCP yield given those public physchem inputs and the ECHA TGD regional-screening compartment defaults."
       ],
       "limitations": [
-        "Screening oracle only.",
-        "Not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III, routing, or WEPP validation."
+        "Open-literature reference: published physchem + published equation; not a field measurement.",
+        "Not field validation, calibration evidence, source-engine equivalence to OECD Pov tool or EQC, regulator acceptance, Level III, routing, or WEPP validation."
       ],
       "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
       "screening_only": true,
@@ -380,20 +395,21 @@
       "regulatory_acceptance_claim": false
     },
     {
-      "benchmark_case_id": "fugacity_level_i_soil_koc_partition_internal_oracle_v1",
-      "display_name": "Fugacity Level I soil Koc partition internal oracle",
-      "classification": "internal_oracle",
+      "benchmark_case_id": "fugacity_level_i_soil_pendimethalin_open_literature_v1",
+      "display_name": "Fugacity Level I soil Koc partition: pendimethalin open-literature benchmark",
+      "classification": "open_literature_reference",
       "replay_tool": "fate_estimate_multimedia_concentrations",
       "model_family": "fugacity_equilibrium_screening",
       "run_mode": "steady_state",
       "quantity": "soil_concentration_mg_kg",
-      "expected_value": 0.0003387514393370236,
+      "expected_value": 0.0016856435581918657,
       "expected_unit": "mg/kg",
       "tolerance_absolute": 1e-12,
       "tolerance_relative": 1e-10,
       "input_payload": {
         "chemical_identity": {
-          "preferredName": "Fugacity benchmark substance",
+          "preferredName": "Pendimethalin",
+          "casrn": "40487-42-1",
           "substance_class": "neutral organic chemical"
         },
         "total_release_mass_kg": 10.0,
@@ -419,24 +435,24 @@
         "parameter_records": [
           {
             "parameter": "molecular_weight_g_mol",
-            "value": 200.0,
+            "value": 281.31,
             "unit": "g/mol",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark molecular weight."
+            "rationale": "Pendimethalin molecular weight (footprint.ppdb.pendimethalin)."
           },
           {
             "parameter": "henry_law_constant_pa_m3_mol",
-            "value": 1.0,
+            "value": 2.728,
             "unit": "Pa m3/mol",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark Henry law constant."
+            "rationale": "Pendimethalin Henry's law constant (footprint.ppdb.pendimethalin)."
           },
           {
             "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
-            "value": 1000.0,
+            "value": 17491.0,
             "unit": "L/kg",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark Koc."
+            "rationale": "Pendimethalin Koc (footprint.ppdb.pendimethalin)."
           }
         ],
         "run_options": {
@@ -451,45 +467,53 @@
       },
       "source_references": [
         {
+          "source_id": "footprint.ppdb.pendimethalin",
+          "title": "FOOTPRINT Pesticide Properties DataBase - Pendimethalin",
+          "effective_date": null,
+          "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/525.htm"
+        },
+        {
+          "source_id": "mackay.multimedia_environmental_models_2001",
+          "title": "Mackay (2001) Multimedia Environmental Models: The Fugacity Approach, 2nd ed., CRC Press",
+          "effective_date": null,
+          "url": "https://doi.org/10.1201/9781420032543"
+        },
+        {
           "source_id": "cemc.evaluative_fugacity_models",
           "title": "CEMC Evaluative Level I, II, III Fugacity Models",
           "effective_date": null,
           "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
-        },
-        {
-          "source_id": "cemc.level_iii_fugacity_model",
-          "title": "CEMC Level III Fugacity Model boundary description",
-          "effective_date": null,
-          "url": "https://www.trentu.ca/cemc/resources-and-models/level-iii-model"
         }
       ],
       "interpretation_lines": [
-        "Replays experimental fugacity Level I partitioning with fixed scalar inputs.",
-        "Checks deterministic screening implementation only."
+        "Exercises the Level I equilibrium-partitioning calculation against real pendimethalin physchem (Koc = 17491 L/kg; logKow = 5.18) traceable to the FOOTPRINT Pesticide Properties DataBase.",
+        "Pendimethalin's high Koc drives a strong soil partition; this case anchors the soil-medium fraction of the Mackay Level I distribution against a publicly-cited hydrophobic pesticide.",
+        "The expected soil concentration is what the Mackay Level I equations as implemented in the MCP yield given the FOOTPRINT physchem and the ECHA TGD regional soil-compartment defaults."
       ],
       "limitations": [
-        "Screening oracle only.",
-        "Not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III, routing, or WEPP validation."
+        "Open-literature reference: published physchem + published equation; not a field measurement.",
+        "Not field validation, calibration evidence, source-engine equivalence to OECD Pov tool or EQC, regulator acceptance, Level III, routing, or WEPP validation."
       ],
       "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
       "screening_only": true,
       "regulatory_acceptance_claim": false
     },
     {
-      "benchmark_case_id": "fugacity_level_ii_water_loss_balance_internal_oracle_v1",
-      "display_name": "Fugacity Level II water loss-balance internal oracle",
-      "classification": "internal_oracle",
+      "benchmark_case_id": "fugacity_level_ii_water_atrazine_open_literature_v1",
+      "display_name": "Fugacity Level II water loss-balance: atrazine open-literature benchmark",
+      "classification": "open_literature_reference",
       "replay_tool": "fate_estimate_multimedia_concentrations",
       "model_family": "fugacity_equilibrium_screening",
       "run_mode": "steady_state",
       "quantity": "water_concentration_mg_m3_level_ii",
-      "expected_value": 0.01332475839396872,
+      "expected_value": 0.07923144135090403,
       "expected_unit": "mg/m3",
       "tolerance_absolute": 1e-12,
       "tolerance_relative": 1e-10,
       "input_payload": {
         "chemical_identity": {
-          "preferredName": "Fugacity benchmark substance",
+          "preferredName": "Atrazine",
+          "casrn": "1912-24-9",
           "substance_class": "neutral organic chemical"
         },
         "total_release_mass_kg": 10.0,
@@ -515,24 +539,31 @@
         "parameter_records": [
           {
             "parameter": "molecular_weight_g_mol",
-            "value": 200.0,
+            "value": 215.68,
             "unit": "g/mol",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark molecular weight."
+            "rationale": "Atrazine molecular weight (footprint.ppdb.atrazine)."
           },
           {
             "parameter": "henry_law_constant_pa_m3_mol",
-            "value": 1.0,
+            "value": 0.00015,
             "unit": "Pa m3/mol",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark Henry law constant."
+            "rationale": "Atrazine Henry's law constant (footprint.ppdb.atrazine)."
           },
           {
             "parameter": "organic_carbon_partition_coefficient_koc_l_kg",
-            "value": 1000.0,
+            "value": 100.0,
             "unit": "L/kg",
             "source_classification": "user_input",
-            "rationale": "Fugacity benchmark Koc."
+            "rationale": "Atrazine Koc (footprint.ppdb.atrazine)."
+          },
+          {
+            "parameter": "water_half_life_days",
+            "value": 86.0,
+            "unit": "day",
+            "source_classification": "user_input",
+            "rationale": "Atrazine surface-water DT50 (footprint.ppdb.atrazine)."
           }
         ],
         "run_options": {
@@ -547,10 +578,16 @@
       },
       "source_references": [
         {
-          "source_id": "cemc.evaluative_fugacity_models",
-          "title": "CEMC Evaluative Level I, II, III Fugacity Models",
+          "source_id": "footprint.ppdb.atrazine",
+          "title": "FOOTPRINT Pesticide Properties DataBase - Atrazine",
           "effective_date": null,
-          "url": "https://www.trentu.ca/cemc/resources-and-models/evaluative-level-i-ii-iii-fugacity-models"
+          "url": "https://sitem.herts.ac.uk/aeru/ppdb/en/Reports/43.htm"
+        },
+        {
+          "source_id": "mackay.multimedia_environmental_models_2001",
+          "title": "Mackay (2001) Multimedia Environmental Models: The Fugacity Approach, 2nd ed., CRC Press",
+          "effective_date": null,
+          "url": "https://doi.org/10.1201/9781420032543"
         },
         {
           "source_id": "oecd.pov_lrtp_screening_tool",
@@ -560,12 +597,13 @@
         }
       ],
       "interpretation_lines": [
-        "Replays experimental fugacity Level II equilibrium persistence with fixed scalar inputs.",
-        "Checks deterministic screening implementation only."
+        "Exercises the Level II equilibrium-persistence calculation against real atrazine physchem (low Henry's law = 1.5e-4 Pa m3/mol; water DT50 = 86 d) traceable to the FOOTPRINT Pesticide Properties DataBase.",
+        "Atrazine's low Henry's law constant directs most loss through aqueous-phase degradation; this case anchors the water-medium Level II loss balance against a publicly-cited persistent water-soluble herbicide.",
+        "The expected water concentration is what the Mackay Level II equations as implemented in the MCP yield given the FOOTPRINT physchem and the governed degradation-loss balance."
       ],
       "limitations": [
-        "Screening oracle only.",
-        "Not field validation, calibration evidence, source-engine equivalence, regulator acceptance, Level III, routing, or WEPP validation."
+        "Open-literature reference: published physchem + published equation; not a field measurement.",
+        "Not field validation, calibration evidence, source-engine equivalence to OECD Pov tool, regulator acceptance, Level III, intermedia transfer, routing, or WEPP validation."
       ],
       "source_pack": "defaults/v1/scientific_external_benchmark_pack.json",
       "screening_only": true,
