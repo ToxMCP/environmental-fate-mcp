@@ -39,6 +39,9 @@ from fate_mcp.models import (
     RunParameterManifest,
     RunParameterManifestEntry,
     RunMode,
+    SanitisationRecord,
+    SanitisationRedactionKind,
+    SanitisedConcentrationSurfaceBundle,
     Severity,
     SurfaceDelta,
     SourceClassification,
@@ -70,6 +73,111 @@ def build_concentration_surface_bundle(result: ConcentrationEstimationResult) ->
     hash_input = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
     bundle.integrity_hash = hashlib.sha256(hash_input.encode("utf-8")).hexdigest()
     return bundle
+
+
+REDACTED_VALUE_PLACEHOLDER = "[REDACTED]"
+
+
+def sanitise_concentration_surface_bundle_for_public_release(
+    bundle: ConcentrationSurfaceBundle,
+    *,
+    redact_parameter_names: list[str],
+    remove_source_ids: list[str],
+    sanitisation_rationale: str | None = None,
+) -> SanitisedConcentrationSurfaceBundle:
+    """Produce a public-facing projection of a ConcentrationSurfaceBundle.
+
+    For every assumption whose ``parameter`` is in ``redact_parameter_names``,
+    the assumption's ``value`` is replaced with the ``[REDACTED]`` placeholder
+    and any embedded ``source_reference`` is stripped. For every
+    ``source_reference`` (on any assumption record in the bundle) whose
+    ``source_id`` is in ``remove_source_ids``, the reference is set to
+    ``None``. Every redaction is recorded in
+    ``SanitisedConcentrationSurfaceBundle.sanitisation_records`` so the
+    public bundle is fully reviewable: a consumer can see exactly which
+    parameters and source references were scrubbed without seeing the
+    underlying confidential payload.
+
+    The sanitised bundle carries its own ``sanitised_integrity_hash`` and
+    pins the source bundle's ``integrity_hash`` so consumers can prove the
+    sanitisation derives from a specific raw bundle without ever needing
+    the raw bundle itself.
+    """
+    redact_parameter_names_set = set(redact_parameter_names)
+    remove_source_ids_set = set(remove_source_ids)
+
+    # Deep-copy via Pydantic so the source bundle is not mutated.
+    scrubbed_assumptions: list[FateAssumptionRecord] = []
+    sanitisation_records: list[SanitisationRecord] = []
+
+    for index, assumption in enumerate(bundle.assumptions):
+        scrubbed = assumption.model_copy(deep=True)
+        if scrubbed.parameter in redact_parameter_names_set:
+            sanitisation_records.append(
+                SanitisationRecord(
+                    field_path=f"assumptions[{index}].value",
+                    redaction_kind=SanitisationRedactionKind.PARAMETER_VALUE_REDACTED_TO_PLACEHOLDER,
+                    parameter_or_source_id=scrubbed.parameter,
+                    rationale=(
+                        sanitisation_rationale
+                        or "Parameter declared confidential by sanitisation request."
+                    ),
+                    replacement_marker=REDACTED_VALUE_PLACEHOLDER,
+                )
+            )
+            scrubbed.value = REDACTED_VALUE_PLACEHOLDER
+            # Also drop the source reference embedded on a redacted assumption
+            # because its source_id may itself be confidential evidence.
+            if scrubbed.source_reference is not None:
+                sanitisation_records.append(
+                    SanitisationRecord(
+                        field_path=f"assumptions[{index}].source_reference",
+                        redaction_kind=SanitisationRedactionKind.SOURCE_REFERENCE_REMOVED,
+                        parameter_or_source_id=scrubbed.source_reference.source_id,
+                        rationale=(
+                            "Source reference on a redacted parameter is removed by default "
+                            "to avoid leaking confidential evidence-provenance information."
+                        ),
+                        replacement_marker=None,
+                    )
+                )
+                scrubbed.source_reference = None
+        elif (
+            scrubbed.source_reference is not None
+            and scrubbed.source_reference.source_id in remove_source_ids_set
+        ):
+            sanitisation_records.append(
+                SanitisationRecord(
+                    field_path=f"assumptions[{index}].source_reference",
+                    redaction_kind=SanitisationRedactionKind.SOURCE_REFERENCE_REMOVED,
+                    parameter_or_source_id=scrubbed.source_reference.source_id,
+                    rationale=(
+                        sanitisation_rationale
+                        or "Source reference declared confidential by sanitisation request."
+                    ),
+                    replacement_marker=None,
+                )
+            )
+            scrubbed.source_reference = None
+        scrubbed_assumptions.append(scrubbed)
+
+    sanitised = SanitisedConcentrationSurfaceBundle(
+        source_bundle_id=bundle.bundle_id,
+        source_bundle_integrity_hash=bundle.integrity_hash,
+        scenario_id=bundle.scenario_id,
+        surfaces=bundle.surfaces,
+        run_summary=bundle.run_summary,
+        assumptions=scrubbed_assumptions,
+        dependencies=bundle.dependencies,
+        sanitisation_records=sanitisation_records,
+        sanitisation_rationale=sanitisation_rationale,
+    )
+
+    # Content-addressed sanitised hash, distinct from the source bundle's hash.
+    payload = sanitised.model_dump(mode="json", exclude={"sanitised_integrity_hash"})
+    hash_input = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
+    sanitised.sanitised_integrity_hash = hashlib.sha256(hash_input.encode("utf-8")).hexdigest()
+    return sanitised
 
 
 
