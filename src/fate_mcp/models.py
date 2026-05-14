@@ -1498,6 +1498,76 @@ class ConcentrationSurfaceBundle(FateBaseModel):
     )
 
 
+class SanitisationRedactionKind(str, Enum):
+    PARAMETER_VALUE_REDACTED_TO_PLACEHOLDER = "parameter_value_redacted_to_placeholder"
+    SOURCE_REFERENCE_REMOVED = "source_reference_removed"
+
+
+class SanitisationRecord(FateBaseModel):
+    """Machine-readable record of a single redaction applied to a bundle.
+
+    The sanitised bundle preserves the structural fact that an assumption
+    or source-reference was present (via the corresponding record here),
+    even when the value itself is no longer machine-readable. This keeps
+    the public bundle reviewable ("an assumption for water_half_life_days
+    was applied, but its value is confidential") without exposing the
+    underlying confidential payload.
+    """
+
+    field_path: str
+    redaction_kind: SanitisationRedactionKind
+    parameter_or_source_id: str
+    rationale: str
+    replacement_marker: str | None = None
+
+
+class SanitisedConcentrationSurfaceBundle(FateBaseModel):
+    """Public-facing projection of a ConcentrationSurfaceBundle with
+    confidential parameter values and source references removed.
+
+    The sanitised bundle keeps the same scenario / surfaces / run-summary
+    structure, but every assumption flagged for redaction has its `value`
+    field replaced by a placeholder and every source-reference flagged for
+    removal becomes ``None``. The complete redaction log is published as
+    ``sanitisation_records`` so downstream reviewers know exactly what was
+    scrubbed without seeing the underlying value.
+
+    The sanitised bundle carries its own ``sanitised_integrity_hash``
+    distinct from the source bundle's ``integrity_hash`` so consumers can
+    independently verify the public payload without ever needing the raw
+    bundle.
+
+    See `docs/confidentiality_bundles.md` for the governance posture.
+    """
+
+    schema_version: str = Field(default=SCHEMA_VERSION)
+    sanitised_bundle_id: str = Field(
+        default_factory=lambda: f"sanitised-bundle-{uuid4().hex[:12]}"
+    )
+    source_bundle_id: str
+    source_bundle_integrity_hash: str | None
+    scenario_id: str
+    surfaces: list[ConcentrationSurface]
+    run_summary: FateRunSummary
+    assumptions: list[FateAssumptionRecord]
+    dependencies: list[DependencyDescriptor]
+    sanitisation_records: list[SanitisationRecord] = Field(default_factory=list)
+    confidentiality_posture: str = Field(default="sanitised_public")
+    sanitisation_rationale: str | None = None
+    sanitised_integrity_hash: str | None = None
+    regulatory_use_disclaimer: str = Field(
+        default=(
+            "This output is a sanitised public projection of an internal "
+            "concentration surface bundle. Confidential parameter values and "
+            "source references have been redacted; see sanitisation_records "
+            "for the complete redaction log. The sanitised bundle is a "
+            "packaging artifact for public-facing exchange and is not a "
+            "complete internal review record, not a submission dossier, "
+            "and not a regulatory decision."
+        )
+    )
+
+
 class SurfaceDelta(FateBaseModel):
     medium: Media
     compartment: Compartment

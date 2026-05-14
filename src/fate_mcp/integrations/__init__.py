@@ -8,6 +8,7 @@ from .core import (
     build_run_parameter_manifest,
     build_run_uncertainty_summary,
     compare_fate_scenarios,
+    sanitise_concentration_surface_bundle_for_public_release,
 )
 from .erosion_sediment import (
     assess_erosion_sediment_validation_fit,
@@ -98,6 +99,7 @@ __all__ = [
     "preview_scientific_review_outcome",
     "recommend_model_family_selection",
     "recommend_regulatory_handoff_profile",
+    "sanitise_concentration_surface_bundle_for_public_release",
     "screen_erosion_transport_relevance",
     "summarize_regulatory_handoff_package",
 ]
