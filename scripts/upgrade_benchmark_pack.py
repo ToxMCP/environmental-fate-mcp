@@ -30,9 +30,6 @@ sys.path.insert(0, str(REPO_ROOT / "tests"))  # noqa: E402
 
 from _pendimethalin_slice_runner import frozen_environment  # noqa: E402
 
-from fate_mcp.integrations import (  # noqa: E402
-    build_concentration_surface_bundle,
-)
 from fate_mcp.models import (  # noqa: E402
     BuildEnvironmentalReleaseScenarioRequest,
     FateModelRunOptions,

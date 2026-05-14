@@ -131,7 +131,6 @@ def main() -> None:
     claims = doc["claims"]
 
     updated: list[str] = []
-    skipped: list[str] = []
 
     for claim_id, claim in claims.items():
         if claim.get("modelFamily") != "advective_screening_mass_balance":
