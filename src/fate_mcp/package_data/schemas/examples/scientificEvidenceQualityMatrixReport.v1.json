@@ -847,15 +847,17 @@
       "mandatory_for_release": true,
       "trust_tier": "internal_oracle_screening",
       "covered": true,
-      "support_strength": "single_anchor",
+      "support_strength": "multi_anchor_single_tier",
       "supporting_validation_tiers": [
         "normalization_parity"
       ],
       "supporting_reference_types": [
-        "governed_fixture_normalization_parity"
+        "governed_fixture_normalization_parity",
+        "hand_worked_adapter_normalization_signature"
       ],
       "supporting_fixture_names": [
-        "external_adapter_equivalence_fixture"
+        "external_adapter_equivalence_fixture",
+        "external_adapter_canonical_surface_signature_fixture"
       ],
       "benchmark_classifications": [
         "internal_oracle"

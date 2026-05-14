@@ -856,12 +856,14 @@
       "row_id": "claim:external_adapter_canonical_equivalence_v1",
       "row_type": "claim",
       "source_engine_equivalence_claim_present": false,
-      "support_strength": "single_anchor",
+      "support_strength": "multi_anchor_single_tier",
       "supporting_fixture_names": [
-        "external_adapter_equivalence_fixture"
+        "external_adapter_equivalence_fixture",
+        "external_adapter_canonical_surface_signature_fixture"
       ],
       "supporting_reference_types": [
-        "governed_fixture_normalization_parity"
+        "governed_fixture_normalization_parity",
+        "hand_worked_adapter_normalization_signature"
       ],
       "supporting_validation_tiers": [
         "normalization_parity"

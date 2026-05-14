@@ -2677,13 +2677,15 @@
       "corroborationStatus": "none",
       "nextCorroborationAction": "Keep the adapter claim limited to normalization parity and provenance-preserving import; do not restore source-engine equivalence language without bounded quantitative corroboration.",
       "evidenceFamily": "public_method_description_plus_internal_oracle",
-      "worksheetStatus": "missing",
+      "worksheetStatus": "ready",
       "lastReviewedDate": "2026-05-14",
-      "toleranceBasis": "Internal-oracle tolerance requires governed JSON, CSV, and alternate-unit fixtures to normalize to the same canonical concentration-surface contract within floating-point screening tolerance, with no semantic-loss classification dropped during normalization.",
+      "toleranceBasis": "Shipped adapter worksheet pack requires governed JSON, CSV, and alternate-unit fixtures to normalize to the same canonical concentration-surface contract within floating-point screening tolerance, with no semantic-loss classification dropped during normalization. The hand-worked fixture pins the exact canonical surface signature (single surface_water concentration of 1.25e-02 mg/L) the JSON adapter fixture must reproduce.",
       "officialSourceIds": [],
       "pluginCodeReferences": [
         "fate_mcp.plugins.external_result_adapter:ExternalResultAdapterHarnessPlugin.run"
-      ]
+      ],
+      "worksheetArtifactPath": "adapter-worksheet-pack/external_adapter_canonical_equivalence_v1.worksheet.json",
+      "expectedOutputArtifactPath": "adapter-worksheet-pack/external_adapter_canonical_equivalence_v1.expected-outputs.json"
     },
     "advective_post_release_late_recovery_regime_v1": {
       "displayName": "Advective post-release late-recovery regime",

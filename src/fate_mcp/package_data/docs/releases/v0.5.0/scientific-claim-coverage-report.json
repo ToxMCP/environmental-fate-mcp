@@ -746,19 +746,21 @@
       "priority": "high",
       "satisfies_required_reference_types": true,
       "satisfies_required_validation_tiers": true,
-      "support_strength": "single_anchor",
+      "support_strength": "multi_anchor_single_tier",
       "supported_run_modes": [
         "steady_state"
       ],
       "supporting_categories": [
         "external_adapter_normalization_parity"
       ],
-      "supporting_fixture_count": 1,
+      "supporting_fixture_count": 2,
       "supporting_fixture_names": [
-        "external_adapter_equivalence_fixture"
+        "external_adapter_equivalence_fixture",
+        "external_adapter_canonical_surface_signature_fixture"
       ],
       "supporting_reference_types": [
-        "governed_fixture_normalization_parity"
+        "governed_fixture_normalization_parity",
+        "hand_worked_adapter_normalization_signature"
       ],
       "supporting_validation_tier_count": 1,
       "supporting_validation_tiers": [

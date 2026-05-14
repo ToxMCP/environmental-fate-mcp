@@ -2,11 +2,23 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "48a560e0f999a994d230b3d063b3021de61fd426057c4dfb1fbdb7c0a95bb06b"
+      "sha256": "0026f63d89d034d0d31c4061f7d3a6ed8eaed200651bf6f03f9c133c0237fb33"
     },
     {
       "path": "adapter-validation-report.json",
       "sha256": "8272610945048bfb07baecb08f574d20eb59a7114a1a5e4a0c23ffcf0506665d"
+    },
+    {
+      "path": "adapter-worksheet-manifest.json",
+      "sha256": "9552eedc4a20d180c9610879cdb4a8f0ad907aaf9b730fa1e95273bf95df0634"
+    },
+    {
+      "path": "adapter-worksheet-pack/external_adapter_canonical_equivalence_v1.expected-outputs.json",
+      "sha256": "f18b58c72655f2a47ae5581df739dae74b43d95461a6827f97b9539d063f4133"
+    },
+    {
+      "path": "adapter-worksheet-pack/external_adapter_canonical_equivalence_v1.worksheet.json",
+      "sha256": "6fbbc68877d018a1e0f24bdaf5e06471c1de406ecc598d39dadf28389eb754c8"
     },
     {
       "path": "advective-promotion-bar-report.json",
@@ -174,7 +186,7 @@
     },
     {
       "path": "benchmark-manifest.json",
-      "sha256": "05a2409de251a00742a52dfb392c59081c8191c694adf0463d0e955e69c3a35d"
+      "sha256": "cdd1af84ffcb71b38c414cb37270b4456db914ccae15d679be80eb7d78dae638"
     },
     {
       "path": "default-sensitivity-report.json",
@@ -190,7 +202,7 @@
     },
     {
       "path": "external-corroboration-report.json",
-      "sha256": "0f539ba71d4db3062f4ad16fa1247bc0643905ff110b94221dd827a3fc0bbf65"
+      "sha256": "af871382359d2fdfac4516bda04db041a8057d37bb9acc2a7617b91fd70350cc"
     },
     {
       "path": "external-validation-benchmark-report.json",
@@ -206,7 +218,7 @@
     },
     {
       "path": "metadata-report.json",
-      "sha256": "51bde76daf1f97fdd665084d8b1c6480bc71bf427fc62e19b6aac1494348913b"
+      "sha256": "bc2156f1b2832af696dd54285fb278e03f915f2428ff85bf8d4565ee6448160a"
     },
     {
       "path": "readiness-report.json",
@@ -310,15 +322,15 @@
     },
     {
       "path": "release-notes.md",
-      "sha256": "adc94882b776a97443b61ff3fb31eec8d421ab97e9947ae4bac6005f5202ba21"
+      "sha256": "6390b35528b3ba22f6a3bbeb860e7fa95d226f10d7ccd4792a52270796179abf"
     },
     {
       "path": "scientific-claim-coverage-report.json",
-      "sha256": "947b60813e120287ecfeb4d2b3b576f9a96ac6d85486891d6088bfda672f535c"
+      "sha256": "3c34bbf3da669faae6cfc5a2d3e974e192e25ce077265cd921ea0f2d83231df9"
     },
     {
       "path": "scientific-evidence-quality-matrix-report.json",
-      "sha256": "c82f515d2c155d6ecaa5dba6ae298ea0fcc378a854de57c544b55a676fed6950"
+      "sha256": "47e939467441ad0f96d79dcdb1af8b850c3607d3d45b056ff69dd3d9b28e6ea9"
     },
     {
       "path": "scientific-trust-brief.md",
@@ -338,7 +350,7 @@
     },
     {
       "path": "validation-dossier.json",
-      "sha256": "de32797ef9fab588660657e052677dacd178676c3d1ad9138fef829864ac1982"
+      "sha256": "7d00e4e0c3e9647d456938f7ad5bff9e8aa750bc99a06ad2aebdbda8b6cac68b"
     }
   ],
   "releaseRef": "v0.5.0",

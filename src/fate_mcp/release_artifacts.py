@@ -38,6 +38,7 @@ KNOWN_GAPS = [
 
 REFERENCE_WORKSHEET_PACK_DIR = "reference-worksheet-pack"
 ADVECTIVE_WORKSHEET_PACK_DIR = "advective-worksheet-pack"
+ADAPTER_WORKSHEET_PACK_DIR = "adapter-worksheet-pack"
 
 REPORT_FILENAMES = (
     ("metadata-report", "metadata-report.json"),
@@ -50,6 +51,7 @@ REPORT_FILENAMES = (
     ("reference-corroboration-report", "reference-corroboration-report.json"),
     ("reference-worksheet-manifest", "reference-worksheet-manifest.json"),
     ("advective-worksheet-manifest", "advective-worksheet-manifest.json"),
+    ("adapter-worksheet-manifest", "adapter-worksheet-manifest.json"),
     ("advective-promotion-bar-report", "advective-promotion-bar-report.json"),
     ("red-team-review-report", "red-team-review-report.json"),
     ("validation-dossier", "validation-dossier.json"),
@@ -74,6 +76,7 @@ REPORT_DESCRIPTIONS = {
     "reference-corroboration-report.json": "Reviewer-grade corroboration matrix for mandatory reference-family claims, official grounding, and worksheet readiness.",
     "reference-worksheet-manifest.json": "Deterministic worksheet-pack manifest linking mandatory reference claims to machine-readable worksheet and expected-output artifacts.",
     "advective-worksheet-manifest.json": "Deterministic worksheet-pack manifest linking experimental advective-family claims to machine-readable internal-oracle worksheet and expected-output artifacts.",
+    "adapter-worksheet-manifest.json": "Deterministic worksheet-pack manifest linking the external-result-adapter normalization-parity claim to its hand-worked canonical surface signature worksheet and expected-output artifact.",
     "advective-promotion-bar-report.json": "Experimental-family promotion-bar posture with explicit non-promotable reasons for the advective challenge path.",
     "red-team-review-report.json": "Release red-team review cycle summary with blocker accounting and accepted limitations.",
     "validation-dossier.json": "Full validation dossier across scientific, interoperability, and release checks.",
@@ -758,6 +761,51 @@ def _build_advective_worksheet_manifest_report(
     manifest_payload["promotable"] = False
     manifest_payload["promotionStatus"] = advective_promotion_bar_report["promotionStatus"]
     manifest_payload["governance"] = advective_promotion_bar_report["governance"]
+    return manifest_payload, artifact_texts
+
+
+def _build_adapter_worksheet_manifest_report(
+    defaults_registry: DefaultsRegistry,
+    scientific_claim_coverage: dict,
+    defaults_report: dict,
+) -> tuple[dict[str, object], dict[str, str]]:
+    """Build the adapter worksheet pack manifest + per-claim artifacts.
+
+    The external_result_adapter family normalizes governed external-engine
+    payloads into the canonical Fate MCP concentration-surface contract; it
+    does not run kernel physics. The worksheet pack here ships the hand-
+    worked canonical surface signature that the adapter must reproduce for
+    the JSON fixture, anchored to the same evidence_family as the rest of
+    the adapter claim (public_method_description_plus_internal_oracle).
+    """
+    coverage_by_id = {record["claim_id"]: record for record in scientific_claim_coverage["coverage"]}
+    adapter_rows: list[dict[str, object]] = []
+    adapter_fixtures: dict[str, list[dict]] = {}
+    for claim in defaults_registry.scientific_validation_claim_manifest().claims:
+        if claim.model_family.value != "external_result_adapter":
+            continue
+        coverage_record = coverage_by_id.get(claim.claim_id, {})
+        row, _ = _reference_claim_row(
+            claim,
+            coverage_record,
+            defaults_registry,
+            defaults_report,
+        )
+        adapter_rows.append(row)
+        adapter_fixtures[str(row["claimId"])] = _machine_readable_worksheet_fixtures(
+            str(row["claimId"])
+        )
+
+    manifest_payload, artifact_texts = _build_reference_worksheet_pack(
+        defaults_registry,
+        adapter_rows,
+        adapter_fixtures,
+        defaults_report,
+        pack_directory_name=ADAPTER_WORKSHEET_PACK_DIR,
+    )
+    manifest_payload["modelFamily"] = "external_result_adapter"
+    manifest_payload["evidencePosture"] = "normalization_parity_lane"
+    manifest_payload["scientificEquivalenceClaim"] = False
     return manifest_payload, artifact_texts
 
 
@@ -1762,6 +1810,14 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         defaults_rebaseline_report,
         advective_promotion_bar_report,
     )
+    (
+        adapter_worksheet_manifest,
+        adapter_worksheet_pack_files,
+    ) = _build_adapter_worksheet_manifest_report(
+        defaults_registry,
+        scientific_claim_coverage,
+        defaults_rebaseline_report,
+    )
     readiness_report = {
         "version": VERSION,
         "status": "ready_for_screening_release"
@@ -1982,6 +2038,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
         "reference-corroboration-report": reference_corroboration_report,
         "reference-worksheet-manifest": reference_worksheet_manifest,
         "advective-worksheet-manifest": advective_worksheet_manifest,
+        "adapter-worksheet-manifest": adapter_worksheet_manifest,
         "advective-promotion-bar-report": advective_promotion_bar_report,
         "validation-dossier": dossier,
         "adapter-validation-report": dossier["adapterInteroperability"],
@@ -2141,6 +2198,7 @@ def build_release_reports(repo_root: Path) -> dict[str, dict]:
     reports["advective-promotion-brief"] = {"markdown": advective_promotion_brief}
     reports["_reference-worksheet-pack-files"] = reference_worksheet_pack_files
     reports["_advective-worksheet-pack-files"] = advective_worksheet_pack_files
+    reports["_adapter-worksheet-pack-files"] = adapter_worksheet_pack_files
     return reports
 
 
@@ -2175,6 +2233,7 @@ def write_release_bundle(repo_root: Path, output_dir: Path | None = None, releas
     bundle_texts["README.md"] = _render_release_bundle_readme(reports, release_ref)
     bundle_texts.update(reports.get("_reference-worksheet-pack-files", {}))
     bundle_texts.update(reports.get("_advective-worksheet-pack-files", {}))
+    bundle_texts.update(reports.get("_adapter-worksheet-pack-files", {}))
 
     for filename, text in bundle_texts.items():
         target_path = bundle_dir / filename

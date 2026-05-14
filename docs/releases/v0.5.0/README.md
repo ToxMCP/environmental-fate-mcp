@@ -15,6 +15,7 @@ This status is an internal bounded-screening release gate, not a statement of re
 - `reference-corroboration-report.json`: Reviewer-grade corroboration matrix for mandatory reference-family claims, official grounding, and worksheet readiness.
 - `reference-worksheet-manifest.json`: Deterministic worksheet-pack manifest linking mandatory reference claims to machine-readable worksheet and expected-output artifacts.
 - `advective-worksheet-manifest.json`: Deterministic worksheet-pack manifest linking experimental advective-family claims to machine-readable internal-oracle worksheet and expected-output artifacts.
+- `adapter-worksheet-manifest.json`: Deterministic worksheet-pack manifest linking the external-result-adapter normalization-parity claim to its hand-worked canonical surface signature worksheet and expected-output artifact.
 - `advective-promotion-bar-report.json`: Experimental-family promotion-bar posture with explicit non-promotable reasons for the advective challenge path.
 - `red-team-review-report.json`: Release red-team review cycle summary with blocker accounting and accepted limitations.
 - `validation-dossier.json`: Full validation dossier across scientific, interoperability, and release checks.

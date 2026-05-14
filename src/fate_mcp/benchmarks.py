@@ -3261,6 +3261,41 @@ BENCHMARK_FIXTURES = [
         ]
     },
     {
+        "name": "external_adapter_canonical_surface_signature_fixture",
+        "category": "external_adapter_normalization_parity",
+        "validation_tier": "normalization_parity",
+        "scientific_basis": "Hand-worked canonical surface signature for the governed JSON adapter fixture. Anchors the exact concentration-surface contract that the external_result_adapter plugin must produce after normalizing illustrative_external_engine_payload.json under the matching scenario and run options. Pairs with the existing external_adapter_equivalence_fixture (which proves multiple input fixtures normalize to the same shape) by pinning the actual value the shape resolves to.",
+        "reference_type": "hand_worked_adapter_normalization_signature",
+        "expected_behavior": "The JSON adapter fixture normalizes to a single surface_water concentration of 1.25e-02 mg/L with model_family external_result_adapter under the matching scenario and run options.",
+        "tolerance_rationale": "Adapter normalization is value-preserving by construction (no kernel arithmetic), so the only tolerated deviation is floating-point representation.",
+        "tolerance": 1e-12,
+        "scientific_claim_ids": ["external_adapter_canonical_equivalence_v1"],
+        "scenario": {
+            "chemical_identity": {
+                "preferredName": "Adapter worksheet anchor",
+                "substance_class": "organic chemical",
+            },
+            "total_release_mass_kg": 8.0,
+            "release_fractions": [{"medium": "water", "fraction": 1.0}],
+            "duration_days": 10.0,
+        },
+        "run_options": {
+            "model_family": "external_result_adapter",
+            "run_mode": "steady_state",
+        },
+        "adapter_fixture_paths": [
+            "config/adapter-fixtures/illustrative_external_engine_payload.json",
+        ],
+        "expected_surfaces": [
+            {
+                "medium": "water",
+                "compartment": "surface_water",
+                "value": 0.0125,
+                "unit": "mg/L",
+            }
+        ],
+    },
+    {
     "name": "advective_post_release_late_recovery_reference_fixture",
     "category": "reference_chemical_style",
     "validation_tier": "reference_style",
