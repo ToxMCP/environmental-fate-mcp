@@ -47,7 +47,7 @@ jobs:
         with:
           ref: ${{ steps.release.outputs.tag }}
 
-      - uses: astral-sh/setup-uv@v8.1.0
+      - uses: astral-sh/setup-uv@v8.2.0
 
       - name: Validate release metadata
         shell: bash
