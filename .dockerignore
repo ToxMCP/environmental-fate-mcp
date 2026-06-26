@@ -1,0 +1,47 @@
+# Development / version-control artefacts
+.git
+.gitignore
+.github
+
+# Python bytecode / caches
+__pycache__
+*.py[cod]
+*.pyo
+.mypy_cache
+.ruff_cache
+.pytest_cache
+.coverage
+htmlcov
+
+# Virtual environments and uv's own cache
+.venv
+.uv
+
+# Tests (not needed in production image)
+tests/
+
+# Editor / IDE files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS-level noise
+.DS_Store
+Thumbs.db
+
+# Documentation source (schemas + docs shipped separately if needed)
+docs/
+
+# Scripts (utility scripts, not runtime)
+scripts/
+
+# Temporary build artefacts
+dist/
+build/
+*.egg-info/
+
+# Secrets / local env overrides (never bake these in)
+.env
+.env.*
+*.secret
