@@ -37,6 +37,11 @@ fate-mcp-generate-artifacts = "fate_mcp.contracts:main"
 fate-mcp-validate = "fate_mcp.validation:main"
 fate-mcp-build-release-bundle = "fate_mcp.release_artifacts:main"
 
+# Force the transitive pydantic-settings (pulled via mcp[cli]) to the patched
+# release that fixes GHSA-4xgf-cpjx-pc3j (2.14.1 is vulnerable; 2.14.2 is fixed).
+[tool.uv]
+constraint-dependencies = ["pydantic-settings>=2.14.2"]
+
 [tool.setuptools]
 package-dir = { "" = "src" }
 include-package-data = true
