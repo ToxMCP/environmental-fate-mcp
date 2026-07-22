@@ -69,7 +69,7 @@ The released server is broader than a simple concentration calculator, but the b
 - It now includes experimental non-default Level I/II fugacity equilibrium screening for multimedia partitioning challenge review; this is not Level III intermedia transfer, routing, calibration, source-engine equivalence, or regulator acceptance.
 - It now publishes a governed evidence-quality matrix so reviewers can distinguish reviewer-grade, source-grounded, internal-oracle, synthetic-demo, and deferred/gap evidence without treating that posture as field validation or regulatory acceptance.
 - `Direct-Use Exposure MCP` owns direct-use product scenarios, near-field external exposure construction, and PBPK-ready direct-use handoffs.
-- `Dietary Exposure MCP` owns food-mediated oral intake, commodity-consumption mappings, and dietary PBPK-ready oral handoffs.
+- [Dietary Exposure MCP](https://github.com/ToxMCP/dietary-exposure-mcp) [`v0.1.0`](https://github.com/ToxMCP/dietary-exposure-mcp/releases/tag/v0.1.0) is the public screening-only owner of food-mediated oral intake, commodity-consumption mappings, and dietary PBPK-ready oral handoffs.
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, experimental fugacity equilibrium screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, Level III engine, or public wrapper around branded external model payloads.
 

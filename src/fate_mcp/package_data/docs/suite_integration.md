@@ -9,7 +9,7 @@ It now also exposes a regulatory handoff crosswalk package and an adapter import
 - Direct-Use Exposure MCP
 - future environmental intake workflows
 - orchestration layers such as ToxClaw
-- Dietary MCP once food-mediated residue plus consumption semantics apply
+- [Dietary Exposure MCP](https://github.com/ToxMCP/dietary-exposure-mcp) [`v0.1.0`](https://github.com/ToxMCP/dietary-exposure-mcp/releases/tag/v0.1.0) for screening-only food-mediated residue plus consumption workflows
 
 ## Handoff rule
 
@@ -84,7 +84,8 @@ The second bounded downstream oral seam now exists for `agricultural_soil`, wher
 as an explicit concentration-to-intake consumer with transparent soil-ingestion screening assumptions.
 Crop-uptake translation remains future work, and any later human oral intake calculation still
 belongs in a downstream consumer rather than Environmental Fate MCP itself.
-Dietary MCP only becomes appropriate when food-mediated consumption semantics apply.
+The released Dietary Exposure MCP screening service becomes appropriate when food-mediated
+consumption semantics apply.
 
 ## Herbal and supplement routing
 
@@ -93,4 +94,4 @@ Dietary MCP only becomes appropriate when food-mediated consumption semantics ap
   `concentration_surface` handoff should route toward Direct-Use Exposure MCP or another
   concentration-to-dose consumer that preserves direct-use semantics.
 - If a downstream workflow is food-mediated herbal intake or nutrition-style supplement
-  consumption, the handoff should route toward Dietary MCP.
+  consumption, the handoff should route toward Dietary Exposure MCP.
