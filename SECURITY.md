@@ -9,7 +9,7 @@ The project currently supports security fixes on:
 | Version / Branch | Status |
 | --- | --- |
 | `main` | Supported |
-| latest `v0.1.x` release line | Supported |
+| latest `v0.5.x` release line | Supported |
 | older unreleased branches and historical snapshots | Not supported |
 
 ## Reporting a Vulnerability
