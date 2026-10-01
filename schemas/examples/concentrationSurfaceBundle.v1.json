@@ -938,15 +938,15 @@
   "dependencies": [
     {
       "name": "environmental-fate-mcp",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "role": "producer"
     },
     {
       "name": "reference_mass_balance",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "role": "model_family"
     }
   ],
-  "integrity_hash": "efa2b8df2d60061a6108e79b3f89235f52219a1df42b6ca589431c479841aedf",
+  "integrity_hash": "4311dee9fafb257e40413a8094ba493c7ece0b98df61bcd36ba6baebf0ab6c75",
   "regulatory_use_disclaimer": "This output is a concentration surface. It is not a human dose, risk quotient, or regulatory decision. Downstream translation to dose requires Direct-Use Exposure MCP or equivalent."
 }
