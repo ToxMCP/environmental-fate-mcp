@@ -310,12 +310,12 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
         assert len(tools) == 60
         for tool in tools:
             assert tool.annotations is not None, tool.name
-            assert tool.annotations.readOnlyHint is True, tool.name
-            assert tool.annotations.destructiveHint is False, tool.name
-            assert tool.outputSchema is not None, tool.name
+            assert tool.annotations.read_only_hint is True, tool.name
+            assert tool.annotations.destructive_hint is False, tool.name
+            assert tool.output_schema is not None, tool.name
 
         by_name = {tool.name: tool for tool in tools}
-        assert by_name["fate_import_external_result_payload"].annotations.openWorldHint is True
+        assert by_name["fate_import_external_result_payload"].annotations.open_world_hint is True
         for tool_name in {
             "fate_screen_erosion_transport_relevance",
             "fate_estimate_soil_loss_rusle",
@@ -328,15 +328,15 @@ def test_server_tools_expose_annotations_and_output_schemas() -> None:
             "fate_enqueue_scientific_follow_up",
             "fate_advance_scientific_follow_up",
         }:
-            assert by_name[tool_name].annotations.openWorldHint is False
-            assert by_name[tool_name].annotations.idempotentHint is True
+            assert by_name[tool_name].annotations.open_world_hint is False
+            assert by_name[tool_name].annotations.idempotent_hint is True
         assert (
             by_name["fate_estimate_probabilistic_multimedia_concentrations"]
             .annotations
-            .idempotentHint
+            .idempotent_hint
             is False
         )
-        assert by_name["fate_estimate_multimedia_concentrations"].annotations.idempotentHint is True
+        assert by_name["fate_estimate_multimedia_concentrations"].annotations.idempotent_hint is True
 
     asyncio.run(_run())
 
@@ -380,7 +380,7 @@ def test_release_resource_can_be_read_inside_async_server_context() -> None:
         assert evidence_report["model_family_row_count"] == 5
         notes_contents = await server.read_resource("release://release-notes")
         notes = json.loads(notes_contents[0].content)
-        assert "Environmental Fate MCP v0.5.1" in notes["markdown"]
+        assert "Environmental Fate MCP v0.6.0" in notes["markdown"]
         assert "public MCP import contract in this release" in notes["markdown"]
         manifest_contents = await server.read_resource("release://resource-manifest")
         manifest = json.loads(manifest_contents[0].content)

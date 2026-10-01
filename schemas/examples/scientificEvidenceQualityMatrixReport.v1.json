@@ -1,6 +1,6 @@
 {
   "schema_version": "v1",
-  "release_version": "0.5.1",
+  "release_version": "0.6.0",
   "defaults_version": "v1",
   "rubric_version": "scientific-evidence-quality-rubric-v1",
   "claim_row_count": 34,

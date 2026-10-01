@@ -26,7 +26,7 @@ def test_stdio_initialize_declares_application_version(tmp_path: Path) -> None:
             async with stdio_client(params) as (read, write):
                 async with ClientSession(read, write) as session:
                     result = await session.initialize()
-                    assert result.serverInfo.name == PACKAGE_NAME
-                    assert result.serverInfo.version == VERSION
+                    assert result.server_info.name == PACKAGE_NAME
+                    assert result.server_info.version == VERSION
 
     anyio.run(check_initialization)

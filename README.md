@@ -12,6 +12,8 @@
 **Governed MCP server for auditable environmental release-to-concentration screening, scientific review, and downstream regulatory handoff packaging.**
 Environmental Fate MCP is one bounded module inside the broader ToxMCP suite. It turns environmental release assumptions into deterministic and bounded probabilistic concentration surfaces, scientific review packets, scientific methods dossiers, and downstream handoff artifacts without taking over direct human dose, dietary intake, PBPK execution, final risk characterization, or model-native external engine execution as the public contract.
 
+The v0.6.0 migration candidate uses stable MCP SDK 2.2.0 and the 2026-07-28 protocol, while preserving the complete catalog for SDK1 clients over stdio, HTTP, and SSE. The published stable release remains v0.5.1 until this candidate is reviewed and released. See [the SDK2 migration guide](docs/mcp-sdk2-migration.md) for hosted gateway settings and Python embedding changes.
+
 ## Architecture
 
 ```mermaid
@@ -73,7 +75,7 @@ The released server is broader than a simple concentration calculator, but the b
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, experimental fugacity equilibrium screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, Level III engine, or public wrapper around branded external model payloads.
 
-## What's in v0.5.1
+## What's in v0.6.0 (SDK2 candidate)
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
@@ -98,9 +100,9 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current local release verification and generated `v0.5.1` artifacts report:
+Current local release verification and generated `v0.6.0` candidate artifacts report:
 
-- `267` repository test functions
+- `277` repository test functions
 - `143` JSON schemas
 - `139` generated examples
 - `51` supported workflows surfaced through `60` tools, `22` prompts, and `32` resources
@@ -196,12 +198,12 @@ See:
 - [docs/scientific_follow_up.md](./docs/scientific_follow_up.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
-- [docs/releases/v0.5.1/scientific-trust-pack.md](./docs/releases/v0.5.1/scientific-trust-pack.md)
+- [docs/releases/v0.6.0/scientific-trust-pack.md](./docs/releases/v0.6.0/scientific-trust-pack.md)
 - [docs/release_provenance.md](./docs/release_provenance.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.5.1/release-notes.md](./docs/releases/v0.5.1/release-notes.md)
+- [docs/releases/v0.6.0/release-notes.md](./docs/releases/v0.6.0/release-notes.md)
 
 ## Governance
 

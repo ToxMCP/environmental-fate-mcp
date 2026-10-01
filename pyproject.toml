@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "environmental-fate-mcp"
-version = "0.5.1"
+version = "0.6.0"
 description = "Environmental Fate MCP for auditable environmental release-to-concentration workflows"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -12,7 +12,7 @@ license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{ name = "ToxMCP" }]
 dependencies = [
-  "mcp[cli]>=1.30.0,<2.0.0",
+  "mcp[cli]==2.2.0",
   "anyio>=4.14.2,<5.0.0",
   "cryptography>=50.0.1",
   "pyjwt[crypto]>=2.15.0,<3.0.0",

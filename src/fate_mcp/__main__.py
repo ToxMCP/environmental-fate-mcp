@@ -23,8 +23,6 @@ def validate_transport_security(transport: str) -> None:
 
 def main() -> None:
     ensure_supported_python_version()
-    from fate_mcp.server import create_server
-
     parser = argparse.ArgumentParser(description="Run Environmental Fate MCP.")
     parser.add_argument(
         "--transport",
@@ -32,10 +30,19 @@ def main() -> None:
         choices=["stdio", "streamable-http", "sse"],
         help="MCP transport to use.",
     )
+    parser.add_argument("--host", default=os.getenv("FATE_MCP_HOST", "127.0.0.1"))
+    parser.add_argument("--port", type=int, default=int(os.getenv("FATE_MCP_PORT", "8000")))
     args = parser.parse_args()
     validate_transport_security(args.transport)
+    from fate_mcp.server import create_server
+
     server = create_server()
-    server.run(transport=args.transport)
+    if args.transport == "stdio":
+        server.run(transport="stdio")
+    else:
+        from fate_mcp.transport.http import run_http_server
+
+        run_http_server(server, transport=args.transport, host=args.host, port=args.port)
 
 
 if __name__ == "__main__":

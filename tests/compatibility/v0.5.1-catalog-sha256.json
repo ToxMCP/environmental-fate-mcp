@@ -1,0 +1,11 @@
+{
+  "baselineRelease": "v0.5.1",
+  "counts": {
+    "prompts": 22,
+    "resources": 32,
+    "templates": 18,
+    "tools": 60
+  },
+  "catalogSHA256": "24943d06e1fee4fc65309c47c6409066020ad678b9bea0d2a98ccbdb15ffe0ff",
+  "baselineCommit": "5ed62a4cd0070c4461e6451046b81f8c387a0304"
+}
