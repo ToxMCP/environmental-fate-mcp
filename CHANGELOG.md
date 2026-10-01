@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Raise runtime minimums for AnyIO, cryptography, PyJWT, and pydantic-settings; refresh the locked graph against current advisories.
 - Correct the supported release line in the security policy to `v0.5.x`.
 
+### Fixed
+- Report the declared application version during MCP initialization instead of the SDK version.
+
 ## [0.5.0] - 2026-05-03
 
 ### Added

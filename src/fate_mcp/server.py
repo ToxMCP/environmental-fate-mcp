@@ -195,6 +195,9 @@ REPO_ROOT = resolve_resource_root()
 RUNTIME = FateRuntime(REPO_ROOT)
 DEFAULTS = DefaultsRegistry(REPO_ROOT)
 mcp = FastMCP(PACKAGE_NAME, json_response=True)
+# FastMCP v1 does not expose a version constructor argument. Its low-level
+# server otherwise reports the SDK version during MCP initialization.
+mcp._mcp_server.version = VERSION
 
 logger = logging.getLogger("fate_mcp")
 correlation_id_var: ContextVar[str] = ContextVar("correlation_id")
