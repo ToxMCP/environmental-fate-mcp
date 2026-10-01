@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-10-01
+
 ### Security
+- Update the Python MCP SDK to 1.30 with bounded HTTP request bodies and session lifecycle protections; audit the complete frozen runtime, development and security-tool graph.
 - Raise runtime minimums for AnyIO, cryptography, PyJWT, and pydantic-settings; refresh the locked graph against current advisories.
 - Correct the supported release line in the security policy to `v0.5.x`.
 

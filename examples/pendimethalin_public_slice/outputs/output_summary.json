@@ -29,7 +29,7 @@
   "generatedAt": "2026-05-14T12:00:00+00:00",
   "generatedBy": "FateRuntime via tests/_pendimethalin_slice_runner.run_pipeline",
   "integrityHashes": {
-    "concentrationSurfaceBundle": "05ce9fcbf092a3cd8ee84738e7b1f828e388df9ffb34043bdfdf91ca97b3e2ac",
+    "concentrationSurfaceBundle": "367e7ad52edc1424ab1f862472465feddaaea86d3d32b548efbc1cf7fa83bc7b",
     "regulatoryHandoffPackage": "fc52ebd151af20507046e79a432f075920f76c07dec8116b950c59b9be3489f7"
   },
   "probabilisticSoil": {

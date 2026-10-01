@@ -345,7 +345,7 @@ def test_write_release_bundle_is_deterministic_and_checksumed(tmp_path) -> None:
     assert result_dir == bundle_dir
 
     manifest = json.loads((bundle_dir / "release-bundle-manifest.json").read_text())
-    assert manifest["version"] == "0.5.0"
+    assert manifest["version"] == "0.5.1"
     assert manifest["releaseRef"] == "v0.5.0-test"
 
     release_notes = (bundle_dir / "release-notes.md").read_text()

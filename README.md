@@ -73,7 +73,7 @@ The released server is broader than a simple concentration calculator, but the b
 - `PBPK MCP` owns internal dose / toxicokinetic simulation after an external concentration or exposure object is already defined.
 - The server is deterministic-first, with an additive probabilistic percentile lane, governed external-result normalization, scalar erosion/sediment transport screening, experimental fugacity equilibrium screening, and reviewer-facing validation fit diagnostics; it is not a general-purpose GIS dispersion or hydrologic routing engine, final-risk engine, calibration engine, Level III engine, or public wrapper around branded external model payloads.
 
-## What's in v0.5.0
+## What's in v0.5.1
 
 - Deterministic `reference_mass_balance` screening with finite-duration and bounded time-bucket concentration estimation
 - Governed medium-specific temperature correction for degradation half-lives, anchored to a 25 °C reference with bounded screening-range behavior
@@ -98,7 +98,7 @@ The released server is broader than a simple concentration calculator, but the b
 
 ## Release snapshot
 
-Current local release verification and generated `v0.5.0` artifacts report:
+Current local release verification and generated `v0.5.1` artifacts report:
 
 - `267` repository test functions
 - `143` JSON schemas
@@ -196,12 +196,12 @@ See:
 - [docs/scientific_follow_up.md](./docs/scientific_follow_up.md)
 - [docs/agent_evaluations.md](./docs/agent_evaluations.md)
 - [docs/public_release_guide.md](./docs/public_release_guide.md)
-- [docs/releases/v0.5.0/scientific-trust-pack.md](./docs/releases/v0.5.0/scientific-trust-pack.md)
+- [docs/releases/v0.5.1/scientific-trust-pack.md](./docs/releases/v0.5.1/scientific-trust-pack.md)
 - [docs/release_provenance.md](./docs/release_provenance.md)
 - [CHANGELOG.md](./CHANGELOG.md)
 - [MIGRATION.md](./MIGRATION.md)
 - [docs/regulatory_quick_start.md](./docs/regulatory_quick_start.md)
-- [docs/releases/v0.5.0/release-notes.md](./docs/releases/v0.5.0/release-notes.md)
+- [docs/releases/v0.5.1/release-notes.md](./docs/releases/v0.5.1/release-notes.md)
 
 ## Governance
 
