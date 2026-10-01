@@ -39,11 +39,13 @@ def create_http_app(
         from fate_mcp.server import create_server
 
         server = create_server()
+    # Hosted binding is intentional; the authenticated-gateway guard ran above.
+    bind_host = host or os.environ.get("FATE_MCP_HOST", "0.0.0.0")  # nosec B104
     options = dict(
         max_request_body_size=limit,
         transport_security=security,
-        host=host or os.environ.get("FATE_MCP_HOST", "0.0.0.0"),
-    )  # nosec B104
+        host=bind_host,
+    )
     if transport == "sse":
         return server.sse_app(**options)
     return server.streamable_http_app(json_response=True, stateless_http=True, **options)
