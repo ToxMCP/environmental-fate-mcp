@@ -100,7 +100,7 @@ The released server is broader than a simple concentration calculator, but the b
 
 Current local release verification and generated `v0.5.0` artifacts report:
 
-- `265` repository test functions
+- `267` repository test functions
 - `143` JSON schemas
 - `139` generated examples
 - `51` supported workflows surfaced through `60` tools, `22` prompts, and `32` resources

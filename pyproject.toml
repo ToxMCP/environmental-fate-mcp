@@ -12,7 +12,7 @@ license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{ name = "ToxMCP" }]
 dependencies = [
-  "mcp[cli]>=1.28.1,<2.0.0",
+  "mcp[cli]>=1.30.0,<2.0.0",
   "anyio>=4.14.2,<5.0.0",
   "cryptography>=50.0.1",
   "pyjwt[crypto]>=2.15.0,<3.0.0",
@@ -27,6 +27,12 @@ dev = [
   "pytest>=8.2",
   "pytest-cov>=5.0",
   "ruff>=0.6",
+]
+
+[dependency-groups]
+security = [
+  "bandit==1.9.4",
+  "cyclonedx-bom==7.3.0",
 ]
 
 [project.scripts]

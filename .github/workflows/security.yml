@@ -21,21 +21,22 @@ jobs:
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v8.1.0
       - name: Install project and security tools
-        run: |
-          uv sync --all-extras --dev || uv sync --dev
-          uv pip install bandit pip-audit cyclonedx-bom
+        run: uv sync --frozen --all-extras --all-groups
       - name: Ruff
-        run: uv run ruff check .
+        run: uv run --frozen --all-extras --all-groups ruff check .
       - name: Tests
-        run: uv run pytest -q
+        run: uv run --frozen --all-extras --all-groups pytest -q
       - name: Bandit
-        run: uv run bandit -r src -x tests
+        run: uv run --frozen --all-extras --all-groups bandit -r src -x tests
       - name: pip-audit
-        run: uv run pip-audit --desc
+        run: |
+          uv lock --check
+          uv export --frozen --all-extras --all-groups --no-emit-project --output-file /tmp/fate-locked-requirements.txt
+          uvx pip-audit==2.10.1 --strict --desc --no-deps --disable-pip --requirement /tmp/fate-locked-requirements.txt
       - name: Generate CycloneDX SBOM
         run: |
           mkdir -p artifacts
-          uv run cyclonedx-py environment --output-format JSON --output-file artifacts/python-sbom.cdx.json
+          uv run --frozen --all-extras --all-groups cyclonedx-py environment --output-format JSON --output-file artifacts/python-sbom.cdx.json
       - uses: actions/upload-artifact@v7
         with:
           name: python-sbom
