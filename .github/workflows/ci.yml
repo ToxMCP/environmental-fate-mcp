@@ -4,14 +4,23 @@ on:
   push:
   pull_request:
 
+env:
+  SOURCE_DATE_EPOCH: "1790884800"
+
 jobs:
-  validate:
+  validate-matrix:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
     steps:
       - uses: actions/checkout@v6
       - uses: astral-sh/setup-uv@v8.1.0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: uv sync --extra dev
+        run: uv sync --python ${{ matrix.python-version }} --frozen --extra dev
       - name: Generate artifacts
         run: uv run fate-mcp-generate-artifacts
       - name: Build public release bundle
@@ -40,6 +49,16 @@ jobs:
           "$tmpdir/venv/bin/python" - <<'PY'
           import asyncio
           import json
+          import os
+          import tempfile
+          from importlib.metadata import distribution
+
+          os.chdir(tempfile.mkdtemp(prefix="fate-installed-wheel-"))
+          entries = [entry for entry in distribution("environmental-fate-mcp").entry_points if entry.group == "console_scripts"]
+          assert len(entries) == 10
+          for entry in entries:
+              assert callable(entry.load()), entry.name
+
           from fate_mcp.server import create_server, _resolve_external_payload_path
 
           async def main() -> None:
@@ -49,7 +68,7 @@ jobs:
               assert len(await server.list_prompts()) == 22
               assert len(await server.list_resources()) == 32
               assert all(tool.annotations is not None for tool in tools)
-              assert all(tool.outputSchema is not None for tool in tools)
+              assert all(tool.output_schema is not None for tool in tools)
               metadata_contents = await server.read_resource("release://metadata-report")
               metadata = json.loads(metadata_contents[0].content)
               assert metadata["toolCount"] == 60
@@ -74,3 +93,64 @@ jobs:
 
           asyncio.run(main())
           PY
+
+  protocol-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v8.1.0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Sync SDK2 server and isolated SDK1 client
+        run: |
+          uv sync --extra dev --locked
+          uv sync --project tests/compatibility/legacy-client --locked
+      - name: Build and install frozen wheel outside checkout
+        run: |
+          uv build --wheel
+          uv export --frozen --no-dev --no-default-groups --no-emit-project --output-file /tmp/fate-runtime.txt
+          uv venv .protocol-runtime
+          uv pip install --no-config --python .protocol-runtime/bin/python --require-hashes -r /tmp/fate-runtime.txt
+          uv pip install --no-config --python .protocol-runtime/bin/python --no-deps dist/*.whl
+          uv pip check --python .protocol-runtime/bin/python
+      - name: Real SDK1 and SDK2 clients over stdio/HTTP plus legacy SSE
+        run: |
+          uv run python scripts/verify_protocol_clients.py \
+            --server-python "$PWD/.protocol-runtime/bin/python" \
+            --legacy-python "$PWD/tests/compatibility/legacy-client/.venv/bin/python" \
+            --modern-python "$PWD/.venv/bin/python" \
+            --output-dir /tmp/fate-protocol-results
+      - name: Audit isolated compatibility client
+        run: |
+          uv export --project tests/compatibility/legacy-client --frozen --no-emit-project --no-hashes --output-file /tmp/fate-legacy-client.txt
+          uvx pip-audit==2.10.1 --strict --disable-pip --no-deps -r /tmp/fate-legacy-client.txt
+
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build production image
+        run: docker build -t environmental-fate-mcp:sdk2 .
+      - name: Validate installed runtime and packaged defaults
+        run: |
+          docker run --rm --entrypoint /app/.venv/bin/python environmental-fate-mcp:sdk2 -c "from fate_mcp.server import create_server; from fate_mcp.benchmarks import benchmark_manifest; create_server(); assert benchmark_manifest()['scientificValidationClaimCoverage']['uncovered_mandatory_claim_count'] == 0"
+      - name: Verify the HTTP gateway guard fails closed
+        run: |
+          if docker run --rm environmental-fate-mcp:sdk2 > /tmp/fate-guard.log 2>&1; then
+            echo "::error::The HTTP entrypoint started without the required gateway opt-in."
+            exit 1
+          fi
+          grep -q "Refusing to start unauthenticated" /tmp/fate-guard.log
+
+  validate:
+    name: validate
+    if: always()
+    needs: [validate-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every validation matrix job to succeed
+        env:
+          VALIDATION_RESULT: ${{ needs.validate-matrix.result }}
+        run: test "$VALIDATION_RESULT" = "success"

@@ -14,6 +14,7 @@ from fate_mcp.models import (
 )
 from fate_mcp.plugins.external_result_adapter import load_external_payload, normalize_external_payload
 from fate_mcp.runtime import FateRuntime
+from fate_mcp.resources import resolve_resource_root
 
 
 BENCHMARK_FIXTURES = [
@@ -3471,7 +3472,7 @@ BENCHMARK_FIXTURES = [
 
 
 def _resolve_repo_root(repo_root: Path | None = None) -> Path:
-    return repo_root or Path(__file__).resolve().parents[2]
+    return repo_root or resolve_resource_root()
 
 
 def _support_anchor_fingerprint(fixture: dict) -> str:

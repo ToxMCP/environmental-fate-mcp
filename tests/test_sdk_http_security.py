@@ -14,18 +14,18 @@ from fate_mcp.server import create_server
 @pytest.fixture
 def server(monkeypatch: pytest.MonkeyPatch):
     instance = create_server()
-    # A manager has a single lifespan; restore any previous singleton manager.
-    monkeypatch.setattr(instance, "_session_manager", None)
-    monkeypatch.setattr(instance.settings, "max_request_body_size", 512)
-    monkeypatch.setattr(instance.settings, "max_sessions", 1)
-    monkeypatch.setattr(instance.settings, "session_idle_timeout", 0.5)
-    monkeypatch.setattr(instance.settings, "json_response", True)
     return instance
 
 
 @pytest.mark.parametrize("transport", ["streamable-http", "sse"])
 def test_http_rejects_declared_and_streamed_oversized_bodies(server, transport: str) -> None:
-    app = server.streamable_http_app() if transport == "streamable-http" else server.sse_app()
+    app = (
+        server.streamable_http_app(
+            json_response=True, max_request_body_size=512, max_sessions=1, session_idle_timeout=0.5
+        )
+        if transport == "streamable-http"
+        else server.sse_app(max_request_body_size=512)
+    )
     path = "/mcp" if transport == "streamable-http" else "/messages/"
     query = b"" if transport == "streamable-http" else b"session_id=unused"
     scope = {
@@ -102,7 +102,12 @@ def test_stateful_http_reclaims_deleted_and_idle_sessions(server) -> None:
     }
     headers = {"Accept": "application/json, text/event-stream"}
 
-    with TestClient(server.streamable_http_app(), base_url="http://localhost:8000") as client:
+    with TestClient(
+        server.streamable_http_app(
+            json_response=True, max_request_body_size=512, max_sessions=1, session_idle_timeout=0.5
+        ),
+        base_url="http://localhost:8000",
+    ) as client:
         first = client.post("/mcp", json=initialize, headers=headers)
         assert first.status_code == 200
         first_id = first.headers["mcp-session-id"]

@@ -26,7 +26,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR ${APP_HOME}
 
 # Install uv from PyPI so no external registry pull is required at build time.
-RUN pip install --no-cache-dir "uv==0.7.12"
+RUN pip install --no-cache-dir "uv==0.12.21"
 
 # Copy only the dependency manifest first so Docker cache layers survive
 # source-only changes.

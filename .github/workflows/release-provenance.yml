@@ -20,6 +20,9 @@ permissions:
   id-token: write
   attestations: write
 
+env:
+  SOURCE_DATE_EPOCH: "1790884800"
+
 jobs:
   build-attest-release:
     runs-on: ubuntu-latest

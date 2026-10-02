@@ -1,59 +1,67 @@
-"""Streamable-HTTP transport entrypoint for environmental-fate-mcp.
-
-Run with the ``environmental-fate-mcp-http`` console script (hosted mode).
-Host and port are controlled by env vars:
-
-    FATE_MCP_HOST   (default: 0.0.0.0)
-    FATE_MCP_PORT   (default: 8000)
-
-The same FastMCP server object is used here as for the stdio entrypoint —
-the MCP tool surface is identical on both transports.
-
-Security posture:
-
-The existing fail-closed remote-transport guard from ``fate_mcp.__main__`` is
-enforced here before the server starts.  The guard requires that the env var
-``FATE_MCP_ALLOW_UNAUTHENTICATED_HTTP=true`` is explicitly set, signalling that
-the operator has placed this service behind an authenticated gateway.  Do NOT
-set that env var on an internet-facing host without an authenticating proxy in
-front.
-"""
+"""Bounded HTTP/SSE transports behind the existing authenticated-gateway guard."""
 
 from __future__ import annotations
 
 import os
-import sys
+
+import uvicorn
+from mcp.server import MCPServer
+from mcp.server.transport_security import TransportSecuritySettings
+from starlette.applications import Starlette
+
+
+def _allowlist(name: str, default: str) -> list[str]:
+    values = [item.strip() for item in os.environ.get(name, default).split(",") if item.strip()]
+    if not values:
+        raise ValueError(f"{name} must contain at least one allowlisted value.")
+    return values
+
+
+def create_http_app(
+    server: MCPServer | None = None, *, transport: str = "streamable-http", host: str | None = None
+) -> Starlette:
+    from fate_mcp.__main__ import validate_transport_security
+
+    if transport not in {"streamable-http", "sse"}:
+        raise ValueError("Expected an HTTP or SSE transport.")
+    validate_transport_security(transport)
+    limit = int(os.environ.get("FATE_MCP_MAX_REQUEST_BYTES", "4194304"))
+    if limit <= 0:
+        raise ValueError("FATE_MCP_MAX_REQUEST_BYTES must be a positive integer.")
+    security = TransportSecuritySettings(
+        enable_dns_rebinding_protection=True,
+        allowed_hosts=_allowlist("FATE_MCP_ALLOWED_HOSTS", "localhost:*,127.0.0.1:*,[::1]:*"),
+        allowed_origins=_allowlist(
+            "FATE_MCP_ALLOWED_ORIGINS", "http://localhost:*,http://127.0.0.1:*,http://[::1]:*"
+        ),
+    )
+    if server is None:
+        from fate_mcp.server import create_server
+
+        server = create_server()
+    # Hosted binding is intentional; the authenticated-gateway guard ran above.
+    bind_host = host or os.environ.get("FATE_MCP_HOST", "0.0.0.0")  # nosec B104
+    options = dict(
+        max_request_body_size=limit,
+        transport_security=security,
+        host=bind_host,
+    )
+    if transport == "sse":
+        return server.sse_app(**options)
+    return server.streamable_http_app(json_response=True, stateless_http=True, **options)
+
+
+def run_http_server(
+    server: MCPServer | None = None, *, transport: str = "streamable-http", host: str, port: int
+) -> None:
+    uvicorn.run(create_http_app(server, transport=transport, host=host), host=host, port=port)
 
 
 def main() -> None:
-    """HTTP entrypoint: wrap the MCP server with streamable-http and run uvicorn."""
-    # Enforce the same fail-closed remote-transport security guard as the stdio
-    # entrypoint.  This must run before the server is created / imported.
-    from fate_mcp.__main__ import validate_transport_security
-
-    validate_transport_security("streamable-http")
-
-    try:
-        import uvicorn
-    except ImportError:
-        print(
-            "uvicorn is required for the HTTP transport.  "
-            "Install it with:  pip install 'uvicorn[standard]'",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-
-    from fate_mcp.server import create_server
-
-    host = os.environ.get("FATE_MCP_HOST", "0.0.0.0")  # nosec B104 – bind addr is intentional for hosted mode
+    # The factory checks the guard before importing or constructing the server.
+    host = os.environ.get("FATE_MCP_HOST", "0.0.0.0")  # nosec B104
     port = int(os.environ.get("FATE_MCP_PORT", "8000"))
-
-    mcp = create_server()
-    # streamable_http_app() returns a Starlette ASGI app that speaks the
-    # MCP streamable-HTTP protocol (same tool surface as the stdio server).
-    app = mcp.streamable_http_app()
-
-    uvicorn.run(app, host=host, port=port)
+    run_http_server(host=host, port=port)
 
 
 if __name__ == "__main__":

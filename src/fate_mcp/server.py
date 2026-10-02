@@ -10,9 +10,12 @@ import time
 import uuid
 from contextvars import ContextVar
 from pathlib import Path
+from threading import RLock
 
-from mcp.server.fastmcp import FastMCP
-from mcp.types import ToolAnnotations
+from mcp.server import MCPServer
+from mcp.server.caching import CacheHint
+from mcp.server.mcpserver.exceptions import ToolError, ResourceError
+from mcp_types import ToolAnnotations
 
 from fate_mcp.benchmarks import benchmark_manifest
 from fate_mcp.compat import ensure_supported_python_version
@@ -194,10 +197,21 @@ from fate_mcp.runtime import FateRuntime
 REPO_ROOT = resolve_resource_root()
 RUNTIME = FateRuntime(REPO_ROOT)
 DEFAULTS = DefaultsRegistry(REPO_ROOT)
-mcp = FastMCP(PACKAGE_NAME, json_response=True)
-# FastMCP v1 does not expose a version constructor argument. Its low-level
-# server otherwise reports the SDK version during MCP initialization.
-mcp._mcp_server.version = VERSION
+mcp = MCPServer(
+    PACKAGE_NAME,
+    version=VERSION,
+    cache_hints={
+        "tools/list": CacheHint(ttl_ms=60_000),
+        "resources/list": CacheHint(ttl_ms=60_000),
+        "resources/templates/list": CacheHint(ttl_ms=60_000),
+        "prompts/list": CacheHint(ttl_ms=60_000),
+    },
+)
+_logging_lock = RLock()
+
+
+class _PublicInputError(ValueError, ToolError, ResourceError):
+    """Expected caller-facing profile lookup failure, safe for the MCP wire."""
 
 logger = logging.getLogger("fate_mcp")
 correlation_id_var: ContextVar[str] = ContextVar("correlation_id")
@@ -207,7 +221,7 @@ _RESOURCE_NAME_RE = re.compile(r"^[a-zA-Z0-9_\-\.]+$")
 
 def _validate_resource_name(name: str) -> str:
     if not _RESOURCE_NAME_RE.match(name):
-        raise ValueError(f"Invalid resource name: {name}")
+        raise _PublicInputError(f"Invalid resource name: {name}")
     return name
 
 
@@ -235,7 +249,7 @@ class _JsonLogFormatter(logging.Formatter):
         return json.dumps(payload, default=str)
 
 
-def _configure_logging() -> None:
+def _configure_logging_unlocked() -> None:
     if logger.handlers:
         return
     logger.setLevel(logging.INFO)
@@ -255,6 +269,11 @@ def _configure_logging() -> None:
         file_formatter = _JsonLogFormatter()
         file_handler.setFormatter(file_formatter)
         logger.addHandler(file_handler)
+
+
+def _configure_logging() -> None:
+    with _logging_lock:
+        _configure_logging_unlocked()
 
 
 def _extract_log_ids(obj) -> dict[str, str]:
@@ -346,10 +365,10 @@ _original_tool = mcp.tool
 
 def _default_tool_annotations(tool_name: str) -> ToolAnnotations:
     return ToolAnnotations(
-        readOnlyHint=True,
-        destructiveHint=False,
-        idempotentHint=tool_name != "fate_estimate_probabilistic_multimedia_concentrations",
-        openWorldHint=tool_name == "fate_import_external_result_payload",
+        read_only_hint=True,
+        destructive_hint=False,
+        idempotent_hint=tool_name != "fate_estimate_probabilistic_multimedia_concentrations",
+        open_world_hint=tool_name == "fate_import_external_result_payload",
     )
 
 
@@ -377,7 +396,7 @@ mcp.tool = _logged_tool
 def _regulatory_handoff_profile_or_error(profile_id: str):
     profile = DEFAULTS.regulatory_handoff_profile(profile_id)
     if profile is None:
-        raise ValueError(
+        raise _PublicInputError(
             f"Unknown regulatory handoff profile {profile_id}. Inspect defaults://regulatory-handoff-profiles."
         )
     return profile
@@ -386,7 +405,7 @@ def _regulatory_handoff_profile_or_error(profile_id: str):
 def _scientific_review_profile_or_error(model_family: str):
     profile = DEFAULTS.scientific_review_profile(model_family)
     if profile is None:
-        raise ValueError(
+        raise _PublicInputError(
             f"Unknown scientific review profile for {model_family}. Inspect defaults://scientific-review-profiles."
         )
     return profile
@@ -395,7 +414,7 @@ def _scientific_review_profile_or_error(model_family: str):
 def _model_family_comparison_profile_or_error(profile_id: str):
     profile = DEFAULTS.model_family_comparison_profile(profile_id)
     if profile is None:
-        raise ValueError(
+        raise _PublicInputError(
             f"Unknown model-family comparison profile {profile_id}. Inspect defaults://model-family-comparison-profiles."
         )
     return profile
@@ -404,7 +423,7 @@ def _model_family_comparison_profile_or_error(profile_id: str):
 def _model_family_selection_profile_or_error(profile_id: str):
     profile = DEFAULTS.model_family_selection_profile(profile_id)
     if profile is None:
-        raise ValueError(
+        raise _PublicInputError(
             f"Unknown model-family selection profile {profile_id}. Inspect defaults://model-family-selection-profiles."
         )
     return profile
@@ -413,7 +432,7 @@ def _model_family_selection_profile_or_error(profile_id: str):
 def _model_family_challenge_review_profile_or_error(profile_id: str):
     profile = DEFAULTS.model_family_challenge_review_profile(profile_id)
     if profile is None:
-        raise ValueError(
+        raise _PublicInputError(
             f"Unknown model-family challenge review profile {profile_id}. Inspect defaults://model-family-challenge-review-profiles."
         )
     return profile
@@ -424,7 +443,7 @@ def _public_adapter_import_profile_or_error(profile_id: str):
     for profile in manifest.profiles:
         if profile.profile_id == profile_id:
             return profile
-    raise ValueError(
+    raise _PublicInputError(
         f"Unknown public adapter import profile {profile_id}. Inspect adapters://public-import-manifest."
     )
 
@@ -1860,7 +1879,7 @@ def prompt_request_regulatory_handoff_for_consumer(
     """Build an Environmental Fate MCP handoff request prompt for a named downstream suite consumer."""
     recommendation = DEFAULTS.recommend_regulatory_handoff_profile(consumer_name)
     if recommendation is None:
-        raise ValueError(
+        raise _PublicInputError(
             f"Unknown downstream consumer {consumer_name}. Use fate_recommend_regulatory_handoff_profile first."
         )
     request_payload = {
@@ -2333,7 +2352,7 @@ def release_resource_manifest() -> str:
     return json.dumps({"resourceCount": len(resources), "resources": resources}, indent=2)
 
 
-def create_server() -> FastMCP:
+def create_server() -> MCPServer:
     ensure_supported_python_version()
     _configure_logging()
     ensure_contract_artifacts_current(REPO_ROOT)

@@ -1,0 +1,47 @@
+{
+  "caseResults": [
+    {
+      "actualClassification": "good_screening_fit",
+      "demoCaseId": "perfect_fit",
+      "expectedClassification": "good_screening_fit",
+      "matchedCount": 5,
+      "passed": true
+    },
+    {
+      "actualClassification": "screening_plausible",
+      "demoCaseId": "screening_plausible",
+      "expectedClassification": "screening_plausible",
+      "matchedCount": 3,
+      "passed": true
+    },
+    {
+      "actualClassification": "weak_fit",
+      "demoCaseId": "weak_fit",
+      "expectedClassification": "weak_fit",
+      "matchedCount": 3,
+      "passed": true
+    },
+    {
+      "actualClassification": "insufficient_evidence",
+      "demoCaseId": "insufficient_evidence",
+      "expectedClassification": "insufficient_evidence",
+      "matchedCount": 2,
+      "passed": true
+    }
+  ],
+  "demoCaseCount": 4,
+  "limitations": [
+    "The demo pack uses synthetic observed and predicted records to demonstrate screening QA behavior only.",
+    "The demo pack is not field validation, calibration evidence, regulator acceptance, catchment validation, spatial routing evidence, or WEPP validation.",
+    "The demo pack must remain paired with the governed erosion_sediment_screening_validation_v1 thresholds."
+  ],
+  "missingDemoCaseIds": [],
+  "passed": true,
+  "requiredDemoCaseIds": [
+    "insufficient_evidence",
+    "perfect_fit",
+    "screening_plausible",
+    "weak_fit"
+  ],
+  "syntheticBoundaryClear": true
+}

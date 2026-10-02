@@ -39,3 +39,15 @@ def test_resource_root_falls_back_to_packaged_data(monkeypatch, tmp_path) -> Non
     monkeypatch.delenv("FATE_MCP_RESOURCE_ROOT", raising=False)
     monkeypatch.setattr(resources, "checkout_resource_root", lambda: tmp_path / "missing")
     assert resources.resolve_resource_root() == package_data_root().resolve()
+
+
+def test_benchmark_workflows_resolve_packaged_defaults(monkeypatch, tmp_path) -> None:
+    """An installed wheel has no checkout defaults two directories above its modules."""
+    import fate_mcp.resources as resources
+    from fate_mcp.benchmarks import benchmark_manifest
+
+    monkeypatch.delenv("FATE_MCP_RESOURCE_ROOT", raising=False)
+    monkeypatch.setattr(resources, "checkout_resource_root", lambda: tmp_path / "missing")
+    manifest = benchmark_manifest()
+    assert manifest["scientificValidationClaimCoverage"]["claim_count"] == 34
+    assert manifest["scientificValidationClaimCoverage"]["uncovered_mandatory_claim_count"] == 0
