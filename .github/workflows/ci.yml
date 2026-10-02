@@ -8,7 +8,7 @@ env:
   SOURCE_DATE_EPOCH: "1790884800"
 
 jobs:
-  validate:
+  validate-matrix:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -143,3 +143,14 @@ jobs:
             exit 1
           fi
           grep -q "Refusing to start unauthenticated" /tmp/fate-guard.log
+
+  validate:
+    name: validate
+    if: always()
+    needs: [validate-matrix]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every validation matrix job to succeed
+        env:
+          VALIDATION_RESULT: ${{ needs.validate-matrix.result }}
+        run: test "$VALIDATION_RESULT" = "success"
