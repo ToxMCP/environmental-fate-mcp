@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -23,7 +24,8 @@ def test_release_provenance_workflow_has_required_triggers_and_permissions() -> 
 def test_release_provenance_workflow_attests_and_uploads_expected_assets() -> None:
     workflow = WORKFLOW_PATH.read_text(encoding="utf-8")
 
-    assert "uses: actions/attest@v4" in workflow
+    # Attestation must remain enabled and immutable after action maintenance.
+    assert re.search(r"uses: actions/attest@[0-9a-f]{40}(?:\s|$)", workflow)
     assert "subject-path: release-assets/*" in workflow
     assert "gh attestation verify" in workflow
     assert "gh release upload" in workflow
