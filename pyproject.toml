@@ -32,7 +32,7 @@ dev = [
 [dependency-groups]
 security = [
   "bandit==1.9.4",
-  "cyclonedx-bom==7.3.0",
+  "cyclonedx-bom==7.5.0",
 ]
 
 [project.scripts]
